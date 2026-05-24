@@ -1,0 +1,2 @@
+import { Card } from '@/components/Card';
+export default function Methodology(){return <Card><h1 className="font-serif text-5xl">Pricing Methodology</h1><p className="mt-6 leading-7">Estimates use low, likely, and high planning ranges with confidence labels. Public prices, planning estimates, quote-required fields, retail item prices, and wedding execution costs are labeled separately. A retail product price is not the full wedding execution cost.</p></Card>}

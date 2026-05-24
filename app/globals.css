@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+body { @apply bg-ivory text-charcoal antialiased; }
+::selection { @apply bg-champagne/40; }
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; }
+  .print-card { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; }
+  .page-break { break-before: page; }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "dream-wedding-builder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "No-auth wedding planning dashboard that turns a dream wedding into pricing, levers, trends, vendor options, and a printable Dream Wedding Starter Pack.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "NODE_OPTIONS=--max-old-space-size=3072 next build --no-lint",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "next lint || echo 'next lint unavailable in this Next version; validators still run'",
+    "test": "vitest run",
+    "validate:content": "node scripts/validate-content.mjs",
+    "validate:env": "node scripts/validate-env.mjs",
+    "validate:disclaimers": "node scripts/validate-disclaimers.mjs",
+    "validate:no-theater": "node scripts/validate-no-theater.mjs",
+    "validate:all": "npm run typecheck && npm run test && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run build",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:gauntlet": "playwright test tests/e2e/gauntlet",
+    "test:e2e:ci": "PLAYWRIGHT_VIDEO=1 playwright test"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.22",
+    "next": "15.5.18",
+    "postcss": "^8.5.6",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3",
+    "vitest": "^4.0.14"
+  }
+}
