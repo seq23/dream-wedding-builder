@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 const nav = [
-  ['Guide', '/build'], ['Summary', '/dashboard'], ['Trends', '/trends'], ['Photos', '/photos'], ['Pack', '/pack']
+  ['Guide', '/build'], ['Summary', '/dashboard'], ['Ideas', '/trends'], ['Photos', '/photos'], ['Pack', '/pack']
 ];
 export function AppShell({ children }: { children: ReactNode }) {
   return <div className="min-h-screen pb-20 md:pb-0">

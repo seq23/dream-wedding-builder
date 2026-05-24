@@ -14,21 +14,69 @@ The app must not invent prices, live availability, vendor facts, venue packages,
 
 ## Required master modules
 
-1. Blank-start guided intake
-2. Vibe + Theme Translator
-3. Budget Reality Engine
-4. Venue Finder / Matchmaker
-5. Vendor Finder / Vendor Intelligence
-6. Photo/Description-to-Scope Intelligence
-7. Tablescape Decoder
-8. Bouquet + Floral Scope Builder
-9. Flower Girl Dress / Attire Finder Strategy
-10. Hidden Fee Intelligence
-11. Inspiration Templates as optional inspiration only
-12. Trend Concierge with no preselected trends
-13. Planner Packet Export
-14. Source Trace + Confidence Labels
-15. No-Theater Validators and persona E2E
+1. Planning Reality Check / Constraint Profile
+2. Recommendation Studio
+3. Venue + Lodging Matchmaker
+4. Budget + Tradeoff Reality
+5. Design Direction
+6. Florals / Decor / Rentals
+7. Fashion / Beauty
+8. Food / Beverage
+9. Photo / Video / Moments
+10. Guest Experience / Hospitality
+11. Timeline / Weekend Flow
+12. Vendor Team / Inquiry Builder
+13. Risk / Reality Checks
+14. Planner Packet / Decision Brief
+15. Source Trace + Confidence Labels
+16. No-Theater Validators and persona E2E
+
+## Step 0 — Planning Reality Check / Constraint Profile
+
+Step 0 must begin by asking whether the user already has hard constraints:
+
+- Yes — I have hard requirements
+- Some, but I’m flexible
+- No — help me figure it out
+
+The app must not dump every field on every user immediately. It must reveal the right constraint layer based on the answer.
+
+Planner-grade constraints include:
+
+- location / geography / backup regions
+- local vs destination wedding
+- full venue buyout required/preferred/not required
+- onsite sleeping requirement and exact capacity
+- nearby lodging acceptability
+- outside catering and outside bar rules
+- vendor freedom and production/rental freedom
+- ceremony/reception/welcome/after-party/brunch onsite needs
+- rain backup, curfew, access, elderly guest comfort, accessibility
+- total budget, hard ceiling, venue/food/bar, florals/decor, photo/video, fashion, guest hospitality/travel support
+- colors loved/avoided, vibe words, avoid words, formality, make-it-feel-like / do-not-make-it-feel-like
+- protected top three priorities
+- save areas, no-compromise areas, biggest fear
+- fixed / flexible / unknown fields
+
+## Recommendation Studio standard
+
+Recommendation Studio is the first open-ended intelligence module after Step 0. It must accept messy user requests, read the saved Constraint Profile, and return:
+
+- planner read
+- best-fit directions
+- constraint conflicts
+- budget implications
+- vendor questions
+- next decision checklist
+- confidence label and verification caveats
+
+Recommendation Studio must work both ways:
+
+- With constraints: it uses hard/flexible requirements such as Italy, full buyout, sleeps 70–80, outside catering.
+- Without constraints: it helps discover what constraints matter first.
+
+It must support the full planner bucket map: venue/lodging, budget/tradeoffs, design, florals/decor/rentals, fashion/beauty, food/beverage, photo/video/moments, guest experience/hospitality, timeline/weekend flow, vendor team, risk/reality, and full concept.
+
 
 ## Step 1 — Vibe + Theme Translator
 

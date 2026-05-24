@@ -1,8 +1,16 @@
-import { TrendCard } from '@/components/TrendCard';
 import { Card, Badge } from '@/components/Card';
-import { trends } from '@/data/trends';
+import { TrendCatalogue } from '@/components/TrendCatalogue';
 import TrendSubmitForm from './trend-submit-form';
+
 export default function TrendsPage() {
-  const lakeComo = trends.filter(t => t.locationFit?.some(l => l.includes('Lake Como')));
-  return <div className="space-y-8"><section><Badge>Dedicated Page · Wedding Trend Concierge</Badge><h1 className="mt-4 font-serif text-5xl">Wedding Trend Concierge</h1><p className="mt-3 max-w-3xl text-charcoal/70">Browse current trends, luxury ideas, guest experiences, destination-specific moments, and things you may not know to ask for. Add anything to your dashboard and we’ll price it, find vendors or retailers, and show how it changes your total.</p><div className="mt-6 flex flex-wrap gap-2">{['Current trends','Luxury ideas','Guest experiences','Looks expensive','Weird/fun ideas','No-budget ideas'].map(f => <span key={f} className="rounded-full bg-white px-4 py-2 text-sm font-bold">{f}</span>)}</div></section>{lakeComo.length > 0 && <section><h2 className="font-serif text-4xl">Lake Como ideas brides may not know about</h2><div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{lakeComo.map(t => <TrendCard key={t.id} trend={t} />)}</div></section>}<section><h2 className="font-serif text-4xl">Browse all trends</h2><div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{trends.map(t => <TrendCard key={t.id} trend={t} />)}</div></section><Card><h2 className="font-serif text-3xl">Have you seen a wedding idea we should add?</h2><p className="mt-2 text-sm text-charcoal/70">Tell us what you saw, where you saw it, and why brides would love it. Submissions go to review before anything appears publicly.</p><TrendSubmitForm /></Card></div>;
+  return <div className="space-y-8">
+    <section>
+      <Badge>Standout Ideas Catalogue</Badge>
+      <h1 className="mt-4 font-serif text-5xl">Standout wedding ideas that make guests say, “I have never seen that before.”</h1>
+      <p className="mt-3 max-w-3xl text-charcoal/70">A compact index of concrete experiences, design motifs, reveals, food moments, sensory stations, photo moments, weekend ideas, and verify-first wildcards. These are user-facing ideas, not vendor-role filler or planning-infrastructure content.</p>
+      <div className="mt-6 flex flex-wrap gap-2">{['Arrival wow moments','Seating experiences','Ceremony reveals','Cocktail surprises','Dinner design','Sensory stations','Photo moments','Food spectacle','Weekend ideas','Verify-first wildcards'].map(filter => <span key={filter} className="rounded-full bg-white px-4 py-2 text-sm font-bold">{filter}</span>)}</div>
+    </section>
+    <TrendCatalogue />
+    <Card><h2 className="font-serif text-3xl">Have a standout idea we should add?</h2><p className="mt-2 text-sm text-charcoal/70">Submit concrete wedding ideas only: guest moments, design motifs, food experiences, reveal ideas, sensory stations, or wildcards. Vendor roles and logistics jobs belong in planner metadata, not this catalogue.</p><TrendSubmitForm /></Card>
+  </div>;
 }

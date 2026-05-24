@@ -1,14 +1,27 @@
 import Link from 'next/link';
 import { Card, Badge } from '@/components/Card';
+import { intelligenceModules, planningBuckets } from '@/data/planning';
 
-const steps = ['Tell us what you know', 'Discover vision', 'Set budget reality', 'Find venue strategy', 'Build vendor plan', 'Export planner packet'];
-const trust = ['Starts blank — no fake Lake Como default', 'Uses user constraints before recommendations', 'Labels estimates, confidence, and verification needs', 'LLM role is reasoning, not inventing prices or availability'];
-
-export default function Home() {
-  return <div className="space-y-12">
-    <section className="grid gap-8 md:grid-cols-[1.05fr_.95fr] md:items-center">
-      <div className="py-10 md:py-20"><p className="mb-4 text-sm font-bold uppercase tracking-[0.25em] text-charcoal/60">No account required · bride-led planning intelligence · planner-ready output</p><h1 className="font-serif text-5xl leading-tight md:text-7xl">Plan the wedding from what you actually know — even if that is almost nothing yet.</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-charcoal/75">Dream Wedding Builder helps you discover the vision, pressure-test the budget, think through venue and vendor strategy, label what needs verification, and leave with a packet you can send to a planner or venue.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row"><Link className="rounded-full bg-charcoal px-6 py-4 text-center font-bold text-linen" href="/build">Start the guided builder</Link><Link className="rounded-full border border-charcoal/20 bg-white px-6 py-4 text-center font-bold" href="/methodology">Read methodology</Link></div></div>
-      <section className="grid gap-4"><Card><Badge>Guided Flow</Badge><p className="mt-3 font-serif text-3xl">Blank start → planner packet</p><div className="mt-4 flex flex-wrap gap-2">{steps.map((step, index) => <span key={step} className="rounded-full bg-ivory px-3 py-2 text-sm font-bold">{index}. {step}</span>)}</div></Card><Card><p className="text-sm uppercase tracking-wide text-charcoal/50">Estimate status</p><p className="mt-2 font-serif text-4xl">Not estimated yet</p><p className="mt-2 text-sm text-charcoal/70">The app will not show a fake total until you provide at least guest count or budget context.</p></Card><Card><p className="font-serif text-3xl">Trust rules</p><ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-charcoal/70">{trust.map(item => <li key={item}>{item}</li>)}</ul></Card></section>
+export default function HomePage() {
+  return <div className="space-y-10">
+    <section className="grid gap-8 lg:grid-cols-[1fr_360px]">
+      <div>
+        <Badge>Dream Wedding Builder</Badge>
+        <h1 className="mt-4 max-w-4xl font-serif text-6xl leading-tight md:text-7xl">A constraint-aware wedding planner brain, not a generic mood-board app.</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-charcoal/70">Start with what you know: Italy, full buyout, sleeps 70–80, outside catering; or nothing at all. The app captures constraints, protects priorities, runs Recommendation Studio, then carries decisions into venues, budget, design, vendors, risks, and the planner packet.</p>
+        <div className="mt-6 flex flex-wrap gap-3"><Link className="rounded-full bg-charcoal px-6 py-4 font-bold text-linen" href="/build#step-0">Start with Planning Reality Check</Link><Link data-testid="home-recommendation-studio-cta" className="rounded-full border border-charcoal/20 bg-white px-6 py-4 font-bold" href="/build#step-1">Ask Recommendation Studio</Link><Link className="rounded-full border border-charcoal/20 bg-white px-6 py-4 font-bold" href="/photos">Open Photos Lab</Link></div>
+      </div>
+      <Card><h2 className="font-serif text-3xl">Use Recommendation Studio when you are stumped.</h2><p className="mt-3 text-sm leading-6 text-charcoal/70">Ask about venues, flowers, colors, budget tradeoffs, guest experience, food, fashion, photo moments, weekend flow, vendor questions, or what you are not thinking about.</p><div className="mt-4 grid gap-2 text-sm"><p className="rounded-2xl bg-white p-3">“I want pink, orange, and yellow flowers.”</p><p className="rounded-2xl bg-white p-3">“Italy, full venue buyout, sleeps 70–80, outside catering.”</p><p className="rounded-2xl bg-white p-3">“Where can I save without hurting flowers and guest comfort?”</p></div></Card>
     </section>
+
+    <section className="grid gap-4 md:grid-cols-3">
+      <Card><Badge>Step 0</Badge><h2 className="mt-3 font-serif text-3xl">Constraint Profile</h2><p className="mt-2 text-sm text-charcoal/70">Hard constraints, flexible constraints, or discovery mode. The app changes the fields based on what the user already knows.</p></Card>
+      <Card><Badge>Step 1</Badge><h2 className="mt-3 font-serif text-3xl">Recommendation Studio</h2><p className="mt-2 text-sm text-charcoal/70">Open-ended planner recommendations that use saved constraints instead of generic wedding advice.</p></Card>
+      <Card><Badge>Output</Badge><h2 className="mt-3 font-serif text-3xl">Planner Packet</h2><p className="mt-2 text-sm text-charcoal/70">Constraint profile, recommendation output, selected venue strategy, budget tradeoffs, design, scope, vendors, and risks.</p></Card>
+    </section>
+
+    <section><Badge>Planner-grade buckets</Badge><h2 className="mt-4 font-serif text-4xl">The right planning surface area.</h2><div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">{planningBuckets.map(bucket => <Card key={bucket} className="shadow-none"><p className="font-bold">{bucket}</p></Card>)}</div></section>
+
+    <section><Badge>Usable modules</Badge><div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">{intelligenceModules.map(module => <p key={module} className="rounded-2xl bg-white p-4 text-sm font-bold shadow-soft">{module}</p>)}</div></section>
   </div>;
 }

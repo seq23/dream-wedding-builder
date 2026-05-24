@@ -99,9 +99,9 @@ export const inspirationScopes = [tablescapeScope, bouquetScope, attireScope, ge
 
 export function chooseScope(category: string): InspirationScope {
   const value = category.toLowerCase();
-  if (value.includes('flower girl') || value.includes('dress') || value.includes('attire') || value.includes('fashion')) return attireScope;
-  if (value.includes('table')) return tablescapeScope;
-  if (value.includes('bouquet') || value.includes('flower') || value.includes('floral')) return bouquetScope;
+  if (value.includes('flower girl') || value.includes('bridesmaid') || value.includes('dress') || value.includes('attire') || value.includes('fashion')) return attireScope;
+  if (value.includes('table') || value.includes('linen') || value.includes('chair') || value.includes('rental') || value.includes('chandelier')) return tablescapeScope;
+  if (value.includes('bouquet') || value.includes('flower') || value.includes('floral') || value.includes('centerpiece') || value.includes('ceremony arch')) return bouquetScope;
   return genericScope;
 }
 

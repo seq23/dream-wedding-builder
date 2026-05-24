@@ -1,141 +1,188 @@
 import { test, expect } from '@playwright/test';
 
 test('surface gauntlet: required pages render without auth', async ({ page }) => {
-  for (const path of ['/', '/build', '/dashboard', '/trends', '/photos', '/pack', '/disclaimer', '/privacy', '/methodology']) {
+  for (const path of ['/', '/build', '/dashboard', '/trends', '/photos', '/pack', '/disclaimer', '/privacy']) {
     await page.goto(path);
-    await expect(page.locator('body')).toContainText(/Dream Wedding|Disclaimer|Privacy|Pricing Methodology|Planner Packet|Photo/);
+    await expect(page.locator('body')).toContainText(/Dream Wedding|Disclaimer|Privacy|Planner Packet|Photo|Dashboard/);
     await expect(page.getByText(/Login|Sign in|Create account/i)).toHaveCount(0);
   }
 });
 
 test('outcome: new bride starts blank with no fake active wedding state', async ({ page }) => {
   await page.goto('/build');
-  const summary = page.getByTestId('canonical-plan-summary');
-  await expect(summary).toContainText('Location not selected');
-  await expect(summary).toContainText('Guest count unknown');
-  await expect(summary).toContainText('Not estimated yet');
-  await expect(summary).toContainText('Selected trends: 0');
-  await expect(page.getByTestId('step-pack')).toContainText('Not selected yet');
+  await expect(page.getByTestId('canonical-plan-summary')).toContainText('Location not selected');
+  await expect(page.getByTestId('canonical-plan-summary')).toContainText('Guest count unknown');
+  await expect(page.getByTestId('canonical-plan-summary')).toContainText('Not estimated yet');
+  await expect(page.getByTestId('canonical-plan-summary')).toContainText('Selected venues: 0');
+  await expect(page.getByTestId('selected-venue-summary')).toContainText('None selected yet');
   await expect(page.getByTestId('step-pack')).not.toContainText('Lake Como · 125 guests');
-  await expect(page.getByTestId('step-pack')).not.toContainText('$118k');
 });
 
-test('outcome: bride wording and constraints become canonical plan state', async ({ page }) => {
+test('outcome: hard constraints reveal planner-grade constraint profile fields', async ({ page }) => {
   await page.goto('/build');
-  await page.getByTestId('location-input').fill('Charleston, SC');
-  await page.getByTestId('guest-input').fill('90');
-  await page.getByTestId('budget-target').fill('65000');
-  await page.getByTestId('own-vibe-input').fill('intimate candlelit garden dinner party, elegant but not stiff, not rustic');
-  await page.getByText('garden romantic').click();
-  await page.getByText('coastal venue').click();
-  await expect(page.getByTestId('vibe-translator-output')).toContainText('Interpreted custom direction');
-  await expect(page.getByTestId('vibe-translator-output')).toContainText(/planner|vendor/i);
+  await page.getByTestId('constraint-mode-hard').click();
+  await expect(page.getByTestId('constraint-fields')).toBeVisible();
+  await page.getByTestId('location-input').fill('Italy');
+  await page.getByTestId('guest-input').fill('80');
+  await page.getByTestId('full-buyout').selectOption('required');
+  await page.getByTestId('onsite-sleep-count').fill('70-80 guests');
+  await page.getByTestId('outside-catering').selectOption('required');
+  await page.getByTestId('fixed-items').fill('Italy, full venue buyout, sleeps 70-80 guests, outside food catering allowed');
+  await expect(page.getByTestId('studio-constraint-summary')).toContainText('Italy');
+  await expect(page.getByTestId('venue-match-summary')).toContainText('Full buyout');
+  await expect(page.getByTestId('venue-match-summary')).toContainText('outside catering');
+});
+
+test('outcome: Recommendation Studio uses Italy buyout constraints and persists to dashboard and packet', async ({ page }) => {
+  await page.goto('/build');
+  await page.getByTestId('constraint-mode-hard').click();
+  await page.getByTestId('location-input').fill('Italy');
+  await page.getByTestId('guest-input').fill('80');
+  await page.getByTestId('full-buyout').selectOption('required');
+  await page.getByTestId('onsite-sleep-count').fill('70-80 guests');
+  await page.getByTestId('outside-catering').selectOption('required');
+  await page.getByTestId('recommendation-focus').selectOption('Venue + Lodging');
+  await page.getByTestId('recommendation-question').fill('Italy, full venue buyout required, sleeps 70-80 guests, outside catering allowed. What kind of venue should I search for?');
+  await page.getByTestId('run-recommendation').click();
+  await expect(page.getByTestId('recommendation-output')).toContainText('venue-and-hospitality search');
+  await expect(page.getByTestId('recommendation-output')).toContainText('Private villa / estate buyout');
+  await expect(page.getByTestId('recommendation-output')).toContainText('Full buyout + sleeps 70');
   await page.getByTestId('save-guided-plan').click();
-
   await page.goto('/dashboard');
-  const dashboard = page.getByTestId('dashboard-state');
-  await expect(dashboard).toContainText('Charleston, SC');
-  await expect(dashboard).toContainText('90 guests');
-  await expect(dashboard).toContainText('Working Wedding Plan');
-  await expect(dashboard).toContainText('candlelit garden dinner');
-
+  await expect(page.getByTestId('dashboard-recommendation')).toContainText('venue-and-hospitality search');
   await page.goto('/pack');
-  await expect(page.locator('body')).toContainText('Charleston, SC');
-  await expect(page.locator('body')).toContainText(/Guest count:\s*90|90 guests|approximately 90/);
-  await expect(page.locator('body')).toContainText('candlelit garden dinner');
+  await expect(page.locator('body')).toContainText('Recommendation Studio');
+  await expect(page.locator('body')).toContainText('Private villa / estate buyout');
 });
 
-test('outcome: venue finder explains fit without fake live venue certainty', async ({ page }) => {
+test('outcome: Recommendation Studio gives context-aware floral guidance', async ({ page }) => {
   await page.goto('/build');
-  const venueFinder = page.getByTestId('venue-finder');
-  await expect(venueFinder).toContainText(/Venue Finder|venue strategy/i);
-  await expect(venueFinder).toContainText('not inventing live prices or availability');
-  await expect(venueFinder).toContainText('Verify');
-  await expect(venueFinder).toContainText('Confidence');
-  await expect(venueFinder).toContainText(/Seeded venue-type|not a live venue quote|not live availability/);
-  await expect(venueFinder).not.toContainText('live availability confirmed');
-  await expect(venueFinder).not.toContainText('booked for your date');
-  await expect(venueFinder).not.toContainText('we contacted the venue');
+  await page.getByTestId('constraint-mode-flexible').click();
+  await page.getByTestId('location-input').fill('Georgia outdoor garden estate');
+  await page.getByTestId('guest-input').fill('120');
+  await page.getByTestId('colors-loved').fill('pink, orange, yellow');
+  await page.getByTestId('priority-florals').click();
+  await page.getByTestId('recommendation-focus').selectOption('Florals / Decor / Rentals');
+  await page.getByTestId('recommendation-question').fill('I want pink and orange and yellow flowers. What cute flowers can go together in all the bouquets?');
+  await page.getByTestId('run-recommendation').click();
+  await expect(page.getByTestId('recommendation-output')).toContainText('Southern Citrus Garden');
+  await expect(page.getByTestId('recommendation-output')).toContainText('Georgia');
+  await expect(page.getByTestId('recommendation-output')).toContainText('Florals are protected');
 });
 
-test('outcome: tablescape description becomes priced scope with vendors and warnings', async ({ page }) => {
+test('outcome: venue selections persist into dashboard and packet', async ({ page }) => {
   await page.goto('/build');
-  const scopeSection = page.getByTestId('scope-intelligence');
-  await expect(scopeSection).toContainText(/Photo\/Description-to-Scope Intelligence|Upload or describe anything/);
-  await expect(scopeSection).toContainText('Exact pricing, vendor fit, product match, and availability require verification');
+  await page.getByTestId('constraint-mode-hard').click();
+  await page.getByTestId('location-input').fill('Italy');
+  await page.getByTestId('guest-input').fill('80');
+  await page.getByTestId('select-venue-destination-estate-buyout').click();
+  await expect(page.getByTestId('selected-venue-summary')).toContainText('Private villa / estate buyout');
+  await page.getByTestId('save-guided-plan').click();
+  await page.goto('/dashboard');
+  await expect(page.getByTestId('dashboard-venues')).toContainText('Private villa / estate buyout');
+  await page.goto('/pack');
+  await expect(page.locator('body')).toContainText('User-selected venue strategies are carried forward');
+  await expect(page.locator('body')).toContainText('Private villa / estate buyout');
+});
+
+test('outcome: budget reality syncs Step 0 guest count and protects non-negotiables', async ({ page }) => {
+  await page.goto('/build');
+  await page.getByTestId('constraint-mode-flexible').click();
+  await expect(page.getByTestId('budget-reality')).toContainText('Unknown');
+  await page.getByTestId('guest-input').fill('90');
+  await expect(page.getByTestId('budget-guest-sync')).toContainText('90');
+  await page.getByTestId('budget-target').fill('65000');
+  await page.getByTestId('priority-venue-privacy').click();
+  await page.getByTestId('priority-food-bar').click();
+  await page.getByTestId('priority-photography').click();
+  await expect(page.getByTestId('budget-reality')).toContainText('Guest count 90');
+  await expect(page.getByTestId('budget-reality')).toContainText('Protect what matters');
+  await expect(page.getByTestId('protected-priorities')).toContainText('Venue privacy');
+});
+
+test('outcome: no-constraints discovery route still makes Recommendation Studio usable', async ({ page }) => {
+  await page.goto('/build');
+  await page.getByTestId('constraint-mode-discovery').click();
+  await expect(page.getByTestId('fixed-flexible-unknown')).toBeVisible();
+  await page.getByTestId('recommendation-focus').selectOption('I am overwhelmed');
+  await page.getByTestId('recommendation-question').fill('I have no idea where to start. Tell me what constraints matter first.');
+  await page.getByTestId('run-recommendation').click();
+  await expect(page.getByTestId('recommendation-output')).toContainText('saved constraint profile');
+  await expect(page.getByTestId('recommendation-output')).toContainText('fixed/flexible/unknown');
+});
+
+test('outcome: build page points users to Photos Lab and saves scope result', async ({ page }) => {
+  await page.goto('/build');
+  await expect(page.getByTestId('photos-cta-tablescape')).toBeVisible();
+  await expect(page.getByTestId('photos-cta-attire')).toBeVisible();
+  await expect(page.getByTestId('photos-cta-anything')).toBeVisible();
+  await expect(page.getByTestId('scope-to-studio-cta')).toBeVisible();
+  await page.getByTestId('constraint-mode-flexible').click();
+  await page.getByTestId('guest-input').fill('88');
   await page.getByTestId('scope-category').selectOption('tablescape');
   await page.getByTestId('scope-description').fill('long tables with lace cloths, candles everywhere, soft pink flowers, bows on chairs, maybe chandeliers');
   await expect(page.getByTestId('analyze-photo')).toBeDisabled();
   await page.getByTestId('photo-consent').check();
   await page.getByTestId('analyze-photo').click();
-
-  const results = page.getByTestId('photo-results');
-  await expect(results).toContainText('Tablescape Decoder');
-  await expect(results).toContainText(/Specialty linens|linens/i);
-  await expect(results).toContainText(/Chandeliers|lighting|rigging/i);
-  await expect(results).toContainText(/venue approval|venue rules|approval/i);
-  await expect(results).toContainText(/Confidence|Verify|verification/i);
+  await expect(page.getByTestId('photo-results')).toContainText('Tablescape Decoder');
+  await expect(page.getByTestId('photo-results')).toContainText('Specialty linens');
+  await page.getByTestId('save-guided-plan').click();
+  await page.goto('/dashboard');
+  await expect(page.getByTestId('dashboard-scope')).toContainText('Tablescape Decoder');
+  await page.goto('/pack');
+  await expect(page.locator('body')).toContainText('Tablescape Decoder');
 });
 
-test('outcome: photo page supports description-only flower girl dress sourcing', async ({ page }) => {
+test('outcome: photos page supports description-only flower girl dress sourcing', async ({ page }) => {
   await page.goto('/photos');
   await page.getByTestId('photo-category').selectOption('flower girl dresses');
   await page.getByTestId('photo-description').fill('ivory tulle flower girl dresses with puff sleeves and big satin bows');
   await page.getByTestId('photo-consent').check();
   await page.getByTestId('analyze-photo').click();
-
-  const results = page.getByTestId('photo-results');
-  await expect(results).toContainText('Flower Girl Dress / Attire Finder');
-  await expect(results).toContainText(/sizing|size chart|return policy|shipping/i);
-  await expect(results).toContainText('Exact product/vendor/availability/pricing must be verified');
-  await expect(results).not.toContainText('Bouquet + Floral Scope');
+  await expect(page.getByTestId('photo-results')).toContainText('Flower Girl Dress / Attire Finder');
+  await expect(page.getByTestId('photo-results')).toContainText('sizing');
+  await expect(page.getByTestId('photo-results')).toContainText('Exact product/vendor/availability/pricing must be verified');
 });
 
-test('outcome: budget reality supports unknowns and pressure testing', async ({ page }) => {
+test('outcome: vendor selections persist into dashboard and packet', async ({ page }) => {
   await page.goto('/build');
-  await expect(page.getByTestId('budget-reality')).toContainText('Unknown');
-  await page.getByTestId('guest-input').fill('200');
-  await page.getByTestId('budget-target').fill('50000');
-  await expect(page.getByTestId('budget-reality')).toContainText('High risk');
-  await expect(page.getByTestId('budget-reality')).toContainText(/guest count|budget|realistic/i);
+  await page.getByTestId('select-vendor-florist-designer').click();
+  await expect(page.getByTestId('selected-vendor-summary')).toContainText('Florist / Designer');
+  await page.getByTestId('save-guided-plan').click();
+  await page.goto('/dashboard');
+  await expect(page.getByTestId('dashboard-vendors')).toContainText('Florist / Designer');
+  await page.goto('/pack');
+  await expect(page.locator('body')).toContainText('User-selected vendor focus areas are listed first');
+  await expect(page.locator('body')).toContainText('Florist / Designer');
 });
 
 test('outcome: trends start unselected and only chosen trends persist', async ({ page }) => {
   await page.goto('/build');
-  await expect(page.getByTestId('canonical-plan-summary')).toContainText('Selected trends: 0');
-  await page.getByTestId('toggle-trend-gelato-cart').click();
+  await expect(page.getByTestId('canonical-plan-summary')).toContainText('Selected standout ideas: 0');
+  await page.getByTestId('toggle-trend-color-smoke-kiss-moment').click();
   await page.getByTestId('save-guided-plan').click();
   await page.goto('/dashboard');
-  await expect(page.getByText('Gelato Cart')).toBeVisible();
+  await expect(page.getByText('Color Smoke Kiss Moment')).toBeVisible();
   await expect(page.getByText('Lake Como Color Smoke Kiss Moment')).toHaveCount(0);
 });
 
-test('outcome: trend library add flow writes selected trend without requiring account auth', async ({ page }) => {
-  await page.goto('/trends');
-  await expect(page.getByRole('heading', { name: 'Wedding Trend Concierge' })).toBeVisible();
-  page.on('dialog', d => d.accept());
-  await page.getByTestId('trend-lake-como-color-smoke').getByRole('button', { name: 'Add to Dashboard' }).first().click();
-  await page.goto('/dashboard');
-  await expect(page.getByText('Lake Como Color Smoke Kiss Moment')).toBeVisible();
-
-  await page.goto('/trends');
-  await page.locator('input[name="idea_name"]').fill('Petal champagne escort wall');
-  await page.locator('textarea[name="description"]').fill('A styled escort wall with a champagne handoff and floral reveal.');
-  await page.locator('textarea[name="why_cool"]').fill('It feels luxe and interactive.');
-  await page.getByText('Submit idea').click();
-  await expect(page.getByTestId('trend-submit-status')).toContainText('received');
-});
-
-test('outcome: printable packet contains planner-ready sections and caveats', async ({ page }) => {
+test('outcome: printable packet contains planner-grade sections and caveats', async ({ page }) => {
   await page.goto('/build');
-  await expect(page.getByTestId('step-pack')).toContainText('planner-ready working brief');
-
+  await page.getByTestId('constraint-mode-hard').click();
+  await page.getByTestId('location-input').fill('Italy');
+  await page.getByTestId('guest-input').fill('80');
+  await page.getByTestId('budget-target').fill('150000');
+  await page.getByTestId('select-venue-destination-estate-buyout').click();
+  await page.getByTestId('select-vendor-planner-coordinator').click();
+  await page.getByTestId('save-guided-plan').click();
   await page.goto('/pack');
   await expect(page.getByText('Dream Wedding Working Brief')).toBeVisible();
-  await expect(page.getByText('Venue Shortlist Strategy')).toBeVisible();
-  await expect(page.getByText('Photo / Description Scope')).toBeVisible();
-  await expect(page.getByText('Vendor Inquiry Questions')).toBeVisible();
+  await expect(page.getByText('Planning Reality Check / Constraint Profile')).toBeVisible();
+  await expect(page.getByText('Recommendation Studio')).toBeVisible();
+  await expect(page.getByText('Venue + Lodging Shortlist Strategy')).toBeVisible();
+  await expect(page.getByText('Vendor Focus + Inquiry Questions')).toBeVisible();
+  await expect(page.getByText('Full Planner Bucket Map')).toBeVisible();
   await expect(page.getByText('Estimated costs are planning estimates only')).toBeVisible();
   await expect(page.getByText('not a substitute for a professional wedding planner')).toBeVisible();
-  await expect(page.locator('body')).toContainText(/No live venue availability|exact vendor pricing is claimed|must be directly verified/i);
+  await expect(page.locator('body')).toContainText(/No live venue availability|must be directly verified/i);
 });

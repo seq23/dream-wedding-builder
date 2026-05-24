@@ -1,25 +1,78 @@
 import fs from 'node:fs';
 import path from 'node:path';
+
 const files = [];
-function walk(dir){ for (const f of fs.readdirSync(dir)) { const p=path.join(dir,f); if (['node_modules','.next'].includes(f)) continue; const st=fs.statSync(p); if (st.isDirectory()) walk(p); else if (/\.(ts|tsx|md)$/.test(f)) files.push(p); }}
+function walk(dir) {
+  for (const f of fs.readdirSync(dir)) {
+    const p = path.join(dir, f);
+    if (['node_modules','.next'].includes(f)) continue;
+    const st = fs.statSync(p);
+    if (st.isDirectory()) walk(p);
+    else if (/\.(ts|tsx|md)$/.test(f)) files.push(p);
+  }
+}
 walk('app'); walk('components'); walk('data'); walk('docs');
+
 const forbidden = ['guaranteed quote', 'exact vendor price', 'auto-publish submitted', 'we contacted the venue', 'confirmed availability', 'definitely garden roses', 'found the exact dress'];
 for (const file of files) {
-  const text = fs.readFileSync(file,'utf8').toLowerCase();
+  const text = fs.readFileSync(file, 'utf8').toLowerCase();
   for (const term of forbidden) if (text.includes(term)) { console.error(`Forbidden theater phrase "${term}" in ${file}`); process.exit(1); }
 }
+
 const activeStateFiles = ['app/page.tsx','app/build/page.tsx','app/dashboard/page.tsx','app/pack/page.tsx'];
 const activeStateForbidden = ['Lake Como · 125 guests', 'Old Money Garden Elegance celebration', 'style:</strong><br />Old Money Garden Elegance', 'location:</strong><br />Lake Como', "useState('Lake Como')", 'useState(125)', "useState<string[]>(['lake-como-color-smoke'])"];
 for (const file of activeStateFiles) {
-  const text = fs.readFileSync(file,'utf8');
+  const text = fs.readFileSync(file, 'utf8');
   for (const term of activeStateForbidden) if (text.includes(term)) { console.error(`Active fake user state found in ${file}: ${term}`); process.exit(1); }
 }
+
 const build = fs.readFileSync('app/build/page.tsx','utf8');
 for (const term of ['Location not selected','Guest count unknown','No live venue availability','Nothing is selected until the bride chooses it','Trace:','No fake live vendor/product search is claimed','Exact pricing, vendor fit, product match, and availability require verification']) {
   if (!build.includes(term)) { console.error(`Missing anti-theater product guardrail in build page: ${term}`); process.exit(1); }
 }
+
 const photoAndScope = fs.readFileSync('app/photos/page.tsx','utf8') + fs.readFileSync('data/inspiration.ts','utf8');
 for (const term of ['No fake live vendor/product search is claimed','Exact product/vendor/availability/pricing must be verified','Photo flower identification is possible but not guaranteed','Chandeliers require venue approval']) {
   if (!photoAndScope.includes(term)) { console.error(`Missing photo/scope anti-theater term: ${term}`); process.exit(1); }
 }
+
+
+
+const trendsFile = fs.readFileSync('data/trends.ts','utf8');
+for (const required of ['Color Smoke Kiss Moment','Late-Night Comfort Food Window','Hidden Champagne Wall Bartender','Custom Scent / Perfume Bar']) {
+  if (!trendsFile.includes(required)) { console.error(`Missing standout idea catalogue item: ${required}`); process.exit(1); }
+}
+for (const banned of ['Lake Como Color Smoke Kiss Moment','Wedding Day Content Creator','Late-night pizza truck','Late-night burger window','Transport coordinator','Lighting designer earlier in planning','Guest concierge / hospitality lead']) {
+  if (trendsFile.includes(banned)) { console.error(`Banned trend catalogue filler/default found: ${banned}`); process.exit(1); }
+}
+if ((trendsFile.match(/id:/g) || []).length < 175) { console.error('Standout catalogue must include at least 175 concrete ideas'); process.exit(1); }
+const trendsPage = fs.readFileSync('app/trends/page.tsx','utf8') + fs.readFileSync('components/TrendCatalogue.tsx','utf8');
+for (const marker of ['trend-search','trend-category-filter','trend-budget-filter','standout-catalogue','Add','Use in Studio']) {
+  if (!trendsPage.includes(marker)) { console.error(`Trend catalogue interactivity missing: ${marker}`); process.exit(1); }
+}
+
+const interactiveRequired = [
+  ['Planning Reality Check', 'constraint-mode-hard'],
+  ['Constraint Profile', 'constraint-fields'],
+  ['Recommendation Studio', 'run-recommendation'],
+  ['Venue + Lodging Matchmaker', 'select-venue-'],
+  ['Budget + Tradeoff Reality', 'budget-guest-sync'],
+  ['Design Direction', 'vibe-translator-output'],
+  ['Photo/Description-to-Scope Intelligence', 'analyze-photo'],
+  ['Vendor Team + Inquiry Builder', 'select-vendor-'],
+  ['Risk / Reality Checks', 'risk-reality-check'],
+  ['Planner Packet', '/pack']
+];
+for (const [label, marker] of interactiveRequired) {
+  if (!build.includes(marker)) { console.error(`Interactive contract missing for ${label}: ${marker}`); process.exit(1); }
+}
+
+const ctas = ['hero-recommendation-studio-cta','venue-to-studio-cta','budget-to-studio-cta','scope-to-studio-cta','vendor-to-studio-cta'];
+for (const marker of ctas) if (!build.includes(marker)) { console.error(`Missing Recommendation Studio CTA: ${marker}`); process.exit(1); }
+
+const planning = fs.readFileSync('data/planning.ts','utf8');
+for (const bucket of ['Fashion / Beauty','Food / Beverage','Photo / Video / Moments','Guest Experience / Hospitality','Timeline / Weekend Flow']) {
+  if (!planning.includes(bucket)) { console.error(`Missing planner bucket: ${bucket}`); process.exit(1); }
+}
+
 console.log('anti-theater validation passed');

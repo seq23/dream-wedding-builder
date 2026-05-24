@@ -13,8 +13,12 @@ describe('product rules', () => {
       expect(category.estimate.plannerWarning).toBeTruthy();
     }
   });
-  it('includes location-specific trend intelligence', () => {
-    expect(trends.some(t => t.id === 'lake-como-color-smoke' && t.locationFit?.includes('Lake Como'))).toBe(true);
+  it('includes concrete selectable standout idea intelligence without default destination-coding', () => {
+    expect(trends.length).toBeGreaterThanOrEqual(175);
+    expect(trends.some(t => t.id === 'color-smoke-kiss-moment' && t.name === 'Color Smoke Kiss Moment')).toBe(true);
+    expect(trends.some(t => t.id === 'late-night-comfort-food-window')).toBe(true);
+    expect(trends.some(t => t.name.includes('Lake Como'))).toBe(false);
+    expect(trends.some(t => t.name.includes('Content Creator'))).toBe(false);
   });
   it('includes required disclaimers', () => {
     expect(disclaimers.cost).toContain('planning estimates');

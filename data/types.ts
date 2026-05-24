@@ -29,11 +29,17 @@ export interface Trend {
   category: string;
   labels: string[];
   description: string;
+  bestFor?: string;
+  avoidIf?: string;
+  budgetPressure?: 'Low' | 'Medium' | 'High';
   costRange: string;
   complexity: 'Low' | 'Medium' | 'High';
   guestImpact: 'Low' | 'Medium' | 'High';
   photoImpact: 'Low' | 'Medium' | 'High';
   locationFit?: string[];
+  whyItStandsOut?: string;
+  supportNeeded?: string;
+  verificationNote?: string;
   plannerWarning: string;
   vendorType: string;
 }
