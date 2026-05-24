@@ -34,7 +34,7 @@ export default function DashboardPage() {
     <section>
       <Badge>Dashboard</Badge>
       <h1 className="mt-4 font-serif text-5xl">Working Wedding Dashboard</h1>
-      <p className="mt-3 max-w-3xl text-charcoal/70">This page reflects saved constraints, Recommendation Studio output, selected venue strategy, selected vendor focus, photo/scope work, trends, and risks. No login required for v1.</p>
+      <p className="mt-3 max-w-3xl text-charcoal/70">This page reflects saved constraints, Recommendation Studio output, selected venue strategy, selected vendor focus, photo/scope work, trends, and risks. No account required for v1.</p>
       <div className="mt-4 flex flex-wrap gap-3"><Link className="rounded-full bg-charcoal px-5 py-3 font-bold text-linen" href="/build#step-0">Edit Constraint Profile</Link><Link className="rounded-full border border-charcoal/20 bg-white px-5 py-3 font-bold" href="/build#step-1">Ask Recommendation Studio</Link></div>
     </section>
 

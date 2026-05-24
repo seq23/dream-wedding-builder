@@ -339,7 +339,7 @@ export function venueMatchSummary(plan: WeddingPlan) {
   if (/italy|tuscany|amalfi|france|spain/.test(text) && (plan.fullBuyout === 'required' || text.includes('buyout')) && (sleeping >= 60 || text.includes('70') || text.includes('80')) && (plan.outsideCatering === 'required' || text.includes('outside catering'))) {
     return 'Full buyout + sleeps 70–80 + outside catering allowed is a narrow destination-venue search. Best targets are private estates, villas, borgos, boutique resorts with flexible catering, or a villa + nearby hotel block hybrid. Standard hotels may solve lodging but often restrict catering.';
   }
-  if (plan.fullBuyout === 'required') return 'Full buyout moves the search toward private estates, boutique hotels, resorts, restaurants, or blank-canvas properties with clear exclusive-use terms.';
+  if (plan.fullBuyout === 'required') return 'Full buyout moves the search toward private estates, boutique hotels, resorts, restaurants, or blank-canvas properties with clear exclusive-use terms. If outside catering is required, prioritize venues that clearly allow external catering and confirm kitchen, staffing, bar, insurance, and cleanup rules before shortlisting.';
   if (plan.onsiteLodging === 'required') return 'Onsite lodging makes this a hospitality search, not just a venue search. Room count, minimum stay, airport access, and guest movement matter.';
   if (plan.outsideCatering === 'required') return 'Outside catering requires venue/vendor freedom, kitchen access, staffing clarity, rentals, and service charge review.';
   return 'Venue fit is based on location, guest count, budget, style, weather safety, logistics, vendor freedom, and protected priorities.';

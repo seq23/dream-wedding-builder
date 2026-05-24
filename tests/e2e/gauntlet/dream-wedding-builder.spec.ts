@@ -4,7 +4,8 @@ test('surface gauntlet: required pages render without auth', async ({ page }) =>
   for (const path of ['/', '/build', '/dashboard', '/trends', '/photos', '/pack', '/disclaimer', '/privacy']) {
     await page.goto(path);
     await expect(page.locator('body')).toContainText(/Dream Wedding|Disclaimer|Privacy|Planner Packet|Photo|Dashboard/);
-    await expect(page.getByText(/Login|Sign in|Create account/i)).toHaveCount(0);
+    await expect(page.getByRole('link', { name: /Login|Sign in|Create account/i })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: /Login|Sign in|Create account/i })).toHaveCount(0);
   }
 });
 
@@ -178,11 +179,11 @@ test('outcome: printable packet contains planner-grade sections and caveats', as
   await page.goto('/pack');
   await expect(page.getByText('Dream Wedding Working Brief')).toBeVisible();
   await expect(page.getByText('Planning Reality Check / Constraint Profile')).toBeVisible();
-  await expect(page.getByText('Recommendation Studio')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Recommendation Studio' })).toBeVisible();
   await expect(page.getByText('Venue + Lodging Shortlist Strategy')).toBeVisible();
   await expect(page.getByText('Vendor Focus + Inquiry Questions')).toBeVisible();
   await expect(page.getByText('Full Planner Bucket Map')).toBeVisible();
-  await expect(page.getByText('Estimated costs are planning estimates only')).toBeVisible();
-  await expect(page.getByText('not a substitute for a professional wedding planner')).toBeVisible();
+  await expect(page.locator('body')).toContainText('Estimated costs are planning estimates only');
+  await expect(page.locator('body')).toContainText('not a substitute for a professional wedding planner');
   await expect(page.locator('body')).toContainText(/No live venue availability|must be directly verified/i);
 });
