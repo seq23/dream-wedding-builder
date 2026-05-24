@@ -13,6 +13,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: process.env.PLAYWRIGHT_VIDEO === '1' ? 'retain-on-failure' : 'off',
     launchOptions: {
+      executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined,
       args: ['--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--disable-features=BlockInsecurePrivateNetworkRequests']
     }
   },

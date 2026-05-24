@@ -3,122 +3,141 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Card, Badge } from '@/components/Card';
-import { CategoryCard } from '@/components/CategoryCard';
 import { TrendCard } from '@/components/TrendCard';
 import { StickyTotal } from '@/components/StickyTotal';
-import { budgetModes } from '@/data/budgetModes';
-import { categories } from '@/data/categories';
-import { levers } from '@/data/levers';
 import { trends } from '@/data/trends';
-import { plannerTips } from '@/data/tips';
 import { disclaimers } from '@/data/disclaimers';
-import { money, range } from '@/lib/format';
+import { range } from '@/lib/format';
+import {
+  budgetModes,
+  budgetReality,
+  derivePlanReadiness,
+  emptyPlan,
+  estimateRange,
+  hiddenFeeChecklist,
+  inspirationCategories,
+  inspirationTemplates,
+  intelligenceModules,
+  plannerLanguage,
+  planningStages,
+  scopeComponents,
+  vendorCategories,
+  venueExamples,
+  visionQuestions,
+  visionTranslatorOutput,
+  type WeddingPlan
+} from '@/data/planning';
+import { chooseScope, inspirationScopes, tableCountFromPlan } from '@/data/inspiration';
 
-const priorities = ['Venue', 'Dress', 'Flowers', 'Food', 'Bar', 'Photography', 'Video', 'Music', 'Guest Experience', 'Decor', 'Planner Support'];
-const vibeOptions = ['Old Money Garden Elegance', 'Italian Villa Weekend', 'Modern Floral Fantasy', 'Editorial Black-Tie Romance', 'Coastal Aperitivo Party', 'Whimsical Estate Dinner'];
-const mustHaves = ['Guest experience', 'Photos/video', 'Food and bar', 'Fashion', 'Flowers', 'Venue drama', 'After-party', 'Family comfort'];
-const stepLabels = ['Vision', 'Budget', 'Priorities', 'Trends', 'Photo', 'Pricing', 'Packet'];
+const stepLabels = ['Intake', 'Vibe Translator', 'Budget Reality', 'Venue Finder', 'Photo/Description Scope', 'Vendors', 'Trends', 'Brief'];
+const priorityOptions = ['Venue', 'Food + Bar', 'Photography', 'Florals', 'Guest Comfort', 'Family Ease', 'Party Energy', 'Budget Control', 'Travel/Lodging', 'Cultural Traditions', 'Fashion', 'Rain Plan'];
+const visionKeyMap = { feeling: 'feelings', setting: 'settings', formality: 'formality', florals: 'florals', food: 'food', photos: 'photos', avoid: 'avoids' } as const;
+
+function updateArray(list: string[], value: string) {
+  return list.includes(value) ? list.filter(item => item !== value) : [...list, value];
+}
+
+function PillButton({ active, children, onClick, testId }: { active: boolean; children: React.ReactNode; onClick: () => void; testId?: string }) {
+  return <button data-testid={testId} type="button" onClick={onClick} className={`rounded-full border px-4 py-2 text-sm font-bold transition ${active ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-white text-charcoal hover:border-charcoal/40'}`}>{children}</button>;
+}
+
+function Trace({ label, confidence = 'Medium' }: { label: string; confidence?: string }) {
+  return <p className="mt-2 rounded-2xl bg-white/70 px-3 py-2 text-xs font-semibold text-charcoal/65">Trace: {label} · Confidence: {confidence} · Verify before booking or purchasing.</p>;
+}
 
 export default function BuildPage() {
-  const [mode, setMode] = useState('dream');
-  const [selected, setSelected] = useState<string[]>(['Venue', 'Photography', 'Guest Experience']);
-  const [style, setStyle] = useState('Old Money Garden Elegance');
-  const [location, setLocation] = useState('Lake Como');
-  const [guests, setGuests] = useState(125);
-  const [strictBudget, setStrictBudget] = useState(75000);
-  const [selectedTrends, setSelectedTrends] = useState<string[]>(['lake-como-color-smoke']);
+  const [plan, setPlan] = useState<WeddingPlan>(emptyPlan);
   const [fileName, setFileName] = useState('');
   const [photoConsent, setPhotoConsent] = useState(false);
   const [photoAnalyzed, setPhotoAnalyzed] = useState(false);
+  const [scopeCategory, setScopeCategory] = useState('tablescape');
+  const [scopeDescription, setScopeDescription] = useState('');
 
-  const baseLikely = useMemo(() => categories.reduce((sum, category) => sum + category.estimate.likely, 0), []);
-  const chosenTrends = trends.filter(trend => selectedTrends.includes(trend.id));
-  const trendLikely = chosenTrends.length * 3500;
-  const likely = baseLikely + trendLikely;
-  const isStrictOver = mode === 'strict' && likely > strictBudget;
+  const readiness = derivePlanReadiness(plan);
+  const chosenTrends = trends.filter(trend => plan.selectedTrends.includes(trend.id));
+  const budgetMessage = budgetReality(plan);
+  const brief = plannerLanguage(plan);
+  const translator = visionTranslatorOutput(plan);
+  const estimate = estimateRange(plan);
+  const displayEstimate = estimate.low && estimate.high ? range(estimate.low, estimate.high) : 'Not estimated yet';
+  const selectedScope = useMemo(() => chooseScope(scopeCategory || scopeDescription), [scopeCategory, scopeDescription]);
+
+  const patch = (partial: Partial<WeddingPlan>) => setPlan(current => ({ ...current, ...partial }));
+  const toggle = (key: keyof WeddingPlan, value: string) => setPlan(current => ({ ...current, [key]: updateArray(current[key] as string[], value) }));
+  const applyTemplate = (name: string) => patch({ selectedTemplate: plan.selectedTemplate === name ? '' : name });
+  const toggleTrend = (id: string) => patch({ selectedTrends: updateArray(plan.selectedTrends, id) });
 
   const savePlan = () => {
-    const plan = { mode, location, guests, selected, style };
-    localStorage.setItem('dwb-plan', JSON.stringify(plan));
+    const saved = { ...plan, inspirationScopeNotes: scopeDescription || plan.inspirationScopeNotes, generatedAt: new Date().toISOString() };
+    localStorage.setItem('dwb-plan', JSON.stringify(saved));
     localStorage.setItem('dwb-trends', JSON.stringify(chosenTrends));
+    localStorage.setItem('dwb-scope', JSON.stringify({ category: scopeCategory, description: scopeDescription, scopeTitle: selectedScope.title, tableCount: tableCountFromPlan(plan) }));
     window.dispatchEvent(new Event('dwb-updated'));
-  };
-
-  const toggleTrend = (id: string) => {
-    setSelectedTrends(current => current.includes(id) ? current.filter(item => item !== id) : [...current, id]);
-  };
-
-  const togglePriority = (priority: string) => {
-    setSelected(current => current.includes(priority) ? current.filter(item => item !== priority) : [...current, priority].slice(-3));
   };
 
   return <div className="space-y-10 pb-24">
     <section className="grid gap-6 lg:grid-cols-[1fr_360px]">
       <div>
-        <Badge>Guided Bridal Workbook</Badge>
-        <h1 className="mt-4 max-w-4xl font-serif text-5xl leading-tight md:text-7xl">Build the wedding in your head, one calm step at a time.</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-charcoal/70">This is not a dashboard you have to figure out. It is a guided planner: tell us the vibe, protect the budget, choose the moments, compare costs, review photo inspiration, then leave with a printable Dream Wedding Starter Pack.</p>
-        <div className="mt-6 flex flex-wrap gap-2" aria-label="Planner steps">{stepLabels.map((label, index) => <a key={label} href={`#step-${index + 1}`} className="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-soft">Step {index + 1}: {label}</a>)}</div>
+        <Badge>Master rebuild · bride-led planning intelligence</Badge>
+        <h1 className="mt-4 max-w-4xl font-serif text-5xl leading-tight md:text-7xl">Start with your words, photos, or uncertainty. Convert it into planner-grade decisions.</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-charcoal/70">This builder includes Tablescape Decoder, Bouquet + Floral Scope, and Flower Girl Dress Finder modules and accepts blank-state brides, messy vibe language, uploaded inspiration, descriptions, budgets, locations, and unknowns. It labels confidence, scopes costs, maps vendors, and refuses fake certainty.</p>
+        <div className="mt-6 flex flex-wrap gap-2" aria-label="Planner steps">{stepLabels.map((label, index) => <a key={label} href={`#step-${index}`} className="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-soft">Step {index}: {label}</a>)}</div>
+        <div className="mt-6 grid gap-2 md:grid-cols-2" data-testid="master-plan-modules">{intelligenceModules.map(module => <p key={module} className="rounded-2xl bg-white p-3 text-sm font-bold">{module}</p>)}</div>
       </div>
-      <Card className="sticky top-6 h-fit">
-        <p className="text-xs uppercase tracking-[0.3em] text-charcoal/50">Live estimate</p>
-        <p data-testid="guided-total" className="mt-2 font-serif text-4xl">{range(Math.round(likely * .72), Math.round(likely * 1.35))}</p>
-        <p className="mt-2 text-sm text-charcoal/70">{location} · {guests} guests · {mode === 'dream' ? 'No Budget / Dream Mode' : mode === 'strict' ? 'Strict Budget Mode' : 'Flexible Range'}</p>
-        <div className="mt-5 grid gap-2 text-sm">
-          <p><strong>Protected priorities:</strong> {selected.join(', ')}</p>
-          <p><strong>Trend moments:</strong> {chosenTrends.length}</p>
-          <p><strong>Photo status:</strong> {photoAnalyzed ? 'Inspiration priced' : 'Optional'}</p>
-        </div>
-        <button data-testid="save-guided-plan" onClick={savePlan} className="mt-6 w-full rounded-full bg-charcoal px-5 py-4 font-bold text-linen">Save this starter plan</button>
-        <Link href="/pack" className="mt-3 block rounded-full border border-charcoal/20 bg-white px-5 py-4 text-center font-bold">Open printable pack</Link>
+      <Card className="sticky top-6 h-fit" data-testid="canonical-plan-summary">
+        <p className="text-xs uppercase tracking-[0.3em] text-charcoal/50">Canonical plan state</p>
+        <p data-testid="guided-total" className="mt-2 font-serif text-4xl">{displayEstimate}</p>
+        <p className="mt-2 text-sm text-charcoal/70">{plan.locations || 'Location not selected'} · {plan.guestCount || 'Guest count unknown'} guests · {budgetModes.find(m => m.id === plan.budgetMode)?.title || 'Budget unknown'}</p>
+        <div className="mt-5 grid gap-2 text-sm"><p><strong>Readiness:</strong> {readiness}%</p><p><strong>Selected trends:</strong> {chosenTrends.length}</p><p><strong>Venue/vendor data:</strong> seeded examples and user input only. No live venue availability. No live vendor availability.</p></div>
+        <Trace label="User input + seeded planning benchmarks + inspiration scope" confidence="Low until verified" />
+        <button data-testid="save-guided-plan" onClick={savePlan} className="mt-6 w-full rounded-full bg-charcoal px-5 py-4 font-bold text-linen">Save this working plan</button>
+        <Link href="/pack" className="mt-3 block rounded-full border border-charcoal/20 bg-white px-5 py-4 text-center font-bold">Open planner packet</Link>
       </Card>
     </section>
 
+    <section id="step-0" className="grid gap-6 lg:grid-cols-[220px_1fr]">
+      <div className="pt-2"><Badge>Step 0</Badge><h2 className="mt-3 font-serif text-3xl">Tell us what you know.</h2><p className="mt-2 text-sm text-charcoal/65">A bride can be early, unsure, or overwhelmed. Unknown is a valid answer.</p></div>
+      <Card data-testid="step-intake"><h3 className="font-serif text-4xl">Where are you in planning?</h3><div className="mt-5 grid gap-3 md:grid-cols-2">{planningStages.map(stage => <button key={stage} type="button" onClick={() => patch({ stage })} className={`rounded-2xl border p-4 text-left font-semibold ${plan.stage === stage ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-white'}`}>{stage}</button>)}</div><div className="mt-6 grid gap-4 md:grid-cols-2"><label className="grid gap-2 text-sm font-semibold">Location or locations you are considering<input data-testid="location-input" value={plan.locations} onChange={event => patch({ locations: event.target.value })} placeholder="Example: Charleston, Napa, Chicago, not sure yet" className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label><label className="grid gap-2 text-sm font-semibold">Guest count or range<input data-testid="guest-input" value={plan.guestCount} onChange={event => patch({ guestCount: event.target.value })} placeholder="Example: 80-100, 150, not sure" className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label><label className="grid gap-2 text-sm font-semibold">Season or date range<input value={plan.season} onChange={event => patch({ season: event.target.value })} placeholder="Spring 2027, fall, flexible" className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label><label className="grid gap-2 text-sm font-semibold">Family, cultural, accessibility, or stress constraints<input value={plan.constraints} onChange={event => patch({ constraints: event.target.value })} placeholder="Family pressure, cultural ceremony, mobility needs, no idea" className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label></div></Card>
+    </section>
+
     <section id="step-1" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Step 1</Badge><h2 className="mt-3 font-serif text-3xl">Find the vision.</h2><p className="mt-2 text-sm text-charcoal/65">Start with language a planner, florist, venue, and photographer can understand.</p></div>
-      <Card data-testid="step-vision"><h3 className="font-serif text-4xl">What should the wedding feel like?</h3><div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">{vibeOptions.map(vibe => <button key={vibe} onClick={() => setStyle(vibe)} className={`rounded-2xl border p-4 text-left font-semibold ${style === vibe ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-white'}`}>{vibe}</button>)}</div><div className="mt-6 grid gap-4 md:grid-cols-2"><label className="grid gap-2 text-sm font-semibold">Wedding location<input value={location} onChange={event => setLocation(event.target.value)} className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label><label className="grid gap-2 text-sm font-semibold">Guest count<input type="number" value={guests} onChange={event => setGuests(Number(event.target.value))} className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label></div></Card>
+      <div className="pt-2"><Badge>Step 1</Badge><h2 className="mt-3 font-serif text-3xl">Vibe + Theme Translator.</h2><p className="mt-2 text-sm text-charcoal/65">Accepts the bride's own verbiage, photos, descriptions, or guided prompts. Presets are inspiration only.</p></div>
+      <Card data-testid="step-vision"><h3 className="font-serif text-4xl">Describe the feeling in your own words, upload inspiration, or choose helper language.</h3><div className="mt-5 grid gap-4"><label className="grid gap-2 text-sm font-semibold">Your messy wording<textarea data-testid="own-vibe-input" value={plan.ownVibeWords} onChange={event => patch({ ownVibeWords: event.target.value })} placeholder="Example: candlelit garden dinner party, elegant but not stiff, not rustic, great food, soft and expensive-feeling" className="min-h-28 rounded-2xl border border-charcoal/10 bg-white p-3" /></label><label className="grid gap-2 text-sm font-semibold">Photo / Pinterest / inspiration notes<textarea data-testid="inspiration-notes" value={plan.inspirationNotes} onChange={event => patch({ inspirationNotes: event.target.value })} placeholder="Example: bouquet photo is soft pink and ivory, tablescape has lace linens and taper candles, flower girl dresses have bows" className="min-h-24 rounded-2xl border border-charcoal/10 bg-white p-3" /></label></div><div className="mt-6 grid gap-6">{Object.entries(visionQuestions).map(([key, values]) => <div key={key}><p className="mb-2 text-xs font-bold uppercase tracking-wide text-charcoal/50">{key}</p><div className="flex flex-wrap gap-2">{values.map(value => <PillButton key={value} active={(plan[visionKeyMap[key as keyof typeof visionKeyMap]] as string[]).includes(value)} onClick={() => toggle(visionKeyMap[key as keyof typeof visionKeyMap], value)}>{value}</PillButton>)}</div></div>)}</div><Card className="mt-6 bg-ivory shadow-none" data-testid="vibe-translator-output"><Badge>Planner speak translation</Badge><h4 className="mt-3 font-serif text-3xl">{translator.direction}</h4><p className="mt-3 leading-7">{translator.summary}</p><div className="mt-4 grid gap-4 md:grid-cols-3"><div><strong>Use with vendors</strong><p className="mt-2 text-sm text-charcoal/70">{translator.useWords.join(' · ')}</p></div><div><strong>Words to avoid</strong><p className="mt-2 text-sm text-charcoal/70">{translator.avoidWords.join(' · ')}</p></div><div><strong>Implications</strong><p className="mt-2 text-sm text-charcoal/70">{translator.implications.join(' · ')}</p></div></div><Trace label="Interpreted from bride wording/photos/prompts" confidence="Medium until confirmed" /></Card></Card>
     </section>
 
     <section id="step-2" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Step 2</Badge><h2 className="mt-3 font-serif text-3xl">Choose budget behavior.</h2><p className="mt-2 text-sm text-charcoal/65">Budget mode should guide decisions, not shame or trap the bride.</p></div>
-      <Card data-testid="step-budget"><h3 className="font-serif text-4xl">How strict should the money guardrails be?</h3><div className="mt-5 grid gap-3 md:grid-cols-3">{budgetModes.map(b => <button key={b.id} data-testid={`budget-${b.id}`} onClick={() => setMode(b.id)} className={`rounded-2xl border p-4 text-left ${mode === b.id ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-white'}`}><strong>{b.title}</strong><span className="mt-2 block text-sm opacity-75">{b.description}</span></button>)}</div>{mode === 'strict' && <div data-testid="strict-copy" className="mt-5 rounded-2xl bg-amber-100 p-4 text-sm"><strong>Strict Budget Mode:</strong> warns, reconciles, and gives escape hatches. It never traps you. <label className="mt-3 grid gap-2 font-semibold">Strict budget target<input type="number" value={strictBudget} onChange={event => setStrictBudget(Number(event.target.value))} className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label></div>}{isStrictOver && <div data-testid="strict-warning" className="mt-5 rounded-2xl border border-amber-300 bg-amber-50 p-4"><h4 className="font-serif text-2xl">Budget Warning</h4><p className="mt-2">This version is over your strict budget by <strong>{money(likely - strictBudget)}</strong>. Choose an escape hatch:</p><div className="mt-4 flex flex-wrap gap-2"><button className="rounded-full bg-charcoal px-4 py-3 text-sm font-bold text-linen">Keep item + adjust levers</button><button className="rounded-full border border-charcoal/20 bg-white px-4 py-3 text-sm font-bold">Choose cheaper option</button><button data-testid="increase-budget" onClick={() => setStrictBudget(likely)} className="rounded-full border border-charcoal/20 bg-white px-4 py-3 text-sm font-bold">Increase my budget</button><button data-testid="turn-off-strict" onClick={() => setMode('dream')} className="rounded-full border border-charcoal/20 bg-white px-4 py-3 text-sm font-bold">Turn off strict budget</button></div></div>}</Card>
+      <div className="pt-2"><Badge>Step 2</Badge><h2 className="mt-3 font-serif text-3xl">Budget reality.</h2><p className="mt-2 text-sm text-charcoal/65">No fake dream total. Budget can be unknown, hard, flexible, or dream-first.</p></div>
+      <Card data-testid="budget-reality"><h3 className="font-serif text-4xl">Set your reality range.</h3><div className="mt-5 grid gap-3 md:grid-cols-2">{budgetModes.map(mode => <button key={mode.id} data-testid={`budget-${mode.id}`} onClick={() => patch({ budgetMode: mode.id })} className={`rounded-2xl border p-4 text-left ${plan.budgetMode === mode.id ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-white'}`}><strong>{mode.title}</strong><p className="mt-1 text-sm opacity-75">{mode.copy}</p></button>)}</div><div className="mt-6 grid gap-4 md:grid-cols-2"><label className="grid gap-2 text-sm font-semibold">Total wedding budget comfort<input data-testid="budget-target" value={plan.budgetTarget} onChange={event => patch({ budgetTarget: event.target.value })} placeholder="Example: 65000, unknown, flexible" className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label><label className="grid gap-2 text-sm font-semibold">Venue / food-bar budget comfort<input value={plan.venueBudget} onChange={event => patch({ venueBudget: event.target.value })} placeholder="Example: 35000 or not sure" className="rounded-2xl border border-charcoal/10 bg-white p-3" /></label></div><p className="mt-5 rounded-2xl bg-ivory p-4 font-semibold">{budgetMessage}</p><Trace label="Budget math from guest count + user budget + benchmark ranges" confidence="Low/Medium" /></Card>
     </section>
 
     <section id="step-3" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Step 3</Badge><h2 className="mt-3 font-serif text-3xl">Protect what matters.</h2><p className="mt-2 text-sm text-charcoal/65">The app keeps the top three priorities safe when suggesting savings.</p></div>
-      <Card data-testid="step-priorities"><h3 className="font-serif text-4xl">Pick your top 3 non-negotiables.</h3><div className="mt-5 flex flex-wrap gap-2">{priorities.map(priority => <button key={priority} onClick={() => togglePriority(priority)} className={`rounded-full px-4 py-2 text-sm font-bold ${selected.includes(priority) ? 'bg-charcoal text-linen' : 'bg-white'}`}>{priority}</button>)}</div><div className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4">{mustHaves.map(item => <div key={item} className="rounded-2xl bg-ivory p-4 text-sm"><strong>{item}</strong><p className="mt-1 text-charcoal/60">Marked as a planning lens for vendor questions and cost levers.</p></div>)}</div></Card>
+      <div className="pt-2"><Badge>Step 3</Badge><h2 className="mt-3 font-serif text-3xl">Venue Finder / Matchmaker.</h2><p className="mt-2 text-sm text-charcoal/65">Location + budget-aware venue intelligence, not fake all-venue omniscience.</p></div>
+      <Card data-testid="venue-finder"><Badge>Venue Finder / Matchmaker</Badge><h3 className="mt-3 font-serif text-4xl">Find venue strategy from location, budget, guest count, and style.</h3><p className="mt-3 text-charcoal/70">The LLM/data layer should rank, explain, warn, and generate inquiry actions from structured data. This UI is not inventing live prices or availability.</p><div className="mt-5 grid gap-4 md:grid-cols-3">{venueExamples.map(venue => <Card key={venue.id} className="shadow-none"><Badge tone={venue.budgetFit.includes('Strong') ? 'success' : venue.budgetFit.includes('Stretch') || venue.budgetFit.includes('not') ? 'warning' : 'neutral'}>{venue.budgetFit}</Badge><h4 className="mt-3 font-serif text-2xl">{venue.name}</h4><p className="mt-2 text-sm text-charcoal/70">{venue.location} · {venue.venueType} · {venue.capacity}</p><p className="mt-3 font-bold">{venue.estimatedAllIn}</p><p className="mt-3 text-xs text-charcoal/60">{venue.sourceLabel}. Confidence: {venue.confidence}. Verify: {venue.verify.join(', ')}.</p></Card>)}</div><Trace label="Seeded venue-type examples until real venue dataset/API/admin CSV exists" confidence="Low" /></Card>
     </section>
 
     <section id="step-4" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Step 4</Badge><h2 className="mt-3 font-serif text-3xl">Choose signature moments.</h2><p className="mt-2 text-sm text-charcoal/65">Trends live inside the workbook first. The trend library remains available as a deep-dive page.</p></div>
-      <Card data-testid="step-trends"><div className="flex flex-wrap items-end justify-between gap-4"><div><h3 className="font-serif text-4xl">Wedding Trend Concierge</h3><p className="mt-2 text-charcoal/70">Pick the moments that make the wedding feel specific. We flag complexity, cost, and hidden planning risks.</p></div><Link href="/trends" className="rounded-full border border-charcoal/20 bg-white px-4 py-3 text-sm font-bold">Open full trend library</Link></div><div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{trends.slice(0, 6).map(trend => <Card key={trend.id} data-testid={`guided-trend-${trend.id}`} className={`shadow-none ${selectedTrends.includes(trend.id) ? 'border-charcoal' : ''}`}><Badge>{trend.category}</Badge><h4 className="mt-3 font-serif text-2xl">{trend.name}</h4><p className="mt-2 text-sm leading-6 text-charcoal/70">{trend.description}</p><p className="mt-3 text-sm"><strong>Cost:</strong> {trend.costRange}</p><p className="text-sm"><strong>Complexity:</strong> {trend.complexity}</p><button data-testid={`toggle-trend-${trend.id}`} onClick={() => toggleTrend(trend.id)} className="mt-4 rounded-full bg-charcoal px-4 py-3 text-sm font-bold text-linen">{selectedTrends.includes(trend.id) ? 'Added' : 'Add to plan'}</button></Card>)}</div></Card>
+      <div className="pt-2"><Badge>Step 4</Badge><h2 className="mt-3 font-serif text-3xl">Photo/Description-to-Scope Intelligence.</h2><p className="mt-2 text-sm text-charcoal/65">Tablescapes, bouquets, flowers, flower girl dresses, attire, stationery, decor, and typed descriptions all get the same structured treatment.</p></div>
+      <Card data-testid="scope-intelligence"><Badge>Photo/Description-to-Scope Intelligence</Badge><h3 className="mt-3 font-serif text-4xl">Upload or describe anything. Price the scope, vendors, and verification path.</h3><div className="mt-5 grid gap-4 md:grid-cols-2"><label className="grid gap-2 text-sm font-semibold">What are we scoping?<select data-testid="scope-category" value={scopeCategory} onChange={event => setScopeCategory(event.target.value)} className="rounded-2xl border border-charcoal/10 bg-white p-3">{inspirationCategories.map(cat => <option key={cat}>{cat}</option>)}</select></label><label className="grid gap-2 text-sm font-semibold">Upload inspiration photo<input data-testid="photo-input" type="file" accept="image/*" onChange={event => setFileName(event.target.files?.[0]?.name || '')} className="rounded-2xl border border-dashed border-charcoal/20 bg-white p-3" /></label></div>{fileName && <p className="mt-3 font-semibold">Selected image: {fileName}</p>}<label className="mt-5 grid gap-2 text-sm font-semibold">Or describe it in your own words<textarea data-testid="scope-description" value={scopeDescription} onChange={event => setScopeDescription(event.target.value)} placeholder="Example: long tables with lace cloths, candles everywhere, soft pink flowers, bows on chairs, maybe chandeliers" className="min-h-28 rounded-2xl border border-charcoal/10 bg-white p-3" /></label><div className="mt-5 rounded-2xl bg-amber-50 p-4 text-sm"><strong>Photo analysis notice:</strong> To analyze photos later, images may be sent to a third-party visual/search provider. No fake live vendor/product search is claimed. Results are planning estimates only and may be wrong. Exact pricing, vendor fit, product match, and availability require verification.</div><label className="mt-4 flex gap-2 text-sm"><input data-testid="photo-consent" type="checkbox" checked={photoConsent} onChange={event => setPhotoConsent(event.target.checked)} /> I understand and want to analyze this photo/description.</label><button data-testid="analyze-photo" disabled={(!fileName && !scopeDescription.trim()) || !photoConsent} onClick={() => { setPhotoAnalyzed(true); patch({ inspirationScopeNotes: scopeDescription }); }} className="mt-4 rounded-full bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-40">Analyze scope</button>{photoAnalyzed && <Card className="mt-6 bg-ivory shadow-none" data-testid="photo-results"><Badge>{selectedScope.title}</Badge><h4 className="mt-3 font-serif text-3xl">Scope estimate, vendor map, and verification checklist</h4><p className="mt-2 text-sm text-charcoal/70">{selectedScope.intakePrompt}</p><div className="mt-5 grid gap-4 md:grid-cols-2"><div><strong>Missing questions</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{selectedScope.missingQuestions.map(q => <li key={q}>{q}</li>)}</ul></div><div><strong>Likely table count</strong><p className="mt-2 text-sm">{tableCountFromPlan(plan)}</p><strong className="mt-4 block">Vendors likely needed</strong><p className="mt-2 text-sm">{selectedScope.vendorsNeeded.join(' · ')}</p></div></div><div className="mt-5 grid gap-3">{selectedScope.components.map(component => <div key={component.name} className="rounded-2xl bg-white p-4"><strong>{component.name}</strong><p className="mt-1 text-sm">{component.visibleStatus} · {component.quantityBasis} · {component.estimate}</p><p className="mt-2 text-xs text-charcoal/60">Vendors: {component.vendors.join(', ')}. Confidence: {component.confidence}. Verify: {component.verificationQuestions.join(' ')}</p></div>)}</div><div className="mt-5 grid gap-3 md:grid-cols-2"><div><strong>Warnings</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{selectedScope.warnings.map(w => <li key={w}>{w}</li>)}</ul></div><div><strong>Inquiry starter</strong><p className="mt-2 rounded-2xl bg-white p-3 text-sm">{selectedScope.inquiryStarter}</p></div></div><Trace label="Uploaded inspiration or bride description + seeded scope benchmarks" confidence={selectedScope.confidence} /></Card>}</Card>
     </section>
 
     <section id="step-5" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Step 5</Badge><h2 className="mt-3 font-serif text-3xl">Price inspiration safely.</h2><p className="mt-2 text-sm text-charcoal/65">Retail price is not wedding execution cost. The UI says that plainly.</p></div>
-      <Card data-testid="step-photo"><h3 className="font-serif text-4xl">Upload a photo only when you are comfortable.</h3><p className="mt-2 text-charcoal/70">Use this for dresses, florals, chandeliers, table settings, shoes, cakes, or venue inspiration. No permanent uploads are claimed in v1.</p><input data-testid="photo-input" type="file" accept="image/*" onChange={event => setFileName(event.target.files?.[0]?.name || '')} className="mt-5 block w-full rounded-2xl border border-dashed border-charcoal/20 bg-white p-8" />{fileName && <p className="mt-3 font-semibold">Selected: {fileName}</p>}<div className="mt-5 rounded-2xl bg-amber-50 p-4 text-sm"><strong>Consent required:</strong> photo analysis may use a third-party provider. Do not upload private, sensitive, copyrighted, confidential, or identifying images unless you are comfortable using this feature. Results are estimates only.</div><label className="mt-4 flex gap-2 text-sm"><input data-testid="photo-consent" type="checkbox" checked={photoConsent} onChange={event => setPhotoConsent(event.target.checked)} /> I understand and want to analyze this photo.</label><button data-testid="analyze-photo" disabled={!fileName || !photoConsent} onClick={() => setPhotoAnalyzed(true)} className="mt-4 rounded-full bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-40">Analyze this photo</button>{photoAnalyzed && <div data-testid="photo-results" className="mt-6 rounded-2xl bg-ivory p-5"><h4 className="font-serif text-2xl">Detected item: crystal chandelier-style reception lighting</h4><p className="mt-2 text-sm text-charcoal/70">No fake live vendor/product search is claimed.</p><div className="mt-4 grid gap-3 md:grid-cols-3">{['Closest Match', 'Cheapest Similar', 'Best Value'].map((label, index) => <div key={label} className="rounded-2xl bg-white p-4 text-sm"><strong>{label}</strong><p className="mt-2">Retail item price: ${[249, 119, 189][index]}</p><p>Wedding execution estimate: $800–$3,500</p><p className="mt-2 text-xs text-charcoal/60">Installation, labor, rigging, power, teardown, venue approval, and insurance are separate.</p></div>)}</div></div>}</Card>
+      <div className="pt-2"><Badge>Step 5</Badge><h2 className="mt-3 font-serif text-3xl">Vendor intelligence.</h2><p className="mt-2 text-sm text-charcoal/65">First decide the kind of vendor needed, then source with verification.</p></div>
+      <Card data-testid="vendor-map"><h3 className="font-serif text-4xl">Vendor Finder pattern for every category.</h3><div className="mt-5 grid gap-4 md:grid-cols-2">{vendorCategories.map(vendor => <Card key={vendor.name} className="shadow-none"><h4 className="font-serif text-2xl">{vendor.name}</h4><ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-charcoal/70">{vendor.questions.map(question => <li key={question}>{question}</li>)}</ul><Trace label="Vendor type guidance; specific vendors require sourced data" confidence="Medium" /></Card>)}</div></Card>
     </section>
 
     <section id="step-6" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Step 6</Badge><h2 className="mt-3 font-serif text-3xl">Compare cost paths.</h2><p className="mt-2 text-sm text-charcoal/65">Cheapest possible is not always best. The product should show the tradeoff.</p></div>
-      <div className="space-y-4" data-testid="step-pricing"><Card><h3 className="font-serif text-4xl">Vendor + Pricing Explorer</h3><p className="mt-2 text-charcoal/70">Each major category should eventually show Cheapest Possible, Best Value, Best Fit, and Luxury. V1 is seeded and contract-ready, not fake live vendor search.</p><div className="mt-5 grid gap-3 md:grid-cols-4">{['Cheapest Possible', 'Best Value', 'Best Fit', 'Luxury'].map(path => <div key={path} className="rounded-2xl bg-ivory p-4"><strong>{path}</strong><p className="mt-1 text-sm text-charcoal/65">Shown with risks, quality tradeoffs, and verification notes.</p></div>)}</div></Card><div className="grid gap-4 lg:grid-cols-3">{levers.map(lever => <Card key={lever.id}><h4 className="font-serif text-2xl">{lever.title}</h4><p className="mt-2 text-sm"><strong>Current:</strong> {lever.current}</p><p className="text-sm"><strong>Alternative:</strong> {lever.alternative}</p><p className="mt-3 font-bold">Savings: {range(lever.savingsLow, lever.savingsHigh)}</p><p className="mt-2 text-sm text-charcoal/70">{lever.tradeoff}</p></Card>)}</div></div>
+      <div className="pt-2"><Badge>Step 6</Badge><h2 className="mt-3 font-serif text-3xl">Trends + inspiration templates.</h2><p className="mt-2 text-sm text-charcoal/65">Nothing is selected until the bride chooses it. Templates do not overwrite location, budget, or guest count.</p></div>
+      <div className="space-y-6"><Card data-testid="inspiration-templates"><h3 className="font-serif text-4xl">Optional inspiration templates</h3><div className="mt-5 grid gap-4 md:grid-cols-3">{inspirationTemplates.map(template => <button type="button" key={template.name} onClick={() => applyTemplate(template.name)} className={`rounded-3xl border p-4 text-left ${plan.selectedTemplate === template.name ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-linen'}`}><strong>{template.name}</strong><p className="mt-2 text-sm opacity-75">Adopt: {template.adopt.join(', ')}</p><p className="mt-2 text-xs opacity-70">Does not adopt: {template.doNotAdopt.join(', ')}</p></button>)}</div><Trace label="Template is inspiration only; no active wedding state overwrite" confidence="High" /></Card><div className="grid gap-4 md:grid-cols-3">{trends.slice(0, 6).map(trend => <Card key={trend.id} className="shadow-none"><TrendCard trend={trend} /><button data-testid={`toggle-trend-${trend.id}`} onClick={() => toggleTrend(trend.id)} className="mt-3 w-full rounded-full border border-charcoal/20 bg-white px-4 py-2 text-sm font-bold">{plan.selectedTrends.includes(trend.id) ? 'Remove from working plan' : 'Add to working plan'}</button></Card>)}</div></div>
     </section>
 
     <section id="step-7" className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Step 7</Badge><h2 className="mt-3 font-serif text-3xl">Leave with a packet.</h2><p className="mt-2 text-sm text-charcoal/65">The output should be something a bride can send, print, or bring to a planner call.</p></div>
-      <Card data-testid="step-pack"><div className="flex flex-wrap items-start justify-between gap-4"><div><h3 className="font-serif text-4xl">Dream Wedding Starter Pack Preview</h3><p className="mt-2 text-charcoal/70">Snapshot, style language, budget breakdown, selected trends, photo notes, vendor inquiry draft, and disclaimers.</p></div><Link onClick={savePlan} href="/pack" className="rounded-full bg-charcoal px-5 py-4 font-bold text-linen">Create Starter Pack</Link></div><div className="mt-6 grid gap-3 md:grid-cols-3"><p className="rounded-2xl bg-ivory p-4"><strong>Style:</strong><br />{style}</p><p className="rounded-2xl bg-ivory p-4"><strong>Location:</strong><br />{location}</p><p className="rounded-2xl bg-ivory p-4"><strong>Estimated total:</strong><br />{range(Math.round(likely * .72), Math.round(likely * 1.35))}</p></div><div className="mt-6 grid gap-4 lg:grid-cols-2"><div><h4 className="font-serif text-2xl">Selected Trends & Experience Ideas</h4><ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-charcoal/75">{chosenTrends.map(trend => <li key={trend.id}>{trend.name} — {trend.costRange}</li>)}</ul></div><div><h4 className="font-serif text-2xl">Required Disclaimers</h4><p className="mt-3 text-sm leading-6 text-charcoal/70">{disclaimers.cost} This tool is not a substitute for a professional wedding planner, vendor, attorney, financial advisor, or venue representative.</p></div></div></Card>
+      <div className="pt-2"><Badge>Step 7</Badge><h2 className="mt-3 font-serif text-3xl">Planner-ready brief.</h2><p className="mt-2 text-sm text-charcoal/65">Output is more valuable than intake.</p></div>
+      <Card data-testid="step-pack"><h3 className="font-serif text-4xl">planner-ready working brief preview</h3><p className="mt-3 leading-7">{brief}</p><div className="mt-5 grid gap-4 md:grid-cols-3"><p><strong>Location:</strong><br />{plan.locations || 'Not selected yet'}</p><p><strong>Guest count:</strong><br />{plan.guestCount || 'Unknown'}</p><p><strong>Budget:</strong><br />{displayEstimate}</p><p><strong>Selected trends:</strong><br />{chosenTrends.length ? chosenTrends.map(t => t.name).join(', ') : 'None selected yet'}</p><p><strong>Scope module:</strong><br />{photoAnalyzed ? selectedScope.title : 'Not analyzed yet'}</p><p><strong>Hidden Fee Checklist:</strong><br />{hiddenFeeChecklist.length} items to verify</p></div><div className="mt-5 rounded-2xl bg-ivory p-4"><strong>Source trace:</strong> Chosen by user + interpreted from wording/photos + seeded estimates + verification caveats. No exact pricing, availability, or vendor claim is presented without source/confidence labels.</div><Link href="/pack" className="mt-6 inline-flex rounded-full bg-charcoal px-6 py-3 font-bold text-linen">Open full packet</Link><div className="mt-5 grid gap-3 text-sm">{Object.values(disclaimers).map(item => <p key={item} className="rounded-2xl bg-white p-3">{item}</p>)}</div></Card>
     </section>
 
-    <section className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Reference</Badge><h2 className="mt-3 font-serif text-3xl">Planner notes.</h2><p className="mt-2 text-sm text-charcoal/65">Supportive, but below the guided flow so the user is not forced into analysis first.</p></div>
-      <div className="grid gap-4 lg:grid-cols-2">{plannerTips.map(tip => <Card key={tip.text}><h4 className="font-serif text-2xl">{tip.type}</h4><p className="mt-2 text-sm text-charcoal/70">{tip.text}</p></Card>)}</div>
-    </section>
+    <section className="grid gap-4 md:grid-cols-3" data-testid="scope-components-map">{scopeComponents.map(scope => <Card key={scope.category}><Badge>{scope.category}</Badge><p className="mt-3 text-sm"><strong>Components:</strong> {scope.components.join(' · ')}</p><p className="mt-3 text-sm"><strong>Vendors:</strong> {scope.vendors.join(' · ')}</p><p className="mt-3 text-xs text-charcoal/60"><strong>Warnings:</strong> {scope.warnings.join(' · ')}</p></Card>)}</section>
+    <section className="grid gap-4 md:grid-cols-4">{inspirationScopes.map(scope => <Card key={scope.title}><Badge>{scope.confidence} confidence</Badge><h3 className="mt-3 font-serif text-2xl">{scope.title}</h3><p className="mt-2 text-sm text-charcoal/70">{scope.intakePrompt}</p></Card>)}</section>
 
-    <section className="grid gap-6 lg:grid-cols-[220px_1fr]">
-      <div className="pt-2"><Badge>Reference</Badge><h2 className="mt-3 font-serif text-3xl">Category details.</h2><p className="mt-2 text-sm text-charcoal/65">Kept in-page for brides who want to scroll and learn without changing context.</p></div>
-      <div className="grid gap-4">{categories.map(category => <CategoryCard key={category.id} category={category} />)}</div>
-    </section>
-
-    <StickyTotal total={range(Math.round(likely * .72), Math.round(likely * 1.35))} />
+    <StickyTotal total={displayEstimate} />
   </div>;
 }
