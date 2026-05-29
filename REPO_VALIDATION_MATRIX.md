@@ -11,3 +11,6 @@
 | Build | npm run build | HARD FAIL | production build compiles | user journeys |
 | E2E Gauntlet | npm run test:e2e:gauntlet | HARD FAIL when browser available | surface/transaction/outcome/common-sense journeys | deployed Cloudflare behavior |
 | Headed E2E | npm run test:e2e:headed | Local proof | visible browser testing | CI display unless Xvfb configured |
+
+| Hallmark Visual Review | Manual: UI_QUALITY_GATES.md + screenshots | STRONG WARNING | visual trust, anti-slop risk, CTA hierarchy, mobile sticky-widget sanity | build/runtime/user journeys |
+| Numbered Planning Steps | Manual/structural review of app/build/page.tsx | HARD FAIL if removed | Step 0 through Step 7 remain visible and linkable in the build flow | visual polish or runtime interaction depth |
