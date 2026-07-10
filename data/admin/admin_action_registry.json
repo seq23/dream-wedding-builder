@@ -1,0 +1,34 @@
+{
+  "actions": [
+    {
+      "id": "rebuild-atlas",
+      "risk": "safe",
+      "approval_required": false
+    },
+    {
+      "id": "run-content-pipeline",
+      "risk": "safe",
+      "approval_required": false
+    },
+    {
+      "id": "rebuild-sitemaps",
+      "risk": "safe",
+      "approval_required": false
+    },
+    {
+      "id": "pause-publishing",
+      "risk": "protected",
+      "approval_required": true
+    },
+    {
+      "id": "change-price",
+      "risk": "protected",
+      "approval_required": true
+    },
+    {
+      "id": "refund-order",
+      "risk": "protected",
+      "approval_required": true
+    }
+  ]
+}

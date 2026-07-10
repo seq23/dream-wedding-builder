@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "paid_destination_share_target": 0.88,
+  "free_builder_share_target": 0.12,
+  "primary_destinations": [
+    {
+      "product_id": "seating-chart-maker",
+      "domain": "weddingseatingchartmaker.com",
+      "landing_page": "/products/seating-chart-maker"
+    },
+    {
+      "product_id": "budget-spreadsheet",
+      "domain": "weddingbudgetspreadsheet.com",
+      "landing_page": "/products/budget-spreadsheet"
+    },
+    {
+      "product_id": "timeline-template",
+      "domain": "weddingtimelinetemplate.com",
+      "landing_page": "/products/timeline-template"
+    },
+    {
+      "product_id": "checklist-pdf",
+      "domain": "weddingchecklistpdf.com",
+      "landing_page": "/products/checklist-pdf"
+    }
+  ],
+  "free_builder_role": [
+    "parent brand",
+    "broad onboarding",
+    "tool recommendation",
+    "limited lead capture"
+  ],
+  "hard_rules": [
+    "Paid-product queries may not be assigned to the free Builder",
+    "Every authority route must have one paid-product owner",
+    "Primary commercial CTA must include price",
+    "Supporting pages must link to the paid landing page before the free Builder"
+  ],
+  "parent_host": "weddingchecklistpdf.com",
+  "hosting_model": "OPTION_B_CHECKLIST_PARENT_HOST",
+  "host_rules": [
+    "The root path on weddingchecklistpdf.com is the Dream Wedding Builder parent hub",
+    "The paid Checklist authority destination remains /products/checklist-pdf on the same host",
+    "Checklist commercial queries must resolve to /products/checklist-pdf, not the root free-builder hub",
+    "The root hub may route users to all four paid destinations but may not own their commercial queries"
+  ]
+}

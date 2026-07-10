@@ -1,0 +1,22 @@
+{
+  "minimum_score": 9.0,
+  "required_checks": [
+    "canonical_owner",
+    "unique_intent",
+    "direct_answer",
+    "source_support_when_required",
+    "product_cta",
+    "schema",
+    "internal_links",
+    "no_secret_exposure"
+  ],
+  "admitted_routes": [
+    "/products/seating-chart-maker",
+    "/products/budget-spreadsheet",
+    "/products/timeline-template",
+    "/products/checklist-pdf",
+    "/",
+    "/build",
+    "/shop"
+  ]
+}

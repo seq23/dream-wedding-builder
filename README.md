@@ -1,28 +1,26 @@
 # Dream Wedding Builder
 
-Free, no-login wedding planning web app that turns a dream wedding idea into a guided plan, pricing ranges, trend moments, inspiration-photo cost context, and a printable Dream Wedding Starter Pack.
+Dream Wedding Builder is the only free product in a shared five-domain wedding planning platform. The paid portfolio is Wedding Seating Chart Maker, Wedding Budget Spreadsheet, Wedding Timeline Template, Wedding Checklist PDF, and the Dream Wedding Operations Suite.
 
-## Primary experience
-The main app experience is `/build`: a long guided bridal workbook with clear steps:
+## Preserved free journey
+`/build` remains the guided no-login Builder and Starter Pack experience.
 
-1. Vision
-2. Budget
-3. Priorities
-4. Trends
-5. Photo
-6. Pricing
-7. Packet
+## Paid commerce routes
+- `/products/seating-chart-maker`
+- `/products/budget-spreadsheet`
+- `/products/timeline-template`
+- `/products/checklist-pdf`
+- `/shop`
 
-Supporting routes exist for deeper review: `/dashboard`, `/trends`, `/photos`, and `/pack`.
-
-## Local commands
-
+## Local structural validation
 ```bash
 npm install
-NODE_OPTIONS="--max-old-space-size=3072" npm run validate:all
-npx playwright install chromium
-npm run test:e2e:headed
+python -m pip install reportlab
+python scripts/generate_product_downloads.py
+npm run validate:all
 ```
 
-## Truth posture
-This is seeded and contract-ready v1. It does not claim live vendor/product search, real-time availability, guaranteed pricing, or permanent photo storage. Estimated costs are planning estimates only.
+## Provider proof boundary
+The repo contains Stripe, entitlement, protected-download, email, multi-domain, authority, vault, and admin contracts. Live Stripe/Resend/Cloudflare/GSC/IndexNow proof is not claimed until credentials are installed and deployed journeys are executed.
+
+Customer support: `info@weddingchecklistpdf.com`.

@@ -1,22 +1,3 @@
-import Link from 'next/link';
-import type { ReactNode } from 'react';
-
-const nav = [
-  ['Guide', '/build'], ['Summary', '/dashboard'], ['Ideas', '/trends'], ['Photos', '/photos'], ['Pack', '/pack']
-];
-export function AppShell({ children }: { children: ReactNode }) {
-  return <div className="min-h-screen pb-20 md:pb-0">
-    <header className="no-print sticky top-0 z-30 border-b border-charcoal/10 bg-ivory/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-        <Link href="/" className="font-serif text-2xl tracking-tight">Dream Wedding Builder</Link>
-        <nav className="hidden gap-2 md:flex">
-          {nav.map(([label, href]) => <Link key={href} className="rounded-full px-4 py-2 text-sm hover:bg-white" href={href}>{label}</Link>)}
-        </nav>
-      </div>
-    </header>
-    <main className="mx-auto max-w-7xl px-4 py-8">{children}</main>
-    <nav className="no-print fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 border-t border-charcoal/10 bg-linen md:hidden">
-      {nav.map(([label, href]) => <Link key={href} href={href} className="py-3 text-center text-xs font-semibold">{label}</Link>)}
-    </nav>
-  </div>;
-}
+import Link from 'next/link'; import type { ReactNode } from 'react';
+const nav=[['Build Free','/build'],['Seating — $19','/products/seating-chart-maker'],['Budget — $12','/products/budget-spreadsheet'],['Timeline — $12','/products/timeline-template'],['Checklist — $9','/products/checklist-pdf'],['Suite — $39','/shop']];
+export function AppShell({children}:{children:ReactNode}){return <div className="min-h-screen pb-36 md:pb-20"><div className="no-print bg-charcoal px-4 py-2 text-center text-xs font-bold uppercase tracking-[.14em] text-linen">Instant downloads • One-time payment • Personal use forever</div><header className="no-print sticky top-0 z-40 border-b border-charcoal/10 bg-ivory/95 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4"><Link href="/" className="font-serif text-2xl tracking-tight">Dream Wedding Builder</Link><nav className="hidden gap-1 lg:flex">{nav.map(([label,href])=><Link key={href} className="rounded-full px-3 py-2 text-sm hover:bg-white" href={href}>{label}</Link>)}</nav><Link href="/shop" className="rounded-full bg-charcoal px-4 py-2 text-sm font-bold text-linen">Shop all tools</Link></div></header><main className="mx-auto max-w-7xl px-4 py-8">{children}</main><footer className="mt-16 border-t border-charcoal/10 bg-linen"><div className="mx-auto grid max-w-7xl gap-7 px-4 py-10 md:grid-cols-4"><div><p className="font-serif text-2xl">Dream Wedding Builder</p><p className="mt-2 text-sm text-charcoal/65">Four paid execution tools. One free planning foundation.</p></div><div><p className="font-bold">Products</p><div className="mt-2 grid gap-2 text-sm">{nav.slice(1).map(([label,href])=><Link key={href} href={href}>{label}</Link>)}</div></div><div><p className="font-bold">Customer support</p><a className="mt-2 block underline" href="mailto:info@weddingchecklistpdf.com">info@weddingchecklistpdf.com</a><p className="mt-2 text-xs text-charcoal/55">All four domains use one support desk.</p></div><div className="grid content-start gap-2 text-sm"><Link href="/privacy">Privacy</Link><Link href="/disclaimer">Disclaimer</Link><Link href="/terms">Terms</Link><Link href="/refund-policy">Refunds</Link></div></div></footer><nav className="no-print fixed bottom-0 left-0 right-0 z-40 grid grid-cols-6 border-t border-charcoal/10 bg-linen lg:hidden">{nav.map(([label,href])=><Link key={href} href={href} className="truncate px-1 py-3 text-center text-[9px] font-semibold">{label}</Link>)}</nav></div>}

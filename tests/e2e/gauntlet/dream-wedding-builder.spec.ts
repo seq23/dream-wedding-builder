@@ -187,3 +187,20 @@ test('outcome: printable packet contains planner-grade sections and caveats', as
   await expect(page.locator('body')).toContainText('not a substitute for a professional wedding planner');
   await expect(page.locator('body')).toContainText(/No live venue availability|must be directly verified/i);
 });
+
+test('commercial hub and paid product pages are complete and clear', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: /Plan the dream/i })).toBeVisible();
+  for (const name of ['Wedding Seating Chart Maker','Wedding Budget Spreadsheet','Wedding Timeline Template','Wedding Checklist PDF']) await expect(page.getByText(name).first()).toBeVisible();
+  await page.goto('/products/budget-spreadsheet');
+  await expect(page.getByRole('button', { name: /Buy now - \$12/ })).toBeVisible();
+  await expect(page.getByText(/Why not a generic free template/i)).toBeVisible();
+  await expect(page.getByText(/Plain answers, before checkout/i)).toBeVisible();
+});
+
+test('authority pages render substantive content and route to owned product', async ({ page }) => {
+  await page.goto('/guides/wedding-budget-for-100-guests');
+  await expect(page.getByRole('heading', { name: 'Wedding Budget for 100 Guests' })).toBeVisible();
+  await expect(page.getByText('The practical answer')).toBeVisible();
+  await expect(page.getByRole('link', { name: /Review Wedding Budget Spreadsheet/ })).toBeVisible();
+});

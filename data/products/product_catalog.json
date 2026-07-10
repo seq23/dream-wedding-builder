@@ -1,0 +1,301 @@
+{
+  "version": "2.0.0",
+  "currency": "USD",
+  "support_email": "info@weddingchecklistpdf.com",
+  "products": [
+    {
+      "id": "seating-chart-maker",
+      "sku": "DWB-SEATING-001",
+      "name": "Wedding Seating Chart Maker",
+      "domain": "weddingseatingchartmaker.com",
+      "price": 19,
+      "route": "/products/seating-chart-maker",
+      "headline": "Seat every guest with confidence.",
+      "sub": "Build a venue-ready plan that tracks tables, households, meals, allergies, accessibility needs, children, and every unassigned guest.",
+      "features": [
+        "Drag-and-drop table planning",
+        "Household and social-group organization",
+        "Meal, allergy, accessibility, and child tracking",
+        "Assigned-versus-RSVP reconciliation",
+        "Venue, caterer, escort-card, and print exports"
+      ],
+      "keywords": [
+        "wedding seating chart",
+        "wedding seating chart maker",
+        "seating chart maker",
+        "wedding seating chart generator",
+        "wedding table planner"
+      ],
+      "eyebrow": "Venue-ready guest placement, without the spreadsheet chaos",
+      "promise": "Turn your confirmed guest list into a complete table plan your venue and caterer can actually use.",
+      "audience": [
+        "Couples finalizing RSVPs",
+        "DIY planners managing family dynamics",
+        "Coordinators who need a clean vendor handoff"
+      ],
+      "outcomes": [
+        "Every confirmed guest assigned or visibly unresolved",
+        "Table capacities checked before handoff",
+        "Meal, allergy and accessibility details attached to the right person",
+        "Alphabetical and table-order exports ready for vendors"
+      ],
+      "process": [
+        "Import or enter confirmed guests",
+        "Create tables and capacities",
+        "Group households and social circles",
+        "Resolve conflicts and special needs",
+        "Export the final handoff package"
+      ],
+      "objections": [
+        [
+          "Can I use a free seating chart instead?",
+          "Yes, but most free tools stop at table placement. This product is built around reconciliation, meal and accessibility data, and vendor-ready exports."
+        ],
+        [
+          "What if my guest list changes?",
+          "You can revise the working files and regenerate the final handoff. The package includes a change-control checklist for late RSVPs and cancellations."
+        ],
+        [
+          "Does this replace my venue floor plan?",
+          "No. Use the venue-approved floor plan and capacity rules. This product organizes guests and handoff data; it does not certify occupancy or fire-code compliance."
+        ]
+      ],
+      "image": "/product-images/seating-chart-maker.webp",
+      "hero_image": "/product-images/seating-chart-maker-hero.webp",
+      "cta": "Buy now \u2014 $19",
+      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "gallery": [
+        "/product-images/seating-chart-maker-sample-1.webp",
+        "/product-images/seating-chart-maker-sample-2.webp",
+        "/product-images/seating-chart-maker-sample-3.webp"
+      ],
+      "canonical_url": "https://weddingseatingchartmaker.com/products/seating-chart-maker"
+    },
+    {
+      "id": "budget-spreadsheet",
+      "sku": "DWB-BUDGET-001",
+      "name": "Wedding Budget Spreadsheet",
+      "domain": "weddingbudgetspreadsheet.com",
+      "price": 12,
+      "route": "/products/budget-spreadsheet",
+      "headline": "Know the real cost before it surprises you.",
+      "sub": "Track estimates, contracts, deposits, due dates, taxes, gratuities, family contributions, and cash needed by month.",
+      "features": [
+        "Estimated, contracted, paid, and remaining totals",
+        "Deposit and final-payment calendar",
+        "Taxes, service fees, gratuities, and hidden costs",
+        "Monthly cash-flow and scenario planning",
+        "Spreadsheet and printable PDF exports"
+      ],
+      "keywords": [
+        "wedding budget spreadsheet",
+        "wedding budget planner",
+        "wedding budget calculator",
+        "wedding budget template",
+        "wedding payment tracker"
+      ],
+      "eyebrow": "A working wedding cash-control system, not a decorative budget page",
+      "promise": "See what the wedding is estimated to cost, what is contracted, what has been paid, and what cash is still due.",
+      "audience": [
+        "Couples comparing vendor proposals",
+        "Families sharing wedding costs",
+        "DIY planners who need payment control"
+      ],
+      "outcomes": [
+        "One source of truth for estimates, contracts and payments",
+        "Monthly cash-needed view before bills arrive",
+        "Hidden fees and contingency visible early",
+        "Clear remaining-balance and due-date tracking"
+      ],
+      "process": [
+        "Set total budget and contributors",
+        "Load category targets",
+        "Enter vendor estimates and contracts",
+        "Track deposits, fees and due dates",
+        "Review monthly cash flow and overages"
+      ],
+      "objections": [
+        [
+          "Why pay when Google Sheets is free?",
+          "The value is the wedding-specific structure, formulas, payment calendar, hidden-cost prompts, and ready-to-use dashboard\u2014not the blank spreadsheet software."
+        ],
+        [
+          "Will it tell me what vendors charge?",
+          "No. Pricing varies. Enter real quotes and contracts. The workbook helps you compare and control them."
+        ],
+        [
+          "Can family contributions be tracked separately?",
+          "Yes. The contribution and payment sections distinguish pledged, received and allocated amounts."
+        ]
+      ],
+      "image": "/product-images/budget-spreadsheet.webp",
+      "hero_image": "/product-images/budget-spreadsheet-hero.webp",
+      "cta": "Buy now \u2014 $12",
+      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "gallery": [
+        "/product-images/budget-spreadsheet-sample-1.webp",
+        "/product-images/budget-spreadsheet-sample-2.webp",
+        "/product-images/budget-spreadsheet-sample-3.webp"
+      ],
+      "canonical_url": "https://weddingbudgetspreadsheet.com/products/budget-spreadsheet"
+    },
+    {
+      "id": "timeline-template",
+      "sku": "DWB-TIMELINE-001",
+      "name": "Wedding Timeline Template",
+      "domain": "weddingtimelinetemplate.com",
+      "price": 12,
+      "route": "/products/timeline-template",
+      "headline": "Give everyone the right schedule.",
+      "sub": "Create coordinated timelines for the couple, family, wedding party, photographer, vendors, and venue.",
+      "features": [
+        "First-look and no-first-look timing logic",
+        "Vendor arrival, setup, and breakdown schedules",
+        "Couple, family, photographer, and wedding-party views",
+        "Dependencies, owners, and emergency contacts",
+        "Printable and editable handoff exports"
+      ],
+      "keywords": [
+        "wedding timeline template",
+        "wedding day timeline",
+        "wedding itinerary template",
+        "wedding order of events",
+        "wedding timeline generator"
+      ],
+      "eyebrow": "One coordinated schedule for the people who make the day happen",
+      "promise": "Build a master wedding-day timeline and role-specific handoffs for your venue, vendors, family and wedding party.",
+      "audience": [
+        "Couples without a full-service planner",
+        "Day-of coordinators",
+        "Wedding parties coordinating multiple locations"
+      ],
+      "outcomes": [
+        "Master schedule with dependencies and owners",
+        "Separate views for couple, vendors, family and photographer",
+        "Travel, setup and breakdown time made visible",
+        "Emergency contacts and handoff notes in one package"
+      ],
+      "process": [
+        "Enter ceremony, venue and travel anchors",
+        "Choose first-look and photography logic",
+        "Add vendor arrivals and setup",
+        "Assign owners and dependencies",
+        "Export role-specific timelines"
+      ],
+      "objections": [
+        [
+          "Is this just a one-page schedule?",
+          "No. It includes a master timeline plus role-specific handoffs, setup/breakdown, dependencies and emergency contacts."
+        ],
+        [
+          "Will it work for two venues?",
+          "Yes. The planning package includes travel buffers and separate location handoffs."
+        ],
+        [
+          "Does it replace a coordinator?",
+          "No. It is an organizational tool. Confirm timing and responsibilities with your venue, officiant, photographer, transportation and other vendors."
+        ]
+      ],
+      "image": "/product-images/timeline-template.webp",
+      "hero_image": "/product-images/timeline-template-hero.webp",
+      "cta": "Buy now \u2014 $12",
+      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "gallery": [
+        "/product-images/timeline-template-sample-1.webp",
+        "/product-images/timeline-template-sample-2.webp",
+        "/product-images/timeline-template-sample-3.webp"
+      ],
+      "canonical_url": "https://weddingtimelinetemplate.com/products/timeline-template"
+    },
+    {
+      "id": "checklist-pdf",
+      "sku": "DWB-CHECKLIST-001",
+      "name": "Wedding Checklist PDF",
+      "domain": "weddingchecklistpdf.com",
+      "price": 9,
+      "route": "/products/checklist-pdf",
+      "headline": "A checklist built around your actual wedding date.",
+      "sub": "Generate deadlines and responsibilities based on planning time, wedding format, events, vendors, and who is doing the work.",
+      "features": [
+        "Date-based planning schedule",
+        "Local, destination, backyard, and micro-wedding logic",
+        "Responsibility and dependency assignments",
+        "Wedding-week and final-payment handoff",
+        "Printable PDF, editable checklist, and calendar export"
+      ],
+      "keywords": [
+        "wedding checklist pdf",
+        "wedding planning checklist",
+        "printable wedding checklist",
+        "wedding planning timeline",
+        "wedding tick list"
+      ],
+      "eyebrow": "A dated planning system tied to your actual wedding",
+      "promise": "Turn your date, planning window and event format into a complete task sequence with owners, deadlines and final-week handoffs.",
+      "audience": [
+        "Couples who do not want a generic 12-month list",
+        "Short-engagement planners",
+        "Destination, backyard and micro-wedding couples"
+      ],
+      "outcomes": [
+        "Tasks sequenced from today through the wedding",
+        "Responsibilities assigned instead of assumed",
+        "Vendor and payment dependencies surfaced",
+        "Wedding-week handoff separated from long-range planning"
+      ],
+      "process": [
+        "Set the date and planning start",
+        "Select wedding format and events",
+        "Choose who owns each workstream",
+        "Review generated deadlines and dependencies",
+        "Export printable, editable and calendar-ready files"
+      ],
+      "objections": [
+        [
+          "How is this different from a free checklist?",
+          "It is structured around your planning window, event format, responsibilities, payment milestones and final-week handoff\u2014not a generic article."
+        ],
+        [
+          "What if I am planning in less than six months?",
+          "The compressed-planning logic prioritizes critical-path decisions and removes impossible lead times."
+        ],
+        [
+          "Does it cover legal deadlines?",
+          "It prompts verification, but requirements vary. Confirm marriage-license and local legal deadlines with the appropriate authority."
+        ]
+      ],
+      "image": "/product-images/checklist-pdf.webp",
+      "hero_image": "/product-images/checklist-pdf-hero.webp",
+      "cta": "Buy now \u2014 $9",
+      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "gallery": [
+        "/product-images/checklist-pdf-sample-1.webp",
+        "/product-images/checklist-pdf-sample-2.webp",
+        "/product-images/checklist-pdf-sample-3.webp"
+      ],
+      "parent_host": true,
+      "canonical_url": "https://weddingchecklistpdf.com/products/checklist-pdf"
+    },
+    {
+      "id": "operations-suite",
+      "sku": "DWB-SUITE-001",
+      "name": "Dream Wedding Operations Suite",
+      "price": 39,
+      "route": "/shop",
+      "features": [
+        "Wedding Seating Chart Maker",
+        "Wedding Budget Spreadsheet",
+        "Wedding Timeline Template",
+        "Wedding Checklist PDF",
+        "Venue comparison worksheet",
+        "Vendor contact and payment trackers",
+        "Wedding-week handoff packet",
+        "Emergency contacts and responsibility matrix"
+      ],
+      "image": "/product-images/operations-suite.webp",
+      "standalone_value": 52,
+      "savings": 13,
+      "cta": "Get the complete suite \u2014 $39"
+    }
+  ]
+}

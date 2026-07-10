@@ -1,8 +1,12 @@
 import fs from 'node:fs';
 
 const homepage = fs.readFileSync('app/page.tsx','utf8');
-for (const term of ['Start with Planning Reality Check','Ask Recommendation Studio','constraint-aware wedding planner brain']) {
+const productCatalog = fs.readFileSync('data/products/product_catalog.json','utf8');
+for (const term of ['Build my wedding free','Shop all wedding tools']) {
   if (!homepage.includes(term)) { console.error('Missing homepage term:', term); process.exit(1); }
+}
+for (const term of ['Wedding Seating Chart Maker','Wedding Budget Spreadsheet','Wedding Timeline Template','Wedding Checklist PDF']) {
+  if (!productCatalog.includes(term)) { console.error('Missing hero product:', term); process.exit(1); }
 }
 
 const trends = fs.readFileSync('data/trends.ts','utf8');

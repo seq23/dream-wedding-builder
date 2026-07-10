@@ -1,0 +1,131 @@
+{
+  "version": "2.0.0",
+  "generated_at": "2026-07-10T21:50:51.773153+00:00",
+  "products": [
+    {
+      "product_id": "seating-chart-maker",
+      "sku": "DWB-SEATING-001",
+      "version": "2.0.0",
+      "files": [
+        {
+          "path": "DWB-SEATING-001_v2.0.0.pdf",
+          "sha256": "1be76ae610552367fc51b9c7a30dcb7d10607de5bb8966e46ec3ec0ed7af6de5",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-SEATING-001_starter_v2.0.0.csv",
+          "sha256": "7c2ab30070e46027e24715c2a49bcdbe9a10970d271fd99c9d94c3f01a8b134c",
+          "content_type": "text/csv",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-SEATING-001_v2.0.0.xlsx",
+          "sha256": "f604f8da71359bad8de13588c88ff34251d63b305104313676eb91100d1bf311",
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "delivery": "private-r2-required"
+        }
+      ]
+    },
+    {
+      "product_id": "budget-spreadsheet",
+      "sku": "DWB-BUDGET-001",
+      "version": "2.0.0",
+      "files": [
+        {
+          "path": "DWB-BUDGET-001_v2.0.0.pdf",
+          "sha256": "73a119146d73d21e9ace705a4ab75d59f3d8e403d3ffb44eab17dde0d61390db",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-BUDGET-001_starter_v2.0.0.csv",
+          "sha256": "67de9d268374ed3109d73fb7832c83207655f7536058fa54f4279548b9410308",
+          "content_type": "text/csv",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-BUDGET-001_v2.0.0.xlsx",
+          "sha256": "3ed621c4466ca3c8f9667a6fb4a794d9cd4c5c9db327ae222b406728b892d501",
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "delivery": "private-r2-required"
+        }
+      ]
+    },
+    {
+      "product_id": "timeline-template",
+      "sku": "DWB-TIMELINE-001",
+      "version": "2.0.0",
+      "files": [
+        {
+          "path": "DWB-TIMELINE-001_v2.0.0.pdf",
+          "sha256": "f61e20a4d41c0496e6e836c13ac9b19d97cb7d0f14648f96c86cdb242f5c8231",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-TIMELINE-001_starter_v2.0.0.csv",
+          "sha256": "5b602dc76861e02fcc991a4f34c00469864dd20c2136793118a875db0e21a9d7",
+          "content_type": "text/csv",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-TIMELINE-001_v2.0.0.xlsx",
+          "sha256": "ef65447d6f01973d2ff4073423fc6ea31966708599e4ef11311fa839faa16d6e",
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "delivery": "private-r2-required"
+        }
+      ]
+    },
+    {
+      "product_id": "checklist-pdf",
+      "sku": "DWB-CHECKLIST-001",
+      "version": "2.0.0",
+      "files": [
+        {
+          "path": "DWB-CHECKLIST-001_v2.0.0.pdf",
+          "sha256": "a4df683b3d815b6b7b41e40f4500e7107601823e145944cd1d653cccbcbfb30d",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-CHECKLIST-001_starter_v2.0.0.csv",
+          "sha256": "489f517ab123b30fb93fa2073265beb1cb0a30a7a07cbf2ba2ac36b15ca6beb3",
+          "content_type": "text/csv",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-CHECKLIST-001_v2.0.0.xlsx",
+          "sha256": "308ea8fa8797b815babf014768da71ff8389af21f9dc117452ef877e573f913a",
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "delivery": "private-r2-required"
+        }
+      ]
+    },
+    {
+      "product_id": "operations-suite",
+      "sku": "DWB-SUITE-001",
+      "version": "2.0.0",
+      "files": [
+        {
+          "path": "DWB-SUITE-001_v2.0.0.pdf",
+          "sha256": "2014a3f1c85933b85d9e66cbaf9deb238d5b874bb3444ab1e2225b49ca4a63f4",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-SUITE-001_starter_v2.0.0.csv",
+          "sha256": "b9946f190db31ed26f4954300822fedd5d12f13ee99c90a670fb14ef27ca1b11",
+          "content_type": "text/csv",
+          "delivery": "private-r2-required"
+        },
+        {
+          "path": "DWB-SUITE-001_complete_v2.0.0.zip",
+          "sha256": "49a1c6c82949bc482b4b232b9c9d3a89afbc80d7a129e297cd3b1288b4f6c3ef",
+          "content_type": "application/zip",
+          "delivery": "private-r2-required"
+        }
+      ]
+    }
+  ]
+}

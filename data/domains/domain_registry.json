@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "parent": {
+    "name": "Dream Wedding Builder",
+    "domain": "weddingchecklistpdf.com",
+    "canonical_route": "/",
+    "hosting_model": "OPTION_B_CHECKLIST_PARENT_HOST"
+  },
+  "support_email": "info@weddingchecklistpdf.com",
+  "domains": [
+    {
+      "domain": "weddingseatingchartmaker.com",
+      "product_id": "seating-chart-maker",
+      "canonical_route": "/products/seating-chart-maker",
+      "parent_brand": "Dream Wedding Builder",
+      "sitemap": "https://weddingseatingchartmaker.com/sitemap.xml",
+      "llms": "https://weddingseatingchartmaker.com/llms.txt"
+    },
+    {
+      "domain": "weddingbudgetspreadsheet.com",
+      "product_id": "budget-spreadsheet",
+      "canonical_route": "/products/budget-spreadsheet",
+      "parent_brand": "Dream Wedding Builder",
+      "sitemap": "https://weddingbudgetspreadsheet.com/sitemap.xml",
+      "llms": "https://weddingbudgetspreadsheet.com/llms.txt"
+    },
+    {
+      "domain": "weddingtimelinetemplate.com",
+      "product_id": "timeline-template",
+      "canonical_route": "/products/timeline-template",
+      "parent_brand": "Dream Wedding Builder",
+      "sitemap": "https://weddingtimelinetemplate.com/sitemap.xml",
+      "llms": "https://weddingtimelinetemplate.com/llms.txt"
+    },
+    {
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "canonical_route": "/products/checklist-pdf",
+      "parent_brand": "Dream Wedding Builder",
+      "sitemap": "https://weddingchecklistpdf.com/sitemap.xml",
+      "llms": "https://weddingchecklistpdf.com/llms.txt",
+      "parent_host": true,
+      "relationship": "parent host plus paid checklist authority destination"
+    }
+  ]
+}

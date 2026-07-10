@@ -11,3 +11,12 @@ test-results
 *.log
 
 *.tsbuildinfo
+
+# Local secret material
+.env
+.env.*
+!.env.example
+.dev.vars
+.ops/vault.enc
+.ops/*.tmp
+.ops/*.decrypted

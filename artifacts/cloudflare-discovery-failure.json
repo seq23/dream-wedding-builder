@@ -1,0 +1,8 @@
+{
+  "at": "2026-07-10T22:50:00Z",
+  "status": "BLOCKED",
+  "operation": "read-only Cloudflare resource discovery",
+  "reason": "Execution environment could not resolve api.cloudflare.com (EAI_AGAIN)",
+  "credential_values_recorded": false,
+  "next_execution_boundary": "Run npm run cloudflare:discover in the authenticated local shell"
+}

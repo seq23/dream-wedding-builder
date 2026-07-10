@@ -1,55 +1,21 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { Card, Badge } from '@/components/Card';
-import { intelligenceModules, planningBuckets } from '@/data/planning';
+import { ProductCard } from '@/components/ProductCard';
+import { CheckoutButton } from '@/components/CheckoutButton';
+import { products, suite, supportEmail } from '@/lib/products';
 
-const trustMarkers = [
-  'Seeded examples only',
-  'No live availability claimed',
-  'Verify before booking',
-  'Assumptions carried into packet'
+const trust = [
+  ['Instant protected delivery','Verified purchases receive access on the success page and by email.'],
+  ['Real working files','Every product includes editable, printable, vendor-ready files—not a decorative one-page PDF.'],
+  ['One-time purchase','Pay once. Keep the current release for personal use. No subscription.'],
+  ['Human support',`Order and access help goes to ${supportEmail}.`]
 ];
 
-const workflow = [
-  ['Step 0', 'Reality Check', 'Capture the constraints that make the wedding real: location, guest count, lodging, catering freedom, budget comfort, and priorities.'],
-  ['Step 1', 'Planner Brain', 'Ask the recommendation studio for grounded directions when the planning question is messy or still incomplete.'],
-  ['Step 2+', 'Strategy to Packet', 'Carry the decisions through venue, budget, design, vendors, ideas, and a planner-ready working brief.']
-];
-
-export default function HomePage() {
-  return <div className="space-y-14">
-    <section className="relative overflow-hidden rounded-[2rem] border border-charcoal/10 bg-linen p-6 shadow-soft md:p-10">
-      <div className="absolute inset-y-0 right-0 hidden w-1/3 bg-gradient-to-l from-champagne/30 to-transparent lg:block" aria-hidden />
-      <div className="relative grid gap-10 lg:grid-cols-[1fr_420px]">
-        <div>
-          <Badge>Dream Wedding Builder</Badge>
-          <p className="mt-6 max-w-xl font-serif text-2xl italic leading-9 text-charcoal/70">Dear bride, this is how you stop planning from fantasy and start planning from reality.</p>
-          <h1 className="mt-5 max-w-4xl font-serif text-6xl leading-tight md:text-7xl">A constraint-aware wedding planner brain for the wedding you actually have to execute.</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-charcoal/70">Start with what you know: Italy, full buyout, sleeps 70–80, outside catering; or nothing at all. The app captures constraints, protects priorities, runs the Planner Brain, then carries decisions into venues, budget, design, vendors, risks, and the planner packet.</p>
-          <div className="mt-7 flex flex-wrap gap-3"><Link className="rounded-full bg-charcoal px-6 py-4 font-bold text-linen" href="/build#step-0">Start with Planning Reality Check</Link><Link data-testid="home-recommendation-studio-cta" className="rounded-full border border-charcoal/20 bg-white px-6 py-4 font-bold" href="/build#step-1">Ask Recommendation Studio</Link></div>
-          <div className="mt-7 flex flex-wrap gap-2" aria-label="Trust markers">{trustMarkers.map(marker => <span key={marker} className="rounded-full border border-charcoal/10 bg-ivory px-3 py-2 text-xs font-bold text-charcoal/65">{marker}</span>)}</div>
-        </div>
-        <Card className="relative bg-ivory/80 shadow-none">
-          <p className="text-xs uppercase tracking-[0.35em] text-charcoal/50">Planner table preview</p>
-          <h2 className="mt-4 font-serif text-4xl">What you leave with</h2>
-          <div className="mt-6 space-y-3 text-sm">
-            <p className="rounded-2xl bg-white p-4"><strong>Constraint profile:</strong> the real rules, unknowns, and non-negotiables.</p>
-            <p className="rounded-2xl bg-white p-4"><strong>Venue strategy:</strong> match logic, lodging assumptions, catering freedom, and verification notes.</p>
-            <p className="rounded-2xl bg-white p-4"><strong>Planner packet:</strong> budget range, design language, vendor questions, risks, and next decisions.</p>
-          </div>
-          <Link className="mt-6 inline-flex rounded-full border border-charcoal/20 bg-white px-5 py-3 font-bold" href="/photos">Open Photos Lab</Link>
-        </Card>
-      </div>
-    </section>
-
-    <section className="grid gap-4 md:grid-cols-3">
-      {workflow.map(([step, title, copy]) => <article key={title} className="border-t border-charcoal/20 pt-5"><Badge>{step}</Badge><h2 className="mt-3 font-serif text-3xl">{title}</h2><p className="mt-2 text-sm leading-6 text-charcoal/70">{copy}</p></article>)}
-    </section>
-
-    <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-      <div><Badge>Planner-grade buckets</Badge><h2 className="mt-4 font-serif text-5xl leading-tight">The planning surface area has to match the stakes.</h2><p className="mt-4 leading-7 text-charcoal/70">A mood board can inspire. A planner packet has to make decisions safer. This system keeps budget, lodging, vendors, photos, flowers, guest comfort, and verification caveats in the same working plan.</p></div>
-      <div className="grid gap-3 md:grid-cols-2">{planningBuckets.map(bucket => <Card key={bucket} className="bg-white/80 shadow-none"><p className="font-bold">{bucket}</p></Card>)}</div>
-    </section>
-
-    <section className="rounded-[2rem] bg-charcoal p-6 text-linen md:p-8"><Badge>Useful modules</Badge><div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">{intelligenceModules.map(module => <p key={module} className="rounded-2xl border border-linen/15 bg-linen/10 p-4 text-sm font-bold">{module}</p>)}</div></section>
-  </div>;
-}
+export default function HomePage(){return <div className="space-y-20">
+<section className="overflow-hidden rounded-[2.25rem] border border-charcoal/10 bg-linen shadow-soft"><div className="grid gap-8 p-6 md:p-10 lg:grid-cols-[.9fr_1.1fr] lg:p-12"><div className="self-center"><p className="text-xs font-bold uppercase tracking-[.28em] text-charcoal/50">Four paid tools. One free planning foundation.</p><h1 className="mt-4 font-serif text-6xl leading-[.96] md:text-7xl">Plan every detail. Stay on budget. Enjoy the day.</h1><p className="mt-5 max-w-xl text-lg leading-8 text-charcoal/70">Use Dream Wedding Builder free. Then buy the exact execution tool you need for seating, budget, timeline, or your planning checklist.</p><div className="mt-7 flex flex-wrap gap-3"><Link className="rounded-full bg-charcoal px-6 py-4 font-bold text-linen" href="/build">Build my wedding free</Link><Link className="rounded-full border border-charcoal/20 bg-white px-6 py-4 font-bold" href="/shop">Shop all wedding tools — save with the suite</Link></div><div className="mt-6 grid grid-cols-2 gap-3 text-sm text-charcoal/65"><span>✓ One-time payment</span><span>✓ Editable files</span><span>✓ Instant protected access</span><span>✓ Use forever</span></div></div><div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] bg-white"><Image src="/product-images/operations-suite.webp" alt="Dream Wedding Operations Suite preview showing all four wedding planning products" fill priority sizes="(max-width:1024px) 100vw, 50vw" className="object-cover"/></div></div></section>
+<section><div className="max-w-3xl"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Choose the tool you need most</p><h2 className="mt-3 font-serif text-5xl md:text-6xl">Four high-stress wedding jobs. Four finished solutions.</h2><p className="mt-4 text-lg leading-8 text-charcoal/65">Every card shows the price before you click. Every product page shows the files, outcome, delivery process, and limitations before checkout.</p></div><div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{products.map(p=><ProductCard key={p.id} product={p}/>)}</div></section>
+<section className="overflow-hidden rounded-[2rem] bg-charcoal text-linen"><div className="grid lg:grid-cols-2"><div className="p-7 md:p-10"><p className="text-xs font-bold uppercase tracking-[.25em] text-linen/55">Best value</p><h2 className="mt-3 font-serif text-5xl">All four tools for ${suite.price}</h2><p className="mt-4 text-lg leading-8 text-linen/75">${suite.standalone_value} if purchased separately. Save ${suite.savings} and keep every file in one connected planning system.</p><ul className="mt-5 grid gap-2 sm:grid-cols-2">{suite.features.map(f=><li className="text-sm font-semibold" key={f}>✓ {f}</li>)}</ul><div className="mt-7"><CheckoutButton sku={suite.sku} price={suite.price} label={`Get the complete suite — $${suite.price}`}/></div></div><div className="relative min-h-[420px]"><Image src={suite.image} alt="Complete Dream Wedding Operations Suite product preview" fill sizes="(max-width:1024px) 100vw, 50vw" className="object-cover"/></div></div></section>
+<section><div className="max-w-3xl"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Why couples pay for these tools</p><h2 className="mt-3 font-serif text-5xl">Free inspiration is easy. Final-mile execution is not.</h2><p className="mt-4 text-lg leading-8 text-charcoal/65">These products are built around the handoffs and mistakes that create expensive wedding-week stress: unassigned guests, hidden balances, missing owners, impossible timing, and generic task lists.</p></div><div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{trust.map(([h,b])=><article className="rounded-[1.5rem] bg-linen p-6" key={h}><h3 className="font-serif text-3xl">{h}</h3><p className="mt-3 text-sm leading-6 text-charcoal/65">{b}</p></article>)}</div></section>
+<section className="grid gap-8 rounded-[2rem] border border-charcoal/10 bg-white p-7 md:p-10 lg:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">How it works</p><h2 className="mt-3 font-serif text-5xl">From purchase to usable handoff in four steps.</h2></div><ol className="space-y-4 text-charcoal/70"><li><strong>1. Choose your tool:</strong> Buy one product or the complete suite.</li><li><strong>2. Pay securely:</strong> Checkout is handled through Stripe.</li><li><strong>3. Receive access:</strong> Verified purchases unlock protected files on screen and by email.</li><li><strong>4. Customize and hand off:</strong> Use the editable files with your partner, venue, vendors, or coordinator.</li></ol></section>
+<section className="rounded-[2rem] bg-rose/20 p-7 text-center md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Not sure which tool to buy?</p><h2 className="mt-3 font-serif text-5xl md:text-6xl">Start with the free Builder. It will show you where the plan is weakest.</h2><div className="mt-7 flex flex-wrap justify-center gap-3"><Link href="/build" className="rounded-full bg-charcoal px-7 py-4 font-bold text-linen">Build my wedding free</Link><Link href="/shop" className="rounded-full border border-charcoal/20 bg-white px-7 py-4 font-bold">Compare paid tools and prices</Link></div></section>
+</div>}

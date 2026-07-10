@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0",
+  "rules": {
+    "distinct_answer_value_required": true,
+    "keyword_swap_pages_forbidden": true,
+    "minimum_quality_score": 9.0
+  },
+  "families": {
+    "seating": [
+      "guest-count",
+      "table-shape",
+      "family-dynamics",
+      "meal-accessibility",
+      "vendor-handoff"
+    ],
+    "budget": [
+      "budget-level",
+      "guest-count",
+      "hidden-costs",
+      "payment-schedule",
+      "venue-type"
+    ],
+    "timeline": [
+      "first-look",
+      "venue-count",
+      "ceremony-type",
+      "photography-hours",
+      "wedding-format"
+    ],
+    "checklist": [
+      "planning-window",
+      "destination",
+      "backyard",
+      "micro-wedding",
+      "wedding-week"
+    ]
+  }
+}

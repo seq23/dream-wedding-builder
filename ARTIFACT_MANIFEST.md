@@ -1,46 +1,18 @@
-# Artifact Manifest — Dream Wedding Builder
+# Artifact Manifest
 
-## Artifact
-- Repo: dream-wedding-builder
-- Package type: full baseline snapshot
-- Branch assumption: main
-- Date: 2026-05-29
-- Scope: Hallmark + Hostile UX redesign execution
+## Repo
+`dream-wedding-builder`
 
-## Changed Surfaces
-- `app/page.tsx`
-- `app/build/page.tsx`
-- `components/StickyTotal.tsx`
-- `DESIGN_SYSTEM.md`
-- `REPO_VISUAL_STYLE_GUIDE.md`
-- `UI_QUALITY_GATES.md`
-- `REPO_VALIDATION_MATRIX.md`
-- `ARTIFACT_MANIFEST.md`
+## Implemented scope
+- Preserved free Dream Wedding Builder journey.
+- Full conversion homepage with four paid hero products above the fold.
+- Four product-specific commercial pages and complete shop.
+- 64 full authority guide routes, 16 per paid product domain.
+- Executable Atlas, admission, internal-link, sitemap, and release-manifest generation.
+- Canonical PDF, XLSX, CSV, and suite ZIP product releases with checksums.
+- Catalog-driven Stripe bootstrap script and checkout/webhook boundaries.
+- Encrypted AES-256-GCM/scrypt local vault tooling.
+- Competitor, conversion, Day-0, legal, provider, and hostile-review documentation.
 
-## Design Changes
-- Reframed homepage toward luxury planner notebook + intelligent bridal concierge.
-- Added planner-packet preview and above-fold trust markers.
-- Reduced homepage CTA hierarchy to primary Planning Reality Check and secondary Recommendation Studio.
-- Preserved explicit Step 0 through Step 7 structure in build flow.
-- Reworked build flow language toward guided planner desk while retaining existing validation-required product terms.
-- Added visible trust markers: seeded examples only, no live availability claimed, verify before booking, confidence labels, packet records assumptions.
-- Changed mobile sticky estimate behavior: estimate widget is desktop-only so mobile has one bottom fixed system.
-
-## Validation Run
-- `npm ci`: passed.
-- `npm run typecheck`: passed as part of `npm run validate:all` before build phase.
-- `npm run test`: passed, 3 tests.
-- `npm run validate:content`: passed.
-- `npm run validate:env`: passed.
-- `npm run validate:disclaimers`: passed.
-- `npm run validate:no-theater`: passed.
-- `npm run build`: compiled successfully, generated static pages, then sandbox command timed out during final build trace collection. Local validation should rerun through updater.
-
-## Unproven Layers
-- Playwright E2E not run in this sandbox.
-- Deployed Cloudflare smoke not run.
-- Human visual review not proven.
-- GitHub Actions not checked.
-
-## Status
-STRUCTURALLY CHECKED — LOCAL VALIDATION REQUIRED
+## Proof boundary
+No live Stripe, Cloudflare D1/R2, Resend, DNS, GSC, IndexNow, ranking, or AI citation proof is claimed without bound environment values and deployed provider execution.
