@@ -20,3 +20,11 @@ test-results
 .ops/vault.enc
 .ops/*.tmp
 .ops/*.decrypted
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

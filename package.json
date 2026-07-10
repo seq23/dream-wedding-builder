@@ -4,8 +4,8 @@
   "private": true,
   "description": "No-auth wedding planning dashboard that turns a dream wedding into pricing, levers, trends, vendor options, and a printable Dream Wedding Starter Pack.",
   "scripts": {
-    "dev": "next dev",
     "build": "NODE_OPTIONS=--max-old-space-size=3072 next build --no-lint",
+    "dev": "next dev",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "next lint || echo 'next lint unavailable in this Next version; validators still run'",
@@ -38,7 +38,11 @@
     "validate:conversion-admin": "node scripts/validate-conversion-admin.mjs",
     "cloudflare:discover": "node scripts/providers/cloudflare-discover.mjs",
     "secrets:generate": "node scripts/providers/generate-runtime-secrets.mjs",
-    "vault:exec": "node scripts/vault/vault.mjs exec"
+    "vault:exec": "node scripts/vault/vault.mjs exec",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "next": "15.5.18",
@@ -46,6 +50,7 @@
     "react-dom": "^19.2.1"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.1",
     "@playwright/test": "^1.56.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
@@ -54,6 +59,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
-    "vitest": "^4.0.14"
+    "vitest": "^4.0.14",
+    "wrangler": "^4.110.0"
   }
 }
