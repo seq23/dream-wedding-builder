@@ -37,7 +37,8 @@
     "admin:hash-password": "node scripts/admin/hash-password.mjs",
     "validate:conversion-admin": "node scripts/validate-conversion-admin.mjs",
     "cloudflare:discover": "node scripts/providers/cloudflare-discover.mjs",
-    "secrets:generate": "node scripts/providers/generate-runtime-secrets.mjs"
+    "secrets:generate": "node scripts/providers/generate-runtime-secrets.mjs",
+    "vault:exec": "node scripts/vault/vault.mjs exec"
   },
   "dependencies": {
     "next": "15.5.18",
