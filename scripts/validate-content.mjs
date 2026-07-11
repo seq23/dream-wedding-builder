@@ -2,8 +2,24 @@ import fs from 'node:fs';
 
 const homepage = fs.readFileSync('app/page.tsx','utf8');
 const productCatalog = fs.readFileSync('data/products/product_catalog.json','utf8');
-for (const term of ['Build my wedding free','Shop all wedding tools']) {
-  if (!homepage.includes(term)) { console.error('Missing homepage term:', term); process.exit(1); }
+const homepageRequirements = [
+  ['free wedding builder CTA', /Build my wedding free/i],
+  ['Wedding Seating Chart Maker', /Wedding Seating Chart Maker/],
+  ['Wedding Budget Spreadsheet', /Wedding Budget Spreadsheet/],
+  ['Wedding Timeline Template', /Wedding Timeline Template/],
+  ['Wedding Checklist PDF', /Wedding Checklist PDF/],
+  ['Seating Chart Maker price', /\$19/],
+  ['Budget Spreadsheet price', /\$12/],
+  ['Timeline Template price', /\$12/],
+  ['Checklist PDF price', /\$9/],
+  ['complete suite price', /\$39/],
+];
+
+for (const [label, pattern] of homepageRequirements) {
+  if (!pattern.test(homepage)) {
+    console.error('Missing homepage requirement:', label);
+    process.exit(1);
+  }
 }
 for (const term of ['Wedding Seating Chart Maker','Wedding Budget Spreadsheet','Wedding Timeline Template','Wedding Checklist PDF']) {
   if (!productCatalog.includes(term)) { console.error('Missing hero product:', term); process.exit(1); }
