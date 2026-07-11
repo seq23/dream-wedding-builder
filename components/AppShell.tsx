@@ -1,3 +1,28 @@
-import Link from 'next/link'; import type { ReactNode } from 'react';
-const nav=[['Build Free','/build'],['Seating — $19','/products/seating-chart-maker'],['Budget — $12','/products/budget-spreadsheet'],['Timeline — $12','/products/timeline-template'],['Checklist — $9','/products/checklist-pdf'],['Suite — $39','/shop']];
-export function AppShell({children}:{children:ReactNode}){return <div className="min-h-screen pb-36 md:pb-20"><div className="no-print bg-charcoal px-4 py-2 text-center text-xs font-bold uppercase tracking-[.14em] text-linen">Instant downloads • One-time payment • Personal use forever</div><header className="no-print sticky top-0 z-40 border-b border-charcoal/10 bg-ivory/95 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4"><Link href="/" className="font-serif text-2xl tracking-tight">Dream Wedding Builder</Link><nav className="hidden gap-1 lg:flex">{nav.map(([label,href])=><Link key={href} className="rounded-full px-3 py-2 text-sm hover:bg-white" href={href}>{label}</Link>)}</nav><Link href="/shop" className="rounded-full bg-charcoal px-4 py-2 text-sm font-bold text-linen">Shop all tools</Link></div></header><main className="mx-auto max-w-7xl px-4 py-8">{children}</main><footer className="mt-16 border-t border-charcoal/10 bg-linen"><div className="mx-auto grid max-w-7xl gap-7 px-4 py-10 md:grid-cols-4"><div><p className="font-serif text-2xl">Dream Wedding Builder</p><p className="mt-2 text-sm text-charcoal/65">Four paid execution tools. One free planning foundation.</p></div><div><p className="font-bold">Products</p><div className="mt-2 grid gap-2 text-sm">{nav.slice(1).map(([label,href])=><Link key={href} href={href}>{label}</Link>)}</div></div><div><p className="font-bold">Customer support</p><a className="mt-2 block underline" href="mailto:info@weddingchecklistpdf.com">info@weddingchecklistpdf.com</a><p className="mt-2 text-xs text-charcoal/55">All four domains use one support desk.</p></div><div className="grid content-start gap-2 text-sm"><Link href="/privacy">Privacy</Link><Link href="/disclaimer">Disclaimer</Link><Link href="/terms">Terms</Link><Link href="/refund-policy">Refunds</Link></div></div></footer><nav className="no-print fixed bottom-0 left-0 right-0 z-40 grid grid-cols-6 border-t border-charcoal/10 bg-linen lg:hidden">{nav.map(([label,href])=><Link key={href} href={href} className="truncate px-1 py-3 text-center text-[9px] font-semibold">{label}</Link>)}</nav></div>}
+'use client';
+import Link from 'next/link';
+import { useState, type ReactNode } from 'react';
+
+const productNav = [
+  ['Wedding Seating Chart Maker — $19','/products/seating-chart-maker'],
+  ['Wedding Budget Spreadsheet — $12','/products/budget-spreadsheet'],
+  ['Wedding Timeline Template — $12','/products/timeline-template'],
+  ['Wedding Checklist PDF — $9','/products/checklist-pdf'],
+  ['All Four Wedding Tools — $39','/shop']
+];
+
+export function AppShell({children}:{children:ReactNode}){
+  const [open,setOpen]=useState(false);
+  return <div className="min-h-screen">
+    <div className="no-print bg-rose/20 px-4 py-2.5 text-center text-xs font-semibold text-charcoal">Four paid wedding tools. One free planning foundation. <Link href="/build" className="ml-1 font-bold underline underline-offset-4">Build your wedding plan free →</Link></div>
+    <header className="no-print sticky top-0 z-50 border-b border-charcoal/10 bg-ivory/95 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-4 md:px-6">
+        <Link href="/" className="shrink-0 font-serif text-xl leading-none tracking-[.08em] md:text-2xl"><span className="block">DREAM WEDDING</span><span className="mt-1 block text-sm tracking-[.24em]">BUILDER</span></Link>
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary navigation">{productNav.map(([label,href])=><Link key={href} className="rounded-xl px-3 py-2 text-[13px] font-semibold transition hover:bg-white" href={href}>{label}</Link>)}<Link className="rounded-xl px-3 py-2 text-[13px] font-semibold transition hover:bg-white" href="/build">Free Wedding Planning Builder</Link></nav>
+        <div className="flex items-center gap-2"><Link href="/shop" className="hidden rounded-2xl bg-charcoal px-4 py-3 text-sm font-bold text-linen shadow-sm md:inline-flex">Compare tools & prices</Link><button onClick={()=>setOpen(v=>!v)} aria-expanded={open} aria-label="Toggle navigation" className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-charcoal/15 bg-white text-xl xl:hidden">{open?'×':'☰'}</button></div>
+      </div>
+      {open&&<nav className="border-t border-charcoal/10 bg-white px-4 py-4 xl:hidden" aria-label="Mobile navigation"><div className="mx-auto grid max-w-3xl gap-2">{productNav.map(([label,href])=><Link onClick={()=>setOpen(false)} key={href} className="rounded-xl bg-linen px-4 py-3 text-sm font-bold" href={href}>{label}</Link>)}<Link onClick={()=>setOpen(false)} className="rounded-xl bg-charcoal px-4 py-3 text-sm font-bold text-linen" href="/build">Free Wedding Planning Builder →</Link></div></nav>}
+    </header>
+    <main className="mx-auto max-w-[1440px] px-4 py-6 md:px-6 md:py-10">{children}</main>
+    <footer className="mt-20 bg-charcoal text-linen"><div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-12 md:grid-cols-4 md:px-8"><div><p className="font-serif text-2xl tracking-wide">Dream Wedding Builder</p><p className="mt-3 text-sm leading-6 text-linen/65">Four paid execution tools. One free planning foundation.</p></div><div><p className="font-bold">Wedding planning tools</p><div className="mt-3 grid gap-2 text-sm text-linen/75">{productNav.map(([label,href])=><Link key={href} href={href}>{label}</Link>)}</div></div><div><p className="font-bold">Customer support</p><a className="mt-3 block underline" href="mailto:info@weddingchecklistpdf.com">info@weddingchecklistpdf.com</a><p className="mt-3 text-xs leading-5 text-linen/55">All four product domains use one support desk.</p></div><div className="grid content-start gap-2 text-sm text-linen/75"><Link href="/privacy">Privacy Policy</Link><Link href="/disclaimer">Disclaimer</Link><Link href="/terms">Terms of Use</Link><Link href="/refund-policy">Digital Product Refund Policy</Link></div></div></footer>
+  </div>;
+}

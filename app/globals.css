@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 :root { color-scheme: light; }
+html { scroll-behavior: smooth; }
 body { @apply bg-ivory text-charcoal antialiased; }
+button, a { -webkit-tap-highlight-color: transparent; }
 ::selection { @apply bg-champagne/40; }
+@media (max-width: 640px) {
+  body { overflow-x: hidden; }
+  h1, h2, h3 { text-wrap: balance; }
+}
 @media print {
   .no-print { display: none !important; }
   body { background: white !important; }
