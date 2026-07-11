@@ -4,10 +4,10 @@ import type { Product } from '@/lib/products';
 import { CheckoutButton } from './CheckoutButton';
 
 const cardImages: Record<string,string> = {
-  'seating-chart-maker':'/product-images/merch/seating-chart-maker-card.webp',
-  'budget-spreadsheet':'/product-images/merch/budget-spreadsheet-card.webp',
-  'timeline-template':'/product-images/merch/timeline-template-card.webp',
-  'checklist-pdf':'/product-images/merch/checklist-pdf-card.webp'
+  'seating-chart-maker':'/product-images/merch/seating-chart-maker-card.png',
+  'budget-spreadsheet':'/product-images/merch/budget-spreadsheet-card.png',
+  'timeline-template':'/product-images/merch/timeline-template-card.png',
+  'checklist-pdf':'/product-images/merch/checklist-pdf-card.png'
 };
 
 export function ProductCard({ product, compact=false }: { product: Product; compact?: boolean }) {
