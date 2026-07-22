@@ -1,5 +1,7 @@
 node_modules
+node_modules/
 .next
+.next/
 out
 dist
 coverage
@@ -11,6 +13,7 @@ test-results
 *.log
 
 *.tsbuildinfo
+tsconfig.tsbuildinfo
 
 # Local secret material
 .env
@@ -23,18 +26,10 @@ test-results
 
 # OpenNext
 .open-next
+.open-next/
 
 # wrangler files
 .wrangler
+.wrangler/
 .dev.vars*
 !.dev.vars.example
-
-.next/
-
-.open-next/
-
-.wrangler/
-
-node_modules/
-
-tsconfig.tsbuildinfo
