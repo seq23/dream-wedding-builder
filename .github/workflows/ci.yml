@@ -8,10 +8,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: '20', cache: npm }
-      - uses: actions/setup-python@v5
-        with: { python-version: '3.11' }
       - run: npm ci
-      - run: pip install reportlab
-      - run: python scripts/generate_product_downloads.py
       - run: npm run validate:all
       - run: npm run build
