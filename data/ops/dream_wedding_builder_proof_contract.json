@@ -1,0 +1,84 @@
+{
+  "contract": "DREAM_WEDDING_BUILDER_PROOF_CONTRACT",
+  "version": "2026-07-22",
+  "repo": "dream-wedding-builder",
+  "primary_domain": "weddingchecklistpdf.com",
+  "support_email": "info@weddingchecklistpdf.com",
+  "app_type": "next_cloudflare_commerce_authority_app",
+  "validation_may_mutate_files": false,
+  "provider_proof_status": "provider_unproven",
+  "truth_boundary": {
+    "claimed_in_repo": [
+      "static product catalog",
+      "free builder journey",
+      "commerce code contracts",
+      "authority data contracts",
+      "canonical product release files",
+      "provider runbooks",
+      "admin command center code path"
+    ],
+    "requires_live_provider_execution": [
+      "Stripe live checkout proof",
+      "Stripe webhook delivery proof",
+      "Cloudflare D1 row proof",
+      "Cloudflare R2 private object proof",
+      "Resend delivery proof",
+      "customer download completion proof",
+      "GSC or IndexNow submission proof",
+      "ranking, indexing, AI mention, or AI citation proof"
+    ]
+  },
+  "execution_commands": {
+    "authority_generation": [
+      "npm run authority:atlas",
+      "npm run authority:flow",
+      "npm run authority:sitemaps"
+    ],
+    "product_generation": [
+      "python scripts/generate_product_downloads.py"
+    ],
+    "build": [
+      "npm run build"
+    ],
+    "provider_population": [
+      "npm run stripe:bootstrap:test",
+      "npm run stripe:bootstrap:live",
+      "npm run cloudflare:discover",
+      "npm run d1:migrate:remote",
+      "npm run deploy"
+    ]
+  },
+  "validation_profiles": {
+    "structural": "npm run validate:structural",
+    "local_all": "npm run validate:all",
+    "local_full_proof": "npm run proof:local-full"
+  },
+  "required_receipts": {
+    "authority_admission_report": "artifacts/authority/admission-report.json",
+    "authority_release_manifest": "artifacts/authority/release-manifest.json",
+    "growth_health": "data/admin/growth_health.json",
+    "download_manifest": "product-builds/manifests/download_manifest.json",
+    "fulfillment_migration": "migrations/0001_fulfillment.sql"
+  },
+  "hard_fail_only": [
+    "validation_profile_contains_mutating_execution_command",
+    "missing_required_product_release",
+    "checksum_mismatch_for_canonical_download",
+    "provider_unproven_metrics_claim_live_proof",
+    "missing_required_provider_boundary_doc_or_migration",
+    "missing_admin_protected_action_approval",
+    "missing_authority_receipt_or_domain_sitemap",
+    "dependency_runtime_or_build_artifact_pollution_in_zip"
+  ],
+  "warning_or_manual_only": [
+    "visual_quality",
+    "provider_credentials_absent",
+    "live_purchase_pending",
+    "ranking_or_indexing_pending",
+    "manual screenshot_review"
+  ],
+  "external_agent_lane": {
+    "enabled": false,
+    "reason": "This Dream Wedding Builder ZIP contains authority-generation scripts and provider workflows, but no external AI agent artifact drop lane."
+  }
+}

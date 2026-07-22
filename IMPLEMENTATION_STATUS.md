@@ -4,6 +4,7 @@
 
 - Phase 1 paid-order fulfillment foundation: Stripe webhook verification, replay protection, D1 order/entitlement persistence, signed downloads, private R2 retrieval, Resend delivery, session-aware success page, failure ledger, tests, migration, and runbook.
 - Phase 2 commercial UX overhaul: rebuilt homepage, full descriptive navigation labels, explicit pricing in purchase CTAs, new titled product merchandising assets, stronger suite positioning, polished buttons, and responsive mobile navigation/layout behavior.
+- Phase 3 proof-readiness control split: non-mutating validation profiles, explicit full-proof command, proof boundary contract, Day-0 link repair, and tree/profile/proof validators.
 
 ## Provider-gated remaining work
 
@@ -17,4 +18,4 @@
 
 `STRUCTURALLY CHECKED — LOCAL VALIDATION REQUIRED`
 
-Local artifact validation passed typecheck, six unit tests, authority generation, content/env/disclaimer/anti-theater/no-stub/commerce/authority/download/secrets/conversion validators, and the Next.js production build. Provider-side fulfillment remains unproven until the remaining provider steps are completed.
+Local artifact validation should use `npm run validate:all` for non-mutating structural checks and `npm run proof:local-full` for explicit authority regeneration plus production build proof. Provider-side fulfillment remains unproven until the remaining provider steps are completed.

@@ -14,3 +14,4 @@ jobs:
       - run: pip install reportlab
       - run: python scripts/generate_product_downloads.py
       - run: npm run validate:all
+      - run: npm run build

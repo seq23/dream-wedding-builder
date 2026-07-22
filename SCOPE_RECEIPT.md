@@ -10,7 +10,7 @@ Uploaded full baseline snapshot: `dream-wedding-builder-main (1)(3).zip`
 
 ## Current Artifact Scope
 
-Phase 1 paid-order fulfillment foundation and Phase 2 homepage/visual/mobile overhaul.
+Phase 1 paid-order fulfillment foundation, Phase 2 homepage/visual/mobile overhaul, and Phase 3 proof-readiness validation split.
 
 ## Implemented
 
@@ -22,6 +22,10 @@ Phase 1 paid-order fulfillment foundation and Phase 2 homepage/visual/mobile ove
 - Rebuilt homepage hierarchy, navigation, product cards, pricing CTAs, suite merchandising, and mobile menu.
 - New product-specific titled merchandising images and suite hero artwork.
 - Fulfillment security unit tests and provider runbook.
+- Non-mutating validation profile split.
+- Proof-readiness contract and validators.
+- Explicit `proof:local-full` command for authority regeneration plus production build proof.
+- Day-0 runbook reference repair.
 
 ## Not Implemented in This ZIP
 
@@ -32,6 +36,7 @@ Phase 1 paid-order fulfillment foundation and Phase 2 homepage/visual/mobile ove
 - Apps Script trend integration changes.
 - Search Console automation.
 - Controlled real-money purchase and final provider-side proof.
+- Cross-repo proof dashboard.
 
 ## Validation Run
 
@@ -47,8 +52,9 @@ The checkout provider is already live. The new fulfillment lifecycle remains int
 
 ## Remaining Work
 
-- Phase 3 provider population.
-- Phase 4 controlled live proof.
+- Phase 4 provider population.
+- Phase 5 controlled live proof.
+- Cross-repo proof dashboard.
 
 ## Rollback Path
 
