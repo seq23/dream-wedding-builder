@@ -28,3 +28,13 @@ test-results
 .wrangler
 .dev.vars*
 !.dev.vars.example
+
+.next/
+
+.open-next/
+
+.wrangler/
+
+node_modules/
+
+tsconfig.tsbuildinfo

@@ -1,4 +1,7 @@
 import fs from 'node:fs';
+import { execFileSync } from 'node:child_process';
+
+const repoRoot = process.cwd();
 
 const allowedRootFiles = new Set([
   '.dev.vars.example',
@@ -59,15 +62,64 @@ const forbiddenNames = new Set([
   'playwright-report'
 ]);
 
+function getRootItems() {
+  if (process.env.CI !== 'true') {
+    return fs.readdirSync(repoRoot, { withFileTypes: true }).map((item) => ({
+      name: item.name,
+      isDirectory: item.isDirectory(),
+      isFile: item.isFile()
+    }));
+  }
+
+  const trackedFiles = execFileSync('git', ['-C', repoRoot, 'ls-files'], {
+    encoding: 'utf8'
+  });
+
+  const rootNames = Array.from(
+    new Set(
+      trackedFiles
+        .split(/\r?\n/)
+        .filter(Boolean)
+        .map((filePath) => filePath.split('/')[0])
+    )
+  );
+
+  return rootNames.map((name) => {
+    const statPath = `${repoRoot}/${name}`;
+    if (fs.existsSync(statPath)) {
+      const stat = fs.statSync(statPath);
+      return {
+        name,
+        isDirectory: stat.isDirectory(),
+        isFile: stat.isFile()
+      };
+    }
+
+    return {
+      name,
+      isDirectory: trackedFiles.split(/\r?\n/).some((filePath) => filePath.startsWith(`${name}/`)),
+      isFile: !trackedFiles.split(/\r?\n/).some((filePath) => filePath.startsWith(`${name}/`))
+    };
+  });
+}
+
 const errors = [];
-for (const item of fs.readdirSync('.', { withFileTypes: true })) {
+
+for (const item of getRootItems()) {
   if (item.name === '.git') continue;
+
   if (forbiddenNames.has(item.name)) {
     errors.push(`forbidden generated/dependency artifact at root: ${item.name}`);
     continue;
   }
-  if (item.isDirectory() && !allowedRootDirs.has(item.name)) errors.push(`unexpected root directory: ${item.name}`);
-  if (item.isFile() && !allowedRootFiles.has(item.name)) errors.push(`unexpected root file: ${item.name}`);
+
+  if (item.isDirectory && !allowedRootDirs.has(item.name)) {
+    errors.push(`unexpected root directory: ${item.name}`);
+  }
+
+  if (item.isFile && !allowedRootFiles.has(item.name)) {
+    errors.push(`unexpected root file: ${item.name}`);
+  }
 }
 
 if (errors.length) {
