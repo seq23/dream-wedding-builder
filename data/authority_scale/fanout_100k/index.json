@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.1",
+  "repo": "dream-wedding-builder",
+  "standard": "MAXIMUM_FANOUT_PLUS_100K_SURFACING_ACCELERATION",
+  "generated_at": "2026-07-24T00:00:00.000Z",
+  "capacity_policy": "NO_ARBITRARY_UPPER_CEILING_ON_LEGITIMATE_OPPORTUNITY_DISCOVERY",
+  "theoretical_combinations": "67500000",
+  "theoretical_combination_capacity": "67500000",
+  "record_count": 100000,
+  "materialized_reference_runway": 100000,
+  "unique_exact_queries": 100000,
+  "page_quota": false,
+  "compression": "gzip_jsonl",
+  "shard_count": 10,
+  "aggregate_sha256": "0fffa1da404cd4e9ffc4199402892a12e6c52ea3ae8e3336eb9b29a5f15b7cef",
+  "shards": [
+    {
+      "part": 0,
+      "path": "part-00000.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 192197,
+      "uncompressed_bytes": 4601095,
+      "sha256": "80acb9d1fc582fd2205ef654d081cd55f6f174a599e3d1dfa8c7b3ac9559657b",
+      "first_id": "maxfanout_000001_29d927cd42",
+      "last_id": "maxfanout_010000_2879d842ef"
+    },
+    {
+      "part": 1,
+      "path": "part-00001.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 193672,
+      "uncompressed_bytes": 4696346,
+      "sha256": "0bd51acad2177a8383c29a2e9ab5107440d929af51c30fbdcd5ba29fc719de4d",
+      "first_id": "maxfanout_010001_5178cb84c4",
+      "last_id": "maxfanout_020000_c00a4cf17a"
+    },
+    {
+      "part": 2,
+      "path": "part-00002.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 193694,
+      "uncompressed_bytes": 4718021,
+      "sha256": "edc4ed8e0e112f531371ac0c2b1e6e479898cd67719b4b8b26e1443acf0191c4",
+      "first_id": "maxfanout_020001_4e417467f1",
+      "last_id": "maxfanout_030000_968a8abd96"
+    },
+    {
+      "part": 3,
+      "path": "part-00003.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 192589,
+      "uncompressed_bytes": 4699065,
+      "sha256": "f2b78a9eb294e500832a78efe1efd28beef2df37a76adafce3b7276f72218750",
+      "first_id": "maxfanout_030001_21528e3437",
+      "last_id": "maxfanout_040000_514670211e"
+    },
+    {
+      "part": 4,
+      "path": "part-00004.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 193945,
+      "uncompressed_bytes": 4766720,
+      "sha256": "596cc5935a37479d591b96266e948a448ef220043227b940d7fbd243f5ce8239",
+      "first_id": "maxfanout_040001_4f9cbe5867",
+      "last_id": "maxfanout_050000_e20d03631f"
+    },
+    {
+      "part": 5,
+      "path": "part-00005.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 193284,
+      "uncompressed_bytes": 4648265,
+      "sha256": "612249334982feb696b10229ee7cbbd32348dd83684069981fbbfde596f6a3c2",
+      "first_id": "maxfanout_050001_8be4965b9c",
+      "last_id": "maxfanout_060000_30a3feb2b2"
+    },
+    {
+      "part": 6,
+      "path": "part-00006.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 193044,
+      "uncompressed_bytes": 4764522,
+      "sha256": "ebc451db1e205268eadc23b8459dcab0c5a9458d28cc88a1e40248789ddcda34",
+      "first_id": "maxfanout_060001_f9baf7ee2a",
+      "last_id": "maxfanout_070000_b6eb2d1372"
+    },
+    {
+      "part": 7,
+      "path": "part-00007.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 193942,
+      "uncompressed_bytes": 4778778,
+      "sha256": "0656c6302fea2198603ecc38c7008e628311b060de5e88ffb3c137c8e221ed0b",
+      "first_id": "maxfanout_070001_566eb60b71",
+      "last_id": "maxfanout_080000_a2bbb5eb02"
+    },
+    {
+      "part": 8,
+      "path": "part-00008.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 194949,
+      "uncompressed_bytes": 4888327,
+      "sha256": "829268ab07fd6e5c148cc976a9f834ce1e613e6f41119f9b3613da920d1feb48",
+      "first_id": "maxfanout_080001_6f3a52cdfe",
+      "last_id": "maxfanout_090000_b000c73354"
+    },
+    {
+      "part": 9,
+      "path": "part-00009.jsonl.gz",
+      "record_count": 10000,
+      "compressed_bytes": 192611,
+      "uncompressed_bytes": 4701269,
+      "sha256": "7d0d494b729ac99eba3034a074cc0d89ea8cfeb057ccea7f0367ad50ebbedc0c",
+      "first_id": "maxfanout_090001_8f73c20b03",
+      "last_id": "maxfanout_100000_6bf639f9c7"
+    }
+  ]
+}

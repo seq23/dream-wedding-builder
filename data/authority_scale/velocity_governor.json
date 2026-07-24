@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "mode": "dynamic_safety_ceiling",
+  "current_default_new_page_ceiling_per_day": 15,
+  "scale_tiers": [
+    5,
+    15,
+    25,
+    50,
+    75,
+    100
+  ],
+  "targets_are_quotas": false,
+  "scale_up_requires": [
+    "distinct admitted backlog",
+    "clean authority validation",
+    "low semantic duplication",
+    "stable product/internal-link mapping",
+    "stable indexation and surfacing"
+  ],
+  "scale_down_triggers": [
+    "duplicate pressure",
+    "thin-answer failures",
+    "validation regression",
+    "indexation backlog"
+  ],
+  "publication_boundary": "Only low-risk general wedding planning content may auto-admit without external factual sourcing. Local laws, prices, vendor claims and time-sensitive facts require appropriate sources."
+}

@@ -4,12 +4,13 @@ on:
   schedule:
     - cron: '17 10 * * *'
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: dream-wedding-authority
   cancel-in-progress: false
 jobs:
   authority:
+    if: ${{ vars.CONTENT_RELEASE_ENABLED == 'true' && vars.CONTENT_EMERGENCY_STOP != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,10 +19,22 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
+      - run: npm run authority:scale:fanout
+      - run: npm run authority:scale:restore
+      - run: npm run authority:scale:publish
       - run: npm run authority:atlas
       - run: npm run authority:flow
       - run: npm run authority:sitemaps
       - run: npm run validate:structural
+      - run: npm run authority:scale:freeze
+      - run: npm run authority:scale:validate
+      - name: Commit governed authority changes
+        run: |
+          git config user.name 'dream-wedding-authority-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/authority data/authority_scale data/release artifacts/authority artifacts/sitemaps 2>/dev/null || true
+          git diff --cached --quiet || git commit -m 'authority: governed daily content expansion'
+          git push
       - uses: actions/upload-artifact@v4
         if: always()
         with:

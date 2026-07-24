@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "standard": "MAXIMUM_FANOUT_PLUS_100K_SURFACING_ACCELERATION",
+  "objective": "Maximize legitimate wedding-planning discoverability, verified external citations/references, and meaningful LLM/search surfacing toward the portfolio 100K objective.",
+  "truth_boundary": "100K target is not guaranteed and is not a page quota.",
+  "required_strategies": [
+    "maximum legitimate query/entity/intent/persona/geographic/decision/format fanout",
+    "LLM-style conversational question coverage",
+    "semantic clustering and duplicate suppression",
+    "citation magnets: checklists, decision matrices, calculators, templates, planning frameworks and reference guides",
+    "dense product/entity/internal-link graph",
+    "machine-readable semantic pages and structured data",
+    "freshness and source checks where facts are local or time-sensitive",
+    "distribution/indexation measurement",
+    "LLM/search/citation feedback loop",
+    "accepted guide freeze with exact thaw-repair-refreeze"
+  ],
+  "runtime_boundary": "Freeze applies to canonical authority guide content only. User planner state, checkout, admin, authentication, commerce and runtime application behavior remain dynamic.",
+  "storage_policy": "compressed sharded planning corpus; repository byte size is not a fanout KPI"
+}

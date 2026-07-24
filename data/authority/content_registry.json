@@ -3,11 +3,16 @@
   "generated_at": "2026-07-10",
   "pages": [
     {
-      "slug": "wedding-seating-chart-for-50-guests",
-      "title": "Wedding Seating Chart for 50 Guests",
-      "cluster": "Wedding seating chart",
-      "product_id": "seating-chart-maker",
       "answer": "Wedding Seating Chart for 50 Guests should turn the relevant decisions into a single working plan with confirmed inputs, named owners, deadlines, and a final handoff. Start with facts you can verify, separate unresolved items, and do not release the final version until the counts, timing, or payment totals reconcile.",
+      "cluster": "Wedding seating chart",
+      "mistakes": [
+        "Treating an estimate or assumption as confirmed information.",
+        "Letting multiple versions circulate without a final owner.",
+        "Omitting vendor, venue, dietary, accessibility, timing, or payment constraints.",
+        "Failing to recheck the plan after a guest, vendor, venue, or schedule change."
+      ],
+      "product_id": "seating-chart-maker",
+      "slug": "wedding-seating-chart-for-50-guests",
       "steps": [
         "Confirm the inputs that control seating chart for 50 guests.",
         "Separate confirmed facts from assumptions and unresolved decisions.",
@@ -15,12 +20,7 @@
         "Reconcile totals, capacities, dates, or dependencies before finalizing.",
         "Export one final version and communicate changes to affected people."
       ],
-      "mistakes": [
-        "Treating an estimate or assumption as confirmed information.",
-        "Letting multiple versions circulate without a final owner.",
-        "Omitting vendor, venue, dietary, accessibility, timing, or payment constraints.",
-        "Failing to recheck the plan after a guest, vendor, venue, or schedule change."
-      ]
+      "title": "Wedding Seating Chart for 50 Guests"
     },
     {
       "slug": "wedding-seating-chart-for-100-guests",
