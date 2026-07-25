@@ -7,6 +7,7 @@ const read=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
 const write=(p,v)=>{const f=path.join(root,p);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(v,null,2)+'\n');};
 const idx=read('data/authority_scale/fanout_100k/index.json');
 const gov=read('data/authority_scale/velocity_governor.json');
+const velocityDecision=fs.existsSync(path.join(root,'data/authority_scale/velocity_decision.json'))?read('data/authority_scale/velocity_decision.json'):{};
 const doc=read('data/authority/content_registry.json');
 const existingSlugs=new Set(doc.pages.map(p=>p.slug));
 const existingTitles=new Set(doc.pages.map(p=>String(p.title||'').trim().toLowerCase()));
@@ -15,7 +16,7 @@ const ledger=fs.existsSync(path.join(root,ledgerPath))?read(ledgerPath):{schema_
 const used=new Set(ledger.published_ids||[]);
 const today=new Date().toISOString().slice(0,10);
 const alreadyToday=(ledger.runs||[]).filter(r=>String(r.run_at||'').startsWith(today)).reduce((n,r)=>n+Number(r.created||0),0);
-const dailyCeiling=Number(gov.current_default_new_page_ceiling_per_day||15);
+const dailyCeiling=Number(velocityDecision.recommended_new_url_ceiling_per_day||gov.current_default_new_page_ceiling_per_day||15);
 const remaining=Math.max(0,dailyCeiling-alreadyToday);
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90);
 const titleCase=s=>String(s).replace(/\b\w/g,c=>c.toUpperCase());

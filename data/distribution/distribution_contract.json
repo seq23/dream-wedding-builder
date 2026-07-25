@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "mode": "POST_VALIDATED_PUBLISH_AUTOMATIC",
+  "domains": [
+    {
+      "host": "weddingseatingchartmaker.com",
+      "sitemap": "https://weddingseatingchartmaker.com/sitemap.xml",
+      "gsc_env": "GSC_SITE_URL_SEATING"
+    },
+    {
+      "host": "weddingbudgetspreadsheet.com",
+      "sitemap": "https://weddingbudgetspreadsheet.com/sitemap.xml",
+      "gsc_env": "GSC_SITE_URL_BUDGET"
+    },
+    {
+      "host": "weddingtimelinetemplate.com",
+      "sitemap": "https://weddingtimelinetemplate.com/sitemap.xml",
+      "gsc_env": "GSC_SITE_URL_TIMELINE"
+    },
+    {
+      "host": "weddingchecklistpdf.com",
+      "sitemap": "https://weddingchecklistpdf.com/sitemap.xml",
+      "gsc_env": "GSC_SITE_URL_CHECKLIST"
+    }
+  ],
+  "truth_rule": "Submission receipts prove submission attempts only, never indexing, ranking, LLM surfacing, or citation."
+}
