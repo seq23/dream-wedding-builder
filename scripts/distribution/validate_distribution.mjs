@@ -1,17 +1,21 @@
 import fs from 'node:fs';
-const c=JSON.parse(fs.readFileSync('data/distribution/distribution_contract.json','utf8'));
-const m=JSON.parse(fs.readFileSync('artifacts/distribution/manifest.json','utf8'));
-const e=[];
-if(c.domains.length!==4)e.push('domain contract !=4');
-for(const d of c.domains){
-  if(!m.domains.some(x=>x.host===d.host&&x.url_count>0))e.push(`missing manifest:${d.host}`);
-  if(!fs.existsSync(`artifacts/sitemaps/${d.host}.xml`))e.push(`missing sitemap artifact:${d.host}`);
+const contract = JSON.parse(fs.readFileSync('data/distribution/distribution_contract.json', 'utf8'));
+const manifest = JSON.parse(fs.readFileSync('artifacts/distribution/manifest.json', 'utf8'));
+const ownership = JSON.parse(fs.readFileSync('data/seo/route_ownership.json', 'utf8'));
+const errors = [];
+if (contract.domains.length !== 4) errors.push('domain contract != 4');
+for (const domain of contract.domains) {
+  const expected = new Set(['/guides', ...ownership.routes.filter((route) => route.host === domain.host && route.indexable).map((route) => route.path)]).size;
+  const item = manifest.domains.find((entry) => entry.host === domain.host);
+  if (!item || item.url_count !== expected) errors.push(`manifest count mismatch:${domain.host}:${item?.url_count ?? 0}/${expected}`);
+  if (!fs.existsSync(`artifacts/sitemaps/${domain.host}.xml`)) errors.push(`missing sitemap artifact:${domain.host}`);
 }
-const route='app/sitemap.xml/route.ts';
-if(!fs.existsSync(route))e.push('missing live /sitemap.xml route');
+const route = 'app/sitemap.xml/route.ts';
+if (!fs.existsSync(route)) errors.push('missing live /sitemap.xml route');
 else {
-  const src=fs.readFileSync(route,'utf8');
-  for(const token of ['x-forwarded-host','allowedHosts','product_id','application/xml']) if(!src.includes(token)) e.push(`live sitemap route missing:${token}`);
+  const src = fs.readFileSync(route, 'utf8');
+  for (const token of ['x-forwarded-host', 'isCanonicalHost', 'route_ownership', 'application/xml']) if (!src.includes(token)) errors.push(`live sitemap route missing:${token}`);
 }
-if(e.length){console.error('DREAM DISTRIBUTION FAIL',e);process.exit(1)}
-console.log(`DREAM DISTRIBUTION PASS: ${m.domains.length} domains, ${m.domains.reduce((a,x)=>a+x.url_count,0)} URLs, live host-aware sitemap route present`);
+for (const routePath of ['app/robots.txt/route.ts','app/llms.txt/route.ts']) if (!fs.existsSync(routePath)) errors.push(`missing live discovery route:${routePath}`);
+if (errors.length) { console.error('DREAM DISTRIBUTION FAIL', errors); process.exit(1); }
+console.log(`DREAM DISTRIBUTION PASS: ${manifest.domains.length} domains, ${manifest.domains.reduce((sum, item) => sum + item.url_count, 0)} URLs, host-aware discovery routes present`);

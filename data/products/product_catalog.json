@@ -13,11 +13,11 @@
       "headline": "Seat every guest with confidence.",
       "sub": "Build a venue-ready plan that tracks tables, households, meals, allergies, accessibility needs, children, and every unassigned guest.",
       "features": [
-        "Drag-and-drop table planning",
-        "Household and social-group organization",
+        "Editable guest-master and table-capacity worksheets",
+        "Household and social-group planning fields",
         "Meal, allergy, accessibility, and child tracking",
-        "Assigned-versus-RSVP reconciliation",
-        "Venue, caterer, escort-card, and print exports"
+        "Manual RSVP-to-table reconciliation views",
+        "Printable venue, caterer, escort-card, and late-change worksheets"
       ],
       "keywords": [
         "wedding seating chart",
@@ -27,7 +27,7 @@
         "wedding table planner"
       ],
       "eyebrow": "Venue-ready guest placement, without the spreadsheet chaos",
-      "promise": "Turn your confirmed guest list into a complete table plan your venue and caterer can actually use.",
+      "promise": "Organize confirmed guests, table capacities, meals, accessibility details, and vendor handoff information in one editable workbook and printable packet.",
       "audience": [
         "Couples finalizing RSVPs",
         "DIY planners managing family dynamics",
@@ -40,20 +40,20 @@
         "Alphabetical and table-order exports ready for vendors"
       ],
       "process": [
-        "Import or enter confirmed guests",
-        "Create tables and capacities",
+        "Enter or import confirmed guests",
+        "Document table names, shapes, and capacities",
         "Group households and social circles",
-        "Resolve conflicts and special needs",
-        "Export the final handoff package"
+        "Resolve unassigned guests and special needs",
+        "Complete the final venue and caterer handoff pages"
       ],
       "objections": [
         [
-          "Can I use a free seating chart instead?",
-          "Yes, but most free tools stop at table placement. This product is built around reconciliation, meal and accessibility data, and vendor-ready exports."
+          "What does this add beyond a blank seating grid?",
+          "It connects guest records, table capacity, meal and accessibility details, unassigned-guest reconciliation, and vendor handoff in one paid working system."
         ],
         [
           "What if my guest list changes?",
-          "You can revise the working files and regenerate the final handoff. The package includes a change-control checklist for late RSVPs and cancellations."
+          "You can revise the editable worksheets and recreate the final handoff pages. The package includes a change-control checklist for late RSVPs and cancellations."
         ],
         [
           "Does this replace my venue floor plan?",
@@ -62,14 +62,56 @@
       ],
       "image": "/product-images/merch/seating-chart-maker-card.png",
       "hero_image": "/product-images/seating-chart-maker-hero.png",
-      "cta": "Buy now \u2014 $19",
-      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "cta": "Buy now — $19",
+      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
       "gallery": [
-        "/product-images/seating-chart-maker-sample-1.png",
-        "/product-images/seating-chart-maker-sample-2.png",
-        "/product-images/seating-chart-maker-sample-3.png"
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-1.png",
+          "title": "Guest master list",
+          "caption": "Keep households, RSVPs, meals, allergies, accessibility needs, children, table assignments, and confirmation status together.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing guest master list"
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-2.png",
+          "title": "Table capacity and reconciliation",
+          "caption": "Track table shape, capacity, reserved seats, assigned guests, remaining seats, location notes, and venue approval.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing table capacity and reconciliation"
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-3.png",
+          "title": "Venue and caterer handoff",
+          "caption": "Create a clean table-by-table handoff for assigned guests, capacities, meals, allergies, accessibility, children, and final notes.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing venue and caterer handoff"
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-4.png",
+          "title": "Guest master printable",
+          "caption": "The printable PDF includes a guest-level planning view for the final seating and meal handoff.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing guest master printable"
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-5.png",
+          "title": "Unassigned-guest reconciliation",
+          "caption": "A dedicated reconciliation page keeps confirmed guests from disappearing between RSVP and table assignment.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing unassigned-guest reconciliation"
+        }
       ],
-      "canonical_url": "https://weddingseatingchartmaker.com/products/seating-chart-maker"
+      "canonical_url": "https://weddingseatingchartmaker.com/products/seating-chart-maker",
+      "inventory": {
+        "pdf": "11-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Guest Master — 104 rows",
+          "Tables — 34 rows",
+          "Vendor Handoff — 4 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "preview_note": "Every image is a flattened, watermarked preview generated from the canonical paid PDF or XLSX release. The public site does not expose the editable source files."
     },
     {
       "id": "budget-spreadsheet",
@@ -81,11 +123,11 @@
       "headline": "Know the real cost before it surprises you.",
       "sub": "Track estimates, contracts, deposits, due dates, taxes, gratuities, family contributions, and cash needed by month.",
       "features": [
-        "Estimated, contracted, paid, and remaining totals",
-        "Deposit and final-payment calendar",
-        "Taxes, service fees, gratuities, and hidden costs",
-        "Monthly cash-flow and scenario planning",
-        "Spreadsheet and printable PDF exports"
+        "Fields for estimated, contracted, paid, remaining, and variance amounts",
+        "Deposit and final-payment tracking worksheet",
+        "Taxes, service fees, gratuities, and hidden-cost prompts",
+        "Printable monthly cash-flow and scenario worksheets",
+        "Editable XLSX workbook plus printable PDF packet"
       ],
       "keywords": [
         "wedding budget spreadsheet",
@@ -95,7 +137,7 @@
         "wedding payment tracker"
       ],
       "eyebrow": "A working wedding cash-control system, not a decorative budget page",
-      "promise": "See what the wedding is estimated to cost, what is contracted, what has been paid, and what cash is still due.",
+      "promise": "Organize estimates, contracts, deposits, due dates, hidden costs, and payment records in one editable workbook and printable planning packet.",
       "audience": [
         "Couples comparing vendor proposals",
         "Families sharing wedding costs",
@@ -108,16 +150,16 @@
         "Clear remaining-balance and due-date tracking"
       ],
       "process": [
-        "Set total budget and contributors",
-        "Load category targets",
-        "Enter vendor estimates and contracts",
-        "Track deposits, fees and due dates",
-        "Review monthly cash flow and overages"
+        "Set category targets and owners",
+        "Enter vendor estimates and contracted totals",
+        "Track deposits, balances, and due dates",
+        "Review hidden-cost and cash-flow worksheets",
+        "Reconcile the final budget manually against verified records"
       ],
       "objections": [
         [
           "Why pay when Google Sheets is free?",
-          "The value is the wedding-specific structure, formulas, payment calendar, hidden-cost prompts, and ready-to-use dashboard\u2014not the blank spreadsheet software."
+          "The value is the wedding-specific field structure, payment tracking, hidden-cost prompts, and printable planning worksheets—not the blank spreadsheet software. Totals and decisions still need to be reconciled against verified records."
         ],
         [
           "Will it tell me what vendors charge?",
@@ -130,14 +172,56 @@
       ],
       "image": "/product-images/merch/budget-spreadsheet-card.png",
       "hero_image": "/product-images/budget-spreadsheet-hero.png",
-      "cta": "Buy now \u2014 $12",
-      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "cta": "Buy now — $12",
+      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
       "gallery": [
-        "/product-images/budget-spreadsheet-sample-1.png",
-        "/product-images/budget-spreadsheet-sample-2.png",
-        "/product-images/budget-spreadsheet-sample-3.png"
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-1.png",
+          "title": "Category control sheet",
+          "caption": "Compare estimates, contracted amounts, payments, remaining balances, variance, ownership, and notes by category.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing category control sheet"
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-2.png",
+          "title": "Vendor payment calendar",
+          "caption": "Track deposits, final balances, due dates, paid status, and receipt notes in one vendor register.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing vendor payment calendar"
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-3.png",
+          "title": "Hidden-cost review",
+          "caption": "Surface taxes, service charges, delivery, meals, overtime, gratuities, alterations, postage, and other easy-to-miss costs.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing hidden-cost review"
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-4.png",
+          "title": "Budget control summary",
+          "caption": "The printable PDF includes a high-level control view for planned, contracted, paid, remaining, and variance totals.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing budget control summary"
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-5.png",
+          "title": "Monthly cash-flow worksheet",
+          "caption": "A printable monthly cash-flow view helps identify when wedding payments will hit—not just the final total.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing monthly cash-flow worksheet"
+        }
       ],
-      "canonical_url": "https://weddingbudgetspreadsheet.com/products/budget-spreadsheet"
+      "canonical_url": "https://weddingbudgetspreadsheet.com/products/budget-spreadsheet",
+      "inventory": {
+        "pdf": "11-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Categories — 24 rows",
+          "Payments — 34 rows",
+          "Hidden Costs — 24 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "preview_note": "Every image is a flattened, watermarked preview generated from the canonical paid PDF or XLSX release. The public site does not expose the editable source files."
     },
     {
       "id": "timeline-template",
@@ -149,11 +233,11 @@
       "headline": "Give everyone the right schedule.",
       "sub": "Create coordinated timelines for the couple, family, wedding party, photographer, vendors, and venue.",
       "features": [
-        "First-look and no-first-look timing logic",
-        "Vendor arrival, setup, and breakdown schedules",
-        "Couple, family, photographer, and wedding-party views",
-        "Dependencies, owners, and emergency contacts",
-        "Printable and editable handoff exports"
+        "Master timeline with owners, locations, dependencies, and buffers",
+        "Vendor arrival, setup, breakdown, and departure worksheet",
+        "Printable couple, wedding-party, photography, and family views",
+        "Role handoffs, emergency contacts, and change-control prompts",
+        "Editable XLSX workbook plus printable PDF packet"
       ],
       "keywords": [
         "wedding timeline template",
@@ -163,7 +247,7 @@
         "wedding timeline generator"
       ],
       "eyebrow": "One coordinated schedule for the people who make the day happen",
-      "promise": "Build a master wedding-day timeline and role-specific handoffs for your venue, vendors, family and wedding party.",
+      "promise": "Build and document a master wedding-day schedule plus vendor, role, family, photography, setup, and emergency handoffs.",
       "audience": [
         "Couples without a full-service planner",
         "Day-of coordinators",
@@ -176,11 +260,11 @@
         "Emergency contacts and handoff notes in one package"
       ],
       "process": [
-        "Enter ceremony, venue and travel anchors",
-        "Choose first-look and photography logic",
-        "Add vendor arrivals and setup",
-        "Assign owners and dependencies",
-        "Export role-specific timelines"
+        "Enter ceremony, venue, and travel anchors",
+        "Plan photography and people-group timing",
+        "Add vendor arrivals, setup, and breakdown",
+        "Assign owners, dependencies, and buffers",
+        "Complete the role-specific printable handoff pages"
       ],
       "objections": [
         [
@@ -198,14 +282,56 @@
       ],
       "image": "/product-images/merch/timeline-template-card.png",
       "hero_image": "/product-images/timeline-template-hero.png",
-      "cta": "Buy now \u2014 $12",
-      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "cta": "Buy now — $12",
+      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
       "gallery": [
-        "/product-images/timeline-template-sample-1.png",
-        "/product-images/timeline-template-sample-2.png",
-        "/product-images/timeline-template-sample-3.png"
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-1.png",
+          "title": "Master wedding-day timeline",
+          "caption": "Coordinate time, location, action, owner, people involved, dependencies, buffer time, and confirmation status.",
+          "alt": "Wedding Timeline Template paid product preview showing master wedding-day timeline"
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-2.png",
+          "title": "Vendor arrival and setup sheet",
+          "caption": "Give each vendor a documented arrival, setup, ready-by, breakdown, departure, and handoff owner.",
+          "alt": "Wedding Timeline Template paid product preview showing vendor arrival and setup sheet"
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-3.png",
+          "title": "Role-specific handoffs",
+          "caption": "Separate the schedule by role or group, including location, owner, required items, and confirmation.",
+          "alt": "Wedding Timeline Template paid product preview showing role-specific handoffs"
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-4.png",
+          "title": "Master day timeline page",
+          "caption": "The printable PDF provides a clean master schedule for the full wedding-day sequence.",
+          "alt": "Wedding Timeline Template paid product preview showing master day timeline page"
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-5.png",
+          "title": "Vendor arrival schedule",
+          "caption": "A dedicated printable vendor schedule prevents setup and breakdown timing from disappearing inside the couple’s itinerary.",
+          "alt": "Wedding Timeline Template paid product preview showing vendor arrival schedule"
+        }
       ],
-      "canonical_url": "https://weddingtimelinetemplate.com/products/timeline-template"
+      "canonical_url": "https://weddingtimelinetemplate.com/products/timeline-template",
+      "inventory": {
+        "pdf": "12-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Master Timeline — 64 rows",
+          "Vendor Arrivals — 4 rows",
+          "Role Handoffs — 44 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "preview_note": "Every image is a flattened, watermarked preview generated from the canonical paid PDF or XLSX release. The public site does not expose the editable source files."
     },
     {
       "id": "checklist-pdf",
@@ -215,13 +341,13 @@
       "price": 9,
       "route": "/products/checklist-pdf",
       "headline": "A checklist built around your actual wedding date.",
-      "sub": "Generate deadlines and responsibilities based on planning time, wedding format, events, vendors, and who is doing the work.",
+      "sub": "Use a 104-row editable checklist and printable planning packet to assign target dates, responsibilities, dependencies, priorities, wedding-week handoffs, and final payments.",
       "features": [
-        "Date-based planning schedule",
-        "Local, destination, backyard, and micro-wedding logic",
-        "Responsibility and dependency assignments",
-        "Wedding-week and final-payment handoff",
-        "Printable PDF, editable checklist, and calendar export"
+        "104-row editable master checklist",
+        "Planning-window worksheets from 12+ months through wedding week",
+        "Responsibility, dependency, priority, and status fields",
+        "Separate wedding-week and final-payment trackers",
+        "13-page printable PDF plus editable XLSX and setup CSV"
       ],
       "keywords": [
         "wedding checklist pdf",
@@ -231,7 +357,7 @@
         "wedding tick list"
       ],
       "eyebrow": "A dated planning system tied to your actual wedding",
-      "promise": "Turn your date, planning window and event format into a complete task sequence with owners, deadlines and final-week handoffs.",
+      "promise": "Use a 104-row editable checklist and printable planning packet to assign responsibilities, dependencies, priorities, deadlines, wedding-week handoffs, and final payments.",
       "audience": [
         "Couples who do not want a generic 12-month list",
         "Short-engagement planners",
@@ -244,20 +370,20 @@
         "Wedding-week handoff separated from long-range planning"
       ],
       "process": [
-        "Set the date and planning start",
-        "Select wedding format and events",
-        "Choose who owns each workstream",
-        "Review generated deadlines and dependencies",
-        "Export printable, editable and calendar-ready files"
+        "Document the wedding date, planning start, and event scope",
+        "Choose the relevant planning-window worksheets",
+        "Assign owners, dependencies, priorities, and target dates",
+        "Maintain the wedding-week and final-payment sheets",
+        "Complete the final responsibility and closeout checks"
       ],
       "objections": [
         [
-          "How is this different from a free checklist?",
-          "It is structured around your planning window, event format, responsibilities, payment milestones and final-week handoff\u2014not a generic article."
+          "How is this different from a generic checklist?",
+          "It adds a 104-row editable checklist, a separate wedding-week handoff, a final-payment tracker, printable worksheets, ownership fields, dependencies, and planning-window guidance."
         ],
         [
           "What if I am planning in less than six months?",
-          "The compressed-planning logic prioritizes critical-path decisions and removes impossible lead times."
+          "The compressed-planning worksheets focus attention on critical-path decisions and shorter lead times. You still choose and verify the target dates that apply to your wedding."
         ],
         [
           "Does it cover legal deadlines?",
@@ -266,15 +392,57 @@
       ],
       "image": "/product-images/merch/checklist-pdf-card.png",
       "hero_image": "/product-images/checklist-pdf-hero.png",
-      "cta": "Buy now \u2014 $9",
-      "value_note": "One-time purchase \u2022 Instant access after verified payment \u2022 Use forever",
+      "cta": "Buy now — $9",
+      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
       "gallery": [
-        "/product-images/checklist-pdf-sample-1.png",
-        "/product-images/checklist-pdf-sample-2.png",
-        "/product-images/checklist-pdf-sample-3.png"
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-1.png",
+          "title": "104-row master checklist",
+          "caption": "See the editable checklist structure for phases, target dates, owners, dependencies, priority, status, and notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing 104-row master checklist"
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-2.png",
+          "title": "Wedding-week handoff sheet",
+          "caption": "A separate operational view for timing, ownership, handoffs, required items, confirmations, and notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing wedding-week handoff sheet"
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-3.png",
+          "title": "Final-payment tracker",
+          "caption": "Track vendors, balances, due dates, payment methods, ownership, receipts, and final notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing final-payment tracker"
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-4.png",
+          "title": "Planning profile page",
+          "caption": "The printable PDF begins by documenting the wedding format, planning window, event scope, and responsibility assumptions.",
+          "alt": "Wedding Checklist PDF paid product preview showing planning profile page"
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-5.png",
+          "title": "Critical-path planning page",
+          "caption": "A printable critical-path worksheet separates the decisions that can block later work.",
+          "alt": "Wedding Checklist PDF paid product preview showing critical-path planning page"
+        }
       ],
       "parent_host": true,
-      "canonical_url": "https://weddingchecklistpdf.com/products/checklist-pdf"
+      "canonical_url": "https://weddingchecklistpdf.com/products/checklist-pdf",
+      "inventory": {
+        "pdf": "13-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Checklist — 104 rows",
+          "Wedding Week — 44 rows",
+          "Final Payments — 34 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "preview_note": "Every image is a flattened, watermarked preview generated from the canonical paid PDF or XLSX release. The public site does not expose the editable source files."
     },
     {
       "id": "operations-suite",
@@ -295,7 +463,7 @@
       "image": "/product-images/merch/operations-suite-hero.png",
       "standalone_value": 52,
       "savings": 13,
-      "cta": "Get the complete suite \u2014 $39"
+      "cta": "Get the complete suite — $39"
     }
   ]
 }

@@ -1,0 +1,363 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-07-30T20:04:00-05:00",
+  "truth_rule": "Every public preview is a flattened, watermarked derivative of a canonical paid release file. No editable or full-resolution paid file is exposed publicly.",
+  "products": [
+    {
+      "id": "checklist-pdf",
+      "sku": "DWB-CHECKLIST-001",
+      "name": "Wedding Checklist PDF",
+      "inventory": {
+        "pdf": "13-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Checklist \u2014 104 rows",
+          "Wedding Week \u2014 44 rows",
+          "Final Payments \u2014 34 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "gallery": [
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-1.png",
+          "title": "104-row master checklist",
+          "caption": "See the editable checklist structure for phases, target dates, owners, dependencies, priority, status, and notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing 104-row master checklist",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-CHECKLIST-001_v2.0.0.xlsx",
+            "sheet": "Checklist",
+            "range": "A1:H20"
+          },
+          "sha256": "5bf2a117a2c5f1f5805e064323438618cd8b885b269eff34c11625cfddda561c",
+          "bytes": 209523
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-2.png",
+          "title": "Wedding-week handoff sheet",
+          "caption": "A separate operational view for timing, ownership, handoffs, required items, confirmations, and notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing wedding-week handoff sheet",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-CHECKLIST-001_v2.0.0.xlsx",
+            "sheet": "Wedding Week",
+            "range": "A1:G18"
+          },
+          "sha256": "b159d34b16ab5ea6c4276316e40c17daba33bc9f7698ccbef44a76922fe9459d",
+          "bytes": 165805
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-3.png",
+          "title": "Final-payment tracker",
+          "caption": "Track vendors, balances, due dates, payment methods, ownership, receipts, and final notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing final-payment tracker",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-CHECKLIST-001_v2.0.0.xlsx",
+            "sheet": "Final Payments",
+            "range": "A1:G16"
+          },
+          "sha256": "bf6ce90ae634535dbfd39e8c530be1c4f243f5c9a809b9d14a87769f2b99aa40",
+          "bytes": 176098
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-4.png",
+          "title": "Planning profile page",
+          "caption": "The printable PDF begins by documenting the wedding format, planning window, event scope, and responsibility assumptions.",
+          "alt": "Wedding Checklist PDF paid product preview showing planning profile page",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-CHECKLIST-001_v2.0.0.pdf",
+            "page": 3
+          },
+          "sha256": "705d3d152e7833a464b5cc884d6d2e034045a8e5ccfbb4918b33caf7af73bf1b",
+          "bytes": 111627
+        },
+        {
+          "src": "/product-previews/checklist-pdf/checklist-pdf-preview-5.png",
+          "title": "Critical-path planning page",
+          "caption": "A printable critical-path worksheet separates the decisions that can block later work.",
+          "alt": "Wedding Checklist PDF paid product preview showing critical-path planning page",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-CHECKLIST-001_v2.0.0.pdf",
+            "page": 4
+          },
+          "sha256": "0742340643c5d83b3722656c0b76647e2ed05c1b7b980ed59f26fe73a382ba32",
+          "bytes": 102273
+        }
+      ]
+    },
+    {
+      "id": "budget-spreadsheet",
+      "sku": "DWB-BUDGET-001",
+      "name": "Wedding Budget Spreadsheet",
+      "inventory": {
+        "pdf": "11-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Categories \u2014 24 rows",
+          "Payments \u2014 34 rows",
+          "Hidden Costs \u2014 24 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "gallery": [
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-1.png",
+          "title": "Category control sheet",
+          "caption": "Compare estimates, contracted amounts, payments, remaining balances, variance, ownership, and notes by category.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing category control sheet",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-BUDGET-001_v2.0.0.xlsx",
+            "sheet": "Categories",
+            "range": "A1:H20"
+          },
+          "sha256": "80be210f764b9ee21fddeded1b4054db19f88b4a30a88a3f8abab05a87a89814",
+          "bytes": 217831
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-2.png",
+          "title": "Vendor payment calendar",
+          "caption": "Track deposits, final balances, due dates, paid status, and receipt notes in one vendor register.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing vendor payment calendar",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-BUDGET-001_v2.0.0.xlsx",
+            "sheet": "Payments",
+            "range": "A1:H18"
+          },
+          "sha256": "0c9026ad1e91d73998cd327b1f12d35e1b55eb3f7faac06bead91d302ffe694e",
+          "bytes": 184071
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-3.png",
+          "title": "Hidden-cost review",
+          "caption": "Surface taxes, service charges, delivery, meals, overtime, gratuities, alterations, postage, and other easy-to-miss costs.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing hidden-cost review",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-BUDGET-001_v2.0.0.xlsx",
+            "sheet": "Hidden Costs",
+            "range": "A1:G18"
+          },
+          "sha256": "527172edf34d1a6e65495df9696d8c2d8a2ddc6b2d77610caae14358c221f84a",
+          "bytes": 234810
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-4.png",
+          "title": "Budget control summary",
+          "caption": "The printable PDF includes a high-level control view for planned, contracted, paid, remaining, and variance totals.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing budget control summary",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-BUDGET-001_v2.0.0.pdf",
+            "page": 3
+          },
+          "sha256": "d60b53770a0b8d6c0e7c1951186035dd27c2c2b46dc8159953621ca2c294ab5e",
+          "bytes": 111456
+        },
+        {
+          "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-5.png",
+          "title": "Monthly cash-flow worksheet",
+          "caption": "A printable monthly cash-flow view helps identify when wedding payments will hit\u2014not just the final total.",
+          "alt": "Wedding Budget Spreadsheet paid product preview showing monthly cash-flow worksheet",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-BUDGET-001_v2.0.0.pdf",
+            "page": 7
+          },
+          "sha256": "f9e97ec163cfc91e3f1713554480ad5c3c9bdca1ce3ab16d7ecc3be58373e8ac",
+          "bytes": 109226
+        }
+      ]
+    },
+    {
+      "id": "timeline-template",
+      "sku": "DWB-TIMELINE-001",
+      "name": "Wedding Timeline Template",
+      "inventory": {
+        "pdf": "12-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Master Timeline \u2014 64 rows",
+          "Vendor Arrivals \u2014 4 rows",
+          "Role Handoffs \u2014 44 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "gallery": [
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-1.png",
+          "title": "Master wedding-day timeline",
+          "caption": "Coordinate time, location, action, owner, people involved, dependencies, buffer time, and confirmation status.",
+          "alt": "Wedding Timeline Template paid product preview showing master wedding-day timeline",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-TIMELINE-001_v2.0.0.xlsx",
+            "sheet": "Master Timeline",
+            "range": "A1:H20"
+          },
+          "sha256": "5d2279fe952e20dbfac795e42a11d08b1b4b15b1a976eae1a5209f4ead00ecfc",
+          "bytes": 169321
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-2.png",
+          "title": "Vendor arrival and setup sheet",
+          "caption": "Give each vendor a documented arrival, setup, ready-by, breakdown, departure, and handoff owner.",
+          "alt": "Wedding Timeline Template paid product preview showing vendor arrival and setup sheet",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-TIMELINE-001_v2.0.0.xlsx",
+            "sheet": "Vendor Arrivals",
+            "range": "A1:H8"
+          },
+          "sha256": "ef4c2a7885848fdd93553ab8a042c21a6671639cc8356725741d5a4e13a48f60",
+          "bytes": 155190
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-3.png",
+          "title": "Role-specific handoffs",
+          "caption": "Separate the schedule by role or group, including location, owner, required items, and confirmation.",
+          "alt": "Wedding Timeline Template paid product preview showing role-specific handoffs",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-TIMELINE-001_v2.0.0.xlsx",
+            "sheet": "Role Handoffs",
+            "range": "A1:G18"
+          },
+          "sha256": "7dd8973205f216fb7d4ede809925c19c556e7bd31f40e5d922c3be1aa86dea43",
+          "bytes": 164996
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-4.png",
+          "title": "Master day timeline page",
+          "caption": "The printable PDF provides a clean master schedule for the full wedding-day sequence.",
+          "alt": "Wedding Timeline Template paid product preview showing master day timeline page",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-TIMELINE-001_v2.0.0.pdf",
+            "page": 3
+          },
+          "sha256": "0deb5478eeaacb43ac337a7454133fe677d4da8f9f7ead864037275503d240e7",
+          "bytes": 105665
+        },
+        {
+          "src": "/product-previews/timeline-template/timeline-template-preview-5.png",
+          "title": "Vendor arrival schedule",
+          "caption": "A dedicated printable vendor schedule prevents setup and breakdown timing from disappearing inside the couple\u2019s itinerary.",
+          "alt": "Wedding Timeline Template paid product preview showing vendor arrival schedule",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-TIMELINE-001_v2.0.0.pdf",
+            "page": 4
+          },
+          "sha256": "e2698995a42d672552f9bbd8102e7666cf311892a68b4f09660fa18b5ad2b32b",
+          "bytes": 110162
+        }
+      ]
+    },
+    {
+      "id": "seating-chart-maker",
+      "sku": "DWB-SEATING-001",
+      "name": "Wedding Seating Chart Maker",
+      "inventory": {
+        "pdf": "11-page printable PDF",
+        "workbook": "Editable XLSX workbook",
+        "sheets": [
+          "Guest Master \u2014 104 rows",
+          "Tables \u2014 34 rows",
+          "Vendor Handoff \u2014 4 rows"
+        ],
+        "formula_count": 0,
+        "extra": [
+          "Setup CSV included with purchase",
+          "Personal-use license and operating instructions"
+        ]
+      },
+      "gallery": [
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-1.png",
+          "title": "Guest master list",
+          "caption": "Keep households, RSVPs, meals, allergies, accessibility needs, children, table assignments, and confirmation status together.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing guest master list",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-SEATING-001_v2.0.0.xlsx",
+            "sheet": "Guest Master",
+            "range": "A1:I18"
+          },
+          "sha256": "3dede096d1f99d368f5e5dc45dcf8f97d2eedbbba2fbb525baac8b91fa28bc40",
+          "bytes": 203765
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-2.png",
+          "title": "Table capacity and reconciliation",
+          "caption": "Track table shape, capacity, reserved seats, assigned guests, remaining seats, location notes, and venue approval.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing table capacity and reconciliation",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-SEATING-001_v2.0.0.xlsx",
+            "sheet": "Tables",
+            "range": "A1:H18"
+          },
+          "sha256": "af1eaaf344d54b696f2b161d17d4e5c787a44af9f62532dabd0dc0844347fa0f",
+          "bytes": 233559
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-3.png",
+          "title": "Venue and caterer handoff",
+          "caption": "Create a clean table-by-table handoff for assigned guests, capacities, meals, allergies, accessibility, children, and final notes.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing venue and caterer handoff",
+          "source": {
+            "kind": "xlsx",
+            "file": "product-builds/releases/DWB-SEATING-001_v2.0.0.xlsx",
+            "sheet": "Vendor Handoff",
+            "range": "A1:H8"
+          },
+          "sha256": "ec17c527ef4762c508e543e312e082219297945ec8fc3fc4152669c36e4bd64c",
+          "bytes": 159864
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-4.png",
+          "title": "Guest master printable",
+          "caption": "The printable PDF includes a guest-level planning view for the final seating and meal handoff.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing guest master printable",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-SEATING-001_v2.0.0.pdf",
+            "page": 3
+          },
+          "sha256": "5bc1c75e3af773fc97ca08bcb1318665f2199f40f562e4871b182c53d3c1d54d",
+          "bytes": 109830
+        },
+        {
+          "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-5.png",
+          "title": "Unassigned-guest reconciliation",
+          "caption": "A dedicated reconciliation page keeps confirmed guests from disappearing between RSVP and table assignment.",
+          "alt": "Wedding Seating Chart Maker paid product preview showing unassigned-guest reconciliation",
+          "source": {
+            "kind": "pdf",
+            "file": "product-builds/releases/DWB-SEATING-001_v2.0.0.pdf",
+            "page": 6
+          },
+          "sha256": "5b18b9b66c19ba6bf89a043986a71b5e8e7571b68dd3242b5c0759b18264a1f0",
+          "bytes": 112223
+        }
+      ]
+    }
+  ]
+}

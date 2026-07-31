@@ -36,3 +36,17 @@ Validation profiles check contracts and structural evidence. They do not generat
 - `npm run stripe:bootstrap:*`, `npm run cloudflare:discover`, `npm run d1:migrate:remote`, `npm run deploy`, and `npm run upload` touch providers or deployment surfaces.
 
 Those commands remain explicit proof/release actions.
+
+## Deep-Validation Fallbacks — 2026-07-30
+
+These fallbacks may isolate source defects when the validation container cannot install locked dependencies. They supplement but do not replace the local release gates.
+
+| Layer | Fallback | Result in corrective phase | Does not prove |
+|---|---|---:|---|
+| TypeScript relationships | strict full-source check with external module declarations | PASS | real Next/React library API compatibility |
+| Core contracts | strict product/host/checkout compilation | PASS | framework build |
+| Checkout | actual route with synthetic env values and mocked Stripe response | PASS | provider-side session, charge, webhook, fulfillment |
+| Canonical routing | middleware HTTP matrix with Next request/response shim | PASS | deployed Cloudflare/browser behavior |
+| Browser/artifact view | PDF render and all-page contact review | PASS | web UI Playwright journeys |
+
+The hard release sequence remains `npm run validate:all`, production build, and the configured browser gauntlet in an environment with the locked dependency graph installed.

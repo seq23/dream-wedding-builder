@@ -1,8 +1,16 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ProductCard } from '@/components/ProductCard';
 import { CheckoutButton } from '@/components/CheckoutButton';
 import { products, suite, supportEmail } from '@/lib/products';
+
+export const metadata: Metadata = {
+  title: 'Dream Wedding Builder: Free Wedding Planning Guides and Tools',
+  description: 'Plan your wedding with practical guides, a browser-based planning builder, transparent paid-file previews, and four working tools for the final handoff.',
+  alternates: { canonical: 'https://weddingchecklistpdf.com/' },
+  openGraph: { title: 'Dream Wedding Builder', description: 'Free wedding planning guides and paid execution tools.', url: 'https://weddingchecklistpdf.com/', type: 'website' }
+};
 
 const trust = [
   ['Instant protected delivery','Verified purchases receive secure access on the success page and by email.'],
@@ -29,6 +37,24 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 text-sm font-semibold text-charcoal/65"><span>✓ One-time payment</span><span>✓ Instant access</span><span>✓ Editable files</span><span>✓ Use forever</span></div>
       </div>
       <div className="relative min-h-[420px] bg-linen sm:min-h-[520px] lg:min-h-[650px]"><Image src="/product-images/merch/operations-suite-hero.png" alt="Dream Wedding Operations Suite with the Wedding Seating Chart Maker, Wedding Budget Spreadsheet, Wedding Timeline Template, and Wedding Checklist PDF" fill priority sizes="(max-width:1024px) 100vw, 58vw" className="object-cover"/></div>
+    </div>
+  </section>
+
+  <section className="rounded-[2rem] border border-charcoal/10 bg-white p-7 md:p-10">
+    <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Start with the free planning trunk</p>
+    <h2 className="mt-3 font-serif text-4xl md:text-6xl">The high-value planning pages, now in one clear system.</h2>
+    <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      {[
+        ['Complete Wedding Checklist','/wedding-checklist'],
+        ['Step-by-Step Planning Checklist','/wedding-planning-checklist'],
+        ['Free Wedding Checklist PDF','/wedding-checklist-pdf'],
+        ['Printable Wedding Checklist','/printable-wedding-checklist']
+      ].map(([label,href])=><Link key={href} href={href} className="rounded-[1.25rem] bg-ivory p-5 font-serif text-2xl transition hover:bg-linen">{label} →</Link>)}
+    </div>
+    <div className="mt-5 grid gap-3 md:grid-cols-3">
+      <a href="https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet" className="rounded-2xl border border-charcoal/10 p-4 font-bold">Free Wedding Budget Spreadsheet →</a>
+      <a href="https://weddingtimelinetemplate.com/wedding-timeline-template" className="rounded-2xl border border-charcoal/10 p-4 font-bold">Free Wedding Timeline Template →</a>
+      <a href="https://weddingseatingchartmaker.com/wedding-seating-chart" className="rounded-2xl border border-charcoal/10 p-4 font-bold">Free Wedding Seating Planner →</a>
     </div>
   </section>
 

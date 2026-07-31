@@ -1,4 +1,9 @@
 import fs from 'node:fs';
-const pages=JSON.parse(fs.readFileSync('data/authority/content_registry.json','utf8')).pages;const catalog=JSON.parse(fs.readFileSync('data/products/product_catalog.json','utf8')).products;
-const domainMap={};for(const p of catalog.filter(x=>x.domain))domainMap[p.id]=p.domain;
-for(const [pid,domain] of Object.entries(domainMap)){const urls=pages.filter(p=>p.product_id===pid).map(p=>`https://${domain}/guides/${p.slug}`);urls.unshift(`https://${domain}/`,`https://${domain}${catalog.find(x=>x.id===pid).route}`);const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u=>`  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`;fs.mkdirSync('artifacts/sitemaps',{recursive:true});fs.writeFileSync(`artifacts/sitemaps/${domain}.xml`,xml);}console.log('Built domain sitemaps');
+const ownership = JSON.parse(fs.readFileSync('data/seo/route_ownership.json', 'utf8'));
+fs.mkdirSync('artifacts/sitemaps', { recursive: true });
+for (const host of Object.keys(ownership.hosts)) {
+  const paths = [...new Set(['/guides', ...ownership.routes.filter((route) => route.host === host && route.indexable).map((route) => route.path)])].sort();
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${paths.map((path) => `  <url><loc>https://${host}${path === '/' ? '/' : path}</loc><lastmod>2026-07-30</lastmod></url>`).join('\n')}\n</urlset>\n`;
+  fs.writeFileSync(`artifacts/sitemaps/${host}.xml`, xml);
+}
+console.log('Built route-ownership sitemaps');

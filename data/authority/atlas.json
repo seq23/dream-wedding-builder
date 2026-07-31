@@ -1,709 +1,980 @@
 {
-  "version": "2.0.0",
+  "version": "3.0.0",
   "records": [
     {
+      "query": "wedding checklist: the complete planning roadmap",
+      "semantic_key": "hub:wedding-checklist",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/wedding-checklist",
+      "entity": "The wedding checklist that tells you what comes next",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "wedding planning checklist: step-by-step process",
+      "semantic_key": "hub:wedding-planning-checklist",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/wedding-planning-checklist",
+      "entity": "Wedding planning checklist: decisions in the right order",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-planning-checklist",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "wedding checklist pdf: what is inside the paid download",
+      "semantic_key": "hub:wedding-checklist-pdf",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/wedding-checklist-pdf",
+      "entity": "Wedding checklist PDF: look inside the paid download",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist-pdf",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "printable wedding checklist: one-page planning overview",
+      "semantic_key": "hub:printable-wedding-checklist",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/printable-wedding-checklist",
+      "entity": "Printable wedding checklist",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/printable-wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "wedding budget spreadsheet: what to track + paid product preview",
+      "semantic_key": "hub:wedding-budget-spreadsheet",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingbudgetspreadsheet.com",
+      "product_id": "budget-spreadsheet",
+      "route": "/wedding-budget-spreadsheet",
+      "entity": "Wedding budget spreadsheet",
+      "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "wedding timeline template: build the schedule + see the paid files",
+      "semantic_key": "hub:wedding-timeline-template",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingtimelinetemplate.com",
+      "product_id": "timeline-template",
+      "route": "/wedding-timeline-template",
+      "entity": "Wedding timeline template",
+      "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "wedding seating chart planner + paid product preview",
+      "semantic_key": "hub:wedding-seating-chart",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingseatingchartmaker.com",
+      "product_id": "seating-chart-maker",
+      "route": "/wedding-seating-chart",
+      "entity": "Wedding seating chart planner",
+      "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "wedding guest list template: required fields + paid product preview",
+      "semantic_key": "hub:wedding-guest-list-template",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingseatingchartmaker.com",
+      "product_id": "seating-chart-maker",
+      "route": "/wedding-guest-list-template",
+      "entity": "Wedding guest list template",
+      "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-guest-list-template",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
       "query": "wedding seating chart for 50 guests",
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-for-50-guests",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-seating-chart-for-50-guests",
       "entity": "Wedding Seating Chart for 50 Guests",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding seating chart for 100 guests",
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-for-100-guests",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-seating-chart-for-100-guests",
       "entity": "Wedding Seating Chart for 100 Guests",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding seating chart for 150 guests",
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-for-150-guests",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-seating-chart-for-150-guests",
       "entity": "Wedding Seating Chart for 150 Guests",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "how to plan wedding seating with round tables",
+      "semantic_key": "seating-chart-maker:round-table-seating-plan",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/round-table-seating-plan",
       "entity": "How to Plan Wedding Seating With Round Tables",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "how to plan long-table wedding seating",
+      "semantic_key": "seating-chart-maker:long-table-wedding-seating",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/long-table-wedding-seating",
       "entity": "How to Plan Long-Table Wedding Seating",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "sweetheart table vs. head table",
+      "semantic_key": "seating-chart-maker:sweetheart-table-vs-head-table",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/sweetheart-table-vs-head-table",
       "entity": "Sweetheart Table vs. Head Table",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "how to seat divorced parents at a wedding",
+      "semantic_key": "seating-chart-maker:seat-divorced-parents-wedding",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/seat-divorced-parents-wedding",
       "entity": "How to Seat Divorced Parents at a Wedding",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding seating chart meal-choice tracking",
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-meal-tracker",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-seating-chart-meal-tracker",
       "entity": "Wedding Seating Chart Meal-Choice Tracking",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding seating chart allergy tracking",
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-allergy-tracker",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-seating-chart-allergy-tracker",
       "entity": "Wedding Seating Chart Allergy Tracking",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding seating chart accessibility planning",
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-accessibility",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-seating-chart-accessibility",
       "entity": "Wedding Seating Chart Accessibility Planning",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding seating chart vendor handoff",
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-vendor-handoff",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-seating-chart-vendor-handoff",
       "entity": "Wedding Seating Chart Vendor Handoff",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "alphabetical vs. table-order seating charts",
+      "semantic_key": "seating-chart-maker:alphabetical-vs-table-order-seating-chart",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/alphabetical-vs-table-order-seating-chart",
       "entity": "Alphabetical vs. Table-Order Seating Charts",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding table capacity guide",
+      "semantic_key": "seating-chart-maker:wedding-table-capacity-guide",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-table-capacity-guide",
       "entity": "Wedding Table Capacity Guide",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "managing late rsvp seating changes",
+      "semantic_key": "seating-chart-maker:late-rsvp-seating-chart-changes",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/late-rsvp-seating-chart-changes",
       "entity": "Managing Late RSVP Seating Changes",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "children and high chairs in the seating chart",
+      "semantic_key": "seating-chart-maker:children-high-chairs-seating-chart",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/children-high-chairs-seating-chart",
       "entity": "Children and High Chairs in the Seating Chart",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "preparing escort-card data from your seating plan",
+      "semantic_key": "seating-chart-maker:wedding-escort-card-data-export",
       "cluster": "Wedding seating chart",
       "domain": "weddingseatingchartmaker.com",
       "product_id": "seating-chart-maker",
       "route": "/guides/wedding-escort-card-data-export",
       "entity": "Preparing Escort-Card Data From Your Seating Plan",
       "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding budget spreadsheet categories",
+      "semantic_key": "budget-spreadsheet:wedding-budget-spreadsheet-categories",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-spreadsheet-categories",
       "entity": "Wedding Budget Spreadsheet Categories",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding budget for 50 guests",
+      "semantic_key": "budget-spreadsheet:wedding-budget-for-50-guests",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-for-50-guests",
       "entity": "Wedding Budget for 50 Guests",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding budget for 100 guests",
+      "semantic_key": "budget-spreadsheet:wedding-budget-for-100-guests",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-for-100-guests",
       "entity": "Wedding Budget for 100 Guests",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding budget for 150 guests",
+      "semantic_key": "budget-spreadsheet:wedding-budget-for-150-guests",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-for-150-guests",
       "entity": "Wedding Budget for 150 Guests",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "how to plan a $10,000 wedding budget",
+      "semantic_key": "budget-spreadsheet:wedding-budget-10000",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-10000",
       "entity": "How to Plan a $10,000 Wedding Budget",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "how to plan a $20,000 wedding budget",
+      "semantic_key": "budget-spreadsheet:wedding-budget-20000",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-20000",
       "entity": "How to Plan a $20,000 Wedding Budget",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "how to plan a $30,000 wedding budget",
+      "semantic_key": "budget-spreadsheet:wedding-budget-30000",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-30000",
       "entity": "How to Plan a $30,000 Wedding Budget",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "how to plan a $50,000 wedding budget",
+      "semantic_key": "budget-spreadsheet:wedding-budget-50000",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-50000",
       "entity": "How to Plan a $50,000 Wedding Budget",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding hidden costs checklist",
+      "semantic_key": "budget-spreadsheet:wedding-hidden-costs-checklist",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-hidden-costs-checklist",
       "entity": "Wedding Hidden Costs Checklist",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding vendor payment tracker",
+      "semantic_key": "budget-spreadsheet:wedding-vendor-payment-tracker",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-vendor-payment-tracker",
       "entity": "Wedding Vendor Payment Tracker",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding deposit schedule",
+      "semantic_key": "budget-spreadsheet:wedding-deposit-schedule",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-deposit-schedule",
       "entity": "Wedding Deposit Schedule",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding gratuity planner",
+      "semantic_key": "budget-spreadsheet:wedding-gratuity-planner",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-gratuity-planner",
       "entity": "Wedding Gratuity Planner",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding budget contingency planning",
+      "semantic_key": "budget-spreadsheet:wedding-budget-contingency",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-budget-contingency",
       "entity": "Wedding Budget Contingency Planning",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "tracking family contributions to a wedding",
+      "semantic_key": "budget-spreadsheet:family-contributions-wedding-budget",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/family-contributions-wedding-budget",
       "entity": "Tracking Family Contributions to a Wedding",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding monthly cash-flow planning",
+      "semantic_key": "budget-spreadsheet:wedding-monthly-cash-flow",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/wedding-monthly-cash-flow",
       "entity": "Wedding Monthly Cash-Flow Planning",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "estimated vs. actual wedding costs",
+      "semantic_key": "budget-spreadsheet:estimated-vs-actual-wedding-costs",
       "cluster": "Wedding budget",
       "domain": "weddingbudgetspreadsheet.com",
       "product_id": "budget-spreadsheet",
       "route": "/guides/estimated-vs-actual-wedding-costs",
       "entity": "Estimated vs. Actual Wedding Costs",
       "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
     },
     {
       "query": "wedding timeline with a first look",
+      "semantic_key": "timeline-template:wedding-timeline-with-first-look",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-timeline-with-first-look",
       "entity": "Wedding Timeline With a First Look",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding timeline without a first look",
+      "semantic_key": "timeline-template:wedding-timeline-without-first-look",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-timeline-without-first-look",
       "entity": "Wedding Timeline Without a First Look",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "one-venue wedding timeline",
+      "semantic_key": "timeline-template:one-venue-wedding-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/one-venue-wedding-timeline",
       "entity": "One-Venue Wedding Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "two-venue wedding timeline",
+      "semantic_key": "timeline-template:two-venue-wedding-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/two-venue-wedding-timeline",
       "entity": "Two-Venue Wedding Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "church ceremony wedding timeline",
+      "semantic_key": "timeline-template:church-ceremony-wedding-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/church-ceremony-wedding-timeline",
       "entity": "Church Ceremony Wedding Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "backyard wedding timeline",
+      "semantic_key": "timeline-template:backyard-wedding-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/backyard-wedding-timeline",
       "entity": "Backyard Wedding Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "brunch wedding timeline",
+      "semantic_key": "timeline-template:brunch-wedding-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/brunch-wedding-timeline",
       "entity": "Brunch Wedding Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "evening wedding timeline",
+      "semantic_key": "timeline-template:evening-wedding-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/evening-wedding-timeline",
       "entity": "Evening Wedding Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding photography timeline",
+      "semantic_key": "timeline-template:wedding-photography-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-photography-timeline",
       "entity": "Wedding Photography Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding vendor arrival schedule",
+      "semantic_key": "timeline-template:wedding-vendor-arrival-schedule",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-vendor-arrival-schedule",
       "entity": "Wedding Vendor Arrival Schedule",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding setup and breakdown timeline",
+      "semantic_key": "timeline-template:wedding-setup-breakdown-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-setup-breakdown-timeline",
       "entity": "Wedding Setup and Breakdown Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding reception order of events",
+      "semantic_key": "timeline-template:wedding-reception-order-of-events",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-reception-order-of-events",
       "entity": "Wedding Reception Order of Events",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "wedding-party timeline",
+      "semantic_key": "timeline-template:wedding-party-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-party-timeline",
       "entity": "Wedding-Party Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "family photo timeline",
+      "semantic_key": "timeline-template:family-photo-timeline",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/family-photo-timeline",
       "entity": "Family Photo Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "destination wedding weekend itinerary",
+      "semantic_key": "timeline-template:destination-wedding-weekend-itinerary",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/destination-wedding-weekend-itinerary",
       "entity": "Destination Wedding Weekend Itinerary",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "adding travel buffers to a wedding timeline",
+      "semantic_key": "timeline-template:wedding-timeline-travel-buffer",
       "cluster": "Wedding timeline",
       "domain": "weddingtimelinetemplate.com",
       "product_id": "timeline-template",
       "route": "/guides/wedding-timeline-travel-buffer",
       "entity": "Adding Travel Buffers to a Wedding Timeline",
       "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
     },
     {
       "query": "18-month wedding checklist",
+      "semantic_key": "checklist-pdf:18-month-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/18-month-wedding-checklist",
       "entity": "18-Month Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "12-month wedding checklist",
+      "semantic_key": "checklist-pdf:12-month-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/12-month-wedding-checklist",
       "entity": "12-Month Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "9-month wedding checklist",
+      "semantic_key": "checklist-pdf:9-month-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/9-month-wedding-checklist",
       "entity": "9-Month Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "6-month wedding checklist",
+      "semantic_key": "checklist-pdf:6-month-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/6-month-wedding-checklist",
       "entity": "6-Month Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "3-month wedding checklist",
+      "semantic_key": "checklist-pdf:3-month-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/3-month-wedding-checklist",
       "entity": "3-Month Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "one-month wedding checklist",
+      "semantic_key": "checklist-pdf:1-month-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/1-month-wedding-checklist",
       "entity": "One-Month Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "wedding-week checklist",
+      "semantic_key": "checklist-pdf:wedding-week-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/wedding-week-checklist",
       "entity": "Wedding-Week Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "destination wedding checklist",
+      "semantic_key": "checklist-pdf:destination-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/destination-wedding-checklist",
       "entity": "Destination Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "backyard wedding checklist",
+      "semantic_key": "checklist-pdf:backyard-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/backyard-wedding-checklist",
       "entity": "Backyard Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "micro-wedding checklist",
+      "semantic_key": "checklist-pdf:micro-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/micro-wedding-checklist",
       "entity": "Micro-Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "courthouse wedding checklist",
+      "semantic_key": "checklist-pdf:courthouse-wedding-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/courthouse-wedding-checklist",
       "entity": "Courthouse Wedding Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "wedding vendor booking checklist",
+      "semantic_key": "checklist-pdf:wedding-vendor-booking-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/wedding-vendor-booking-checklist",
       "entity": "Wedding Vendor Booking Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "wedding final-payment checklist",
+      "semantic_key": "checklist-pdf:wedding-final-payment-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/wedding-final-payment-checklist",
       "entity": "Wedding Final-Payment Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "wedding-day emergency checklist",
+      "semantic_key": "checklist-pdf:wedding-day-emergency-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/wedding-day-emergency-checklist",
       "entity": "Wedding-Day Emergency Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "rehearsal dinner checklist",
+      "semantic_key": "checklist-pdf:rehearsal-dinner-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/rehearsal-dinner-checklist",
       "entity": "Rehearsal Dinner Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     },
     {
       "query": "post-wedding returns and closing checklist",
+      "semantic_key": "checklist-pdf:post-wedding-return-checklist",
       "cluster": "Wedding checklist",
       "domain": "weddingchecklistpdf.com",
       "product_id": "checklist-pdf",
       "route": "/guides/post-wedding-return-checklist",
       "entity": "Post-Wedding Returns and Closing Checklist",
       "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
       "status": "admitted",
-      "source_requirement": "general planning guidance; verify local/vendor-specific facts"
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "wedding day timeline: build a realistic schedule",
+      "semantic_key": "timeline-template:wedding-day-timeline",
+      "cluster": "Wedding timeline",
+      "domain": "weddingtimelinetemplate.com",
+      "product_id": "timeline-template",
+      "route": "/guides/wedding-day-timeline",
+      "entity": "Wedding Day Timeline: Build a Realistic Schedule",
+      "conversion_route": "/products/timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "status": "admitted",
+      "source_requirement": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
+    },
+    {
+      "query": "wedding planning binder: tabs, files, and workflow",
+      "semantic_key": "checklist-pdf:wedding-planning-binder",
+      "cluster": "Wedding checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/wedding-planning-binder",
+      "entity": "Wedding Planning Binder: Tabs, Files, and Workflow",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "wedding vendor list: categories, status, and contacts",
+      "semantic_key": "checklist-pdf:wedding-vendor-list",
+      "cluster": "Wedding checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/wedding-vendor-list",
+      "entity": "Wedding Vendor List: Categories, Status, and Contacts",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     }
   ]
 }

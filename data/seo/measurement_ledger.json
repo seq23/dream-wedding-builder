@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "baseline_date": "2026-07-30",
+  "source_note": "User-provided Semrush snapshot plus repo inventory. External values and live preview engagement must be reverified after deployment.",
+  "baseline": {
+    "published_live_urls_reported": 18,
+    "semrush_keywords": 0,
+    "semrush_crawled_backlinks": 0,
+    "semrush_estimated_traffic": 0
+  },
+  "metrics": {
+    "published_urls": 0,
+    "sitemap_urls": 0,
+    "crawled_urls": null,
+    "indexed_urls": null,
+    "impressions": null,
+    "clicks": null,
+    "ranking_queries": null,
+    "referring_domains": 0,
+    "live_backlinks": 0,
+    "checkout_starts": 0,
+    "purchases": 0,
+    "observed_llm_or_search_citations": 0,
+    "product_preview_views": 0,
+    "product_visits_from_guides_or_previews": 0,
+    "checkout_starts_from_preview_pages": 0
+  },
+  "evidence_required": [
+    "provider",
+    "observed_at",
+    "url_or_query",
+    "evidence_reference"
+  ],
+  "truth_rule": "Published, submitted, crawled, indexed, ranked, linked, and cited are separate states."
+}

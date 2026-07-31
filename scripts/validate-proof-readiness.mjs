@@ -23,13 +23,26 @@ for (const [key, value] of Object.entries(growth.metrics || {})) {
   if (value !== 0) fail(`growth metric ${key} claims proof before provider execution: ${value}`);
 }
 
+const contentRegistry = readJson('data/authority/content_registry.json');
+const hubRegistry = readJson('data/seo/hub_pages.json');
+const guideCount = Array.isArray(contentRegistry.pages) ? contentRegistry.pages.length : 0;
+const hubCount = Array.isArray(hubRegistry.pages)
+  ? hubRegistry.pages.length
+  : Object.keys(hubRegistry.pages || {}).length;
+const expectedAuthorityRoutes = guideCount + hubCount;
+
 const admission = readJson('artifacts/authority/admission-report.json');
-if (admission.report?.discovered !== 64 || admission.report?.admitted !== 64 || admission.report?.rejected !== 0) {
-  fail('authority admission report must account for 64 admitted and 0 rejected routes');
+if (admission.report?.discovered !== guideCount || admission.report?.admitted !== guideCount || admission.report?.rejected !== 0) {
+  fail(`authority admission report must account for ${guideCount} admitted guides and 0 rejected routes`);
+}
+if (admission.report?.hub_count !== hubCount) {
+  fail(`authority admission report must account for ${hubCount} hub routes`);
 }
 
 const release = readJson('artifacts/authority/release-manifest.json');
-if (!Array.isArray(release.routes) || release.routes.length !== 64) fail('authority release manifest must contain 64 routes');
+if (!Array.isArray(release.routes) || release.routes.length !== expectedAuthorityRoutes) {
+  fail(`authority release manifest must contain ${expectedAuthorityRoutes} routes (${guideCount} guides + ${hubCount} hubs)`);
+}
 
 const domains = readJson('data/domains/domain_registry.json');
 if (!Array.isArray(domains.domains) || domains.domains.length !== 4) fail('domain registry must define four product authority domains');

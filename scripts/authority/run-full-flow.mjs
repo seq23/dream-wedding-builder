@@ -1,9 +1,36 @@
 import fs from 'node:fs'; import path from 'node:path';
-const root=process.cwd(); const read=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8')); const write=(p,v)=>{const f=path.join(root,p);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(v,null,2));};
-const content=read('data/authority/content_registry.json'); const catalog=read('data/products/product_catalog.json');
-const seen=new Set(); const answerSeen=new Map(); const stepsSeen=new Map(); const semanticSeen=new Map(); const admitted=[]; const rejected=[];
-const norm=v=>String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
-for(const page of content.pages){const reasons=[];if(!page.slug||!page.title||!page.answer)reasons.push('missing_core');if(page.answer.length<180)reasons.push('thin_answer');if(!Array.isArray(page.steps)||page.steps.length<5)reasons.push('insufficient_steps');if(seen.has(page.slug))reasons.push('duplicate_slug');seen.add(page.slug);const ah=norm(page.answer),sh=norm((page.steps||[]).join(' | ')),sk=norm(page.semantic_key||'');if(ah&&answerSeen.has(ah))reasons.push(`duplicate_answer:${answerSeen.get(ah)}`);else if(ah)answerSeen.set(ah,page.slug);if(sh&&stepsSeen.has(sh))reasons.push(`duplicate_steps:${stepsSeen.get(sh)}`);else if(sh)stepsSeen.set(sh,page.slug);if(sk&&semanticSeen.has(sk))reasons.push(`duplicate_semantic_intent:${semanticSeen.get(sk)}`);else if(sk)semanticSeen.set(sk,page.slug);if(!catalog.products.some(p=>p.id===page.product_id))reasons.push('unknown_product');(reasons.length?rejected:admitted).push({...page,reasons});}
-const links=admitted.map(p=>({from:`/guides/${p.slug}`,to:catalog.products.find(x=>x.id===p.product_id)?.route,anchor:catalog.products.find(x=>x.id===p.product_id)?.name}));
-const report={run_at:new Date().toISOString(),mode:process.env.AUTONOMY_MODE||'FULL_SAFE_AUTONOMY',discovered:content.pages.length,admitted:admitted.length,rejected:rejected.length,quality_floor:9,domain_counts:Object.fromEntries(catalog.products.filter(p=>p.domain).map(p=>[p.domain,admitted.filter(x=>x.product_id===p.id).length]))};
-write('artifacts/authority/admission-report.json',{report,rejected});write('data/authority/internal_link_registry.json',{version:'2.0.0',links});write('artifacts/authority/release-manifest.json',{generated_at:report.run_at,routes:admitted.map(p=>`/guides/${p.slug}`)});console.log(JSON.stringify(report,null,2));if(rejected.length)process.exitCode=1;
+const root = process.cwd();
+const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf8'));
+const write = (p, value) => { const file = path.join(root, p); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, JSON.stringify(value, null, 2) + '\n'); };
+const content = read('data/authority/content_registry.json');
+const catalog = read('data/products/product_catalog.json');
+const hubs = read('data/seo/hub_pages.json').pages;
+const seen = new Set(), answerSeen = new Map(), semanticSeen = new Map(), admitted = [], rejected = [];
+const norm = (value) => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
+for (const page of content.pages) {
+  const reasons = [];
+  if (!page.slug || !page.title || !page.answer || !page.semantic_key) reasons.push('missing_core');
+  if (page.answer.length < 220) reasons.push('thin_answer');
+  if (!Array.isArray(page.steps) || page.steps.length < 6) reasons.push('insufficient_steps');
+  if (!Array.isArray(page.sections) || page.sections.length < 3) reasons.push('insufficient_sections');
+  if (!Array.isArray(page.faqs) || page.faqs.length < 3) reasons.push('insufficient_faqs');
+  if (!Array.isArray(page.related_slugs) || page.related_slugs.length < 4) reasons.push('insufficient_links');
+  if (seen.has(page.slug)) reasons.push('duplicate_slug'); else seen.add(page.slug);
+  const answerHash = norm(page.answer), semantic = norm(page.semantic_key);
+  if (answerSeen.has(answerHash)) reasons.push(`duplicate_answer:${answerSeen.get(answerHash)}`); else answerSeen.set(answerHash, page.slug);
+  if (semanticSeen.has(semantic)) reasons.push(`duplicate_semantic_intent:${semanticSeen.get(semantic)}`); else semanticSeen.set(semantic, page.slug);
+  if (!catalog.products.some((product) => product.id === page.product_id)) reasons.push('unknown_product');
+  if (!Object.values(hubs).some((hub) => `/${Object.entries(hubs).find(([, value]) => value === hub)?.[0]}` === page.hub_route)) reasons.push('unknown_hub_route');
+  (reasons.length ? rejected : admitted).push({ ...page, reasons });
+}
+const links = admitted.flatMap((page) => {
+  const product = catalog.products.find((item) => item.id === page.product_id);
+  return [{ from: `/guides/${page.slug}`, to: page.hub_route, anchor: `Start with the ${page.cluster.toLowerCase()} hub`, relationship: 'upward' }, { from: `/guides/${page.slug}`, to: product?.route, anchor: product?.name, relationship: 'conversion' }, ...page.related_slugs.map((slug) => ({ from: `/guides/${page.slug}`, to: `/guides/${slug}`, anchor: admitted.find((item) => item.slug === slug)?.title ?? slug, relationship: 'related' }))];
+});
+const runAt = process.env.AUTHORITY_RUN_AT || '2026-07-30T00:00:00.000Z';
+const report = { run_at: runAt, mode: process.env.AUTONOMY_MODE || 'FULL_SAFE_AUTONOMY', discovered: content.pages.length, admitted: admitted.length, rejected: rejected.length, quality_floor: 9, hub_count: Object.keys(hubs).length, domain_counts: Object.fromEntries(catalog.products.filter((product) => product.domain).map((product) => [product.domain, admitted.filter((page) => page.product_id === product.id).length])) };
+write('artifacts/authority/admission-report.json', { report, rejected });
+write('data/authority/internal_link_registry.json', { version: '3.0.0', links });
+write('artifacts/authority/release-manifest.json', { generated_at: report.run_at, routes: [...Object.keys(hubs).map((slug) => `/${slug}`), ...admitted.map((page) => `/guides/${page.slug}`)] });
+console.log(JSON.stringify(report, null, 2));
+if (rejected.length) process.exitCode = 1;

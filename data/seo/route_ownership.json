@@ -1,0 +1,587 @@
+{
+  "version": "1.0.0",
+  "canonical_scheme": "https",
+  "parent_host": "weddingchecklistpdf.com",
+  "hosts": {
+    "weddingchecklistpdf.com": {
+      "root_action": "render",
+      "root_target": "/",
+      "product_id": "checklist-pdf"
+    },
+    "weddingbudgetspreadsheet.com": {
+      "root_action": "redirect",
+      "root_target": "/wedding-budget-spreadsheet",
+      "product_id": "budget-spreadsheet"
+    },
+    "weddingtimelinetemplate.com": {
+      "root_action": "redirect",
+      "root_target": "/wedding-timeline-template",
+      "product_id": "timeline-template"
+    },
+    "weddingseatingchartmaker.com": {
+      "root_action": "redirect",
+      "root_target": "/wedding-seating-chart",
+      "product_id": "seating-chart-maker"
+    }
+  },
+  "routes": [
+    {
+      "path": "/wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-planning-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-checklist-pdf",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-budget-spreadsheet",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-timeline-template",
+      "host": "weddingtimelinetemplate.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-seating-chart",
+      "host": "weddingseatingchartmaker.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-guest-list-template",
+      "host": "weddingseatingchartmaker.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-seating-chart-for-50-guests",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-seating-chart-for-100-guests",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-seating-chart-for-150-guests",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/round-table-seating-plan",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/long-table-wedding-seating",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/sweetheart-table-vs-head-table",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/seat-divorced-parents-wedding",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-seating-chart-meal-tracker",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-seating-chart-allergy-tracker",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-seating-chart-accessibility",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-seating-chart-vendor-handoff",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/alphabetical-vs-table-order-seating-chart",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-table-capacity-guide",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/late-rsvp-seating-chart-changes",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/children-high-chairs-seating-chart",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-escort-card-data-export",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-spreadsheet-categories",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-for-50-guests",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-for-100-guests",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-for-150-guests",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-10000",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-20000",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-30000",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-50000",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-hidden-costs-checklist",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-vendor-payment-tracker",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-deposit-schedule",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-gratuity-planner",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-budget-contingency",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/family-contributions-wedding-budget",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-monthly-cash-flow",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/estimated-vs-actual-wedding-costs",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-timeline-with-first-look",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-timeline-without-first-look",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/one-venue-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/two-venue-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/church-ceremony-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/backyard-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/brunch-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/evening-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-photography-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-vendor-arrival-schedule",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-setup-breakdown-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-reception-order-of-events",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-party-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/family-photo-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/destination-wedding-weekend-itinerary",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-timeline-travel-buffer",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/18-month-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/12-month-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/9-month-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/6-month-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/3-month-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/1-month-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-week-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/destination-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/backyard-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/micro-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/courthouse-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-vendor-booking-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-final-payment-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-day-emergency-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/rehearsal-dinner-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/post-wedding-return-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-day-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-planning-binder",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-vendor-list",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/products/seating-chart-maker",
+      "host": "weddingseatingchartmaker.com",
+      "type": "product",
+      "indexable": true
+    },
+    {
+      "path": "/products/budget-spreadsheet",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "product",
+      "indexable": true
+    },
+    {
+      "path": "/products/timeline-template",
+      "host": "weddingtimelinetemplate.com",
+      "type": "product",
+      "indexable": true
+    },
+    {
+      "path": "/products/checklist-pdf",
+      "host": "weddingchecklistpdf.com",
+      "type": "product",
+      "indexable": true
+    },
+    {
+      "path": "/",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/build",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/photos",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/trends",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/shop",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/shop/compare",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": false
+    },
+    {
+      "path": "/products/operations-suite",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/privacy",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/disclaimer",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/terms",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/refund-policy",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    }
+  ],
+  "shared_host_routes": [
+    "/guides",
+    "/sitemap.xml",
+    "/robots.txt",
+    "/llms.txt"
+  ],
+  "runtime_routes": [
+    "/api",
+    "/_next",
+    "/favicon.ico"
+  ],
+  "noindex_prefixes": [
+    "/admin",
+    "/api",
+    "/order",
+    "/dashboard",
+    "/pack"
+  ]
+}

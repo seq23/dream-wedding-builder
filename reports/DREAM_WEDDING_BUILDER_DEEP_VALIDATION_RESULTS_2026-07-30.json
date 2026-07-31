@@ -1,0 +1,248 @@
+{
+  "manifest_sha256": [
+    {
+      "product_id": "seating-chart-maker",
+      "path": "DWB-SEATING-001_v2.0.0.pdf",
+      "exists": true,
+      "sha256": "1be76ae610552367fc51b9c7a30dcb7d10607de5bb8966e46ec3ec0ed7af6de5",
+      "expected": "1be76ae610552367fc51b9c7a30dcb7d10607de5bb8966e46ec3ec0ed7af6de5",
+      "match": true
+    },
+    {
+      "product_id": "seating-chart-maker",
+      "path": "DWB-SEATING-001_starter_v2.0.0.csv",
+      "exists": true,
+      "sha256": "7c2ab30070e46027e24715c2a49bcdbe9a10970d271fd99c9d94c3f01a8b134c",
+      "expected": "7c2ab30070e46027e24715c2a49bcdbe9a10970d271fd99c9d94c3f01a8b134c",
+      "match": true
+    },
+    {
+      "product_id": "seating-chart-maker",
+      "path": "DWB-SEATING-001_v2.0.0.xlsx",
+      "exists": true,
+      "sha256": "f604f8da71359bad8de13588c88ff34251d63b305104313676eb91100d1bf311",
+      "expected": "f604f8da71359bad8de13588c88ff34251d63b305104313676eb91100d1bf311",
+      "match": true
+    },
+    {
+      "product_id": "budget-spreadsheet",
+      "path": "DWB-BUDGET-001_v2.0.0.pdf",
+      "exists": true,
+      "sha256": "73a119146d73d21e9ace705a4ab75d59f3d8e403d3ffb44eab17dde0d61390db",
+      "expected": "73a119146d73d21e9ace705a4ab75d59f3d8e403d3ffb44eab17dde0d61390db",
+      "match": true
+    },
+    {
+      "product_id": "budget-spreadsheet",
+      "path": "DWB-BUDGET-001_starter_v2.0.0.csv",
+      "exists": true,
+      "sha256": "67de9d268374ed3109d73fb7832c83207655f7536058fa54f4279548b9410308",
+      "expected": "67de9d268374ed3109d73fb7832c83207655f7536058fa54f4279548b9410308",
+      "match": true
+    },
+    {
+      "product_id": "budget-spreadsheet",
+      "path": "DWB-BUDGET-001_v2.0.0.xlsx",
+      "exists": true,
+      "sha256": "3ed621c4466ca3c8f9667a6fb4a794d9cd4c5c9db327ae222b406728b892d501",
+      "expected": "3ed621c4466ca3c8f9667a6fb4a794d9cd4c5c9db327ae222b406728b892d501",
+      "match": true
+    },
+    {
+      "product_id": "timeline-template",
+      "path": "DWB-TIMELINE-001_v2.0.0.pdf",
+      "exists": true,
+      "sha256": "f61e20a4d41c0496e6e836c13ac9b19d97cb7d0f14648f96c86cdb242f5c8231",
+      "expected": "f61e20a4d41c0496e6e836c13ac9b19d97cb7d0f14648f96c86cdb242f5c8231",
+      "match": true
+    },
+    {
+      "product_id": "timeline-template",
+      "path": "DWB-TIMELINE-001_starter_v2.0.0.csv",
+      "exists": true,
+      "sha256": "5b602dc76861e02fcc991a4f34c00469864dd20c2136793118a875db0e21a9d7",
+      "expected": "5b602dc76861e02fcc991a4f34c00469864dd20c2136793118a875db0e21a9d7",
+      "match": true
+    },
+    {
+      "product_id": "timeline-template",
+      "path": "DWB-TIMELINE-001_v2.0.0.xlsx",
+      "exists": true,
+      "sha256": "ef65447d6f01973d2ff4073423fc6ea31966708599e4ef11311fa839faa16d6e",
+      "expected": "ef65447d6f01973d2ff4073423fc6ea31966708599e4ef11311fa839faa16d6e",
+      "match": true
+    },
+    {
+      "product_id": "checklist-pdf",
+      "path": "DWB-CHECKLIST-001_v2.0.0.pdf",
+      "exists": true,
+      "sha256": "a4df683b3d815b6b7b41e40f4500e7107601823e145944cd1d653cccbcbfb30d",
+      "expected": "a4df683b3d815b6b7b41e40f4500e7107601823e145944cd1d653cccbcbfb30d",
+      "match": true
+    },
+    {
+      "product_id": "checklist-pdf",
+      "path": "DWB-CHECKLIST-001_starter_v2.0.0.csv",
+      "exists": true,
+      "sha256": "489f517ab123b30fb93fa2073265beb1cb0a30a7a07cbf2ba2ac36b15ca6beb3",
+      "expected": "489f517ab123b30fb93fa2073265beb1cb0a30a7a07cbf2ba2ac36b15ca6beb3",
+      "match": true
+    },
+    {
+      "product_id": "checklist-pdf",
+      "path": "DWB-CHECKLIST-001_v2.0.0.xlsx",
+      "exists": true,
+      "sha256": "308ea8fa8797b815babf014768da71ff8389af21f9dc117452ef877e573f913a",
+      "expected": "308ea8fa8797b815babf014768da71ff8389af21f9dc117452ef877e573f913a",
+      "match": true
+    },
+    {
+      "product_id": "operations-suite",
+      "path": "DWB-SUITE-001_v2.0.0.pdf",
+      "exists": true,
+      "sha256": "2014a3f1c85933b85d9e66cbaf9deb238d5b874bb3444ab1e2225b49ca4a63f4",
+      "expected": "2014a3f1c85933b85d9e66cbaf9deb238d5b874bb3444ab1e2225b49ca4a63f4",
+      "match": true
+    },
+    {
+      "product_id": "operations-suite",
+      "path": "DWB-SUITE-001_starter_v2.0.0.csv",
+      "exists": true,
+      "sha256": "b9946f190db31ed26f4954300822fedd5d12f13ee99c90a670fb14ef27ca1b11",
+      "expected": "b9946f190db31ed26f4954300822fedd5d12f13ee99c90a670fb14ef27ca1b11",
+      "match": true
+    },
+    {
+      "product_id": "operations-suite",
+      "path": "DWB-SUITE-001_complete_v2.0.0.zip",
+      "exists": true,
+      "sha256": "49a1c6c82949bc482b4b232b9c9d3a89afbc80d7a129e297cd3b1288b4f6c3ef",
+      "expected": "49a1c6c82949bc482b4b232b9c9d3a89afbc80d7a129e297cd3b1288b4f6c3ef",
+      "match": true
+    }
+  ],
+  "pdfs": [
+    {
+      "path": "DWB-BUDGET-001_v2.0.0.pdf",
+      "pages": 11,
+      "rendered_pages": 11,
+      "render_ok": true
+    },
+    {
+      "path": "DWB-CHECKLIST-001_v2.0.0.pdf",
+      "pages": 13,
+      "rendered_pages": 13,
+      "render_ok": true
+    },
+    {
+      "path": "DWB-SEATING-001_v2.0.0.pdf",
+      "pages": 11,
+      "rendered_pages": 11,
+      "render_ok": true
+    },
+    {
+      "path": "DWB-SUITE-001_v2.0.0.pdf",
+      "pages": 10,
+      "rendered_pages": 10,
+      "render_ok": true
+    },
+    {
+      "path": "DWB-TIMELINE-001_v2.0.0.pdf",
+      "pages": 12,
+      "rendered_pages": 12,
+      "render_ok": true
+    }
+  ],
+  "xlsx": [
+    {
+      "path": "DWB-BUDGET-001_v2.0.0.xlsx",
+      "zip_ok": true,
+      "required_parts": true,
+      "worksheet_count": 3,
+      "formula_count": 0,
+      "ok": true
+    },
+    {
+      "path": "DWB-CHECKLIST-001_v2.0.0.xlsx",
+      "zip_ok": true,
+      "required_parts": true,
+      "worksheet_count": 3,
+      "formula_count": 0,
+      "ok": true
+    },
+    {
+      "path": "DWB-SEATING-001_v2.0.0.xlsx",
+      "zip_ok": true,
+      "required_parts": true,
+      "worksheet_count": 3,
+      "formula_count": 0,
+      "ok": true
+    },
+    {
+      "path": "DWB-TIMELINE-001_v2.0.0.xlsx",
+      "zip_ok": true,
+      "required_parts": true,
+      "worksheet_count": 3,
+      "formula_count": 0,
+      "ok": true
+    }
+  ],
+  "csv": [
+    {
+      "path": "DWB-BUDGET-001_starter_v2.0.0.csv",
+      "rows_including_header": 1,
+      "columns": 8,
+      "ok": true
+    },
+    {
+      "path": "DWB-CHECKLIST-001_starter_v2.0.0.csv",
+      "rows_including_header": 1,
+      "columns": 7,
+      "ok": true
+    },
+    {
+      "path": "DWB-SEATING-001_starter_v2.0.0.csv",
+      "rows_including_header": 1,
+      "columns": 10,
+      "ok": true
+    },
+    {
+      "path": "DWB-SUITE-001_starter_v2.0.0.csv",
+      "rows_including_header": 1,
+      "columns": 6,
+      "ok": true
+    },
+    {
+      "path": "DWB-TIMELINE-001_starter_v2.0.0.csv",
+      "rows_including_header": 1,
+      "columns": 8,
+      "ok": true
+    }
+  ],
+  "zips": [
+    {
+      "path": "DWB-SUITE-001_complete_v2.0.0.zip",
+      "entries": 8,
+      "zip_ok": true,
+      "ok": true
+    }
+  ],
+  "public_exposure": {
+    "banned_paid_file_count": 0,
+    "paths": [],
+    "ok": true
+  },
+  "preview_integrity": {
+    "manifest_entries": 0,
+    "png_files": 20,
+    "unique_hashes": 20,
+    "all_unique": true,
+    "all_nonempty": true
+  },
+  "secret_scan": {
+    "potential_secret_hits": [],
+    "count": 0,
+    "ok": true
+  },
+  "status": "PASS"
+}

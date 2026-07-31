@@ -18,6 +18,7 @@ const allowedRootFiles = new Set([
   'REPO_VISUAL_STYLE_GUIDE.md',
   'SCOPE_RECEIPT.md',
   'UI_QUALITY_GATES.md',
+  'middleware.ts',
   'next-env.d.ts',
   'next.config.ts',
   'open-next.config.ts',

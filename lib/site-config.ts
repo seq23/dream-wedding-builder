@@ -1,0 +1,80 @@
+import ownership from '@/data/seo/route_ownership.json';
+import registry from '@/data/authority/content_registry.json';
+import { products } from '@/lib/products';
+
+export type SiteHost = keyof typeof ownership.hosts;
+export const PARENT_HOST = ownership.parent_host as SiteHost;
+export const CANONICAL_HOSTS = Object.keys(ownership.hosts) as SiteHost[];
+
+export function normalizeHost(raw?: string | null): string {
+  return String(raw ?? '').split(',')[0].trim().toLowerCase().split(':')[0];
+}
+
+export function apexHost(raw?: string | null): string {
+  const host = normalizeHost(raw);
+  return host.startsWith('www.') ? host.slice(4) : host;
+}
+
+export function isCanonicalHost(host: string): host is SiteHost {
+  return CANONICAL_HOSTS.includes(host as SiteHost);
+}
+
+export function isPreviewHost(host: string): boolean {
+  return !host || host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.pages.dev') || /^127\./.test(host);
+}
+
+export const productsWithDomains = products.filter(
+  (product): product is typeof product & { domain: SiteHost } => isCanonicalHost(product.domain)
+);
+
+export const hostConfig = ownership.hosts as Record<SiteHost, { root_action: string; root_target: string; product_id: string }>;
+
+const routeOwners = new Map<string, SiteHost>(
+  ownership.routes.map((route) => [route.path, route.host as SiteHost])
+);
+const productHosts = new Map<string, SiteHost>(
+  productsWithDomains.map((product) => [product.id, product.domain])
+);
+const guideHosts = new Map<string, SiteHost>(
+  registry.pages.map((page) => [page.slug, productHosts.get(page.product_id) ?? PARENT_HOST])
+);
+
+export function canonicalUrl(host: string, path = '/'): string {
+  return `https://${host}${path === '/' ? '/' : path}`;
+}
+
+export function canonicalHostForPath(pathname: string): SiteHost | null {
+  const exact = routeOwners.get(pathname);
+  if (exact) return exact;
+  const guideMatch = pathname.match(/^\/guides\/([^/]+)\/?$/);
+  if (guideMatch) return guideHosts.get(guideMatch[1]) ?? null;
+  const productMatch = pathname.match(/^\/products\/([^/]+)\/?$/);
+  if (productMatch) {
+    const product = productsWithDomains.find((item) => item.id === productMatch[1]);
+    return product?.domain ?? PARENT_HOST;
+  }
+  if (pathname.startsWith('/admin')) return PARENT_HOST;
+  if (pathname.startsWith('/order') || pathname.startsWith('/dashboard') || pathname.startsWith('/pack')) return PARENT_HOST;
+  if (pathname.startsWith('/shop') || pathname === '/build' || pathname === '/photos' || pathname === '/trends') return PARENT_HOST;
+  if (['/privacy', '/disclaimer', '/terms', '/refund-policy'].includes(pathname)) return PARENT_HOST;
+  return null;
+}
+
+export function guidesForHost(host: string) {
+  const resolved = isCanonicalHost(host) ? host : PARENT_HOST;
+  return registry.pages.filter((page) => productHosts.get(page.product_id) === resolved);
+}
+
+export function productForHost(host: string) {
+  const resolved = isCanonicalHost(host) ? host : PARENT_HOST;
+  return productsWithDomains.find((product) => product.domain === resolved);
+}
+
+export function hostForProduct(productId: string): SiteHost {
+  return productHosts.get(productId) ?? PARENT_HOST;
+}
+
+export function currentSiteName(host: string): string {
+  const product = productForHost(host);
+  return product?.name ?? 'Dream Wedding Builder';
+}

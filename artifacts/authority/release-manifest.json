@@ -1,6 +1,14 @@
 {
-  "generated_at": "2026-07-24T19:21:40.669Z",
+  "generated_at": "2026-07-30T20:04:00-05:00",
   "routes": [
+    "/wedding-checklist",
+    "/wedding-planning-checklist",
+    "/wedding-checklist-pdf",
+    "/printable-wedding-checklist",
+    "/wedding-budget-spreadsheet",
+    "/wedding-timeline-template",
+    "/wedding-seating-chart",
+    "/wedding-guest-list-template",
     "/guides/wedding-seating-chart-for-50-guests",
     "/guides/wedding-seating-chart-for-100-guests",
     "/guides/wedding-seating-chart-for-150-guests",
@@ -64,6 +72,9 @@
     "/guides/wedding-final-payment-checklist",
     "/guides/wedding-day-emergency-checklist",
     "/guides/rehearsal-dinner-checklist",
-    "/guides/post-wedding-return-checklist"
+    "/guides/post-wedding-return-checklist",
+    "/guides/wedding-day-timeline",
+    "/guides/wedding-planning-binder",
+    "/guides/wedding-vendor-list"
   ]
 }
