@@ -50,3 +50,13 @@ These fallbacks may isolate source defects when the validation container cannot 
 | Browser/artifact view | PDF render and all-page contact review | PASS | web UI Playwright journeys |
 
 The hard release sequence remains `npm run validate:all`, production build, and the configured browser gauntlet in an environment with the locked dependency graph installed.
+
+
+## Search Visibility Autonomy — 2026-08-08
+
+| Layer | Command | Severity | Proves | Does Not Prove |
+|---|---|---:|---|---|
+| Search intelligence truth contract | `npm run validate:search-intelligence` | HARD FAIL | target ownership, provider evidence classes, bounded repair types, anti-overclaim boundaries, and outcome states are structurally valid | live rankings, competitor universality, indexing, citations, or conversions |
+| Search intelligence cycle | `npm run search:cycle` | BOUNDED EXECUTION | target generation, configured GSC collection, diagnosis, safe metadata repair, delayed retest, and status output execute as a separate lane | provider availability when credentials are absent |
+
+Search intelligence is deliberately outside the existing authority publication cadence. It may repair approved hub metadata but may not create URLs, change canonical ownership, or alter velocity.

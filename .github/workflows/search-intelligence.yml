@@ -1,0 +1,39 @@
+name: Search Intelligence - Observe Diagnose Repair Retest
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 11 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: dream-wedding-search-intelligence
+  cancel-in-progress: false
+jobs:
+  search-intelligence:
+    if: ${{ vars.CONTENT_EMERGENCY_STOP != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: Run bounded search intelligence loop
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL_SEATING: ${{ secrets.GSC_SITE_URL_SEATING }}
+          GSC_SITE_URL_BUDGET: ${{ secrets.GSC_SITE_URL_BUDGET }}
+          GSC_SITE_URL_TIMELINE: ${{ secrets.GSC_SITE_URL_TIMELINE }}
+          GSC_SITE_URL_CHECKLIST: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
+        run: npm run search:cycle
+      - name: Re-run structural validation after any bounded repair
+        run: npm run validate:structural
+      - name: Commit evidence and bounded repairs only
+        run: |
+          git config user.name 'dream-wedding-search-intelligence-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/search_intelligence data/seo/hub_pages.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m 'search: evidence-backed bounded repair cycle'
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -17,7 +17,7 @@
     "validate:profile-purity": "node scripts/validate-profile-purity.mjs",
     "validate:tree-hygiene": "node scripts/validate-tree-hygiene.mjs",
     "validate:proof-readiness": "node scripts/validate-proof-readiness.mjs",
-    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo",
+    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo && npm run validate:search-intelligence",
     "validate:all": "npm run typecheck && npm run test && npm run validate:structural",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
@@ -63,7 +63,16 @@
     "distribution:gsc": "node scripts/distribution/submit_gsc_sitemaps.mjs",
     "distribution:validate": "node scripts/distribution/validate_distribution.mjs",
     "authority:velocity:evaluate": "node scripts/authority_scale/evaluate_velocity.mjs",
-    "validate:seo": "node scripts/validate-seo-recovery.mjs"
+    "validate:seo": "node scripts/validate-seo-recovery.mjs",
+    "search:targets": "node scripts/search_intelligence/build_targets.mjs",
+    "search:gsc": "node scripts/search_intelligence/collect_gsc.mjs",
+    "search:observe:import": "node scripts/search_intelligence/import_agent_observations.mjs",
+    "search:diagnose": "node scripts/search_intelligence/diagnose.mjs",
+    "search:repair": "node scripts/search_intelligence/apply_repairs.mjs",
+    "search:retest": "node scripts/search_intelligence/retest.mjs",
+    "search:status": "node scripts/search_intelligence/status.mjs",
+    "validate:search-intelligence": "node scripts/search_intelligence/validate.mjs",
+    "search:cycle": "npm run search:targets && npm run search:gsc && npm run search:diagnose && npm run search:repair && npm run search:retest && npm run validate:search-intelligence && npm run search:status"
   },
   "dependencies": {
     "next": "15.5.18",

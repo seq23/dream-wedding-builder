@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "repairs": [
+    {
+      "repair_id": "f230cb6d3c558485916e",
+      "diagnostic_id": "8fafed7dbe9a9cd4f206",
+      "kind": "hub_meta_description_length",
+      "route": "/wedding-guest-list-template",
+      "host": "weddingseatingchartmaker.com",
+      "status": "APPLIED",
+      "applied_at": "2026-08-08T15:48:38.107Z",
+      "before": "Learn which fields a wedding guest list needs for RSVPs, meals, accessibility, children, seating, and vendor handoff, then see the actual paid guest-master and reconciliation views.",
+      "after": "Use one guest record per person, preserve household/group context, and keep RSVP, meal, allergy, accessibility, child, seating, and confirmation data together.",
+      "source_rule": "derived only from existing direct_answer/description/h1",
+      "evidence_observation_id": null,
+      "retest_after_days": 14
+    }
+  ]
+}

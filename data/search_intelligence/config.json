@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "mode": "BOUNDED_SEARCH_SELF_HEAL",
+  "truth_boundary": "GSC proves own-site Google Search performance only. Agent/imported observations may record sampled result surfaces but never become literal rank telemetry unless the observation explicitly carries provider evidence.",
+  "target_sources": [
+    "data/atlas/query_universe.json",
+    "data/authority/atlas.json"
+  ],
+  "providers": {
+    "gsc": {
+      "enabled_when_configured": true,
+      "cost_class": "existing/free provider access",
+      "dimensions": [
+        "query",
+        "page"
+      ],
+      "lookback_days": 28,
+      "row_limit": 25000
+    },
+    "agent_observation_import": {
+      "enabled": true,
+      "cost_class": "repo-operator/agent supplied",
+      "required_evidence_fields": [
+        "observed_at",
+        "query",
+        "provider",
+        "results"
+      ]
+    }
+  },
+  "budgets": {
+    "gsc_requests_per_run": 8,
+    "agent_observations_per_import": 250,
+    "repairs_per_run": 5
+  },
+  "repair_policy": {
+    "auto": [
+      "hub_missing_meta_description",
+      "hub_meta_description_length"
+    ],
+    "auto_watch": [
+      "high_impression_low_ctr_hub_meta_description"
+    ],
+    "review": [
+      "title_change",
+      "canonical_change",
+      "route_change",
+      "new_url",
+      "content_consolidation",
+      "product_positioning"
+    ],
+    "blocked": [
+      "fabricated_rank",
+      "fabricated_citation",
+      "fabricated_competitor_claim",
+      "unbounded_page_generation",
+      "publishing_cadence_change"
+    ]
+  },
+  "anti_thrash_days": 14,
+  "retest_delay_days": 14,
+  "publishing_cadence_owned_elsewhere": true
+}

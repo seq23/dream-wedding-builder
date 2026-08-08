@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-08-08T15:48:38.054Z",
+  "providers": {
+    "gsc": {
+      "state": "UNCONFIGURED",
+      "note": "GSC_SERVICE_ACCOUNT_JSON absent; existing evidence preserved"
+    },
+    "agent_observation_import": {
+      "state": "READY"
+    }
+  }
+}
