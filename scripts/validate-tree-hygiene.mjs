@@ -7,6 +7,7 @@ const allowedRootFiles = new Set([
   '.dev.vars.example',
   '.env.example',
   '.gitignore',
+  'Agents.md',
   'ARTIFACT_MANIFEST.md',
   'DESIGN_SYSTEM.md',
   'ENVIRONMENT_VARIABLES.md',
