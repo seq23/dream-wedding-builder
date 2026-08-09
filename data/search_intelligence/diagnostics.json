@@ -1,22 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-08-08T15:48:38.079Z",
-  "diagnostics": [
-    {
-      "diagnostic_id": "8fafed7dbe9a9cd4f206",
-      "kind": "hub_meta_description_length",
-      "severity": "AUTO",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/wedding-guest-list-template",
-      "reason": "description length 181",
-      "evidence": "repo_static"
-    }
-  ],
+  "generated_at": "2026-08-09T11:52:33.556Z",
+  "diagnostics": [],
   "summary": {
-    "total": 1,
-    "by_kind": {
-      "hub_meta_description_length": 1
-    },
+    "total": 0,
+    "by_kind": {},
     "gsc_observations": 0,
     "sampled_surface_observations": 0,
     "truth_note": "No evidence is promoted beyond its provider class."
