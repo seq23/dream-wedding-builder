@@ -1,0 +1,20 @@
+name: Authority Preflight Validation
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * *'
+permissions: { contents: read }
+concurrency: { group: dwb-authority-preflight, cancel-in-progress: false }
+# Intentional read-only preflight. This does not publish. The publishing lane is full-safe-autonomy.yml one hour later.
+jobs:
+  authority-preflight:
+    if: ${{ vars.CONTENT_RELEASE_ENABLED == 'true' && vars.CONTENT_EMERGENCY_STOP != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: npm }
+      - run: npm ci
+      - run: npm run validate:authority
+      - name: Safe-harbor preflight boundary
+        run: echo 'Preflight only. Full Safe Autonomy owns generation, publication, freeze, distribution, and commits.'

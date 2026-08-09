@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   search-intelligence:
-    if: ${{ vars.CONTENT_EMERGENCY_STOP != 'true' }}
+    if: ${{ vars.CONTENT_RELEASE_ENABLED == 'true' && vars.CONTENT_EMERGENCY_STOP != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

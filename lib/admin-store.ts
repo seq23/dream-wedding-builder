@@ -45,10 +45,19 @@ export function validateProduct(p:any, existing:any[]){
  return errors;
 }
 
+export async function assertGitHubRepositoryPrivate(token:string, repo:string){
+ const headers={Authorization:`Bearer ${token}`,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
+ const result=await fetch(`https://api.github.com/repos/${repo}`,{headers,cache:'no-store'});
+ if(!result.ok) throw new Error(`Cannot verify GitHub repository visibility: ${result.status} ${await result.text()}`);
+ const metadata=await result.json() as {private?:boolean};
+ if(metadata?.private!==true) throw new Error('Refusing paid-product upload because GitHub reports the target repository is not private');
+ return true;
+}
+
 export async function saveBinaryToPrivateGitHub(pathInRepo:string, bytes:Buffer, message:string){
  const token=process.env.GITHUB_ADMIN_TOKEN, repo=process.env.GITHUB_REPOSITORY, branch=process.env.GITHUB_DEFAULT_BRANCH||'main';
  if(!token||!repo) throw new Error('GitHub-backed binary storage is not configured');
- if(process.env.GITHUB_REPOSITORY_PRIVATE!=='true') throw new Error('Refusing paid-product upload unless GITHUB_REPOSITORY_PRIVATE=true');
+ await assertGitHubRepositoryPrivate(token,repo);
  const url=`https://api.github.com/repos/${repo}/contents/${pathInRepo}`;
  const headers={Authorization:`Bearer ${token}`,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'};
  const current=await fetch(`${url}?ref=${encodeURIComponent(branch)}`,{headers,cache:'no-store'}); const currentJson=current.ok?await current.json():null;

@@ -54,7 +54,6 @@ GITHUB_DEFAULT_BRANCH=main
 PARENT_HOST_DOMAIN=weddingchecklistpdf.com
 CHECKLIST_CANONICAL_PATH=/products/checklist-pdf
 ADMIN_BINARY_STORAGE_MODE=local
-GITHUB_REPOSITORY_PRIVATE=false
 CLOUDFLARE_PAGES_PROJECT_NAME=dream-wedding-builder
 CLOUDFLARE_D1_DATABASE_NAME=dream-wedding-builder
 CLOUDFLARE_R2_BUCKET_NAME=dream-wedding-builder-products

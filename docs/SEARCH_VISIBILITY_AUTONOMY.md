@@ -33,6 +33,10 @@ npm run validate:search-intelligence
 
 Each imported query needs timestamp, provider, result URLs, and an evidence URL or evidence note. This creates evidence accounting without pretending the repository itself has a free universal SERP API.
 
+## Runtime gate
+
+Search Intelligence remains a separate bounded lane, but it shares the same explicit launch switch as authority publication. Scheduled runs require `CONTENT_RELEASE_ENABLED=true` and `CONTENT_EMERGENCY_STOP!=true`. This prevents a write-capable scheduled lane from starting before the owner has deliberately enabled content automation.
+
 ## Scheduled zero/low-cost path
 
 The scheduled GitHub workflow uses the already-supported GSC service-account secret when configured. If GSC is absent it preserves prior evidence and reports `UNCONFIGURED`; technical diagnosis/retest/validation still run.

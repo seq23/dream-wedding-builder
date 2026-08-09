@@ -8,3 +8,7 @@
 6. Run `npm run validate:all` before packaging.
 7. Use `docs/PAID_ORDER_FULFILLMENT_RUNBOOK.md` for order, entitlement, and download recovery.
 8. Use `npm run proof:local-full` when you explicitly need authority regeneration plus production build proof.
+
+9. Automation topology is intentional: `Authority Preflight Validation` is read-only, `Full Safe Autonomy` is the publishing lane, and `Search Intelligence` is a separate bounded repair/evidence lane.
+10. `CONTENT_RELEASE_ENABLED=true` is the shared opt-in for both authority publication and Search Intelligence. `CONTENT_EMERGENCY_STOP=true` stops both lanes.
+11. Paid binary uploads must verify the configured GitHub repository is actually private through the GitHub API before writing; no local privacy flag is treated as proof.
