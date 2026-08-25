@@ -29,7 +29,10 @@ const guideCount = Array.isArray(contentRegistry.pages) ? contentRegistry.pages.
 const hubCount = Array.isArray(hubRegistry.pages)
   ? hubRegistry.pages.length
   : Object.keys(hubRegistry.pages || {}).length;
-const expectedAuthorityRoutes = guideCount + hubCount;
+// Routes are what actually shipped, so they follow the admitted set, not the raw
+// registry. authority:scale:fanout adds candidates before admission runs, so
+// guideCount includes pages that were legitimately held back.
+let expectedAuthorityRoutes = guideCount + hubCount;
 
 const admission = readJson('artifacts/authority/admission-report.json');
 // Requiring rejected === 0 assumed every discovered page is publishable. The
@@ -43,9 +46,13 @@ const discovered = admission.report?.discovered ?? -1;
 if (admitted < 0 || rejectedCount < 0 || discovered !== admitted + rejectedCount) {
   fail(`authority admission report must balance: discovered ${discovered} != admitted ${admitted} + rejected ${rejectedCount}`);
 }
-if (admitted !== guideCount) {
-  fail(`authority admission report must account for the ${guideCount} guides in the registry (admitted ${admitted})`);
+if (admitted < 1) {
+  fail('authority admission report admitted no guides - nothing can ship');
 }
+if (admitted > guideCount) {
+  fail(`authority admission report admitted ${admitted} guides but the registry holds only ${guideCount}`);
+}
+expectedAuthorityRoutes = admitted + hubCount;
 if (admission.report?.hub_count !== hubCount) {
   fail(`authority admission report must account for ${hubCount} hub routes`);
 }
