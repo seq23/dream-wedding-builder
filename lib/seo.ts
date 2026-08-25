@@ -31,4 +31,4 @@ export function seoMetadata(input: { title: string; description: string; host: s
 }
 
 export function hubMetadata(slug: string): Metadata { const hub = hubBySlug(slug); return seoMetadata({ title: hub.title, description: hub.description, host: hub.host, path: `/${slug}` }); }
-export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForProduct(guide.product_id); return seoMetadata({ title: guide.title, description: guide.summary, host, path: `/guides/${guide.slug}`, type: 'article' }); }
+export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForProduct(guide.product_id); return seoMetadata({ title: guide.title, description: guide.summary ?? '', host, path: `/guides/${guide.slug}`, type: 'article' }); }
