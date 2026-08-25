@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { apexHost, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
 
-const passthroughPrefixes = ['/api/', '/_next/'];
+// Search Console verification files must be served verbatim at each domain root.
+// The matcher catches everything outside _next, so without a passthrough the
+// host-ownership rules would redirect the verification request and Google would
+// never see the file.
+const passthroughPrefixes = ['/api/', '/_next/', '/google'];
 const passthroughExact = ['/favicon.ico'];
 
 export function middleware(request: NextRequest) {
