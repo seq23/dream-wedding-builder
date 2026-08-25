@@ -24,7 +24,6 @@ const pageText = (page) => [page.answer, ...(page.sections ?? []).flatMap((secti
 if (ownership.parent_host !== 'weddingchecklistpdf.com') errors.push('wrong parent host');
 if (Object.keys(ownership.hosts).length !== 4) errors.push('expected four canonical hosts');
 if (Object.keys(hubs).length !== 8) errors.push(`expected 8 hub/product-preview pages, found ${Object.keys(hubs).length}`);
-if (registry.pages.length !== 67) errors.push(`expected 67 guides, found ${registry.pages.length}`);
 if (products.length !== 4) errors.push(`expected 4 domain-owned products, found ${products.length}`);
 
 const routeKeys = new Set();
@@ -59,6 +58,13 @@ try {
   console.warn(`[validate-seo-recovery] no admission report (${err.code || err.name}); validating the full registry`);
 }
 const shippingPages = registry.pages.filter((p) => !rejectedSlugs.has(p.slug));
+
+// A floor, not an exact count. This asserted exactly 67 guides forever, so the
+// publishing lane could never add a page without failing validation - in a repo
+// whose entire purpose is publishing pages. The property worth protecting is that
+// guides are never silently lost, which a floor gives us.
+const MINIMUM_SHIPPING_GUIDES = 67;
+if (shippingPages.length < MINIMUM_SHIPPING_GUIDES) errors.push(`guide count regressed below floor: expected at least ${MINIMUM_SHIPPING_GUIDES}, found ${shippingPages.length}`);
 
 const slugSeen = new Set(), titleSeen = new Set(), semanticSeen = new Set();
 for (const page of shippingPages) {
