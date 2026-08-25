@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1",
+  "published_ids": [
+    "maxfanout_000061_0ef3a64789",
+    "maxfanout_000062_1799256317",
+    "maxfanout_000063_fa2a39b102",
+    "maxfanout_000064_691d9cae0e",
+    "maxfanout_000065_110df17c0f",
+    "maxfanout_000066_ae09fe4b86",
+    "maxfanout_000067_6342d9945f",
+    "maxfanout_000068_4f24328ced",
+    "maxfanout_000069_50f5b480af",
+    "maxfanout_000070_4111b8c96f",
+    "maxfanout_000071_f89452f145",
+    "maxfanout_000072_dbbb192eca",
+    "maxfanout_000073_23a6b3421c",
+    "maxfanout_000074_6bd795db4b",
+    "maxfanout_000075_e4592821ba"
+  ],
+  "runs": [
+    {
+      "run_at": "2026-08-25T01:21:05.788Z",
+      "date": "2026-08-25",
+      "created": 15,
+      "ceiling": 15,
+      "already_published_today_before_run": 0,
+      "remaining_budget_before_run": 15
+    }
+  ]
+}

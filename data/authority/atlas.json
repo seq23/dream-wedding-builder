@@ -975,6 +975,160 @@
       "hub_route": "/wedding-checklist",
       "status": "admitted",
       "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "how to plan wedding planning for engaged couples practical",
+      "semantic_key": "wedding planning|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-wedding-planning-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding seating chart for engaged couples practical",
+      "semantic_key": "wedding seating chart|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Seating Chart",
+      "domain": "weddingseatingchartmaker.com",
+      "product_id": "seating-chart-maker",
+      "route": "/guides/how-to-plan-wedding-seating-chart-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Seating Chart For Engaged Couples Practical",
+      "conversion_route": "/products/seating-chart-maker",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding budget for engaged couples practical",
+      "semantic_key": "wedding budget|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Budget",
+      "domain": "weddingbudgetspreadsheet.com",
+      "product_id": "budget-spreadsheet",
+      "route": "/guides/how-to-plan-wedding-budget-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Budget For Engaged Couples Practical",
+      "conversion_route": "/products/budget-spreadsheet",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding timeline for engaged couples practical",
+      "semantic_key": "wedding timeline|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Timeline",
+      "domain": "weddingtimelinetemplate.com",
+      "product_id": "timeline-template",
+      "route": "/guides/how-to-plan-wedding-timeline-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Timeline For Engaged Couples Practical",
+      "conversion_route": "/products/timeline-template",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding checklist for engaged couples practical",
+      "semantic_key": "wedding checklist|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/how-to-plan-wedding-checklist-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Checklist For Engaged Couples Practical",
+      "conversion_route": "/products/checklist-pdf",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding venue planning for engaged couples practical",
+      "semantic_key": "wedding venue planning|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Venue Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-wedding-venue-planning-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Venue Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding guest list for engaged couples practical",
+      "semantic_key": "wedding guest list|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Guest List",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-wedding-guest-list-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Guest List For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding vendor selection for engaged couples practical",
+      "semantic_key": "wedding vendor selection|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Vendor Selection",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-wedding-vendor-selection-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Vendor Selection For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding day logistics for engaged couples practical",
+      "semantic_key": "wedding day logistics|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Day Logistics",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-wedding-day-logistics-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Day Logistics For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding ceremony planning for engaged couples practical",
+      "semantic_key": "wedding ceremony planning|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Ceremony Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-wedding-ceremony-planning-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Ceremony Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan wedding reception planning for engaged couples practical",
+      "semantic_key": "wedding reception planning|how to plan {topic}|engaged couples",
+      "cluster": "Wedding Reception Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-wedding-reception-planning-for-engaged-couples-practical",
+      "entity": "How To Plan Wedding Reception Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan destination wedding planning for engaged couples practical",
+      "semantic_key": "destination wedding planning|how to plan {topic}|engaged couples",
+      "cluster": "Destination Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-destination-wedding-planning-for-engaged-couples-practical",
+      "entity": "How To Plan Destination Wedding Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan micro wedding planning for engaged couples practical",
+      "semantic_key": "micro wedding planning|how to plan {topic}|engaged couples",
+      "cluster": "Micro Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-micro-wedding-planning-for-engaged-couples-practical",
+      "entity": "How To Plan Micro Wedding Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan elopement planning for engaged couples practical",
+      "semantic_key": "elopement planning|how to plan {topic}|engaged couples",
+      "cluster": "Elopement Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-elopement-planning-for-engaged-couples-practical",
+      "entity": "How To Plan Elopement Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "how to plan diy wedding planning for engaged couples practical",
+      "semantic_key": "DIY wedding planning|how to plan {topic}|engaged couples",
+      "cluster": "DIY Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/how-to-plan-diy-wedding-planning-for-engaged-couples-practical",
+      "entity": "How To Plan DIY Wedding Planning For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
     }
   ]
 }
