@@ -1,0 +1,57 @@
+{
+  "receipts": [
+    {
+      "provider": "IndexNow",
+      "host": "weddingseatingchartmaker.com",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "prepared_url_count": 20,
+      "submitted_url_count": 0,
+      "submitted_at": "2026-08-25T01:21:11.327Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    },
+    {
+      "provider": "IndexNow",
+      "host": "weddingbudgetspreadsheet.com",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "prepared_url_count": 19,
+      "submitted_url_count": 0,
+      "submitted_at": "2026-08-25T01:21:11.327Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    },
+    {
+      "provider": "IndexNow",
+      "host": "weddingtimelinetemplate.com",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "prepared_url_count": 20,
+      "submitted_url_count": 0,
+      "submitted_at": "2026-08-25T01:21:11.327Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    },
+    {
+      "provider": "IndexNow",
+      "host": "weddingchecklistpdf.com",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "prepared_url_count": 34,
+      "submitted_url_count": 0,
+      "submitted_at": "2026-08-25T01:21:11.327Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    }
+  ],
+  "truth_note": "Receipt proves submission only."
+}

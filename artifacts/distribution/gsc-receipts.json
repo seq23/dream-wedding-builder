@@ -1,0 +1,57 @@
+{
+  "receipts": [
+    {
+      "provider": "Google Search Console",
+      "host": "weddingseatingchartmaker.com",
+      "site_property": null,
+      "sitemap": "https://weddingseatingchartmaker.com/sitemap.xml",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "submitted_at": "2026-08-25T01:21:11.431Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    },
+    {
+      "provider": "Google Search Console",
+      "host": "weddingbudgetspreadsheet.com",
+      "site_property": null,
+      "sitemap": "https://weddingbudgetspreadsheet.com/sitemap.xml",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "submitted_at": "2026-08-25T01:21:11.431Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    },
+    {
+      "provider": "Google Search Console",
+      "host": "weddingtimelinetemplate.com",
+      "site_property": null,
+      "sitemap": "https://weddingtimelinetemplate.com/sitemap.xml",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "submitted_at": "2026-08-25T01:21:11.431Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    },
+    {
+      "provider": "Google Search Console",
+      "host": "weddingchecklistpdf.com",
+      "site_property": null,
+      "sitemap": "https://weddingchecklistpdf.com/sitemap.xml",
+      "mode": "live",
+      "status": "DRY_RUN_OR_NOT_CONFIGURED",
+      "http_status": null,
+      "error": null,
+      "submitted_at": "2026-08-25T01:21:11.431Z",
+      "claims_indexed": false,
+      "citation_proof": false
+    }
+  ],
+  "truth_note": "Receipt proves sitemap submission only."
+}
