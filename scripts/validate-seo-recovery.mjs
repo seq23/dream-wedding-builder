@@ -44,8 +44,24 @@ for (const [slug, page] of Object.entries(hubs)) {
   if ('asset' in page) errors.push(`legacy public download asset remains on hub: ${slug}`);
 }
 
+// authority:scale:fanout appends candidate pages to the registry on every run and
+// admission holds back the incomplete ones. Validating the raw registry therefore
+// judged pages that were never going to ship. Validate the admitted set instead;
+// rejected candidates stay in the registry and in the admission report, they are
+// simply not held to the standard of published pages.
+let rejectedSlugs = new Set();
+try {
+  const admission = JSON.parse(fs.readFileSync('artifacts/authority/admission-report.json', 'utf8'));
+  rejectedSlugs = new Set((admission.rejected || []).map((p) => p.slug).filter(Boolean));
+} catch (err) {
+  // Loud on purpose: silently validating everything would hide the fanout
+  // candidates this filter exists to exclude.
+  console.warn(`[validate-seo-recovery] no admission report (${err.code || err.name}); validating the full registry`);
+}
+const shippingPages = registry.pages.filter((p) => !rejectedSlugs.has(p.slug));
+
 const slugSeen = new Set(), titleSeen = new Set(), semanticSeen = new Set();
-for (const page of registry.pages) {
+for (const page of shippingPages) {
   if (slugSeen.has(page.slug)) errors.push(`duplicate slug: ${page.slug}`); else slugSeen.add(page.slug);
   if (titleSeen.has(norm(page.title))) errors.push(`duplicate title: ${page.title}`); else titleSeen.add(norm(page.title));
   if (semanticSeen.has(page.semantic_key)) errors.push(`duplicate semantic key: ${page.semantic_key}`); else semanticSeen.add(page.semantic_key);
@@ -71,8 +87,11 @@ for (let i = 0; i < registry.pages.length; i++) {
     if (similarity > 0.78) errors.push(`near-duplicate guides: ${a.slug} <> ${b.slug} (${similarity.toFixed(2)})`);
   }
 }
-for (const page of registry.pages) {
-  for (const related of page.related_slugs) if (!slugSeen.has(related)) errors.push(`missing related guide ${related} from ${page.slug}`);
+for (const page of shippingPages) {
+  // Guarded: an unguarded iterate here crashed the whole validator with a
+  // TypeError before any collected error could be printed, so a data problem
+  // surfaced as a stack trace instead of an actionable message.
+  for (const related of (Array.isArray(page.related_slugs) ? page.related_slugs : [])) if (!slugSeen.has(related)) errors.push(`missing related guide ${related} from ${page.slug}`);
   if (!links.some((link) => link.from === `/guides/${page.slug}` && link.to === page.hub_route)) errors.push(`missing upward link registry: ${page.slug}`);
 }
 
