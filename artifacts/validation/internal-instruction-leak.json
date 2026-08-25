@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "validator": "no-internal-instruction-leak",
-  "generated_at": "2026-08-25T21:54:22.915Z",
+  "generated_at": "2026-08-25T21:59:17.229Z",
   "status": "PASS",
   "scan_surface": [
     "app",

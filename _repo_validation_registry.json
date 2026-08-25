@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 15,
+    "HARD_FAIL": 16,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -151,6 +151,15 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
+      "composite": false
+    },
+    {
+      "id": "content-pattern-contract",
+      "npmScript": "validate:content-pattern",
+      "command": "node scripts/validators/validate_content_pattern_contract.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "a content page with no direct answer, no usable h1, an empty table cell, or no paid-product conversion path cannot be quoted or acted on by an answer engine",
       "composite": false
     },
     {
