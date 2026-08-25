@@ -30,7 +30,10 @@ const allowedRootFiles = new Set([
   'tailwind.config.ts',
   'tsconfig.json',
   'vitest.config.ts',
-  'wrangler.jsonc'
+  'wrangler.jsonc',
+  // Validation registry belongs at root, matching the convention in the other
+  // repos that carry one.
+  '_repo_validation_registry.json',
 ]);
 
 const allowedRootDirs = new Set([
