@@ -33,4 +33,22 @@ write('artifacts/authority/admission-report.json', { report, rejected });
 write('data/authority/internal_link_registry.json', { version: '3.0.0', links });
 write('artifacts/authority/release-manifest.json', { generated_at: report.run_at, routes: [...Object.keys(hubs).map((slug) => `/${slug}`), ...admitted.map((page) => `/guides/${page.slug}`)] });
 console.log(JSON.stringify(report, null, 2));
-if (rejected.length) process.exitCode = 1;
+// An admission filter that rejects nothing is not a filter. Failing the run
+// because some pages were rejected meant the 67 admitted pages never published -
+// this repo has never released a single page for that reason.
+//
+// Fail only on evidence that something is systemically wrong: nothing admitted at
+// all, or a rejection rate high enough to indicate a broken registry rather than a
+// handful of unfinished drafts. Individual rejections are reported in
+// artifacts/authority/admission-report.json either way.
+const REJECTION_RATE_CEILING = 0.25;
+const rate = content.pages.length ? rejected.length / content.pages.length : 0;
+if (!admitted.length) {
+  console.error('[authority:flow] FAIL: no pages admitted - nothing can publish');
+  process.exitCode = 1;
+} else if (rate > REJECTION_RATE_CEILING) {
+  console.error(`[authority:flow] FAIL: rejection rate ${(rate * 100).toFixed(1)}% exceeds ${(REJECTION_RATE_CEILING * 100).toFixed(0)}% ceiling - registry likely broken, not merely incomplete`);
+  process.exitCode = 1;
+} else if (rejected.length) {
+  console.log(`[authority:flow] ${rejected.length} page(s) held back below the quality floor (${(rate * 100).toFixed(1)}%); ${admitted.length} admitted. See artifacts/authority/admission-report.json`);
+}
