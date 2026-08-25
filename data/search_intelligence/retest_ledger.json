@@ -1,4 +1,14 @@
 {
   "schema_version": "1.0.0",
-  "outcomes": []
+  "outcomes": [
+    {
+      "outcome_id": "5cec20c2395fd6436fbd",
+      "repair_id": "f230cb6d3c558485916e",
+      "measured_at": "2026-08-25T11:52:01.853Z",
+      "outcome": "INCONCLUSIVE",
+      "reason": "No comparable post-repair provider evidence.",
+      "before_observation_id": null,
+      "after_observation_id": null
+    }
+  ]
 }

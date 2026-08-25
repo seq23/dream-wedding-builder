@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-08-09T11:52:33.247Z",
-  "count": 95,
+  "generated_at": "2026-08-25T11:52:01.269Z",
+  "count": 99,
   "targets": [
     {
       "target_id": "041f5ce832a91de82705",
@@ -434,11 +434,51 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "fee7067bde5fb6ac2ada",
+      "query": "how to plan wedding budget for engaged couples practical",
+      "host": "weddingbudgetspreadsheet.com",
+      "route": "/guides/how-to-plan-wedding-budget-for-engaged-couples-practical",
+      "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "580c35b6c4e6e44eb18e",
+      "query": "how to plan wedding checklist for engaged couples practical",
+      "host": "weddingchecklistpdf.com",
+      "route": "/guides/how-to-plan-wedding-checklist-for-engaged-couples-practical",
+      "product_id": "checklist-pdf",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "e80291034c0dd0e63281",
+      "query": "how to plan wedding seating chart for engaged couples practical",
+      "host": "weddingseatingchartmaker.com",
+      "route": "/guides/how-to-plan-wedding-seating-chart-for-engaged-couples-practical",
+      "product_id": "seating-chart-maker",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "58bd416ec92f2dfd3c87",
       "query": "how to plan wedding seating with round tables",
       "host": "weddingseatingchartmaker.com",
       "route": "/guides/round-table-seating-plan",
       "product_id": "seating-chart-maker",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "5662c7c66810dd193c7c",
+      "query": "how to plan wedding timeline for engaged couples practical",
+      "host": "weddingtimelinetemplate.com",
+      "route": "/guides/how-to-plan-wedding-timeline-for-engaged-couples-practical",
+      "product_id": "timeline-template",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
