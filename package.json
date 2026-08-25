@@ -77,7 +77,9 @@
     "validate:query-atlas": "node scripts/atlas/validate_query_atlas.mjs",
     "validate:registry": "node scripts/validate/run-registry.mjs",
     "validate:no-instruction-leak": "node scripts/validators/validate_no_internal_instruction_leak.js",
-    "validate:no-empty-cells": "node scripts/validators/validate_no_empty_table_cells.js"
+    "validate:no-empty-cells": "node scripts/validators/validate_no_empty_table_cells.js",
+    "selfheal": "node scripts/selfheal/heal_until_clean.mjs",
+    "selfheal:dry": "node scripts/selfheal/heal_until_clean.mjs --dry-run"
   },
   "dependencies": {
     "next": "15.5.18",

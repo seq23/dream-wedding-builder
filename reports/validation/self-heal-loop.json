@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-25T21:54:23.834Z",
+  "max_attempts": 3,
+  "dry_run": true,
+  "gate_command": "npm run validate:all",
+  "gate_exit_code": 0,
+  "registered_repairs": {
+    "proof-readiness": "npm run authority:flow",
+    "query-atlas": "npm run atlas:build",
+    "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair"
+  },
+  "status": "CLEAN",
+  "safe_to_push": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "failed": [],
+      "warnings": [],
+      "repaired": [],
+      "result": "CLEAN"
+    }
+  ]
+}
