@@ -10,4 +10,7 @@ jobs:
         with: { node-version: '20', cache: npm }
       - run: npm ci
       - run: npm run validate:all
+      # Severity-aware pass: reports non-blocking warnings that validate:all would
+      # either ignore or hard-fail on. See _repo_validation_registry.json.
+      - run: npm run validate:registry
       - run: npm run build
