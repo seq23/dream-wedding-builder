@@ -72,7 +72,9 @@
     "search:retest": "node scripts/search_intelligence/retest.mjs",
     "search:status": "node scripts/search_intelligence/status.mjs",
     "validate:search-intelligence": "node scripts/search_intelligence/validate.mjs",
-    "search:cycle": "npm run search:targets && npm run search:gsc && npm run search:diagnose && npm run search:repair && npm run search:retest && npm run validate:search-intelligence && npm run search:status"
+    "search:cycle": "npm run search:targets && npm run search:gsc && npm run search:diagnose && npm run search:repair && npm run search:retest && npm run validate:search-intelligence && npm run search:status",
+    "atlas:build": "node scripts/atlas/build_query_atlas.mjs",
+    "validate:query-atlas": "node scripts/atlas/validate_query_atlas.mjs"
   },
   "dependencies": {
     "next": "15.5.18",
