@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 13,
+    "HARD_FAIL": 15,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -128,6 +128,24 @@
       "blocksRelease": true,
       "reason": "composite: purity, hygiene, proof readiness, seo, authority",
       "composite": true
+    },
+    {
+      "id": "no-internal-instruction-leak",
+      "npmScript": "validate:no-instruction-leak",
+      "command": "node scripts/validators/validate_no_internal_instruction_leak.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "external-agent build directives rendered as page copy are visible defects and poison the text answer engines extract",
+      "composite": false
+    },
+    {
+      "id": "no-empty-table-cells",
+      "npmScript": "validate:no-empty-cells",
+      "command": "node scripts/validators/validate_no_empty_table_cells.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
+      "composite": false
     },
     {
       "id": "content",

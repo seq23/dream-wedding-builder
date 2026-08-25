@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-25T02:58:26.831Z",
-  "passed": 16,
+  "generated_at": "2026-08-25T21:31:24.503Z",
+  "passed": 19,
   "hard_failed": 0,
-  "warned": 1,
+  "warned": 0,
   "results": [
     {
       "id": "authority",
@@ -13,7 +13,7 @@
       "reason": "authority contracts govern what may publish",
       "composite": false,
       "ok": true,
-      "ms": 136
+      "ms": 131
     },
     {
       "id": "commerce",
@@ -24,7 +24,7 @@
       "reason": "broken checkout or product binding costs real revenue",
       "composite": false,
       "ok": true,
-      "ms": 126
+      "ms": 136
     },
     {
       "id": "conversion-admin",
@@ -35,7 +35,7 @@
       "reason": "conversion and admin surfaces must resolve",
       "composite": false,
       "ok": true,
-      "ms": 126
+      "ms": 131
     },
     {
       "id": "disclaimers",
@@ -46,7 +46,7 @@
       "reason": "legal disclaimers are non-negotiable on published pages",
       "composite": false,
       "ok": true,
-      "ms": 122
+      "ms": 129
     },
     {
       "id": "downloads",
@@ -57,7 +57,7 @@
       "reason": "paid customers must receive the file they bought",
       "composite": false,
       "ok": true,
-      "ms": 135
+      "ms": 129
     },
     {
       "id": "env",
@@ -68,7 +68,7 @@
       "reason": "missing environment configuration breaks the deploy",
       "composite": false,
       "ok": true,
-      "ms": 126
+      "ms": 129
     },
     {
       "id": "no-stubs",
@@ -79,7 +79,7 @@
       "reason": "stub content must never reach a live page",
       "composite": false,
       "ok": true,
-      "ms": 156
+      "ms": 143
     },
     {
       "id": "proof-readiness",
@@ -90,7 +90,7 @@
       "reason": "release evidence must match what shipped",
       "composite": false,
       "ok": true,
-      "ms": 135
+      "ms": 131
     },
     {
       "id": "query-atlas",
@@ -101,7 +101,7 @@
       "reason": "prevents publishing against synthetic queries with no demand evidence",
       "composite": false,
       "ok": true,
-      "ms": 123
+      "ms": 127
     },
     {
       "id": "secrets",
@@ -112,7 +112,7 @@
       "reason": "leaked or missing credentials",
       "composite": false,
       "ok": true,
-      "ms": 143
+      "ms": 141
     },
     {
       "id": "seo",
@@ -123,7 +123,29 @@
       "reason": "canonical hosts and guide integrity affect every indexed page",
       "composite": false,
       "ok": true,
-      "ms": 550
+      "ms": 552
+    },
+    {
+      "id": "no-internal-instruction-leak",
+      "npmScript": "validate:no-instruction-leak",
+      "command": "node scripts/validators/validate_no_internal_instruction_leak.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "external-agent build directives rendered as page copy are visible defects and poison the text answer engines extract",
+      "composite": false,
+      "ok": true,
+      "ms": 130
+    },
+    {
+      "id": "no-empty-table-cells",
+      "npmScript": "validate:no-empty-cells",
+      "command": "node scripts/validators/validate_no_empty_table_cells.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
+      "composite": false,
+      "ok": true,
+      "ms": 129
     },
     {
       "id": "content",
@@ -134,7 +156,7 @@
       "reason": "content quality signal; the SEO and authority gates block the real risks",
       "composite": false,
       "ok": true,
-      "ms": 128
+      "ms": 130
     },
     {
       "id": "kpi-truth",
@@ -145,7 +167,7 @@
       "reason": "measurement honesty check; reports rather than blocks",
       "composite": false,
       "ok": true,
-      "ms": 124
+      "ms": 127
     },
     {
       "id": "no-theater",
@@ -167,7 +189,7 @@
       "reason": "profile drift should be corrected but does not break the site",
       "composite": false,
       "ok": true,
-      "ms": 122
+      "ms": 126
     },
     {
       "id": "search-intelligence",
@@ -178,7 +200,7 @@
       "reason": "observational signal, no live-site impact",
       "composite": false,
       "ok": true,
-      "ms": 128
+      "ms": 126
     },
     {
       "id": "tree-hygiene",
@@ -188,8 +210,8 @@
       "blocksRelease": false,
       "reason": "working tree debris is a maintenance problem, not a release risk",
       "composite": false,
-      "ok": false,
-      "ms": 151
+      "ok": true,
+      "ms": 152
     }
   ]
 }

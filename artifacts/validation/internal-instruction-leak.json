@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "validator": "no-internal-instruction-leak",
+  "generated_at": "2026-08-25T21:34:36.751Z",
+  "status": "PASS",
+  "scan_surface": [
+    "app",
+    "components",
+    "public",
+    "out",
+    "data/*.ts"
+  ],
+  "files_scanned": 74,
+  "offender_count": 0,
+  "offenders": []
+}
