@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0",
+  "authority": "Severity reflects what a failure actually costs. HARD_FAIL blocks the release. STRONG_WARNING and SOFT_WARNING report and do not block. Unclassified checks default to STRONG_WARNING so an unreviewed check cannot silently gate a release.",
+  "severity_definitions": {
+    "HARD_FAIL": "Blocks the release. Money, secrets, legal exposure, or structural integrity of published pages.",
+    "STRONG_WARNING": "Reported prominently, does not block. Quality and hygiene.",
+    "SOFT_WARNING": "Reported, does not block. Observational."
+  },
+  "counts": {
+    "HARD_FAIL": 13,
+    "STRONG_WARNING": 4,
+    "SOFT_WARNING": 2
+  },
+  "validators": [
+    {
+      "id": "authority",
+      "npmScript": "validate:authority",
+      "command": "node scripts/validate-authority.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "authority contracts govern what may publish",
+      "composite": false
+    },
+    {
+      "id": "commerce",
+      "npmScript": "validate:commerce",
+      "command": "node scripts/validate-commerce.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "broken checkout or product binding costs real revenue",
+      "composite": false
+    },
+    {
+      "id": "contracts",
+      "npmScript": "validate:contracts",
+      "command": "npm run validate:commerce && npm run validate:authority && npm run validate:downloads && npm run validate:secrets",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "composite: commerce, authority, downloads",
+      "composite": true
+    },
+    {
+      "id": "conversion-admin",
+      "npmScript": "validate:conversion-admin",
+      "command": "node scripts/validate-conversion-admin.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "conversion and admin surfaces must resolve",
+      "composite": false
+    },
+    {
+      "id": "disclaimers",
+      "npmScript": "validate:disclaimers",
+      "command": "node scripts/validate-disclaimers.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "legal disclaimers are non-negotiable on published pages",
+      "composite": false
+    },
+    {
+      "id": "downloads",
+      "npmScript": "validate:downloads",
+      "command": "node scripts/validate-downloads.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "paid customers must receive the file they bought",
+      "composite": false
+    },
+    {
+      "id": "env",
+      "npmScript": "validate:env",
+      "command": "node scripts/validate-env.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "missing environment configuration breaks the deploy",
+      "composite": false
+    },
+    {
+      "id": "no-stubs",
+      "npmScript": "validate:no-stubs",
+      "command": "node scripts/validate-no-stubs.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "stub content must never reach a live page",
+      "composite": false
+    },
+    {
+      "id": "proof-readiness",
+      "npmScript": "validate:proof-readiness",
+      "command": "node scripts/validate-proof-readiness.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "release evidence must match what shipped",
+      "composite": false
+    },
+    {
+      "id": "query-atlas",
+      "npmScript": "validate:query-atlas",
+      "command": "node scripts/atlas/validate_query_atlas.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "prevents publishing against synthetic queries with no demand evidence",
+      "composite": false
+    },
+    {
+      "id": "secrets",
+      "npmScript": "validate:secrets",
+      "command": "node scripts/validate-secrets.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "leaked or missing credentials",
+      "composite": false
+    },
+    {
+      "id": "seo",
+      "npmScript": "validate:seo",
+      "command": "node scripts/validate-seo-recovery.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "canonical hosts and guide integrity affect every indexed page",
+      "composite": false
+    },
+    {
+      "id": "structural",
+      "npmScript": "validate:structural",
+      "command": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo && npm run validate:search-intelligence",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "composite: purity, hygiene, proof readiness, seo, authority",
+      "composite": true
+    },
+    {
+      "id": "content",
+      "npmScript": "validate:content",
+      "command": "node scripts/validate-content.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "content quality signal; the SEO and authority gates block the real risks",
+      "composite": false
+    },
+    {
+      "id": "kpi-truth",
+      "npmScript": "validate:kpi-truth",
+      "command": "node scripts/authority_scale/validate_kpi_truth.mjs",
+      "severity": "SOFT_WARNING",
+      "blocksRelease": false,
+      "reason": "measurement honesty check; reports rather than blocks",
+      "composite": false
+    },
+    {
+      "id": "no-theater",
+      "npmScript": "validate:no-theater",
+      "command": "node scripts/validate-no-theater.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "advisory copy-quality signal",
+      "composite": false
+    },
+    {
+      "id": "profile-purity",
+      "npmScript": "validate:profile-purity",
+      "command": "node scripts/validate-profile-purity.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "profile drift should be corrected but does not break the site",
+      "composite": false
+    },
+    {
+      "id": "search-intelligence",
+      "npmScript": "validate:search-intelligence",
+      "command": "node scripts/search_intelligence/validate.mjs",
+      "severity": "SOFT_WARNING",
+      "blocksRelease": false,
+      "reason": "observational signal, no live-site impact",
+      "composite": false
+    },
+    {
+      "id": "tree-hygiene",
+      "npmScript": "validate:tree-hygiene",
+      "command": "node scripts/validate-tree-hygiene.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "working tree debris is a maintenance problem, not a release risk",
+      "composite": false
+    }
+  ]
+}
