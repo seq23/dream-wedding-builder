@@ -37,7 +37,8 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add data/authority data/authority_scale data/release artifacts/authority artifacts/sitemaps artifacts/distribution 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: governed daily content expansion'
-          git push
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
       - name: Submit IndexNow and Google Search Console after validated publication
         env:
           RUN_MODE: live
@@ -54,7 +55,7 @@ jobs:
         run: |
           git add artifacts/distribution 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: record distribution receipts'
-          git pull --rebase origin main
+          git pull --rebase --autostash origin main
           git push origin HEAD:main
       - uses: actions/upload-artifact@v7
         if: always()

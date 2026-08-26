@@ -41,7 +41,7 @@ function topicProfile(topic){
     [/diy/,{focus:'time, skill, material, storage, transport, setup, teardown, and fallback capacity for work the couple owns directly',inputs:['build hours available','material cost','storage and transport plan','setup and teardown labor'],pitfalls:['valuing materials but not labor time','creating decor that cannot be transported or installed easily','having no fallback if a DIY item is unfinished']}],
     [/cultural|interfaith|multicultural/,{focus:'explicitly mapping traditions, decision authority, language, timing, and family expectations before combining ceremonies or customs',inputs:['required traditions','who has decision authority','language or translation needs','timing and venue constraints'],pitfalls:['treating a tradition as decorative without understanding its requirements','letting families assume conflicting sequences','failing to explain unfamiliar customs to vendors or guests']}],
     [/accessib|inclusive|dietary/,{focus:'designing access, communication, food, mobility, sensory, and participation needs into the plan before vendors and layouts lock',inputs:['known accommodation needs','venue access details','dietary requirements','communication and sensory considerations'],pitfalls:['asking about accommodations too late','treating accessibility as a special add-on','assuming a venue label guarantees the specific access needed']}],
-    [/invitation|RSVP/,{focus:'one authoritative guest-contact and response record with deadlines, household logic, meal needs, and follow-up ownership',inputs:['household list','mail or digital contact data','RSVP deadline','meal and accommodation questions'],pitfalls:['sending invitations from an unclean guest list','tracking responses in multiple places','failing to reconcile household-level and individual responses']}],
+    [/invitation|rsvp/,{focus:'one authoritative guest-contact and response record with deadlines, household logic, meal needs, and follow-up ownership',inputs:['household list','mail or digital contact data','RSVP deadline','meal and accommodation questions'],pitfalls:['sending invitations from an unclean guest list','tracking responses in multiple places','failing to reconcile household-level and individual responses']}],
     [/meal|cake/,{focus:'headcount, dietary needs, service format, timing, storage, delivery, and venue constraints',inputs:['confirmed headcount range','dietary restrictions','service style','delivery and storage requirements'],pitfalls:['finalizing quantities before RSVP reconciliation','assuming dietary labels are sufficient without vendor confirmation','ignoring service timing in the event flow']}],
     [/photo|video/,{focus:'coverage priorities, shot constraints, timeline access, lighting, and coordination with ceremony and reception flow',inputs:['must-capture moments','coverage hours','location transitions','family or group shot priorities'],pitfalls:['creating a shot list that cannot fit the timeline','forgetting travel and setup time','letting photo priorities conflict with guest flow or meal service']}],
     [/music/,{focus:'music responsibilities, cue timing, equipment, licensing or venue constraints, and backup playback',inputs:['ceremony cues','reception moments','equipment plan','venue sound restrictions'],pitfalls:['leaving cue ownership ambiguous','assuming venue equipment meets every need','having no offline or backup playback path']}],
@@ -75,7 +75,20 @@ function pageCopy(r){
   const mistakes=profile.pitfalls.map(x=>x.charAt(0).toUpperCase()+x.slice(1)+'.');
   return {summary,answer,steps,mistakes};
 }
-let candidates=[];const batchTopics=new Set();const batchQueries=new Set();
+// Distinct topics can share one profile in topicProfile(), so two different
+// queries can produce copy that is word-for-word the same apart from the topic
+// name. scripts/authority_scale/validate_authority_scale.mjs rejects any pair of
+// generated pages scoring above 0.82 on this exact measure, so publishing them
+// only moves the failure one step down the pipeline. Measure a candidate before
+// admitting it and skip the ones that would collide - the same metric, the same
+// threshold, applied by the producer instead of discovered by the validator.
+const NEAR_DUPLICATE_CEILING=0.82;
+const normTokens=v=>String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
+const tokenSet=p=>new Set(normTokens([p.answer,...(p.steps||[]),...(p.mistakes||[])].join(' ')).split(' ').filter(x=>x.length>3));
+const jaccard=(a,b)=>{let inter=0;for(const x of a)if(b.has(x))inter++;const union=new Set([...a,...b]).size;return union?inter/union:0;};
+// Compare against the generated population the validator compares against.
+const publishedTokenSets=doc.pages.filter(p=>p.source_opportunity_id).map(tokenSet);
+let candidates=[];const batchTopics=new Set();const batchQueries=new Set();let nearDuplicatesSkipped=0;
 if(remaining>0){
   outer: for(const sh of idx.shards){
     const raw=zlib.gunzipSync(fs.readFileSync(path.join(root,sh.path.includes('/')?sh.path:`data/authority_scale/fanout_100k/${sh.path}`))).toString('utf8').trim();
@@ -84,10 +97,13 @@ if(remaining>0){
       if(r.geography||r.source_required||used.has(id)||!allowedIntents.has(r.intent_pattern))continue;
       const s=slug(r.query);const qKey=String(r.query).trim().toLowerCase();
       if(existingSlugs.has(s)||existingTitles.has(qKey)||batchQueries.has(qKey)||batchTopics.has(r.topic))continue;
-      candidates.push({...r,slug:s});batchQueries.add(qKey);batchTopics.add(r.topic);
+      const copy=pageCopy(r);const ts=tokenSet(copy);
+      if(publishedTokenSets.some(prev=>jaccard(ts,prev)>NEAR_DUPLICATE_CEILING)){nearDuplicatesSkipped++;continue;}
+      publishedTokenSets.push(ts);
+      candidates.push({...r,slug:s,copy});batchQueries.add(qKey);batchTopics.add(r.topic);
       if(candidates.length>=remaining)break outer;
     }
   }
 }
-for(const r of candidates){const copy=pageCopy(r);doc.pages.push({slug:r.slug,title:titleCase(r.query),cluster:titleCase(r.topic),product_id:productFor(r.topic),semantic_key:`${r.topic}|${r.intent_pattern}|${r.audience||''}`,source_opportunity_id:r.opportunity_id||r.id,summary:copy.summary,answer:copy.answer,steps:copy.steps,mistakes:copy.mistakes});existingSlugs.add(r.slug);existingTitles.add(String(r.query).toLowerCase());used.add(r.opportunity_id||r.id);}
-doc.generated_at=today;write('data/authority/content_registry.json',doc);ledger.published_ids=[...used];ledger.runs.push({run_at:new Date().toISOString(),date:today,created:candidates.length,ceiling:dailyCeiling,already_published_today_before_run:alreadyToday,remaining_budget_before_run:remaining});write(ledgerPath,ledger);console.log(JSON.stringify({created:candidates.length,daily_ceiling:dailyCeiling,already_today:alreadyToday,remaining_before_run:remaining,total_guides:doc.pages.length,distinct_topics_in_batch:batchTopics.size},null,2));
+for(const r of candidates){const copy=r.copy;doc.pages.push({slug:r.slug,title:titleCase(r.query),cluster:titleCase(r.topic),product_id:productFor(r.topic),semantic_key:`${r.topic}|${r.intent_pattern}|${r.audience||''}`,source_opportunity_id:r.opportunity_id||r.id,summary:copy.summary,answer:copy.answer,steps:copy.steps,mistakes:copy.mistakes});existingSlugs.add(r.slug);existingTitles.add(String(r.query).toLowerCase());used.add(r.opportunity_id||r.id);}
+doc.generated_at=today;write('data/authority/content_registry.json',doc);ledger.published_ids=[...used];ledger.runs.push({run_at:new Date().toISOString(),date:today,created:candidates.length,ceiling:dailyCeiling,already_published_today_before_run:alreadyToday,remaining_budget_before_run:remaining});write(ledgerPath,ledger);console.log(JSON.stringify({created:candidates.length,daily_ceiling:dailyCeiling,already_today:alreadyToday,remaining_before_run:remaining,near_duplicates_skipped:nearDuplicatesSkipped,total_guides:doc.pages.length,distinct_topics_in_batch:batchTopics.size},null,2));

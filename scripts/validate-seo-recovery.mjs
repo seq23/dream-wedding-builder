@@ -86,9 +86,20 @@ for (const page of shippingPages) {
   if (sentences.length && uniqueSentences.size / sentences.length < 0.62) errors.push(`boilerplate ratio too high: ${page.slug}`);
 }
 
-for (let i = 0; i < registry.pages.length; i++) {
-  for (let j = i + 1; j < registry.pages.length; j++) {
-    const a = registry.pages[i], b = registry.pages[j];
+// Every other check above moved to shippingPages when the admission filter was
+// added; this pair scan was left on the raw registry, so it went on holding
+// unauthored candidates to a published-page standard. It compares pageText, which
+// for a shipping guide includes its sections and faqs and for an unauthored
+// candidate is only the generated summary, answer, steps and mistakes - two
+// candidates on the same topic therefore look near-identical until the authoring
+// that differentiates them exists. Judge published prose on published prose.
+// Candidates are not unguarded: scripts/authority_scale/validate_authority_scale.mjs
+// scans the generated population for near-duplicates, and
+// scripts/authority_scale/publish_authority_batch.mjs applies the same measure
+// before a candidate is ever written.
+for (let i = 0; i < shippingPages.length; i++) {
+  for (let j = i + 1; j < shippingPages.length; j++) {
+    const a = shippingPages[i], b = shippingPages[j];
     const similarity = jaccard(pageText(a), pageText(b));
     if (similarity > 0.78) errors.push(`near-duplicate guides: ${a.slug} <> ${b.slug} (${similarity.toFixed(2)})`);
   }
