@@ -81,7 +81,8 @@
     "selfheal": "node scripts/selfheal/heal_until_clean.mjs",
     "selfheal:dry": "node scripts/selfheal/heal_until_clean.mjs --dry-run",
     "validate:content-pattern": "node scripts/validators/validate_content_pattern_contract.js",
-    "cadence:headroom": "node scripts/cadence/publish_headroom.mjs"
+    "cadence:headroom": "node scripts/cadence/publish_headroom.mjs",
+    "validate:operator-doc-currency": "node scripts/validators/validate_operator_doc_currency.mjs docs/runbooks"
   },
   "dependencies": {
     "next": "15.5.18",
