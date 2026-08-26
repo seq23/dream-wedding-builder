@@ -1,0 +1,88 @@
+{
+  "generated_from": "product-builds/manifests/download_manifest.json",
+  "manifest_version": "2.0.0",
+  "bucket": "dream-wedding-builder-products",
+  "note": "These objects are what app/api/download/[token]/route.ts serves. Upload them before selling.",
+  "releases": [
+    {
+      "product_id": "seating-chart-maker",
+      "sku": "DWB-SEATING-001",
+      "version": "2.0.0",
+      "r2_key": "products/seating-chart-maker/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/seating-chart-maker/current.zip",
+      "bytes": 18903,
+      "sha256": "f002bbbfdcb8df41ba94167ba227fb3a26140847da15a8722b708330e7bfb3de",
+      "file_count": 3,
+      "files": [
+        "DWB-SEATING-001_starter_v2.0.0.csv",
+        "DWB-SEATING-001_v2.0.0.pdf",
+        "DWB-SEATING-001_v2.0.0.xlsx"
+      ]
+    },
+    {
+      "product_id": "budget-spreadsheet",
+      "sku": "DWB-BUDGET-001",
+      "version": "2.0.0",
+      "r2_key": "products/budget-spreadsheet/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/budget-spreadsheet/current.zip",
+      "bytes": 18574,
+      "sha256": "a92ac7f9205495fb08fae155f46a8fc28f50a9696b1f4902727f29391ff55208",
+      "file_count": 3,
+      "files": [
+        "DWB-BUDGET-001_starter_v2.0.0.csv",
+        "DWB-BUDGET-001_v2.0.0.pdf",
+        "DWB-BUDGET-001_v2.0.0.xlsx"
+      ]
+    },
+    {
+      "product_id": "timeline-template",
+      "sku": "DWB-TIMELINE-001",
+      "version": "2.0.0",
+      "r2_key": "products/timeline-template/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/timeline-template/current.zip",
+      "bytes": 18287,
+      "sha256": "1876c8bd7dc72504601d352a7756f73d1f498aaaec4248ca040ca33dee74d1db",
+      "file_count": 3,
+      "files": [
+        "DWB-TIMELINE-001_starter_v2.0.0.csv",
+        "DWB-TIMELINE-001_v2.0.0.pdf",
+        "DWB-TIMELINE-001_v2.0.0.xlsx"
+      ]
+    },
+    {
+      "product_id": "checklist-pdf",
+      "sku": "DWB-CHECKLIST-001",
+      "version": "2.0.0",
+      "r2_key": "products/checklist-pdf/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/checklist-pdf/current.zip",
+      "bytes": 18722,
+      "sha256": "24519b42aac895e23ecb860f03d7e854c72f45ec201321b936f028f9140b209c",
+      "file_count": 3,
+      "files": [
+        "DWB-CHECKLIST-001_starter_v2.0.0.csv",
+        "DWB-CHECKLIST-001_v2.0.0.pdf",
+        "DWB-CHECKLIST-001_v2.0.0.xlsx"
+      ]
+    },
+    {
+      "product_id": "operations-suite",
+      "sku": "DWB-SUITE-001",
+      "version": "2.0.0",
+      "r2_key": "products/operations-suite/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/operations-suite/current.zip",
+      "bytes": 83101,
+      "sha256": "722c4c7dece6738c005e94b70696bad6d0d7eab41058a13cf58f8b05c987c23f",
+      "file_count": 3,
+      "files": [
+        "DWB-SUITE-001_complete_v2.0.0.zip",
+        "DWB-SUITE-001_starter_v2.0.0.csv",
+        "DWB-SUITE-001_v2.0.0.pdf"
+      ]
+    }
+  ]
+}

@@ -42,7 +42,17 @@ export async function POST(req: NextRequest) {
   if (!env.DB) return NextResponse.json({ error: 'D1 binding DB is unavailable' }, { status: 503 });
   const inserted = await env.DB.prepare('INSERT INTO stripe_events (event_id, event_type) VALUES (?, ?) ON CONFLICT(event_id) DO NOTHING')
     .bind(event.id, event.type).run();
-  if (!inserted.meta.changes) return NextResponse.json({ received: true, duplicate: true });
+  if (!inserted.meta.changes) {
+    // Only treat a repeated event as a no-op when the first attempt actually ran to
+    // completion. An attempt that failed part-way through fulfilment (most likely a
+    // transient email-provider outage) leaves processed_at NULL, and Stripe's retry
+    // is the only remaining chance to deliver the purchase. Short-circuiting those
+    // retries strands a paying customer with no download email. Every write below is
+    // idempotent, so re-running an unfinished event is safe.
+    const prior = await (env.DB.prepare('SELECT processed_at FROM stripe_events WHERE event_id = ?')
+      .bind(event.id).first() as Promise<{ processed_at: string | null } | null>);
+    if (prior?.processed_at) return NextResponse.json({ received: true, duplicate: true });
+  }
 
   try {
     const session = event.data.object as StripeSession;
@@ -53,7 +63,13 @@ export async function POST(req: NextRequest) {
     if (!product) throw new Error(`Unknown SKU: ${sku}`);
     if (!email) throw new Error('Checkout session has no valid customer email');
 
-    const orderId = randomUUID();
+    // Reuse the existing order id when this session has already been written. The
+    // orders upsert keeps the original primary key on conflict, so minting a fresh
+    // id here would point the entitlement insert at a row that does not exist and
+    // trip the entitlements -> orders foreign key on every retry.
+    const existingOrder = await (env.DB.prepare('SELECT id FROM orders WHERE stripe_session_id = ?')
+      .bind(session.id).first() as Promise<{ id: string } | null>);
+    const orderId = existingOrder?.id || randomUUID();
     const entitlementId = randomUUID();
     const releaseKey = releaseKeyForSku(sku);
     await env.DB.batch([
