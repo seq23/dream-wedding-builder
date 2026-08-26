@@ -1,0 +1,51 @@
+name: Bounded Self-Healing
+
+# The repo carried selfheal/selfheal:dry and no workflow ran either, so the
+# loop existed and never executed. Weekly, bounded: it repairs, rebuilds,
+# revalidates, and commits only if validation passes afterwards.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "18 16 * * 3"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dream-wedding-builder-self-heal
+  cancel-in-progress: false
+
+jobs:
+  self-heal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+      - run: git pull --rebase origin main
+      - run: npm ci --ignore-scripts
+      - name: Report what the loop would repair
+        run: npm run selfheal:dry
+      - name: Apply bounded repairs
+        run: npm run selfheal
+      - name: Revalidate after repair
+        # Nothing is committed unless the repo validates after the repair, so a
+        # bad repair cannot be pushed.
+        run: npm run validate:all
+      - name: Commit only validated repair output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No safe repairs were needed."
+          else
+            git commit -m "Self-heal: apply bounded validated repairs"
+            git push origin main
+          fi
