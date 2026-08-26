@@ -28,7 +28,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: git pull --rebase origin main
+      # --autostash because the rebase runs on a tree the repair steps may have
+      # already dirtied. Without it this exits 128 with "cannot pull with rebase:
+      # You have unstaged changes" - but only when there is actually something
+      # upstream to rebase onto, so it passes on dispatch and fails on schedule.
+      - run: git pull --rebase --autostash origin main
       - run: npm ci --ignore-scripts
       - name: Report what the loop would repair
         run: npm run selfheal:dry
