@@ -2,9 +2,11 @@
   "report": {
     "run_at": "2026-07-30T00:00:00.000Z",
     "mode": "FULL_SAFE_AUTONOMY",
-    "discovered": 82,
+    "discovered": 97,
     "admitted": 67,
-    "rejected": 15,
+    "rejected": 30,
+    "defective": 0,
+    "pending_authoring": 30,
     "quality_floor": 9,
     "hub_count": 8,
     "domain_counts": {
@@ -426,6 +428,441 @@
         "Valuing materials but not labor time.",
         "Creating decor that cannot be transported or installed easily.",
         "Having no fallback if a DIY item is unfinished."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-cultural-wedding-planning-for-engaged-couples-practical",
+      "title": "How To Plan Cultural Wedding Planning For Engaged Couples Practical",
+      "cluster": "Cultural Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "cultural wedding planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000076_bf0bf590bd",
+      "summary": "For engaged couples, cultural wedding planning works best as a planning sequence focused on explicitly mapping traditions, decision authority, language, timing, and family expectations before combining ceremonies or customs.",
+      "answer": "For engaged couples, cultural wedding planning works best as a planning sequence focused on explicitly mapping traditions, decision authority, language, timing, and family expectations before combining ceremonies or customs. Start with required traditions, then make who has decision authority explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm required traditions before making downstream cultural wedding planning commitments.",
+        "Document who has decision authority in the same source of truth.",
+        "Resolve or assign ownership for language or translation needs.",
+        "Stress-test the plan against timing and venue constraints.",
+        "Publish the accepted cultural wedding planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Treating a tradition as decorative without understanding its requirements.",
+        "Letting families assume conflicting sequences.",
+        "Failing to explain unfamiliar customs to vendors or guests."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-accessible-wedding-planning-for-engaged-couples-practical",
+      "title": "How To Plan Accessible Wedding Planning For Engaged Couples Practical",
+      "cluster": "Accessible Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "accessible wedding planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000079_b015539766",
+      "summary": "For engaged couples, accessible wedding planning works best as a planning sequence focused on designing access, communication, food, mobility, sensory, and participation needs into the plan before vendors and layouts lock.",
+      "answer": "For engaged couples, accessible wedding planning works best as a planning sequence focused on designing access, communication, food, mobility, sensory, and participation needs into the plan before vendors and layouts lock. Start with known accommodation needs, then make venue access details explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm known accommodation needs before making downstream accessible wedding planning commitments.",
+        "Document venue access details in the same source of truth.",
+        "Resolve or assign ownership for dietary requirements.",
+        "Stress-test the plan against communication and sensory considerations.",
+        "Publish the accepted accessible wedding planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Asking about accommodations too late.",
+        "Treating accessibility as a special add-on.",
+        "Assuming a venue label guarantees the specific access needed."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-family-dynamics-at-weddings-for-engaged-couples-practical",
+      "title": "How To Plan Family Dynamics At Weddings For Engaged Couples Practical",
+      "cluster": "Family Dynamics At Weddings",
+      "product_id": "operations-suite",
+      "semantic_key": "family dynamics at weddings|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000082_0cd65f1f76",
+      "summary": "For engaged couples, family dynamics at weddings works best as a planning sequence focused on decision rights, boundaries, communication channels, responsibilities, and escalation paths among people helping plan.",
+      "answer": "For engaged couples, family dynamics at weddings works best as a planning sequence focused on decision rights, boundaries, communication channels, responsibilities, and escalation paths among people helping plan. Start with who decides what, then make who is contributing money or labor explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm who decides what before making downstream family dynamics at weddings commitments.",
+        "Document who is contributing money or labor in the same source of truth.",
+        "Resolve or assign ownership for communication cadence.",
+        "Stress-test the plan against boundary and escalation rules.",
+        "Publish the accepted family dynamics at weddings plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Confusing financial contribution with unlimited decision authority.",
+        "Assigning responsibilities without explicit acceptance.",
+        "Using multiple family members as parallel decision channels."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-invitations-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Invitations For Engaged Couples Practical",
+      "cluster": "Wedding Invitations",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding invitations|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000084_e403b5c67c",
+      "summary": "For engaged couples, wedding invitations works best as a planning sequence focused on one authoritative guest-contact and response record with deadlines, household logic, meal needs, and follow-up ownership.",
+      "answer": "For engaged couples, wedding invitations works best as a planning sequence focused on one authoritative guest-contact and response record with deadlines, household logic, meal needs, and follow-up ownership. Start with household list, then make mail or digital contact data explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm household list before making downstream wedding invitations commitments.",
+        "Document mail or digital contact data in the same source of truth.",
+        "Resolve or assign ownership for RSVP deadline.",
+        "Stress-test the plan against meal and accommodation questions.",
+        "Publish the accepted wedding invitations plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Sending invitations from an unclean guest list.",
+        "Tracking responses in multiple places.",
+        "Failing to reconcile household-level and individual responses."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-meal-planning-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Meal Planning For Engaged Couples Practical",
+      "cluster": "Wedding Meal Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding meal planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000086_1ce5a4c93c",
+      "summary": "For engaged couples, wedding meal planning works best as a planning sequence focused on headcount, dietary needs, service format, timing, storage, delivery, and venue constraints.",
+      "answer": "For engaged couples, wedding meal planning works best as a planning sequence focused on headcount, dietary needs, service format, timing, storage, delivery, and venue constraints. Start with confirmed headcount range, then make dietary restrictions explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm confirmed headcount range before making downstream wedding meal planning commitments.",
+        "Document dietary restrictions in the same source of truth.",
+        "Resolve or assign ownership for service style.",
+        "Stress-test the plan against delivery and storage requirements.",
+        "Publish the accepted wedding meal planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Finalizing quantities before RSVP reconciliation.",
+        "Assuming dietary labels are sufficient without vendor confirmation.",
+        "Ignoring service timing in the event flow."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-photography-planning-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Photography Planning For Engaged Couples Practical",
+      "cluster": "Wedding Photography Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding photography planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000092_06662fb3a2",
+      "summary": "For engaged couples, wedding photography planning works best as a planning sequence focused on coverage priorities, shot constraints, timeline access, lighting, and coordination with ceremony and reception flow.",
+      "answer": "For engaged couples, wedding photography planning works best as a planning sequence focused on coverage priorities, shot constraints, timeline access, lighting, and coordination with ceremony and reception flow. Start with must-capture moments, then make coverage hours explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm must-capture moments before making downstream wedding photography planning commitments.",
+        "Document coverage hours in the same source of truth.",
+        "Resolve or assign ownership for location transitions.",
+        "Stress-test the plan against family or group shot priorities.",
+        "Publish the accepted wedding photography planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Creating a shot list that cannot fit the timeline.",
+        "Forgetting travel and setup time.",
+        "Letting photo priorities conflict with guest flow or meal service."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-music-planning-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Music Planning For Engaged Couples Practical",
+      "cluster": "Wedding Music Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding music planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000094_a22338a05c",
+      "summary": "For engaged couples, wedding music planning works best as a planning sequence focused on music responsibilities, cue timing, equipment, licensing or venue constraints, and backup playback.",
+      "answer": "For engaged couples, wedding music planning works best as a planning sequence focused on music responsibilities, cue timing, equipment, licensing or venue constraints, and backup playback. Start with ceremony cues, then make reception moments explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm ceremony cues before making downstream wedding music planning commitments.",
+        "Document reception moments in the same source of truth.",
+        "Resolve or assign ownership for equipment plan.",
+        "Stress-test the plan against venue sound restrictions.",
+        "Publish the accepted wedding music planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Leaving cue ownership ambiguous.",
+        "Assuming venue equipment meets every need.",
+        "Having no offline or backup playback path."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-decor-planning-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Decor Planning For Engaged Couples Practical",
+      "cluster": "Wedding Decor Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding decor planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000095_7776e73dc7",
+      "summary": "For engaged couples, wedding decor planning works best as a planning sequence focused on visual priorities constrained by venue rules, installation time, transport, reuse, teardown, and budget.",
+      "answer": "For engaged couples, wedding decor planning works best as a planning sequence focused on visual priorities constrained by venue rules, installation time, transport, reuse, teardown, and budget. Start with priority visual zones, then make venue installation rules explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm priority visual zones before making downstream wedding decor planning commitments.",
+        "Document venue installation rules in the same source of truth.",
+        "Resolve or assign ownership for setup window.",
+        "Stress-test the plan against transport and teardown ownership.",
+        "Publish the accepted wedding decor planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Designing pieces that exceed setup time.",
+        "Ignoring venue attachment or flame rules.",
+        "Buying decor before reuse and teardown are planned."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-attire-planning-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Attire Planning For Engaged Couples Practical",
+      "cluster": "Wedding Attire Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding attire planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000098_3b3fa6f6aa",
+      "summary": "For engaged couples, wedding attire planning works best as a planning sequence focused on selection, fittings, alterations, accessories, transport, weather, and day-of dressing timing.",
+      "answer": "For engaged couples, wedding attire planning works best as a planning sequence focused on selection, fittings, alterations, accessories, transport, weather, and day-of dressing timing. Start with order deadlines, then make fitting schedule explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm order deadlines before making downstream wedding attire planning commitments.",
+        "Document fitting schedule in the same source of truth.",
+        "Resolve or assign ownership for alteration lead time.",
+        "Stress-test the plan against day-of dressing location.",
+        "Publish the accepted wedding attire planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Ordering against optimistic lead times.",
+        "Scheduling final fitting too early.",
+        "Forgetting transport, steaming, or emergency repair needs."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-registry-planning-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Registry Planning For Engaged Couples Practical",
+      "cluster": "Wedding Registry Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding registry planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000099_859cc7fa25",
+      "summary": "For engaged couples, wedding registry planning works best as a planning sequence focused on a useful, non-duplicative registry aligned with household needs, price range variety, fulfillment, and communication etiquette.",
+      "answer": "For engaged couples, wedding registry planning works best as a planning sequence focused on a useful, non-duplicative registry aligned with household needs, price range variety, fulfillment, and communication etiquette. Start with actual household needs, then make price-point mix explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm actual household needs before making downstream wedding registry planning commitments.",
+        "Document price-point mix in the same source of truth.",
+        "Resolve or assign ownership for fulfillment and shipping preferences.",
+        "Stress-test the plan against registry communication plan.",
+        "Publish the accepted wedding registry planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Adding items only to increase count.",
+        "Duplicating incompatible versions of the same need.",
+        "Sharing registry details in contexts where etiquette expectations differ."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "how-to-plan-wedding-contingency-planning-for-engaged-couples-practical",
+      "title": "How To Plan Wedding Contingency Planning For Engaged Couples Practical",
+      "cluster": "Wedding Contingency Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding contingency planning|how to plan {topic}|engaged couples",
+      "source_opportunity_id": "maxfanout_000102_0032c72b4f",
+      "summary": "For engaged couples, wedding contingency planning works best as a planning sequence focused on pre-deciding trigger conditions, backup spaces, communication, vendor changes, and timing impacts before disruption occurs.",
+      "answer": "For engaged couples, wedding contingency planning works best as a planning sequence focused on pre-deciding trigger conditions, backup spaces, communication, vendor changes, and timing impacts before disruption occurs. Start with weather or disruption trigger, then make backup location explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Confirm weather or disruption trigger before making downstream wedding contingency planning commitments.",
+        "Document backup location in the same source of truth.",
+        "Resolve or assign ownership for vendor contingency requirements.",
+        "Stress-test the plan against guest communication method.",
+        "Publish the accepted wedding contingency planning plan and update only the dependencies affected by a real change."
+      ],
+      "mistakes": [
+        "Calling a backup plan \"the same\" without checking capacity and flow.",
+        "Waiting until the event day to assign decision authority.",
+        "Failing to identify costs or timing changes caused by the fallback."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-planning-checklist-for-engaged-couples-practical",
+      "title": "Wedding Planning Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000121_31784ae855",
+      "summary": "For engaged couples, wedding planning works best as a completion checklist focused on a dependency-aware plan with one source of truth, explicit ownership, and decisions sequenced before downstream commitments.",
+      "answer": "For engaged couples, wedding planning works best as a completion checklist focused on a dependency-aware plan with one source of truth, explicit ownership, and decisions sequenced before downstream commitments. Start with confirmed constraints, then make open decisions explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding planning checklist around confirmed constraints and open decisions.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile owners and deadlines and dependencies.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Starting from preferences before constraints.",
+        "Maintaining conflicting versions.",
+        "Treating assumptions as confirmed facts."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-seating-chart-checklist-for-engaged-couples-practical",
+      "title": "Wedding Seating Chart Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Seating Chart",
+      "product_id": "seating-chart-maker",
+      "semantic_key": "wedding seating chart|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000122_4d25eabe01",
+      "summary": "For engaged couples, wedding seating chart works best as a completion checklist focused on table capacity, relationship dynamics, accessibility, and a stable seat-assignment version.",
+      "answer": "For engaged couples, wedding seating chart works best as a completion checklist focused on table capacity, relationship dynamics, accessibility, and a stable seat-assignment version. Start with final-ish guest attendance, then make table shapes and capacities explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding seating chart checklist around final-ish guest attendance and table shapes and capacities.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile household or relationship constraints and mobility and accessibility needs.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Splitting linked households without intent.",
+        "Placing high-conflict guests together.",
+        "Changing table capacities after assignments are built."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-budget-checklist-for-engaged-couples-practical",
+      "title": "Wedding Budget Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Budget",
+      "product_id": "budget-spreadsheet",
+      "semantic_key": "wedding budget|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000123_8e0ffdc070",
+      "summary": "For engaged couples, wedding budget works best as a completion checklist focused on a hard spending ceiling, committed-versus-estimated costs, payment timing, and an explicit contingency reserve.",
+      "answer": "For engaged couples, wedding budget works best as a completion checklist focused on a hard spending ceiling, committed-versus-estimated costs, payment timing, and an explicit contingency reserve. Start with total spending ceiling, then make signed commitments and deposits explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding budget checklist around total spending ceiling and signed commitments and deposits.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile remaining estimates and payment due dates.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Counting estimates as final costs.",
+        "Forgetting taxes, fees, gratuities, or delivery charges.",
+        "Committing deposits before tradeoffs are visible."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-timeline-checklist-for-engaged-couples-practical",
+      "title": "Wedding Timeline Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Timeline",
+      "product_id": "timeline-template",
+      "semantic_key": "wedding timeline|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000124_b72d9d211e",
+      "summary": "For engaged couples, wedding timeline works best as a completion checklist focused on backward planning from immovable event times with realistic buffers and handoff owners.",
+      "answer": "For engaged couples, wedding timeline works best as a completion checklist focused on backward planning from immovable event times with realistic buffers and handoff owners. Start with ceremony and reception start times, then make vendor arrival and setup windows explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding timeline checklist around ceremony and reception start times and vendor arrival and setup windows.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile travel and transition time and photo and meal timing.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Building the day with no transition buffer.",
+        "Letting vendors hold conflicting timelines.",
+        "Changing one event without updating downstream handoffs."
       ],
       "reasons": [
         "insufficient_steps",
