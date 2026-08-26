@@ -69,8 +69,15 @@ function sitemapUrls() {
       if (/^(node_modules|\.git|\.pages-output|coverage)$/.test(e.name)) continue;
       const full = path.join(dir, e.name);
       if (e.isDirectory()) walk(full, depth + 1);
-      else if (/^sitemap.*\.xml$/i.test(e.name)) {
-        const xml = fs.readFileSync(full, 'utf8');
+      // Match on content, not filename. This repo generates one sitemap per host
+      // as artifacts/sitemaps/<domain>.xml, which never matched a sitemap*.xml
+      // filename pattern, so the gate scanned zero URLs and reported CLEAR no
+      // matter how much was published - inert in exactly the way this gate's
+      // predecessor was. Any XML carrying a <urlset> is a sitemap.
+      else if (/\.xml$/i.test(e.name)) {
+        let xml;
+        try { xml = fs.readFileSync(full, 'utf8'); } catch { continue; }
+        if (!xml.includes('<urlset')) continue;
         for (const m of xml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
           const loc = (m[1].match(/<loc>(.*?)<\/loc>/) || [])[1];
           if (!loc) continue;
