@@ -80,7 +80,8 @@
     "validate:no-empty-cells": "node scripts/validators/validate_no_empty_table_cells.js",
     "selfheal": "node scripts/selfheal/heal_until_clean.mjs",
     "selfheal:dry": "node scripts/selfheal/heal_until_clean.mjs --dry-run",
-    "validate:content-pattern": "node scripts/validators/validate_content_pattern_contract.js"
+    "validate:content-pattern": "node scripts/validators/validate_content_pattern_contract.js",
+    "cadence:headroom": "node scripts/cadence/publish_headroom.mjs"
   },
   "dependencies": {
     "next": "15.5.18",
