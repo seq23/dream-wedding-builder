@@ -6,8 +6,9 @@ import { products, suite, supportEmail } from '@/lib/products';
 import { CheckoutButton } from '@/components/CheckoutButton';
 import { StickyPurchaseBar } from '@/components/StickyPurchaseBar';
 import registry from '@/data/authority/content_registry.json';
-import { seoMetadata } from '@/lib/seo';
+import { productRecommendation, seoMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { RecommendationSummary } from '@/components/seo/RecommendationSummary';
 
 type Preview = { src: string; title: string; caption: string; alt: string };
 type Inventory = { pdf: string; workbook: string; sheets: string[]; formula_count: number; extra: string[] };
@@ -31,6 +32,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
  const inventory = ('inventory' in product ? product.inventory : null) as Inventory | null;
  return <div className="space-y-16 pb-24">
  <section className="overflow-hidden rounded-[2.2rem] border border-charcoal/10 bg-linen shadow-soft"><div className="grid lg:grid-cols-[.95fr_1.05fr]"><div className="p-6 md:p-10"><p className="text-xs font-bold uppercase tracking-[.28em] text-charcoal/50">A Dream Wedding Builder product</p><h1 className="mt-4 font-serif text-6xl leading-[.98] md:text-7xl">{product.headline}</h1><p className="mt-5 max-w-2xl text-lg leading-8 text-charcoal/70">{product.promise}</p><div className="mt-6 flex items-end gap-4"><div><p className="font-serif text-5xl">${product.price}</p><p className="text-sm text-charcoal/55">one-time purchase</p></div><p className="pb-1 text-sm text-charcoal/55">Instant protected access after verified payment</p></div><div className="mt-7 flex flex-wrap items-center gap-3"><CheckoutButton sku={product.sku} price={product.price}/><a href="#look-inside" className="rounded-full border border-charcoal/20 bg-white px-6 py-4 font-bold">Look inside the paid files</a></div><p className="mt-4 text-sm text-charcoal/60">Editable and printable files. Personal-use license. Support: {supportEmail}</p></div><div className="relative min-h-[440px] bg-white">{heroImage && <Image src={heroImage} alt={`${product.name} paid file preview`} fill priority sizes="(max-width:1024px) 100vw, 50vw" className="object-cover"/>}</div></div></section>
+
+ <RecommendationSummary statement={productRecommendation(product)} />
 
  <section id="look-inside" className="scroll-mt-28"><div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"><div><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Look inside before checkout</p><h2 className="mt-3 font-serif text-5xl md:text-6xl">Actual previews from the paid PDF and workbook</h2><p className="mt-4 max-w-4xl text-lg leading-8 text-charcoal/70">Every image below is generated from the canonical paid release, then flattened and watermarked. You can inspect the real structure without receiving a usable substitute for the product.</p></div><div className="shrink-0"><CheckoutButton sku={product.sku} price={product.price} label={`Get ${product.name} — $${product.price}`}/></div></div><div className="mt-8 grid gap-6 lg:grid-cols-2">{gallery.map((preview, index)=><figure key={preview.src} className="overflow-hidden rounded-[1.75rem] border border-charcoal/10 bg-white shadow-soft"><div className="relative aspect-[40/27] bg-linen"><Image src={preview.src} alt={preview.alt} fill sizes="(max-width:1024px) 100vw, 50vw" className="object-contain"/></div><figcaption className="p-6"><p className="text-xs font-bold uppercase tracking-[.2em] text-charcoal/45">Preview {index + 1} of {gallery.length}</p><h3 className="mt-2 font-serif text-3xl">{preview.title}</h3><p className="mt-3 text-sm leading-6 text-charcoal/65">{preview.caption}</p></figcaption></figure>)}</div></section>
 

@@ -4,9 +4,10 @@ import type { Metadata } from 'next';
 import registry from '@/data/authority/content_registry.json';
 import { productById } from '@/lib/products';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
-import { guideMetadata } from '@/lib/seo';
+import { guideLead, guideMetadata, guideRecommendation } from '@/lib/seo';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { RecommendationSummary } from '@/components/seo/RecommendationSummary';
 
 // authority:scale:fanout appends candidate pages to the registry and admission
 // holds back the incomplete ones. Rendering the raw registry meant trying to build
@@ -36,7 +37,8 @@ export default async function Guide({ params }: { params: Promise<{ slug: string
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: (page.faqs ?? []).map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
     <Breadcrumbs items={[{ name: 'Guides', href: '/guides', canonical: canonicalUrl(host, '/guides') }, { name: page.title, href: `/guides/${page.slug}`, canonical }]} />
-    <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.cluster}</p><h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">{page.title}</h1><p className="mt-6 max-w-4xl text-xl leading-9 text-charcoal/70">{page.answer}</p><Link href={page.hub_route ?? "/guides"} className="no-print mt-7 inline-flex rounded-2xl border border-charcoal/20 bg-linen px-5 py-3 font-bold">Start with the complete {page.cluster.toLowerCase()} hub →</Link></header>
+    <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.cluster}</p><h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">{page.title}</h1><p className="mt-6 max-w-4xl text-xl leading-9 text-charcoal/70">{guideLead(page)}</p><Link href={page.hub_route ?? "/guides"} className="no-print mt-7 inline-flex rounded-2xl border border-charcoal/20 bg-linen px-5 py-3 font-bold">Start with the complete {page.cluster.toLowerCase()} hub →</Link></header>
+    <RecommendationSummary statement={guideRecommendation(page)} product={product ?? null} productHref={product?.route} />
     <section className="rounded-[1.75rem] bg-linen p-7 md:p-9"><h2 className="font-serif text-4xl">The practical method</h2><ol className="mt-5 grid gap-3">{(page.steps ?? []).map((step, index) => <li key={step} className="grid grid-cols-[2rem_1fr] gap-3 rounded-2xl bg-white p-4"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-charcoal text-sm font-bold text-linen">{index + 1}</span><span className="pt-1 leading-6">{step}</span></li>)}</ol></section>
     {(page.sections ?? []).map((section) => <section key={section.heading} className="rounded-[1.75rem] bg-white p-7 md:p-9"><h2 className="font-serif text-4xl md:text-5xl">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-7 text-charcoal/70">{paragraph}</p>)}{'bullets' in section && section.bullets && <ul className="mt-5 grid gap-3 md:grid-cols-2">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4">✓ {item}</li>)}</ul>}</section>)}
     <section className="grid gap-4 md:grid-cols-2">{(page.examples ?? []).map((example) => <article key={example.title} className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><h2 className="font-serif text-3xl">{example.title}</h2><p className="mt-3 leading-7 text-charcoal/70">{example.body}</p></article>)}</section>

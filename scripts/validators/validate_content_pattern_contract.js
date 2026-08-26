@@ -111,6 +111,36 @@ const JSONLD = {
   product: templateEmitsJsonLd('app/products/[slug]/page.tsx'),
 };
 
+// recommendation_summary is a template guarantee in the same way, but a guarantee
+// only holds if the record actually supplies the statement, so it is measured on
+// both halves: the shared block component must carry the required markers and be
+// used by the template, and the page's own record must carry prescriptive text
+// for it to render. components/seo/RecommendationSummary.tsx returns null on an
+// empty statement, so a page counted here is a page that really ships the block.
+const RS_COMPONENT = 'components/seo/RecommendationSummary.tsx';
+const rsSource = fs.readFileSync(path.join(ROOT, RS_COMPONENT), 'utf8');
+const rsComponentValid = rsSource.includes('data-content-block="recommendation_summary"')
+  && rsSource.includes('id="recommendation-summary"')
+  && /className="[^"]*\brecommendation-summary\b/.test(rsSource);
+const templateUsesBlock = (file) => /<RecommendationSummary\b/.test(fs.readFileSync(path.join(ROOT, file), 'utf8'));
+const RECOMMENDATION_BLOCK = {
+  hub: rsComponentValid && templateUsesBlock('components/seo/HubPage.tsx'),
+  guide: rsComponentValid && templateUsesBlock('app/guides/[slug]/page.tsx'),
+  product: rsComponentValid && templateUsesBlock('app/products/[slug]/page.tsx'),
+};
+
+// Mirrors lib/seo.ts hubRecommendation / guideRecommendation / productRecommendation.
+// Keep the two in step: this is what decides whether the block has anything to say.
+const recommendationStatement = (p) => {
+  if (p.kind === 'hub') return str(p.record.direct_answer);
+  if (p.kind === 'product') return str(p.record.sub);
+  const summary = str(p.record.summary);
+  const answerText = str(p.record.answer);
+  if (!summary) return '';
+  if (!answerText.startsWith(summary)) return answerText;
+  return answerText.slice(summary.length).trim();
+};
+
 const str = (v) => (typeof v === 'string' ? v.trim() : '');
 const heading = (p) => (p.kind === 'hub' ? str(p.record.h1)
   : p.kind === 'guide' ? str(p.record.title) : str(p.record.headline));
@@ -173,8 +203,15 @@ const CHECKS = [
   // counts what the review agent actually asked for across 913 accepted
   // recommendations. These three were being missed entirely by the earlier list.
   { id: 'recommendation_summary', blocking: false,
-    test: (h) => /data-bhpc-agent-block="recommendation_summary"|class="[^"]*recommendation-summary|<h[23][^>]*>\s*(?:What (?:we|this page) recommends?|Recommendation|Bottom line)/i.test(h),
+    // Long enough to be a recommendation rather than a label, on the same basis
+    // as the direct_answer threshold above.
+    test: (p) => Boolean(RECOMMENDATION_BLOCK[p.kind]) && recommendationStatement(p).length > 40,
     why: 'no recommendation summary - asked for on 913 of 913 agent recommendations, the single most requested block' },
+  // The two checks below were written against a static-HTML surface and are still
+  // handed the page record rather than rendered markup, so they match nothing and
+  // report 0% for every page whatever the content is. Left as-is: adapting them
+  // means first deciding what a definition callout and a trust block are on a
+  // record-driven page, which is separate work from the block above.
   { id: 'definition_callout', blocking: false,
     test: (h) => /class="[^"]*citation-definition|data-bhpc-agent-block="definition_callout"|<(?:p|div)[^>]*>\s*<strong>[^<]{40,}<\/strong>/i.test(h),
     why: 'no definition callout (agent requested 196 times) - this is what an answer engine lifts for "what is X"' },

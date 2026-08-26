@@ -65,9 +65,15 @@ function pageCopy(r){
   else if(intent.includes('framework')){angle='planning framework';steps=[`Define the outcome ${topic} must produce for ${audience}.`,`Map ${inputs.join(', ')} as the controlling inputs.`,`Sequence high-dependency decisions before low-dependency preferences.`,`Run one cross-check against guest experience, accessibility, budget, timing, and vendor handoffs.`,`Lock the accepted version and reopen only the affected decision when a material input changes.`];}
   else if(intent.includes('FAQ')){angle='question-and-answer guide';steps=[`List the questions that determine ${inputs[0]} and ${inputs[1]}.`,`Answer what can be answered from confirmed planning facts.`,`Flag questions that require confirmation of ${inputs[2]} or ${inputs[3]||'external constraints'} instead of guessing.`,`Turn every unresolved question into an owner plus next action.`,`Retire outdated answers when the underlying plan changes.`];}
   else {steps=[`Confirm ${inputs[0]} before making downstream ${topic} commitments.`,`Document ${inputs[1]} in the same source of truth.`,`Resolve or assign ownership for ${inputs[2]}.`,`Stress-test the plan against ${inputs[3]||'the next dependent decision'}.`,`Publish the accepted ${topic} plan and update only the dependencies affected by a real change.`];}
-  const answer=`For ${audience}, ${topic} works best as a ${angle} focused on ${profile.focus}. Start with ${inputs[0]}, then make ${inputs[1]} explicit before downstream choices harden. A ${modifierLabel} plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.`;
+  // summary is the standalone lead sentence; answer is that sentence plus the
+  // recommendation that follows it. Every shipping guide in the registry already
+  // follows this convention, and app/guides/[slug]/page.tsx relies on it: the
+  // header renders the summary and the recommendation_summary block renders the
+  // remainder, so a generated page carries the block without any later authoring.
+  const summary=`For ${audience}, ${topic} works best as a ${angle} focused on ${profile.focus}.`;
+  const answer=`${summary} Start with ${inputs[0]}, then make ${inputs[1]} explicit before downstream choices harden. A ${modifierLabel} plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.`;
   const mistakes=profile.pitfalls.map(x=>x.charAt(0).toUpperCase()+x.slice(1)+'.');
-  return {answer,steps,mistakes};
+  return {summary,answer,steps,mistakes};
 }
 let candidates=[];const batchTopics=new Set();const batchQueries=new Set();
 if(remaining>0){
@@ -83,5 +89,5 @@ if(remaining>0){
     }
   }
 }
-for(const r of candidates){const copy=pageCopy(r);doc.pages.push({slug:r.slug,title:titleCase(r.query),cluster:titleCase(r.topic),product_id:productFor(r.topic),semantic_key:`${r.topic}|${r.intent_pattern}|${r.audience||''}`,source_opportunity_id:r.opportunity_id||r.id,answer:copy.answer,steps:copy.steps,mistakes:copy.mistakes});existingSlugs.add(r.slug);existingTitles.add(String(r.query).toLowerCase());used.add(r.opportunity_id||r.id);}
+for(const r of candidates){const copy=pageCopy(r);doc.pages.push({slug:r.slug,title:titleCase(r.query),cluster:titleCase(r.topic),product_id:productFor(r.topic),semantic_key:`${r.topic}|${r.intent_pattern}|${r.audience||''}`,source_opportunity_id:r.opportunity_id||r.id,summary:copy.summary,answer:copy.answer,steps:copy.steps,mistakes:copy.mistakes});existingSlugs.add(r.slug);existingTitles.add(String(r.query).toLowerCase());used.add(r.opportunity_id||r.id);}
 doc.generated_at=today;write('data/authority/content_registry.json',doc);ledger.published_ids=[...used];ledger.runs.push({run_at:new Date().toISOString(),date:today,created:candidates.length,ceiling:dailyCeiling,already_published_today_before_run:alreadyToday,remaining_budget_before_run:remaining});write(ledgerPath,ledger);console.log(JSON.stringify({created:candidates.length,daily_ceiling:dailyCeiling,already_today:alreadyToday,remaining_before_run:remaining,total_guides:doc.pages.length,distinct_topics_in_batch:batchTopics.size},null,2));

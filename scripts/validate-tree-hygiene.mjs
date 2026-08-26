@@ -37,6 +37,9 @@ const allowedRootFiles = new Set([
 ]);
 
 const allowedRootDirs = new Set([
+  // Holds the content-pattern contract derived from the agent recommendation
+  // corpus. Read by the generators, so it belongs in the tree.
+  '.clarity',
   '.github',
   '.ops',
   'app',
