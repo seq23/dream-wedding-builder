@@ -1,4 +1,5 @@
 import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto';
+import { countFormulas } from './lib/xlsx-formula-count.mjs';
 const m=JSON.parse(fs.readFileSync('product-builds/manifests/download_manifest.json','utf8'));
 for(const item of m.products){
   if(!item.files?.length) throw new Error(`No files for ${item.sku}`);
@@ -42,4 +43,18 @@ for(const release of rm.releases){
   if(bytes.subarray(0,2).toString()!=='PK') throw new Error(`Packaged release is not a ZIP archive: ${release.local_path}`);
 }
 
-console.log(`canonical downloads: PASS (${m.products.reduce((n,p)=>n+p.files.length,0)} files, ${rm.releases.length} packaged R2 releases)`);
+// The product page renders "<n> built-in formulas" only when formula_count > 0 and
+// states the number comes from the canonical release. Hold the catalog to that.
+const byId=new Map(catalog.products.map(p=>[p.id,p]));
+let formulaChecks=0;
+for(const item of m.products){
+  const workbook=item.files.find(f=>f.path.endsWith('.xlsx'));
+  const product=byId.get(item.product_id);
+  if(!workbook||!product?.inventory) continue;
+  const actual=countFormulas(path.join('product-builds/releases',workbook.path));
+  const claimed=product.inventory.formula_count;
+  if(actual!==claimed) throw new Error(`${item.product_id} advertises ${claimed} built-in formulas but the shipped workbook ${workbook.path} contains ${actual}`);
+  formulaChecks++;
+}
+
+console.log(`canonical downloads: PASS (${m.products.reduce((n,p)=>n+p.files.length,0)} files, ${rm.releases.length} packaged R2 releases, ${formulaChecks} formula counts matched)`);
