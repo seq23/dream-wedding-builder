@@ -24,6 +24,8 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { isComplete } from '../../lib/authority-complete.mjs';
+
 const root = process.cwd();
 const REGISTRY = 'data/authority/content_registry.json';
 const HUBS = 'data/seo/hub_pages.json';
@@ -177,11 +179,9 @@ for (const route of ownership.routes ?? []) {
 
 // The guide index renders the shipping set, so it is as fresh as the newest guide
 // it actually lists - not the newest skeleton sitting unlisted in the registry.
-// This mirrors isComplete() in lib/authority-registry.ts, which a Node build script
-// cannot import from TypeScript; tests/unit/lastmod-ledger.test.ts fails if the two
-// ever disagree about how many pages ship.
-const shipping = (page) => Array.isArray(page.sections) && Array.isArray(page.faqs) && Array.isArray(page.related_slugs) && Array.isArray(page.examples) && Boolean(page.hub_route);
-const listedGuideDates = (registry.pages ?? []).filter(shipping).map((page) => entries[`/guides/${page.slug}`]?.lastmod);
+// isComplete() is imported, not mirrored: lib/authority-complete.mjs is plain ESM
+// precisely so a Node build script and the router can call the same function.
+const listedGuideDates = (registry.pages ?? []).filter(isComplete).map((page) => entries[`/guides/${page.slug}`]?.lastmod);
 record('/guides', newest(fileLastChanged('app/guides/page.tsx'), ...listedGuideDates), 'app/guides/page.tsx + newest listed guide');
 
 const doc = {
@@ -190,7 +190,7 @@ const doc = {
   method: 'For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.',
   generated_from_commit: git('rev-parse', 'HEAD').trim(),
   // Cross-checked against lib/authority-registry.ts by tests/unit/lastmod-ledger.test.ts.
-  shipping_guide_count: (registry.pages ?? []).filter(shipping).length,
+  shipping_guide_count: (registry.pages ?? []).filter(isComplete).length,
   paths: Object.fromEntries(Object.keys(entries).sort().map((key) => [key, entries[key]]))
 };
 fs.writeFileSync(path.join(root, OUT), JSON.stringify(doc, null, 2) + '\n');

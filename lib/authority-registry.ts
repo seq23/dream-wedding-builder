@@ -1,5 +1,7 @@
 import registry from '@/data/authority/content_registry.json';
 
+import { isComplete } from '@/lib/authority-complete.mjs';
+
 export type RegistryPage = (typeof registry.pages)[number];
 
 // authority:scale:fanout appends candidate pages to the registry on every run of
@@ -8,17 +10,12 @@ export type RegistryPage = (typeof registry.pages)[number];
 // related_slugs, examples and hub_route unconditionally, so a page missing any of
 // them cannot render and the route notFound()s it.
 //
-// This predicate is therefore the single definition of "this slug serves 200".
-// It lives here, and not next to the route, because app/sitemap.xml/route.ts must
-// publish exactly the set the route agrees to render. When the two carried their
-// own copies the sitemap advertised URLs the router refused, and every fan-out run
-// widened the gap. One function, imported by both, cannot drift.
-export const isComplete = (page: RegistryPage): boolean =>
-  Array.isArray((page as { sections?: unknown[] }).sections) &&
-  Array.isArray((page as { faqs?: unknown[] }).faqs) &&
-  Array.isArray((page as { related_slugs?: unknown[] }).related_slugs) &&
-  Array.isArray((page as { examples?: unknown[] }).examples) &&
-  Boolean((page as { hub_route?: string }).hub_route);
+// The predicate that decides that is defined once, in lib/authority-complete.mjs,
+// and re-exported here so the route, the sitemap, the build scripts, the validator
+// and scripts/authority_scale/publish_authority_batch.mjs all call the same
+// function object. It is plain ESM rather than TypeScript only because the Node
+// scripts have to import it too; nothing about its meaning lives outside that file.
+export { isComplete };
 
 /** Every registry page that app/guides/[slug]/page.tsx will actually render. */
 export const shippingPages = registry.pages.filter(isComplete);

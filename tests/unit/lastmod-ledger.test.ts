@@ -9,9 +9,10 @@ import { CANONICAL_HOSTS } from '@/lib/site-config';
 const paths = ledger.paths as Record<string, { lastmod: string; source: string } | undefined>;
 
 describe('lastmod reflects real content change', () => {
-  // scripts/seo/build_lastmod_ledger.mjs is a Node build script and cannot import
-  // isComplete() from TypeScript, so it keeps its own copy of the rule. This is the
-  // guard that stops the copy from drifting away from lib/authority-registry.ts.
+  // scripts/seo/build_lastmod_ledger.mjs imports the same isComplete() this module
+  // re-exports, from lib/authority-complete.mjs, so the two cannot disagree by
+  // construction. This still checks the ledger was rebuilt against the current
+  // registry rather than left behind by a run that predates it.
   it('agrees with lib/authority-registry about how many guides ship', () => {
     expect(ledger.shipping_guide_count).toBe(shippingPages.length);
   });
