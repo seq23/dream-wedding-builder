@@ -2,25 +2,13 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import registry from '@/data/authority/content_registry.json';
+import { shippingPages } from '@/lib/authority-registry';
 import { productById } from '@/lib/products';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
 import { guideLead, guideMetadata, guideRecommendation } from '@/lib/seo';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { RecommendationSummary } from '@/components/seo/RecommendationSummary';
-
-// authority:scale:fanout appends candidate pages to the registry and admission
-// holds back the incomplete ones. Rendering the raw registry meant trying to build
-// routes for skeletons with no sections, faqs, examples or related guides - which
-// also widened the inferred types and broke the typecheck. Build what ships.
-const isComplete = (page: (typeof registry.pages)[number]) =>
-  Array.isArray((page as { sections?: unknown[] }).sections) &&
-  Array.isArray((page as { faqs?: unknown[] }).faqs) &&
-  Array.isArray((page as { related_slugs?: unknown[] }).related_slugs) &&
-  Array.isArray((page as { examples?: unknown[] }).examples) &&
-  Boolean((page as { hub_route?: string }).hub_route);
-
-const shippingPages = registry.pages.filter(isComplete);
 
 export function generateStaticParams(){ return shippingPages.map((page) => ({ slug: page.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; return guideMetadata(slug); }

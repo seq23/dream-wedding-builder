@@ -1,5 +1,6 @@
 import ownership from '@/data/seo/route_ownership.json';
 import registry from '@/data/authority/content_registry.json';
+import { shippingPages } from '@/lib/authority-registry';
 import { products } from '@/lib/products';
 
 export type SiteHost = keyof typeof ownership.hosts;
@@ -60,9 +61,12 @@ export function canonicalHostForPath(pathname: string): SiteHost | null {
   return null;
 }
 
+// The guide index links every page this returns, so it must return only pages
+// that render. Unfiltered it linked the fan-out skeletons, which 404 - the same
+// defect the sitemap had, on an internal-link surface instead of an external one.
 export function guidesForHost(host: string) {
   const resolved = isCanonicalHost(host) ? host : PARENT_HOST;
-  return registry.pages.filter((page) => productHosts.get(page.product_id) === resolved);
+  return shippingPages.filter((page) => productHosts.get(page.product_id) === resolved);
 }
 
 export function productForHost(host: string) {
