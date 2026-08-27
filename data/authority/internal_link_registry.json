@@ -2412,6 +2412,426 @@
       "to": "/guides/post-wedding-return-checklist",
       "anchor": "Post-Wedding Returns and Closing Checklist",
       "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-planning-timeline",
+      "to": "/wedding-planning-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-planning-timeline",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-planning-timeline",
+      "to": "/guides/12-month-wedding-checklist",
+      "anchor": "12-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-planning-timeline",
+      "to": "/guides/6-month-wedding-checklist",
+      "anchor": "6-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-planning-timeline",
+      "to": "/guides/wedding-vendor-booking-checklist",
+      "anchor": "Wedding Vendor Booking Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-planning-timeline",
+      "to": "/guides/wedding-week-checklist",
+      "anchor": "Wedding-Week Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-planning-timeline",
+      "to": "/guides/day-of-coordinator-checklist",
+      "anchor": "Day-of Wedding Coordinator Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-seating-chart-template",
+      "to": "/wedding-seating-chart",
+      "anchor": "Start with the wedding seating chart hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-seating-chart-template",
+      "to": "/products/seating-chart-maker",
+      "anchor": "Wedding Seating Chart Maker",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-seating-chart-template",
+      "to": "/guides/wedding-seating-chart-meal-tracker",
+      "anchor": "Wedding Seating Chart Meal-Choice Tracking",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-seating-chart-template",
+      "to": "/guides/wedding-seating-chart-allergy-tracker",
+      "anchor": "Wedding Seating Chart Allergy Tracking",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-seating-chart-template",
+      "to": "/guides/wedding-escort-card-data-export",
+      "anchor": "Preparing Escort-Card Data From Your Seating Plan",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-seating-chart-template",
+      "to": "/guides/late-rsvp-seating-chart-changes",
+      "anchor": "Managing Late RSVP Seating Changes",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-seating-chart-template",
+      "to": "/guides/wedding-table-capacity-guide",
+      "anchor": "Wedding Table Capacity Guide",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-calculator",
+      "to": "/wedding-budget-spreadsheet",
+      "anchor": "Start with the wedding budget hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-budget-calculator",
+      "to": "/products/budget-spreadsheet",
+      "anchor": "Wedding Budget Spreadsheet",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-budget-calculator",
+      "to": "/guides/wedding-budget-template",
+      "anchor": "Wedding Budget Template",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-calculator",
+      "to": "/guides/wedding-budget-for-100-guests",
+      "anchor": "Wedding Budget for 100 Guests",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-calculator",
+      "to": "/guides/wedding-hidden-costs-checklist",
+      "anchor": "Wedding Hidden Costs Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-calculator",
+      "to": "/guides/estimated-vs-actual-wedding-costs",
+      "anchor": "Estimated vs. Actual Wedding Costs",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-calculator",
+      "to": "/guides/wedding-budget-contingency",
+      "anchor": "Wedding Budget Contingency Planning",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-timeline-template",
+      "to": "/wedding-timeline-template",
+      "anchor": "Start with the wedding timeline hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-day-timeline-template",
+      "to": "/products/timeline-template",
+      "anchor": "Wedding Timeline Template",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-day-timeline-template",
+      "to": "/guides/wedding-day-timeline",
+      "anchor": "Wedding Day Timeline: Build a Realistic Schedule",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-timeline-template",
+      "to": "/guides/wedding-timeline-travel-buffer",
+      "anchor": "Adding Travel Buffers to a Wedding Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-timeline-template",
+      "to": "/guides/wedding-vendor-arrival-schedule",
+      "anchor": "Wedding Vendor Arrival Schedule",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-timeline-template",
+      "to": "/guides/wedding-setup-breakdown-timeline",
+      "anchor": "Wedding Setup and Breakdown Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-timeline-template",
+      "to": "/guides/wedding-rehearsal-timeline",
+      "anchor": "Wedding Rehearsal Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-template",
+      "to": "/wedding-budget-spreadsheet",
+      "anchor": "Start with the wedding budget hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-budget-template",
+      "to": "/products/budget-spreadsheet",
+      "anchor": "Wedding Budget Spreadsheet",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-budget-template",
+      "to": "/guides/wedding-budget-calculator",
+      "anchor": "Wedding Budget Calculator",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-template",
+      "to": "/guides/wedding-budget-spreadsheet-categories",
+      "anchor": "Wedding Budget Spreadsheet Categories",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-template",
+      "to": "/guides/wedding-vendor-payment-tracker",
+      "anchor": "Wedding Vendor Payment Tracker",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-template",
+      "to": "/guides/wedding-deposit-schedule",
+      "anchor": "Wedding Deposit Schedule",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-budget-template",
+      "to": "/guides/wedding-monthly-cash-flow",
+      "anchor": "Wedding Monthly Cash-Flow Planning",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rehearsal-timeline",
+      "to": "/wedding-timeline-template",
+      "anchor": "Start with the wedding timeline hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-rehearsal-timeline",
+      "to": "/products/timeline-template",
+      "anchor": "Wedding Timeline Template",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-rehearsal-timeline",
+      "to": "/guides/rehearsal-dinner-timeline",
+      "anchor": "Rehearsal Dinner Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rehearsal-timeline",
+      "to": "/guides/rehearsal-dinner-checklist",
+      "anchor": "Rehearsal Dinner Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rehearsal-timeline",
+      "to": "/guides/church-ceremony-wedding-timeline",
+      "anchor": "Church Ceremony Wedding Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rehearsal-timeline",
+      "to": "/guides/wedding-party-timeline",
+      "anchor": "Wedding-Party Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rehearsal-timeline",
+      "to": "/guides/wedding-day-timeline-template",
+      "anchor": "Wedding Day Timeline Template",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/bridal-shower-checklist",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/bridal-shower-checklist",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/bridal-shower-checklist",
+      "to": "/guides/rehearsal-dinner-checklist",
+      "anchor": "Rehearsal Dinner Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/bridal-shower-checklist",
+      "to": "/guides/wedding-planning-timeline",
+      "anchor": "Wedding Planning Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/bridal-shower-checklist",
+      "to": "/guides/wedding-vendor-booking-checklist",
+      "anchor": "Wedding Vendor Booking Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/bridal-shower-checklist",
+      "to": "/guides/post-wedding-return-checklist",
+      "anchor": "Post-Wedding Returns and Closing Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/bridal-shower-checklist",
+      "to": "/guides/wedding-planning-binder",
+      "anchor": "Wedding Planning Binder: Tabs, Files, and Workflow",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-emergency-kit",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-emergency-kit",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-emergency-kit",
+      "to": "/guides/wedding-day-emergency-checklist",
+      "anchor": "Wedding-Day Emergency Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-emergency-kit",
+      "to": "/guides/wedding-week-checklist",
+      "anchor": "Wedding-Week Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-emergency-kit",
+      "to": "/guides/day-of-coordinator-checklist",
+      "anchor": "Day-of Wedding Coordinator Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-emergency-kit",
+      "to": "/guides/wedding-vendor-list",
+      "anchor": "Wedding Vendor List: Categories, Status, and Contacts",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-emergency-kit",
+      "to": "/guides/backyard-wedding-checklist",
+      "anchor": "Backyard Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/day-of-coordinator-checklist",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/day-of-coordinator-checklist",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/day-of-coordinator-checklist",
+      "to": "/guides/wedding-vendor-list",
+      "anchor": "Wedding Vendor List: Categories, Status, and Contacts",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/day-of-coordinator-checklist",
+      "to": "/guides/wedding-week-checklist",
+      "anchor": "Wedding-Week Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/day-of-coordinator-checklist",
+      "to": "/guides/wedding-final-payment-checklist",
+      "anchor": "Wedding Final-Payment Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/day-of-coordinator-checklist",
+      "to": "/guides/wedding-emergency-kit",
+      "anchor": "Wedding Emergency Kit List",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/day-of-coordinator-checklist",
+      "to": "/guides/wedding-planning-timeline",
+      "anchor": "Wedding Planning Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/rehearsal-dinner-timeline",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/rehearsal-dinner-timeline",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/rehearsal-dinner-timeline",
+      "to": "/guides/rehearsal-dinner-checklist",
+      "anchor": "Rehearsal Dinner Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/rehearsal-dinner-timeline",
+      "to": "/guides/wedding-rehearsal-timeline",
+      "anchor": "Wedding Rehearsal Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/rehearsal-dinner-timeline",
+      "to": "/guides/wedding-week-checklist",
+      "anchor": "Wedding-Week Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/rehearsal-dinner-timeline",
+      "to": "/guides/bridal-shower-checklist",
+      "anchor": "Bridal Shower Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/rehearsal-dinner-timeline",
+      "to": "/guides/wedding-party-timeline",
+      "anchor": "Wedding-Party Timeline",
+      "relationship": "related"
     }
   ]
 }
