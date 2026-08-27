@@ -30,7 +30,22 @@
     "maxfanout_000121_31784ae855",
     "maxfanout_000122_4d25eabe01",
     "maxfanout_000123_8e0ffdc070",
-    "maxfanout_000124_b72d9d211e"
+    "maxfanout_000124_b72d9d211e",
+    "maxfanout_000125_29eb23b687",
+    "maxfanout_000126_8eecd0bb4d",
+    "maxfanout_000127_f7dea1b80f",
+    "maxfanout_000128_9275339955",
+    "maxfanout_000129_16a860d7c4",
+    "maxfanout_000130_6366d71d1c",
+    "maxfanout_000131_24743dc549",
+    "maxfanout_000132_13074d4509",
+    "maxfanout_000133_9d70edd02c",
+    "maxfanout_000134_b9ae4745bb",
+    "maxfanout_000135_9304a2b37b",
+    "maxfanout_000136_cc7948fbd7",
+    "maxfanout_000139_4b1ea787a4",
+    "maxfanout_000142_a2b935cac9",
+    "maxfanout_000144_db5e510039"
   ],
   "runs": [
     {
@@ -52,6 +67,14 @@
     {
       "run_at": "2026-08-26T16:15:53.208Z",
       "date": "2026-08-26",
+      "created": 15,
+      "ceiling": 15,
+      "already_published_today_before_run": 0,
+      "remaining_budget_before_run": 15
+    },
+    {
+      "run_at": "2026-08-27T13:53:56.451Z",
+      "date": "2026-08-27",
       "created": 15,
       "ceiling": 15,
       "already_published_today_before_run": 0,

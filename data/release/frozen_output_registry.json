@@ -489,6 +489,81 @@
       "slug": "wedding-timeline-checklist-for-engaged-couples-practical",
       "sha256": "0c12e34452a9d1bf9c5c6561622a3466341e7d330c485adddbd3620ccb2fecc7",
       "blob": "data/release/frozen_accepted_outputs/0c12e34452a9d1bf9c5c6561622a3466341e7d330c485adddbd3620ccb2fecc7.json.gz"
+    },
+    "/guides/wedding-checklist-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-checklist-checklist-for-engaged-couples-practical",
+      "sha256": "8cb743838675b9939475fc179233b15f1cbd57a50d465b5a9f3f03ff662da294",
+      "blob": "data/release/frozen_accepted_outputs/8cb743838675b9939475fc179233b15f1cbd57a50d465b5a9f3f03ff662da294.json.gz"
+    },
+    "/guides/wedding-venue-planning-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-venue-planning-checklist-for-engaged-couples-practical",
+      "sha256": "f44e40187b75e59d0c979c945d71559698a31048b78e52aabb8f564fe8149f92",
+      "blob": "data/release/frozen_accepted_outputs/f44e40187b75e59d0c979c945d71559698a31048b78e52aabb8f564fe8149f92.json.gz"
+    },
+    "/guides/wedding-guest-list-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-guest-list-checklist-for-engaged-couples-practical",
+      "sha256": "6523ed8c07c8b37f1717f6d26b4db44560b1be6a000c41d232b968979c95765c",
+      "blob": "data/release/frozen_accepted_outputs/6523ed8c07c8b37f1717f6d26b4db44560b1be6a000c41d232b968979c95765c.json.gz"
+    },
+    "/guides/wedding-vendor-selection-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-vendor-selection-checklist-for-engaged-couples-practical",
+      "sha256": "2513c0a23a2d0791ef74adb9102974ef33567f6e7f28ce398d00622d1235b391",
+      "blob": "data/release/frozen_accepted_outputs/2513c0a23a2d0791ef74adb9102974ef33567f6e7f28ce398d00622d1235b391.json.gz"
+    },
+    "/guides/wedding-day-logistics-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-day-logistics-checklist-for-engaged-couples-practical",
+      "sha256": "ebbd19fbd799305da64095515052307f9d60586ebc9dfe8218918ac6ca044aec",
+      "blob": "data/release/frozen_accepted_outputs/ebbd19fbd799305da64095515052307f9d60586ebc9dfe8218918ac6ca044aec.json.gz"
+    },
+    "/guides/wedding-ceremony-planning-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-ceremony-planning-checklist-for-engaged-couples-practical",
+      "sha256": "977617199359cb1511651fa62f209832fcc49e6ad90b3a04a2fdbb9ad2a6cfab",
+      "blob": "data/release/frozen_accepted_outputs/977617199359cb1511651fa62f209832fcc49e6ad90b3a04a2fdbb9ad2a6cfab.json.gz"
+    },
+    "/guides/wedding-reception-planning-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-reception-planning-checklist-for-engaged-couples-practical",
+      "sha256": "db0498e640906067a73534be13e7062fec4078fc5a0f425fe29ec0f9912a1fe4",
+      "blob": "data/release/frozen_accepted_outputs/db0498e640906067a73534be13e7062fec4078fc5a0f425fe29ec0f9912a1fe4.json.gz"
+    },
+    "/guides/destination-wedding-planning-checklist-for-engaged-couples-practical": {
+      "slug": "destination-wedding-planning-checklist-for-engaged-couples-practical",
+      "sha256": "53652d806c9aeb5b527073a5da2c1c1aae63affa3eac77dabbefd83ba9ca0d5c",
+      "blob": "data/release/frozen_accepted_outputs/53652d806c9aeb5b527073a5da2c1c1aae63affa3eac77dabbefd83ba9ca0d5c.json.gz"
+    },
+    "/guides/micro-wedding-planning-checklist-for-engaged-couples-practical": {
+      "slug": "micro-wedding-planning-checklist-for-engaged-couples-practical",
+      "sha256": "68f2d3f30488aade92443e1a850445093333a326b551eeaf7bfc24a051621d41",
+      "blob": "data/release/frozen_accepted_outputs/68f2d3f30488aade92443e1a850445093333a326b551eeaf7bfc24a051621d41.json.gz"
+    },
+    "/guides/elopement-planning-checklist-for-engaged-couples-practical": {
+      "slug": "elopement-planning-checklist-for-engaged-couples-practical",
+      "sha256": "496d2308f8cf0c0b58918449c98314bdc9790c0f150adf050b85e45baf1c5aca",
+      "blob": "data/release/frozen_accepted_outputs/496d2308f8cf0c0b58918449c98314bdc9790c0f150adf050b85e45baf1c5aca.json.gz"
+    },
+    "/guides/diy-wedding-planning-checklist-for-engaged-couples-practical": {
+      "slug": "diy-wedding-planning-checklist-for-engaged-couples-practical",
+      "sha256": "650ae55129016b2e49715c50e9b4ccb0ba14b6e9863ba30072b93ecce4787e95",
+      "blob": "data/release/frozen_accepted_outputs/650ae55129016b2e49715c50e9b4ccb0ba14b6e9863ba30072b93ecce4787e95.json.gz"
+    },
+    "/guides/cultural-wedding-planning-checklist-for-engaged-couples-practical": {
+      "slug": "cultural-wedding-planning-checklist-for-engaged-couples-practical",
+      "sha256": "cdafad64c97ccd82e02511038dddeebd78479206055169692ca575abc4ad6a58",
+      "blob": "data/release/frozen_accepted_outputs/cdafad64c97ccd82e02511038dddeebd78479206055169692ca575abc4ad6a58.json.gz"
+    },
+    "/guides/accessible-wedding-planning-checklist-for-engaged-couples-practical": {
+      "slug": "accessible-wedding-planning-checklist-for-engaged-couples-practical",
+      "sha256": "240024fbc6bbcea9e5d777020e081584a5c65cf3acb146c5c762031cd7596ab8",
+      "blob": "data/release/frozen_accepted_outputs/240024fbc6bbcea9e5d777020e081584a5c65cf3acb146c5c762031cd7596ab8.json.gz"
+    },
+    "/guides/family-dynamics-at-weddings-checklist-for-engaged-couples-practical": {
+      "slug": "family-dynamics-at-weddings-checklist-for-engaged-couples-practical",
+      "sha256": "6971210f6454e15d2b1a33aa7b2fc333ca3cdbf3b64ce0093cd75549372bc3fe",
+      "blob": "data/release/frozen_accepted_outputs/6971210f6454e15d2b1a33aa7b2fc333ca3cdbf3b64ce0093cd75549372bc3fe.json.gz"
+    },
+    "/guides/wedding-invitations-checklist-for-engaged-couples-practical": {
+      "slug": "wedding-invitations-checklist-for-engaged-couples-practical",
+      "sha256": "ec7bac3bb403adea3bc6106e402e0daa012f8a3afea524119d4c355a4b49d562",
+      "blob": "data/release/frozen_accepted_outputs/ec7bac3bb403adea3bc6106e402e0daa012f8a3afea524119d4c355a4b49d562.json.gz"
     }
   }
 }

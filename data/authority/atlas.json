@@ -1282,6 +1282,157 @@
       "entity": "Wedding Timeline Checklist For Engaged Couples Practical",
       "conversion_route": "/products/timeline-template",
       "status": "admitted"
+    },
+    {
+      "query": "wedding checklist checklist for engaged couples practical",
+      "semantic_key": "wedding checklist|{topic} checklist|engaged couples",
+      "cluster": "Wedding Checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/wedding-checklist-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Checklist Checklist For Engaged Couples Practical",
+      "conversion_route": "/products/checklist-pdf",
+      "status": "admitted"
+    },
+    {
+      "query": "wedding venue planning checklist for engaged couples practical",
+      "semantic_key": "wedding venue planning|{topic} checklist|engaged couples",
+      "cluster": "Wedding Venue Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/wedding-venue-planning-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Venue Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "wedding guest list checklist for engaged couples practical",
+      "semantic_key": "wedding guest list|{topic} checklist|engaged couples",
+      "cluster": "Wedding Guest List",
+      "product_id": "operations-suite",
+      "route": "/guides/wedding-guest-list-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Guest List Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "wedding vendor selection checklist for engaged couples practical",
+      "semantic_key": "wedding vendor selection|{topic} checklist|engaged couples",
+      "cluster": "Wedding Vendor Selection",
+      "product_id": "operations-suite",
+      "route": "/guides/wedding-vendor-selection-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Vendor Selection Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "wedding day logistics checklist for engaged couples practical",
+      "semantic_key": "wedding day logistics|{topic} checklist|engaged couples",
+      "cluster": "Wedding Day Logistics",
+      "product_id": "operations-suite",
+      "route": "/guides/wedding-day-logistics-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Day Logistics Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "wedding ceremony planning checklist for engaged couples practical",
+      "semantic_key": "wedding ceremony planning|{topic} checklist|engaged couples",
+      "cluster": "Wedding Ceremony Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/wedding-ceremony-planning-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Ceremony Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "wedding reception planning checklist for engaged couples practical",
+      "semantic_key": "wedding reception planning|{topic} checklist|engaged couples",
+      "cluster": "Wedding Reception Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/wedding-reception-planning-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Reception Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "destination wedding planning checklist for engaged couples practical",
+      "semantic_key": "destination wedding planning|{topic} checklist|engaged couples",
+      "cluster": "Destination Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/destination-wedding-planning-checklist-for-engaged-couples-practical",
+      "entity": "Destination Wedding Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "micro wedding planning checklist for engaged couples practical",
+      "semantic_key": "micro wedding planning|{topic} checklist|engaged couples",
+      "cluster": "Micro Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/micro-wedding-planning-checklist-for-engaged-couples-practical",
+      "entity": "Micro Wedding Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "elopement planning checklist for engaged couples practical",
+      "semantic_key": "elopement planning|{topic} checklist|engaged couples",
+      "cluster": "Elopement Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/elopement-planning-checklist-for-engaged-couples-practical",
+      "entity": "Elopement Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "diy wedding planning checklist for engaged couples practical",
+      "semantic_key": "DIY wedding planning|{topic} checklist|engaged couples",
+      "cluster": "DIY Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/diy-wedding-planning-checklist-for-engaged-couples-practical",
+      "entity": "DIY Wedding Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "cultural wedding planning checklist for engaged couples practical",
+      "semantic_key": "cultural wedding planning|{topic} checklist|engaged couples",
+      "cluster": "Cultural Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/cultural-wedding-planning-checklist-for-engaged-couples-practical",
+      "entity": "Cultural Wedding Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "accessible wedding planning checklist for engaged couples practical",
+      "semantic_key": "accessible wedding planning|{topic} checklist|engaged couples",
+      "cluster": "Accessible Wedding Planning",
+      "product_id": "operations-suite",
+      "route": "/guides/accessible-wedding-planning-checklist-for-engaged-couples-practical",
+      "entity": "Accessible Wedding Planning Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "family dynamics at weddings checklist for engaged couples practical",
+      "semantic_key": "family dynamics at weddings|{topic} checklist|engaged couples",
+      "cluster": "Family Dynamics At Weddings",
+      "product_id": "operations-suite",
+      "route": "/guides/family-dynamics-at-weddings-checklist-for-engaged-couples-practical",
+      "entity": "Family Dynamics At Weddings Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
+    },
+    {
+      "query": "wedding invitations checklist for engaged couples practical",
+      "semantic_key": "wedding invitations|{topic} checklist|engaged couples",
+      "cluster": "Wedding Invitations",
+      "product_id": "operations-suite",
+      "route": "/guides/wedding-invitations-checklist-for-engaged-couples-practical",
+      "entity": "Wedding Invitations Checklist For Engaged Couples Practical",
+      "conversion_route": "/shop",
+      "status": "admitted"
     }
   ]
 }

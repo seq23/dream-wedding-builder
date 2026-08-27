@@ -2,11 +2,11 @@
   "report": {
     "run_at": "2026-07-30T00:00:00.000Z",
     "mode": "FULL_SAFE_AUTONOMY",
-    "discovered": 97,
+    "discovered": 112,
     "admitted": 67,
-    "rejected": 30,
+    "rejected": 45,
     "defective": 0,
-    "pending_authoring": 30,
+    "pending_authoring": 45,
     "quality_floor": 9,
     "hub_count": 8,
     "domain_counts": {
@@ -863,6 +863,441 @@
         "Building the day with no transition buffer.",
         "Letting vendors hold conflicting timelines.",
         "Changing one event without updating downstream handoffs."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-checklist-checklist-for-engaged-couples-practical",
+      "title": "Wedding Checklist Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Checklist",
+      "product_id": "checklist-pdf",
+      "semantic_key": "wedding checklist|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000125_29eb23b687",
+      "summary": "For engaged couples, wedding checklist works best as a completion checklist focused on a single status-controlled list that distinguishes done, blocked, waiting, and not-applicable work.",
+      "answer": "For engaged couples, wedding checklist works best as a completion checklist focused on a single status-controlled list that distinguishes done, blocked, waiting, and not-applicable work. Start with required decisions, then make owner for each item explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding checklist checklist around required decisions and owner for each item.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile due date and blocking dependency.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Using multiple conflicting checklists.",
+        "Marking waiting items as complete.",
+        "Keeping tasks that no longer apply."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-venue-planning-checklist-for-engaged-couples-practical",
+      "title": "Wedding Venue Planning Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Venue Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding venue planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000126_8eecd0bb4d",
+      "summary": "For engaged couples, wedding venue planning works best as a completion checklist focused on capacity, access, restrictions, weather fallback, vendor rules, and total logistical fit before aesthetics.",
+      "answer": "For engaged couples, wedding venue planning works best as a completion checklist focused on capacity, access, restrictions, weather fallback, vendor rules, and total logistical fit before aesthetics. Start with guest-count range, then make indoor and outdoor capacity explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding venue planning checklist around guest-count range and indoor and outdoor capacity.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile accessibility and load-in rules and curfew, noise, catering, and vendor restrictions.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Choosing for appearance before capacity and access are proven.",
+        "Assuming rain backup is equivalent to the primary plan.",
+        "Missing exclusive-vendor or timing restrictions."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-guest-list-checklist-for-engaged-couples-practical",
+      "title": "Wedding Guest List Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Guest List",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding guest list|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000127_f7dea1b80f",
+      "summary": "For engaged couples, wedding guest list works best as a completion checklist focused on a controlled headcount model tied to capacity, budget, household rules, and invitation priority.",
+      "answer": "For engaged couples, wedding guest list works best as a completion checklist focused on a controlled headcount model tied to capacity, budget, household rules, and invitation priority. Start with maximum capacity, then make per-guest cost pressure explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding guest list checklist around maximum capacity and per-guest cost pressure.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile household and plus-one policy and priority tiers.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Inviting before the capacity ceiling is real.",
+        "Using inconsistent plus-one rules.",
+        "Failing to track declines before filling open capacity."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-vendor-selection-checklist-for-engaged-couples-practical",
+      "title": "Wedding Vendor Selection Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Vendor Selection",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding vendor selection|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000128_9275339955",
+      "summary": "For engaged couples, wedding vendor selection works best as a completion checklist focused on scope clarity, availability, contract terms, dependencies, and handoff ownership across vendors.",
+      "answer": "For engaged couples, wedding vendor selection works best as a completion checklist focused on scope clarity, availability, contract terms, dependencies, and handoff ownership across vendors. Start with required scope, then make availability explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding vendor selection checklist around required scope and availability.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile written deliverables and payment and cancellation terms.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Comparing vendors on price without scope parity.",
+        "Relying on verbal promises not reflected in the contract.",
+        "Leaving cross-vendor handoffs ownerless."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-day-logistics-checklist-for-engaged-couples-practical",
+      "title": "Wedding Day Logistics Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Day Logistics",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding day logistics|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000129_16a860d7c4",
+      "summary": "For engaged couples, wedding day logistics works best as a completion checklist focused on movement of people, materials, vendors, and information through timed handoffs.",
+      "answer": "For engaged couples, wedding day logistics works best as a completion checklist focused on movement of people, materials, vendors, and information through timed handoffs. Start with arrival and departure windows, then make load-in and parking constraints explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding day logistics checklist around arrival and departure windows and load-in and parking constraints.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile transport routes and named handoff owners.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Assuming travel time is zero.",
+        "Leaving setup dependencies between vendors undefined.",
+        "Having no escalation owner for late arrivals."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-ceremony-planning-checklist-for-engaged-couples-practical",
+      "title": "Wedding Ceremony Planning Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Ceremony Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding ceremony planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000130_6366d71d1c",
+      "summary": "For engaged couples, wedding ceremony planning works best as a completion checklist focused on the legal, cultural, accessibility, processional, and timing requirements that define the ceremony sequence.",
+      "answer": "For engaged couples, wedding ceremony planning works best as a completion checklist focused on the legal, cultural, accessibility, processional, and timing requirements that define the ceremony sequence. Start with officiant requirements, then make ceremony order explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding ceremony planning checklist around officiant requirements and ceremony order.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile processional participants and accessibility and language needs.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Treating ceremonial requirements as decor choices.",
+        "Forgetting document or officiant deadlines.",
+        "Changing the processional without updating cues and seating."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-reception-planning-checklist-for-engaged-couples-practical",
+      "title": "Wedding Reception Planning Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Reception Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding reception planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000131_24743dc549",
+      "summary": "For engaged couples, wedding reception planning works best as a completion checklist focused on guest flow across arrival, seating, food, speeches, entertainment, and departure without bottlenecks.",
+      "answer": "For engaged couples, wedding reception planning works best as a completion checklist focused on guest flow across arrival, seating, food, speeches, entertainment, and departure without bottlenecks. Start with room layout, then make meal service plan explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding reception planning checklist around room layout and meal service plan.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile speech and entertainment sequence and guest movement and accessibility.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Stacking speeches and service in conflicting windows.",
+        "Creating dead zones between major moments.",
+        "Ignoring how guests move between spaces."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "destination-wedding-planning-checklist-for-engaged-couples-practical",
+      "title": "Destination Wedding Planning Checklist For Engaged Couples Practical",
+      "cluster": "Destination Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "destination wedding planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000132_13074d4509",
+      "summary": "For engaged couples, destination wedding planning works best as a completion checklist focused on travel, lodging, local logistics, communication deadlines, and contingency planning for guests away from home.",
+      "answer": "For engaged couples, destination wedding planning works best as a completion checklist focused on travel, lodging, local logistics, communication deadlines, and contingency planning for guests away from home. Start with travel window, then make lodging inventory explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the destination wedding planning checklist around travel window and lodging inventory.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile ground transportation and local venue and vendor constraints.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Assuming guests will infer travel logistics.",
+        "Holding too little lodging inventory.",
+        "Publishing plans before local constraints are confirmed."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "micro-wedding-planning-checklist-for-engaged-couples-practical",
+      "title": "Micro Wedding Planning Checklist For Engaged Couples Practical",
+      "cluster": "Micro Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "micro wedding planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000133_9d70edd02c",
+      "summary": "For engaged couples, micro wedding planning works best as a completion checklist focused on protecting the highest-value guest experience while deliberately limiting headcount, vendor count, and production complexity.",
+      "answer": "For engaged couples, micro wedding planning works best as a completion checklist focused on protecting the highest-value guest experience while deliberately limiting headcount, vendor count, and production complexity. Start with guest ceiling, then make must-have shared moments explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the micro wedding planning checklist around guest ceiling and must-have shared moments.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile space and meal format and minimum vendor support.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Rebuilding a large-wedding production at smaller headcount.",
+        "Adding complexity that does not improve the guest experience.",
+        "Spending the saved headcount budget without reprioritizing."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "elopement-planning-checklist-for-engaged-couples-practical",
+      "title": "Elopement Planning Checklist For Engaged Couples Practical",
+      "cluster": "Elopement Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "elopement planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000134_b9ae4745bb",
+      "summary": "For engaged couples, elopement planning works best as a completion checklist focused on legal readiness, ceremony essentials, travel logistics, witness requirements, and intentional documentation with minimal production overhead.",
+      "answer": "For engaged couples, elopement planning works best as a completion checklist focused on legal readiness, ceremony essentials, travel logistics, witness requirements, and intentional documentation with minimal production overhead. Start with marriage-license requirements to verify, then make officiant and witness plan explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the elopement planning checklist around marriage-license requirements to verify and officiant and witness plan.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile travel and ceremony location access and photo or documentation priorities.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Assuming an elopement removes legal requirements.",
+        "Arriving without a weather or access fallback.",
+        "Adding last-minute guests without revisiting permits, transport, or ceremony logistics."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "diy-wedding-planning-checklist-for-engaged-couples-practical",
+      "title": "DIY Wedding Planning Checklist For Engaged Couples Practical",
+      "cluster": "DIY Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "DIY wedding planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000135_9304a2b37b",
+      "summary": "For engaged couples, DIY wedding planning works best as a completion checklist focused on time, skill, material, storage, transport, setup, teardown, and fallback capacity for work the couple owns directly.",
+      "answer": "For engaged couples, DIY wedding planning works best as a completion checklist focused on time, skill, material, storage, transport, setup, teardown, and fallback capacity for work the couple owns directly. Start with build hours available, then make material cost explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the DIY wedding planning checklist around build hours available and material cost.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile storage and transport plan and setup and teardown labor.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Valuing materials but not labor time.",
+        "Creating decor that cannot be transported or installed easily.",
+        "Having no fallback if a DIY item is unfinished."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "cultural-wedding-planning-checklist-for-engaged-couples-practical",
+      "title": "Cultural Wedding Planning Checklist For Engaged Couples Practical",
+      "cluster": "Cultural Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "cultural wedding planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000136_cc7948fbd7",
+      "summary": "For engaged couples, cultural wedding planning works best as a completion checklist focused on explicitly mapping traditions, decision authority, language, timing, and family expectations before combining ceremonies or customs.",
+      "answer": "For engaged couples, cultural wedding planning works best as a completion checklist focused on explicitly mapping traditions, decision authority, language, timing, and family expectations before combining ceremonies or customs. Start with required traditions, then make who has decision authority explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the cultural wedding planning checklist around required traditions and who has decision authority.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile language or translation needs and timing and venue constraints.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Treating a tradition as decorative without understanding its requirements.",
+        "Letting families assume conflicting sequences.",
+        "Failing to explain unfamiliar customs to vendors or guests."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "accessible-wedding-planning-checklist-for-engaged-couples-practical",
+      "title": "Accessible Wedding Planning Checklist For Engaged Couples Practical",
+      "cluster": "Accessible Wedding Planning",
+      "product_id": "operations-suite",
+      "semantic_key": "accessible wedding planning|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000139_4b1ea787a4",
+      "summary": "For engaged couples, accessible wedding planning works best as a completion checklist focused on designing access, communication, food, mobility, sensory, and participation needs into the plan before vendors and layouts lock.",
+      "answer": "For engaged couples, accessible wedding planning works best as a completion checklist focused on designing access, communication, food, mobility, sensory, and participation needs into the plan before vendors and layouts lock. Start with known accommodation needs, then make venue access details explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the accessible wedding planning checklist around known accommodation needs and venue access details.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile dietary requirements and communication and sensory considerations.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Asking about accommodations too late.",
+        "Treating accessibility as a special add-on.",
+        "Assuming a venue label guarantees the specific access needed."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "family-dynamics-at-weddings-checklist-for-engaged-couples-practical",
+      "title": "Family Dynamics At Weddings Checklist For Engaged Couples Practical",
+      "cluster": "Family Dynamics At Weddings",
+      "product_id": "operations-suite",
+      "semantic_key": "family dynamics at weddings|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000142_a2b935cac9",
+      "summary": "For engaged couples, family dynamics at weddings works best as a completion checklist focused on decision rights, boundaries, communication channels, responsibilities, and escalation paths among people helping plan.",
+      "answer": "For engaged couples, family dynamics at weddings works best as a completion checklist focused on decision rights, boundaries, communication channels, responsibilities, and escalation paths among people helping plan. Start with who decides what, then make who is contributing money or labor explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the family dynamics at weddings checklist around who decides what and who is contributing money or labor.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile communication cadence and boundary and escalation rules.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Confusing financial contribution with unlimited decision authority.",
+        "Assigning responsibilities without explicit acceptance.",
+        "Using multiple family members as parallel decision channels."
+      ],
+      "reasons": [
+        "insufficient_steps",
+        "insufficient_sections",
+        "insufficient_faqs",
+        "insufficient_links",
+        "unknown_hub_route"
+      ]
+    },
+    {
+      "slug": "wedding-invitations-checklist-for-engaged-couples-practical",
+      "title": "Wedding Invitations Checklist For Engaged Couples Practical",
+      "cluster": "Wedding Invitations",
+      "product_id": "operations-suite",
+      "semantic_key": "wedding invitations|{topic} checklist|engaged couples",
+      "source_opportunity_id": "maxfanout_000144_db5e510039",
+      "summary": "For engaged couples, wedding invitations works best as a completion checklist focused on one authoritative guest-contact and response record with deadlines, household logic, meal needs, and follow-up ownership.",
+      "answer": "For engaged couples, wedding invitations works best as a completion checklist focused on one authoritative guest-contact and response record with deadlines, household logic, meal needs, and follow-up ownership. Start with household list, then make mail or digital contact data explicit before downstream choices harden. A practical plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.",
+      "steps": [
+        "Create the wedding invitations checklist around household list and mail or digital contact data.",
+        "Mark each item confirmed, blocked, waiting, or not applicable.",
+        "Assign an owner and due date to every unfinished item.",
+        "Before closing the checklist, reconcile RSVP deadline and meal and accommodation questions.",
+        "Publish one final checklist version and reopen only items affected by a confirmed change."
+      ],
+      "mistakes": [
+        "Sending invitations from an unclean guest list.",
+        "Tracking responses in multiple places.",
+        "Failing to reconcile household-level and individual responses."
       ],
       "reasons": [
         "insufficient_steps",
