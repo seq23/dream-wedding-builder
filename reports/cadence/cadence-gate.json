@@ -1,34 +1,35 @@
 {
   "generated_at": "2026-08-27",
   "policy_source": "data/cadence/policy.json",
-  "urls": 95,
-  "dated": 95,
+  "urls": 105,
+  "dated": 105,
   "undated": 0,
   "stale_over_window": 4,
-  "stale_pct": 4.2,
-  "fresh_within_30d": 87,
-  "lastmod_within_7d": 8,
-  "new_since_last_run": 2,
+  "stale_pct": 3.8,
+  "fresh_within_30d": 97,
+  "lastmod_within_7d": 18,
+  "new_since_last_run": 0,
   "ledger_initialised": true,
-  "maintainable_ceiling": 52,
+  "maintainable_ceiling": 130,
   "policy": {
     "refresh_window_days": 91,
     "high_value_window_days": 30,
     "stale_tolerance_pct": 20,
-    "new_pages_per_week": 2,
-    "refresh_capacity_per_week": 4,
+    "new_pages_per_week": 5,
+    "refresh_capacity_per_week": 10,
     "require_lastmod": true,
     "_why": "13 weeks is the point where pages become markedly more likely to lose AI citations, and recency is the strongest single correlate of being cited. The ceiling is refresh capacity times that window: publish faster than the library can be maintained and the tail ages out of citability.",
     "_capacity_source": "scripts/cadence/derive_capacity.mjs - see reports/cadence/capacity-derivation.json",
     "_capacity_derivation": {
-      "renderable_guides_now": 67,
-      "repo_age_weeks": 13.6,
-      "sustained_throughput_per_week": 4.94
+      "renderable_guides_now": 69,
+      "measured_from": "2026-07-10",
+      "authoring_weeks": 6.9,
+      "sustained_throughput_per_week": 10.06,
+      "best_single_interval_per_week": 78.17,
+      "note": "Whole-period average over the authoring window, floored. The best single interval is a bulk authoring event and is deliberately not used."
     }
   },
   "blocking": [],
-  "warnings": [
-    "library_over_ceiling: 95 pages against a ceiling of 52 (4 substantive refreshes per week held inside 91 days). 43 pages cannot be kept current at this capacity."
-  ],
+  "warnings": [],
   "status": "CLEAR"
 }

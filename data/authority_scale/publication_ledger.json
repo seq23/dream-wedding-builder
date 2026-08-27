@@ -91,7 +91,7 @@
       "retraction_note": "Retracted by commit ca63e3c on 2026-08-27. These records were written without the five fields app/guides/[slug]/page.tsx dereferences, so /guides/<slug> served 404 for every one of them and they were removed from data/authority/content_registry.json. They were never live URLs, so they do not count against the new-URL ceiling. The run is kept rather than deleted because the history of what the generator did is the reason it was rewritten."
     },
     {
-      "run_at": "2026-08-27T15:44:45.955Z",
+      "run_at": "2026-08-27T15:53:12.962Z",
       "date": "2026-08-27",
       "created": 2,
       "source": "editorial_seeds",

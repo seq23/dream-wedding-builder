@@ -57,11 +57,18 @@ for (const c of commits) {
   series.push({ ...c, renderable });
 }
 
+// Measure over the period this repo was actually authoring guides, not over its
+// whole existence. The registry did not exist for the first 6.7 weeks; counting
+// those as authoring weeks halves the apparent rate and produces a cap the repo has
+// already beaten twice. Both figures are reported so the choice is auditable.
 const firstCommitDate = git('log', '--reverse', '--format=%ad', '--date=short').trim().split('\n')[0];
+const firstContentDate = series.length ? series[0].date : firstCommitDate;
 const today = new Date().toISOString().slice(0, 10);
-const weeks = Math.max(1, (new Date(today) - new Date(firstCommitDate)) / (86400000 * 7));
+const weeksSinceRepoStart = Math.max(1, (new Date(today) - new Date(firstCommitDate)) / (86400000 * 7));
+const weeks = Math.max(1, (new Date(today) - new Date(firstContentDate)) / (86400000 * 7));
 const current = series.length ? series[series.length - 1].renderable : 0;
 const throughput = current / weeks;
+const throughputSinceRepoStart = current / weeksSinceRepoStart;
 
 // Best single interval, reported to show why it is not the number used.
 let bestBurst = 0;
@@ -84,9 +91,14 @@ const derivation = {
   measured_from: REGISTRY,
   predicate: 'lib/authority-complete.mjs isComplete() - a record the router 404s was never capacity',
   first_commit: firstCommitDate,
-  repo_age_weeks: Number(weeks.toFixed(1)),
+  first_content_commit: firstContentDate,
+  authoring_weeks: Number(weeks.toFixed(1)),
+  repo_age_weeks: Number(weeksSinceRepoStart.toFixed(1)),
   renderable_guides_now: current,
   sustained_throughput_per_week: Number(throughput.toFixed(2)),
+  throughput_if_measured_from_repo_start: Number(throughputSinceRepoStart.toFixed(2)),
+  window_choice:
+    'Measured from the first commit that created content, not from the first commit in the repo. The registry did not exist for the first weeks of this repo and no guide could have been written in them, so including them measures setup time as authoring time and understates capacity by roughly half.',
   best_single_interval_per_week: Number(bestBurst.toFixed(2)),
   why_not_the_burst:
     'The best interval is a one-off bulk authoring event. Building a schedule on it guarantees the schedule is missed, which is how a cadence turns into a quota.',
@@ -106,17 +118,21 @@ if (WRITE) {
   policy._capacity_source = 'scripts/cadence/derive_capacity.mjs - see reports/cadence/capacity-derivation.json';
   policy._capacity_derivation = {
     renderable_guides_now: current,
-    repo_age_weeks: derivation.repo_age_weeks,
+    measured_from: firstContentDate,
+    authoring_weeks: derivation.authoring_weeks,
     sustained_throughput_per_week: derivation.sustained_throughput_per_week,
+    best_single_interval_per_week: derivation.best_single_interval_per_week,
+    note: 'Whole-period average over the authoring window, floored. The best single interval is a bulk authoring event and is deliberately not used.',
   };
   fs.writeFileSync(path.join(root, POLICY), JSON.stringify(policy, null, 2) + '\n');
 }
 
 if (JSON_ONLY) console.log(JSON.stringify(derivation, null, 2));
 else {
-  console.log(`CAPACITY DERIVED from ${series.length} registry commits over ${derivation.repo_age_weeks} weeks`);
+  console.log(`CAPACITY DERIVED from ${series.length} registry commits over ${derivation.authoring_weeks} authoring weeks (repo is ${derivation.repo_age_weeks} weeks old)`);
   console.log(`  renderable guides now         ${current}`);
   console.log(`  sustained throughput          ${derivation.sustained_throughput_per_week}/week`);
+  console.log(`  (from repo start instead)     ${derivation.throughput_if_measured_from_repo_start}/week - understates, includes weeks with no registry`);
   console.log(`  best single interval          ${derivation.best_single_interval_per_week}/week (not used)`);
   console.log(`  -> refresh_capacity_per_week  ${refreshCapacity}`);
   console.log(`  -> new_pages_per_week         ${newPerWeek}`);

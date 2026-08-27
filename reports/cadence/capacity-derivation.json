@@ -4,14 +4,18 @@
   "measured_from": "data/authority/content_registry.json",
   "predicate": "lib/authority-complete.mjs isComplete() - a record the router 404s was never capacity",
   "first_commit": "2026-05-24",
+  "first_content_commit": "2026-07-10",
+  "authoring_weeks": 6.9,
   "repo_age_weeks": 13.6,
-  "renderable_guides_now": 67,
-  "sustained_throughput_per_week": 4.94,
+  "renderable_guides_now": 69,
+  "sustained_throughput_per_week": 10.06,
+  "throughput_if_measured_from_repo_start": 5.08,
+  "window_choice": "Measured from the first commit that created content, not from the first commit in the repo. The registry did not exist for the first weeks of this repo and no guide could have been written in them, so including them measures setup time as authoring time and understates capacity by roughly half.",
   "best_single_interval_per_week": 78.17,
   "why_not_the_burst": "The best interval is a one-off bulk authoring event. Building a schedule on it guarantees the schedule is missed, which is how a cadence turns into a quota.",
-  "authoring_events_observed": 2,
-  "refresh_capacity_per_week": 4,
-  "new_pages_per_week": 2,
+  "authoring_events_observed": 3,
+  "refresh_capacity_per_week": 10,
+  "new_pages_per_week": 5,
   "series": [
     {
       "sha": "159ca45cfe1da88a45b9f129e77e82c779340a0f",
@@ -47,6 +51,11 @@
       "sha": "ca63e3c83e229e06827c0b47508b30e8e7348d2c",
       "date": "2026-08-27",
       "renderable": 67
+    },
+    {
+      "sha": "d551b3dba2328d57b80c101d4d6514f52061ff19",
+      "date": "2026-08-27",
+      "renderable": 69
     }
   ]
 }

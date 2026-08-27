@@ -14,8 +14,22 @@
     "steps_3_to_6": "lib/authority-compose.mjs UNIVERSAL_STEPS - identical across all shipping guides in every cluster",
     "faq2_question": "What should be verified before the final version?"
   },
-  "shipping_guides_analysed": 68,
-  "round_trip_verified": 68,
+  "shipping_guides_analysed": 79,
+  "round_trip_verified": 69,
+  "bespoke_guides": 10,
+  "bespoke_slugs": [
+    "wedding-planning-timeline",
+    "wedding-seating-chart-template",
+    "wedding-budget-calculator",
+    "wedding-day-timeline-template",
+    "wedding-budget-template",
+    "wedding-rehearsal-timeline",
+    "bridal-shower-checklist",
+    "wedding-emergency-kit",
+    "day-of-coordinator-checklist",
+    "rehearsal-dinner-timeline"
+  ],
+  "bespoke_note": "Guides that render but do not recompose from the modal scaffold. They were written by hand for their own subject and are perfectly valid - isComplete() decides what may ship, not this file. They are listed so the difference is visible rather than silently averaged away, and composed guides are never held to them.",
   "near_duplicate": {
     "metric": "pairwise Jaccard over answer + steps + mistakes, tokens longer than 3 characters - the exact measure scripts/authority_scale/validate_authority_scale.mjs applies",
     "measured_on": "2026-08-27",
@@ -48,7 +62,8 @@
         "Tracking the final total without tracking the month cash is actually due.",
         "Marking a payment complete without a receipt, cleared record, or dispute note."
       ],
-      "shipping_guides": 16,
+      "scaffold_guides": 16,
+      "bespoke_guides": 2,
       "example_slug": "wedding-budget-spreadsheet-categories"
     },
     "Wedding checklist": {
@@ -67,7 +82,8 @@
         "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
         "Continuing to add scope during the final handoff period instead of reconciling the plan."
       ],
-      "shipping_guides": 18,
+      "scaffold_guides": 18,
+      "bespoke_guides": 5,
       "example_slug": "18-month-wedding-checklist"
     },
     "Wedding seating chart": {
@@ -86,7 +102,8 @@
         "Separating meal, allergy, accessibility, child, or RSVP data from the guest record.",
         "Sending conflicting exports after late changes instead of issuing one new version."
       ],
-      "shipping_guides": 17,
+      "scaffold_guides": 18,
+      "bespoke_guides": 1,
       "example_slug": "wedding-seating-chart-for-50-guests"
     },
     "Wedding timeline": {
@@ -105,7 +122,8 @@
         "Assuming access, parking, load-in, photography, or service timing without vendor confirmation.",
         "Allowing several edited versions to circulate without one dated final schedule."
       ],
-      "shipping_guides": 17,
+      "scaffold_guides": 17,
+      "bespoke_guides": 2,
       "example_slug": "wedding-timeline-with-first-look"
     }
   }

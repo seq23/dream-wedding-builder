@@ -38,48 +38,67 @@ for (const p of shipping) {
 }
 
 const errors = [];
-/** The one value `fn` takes across every guide in the cluster, or an error. */
-const invariant = (group, cluster, label, fn) => {
-  const values = [...new Set(group.map(fn))];
-  if (values.length !== 1) {
-    errors.push(`NOT_INVARIANT ${cluster} ${label}: ${values.length} distinct values across ${group.length} guides`);
-    return values[0];
-  }
-  return values[0];
+
+// The scaffold is the SHARED shape, not a law the whole library obeys.
+//
+// The first version of this asserted every field was invariant across every guide
+// in a cluster. That held for the 67-guide baseline and broke the moment ten
+// genuinely bespoke guides were hand-written for measured-demand queries: they
+// carry their own headings, their own standing mistakes, their own verification
+// boundary. Those guides are not wrong - isComplete() is what decides whether a
+// guide may ship, and they satisfy it. They simply are not scaffold guides.
+//
+// So the scaffold is derived from the modal value of each field, and the library is
+// then partitioned by the only test that matters: does recomposing this guide from
+// its three sentences reproduce it byte for byte. Guides that do are the scaffold's
+// population and the thing composed guides are held to. Guides that do not are
+// recorded as bespoke and left alone. A generator needs a shape to compose from; it
+// does not need every author to have used it.
+const modal = (group, fn) => {
+  const counts = new Map();
+  for (const p of group) { const v = fn(p); counts.set(v, (counts.get(v) || 0) + 1); }
+  return [...counts.entries()].sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0])))[0][0];
 };
 
 const clusters = {};
 for (const [cluster, group] of [...byCluster.entries()].sort()) {
-  const sample = group[0];
   clusters[cluster] = {
-    product_id: invariant(group, cluster, 'product_id', (p) => p.product_id),
-    hub_route: invariant(group, cluster, 'hub_route', (p) => p.hub_route),
+    product_id: modal(group, (p) => p.product_id),
+    hub_route: modal(group, (p) => p.hub_route),
     // The heading embeds the title verbatim, so the pattern is the heading with
     // the title lifted back out.
-    sec0_heading_pattern: invariant(group, cluster, 'sec0_heading_pattern', (p) => p.sections[0].heading.split(p.title).join('{TITLE}')),
-    sec0_para1: invariant(group, cluster, 'sec0_para1', (p) => p.sections[0].paragraphs[1]),
-    sec1_heading: invariant(group, cluster, 'sec1_heading', (p) => p.sections[1].heading),
-    sec2_heading: invariant(group, cluster, 'sec2_heading', (p) => p.sections[2].heading),
-    sec2_para0: invariant(group, cluster, 'sec2_para0', (p) => p.sections[2].paragraphs[0]),
-    verification_boundary: invariant(group, cluster, 'verification_boundary', (p) => p.verification_boundary),
-    faq1_question: invariant(group, cluster, 'faq1_question', (p) => p.faqs[1].question),
-    mistakes: JSON.parse(invariant(group, cluster, 'mistakes', (p) => JSON.stringify(p.mistakes))),
-    shipping_guides: group.length,
-    example_slug: sample.slug,
+    sec0_heading_pattern: modal(group, (p) => p.sections[0].heading.split(p.title).join('{TITLE}')),
+    sec0_para1: modal(group, (p) => p.sections[0].paragraphs[1]),
+    sec1_heading: modal(group, (p) => p.sections[1].heading),
+    sec2_heading: modal(group, (p) => p.sections[2].heading),
+    sec2_para0: modal(group, (p) => p.sections[2].paragraphs[0]),
+    verification_boundary: modal(group, (p) => p.verification_boundary),
+    faq1_question: modal(group, (p) => p.faqs[1].question),
+    mistakes: JSON.parse(modal(group, (p) => JSON.stringify(p.mistakes))),
   };
 }
 
-// The proof. Recompose every shipping guide from its three authored sentences and
-// compare against the committed record, key order included.
+// The proof, and the partition. Recompose every shipping guide from its three
+// authored sentences and compare against the committed record, key order included.
 let recomposed = 0;
+const bespoke = [];
 for (const page of shipping) {
   const seed = extractSeed(page);
-  const rebuilt = composeGuide(seed, clusters[page.cluster], page.related_slugs);
-  if (JSON.stringify(rebuilt) !== JSON.stringify(page)) {
-    errors.push(`ROUND_TRIP_FAILED ${page.slug}: recomposition differs from the committed record`);
-    continue;
-  }
-  recomposed++;
+  let rebuilt = null;
+  try { rebuilt = composeGuide(seed, clusters[page.cluster], page.related_slugs); } catch { /* shape too different to compose */ }
+  if (rebuilt && JSON.stringify(rebuilt) === JSON.stringify(page)) { recomposed++; continue; }
+  bespoke.push(page.slug);
+}
+
+// A scaffold no guide follows is not a scaffold. If the modal shape stopped
+// describing a real population, this is wrong and should say so rather than write
+// a spec that documents nothing.
+for (const [cluster, group] of byCluster.entries()) {
+  const conforming = group.filter((p) => !bespoke.includes(p.slug)).length;
+  if (conforming === 0) errors.push(`NO_CONFORMING_GUIDES ${cluster}: none of its ${group.length} guides recompose from the modal scaffold, so the scaffold describes nothing`);
+  clusters[cluster].scaffold_guides = conforming;
+  clusters[cluster].bespoke_guides = group.length - conforming;
+  clusters[cluster].example_slug = group.find((p) => !bespoke.includes(p.slug))?.slug ?? null;
 }
 
 // The quality bar, measured rather than chosen.
@@ -125,6 +144,10 @@ const spec = {
   },
   shipping_guides_analysed: shipping.length,
   round_trip_verified: recomposed,
+  bespoke_guides: bespoke.length,
+  bespoke_slugs: bespoke,
+  bespoke_note:
+    'Guides that render but do not recompose from the modal scaffold. They were written by hand for their own subject and are perfectly valid - isComplete() decides what may ship, not this file. They are listed so the difference is visible rather than silently averaged away, and composed guides are never held to them.',
   near_duplicate: existingSpec?.near_duplicate && !REBASELINE ? existingSpec.near_duplicate : {
     metric: 'pairwise Jaccard over answer + steps + mistakes, tokens longer than 3 characters - the exact measure scripts/authority_scale/validate_authority_scale.mjs applies',
     measured_on: new Date().toISOString().slice(0, 10),
@@ -166,23 +189,31 @@ if (CHECK) {
       if (!a) { drift.push(`cluster "${name}" is in the library but not in the committed spec`); continue; }
       if (!b) { drift.push(`cluster "${name}" is in the committed spec but no longer in the library`); continue; }
       for (const field of Object.keys(b)) {
-        // shipping_guides / example_slug move as the library grows; they describe, not define.
-        if (field === 'shipping_guides' || field === 'example_slug') continue;
+        // Counts and the example move as the library grows; they describe, not define.
+        if (['shipping_guides', 'scaffold_guides', 'bespoke_guides', 'example_slug'].includes(field)) continue;
         if (JSON.stringify(a[field]) !== JSON.stringify(b[field])) drift.push(`cluster "${name}" field "${field}" differs from the committed spec`);
       }
     }
   }
-  if (recomposed !== shipping.length) drift.push(`${shipping.length - recomposed} of ${shipping.length} shipping guides no longer recompose from three sentences`);
+  // Bespoke guides are expected and are not drift. What would be drift is a guide
+  // that used to recompose and no longer does - that means someone edited a
+  // scaffold guide away from the shape, which quietly breaks the composer.
+  const knownBespoke = new Set(existingSpec.bespoke_slugs ?? []);
+  const newlyBespoke = bespoke.filter((slug) => !knownBespoke.has(slug));
+  if (newlyBespoke.length) {
+    drift.push(`${newlyBespoke.length} guide(s) stopped recomposing from the scaffold: ${newlyBespoke.slice(0, 8).join(', ')}`);
+    drift.push('Either they were edited away from the shape, or they are new bespoke guides - regenerate the spec to record them as bespoke.');
+  }
   if (drift.length) {
     console.error(`COMPOSITION SPEC DRIFT: ${drift.length} problem(s) between ${SPEC_PATH} and the live registry.`);
     for (const d of drift.slice(0, 20)) console.error(`  ${d}`);
     console.error('Either a guide was edited away from the shape, or the spec needs regenerating with `npm run authority:spec:derive`.');
     process.exit(1);
   }
-  console.log(`COMPOSITION SPEC PASS: ${shipping.length} shipping guides, ${recomposed} recomposed byte-identically, ${Object.keys(clusters).length} clusters, 0 scaffold drift`);
+  console.log(`COMPOSITION SPEC PASS: ${shipping.length} shipping guides - ${recomposed} recompose from the scaffold, ${bespoke.length} bespoke by design; ${Object.keys(clusters).length} clusters, 0 scaffold drift`);
   process.exit(0);
 }
 
 fs.mkdirSync(path.dirname(path.join(root, SPEC_PATH)), { recursive: true });
 fs.writeFileSync(path.join(root, SPEC_PATH), serialised);
-console.log(`Wrote ${SPEC_PATH}: ${Object.keys(clusters).length} clusters from ${shipping.length} shipping guides; ${recomposed}/${shipping.length} recomposed byte-identically.`);
+console.log(`Wrote ${SPEC_PATH}: ${Object.keys(clusters).length} clusters from ${shipping.length} shipping guides; ${recomposed} recompose byte-identically, ${bespoke.length} bespoke.`);

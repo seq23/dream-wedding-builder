@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "d1222d08f75575b10096a367512bd4fd47bed059",
-  "shipping_guide_count": 69,
+  "generated_from_commit": "d551b3dba2328d57b80c101d4d6514f52061ff19",
+  "shipping_guide_count": 79,
   "paths": {
     "/": {
       "lastmod": "2026-07-30",
@@ -57,6 +57,10 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=backyard-wedding-timeline]"
     },
+    "/guides/bridal-shower-checklist": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=bridal-shower-checklist] (uncommitted at generation; pinned to run date)"
+    },
     "/guides/brunch-wedding-timeline": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=brunch-wedding-timeline]"
@@ -72,6 +76,10 @@
     "/guides/courthouse-wedding-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=courthouse-wedding-checklist]"
+    },
+    "/guides/day-of-coordinator-checklist": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=day-of-coordinator-checklist] (uncommitted at generation; pinned to run date)"
     },
     "/guides/destination-wedding-checklist": {
       "lastmod": "2026-07-30",
@@ -121,6 +129,10 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=rehearsal-dinner-checklist]"
     },
+    "/guides/rehearsal-dinner-timeline": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=rehearsal-dinner-timeline] (uncommitted at generation; pinned to run date)"
+    },
     "/guides/round-table-seating-plan": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=round-table-seating-plan]"
@@ -153,6 +165,10 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-50000]"
     },
+    "/guides/wedding-budget-calculator": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-calculator] (uncommitted at generation; pinned to run date)"
+    },
     "/guides/wedding-budget-contingency": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-contingency]"
@@ -173,6 +189,10 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-spreadsheet-categories]"
     },
+    "/guides/wedding-budget-template": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-template] (uncommitted at generation; pinned to run date)"
+    },
     "/guides/wedding-day-emergency-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-day-emergency-checklist]"
@@ -181,9 +201,17 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-day-timeline]"
     },
+    "/guides/wedding-day-timeline-template": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-day-timeline-template] (uncommitted at generation; pinned to run date)"
+    },
     "/guides/wedding-deposit-schedule": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-deposit-schedule]"
+    },
+    "/guides/wedding-emergency-kit": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-emergency-kit] (uncommitted at generation; pinned to run date)"
     },
     "/guides/wedding-escort-card-data-export": {
       "lastmod": "2026-07-30",
@@ -199,7 +227,7 @@
     },
     "/guides/wedding-guest-list-headcount-control": {
       "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-guest-list-headcount-control] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-guest-list-headcount-control]"
     },
     "/guides/wedding-hidden-costs-checklist": {
       "lastmod": "2026-07-30",
@@ -221,13 +249,21 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-planning-binder]"
     },
+    "/guides/wedding-planning-timeline": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-planning-timeline] (uncommitted at generation; pinned to run date)"
+    },
     "/guides/wedding-reception-order-of-events": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-reception-order-of-events]"
     },
+    "/guides/wedding-rehearsal-timeline": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-rehearsal-timeline] (uncommitted at generation; pinned to run date)"
+    },
     "/guides/wedding-rsvp-tracking-system": {
       "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-rsvp-tracking-system] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-rsvp-tracking-system]"
     },
     "/guides/wedding-seating-chart-accessibility": {
       "lastmod": "2026-07-30",
@@ -252,6 +288,10 @@
     "/guides/wedding-seating-chart-meal-tracker": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-meal-tracker]"
+    },
+    "/guides/wedding-seating-chart-template": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-template] (uncommitted at generation; pinned to run date)"
     },
     "/guides/wedding-seating-chart-vendor-handoff": {
       "lastmod": "2026-07-30",
