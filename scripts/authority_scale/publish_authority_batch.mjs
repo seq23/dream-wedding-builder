@@ -2,6 +2,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
+
+import { findPlaceholders, isComplete, missingRequiredFields } from '../../lib/authority-complete.mjs';
 const root=process.cwd();
 const read=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
 const write=(p,v)=>{const f=path.join(root,p);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(v,null,2)+'\n');};
@@ -105,5 +107,129 @@ if(remaining>0){
     }
   }
 }
-for(const r of candidates){const copy=r.copy;doc.pages.push({slug:r.slug,title:titleCase(r.query),cluster:titleCase(r.topic),product_id:productFor(r.topic),semantic_key:`${r.topic}|${r.intent_pattern}|${r.audience||''}`,source_opportunity_id:r.opportunity_id||r.id,summary:copy.summary,answer:copy.answer,steps:copy.steps,mistakes:copy.mistakes});existingSlugs.add(r.slug);existingTitles.add(String(r.query).toLowerCase());used.add(r.opportunity_id||r.id);}
-doc.generated_at=today;write('data/authority/content_registry.json',doc);ledger.published_ids=[...used];ledger.runs.push({run_at:new Date().toISOString(),date:today,created:candidates.length,ceiling:dailyCeiling,already_published_today_before_run:alreadyToday,remaining_budget_before_run:remaining});write(ledgerPath,ledger);console.log(JSON.stringify({created:candidates.length,daily_ceiling:dailyCeiling,already_today:alreadyToday,remaining_before_run:remaining,near_duplicates_skipped:nearDuplicatesSkipped,total_guides:doc.pages.length,distinct_topics_in_batch:batchTopics.size},null,2));
+// ---------------------------------------------------------------------------
+// Admission gate.
+//
+// Between 2026-07-30 and 2026-08-27 this script wrote 45 entries that no route
+// would ever serve. It emitted ten fields; app/guides/[slug]/page.tsx needs five
+// more - sections, faqs, related_slugs, examples, hub_route - and dereferences
+// them unconditionally, so every record it wrote notFound()ed on arrival. The
+// template was upgraded at the 07-30 baseline and this generator never was, and
+// nothing in between compared the two. Renderable pages stayed frozen at 67 for
+// 28 days while the registry grew by 15 a day.
+//
+// So the producer now applies the consumer's own test. isComplete() is imported
+// from lib/authority-complete.mjs - the same function object app/sitemap.xml,
+// app/guides/[slug]/page.tsx and scripts/validate-authority-registry.mjs call -
+// and a candidate that fails it is not written at all. Writing nothing is the
+// correct outcome when the honest content is not available: an unwritten topic
+// is a gap someone can fill, while a written skeleton is a 404 in the sitemap,
+// a rejection in the admission report, and a topic that now looks handled.
+//
+// The same applies to an unexpanded {placeholder}. All 45 retired entries carried
+// a literal {topic} in semantic_key because the intent pattern was interpolated
+// without being expanded. That is a generator bug reaching a data file, so it
+// fails the record rather than warning about it.
+
+// hub_route is derived, never invented: a product only has a hub if a guide that
+// actually ships already points at one. 37 of the 45 retired entries resolved to
+// operations-suite, a bundle SKU with no domain and no hub, so there was no honest
+// value to emit - and that is exactly the case this refuses instead of guessing.
+const hubByProduct={};
+for(const p of doc.pages) if(isComplete(p)&&!hubByProduct[p.product_id]) hubByProduct[p.product_id]=p.hub_route;
+
+const expandTemplate=(value,topic)=>String(value??'').split('{topic}').join(topic);
+
+function buildRecord(r){
+  const copy=r.copy, topic=String(r.topic);
+  const record={
+    slug:r.slug,
+    title:titleCase(r.query),
+    cluster:titleCase(r.topic),
+    product_id:productFor(r.topic),
+    semantic_key:`${topic}|${expandTemplate(r.intent_pattern,topic)}|${r.audience||''}`,
+    source_opportunity_id:r.opportunity_id||r.id,
+    summary:copy.summary,
+    answer:copy.answer,
+    steps:copy.steps,
+    mistakes:copy.mistakes
+  };
+  const hub=hubByProduct[record.product_id];
+  if(hub)record.hub_route=hub;
+  return record;
+}
+
+// Each reason carries a stable code so a run can be summarised by cause rather
+// than by 15 near-identical sentences.
+function refusalReasons(record){
+  const reasons=[];
+  const missing=missingRequiredFields(record);
+  if(missing.length)reasons.push({code:'INCOMPLETE_RECORD',detail:`isComplete() rejects this record: no ${missing.join(', ')}. app/guides/[slug]/page.tsx would notFound() /guides/${record.slug}.`});
+  if(!hubByProduct[record.product_id])reasons.push({code:'NO_HUB_FOR_PRODUCT',detail:`no hub_route available: product_id "${record.product_id}" owns no shipping hub in data/authority/content_registry.json.`});
+  for(const hit of findPlaceholders(record))reasons.push({code:'UNEXPANDED_PLACEHOLDER',detail:`unexpanded template placeholder at ${hit.path}: ${JSON.stringify(hit.value)}.`});
+  return reasons;
+}
+
+const admitted=[],refused=[];
+for(const r of candidates){
+  const record=buildRecord(r);
+  const reasons=refusalReasons(record);
+  if(reasons.length){
+    refused.push({slug:record.slug,topic:r.topic,intent_pattern:r.intent_pattern,audience:r.audience||'engaged couples',cluster:record.cluster,product_id:record.product_id,source_opportunity_id:record.source_opportunity_id,reasons});
+    continue;
+  }
+  // Belt and braces: refusalReasons() is derived from the same predicate, so this
+  // can only fire if someone edits one of them apart from the other.
+  if(!isComplete(record)){console.error(`REFUSAL LOGIC DRIFT: ${record.slug} passed refusalReasons() but fails isComplete()`);process.exit(1);}
+  admitted.push(record);
+}
+
+for(const record of admitted){
+  doc.pages.push(record);
+  existingSlugs.add(record.slug);
+  existingTitles.add(String(record.title).trim().toLowerCase());
+  // Only an admitted opportunity is spent. A refused one stays unpublished and
+  // available, so repairing this generator makes the backlog reachable again.
+  used.add(record.source_opportunity_id);
+}
+
+// Refusals are recorded rather than discarded: these are the topics an author
+// still has to write, and they belong next to the ones already listed in
+// data/authority/editorial_backlog.json.
+write('artifacts/authority/publish-refusals.json',{
+  schema_version:'1.0',
+  run_at:new Date().toISOString(),
+  date:today,
+  policy:'refuse_to_write_what_the_router_will_not_serve',
+  predicate:'isComplete() from lib/authority-complete.mjs, re-exported by lib/authority-registry.ts',
+  candidates_considered:candidates.length,
+  admitted:admitted.length,
+  refused:refused.length,
+  refusals:refused
+});
+
+// The registry and the publication ledger are only touched when something was
+// actually admitted, so a fully refused run leaves no trace in committed data
+// beyond the refusal record.
+if(admitted.length){
+  doc.generated_at=today;
+  write('data/authority/content_registry.json',doc);
+  ledger.published_ids=[...used];
+  ledger.runs.push({run_at:new Date().toISOString(),date:today,created:admitted.length,refused:refused.length,ceiling:dailyCeiling,already_published_today_before_run:alreadyToday,remaining_budget_before_run:remaining});
+  write(ledgerPath,ledger);
+}
+
+console.log(JSON.stringify({created:admitted.length,refused:refused.length,candidates_considered:candidates.length,daily_ceiling:dailyCeiling,already_today:alreadyToday,remaining_before_run:remaining,near_duplicates_skipped:nearDuplicatesSkipped,total_guides:doc.pages.length,distinct_topics_in_batch:batchTopics.size,registry_written:admitted.length>0},null,2));
+
+if(refused.length){
+  const byReason={};
+  for(const r of refused) for(const reason of r.reasons) byReason[reason.code]=(byReason[reason.code]||0)+1;
+  console.error(`\nPUBLICATION REFUSED: ${refused.length} of ${candidates.length} candidate(s) could not satisfy isComplete(); ${admitted.length} written.`);
+  console.error('Nothing was written for the refused topics. That is deliberate - a record the router will not serve is a 404 in the sitemap, not a page.');
+  for(const [code,count] of Object.entries(byReason).sort((a,b)=>b[1]-a[1]))console.error(`  ${String(count).padStart(3)}x ${code}`);
+  console.error(`\nFirst refusal in full: ${refused[0].slug}\n  - ${refused[0].reasons.map(x=>x.detail).join('\n  - ')}`);
+  console.error(`\nRefused topics: ${[...new Set(refused.map(r=>r.topic))].sort().join(', ')}`);
+  console.error('Recorded in artifacts/authority/publish-refusals.json. These are authoring work, not generation work - see data/authority/editorial_backlog.json.');
+  console.error('To publish again this generator must produce genuine sections, faqs, related_slugs and examples, and the topic must belong to a product that owns a hub.\n');
+  process.exit(1);
+}

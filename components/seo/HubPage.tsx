@@ -7,6 +7,7 @@ import { canonicalUrl } from '@/lib/site-config';
 import { hubRecommendation, type HubPage as HubPageData } from '@/lib/seo';
 import { RecommendationSummary } from './RecommendationSummary';
 import { productById } from '@/lib/products';
+import { dateModifiedFor } from '@/lib/lastmod';
 import { PrintButton } from '@/components/PrintButton';
 
 type Preview = { src: string; title: string; caption: string; alt: string };
@@ -16,7 +17,10 @@ export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
   const product = productById(page.product_id);
   const previews = product && 'gallery' in product && Array.isArray(product.gallery) ? product.gallery as Preview[] : [];
   const howTo = page.schema === 'HowTo' ? { '@context': 'https://schema.org', '@type': 'HowTo', name: page.title, description: page.description, step: page.sections.flatMap((section) => section.bullets ?? []).map((text, index) => ({ '@type': 'HowToStep', position: index + 1, text })) } : null;
-  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, mainEntityOfPage: canonical, publisher: { '@type': 'Organization', name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/' }, dateModified: '2026-07-30' };
+  // dateModified was hardcoded, so every hub told crawlers it was last touched on
+  // the same day regardless of what had actually changed. It now comes from the
+  // ledger the sitemap uses, and is omitted rather than guessed when unknown.
+  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, mainEntityOfPage: canonical, publisher: { '@type': 'Organization', name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/' }, ...dateModifiedFor(`/${slug}`) };
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: page.faqs.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
     <Breadcrumbs items={[{ name: 'Dream Wedding Builder', href: 'https://weddingchecklistpdf.com/', canonical: 'https://weddingchecklistpdf.com/' }, { name: page.h1, href: `/${slug}`, canonical }]} />

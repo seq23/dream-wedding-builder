@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "validator": "no-empty-table-cells",
-  "generated_at": "2026-08-26T19:53:18.041Z",
+  "generated_at": "2026-08-27T15:13:12.540Z",
   "status": "PASS",
   "scan_surface": [
     "app",
@@ -10,7 +10,7 @@
     "out",
     "data/*.ts"
   ],
-  "files_scanned": 75,
+  "files_scanned": 77,
   "offender_count": 0,
   "empty_cell_count": 0,
   "offenders": []

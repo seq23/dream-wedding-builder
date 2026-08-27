@@ -22,7 +22,14 @@ jobs:
       - run: npm run authority:yield:build
       - run: npm run authority:scale:fanout
       - run: npm run authority:scale:restore
+      # restore re-adds any frozen record whose slug is missing from the registry.
+      # That is how a deleted skeleton comes back, so the registry is checked here,
+      # before publish gets a chance to add more.
+      - run: npm run validate:authority-registry
+      # publish now exits non-zero rather than writing an entry that isComplete()
+      # rejects, which stops the job before either push below.
       - run: npm run authority:scale:publish
+      - run: npm run validate:authority-registry
       - run: npm run authority:atlas
       - run: npm run authority:flow
       - run: npm run authority:sitemaps
@@ -31,11 +38,19 @@ jobs:
       - run: npm run validate:structural
       - run: npm run authority:scale:freeze
       - run: npm run authority:scale:validate
+      # Last gate before the first push to main. validate:structural above already
+      # includes this check; it is repeated here so the thing standing between a
+      # skeleton and origin/main is a named step rather than a member of a composite.
+      - run: npm run validate:authority-registry
       - name: Commit governed authority changes
         run: |
           git config user.name 'dream-wedding-authority-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/authority data/authority_scale data/release artifacts/authority artifacts/sitemaps artifacts/distribution 2>/dev/null || true
+          # data/seo carries lastmod_ledger.json, which authority:sitemaps rebuilds
+          # from the content this run generated. Without it staged, the ledger would be
+          # regenerated in CI and thrown away, and the deployed sitemap would keep
+          # serving the previous run's dates.
+          git add data/authority data/authority_scale data/release data/seo artifacts/authority artifacts/sitemaps artifacts/distribution 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: governed daily content expansion'
           git pull --rebase --autostash origin main
           git push origin HEAD:main
