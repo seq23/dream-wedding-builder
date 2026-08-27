@@ -8,6 +8,7 @@ import { disclaimers } from '@/data/disclaimers';
 import { chooseScope } from '@/data/inspiration';
 import { range } from '@/lib/format';
 import { budgetModes, budgetReality, designDirection, emptyPlan, estimateRange, hiddenFeeChecklist, plannerBucketsForPacket, plannerLanguage, planningConstraintSummary, protectedPriorities, riskChecklist, selectedVenues, selectedVendors, vendorCategories, venueExamples, visionTranslatorOutput, type WeddingPlan } from '@/data/planning';
+import Link from 'next/link';
 
 interface SavedScope { category?: string; description?: string; scopeTitle?: string; tableCount?: string; }
 
@@ -61,5 +62,6 @@ export default function PackPage() {
     <Card className="print-card"><h2 className="font-serif text-4xl">Vendor Inquiry Draft</h2><p className="mt-3 whitespace-pre-line rounded-2xl bg-ivory p-4 text-sm leading-7">Hi [Vendor Name],{`\n\n`}I’m exploring a wedding in {plan.locations || '[location not finalized yet]'} for approximately {plan.guestCount || '[guest count unknown]'} guests. Our current constraint profile is: {planningConstraintSummary(plan)}.{`\n\n`}Our design direction is: {plannerLanguage(plan)}{`\n\n`}Could you please share availability, starting pricing, what is included, what is commonly extra, minimum spend, service charges/taxes, setup/teardown access, insurance requirements, rain-plan implications, overtime fees, required vendors, and whether these constraints are feasible?</p></Card>
 
     <Card className="print-card page-break"><h2 className="font-serif text-4xl">Required Disclaimers</h2><div className="mt-4 grid gap-3 text-sm leading-6">{Object.entries(disclaimers).map(([k, v]) => <p key={k}><strong className="capitalize">{k}:</strong> {v}</p>)}<p><strong>Venue/vendor/product data:</strong> Venue, vendor, floral, decor, rental, attire, and product data must be directly verified. This packet does not guarantee pricing, availability, contract terms, exact product match, or vendor suitability and is not a substitute for a professional wedding planner.</p></div></Card>
+    <div className="no-print rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><h2 className="font-serif text-3xl">Keep working after the printout</h2><p className="mt-2 text-sm leading-6 text-charcoal/70">This packet is a snapshot. The editable checklist, budget workbook, timeline, and seating files are what the plan gets maintained in once vendors are booked.</p><Link href="/shop" className="mt-4 inline-flex font-bold underline underline-offset-4">See the four wedding planning tools and prices →</Link></div>
   </div>;
 }
