@@ -6702,6 +6702,176 @@
         "wedding-party-timeline"
       ],
       "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "wedding-guest-list-headcount-control",
+      "title": "Wedding Guest List and Headcount Control",
+      "cluster": "Wedding seating chart",
+      "product_id": "seating-chart-maker",
+      "summary": "A guest list is a capacity decision before it is an invitation decision, because the venue-approved maximum, the per-guest cost, and the household rules together set how many names it can hold.",
+      "answer": "A guest list is a capacity decision before it is an invitation decision, because the venue-approved maximum, the per-guest cost, and the household rules together set how many names it can hold. Fix the capacity ceiling first, build the list at household level with a priority tier on every name, track declines before releasing held seats, and keep one person-level record so headcount, meals, and seating all read from the same source.",
+      "steps": [
+        "Define the exact outcome for wedding guest list and headcount control and name the person responsible for the final version.",
+        "Fix the capacity ceiling first, build the list at household level with a priority tier on every name, track declines before releasing held seats, and keep one person-level record so headcount, meals, and seating all read from the same source.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Building from multiple guest lists instead of one confirmed person-level source of truth.",
+        "Assuming table capacity without the venue-approved layout and service clearances.",
+        "Separating meal, allergy, accessibility, child, or RSVP data from the guest record.",
+        "Sending conflicting exports after late changes instead of issuing one new version."
+      ],
+      "sections": [
+        {
+          "heading": "Build the guest data for Wedding Guest List and Headcount Control",
+          "paragraphs": [
+            "A guest list is a capacity decision before it is an invitation decision, because the venue-approved maximum, the per-guest cost, and the household rules together set how many names it can hold.",
+            "Use one row per person with stable display and sort names, household or social group, RSVP, meal, allergy, accessibility, child/high-chair, table, and unresolved-status fields as applicable."
+          ]
+        },
+        {
+          "heading": "Place, count, and reconcile",
+          "paragraphs": [
+            "Fix the capacity ceiling first, build the list at household level with a priority tier on every name, track declines before releasing held seats, and keep one person-level record so headcount, meals, and seating all read from the same source.",
+            "Example: if the venue-approved seated maximum is 120 and forty invited households average 2.4 people, the list stands at roughly 96 before a single individual invitation is added; the arithmetic shows the remaining room, and the venue's own seated number decides the ceiling."
+          ],
+          "bullets": [
+            "Fix the capacity ceiling first, build the list at household level with a priority tier on every name, track declines before releasing held seats, and keep one person-level record so headcount, meals, and seating all read from the same source.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Prepare the final handoff",
+          "paragraphs": [
+            "Generate alphabetical and table-order views from the same source. Share only the fields each vendor needs, record the version, and retain one master copy.",
+            "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: if the venue-approved seated maximum is 120 and forty invited households average 2.4 people, the list stands at roughly 96 before a single individual invitation is added; the arithmetic shows the remaining room, and the venue's own seated number decides the ceiling."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding guest list and headcount control reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding guest list and headcount control?",
+          "answer": "A guest list is a capacity decision before it is an invitation decision, because the venue-approved maximum, the per-guest cost, and the household rules together set how many names it can hold."
+        },
+        {
+          "question": "How should I use this wedding seating chart guide?",
+          "answer": "Fix the capacity ceiling first, build the list at household level with a priority tier on every name, track declines before releasing held seats, and keep one person-level record so headcount, meals, and seating all read from the same source. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
+        }
+      ],
+      "semantic_key": "seating-chart-maker:wedding-guest-list-headcount-control",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "wedding-seating-chart-for-100-guests",
+        "wedding-seating-chart-for-150-guests",
+        "wedding-seating-chart-for-50-guests",
+        "wedding-table-capacity-guide"
+      ],
+      "hub_route": "/wedding-seating-chart"
+    },
+    {
+      "slug": "wedding-rsvp-tracking-system",
+      "title": "Wedding RSVP Tracking System",
+      "cluster": "Wedding seating chart",
+      "product_id": "seating-chart-maker",
+      "summary": "RSVP tracking fails at the household boundary, because invitations are addressed to households while meals, seating, and accessibility are recorded per person, and one response field cannot carry both.",
+      "answer": "RSVP tracking fails at the household boundary, because invitations are addressed to households while meals, seating, and accessibility are recorded per person, and one response field cannot carry both. Send from a cleaned household list, hold one row per invited person, capture meal, allergy, and accessibility answers on that same row, set one deadline with a named follow-up owner, and reconcile household totals against person-level responses before closing the count.",
+      "steps": [
+        "Define the exact outcome for wedding rsvp tracking system and name the person responsible for the final version.",
+        "Send from a cleaned household list, hold one row per invited person, capture meal, allergy, and accessibility answers on that same row, set one deadline with a named follow-up owner, and reconcile household totals against person-level responses before closing the count.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Building from multiple guest lists instead of one confirmed person-level source of truth.",
+        "Assuming table capacity without the venue-approved layout and service clearances.",
+        "Separating meal, allergy, accessibility, child, or RSVP data from the guest record.",
+        "Sending conflicting exports after late changes instead of issuing one new version."
+      ],
+      "sections": [
+        {
+          "heading": "Build the guest data for Wedding RSVP Tracking System",
+          "paragraphs": [
+            "RSVP tracking fails at the household boundary, because invitations are addressed to households while meals, seating, and accessibility are recorded per person, and one response field cannot carry both.",
+            "Use one row per person with stable display and sort names, household or social group, RSVP, meal, allergy, accessibility, child/high-chair, table, and unresolved-status fields as applicable."
+          ]
+        },
+        {
+          "heading": "Place, count, and reconcile",
+          "paragraphs": [
+            "Send from a cleaned household list, hold one row per invited person, capture meal, allergy, and accessibility answers on that same row, set one deadline with a named follow-up owner, and reconcile household totals against person-level responses before closing the count.",
+            "Example: a household invited as two adults and one child is three person rows, so a single household-level yes still leaves two rows unresolved; counting that as one response is how a final headcount drifts away from the seated count."
+          ],
+          "bullets": [
+            "Send from a cleaned household list, hold one row per invited person, capture meal, allergy, and accessibility answers on that same row, set one deadline with a named follow-up owner, and reconcile household totals against person-level responses before closing the count.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Prepare the final handoff",
+          "paragraphs": [
+            "Generate alphabetical and table-order views from the same source. Share only the fields each vendor needs, record the version, and retain one master copy.",
+            "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: a household invited as two adults and one child is three person rows, so a single household-level yes still leaves two rows unresolved; counting that as one response is how a final headcount drifts away from the seated count."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding rsvp tracking system reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding rsvp tracking system?",
+          "answer": "RSVP tracking fails at the household boundary, because invitations are addressed to households while meals, seating, and accessibility are recorded per person, and one response field cannot carry both."
+        },
+        {
+          "question": "How should I use this wedding seating chart guide?",
+          "answer": "Send from a cleaned household list, hold one row per invited person, capture meal, allergy, and accessibility answers on that same row, set one deadline with a named follow-up owner, and reconcile household totals against person-level responses before closing the count. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
+        }
+      ],
+      "semantic_key": "seating-chart-maker:wedding-rsvp-tracking-system",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "wedding-seating-chart-meal-tracker",
+        "wedding-seating-chart-allergy-tracker",
+        "wedding-seating-chart-for-100-guests",
+        "wedding-seating-chart-for-150-guests"
+      ],
+      "hub_route": "/wedding-seating-chart"
     }
   ],
   "generated_at": "2026-08-27"

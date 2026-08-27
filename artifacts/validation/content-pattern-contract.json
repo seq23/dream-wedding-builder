@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "validator": "content-pattern-contract",
   "spec": ".clarity/content-pattern-spec.json",
-  "generated_at": "2026-08-27T15:44:51.718Z",
+  "generated_at": "2026-08-27T15:57:36.870Z",
   "enforcement": "block",
-  "pages_checked": 89,
+  "pages_checked": 91,
   "pages_by_kind": {
-    "guide": 77,
+    "guide": 79,
     "hub": 8,
     "product": 4
   },
@@ -63,21 +63,21 @@
     {
       "id": "comparison_table",
       "blocking": false,
-      "pages_missing": 81,
-      "coverage_pct": 9,
+      "pages_missing": 83,
+      "coverage_pct": 8.8,
       "why": "no comparison or cost table (agent request #2, 529 occurrences)"
     },
     {
       "id": "concrete_numbers",
       "blocking": false,
-      "pages_missing": 73,
-      "coverage_pct": 18,
+      "pages_missing": 75,
+      "coverage_pct": 17.6,
       "why": "no concrete cost or timeline figures (agent request #5, 365 occurrences)"
     },
     {
       "id": "named_sources",
       "blocking": false,
-      "pages_missing": 89,
+      "pages_missing": 91,
       "coverage_pct": 0,
       "why": "no named primary source (agent request #6, 288 occurrences)"
     },
@@ -105,42 +105,42 @@
     {
       "id": "definition_callout",
       "blocking": false,
-      "pages_missing": 89,
+      "pages_missing": 91,
       "coverage_pct": 0,
       "why": "no definition callout (agent requested 196 times) - this is what an answer engine lifts for \"what is X\""
     },
     {
       "id": "trust_block",
       "blocking": false,
-      "pages_missing": 89,
+      "pages_missing": 91,
       "coverage_pct": 0,
       "why": "no trust or authorship block (agent requested 215 times) - entity clarity is a citation factor"
     },
     {
       "id": "source_block",
       "blocking": false,
-      "pages_missing": 89,
+      "pages_missing": 91,
       "coverage_pct": 0,
       "why": "no sources block - a claim with no visible provenance is the first thing an engine discounts"
     },
     {
       "id": "protocol",
       "blocking": false,
-      "pages_missing": 89,
+      "pages_missing": 91,
       "coverage_pct": 0,
       "why": "no ordered protocol - ordered steps are what gets lifted for \"how do I\""
     },
     {
       "id": "cta_callout",
       "blocking": false,
-      "pages_missing": 89,
+      "pages_missing": 91,
       "coverage_pct": 0,
       "why": "no next-step callout - the conversion link may exist but nothing frames it as the next action"
     },
     {
       "id": "prompt_template",
       "blocking": false,
-      "pages_missing": 89,
+      "pages_missing": 91,
       "coverage_pct": 0,
       "why": "no copy-ready prompt - the artifact this audience actually reuses"
     }

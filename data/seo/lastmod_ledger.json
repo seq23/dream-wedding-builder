@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "d1222d08f75575b10096a367512bd4fd47bed059",
-  "shipping_guide_count": 77,
+  "generated_from_commit": "d551b3dba2328d57b80c101d4d6514f52061ff19",
+  "shipping_guide_count": 79,
   "paths": {
     "/": {
       "lastmod": "2026-07-30",
@@ -225,6 +225,10 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-gratuity-planner]"
     },
+    "/guides/wedding-guest-list-headcount-control": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-guest-list-headcount-control]"
+    },
     "/guides/wedding-hidden-costs-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-hidden-costs-checklist]"
@@ -256,6 +260,10 @@
     "/guides/wedding-rehearsal-timeline": {
       "lastmod": "2026-08-27",
       "source": "data/authority/content_registry.json#pages[slug=wedding-rehearsal-timeline] (uncommitted at generation; pinned to run date)"
+    },
+    "/guides/wedding-rsvp-tracking-system": {
+      "lastmod": "2026-08-27",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-rsvp-tracking-system]"
     },
     "/guides/wedding-seating-chart-accessibility": {
       "lastmod": "2026-07-30",

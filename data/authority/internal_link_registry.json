@@ -2832,6 +2832,78 @@
       "to": "/guides/wedding-party-timeline",
       "anchor": "Wedding-Party Timeline",
       "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-guest-list-headcount-control",
+      "to": "/wedding-seating-chart",
+      "anchor": "Start with the wedding seating chart hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-guest-list-headcount-control",
+      "to": "/products/seating-chart-maker",
+      "anchor": "Wedding Seating Chart Maker",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-guest-list-headcount-control",
+      "to": "/guides/wedding-seating-chart-for-100-guests",
+      "anchor": "Wedding Seating Chart for 100 Guests",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-guest-list-headcount-control",
+      "to": "/guides/wedding-seating-chart-for-150-guests",
+      "anchor": "Wedding Seating Chart for 150 Guests",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-guest-list-headcount-control",
+      "to": "/guides/wedding-seating-chart-for-50-guests",
+      "anchor": "Wedding Seating Chart for 50 Guests",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-guest-list-headcount-control",
+      "to": "/guides/wedding-table-capacity-guide",
+      "anchor": "Wedding Table Capacity Guide",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rsvp-tracking-system",
+      "to": "/wedding-seating-chart",
+      "anchor": "Start with the wedding seating chart hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-rsvp-tracking-system",
+      "to": "/products/seating-chart-maker",
+      "anchor": "Wedding Seating Chart Maker",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-rsvp-tracking-system",
+      "to": "/guides/wedding-seating-chart-meal-tracker",
+      "anchor": "Wedding Seating Chart Meal-Choice Tracking",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rsvp-tracking-system",
+      "to": "/guides/wedding-seating-chart-allergy-tracker",
+      "anchor": "Wedding Seating Chart Allergy Tracking",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rsvp-tracking-system",
+      "to": "/guides/wedding-seating-chart-for-100-guests",
+      "anchor": "Wedding Seating Chart for 100 Guests",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rsvp-tracking-system",
+      "to": "/guides/wedding-seating-chart-for-150-guests",
+      "anchor": "Wedding Seating Chart for 150 Guests",
+      "relationship": "related"
     }
   ]
 }

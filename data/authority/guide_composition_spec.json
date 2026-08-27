@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.1",
+  "derived_at": "2026-08-27",
+  "derived_from": "data/authority/content_registry.json",
+  "derived_by": "scripts/authority_scale/derive_composition_spec.mjs",
+  "note": "Read back out of the guides that render, never hand-written. Every field here is invariant across every shipping guide in its cluster; everything not here is authored per guide. The derivation is proved by recomposing all shipping guides from three sentences each and comparing to the committed bytes.",
+  "authored_fields": {
+    "summary": "The claim this guide makes about its subject. Becomes the lead sentence, sections[0].paragraphs[0], and faqs[0].answer.",
+    "recommendation": "What to do about it. Becomes steps[1], sections[1].paragraphs[0], the bullet list head, and faqs[1].answer.",
+    "working_example": "One illustrative worked case, explicitly hedged so no figure reads as a quoted fact. Becomes sections[1].paragraphs[1] and examples[0].body."
+  },
+  "derived_fields": "product_id, hub_route, answer, steps, mistakes, sections, examples, faqs, semantic_key, verification_boundary - all composed by lib/authority-compose.mjs",
+  "universal": {
+    "steps_3_to_6": "lib/authority-compose.mjs UNIVERSAL_STEPS - identical across all shipping guides in every cluster",
+    "faq2_question": "What should be verified before the final version?"
+  },
+  "shipping_guides_analysed": 79,
+  "round_trip_verified": 69,
+  "bespoke_guides": 10,
+  "bespoke_slugs": [
+    "wedding-planning-timeline",
+    "wedding-seating-chart-template",
+    "wedding-budget-calculator",
+    "wedding-day-timeline-template",
+    "wedding-budget-template",
+    "wedding-rehearsal-timeline",
+    "bridal-shower-checklist",
+    "wedding-emergency-kit",
+    "day-of-coordinator-checklist",
+    "rehearsal-dinner-timeline"
+  ],
+  "bespoke_note": "Guides that render but do not recompose from the modal scaffold. They were written by hand for their own subject and are perfectly valid - isComplete() decides what may ship, not this file. They are listed so the difference is visible rather than silently averaged away, and composed guides are never held to them.",
+  "near_duplicate": {
+    "metric": "pairwise Jaccard over answer + steps + mistakes, tokens longer than 3 characters - the exact measure scripts/authority_scale/validate_authority_scale.mjs applies",
+    "measured_on": "2026-08-27",
+    "measured_over_guides": 67,
+    "measured_over": "the 67 hand-authored guides, before any composed guide was published",
+    "comparisons": 2211,
+    "observed_max_among_shipping_guides": 0.73,
+    "observed_max_pair": [
+      "wedding-budget-for-50-guests",
+      "wedding-budget-for-100-guests"
+    ],
+    "build_breaking_ceiling": 0.82,
+    "frozen": true,
+    "note": "A baseline, deliberately not recomputed on every run. It was measured over the hand-authored library, and it is the bar new guides are held to. Recomputing it as composed pages land would let the ceiling ratchet upward on its own output, which is how a quality bar quietly becomes whatever was last produced. Rebaseline explicitly with --rebaseline, and only after a human has read the library again."
+  },
+  "clusters": {
+    "Wedding budget": {
+      "product_id": "budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
+      "sec0_heading_pattern": "Set the financial boundary for {TITLE}",
+      "sec0_para1": "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question.",
+      "sec1_heading": "Model the decision before committing",
+      "sec2_heading": "Reconcile contracts and cash",
+      "sec2_para0": "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
+      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
+      "faq1_question": "How should I use this wedding budget guide?",
+      "mistakes": [
+        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
+        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
+        "Tracking the final total without tracking the month cash is actually due.",
+        "Marking a payment complete without a receipt, cleared record, or dispute note."
+      ],
+      "scaffold_guides": 16,
+      "bespoke_guides": 2,
+      "example_slug": "wedding-budget-spreadsheet-categories"
+    },
+    "Wedding checklist": {
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "sec0_heading_pattern": "Define the real scope of {TITLE}",
+      "sec0_para1": "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later.",
+      "sec1_heading": "Work in dependency order",
+      "sec2_heading": "Close the loop and hand it off",
+      "sec2_para0": "Update the related budget, vendor, guest, and timeline records whenever this checklist changes. Then issue one dated final version and tell affected people exactly what changed.",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "faq1_question": "How should I use this wedding checklist guide?",
+      "mistakes": [
+        "Using a generic date sequence without adjusting it to the wedding's actual planning window.",
+        "Leaving tasks without one accountable owner or a proof-of-completion field.",
+        "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
+        "Continuing to add scope during the final handoff period instead of reconciling the plan."
+      ],
+      "scaffold_guides": 18,
+      "bespoke_guides": 5,
+      "example_slug": "18-month-wedding-checklist"
+    },
+    "Wedding seating chart": {
+      "product_id": "seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
+      "sec0_heading_pattern": "Build the guest data for {TITLE}",
+      "sec0_para1": "Use one row per person with stable display and sort names, household or social group, RSVP, meal, allergy, accessibility, child/high-chair, table, and unresolved-status fields as applicable.",
+      "sec1_heading": "Place, count, and reconcile",
+      "sec2_heading": "Prepare the final handoff",
+      "sec2_para0": "Generate alphabetical and table-order views from the same source. Share only the fields each vendor needs, record the version, and retain one master copy.",
+      "verification_boundary": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors.",
+      "faq1_question": "How should I use this wedding seating chart guide?",
+      "mistakes": [
+        "Building from multiple guest lists instead of one confirmed person-level source of truth.",
+        "Assuming table capacity without the venue-approved layout and service clearances.",
+        "Separating meal, allergy, accessibility, child, or RSVP data from the guest record.",
+        "Sending conflicting exports after late changes instead of issuing one new version."
+      ],
+      "scaffold_guides": 18,
+      "bespoke_guides": 1,
+      "example_slug": "wedding-seating-chart-for-50-guests"
+    },
+    "Wedding timeline": {
+      "product_id": "timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "sec0_heading_pattern": "Anchor {TITLE} to fixed facts",
+      "sec0_para1": "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors.",
+      "sec1_heading": "Sequence people, places, and dependencies",
+      "sec2_heading": "Issue role-specific handoffs",
+      "sec2_para0": "Create one master timeline, then filter it for the couple, wedding party, family, photographer, venue, and vendors. Record the version and the contact who can approve changes.",
+      "verification_boundary": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors.",
+      "faq1_question": "How should I use this wedding timeline guide?",
+      "mistakes": [
+        "Using event start times without setup, movement, travel, or recovery buffers.",
+        "Giving every person the full master timeline instead of a clear role-specific handoff.",
+        "Assuming access, parking, load-in, photography, or service timing without vendor confirmation.",
+        "Allowing several edited versions to circulate without one dated final schedule."
+      ],
+      "scaffold_guides": 17,
+      "bespoke_guides": 2,
+      "example_slug": "wedding-timeline-with-first-look"
+    }
+  }
+}
