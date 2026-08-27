@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-25T21:54:23.834Z",
+  "generated_at": "2026-08-27T18:23:56.040Z",
   "max_attempts": 3,
-  "dry_run": true,
+  "dry_run": false,
   "gate_command": "npm run validate:all",
   "gate_exit_code": 0,
   "registered_repairs": {
