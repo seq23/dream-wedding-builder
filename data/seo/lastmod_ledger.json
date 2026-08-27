@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "b296952cac3c0f7a2671ccd9bca3772176cb14f5",
+  "generated_from_commit": "f7f74bc036668301f0531a2d686fae56ef31c956",
   "shipping_guide_count": 67,
   "paths": {
     "/": {
@@ -45,10 +45,6 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=9-month-wedding-checklist]"
     },
-    "/guides/accessible-wedding-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=accessible-wedding-planning-checklist-for-engaged-couples-practical]"
-    },
     "/guides/alphabetical-vs-table-order-seating-chart": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=alphabetical-vs-table-order-seating-chart]"
@@ -77,29 +73,13 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=courthouse-wedding-checklist]"
     },
-    "/guides/cultural-wedding-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=cultural-wedding-planning-checklist-for-engaged-couples-practical]"
-    },
     "/guides/destination-wedding-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=destination-wedding-checklist]"
     },
-    "/guides/destination-wedding-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=destination-wedding-planning-checklist-for-engaged-couples-practical]"
-    },
     "/guides/destination-wedding-weekend-itinerary": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=destination-wedding-weekend-itinerary]"
-    },
-    "/guides/diy-wedding-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=diy-wedding-planning-checklist-for-engaged-couples-practical]"
-    },
-    "/guides/elopement-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=elopement-planning-checklist-for-engaged-couples-practical]"
     },
     "/guides/estimated-vs-actual-wedding-costs": {
       "lastmod": "2026-07-30",
@@ -113,117 +93,9 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=family-contributions-wedding-budget]"
     },
-    "/guides/family-dynamics-at-weddings-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=family-dynamics-at-weddings-checklist-for-engaged-couples-practical]"
-    },
     "/guides/family-photo-timeline": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=family-photo-timeline]"
-    },
-    "/guides/how-to-plan-accessible-wedding-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-accessible-wedding-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-cultural-wedding-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-cultural-wedding-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-destination-wedding-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-destination-wedding-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-diy-wedding-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-diy-wedding-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-elopement-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-elopement-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-family-dynamics-at-weddings-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-family-dynamics-at-weddings-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-micro-wedding-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-micro-wedding-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-attire-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-attire-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-budget-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-budget-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-ceremony-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-ceremony-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-checklist-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-contingency-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-contingency-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-day-logistics-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-day-logistics-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-decor-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-decor-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-guest-list-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-guest-list-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-invitations-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-invitations-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-meal-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-meal-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-music-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-music-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-photography-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-photography-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-reception-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-reception-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-registry-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-registry-planning-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-seating-chart-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-seating-chart-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-timeline-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-timeline-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-vendor-selection-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-vendor-selection-for-engaged-couples-practical]"
-    },
-    "/guides/how-to-plan-wedding-venue-planning-for-engaged-couples-practical": {
-      "lastmod": "2026-08-25",
-      "source": "data/authority/content_registry.json#pages[slug=how-to-plan-wedding-venue-planning-for-engaged-couples-practical]"
     },
     "/guides/late-rsvp-seating-chart-changes": {
       "lastmod": "2026-07-30",
@@ -236,10 +108,6 @@
     "/guides/micro-wedding-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=micro-wedding-checklist]"
-    },
-    "/guides/micro-wedding-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=micro-wedding-planning-checklist-for-engaged-couples-practical]"
     },
     "/guides/one-venue-wedding-timeline": {
       "lastmod": "2026-07-30",
@@ -285,10 +153,6 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-50000]"
     },
-    "/guides/wedding-budget-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-checklist-for-engaged-couples-practical]"
-    },
     "/guides/wedding-budget-contingency": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-contingency]"
@@ -309,21 +173,9 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-spreadsheet-categories]"
     },
-    "/guides/wedding-ceremony-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-ceremony-planning-checklist-for-engaged-couples-practical]"
-    },
-    "/guides/wedding-checklist-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-checklist-checklist-for-engaged-couples-practical]"
-    },
     "/guides/wedding-day-emergency-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-day-emergency-checklist]"
-    },
-    "/guides/wedding-day-logistics-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-day-logistics-checklist-for-engaged-couples-practical]"
     },
     "/guides/wedding-day-timeline": {
       "lastmod": "2026-07-30",
@@ -345,17 +197,9 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-gratuity-planner]"
     },
-    "/guides/wedding-guest-list-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-guest-list-checklist-for-engaged-couples-practical]"
-    },
     "/guides/wedding-hidden-costs-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-hidden-costs-checklist]"
-    },
-    "/guides/wedding-invitations-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-invitations-checklist-for-engaged-couples-practical]"
     },
     "/guides/wedding-monthly-cash-flow": {
       "lastmod": "2026-07-30",
@@ -373,17 +217,9 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-planning-binder]"
     },
-    "/guides/wedding-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-planning-checklist-for-engaged-couples-practical]"
-    },
     "/guides/wedding-reception-order-of-events": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-reception-order-of-events]"
-    },
-    "/guides/wedding-reception-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-reception-planning-checklist-for-engaged-couples-practical]"
     },
     "/guides/wedding-seating-chart-accessibility": {
       "lastmod": "2026-07-30",
@@ -392,10 +228,6 @@
     "/guides/wedding-seating-chart-allergy-tracker": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-allergy-tracker]"
-    },
-    "/guides/wedding-seating-chart-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-checklist-for-engaged-couples-practical]"
     },
     "/guides/wedding-seating-chart-for-100-guests": {
       "lastmod": "2026-07-30",
@@ -425,10 +257,6 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-table-capacity-guide]"
     },
-    "/guides/wedding-timeline-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-26",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-timeline-checklist-for-engaged-couples-practical]"
-    },
     "/guides/wedding-timeline-travel-buffer": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-timeline-travel-buffer]"
@@ -456,14 +284,6 @@
     "/guides/wedding-vendor-payment-tracker": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-vendor-payment-tracker]"
-    },
-    "/guides/wedding-vendor-selection-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-vendor-selection-checklist-for-engaged-couples-practical]"
-    },
-    "/guides/wedding-venue-planning-checklist-for-engaged-couples-practical": {
-      "lastmod": "2026-08-27",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-venue-planning-checklist-for-engaged-couples-practical]"
     },
     "/guides/wedding-week-checklist": {
       "lastmod": "2026-07-30",
