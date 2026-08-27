@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import registry from '@/data/authority/content_registry.json';
 import { shippingPages } from '@/lib/authority-registry';
+import { dateModifiedFor } from '@/lib/lastmod';
 import { productById } from '@/lib/products';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
 import { guideLead, guideMetadata, guideRecommendation } from '@/lib/seo';
@@ -21,7 +22,7 @@ export default async function Guide({ params }: { params: Promise<{ slug: string
   const host = hostForProduct(page.product_id);
   const canonical = canonicalUrl(host, `/guides/${page.slug}`);
   const related = (page.related_slugs ?? []).map((relatedSlug) => registry.pages.find((item) => item.slug === relatedSlug)).filter(Boolean);
-  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.summary, mainEntityOfPage: canonical, dateModified: page.updated_at, publisher: { '@type': 'Organization', name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/' } };
+  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.summary, mainEntityOfPage: canonical, ...dateModifiedFor(`/guides/${page.slug}`), publisher: { '@type': 'Organization', name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/' } };
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: (page.faqs ?? []).map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
     <Breadcrumbs items={[{ name: 'Guides', href: '/guides', canonical: canonicalUrl(host, '/guides') }, { name: page.title, href: `/guides/${page.slug}`, canonical }]} />

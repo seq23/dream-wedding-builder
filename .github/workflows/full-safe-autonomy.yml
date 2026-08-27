@@ -35,7 +35,11 @@ jobs:
         run: |
           git config user.name 'dream-wedding-authority-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add data/authority data/authority_scale data/release artifacts/authority artifacts/sitemaps artifacts/distribution 2>/dev/null || true
+          # data/seo carries lastmod_ledger.json, which authority:sitemaps rebuilds
+          # from the content this run generated. Without it staged, the ledger would be
+          # regenerated in CI and thrown away, and the deployed sitemap would keep
+          # serving the previous run's dates.
+          git add data/authority data/authority_scale data/release data/seo artifacts/authority artifacts/sitemaps artifacts/distribution 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: governed daily content expansion'
           git pull --rebase --autostash origin main
           git push origin HEAD:main
