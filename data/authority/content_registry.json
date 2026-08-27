@@ -5696,6 +5696,1012 @@
         "post-wedding-return-checklist"
       ],
       "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "wedding-planning-timeline",
+      "title": "Wedding Planning Timeline",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable.",
+      "answer": "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable. Lock the date, the venue, the guest ceiling, and the money ceiling first; every later choice about catering, attire, stationery, transport, and photography is priced or scheduled against those four, and reversing one of them after vendors are contracted is where re-work and deposit losses come from.",
+      "steps": [
+        "Write the wedding date and the single hardest external deadline attached to it, such as a marriage licence validity window or a venue's contracted balance date.",
+        "Lock the venue and read its access window, curfew, vendor rules, and cancellation terms before booking anything that depends on them.",
+        "Set a guest ceiling as a number, not a range, because catering, seating, stationery, and transport are all quoted against it.",
+        "Set a money ceiling and name who is contributing before requesting quotes, so a quote can be accepted or refused the day it arrives.",
+        "Book the vendors whose calendars fill first and who cannot be duplicated on the day: photographer, officiant, catering, and any single-crew supplier.",
+        "Schedule the deadlines that are imposed on you rather than chosen: stationery mail dates, final headcount, final payment dates, and licence collection.",
+        "Convert the remaining months into weekly actions with one owner per action, and review the list on the same day each week.",
+        "Freeze the plan four weeks out and route every later change through one person."
+      ],
+      "mistakes": [
+        "Booking a photographer or florist before the venue, then discovering the venue's access window makes the agreed coverage impossible.",
+        "Treating the guest ceiling as flexible until the catering contract, by which point every earlier quote has been priced against the wrong number.",
+        "Building the plan around the wedding date only, and missing the imposed deadlines that sit weeks earlier: mail dates, final headcount, licence collection.",
+        "Keeping the plan in one person's head and re-deciding settled questions because nothing recorded that they were settled."
+      ],
+      "sections": [
+        {
+          "heading": "Start from the two dates that cannot move",
+          "paragraphs": [
+            "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable. The two immovable dates are the wedding day itself and the earliest imposed deadline attached to it, which is usually a venue balance date, a stationery mail date, or the window in which a marriage licence is valid in your jurisdiction.",
+            "Everything else is negotiable, which is exactly why it drifts. Write the immovable dates first and hang the negotiable ones off them, so that when something slips you can see immediately whether it slipped into a fixed obligation or only into slack."
+          ],
+          "bullets": [
+            "The wedding date, and whether the venue holds it provisionally or contractually.",
+            "The venue's final balance date and its cancellation cut-offs.",
+            "The stationery mail date, which is set by how long guests need to arrange travel.",
+            "The final headcount date in the catering contract.",
+            "The marriage licence window that applies where the ceremony takes place."
+          ]
+        },
+        {
+          "heading": "Four decisions block everything downstream",
+          "paragraphs": [
+            "Date, venue, guest ceiling, and money ceiling are the four inputs every vendor conversation depends on. A florist cannot quote without a venue. A caterer cannot quote without a headcount. A stationer cannot print without an address list, and an address list cannot be built without a guest ceiling that someone has authority to enforce.",
+            "The practical consequence is that these four should be settled in a compressed early block rather than spread across months. Planning that feels slow at the start is usually planning that is waiting on one of these four, and planning that feels chaotic at the end is usually planning that never fixed one of them."
+          ]
+        },
+        {
+          "heading": "Sequence bookings by scarcity, not by importance",
+          "paragraphs": [
+            "After the four blockers, book in order of how hard the supplier is to replace. A photographer covering a single date, an officiant, and a caterer with a limited crew are all single-instance suppliers: if they are gone, the date is what has to change. Rentals, stationery, and most décor can be re-sourced late without damage.",
+            "This ordering also protects your deposits. Money committed to a replaceable supplier before an irreplaceable one is money placed at risk for no reason, because the irreplaceable booking is the one that can still force a change to the whole plan."
+          ],
+          "bullets": [
+            "Irreplaceable on the date: officiant, photographer, primary catering, venue-mandated suppliers.",
+            "Hard to replace inside eight weeks: band or DJ, cake, transport with capacity requirements.",
+            "Re-sourceable late: rentals, stationery reprints, favours, most décor."
+          ]
+        },
+        {
+          "heading": "Turn the last eight weeks into a weekly list",
+          "paragraphs": [
+            "Month-level planning stops working once the imposed deadlines cluster. From roughly eight weeks out, convert the plan into a weekly list with one named owner per line and a status that is either done or not, with no partial state.",
+            "Review it on the same day each week. The review is the mechanism, not the list: a list nobody reads on a schedule is a record of intentions, and the deadlines in this stretch are the ones that cost money when they pass."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "A couple books a photographer eleven months out and a venue nine months out. The venue's contract gives vendor access from 14:00 and requires the room cleared by 23:30. The photographer's agreed coverage started with two hours of preparation shots on site, which the access window makes impossible, so the coverage is renegotiated and a getting-ready location is added. Booking in the other order would have made this a non-event."
+        },
+        {
+          "title": "Control check",
+          "body": "Before booking any supplier, confirm that the date, venue, guest ceiling, and money ceiling are all written down, that one named person can enforce the guest ceiling, and that the supplier's quote references the same headcount as the catering quote."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "How far ahead should a wedding planning timeline start?",
+          "answer": "Start whenever the date and venue can realistically be locked, because the timeline does not begin until those two exist. A long runway is useful only if it is spent settling the four blocking decisions; a year of planning that leaves the guest ceiling open produces the same last-eight-weeks compression as three months would."
+        },
+        {
+          "question": "What is the difference between a wedding planning timeline and a wedding checklist?",
+          "answer": "A checklist records what has to happen. A planning timeline records what has to happen before what, and who is waiting on it. The checklist tells you the stationery must be mailed; the timeline tells you the mail date is set by guest travel, that the address list depends on the guest ceiling, and that the ceiling is therefore the item actually blocking the mailing."
+        },
+        {
+          "question": "What should be locked first?",
+          "answer": "Date, venue, guest ceiling, and money ceiling, in a compressed early block. Every vendor quote is priced against at least one of the four, so a quote requested before they are settled has to be requested again."
+        },
+        {
+          "question": "When should the plan stop changing?",
+          "answer": "Roughly four weeks out, and then only through one named person. After that point the final headcount, final payments, and vendor schedules have all been issued to third parties, so a change is no longer a decision you make alone, it is a renegotiation with everyone downstream of it."
+        }
+      ],
+      "semantic_key": "checklist-pdf:wedding-planning-timeline",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "12-month-wedding-checklist",
+        "6-month-wedding-checklist",
+        "wedding-vendor-booking-checklist",
+        "wedding-week-checklist",
+        "day-of-coordinator-checklist"
+      ],
+      "hub_route": "/wedding-planning-checklist"
+    },
+    {
+      "slug": "wedding-seating-chart-template",
+      "title": "Wedding Seating Chart Template",
+      "cluster": "Wedding seating chart",
+      "product_id": "seating-chart-maker",
+      "summary": "A seating chart template has to hold the data a caterer and a venue will ask for, not only the names in the arrangement.",
+      "answer": "A seating chart template has to hold the data a caterer and a venue will ask for, not only the names in the arrangement. Every guest row needs a table identifier, a seat or side where the table has one, a meal selection, a dietary or allergy flag, an accessibility note, an RSVP state, and the household the guest arrived with, because those are the fields that turn one chart into escort cards, a catering count, and a floor plan without anyone retyping it.",
+      "steps": [
+        "Build the template around one guest per row, never one household per row, so a partial RSVP does not corrupt the count.",
+        "Add the columns the caterer will ask for: meal selection, dietary restriction, allergy severity, and child or vendor meal type.",
+        "Add the columns the venue will ask for: table identifier, accessibility need, and any guest who must sit near an exit or a service route.",
+        "Record the household or invitation each guest came from, so late declines can be traced back without guesswork.",
+        "Keep an RSVP state on every row with three values, invited, accepted, and declined, rather than deleting declined guests.",
+        "Confirm table sizes and count with the venue before assigning anyone, because a template built on assumed capacity has to be rebuilt.",
+        "Generate escort cards and the catering count from the same sheet rather than maintaining a second list.",
+        "Freeze and date a version at the final headcount deadline, then handle later changes as tracked edits against that version."
+      ],
+      "mistakes": [
+        "One row per household, which makes a partial RSVP impossible to count and hides the meal selections of everyone except the first name.",
+        "Deleting declined guests instead of marking them declined, which loses the record of who was invited and why a seat opened.",
+        "Assigning seats before the venue has confirmed table sizes and the real table count.",
+        "Maintaining the escort card list and the catering count as separate documents, so the two disagree by the final headcount date."
+      ],
+      "sections": [
+        {
+          "heading": "The template is a data structure before it is a diagram",
+          "paragraphs": [
+            "A seating chart template has to hold the data a caterer and a venue will ask for, not only the names in the arrangement. The visual chart is an output. What makes it maintainable is the table underneath it, where each guest is a row and each thing anyone will ask about that guest is a column.",
+            "The test is simple: when the caterer asks for a count of vegetarian meals at table nine, or the venue asks which guests need step-free access, the answer should be a filter rather than a re-read of the whole plan."
+          ],
+          "bullets": [
+            "Guest name, exactly as it should appear on an escort card.",
+            "Household or invitation identifier, so declines can be traced.",
+            "RSVP state: invited, accepted, declined.",
+            "Table identifier, and a seat or side where the table is long.",
+            "Meal selection, dietary restriction, and allergy severity.",
+            "Accessibility need, and any required proximity to an exit or service route.",
+            "Guest type, so adult, child, and vendor meals are counted separately."
+          ]
+        },
+        {
+          "heading": "One row per guest, always",
+          "paragraphs": [
+            "Households are how invitations are addressed and a poor way to store a seating plan. A household row cannot express that two of four accepted, that one of them needs a gluten-free plate, or that a child needs a high chair at a specific table.",
+            "Keep the household as a column rather than as the row. It costs nothing, it preserves the ability to see which invitation a guest came from, and it means the accepted count is a filter on the RSVP column instead of an interpretation of merged cells."
+          ]
+        },
+        {
+          "heading": "Design the template so a late change is one edit",
+          "paragraphs": [
+            "Late changes are the normal case, not the exception, and a template earns its value in how it absorbs them. When a guest declines a week out, the correct edit is one cell: the RSVP state changes and everything else follows, because the counts, the escort card list, and the table occupancy all read from the same rows.",
+            "That only works if nothing is duplicated. The moment a meal count lives in a second sheet that someone maintains by hand, a late change becomes three edits, and the third one is the one that gets missed."
+          ]
+        },
+        {
+          "heading": "Two outputs, one source",
+          "paragraphs": [
+            "The same template should produce the guest-facing artefact and the vendor-facing artefact. Escort cards and a seating display are guest-facing and need the name as it should be read. The catering count and the venue floor plan are vendor-facing and need table identifiers, meal types, allergy flags, and accessibility notes.",
+            "Generating both from one sheet is what prevents the common failure where the display seats a guest at table six and the catering sheet has their meal at table four. Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors before the version is frozen."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "A chart is built with one row per guest and an RSVP column. Nine days out, three guests from two households decline. Three cells change from accepted to declined. The vegetarian count drops by one, table eleven falls from ten to eight, and the escort card list regenerates without anyone editing a card by hand. The caterer receives a count that matches the display because both came from the same rows."
+        },
+        {
+          "title": "Control check",
+          "body": "Before the final headcount deadline, confirm that the number of accepted rows equals the catering count, that every accepted row has a table identifier, and that every allergy flag has been sent to the caterer in writing rather than mentioned in conversation."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What should a wedding seating chart template include?",
+          "answer": "One row per guest, with the household they were invited under, an RSVP state, a table identifier, a meal selection, a dietary restriction and allergy severity, an accessibility note, and a guest type that separates adult, child, and vendor meals. Those are the fields a caterer and a venue will ask for, and holding them in the template is what stops the chart, the escort cards, and the catering count from disagreeing."
+        },
+        {
+          "question": "Should each row be a guest or a household?",
+          "answer": "A guest. Household rows cannot express a partial RSVP, cannot carry per-person meal selections, and cannot record that one person at the table needs a high chair or step-free access. Keep the household as a column so you retain the link back to the invitation without losing per-person data."
+        },
+        {
+          "question": "When should the seating chart be frozen?",
+          "answer": "At the final headcount deadline in the catering contract. Freeze and date that version, then treat every later change as a tracked edit against it, so the venue and the caterer can be told exactly what changed rather than being sent a new chart to re-read."
+        },
+        {
+          "question": "Can one template produce both escort cards and the catering count?",
+          "answer": "It should. Both are views of the same rows, and generating them separately is the most common cause of a display and a catering sheet that disagree. Escort cards read the name column; the catering count filters on RSVP state, meal selection, and guest type."
+        }
+      ],
+      "semantic_key": "seating-chart-maker:wedding-seating-chart-template",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "wedding-seating-chart-meal-tracker",
+        "wedding-seating-chart-allergy-tracker",
+        "wedding-escort-card-data-export",
+        "late-rsvp-seating-chart-changes",
+        "wedding-table-capacity-guide"
+      ],
+      "hub_route": "/wedding-seating-chart"
+    },
+    {
+      "slug": "wedding-budget-calculator",
+      "title": "Wedding Budget Calculator",
+      "cluster": "Wedding budget",
+      "product_id": "budget-spreadsheet",
+      "summary": "A wedding budget calculator should work downward from the money you actually have and the headcount you actually intend, not upward from a national average.",
+      "answer": "A wedding budget calculator should work downward from the money you actually have and the headcount you actually intend, not upward from a national average. Start with the confirmed total from every contributor, subtract the fixed commitments that do not scale with guests, divide what remains by the guest ceiling to get a real per-guest allowance, and only then compare that figure against the quotes in front of you, because a quote is evidence and an average is not.",
+      "steps": [
+        "Write the confirmed total from every contributor, and mark each amount as committed or expected rather than blending them.",
+        "List the fixed costs that do not change with headcount, such as venue hire, photography, attire, officiant, and stationery design.",
+        "Subtract the fixed costs from the total to find the money that is genuinely available per guest.",
+        "Divide that remainder by the guest ceiling to get a per-guest allowance you can test any catering quote against.",
+        "Add the three lines calculators routinely omit: tax and service charge, overtime, and gratuities.",
+        "Re-run the calculation at two lower guest counts to see how much headroom a smaller list would create.",
+        "Replace each estimate with the contracted figure as quotes are signed, and keep the original estimate visible alongside it.",
+        "Recalculate after every scope change, and check the result against the month each payment is actually due."
+      ],
+      "mistakes": [
+        "Starting from a published average, which is a description of other people's weddings and cannot be tested against a quote you have received.",
+        "Calculating a per-guest figure from the whole budget rather than from the budget minus fixed costs, which overstates what catering can absorb.",
+        "Omitting tax, service charge, and gratuity, which are usually a contractual addition rather than a matter of choice.",
+        "Overwriting the estimate with the contracted amount, which destroys the variance record that tells you whether the estimate method works."
+      ],
+      "sections": [
+        {
+          "heading": "Calculate downward from what exists",
+          "paragraphs": [
+            "A wedding budget calculator should work downward from the money you actually have and the headcount you actually intend, not upward from a national average. The two inputs you control are the confirmed total and the guest ceiling, and every useful calculation is a consequence of those two.",
+            "Mark each contribution as committed or expected. An expected contribution that has not been confirmed in a conversation is not budget, and treating it as budget is the most common way a plan ends up short at the final payment dates rather than at the start."
+          ]
+        },
+        {
+          "heading": "Separate fixed costs from per-guest costs before dividing",
+          "paragraphs": [
+            "Venue hire, photography, attire, officiant, stationery design, and most décor cost the same whether sixty or a hundred and twenty people attend. Catering, bar, rentals, favours, and stationery printing scale directly with the count.",
+            "Dividing the whole budget by the guest count mixes the two and produces a per-guest allowance that is too generous, which is why the catering quote so often arrives looking affordable and the total does not. Subtract the fixed block first, then divide."
+          ],
+          "bullets": [
+            "Fixed: venue hire, photography and video, attire and alterations, officiant, stationery design, planner or coordinator fee.",
+            "Per guest: catering, bar, rentals and place settings, favours, printed stationery, transport with capacity.",
+            "Partly both: florals, which have a fixed installation element and a per-table element."
+          ]
+        },
+        {
+          "heading": "Add the three lines that are usually missing",
+          "paragraphs": [
+            "Tax and service charge are applied on top of a catering subtotal and are set by contract, not by preference. Overtime is priced per hour in most venue and supplier agreements and is triggered by the timeline running late, which is a foreseeable risk rather than an accident. Gratuities are a real outflow whether or not they are contractual.",
+            "A calculator that returns a total without these three understates the commitment by the exact amount that surprises people at the end. Read the tax and service-charge terms out of the contract rather than assuming a figure, and hold overtime as a named contingency line."
+          ]
+        },
+        {
+          "heading": "Test the answer against a lower guest count",
+          "paragraphs": [
+            "The single most powerful lever in a wedding budget is the guest ceiling, because it moves every per-guest line at once. Running the calculation at two lower counts turns an abstract argument about the list into a number, and it is far easier to have that conversation before catering is contracted than after.",
+            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records as they arrive, and keep the original estimate beside the contracted figure so the variance stays visible."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "A couple confirms a total, then lists fixed costs: venue hire, photography, attire, officiant, and stationery design. Subtracting the fixed block from the total leaves the money available for everything that scales. Divided by a guest ceiling of one hundred, that remainder becomes a per-guest allowance they can hold a catering quote against directly. The first quote exceeds it once service charge is added, so the ceiling is tested at eighty before the contract is signed rather than after."
+        },
+        {
+          "title": "Control check",
+          "body": "Before accepting any catering quote, confirm that the per-guest allowance was calculated after fixed costs were removed, that the quote includes tax and service charge rather than showing a subtotal, and that an overtime rate is stated in writing."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "How do you calculate a wedding budget?",
+          "answer": "Start with the confirmed total from every contributor, separate the costs that do not change with headcount from the ones that do, subtract the fixed block, and divide the remainder by the guest ceiling. That gives a per-guest allowance you can test a real catering quote against. Then add tax and service charge, an overtime contingency, and gratuities, which are the three lines most calculations leave out."
+        },
+        {
+          "question": "Should a wedding budget calculator use percentage allocations?",
+          "answer": "Percentage allocations describe how other people's budgets were distributed and cannot be tested against a quote you have in hand. They are useful as a sanity check late, not as a starting point. A quote is evidence; an allocation is a description."
+        },
+        {
+          "question": "What does a calculator usually leave out?",
+          "answer": "Tax and service charge on catering, overtime rates that trigger when the timeline runs late, and gratuities. All three are real outflows, the first two are set by contract rather than by choice, and together they are the usual reason a plan that balanced on paper does not balance at the final payment dates."
+        },
+        {
+          "question": "How often should the calculation be re-run?",
+          "answer": "After every scope change and every signed contract. Replace the estimate with the contracted figure but keep the estimate visible beside it, because the gap between the two is the only evidence you have about whether your estimating method is working on the remaining lines."
+        }
+      ],
+      "semantic_key": "budget-spreadsheet:wedding-budget-calculator",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
+      "related_slugs": [
+        "wedding-budget-template",
+        "wedding-budget-for-100-guests",
+        "wedding-hidden-costs-checklist",
+        "estimated-vs-actual-wedding-costs",
+        "wedding-budget-contingency"
+      ],
+      "hub_route": "/wedding-budget-spreadsheet"
+    },
+    {
+      "slug": "wedding-day-timeline-template",
+      "title": "Wedding Day Timeline Template",
+      "cluster": "Wedding timeline",
+      "product_id": "timeline-template",
+      "summary": "A wedding day timeline template is only useful if every row carries a duration, an owner, and a location, because those three are what let anyone else run the day.",
+      "answer": "A wedding day timeline template is only useful if every row carries a duration, an owner, and a location, because those three are what let anyone else run the day. A start time alone tells a photographer nothing about when they are released, tells a vendor nothing about who to ask, and tells no one where to be; a template that captures duration, owner, and location can be cut into role-specific versions and handed out, which is what a timeline is for.",
+      "steps": [
+        "Give every row five fields: start time, duration, what happens, who owns it, and where it happens.",
+        "Enter the venue's contracted access and clearance times first, because they bound everything else.",
+        "Enter the fixed anchors next: ceremony start, meal service, and any time set by a third party such as sunset or a religious requirement.",
+        "Work backward from the ceremony for preparation and travel, and forward from it for reception, speeches, and breakdown.",
+        "Add named buffers as their own rows rather than padding durations, so it is visible when a buffer is consumed.",
+        "Cut role-specific versions for the couple, the wedding party, the photographer, the caterer, and the venue.",
+        "Confirm every travel time against the actual route at the actual time of day, not against a generic estimate.",
+        "Freeze and date the version you distribute, and route later changes through one named person."
+      ],
+      "mistakes": [
+        "Rows that carry a start time but no duration, so nobody can tell when a supplier is released or when the next thing can begin.",
+        "Padding durations invisibly instead of naming buffers, which hides the fact that the slack has already been spent.",
+        "Issuing one master document to everyone, which means each reader has to find their own lines and most of them will miss one.",
+        "Copying travel times from a generic template rather than checking the route at the time of day the journey actually happens."
+      ],
+      "sections": [
+        {
+          "heading": "Five fields per row, or it is not a template",
+          "paragraphs": [
+            "A wedding day timeline template is only useful if every row carries a duration, an owner, and a location, because those three are what let anyone else run the day. Add the start time and a plain description of what happens and you have the five fields that make a row actionable.",
+            "The omission that breaks most templates is duration. Without it, a row says when something begins and nothing about when it ends, so the photographer cannot tell when coverage is released, the caterer cannot tell when service can start, and the person holding the document cannot tell whether the day is running late until it visibly is."
+          ],
+          "bullets": [
+            "Start time, in the venue's local time.",
+            "Duration, as minutes rather than an end time, so a shift recalculates cleanly.",
+            "What happens, in language a vendor who was not in the planning conversation will understand.",
+            "Owner, a named person rather than a role where possible.",
+            "Location, including the room or area, not only the building."
+          ]
+        },
+        {
+          "heading": "Adapt a generic template to your venue's access window",
+          "paragraphs": [
+            "Every downloadable timeline assumes access it does not have. Before adapting one, read the venue contract for the earliest vendor access, the earliest guest access, the curfew, and the time by which the room must be cleared, then enter those four as rows.",
+            "Most conflicts surface immediately at that point. A template that assumes three hours of on-site preparation is unusable at a venue that opens at two o'clock for a four o'clock ceremony, and the fix is a separate getting-ready location, which is a booking rather than an edit."
+          ]
+        },
+        {
+          "heading": "Issue versions, not a master",
+          "paragraphs": [
+            "One document containing everyone's lines is a document each reader has to filter, and filtering under pressure is where lines get missed. Cut the template into role-specific versions so each recipient receives only what they act on, plus the anchors they need to orient against.",
+            "The couple's version should be short. The photographer's version needs preparation, portraits, ceremony, and the release time. The caterer's version needs access, service, and clearance. The venue's version needs access, guest arrival, curfew, and breakdown. Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors before distributing."
+          ]
+        },
+        {
+          "heading": "Name the buffers so you can see them being spent",
+          "paragraphs": [
+            "Padding a row's duration hides the slack inside it. A twenty-minute portrait block that is really a fifteen-minute block with five minutes of padding looks fine right up until it takes twenty-two minutes and the whole afternoon is late for a reason nobody can locate.",
+            "Give buffers their own rows with their own durations. When one is consumed, it is visible in real time, and the person running the day can decide what to shorten next instead of discovering the deficit at the meal."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "A template row reads: 15:10, 25 minutes, family portraits, owned by the photographer, in the walled garden. The next row is a named ten-minute buffer before guests are seated. On the day the portraits run to thirty-four minutes; the buffer absorbs nine of them and the coordinator can see that the remaining minute has to come out of the drinks reception rather than out of the ceremony."
+        },
+        {
+          "title": "Control check",
+          "body": "Before distributing, confirm that every row has a duration, that the venue's access and clearance times appear as rows, that each travel time was checked against the real route at the real time of day, and that each recipient received the version cut for their role rather than the master."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What should a wedding day timeline template include?",
+          "answer": "Five fields on every row: start time, duration, what happens, who owns it, and where it happens. It should also carry the venue's contracted access and clearance times as rows of their own, and named buffer rows rather than padding hidden inside durations."
+        },
+        {
+          "question": "How do you adapt a generic timeline template to your venue?",
+          "answer": "Read the contract for earliest vendor access, earliest guest access, curfew, and clearance time, then enter those four before anything else. Conflicts with the template's assumptions surface immediately, and most of them are resolved by a booking such as a separate getting-ready location rather than by an edit to the schedule."
+        },
+        {
+          "question": "Should everyone receive the same timeline?",
+          "answer": "No. Cut role-specific versions from one source. Each recipient should receive the rows they act on plus the anchors they orient against, because a single master document makes every reader filter it under pressure and someone always misses a line."
+        },
+        {
+          "question": "Where should buffers go in the template?",
+          "answer": "In their own rows, with their own durations and a name. Padding folded into another row's duration hides the slack, so when it is consumed nobody can see it happening and the day is late for a reason that cannot be located."
+        }
+      ],
+      "semantic_key": "timeline-template:wedding-day-timeline-template",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "wedding-day-timeline",
+        "wedding-timeline-travel-buffer",
+        "wedding-vendor-arrival-schedule",
+        "wedding-setup-breakdown-timeline",
+        "wedding-rehearsal-timeline"
+      ],
+      "hub_route": "/wedding-timeline-template"
+    },
+    {
+      "slug": "wedding-budget-template",
+      "title": "Wedding Budget Template",
+      "cluster": "Wedding budget",
+      "product_id": "budget-spreadsheet",
+      "summary": "A wedding budget template needs six columns per line, because a single amount cannot express the difference between what you guessed, what you were quoted, what you signed, and what has actually left your account.",
+      "answer": "A wedding budget template needs six columns per line, because a single amount cannot express the difference between what you guessed, what you were quoted, what you signed, and what has actually left your account. Carry estimate, quote, contracted, paid to date, balance, and the month that balance is due; those six answer every question anyone will ask about a wedding budget, and collapsing them into one number is why budgets look balanced until the final payment dates arrive.",
+      "steps": [
+        "Give every line six columns: estimate, quote received, contracted amount, paid to date, balance outstanding, and the month the balance is due.",
+        "Keep the original estimate after the quote arrives and after the contract is signed, rather than overwriting it.",
+        "Record the quote date beside the quote, because most quotes expire and an expired quote is not a price.",
+        "Attach a document reference to every contracted amount, so a figure can be traced to the paper it came from.",
+        "Enter tax, service charge, delivery, and gratuity as their own lines rather than folding them into a supplier total.",
+        "Total by due month as well as by category, so the cash requirement in each month is visible.",
+        "Reconcile paid to date against receipts or cleared payments rather than against memory, and note any dispute on the line.",
+        "Review the whole sheet after every scope change, and date the version you review."
+      ],
+      "mistakes": [
+        "One amount per line, which cannot distinguish a guess from a signed commitment and hides how much of the budget is still uncertain.",
+        "Overwriting the estimate when the contract arrives, which destroys the variance record and leaves no way to judge the remaining estimates.",
+        "Burying tax, service charge, delivery, and gratuity inside a supplier total, so the payable amount cannot be checked against the invoice.",
+        "Totalling only by category, which shows the budget balancing overall while a single month carries a cash requirement nobody has planned for."
+      ],
+      "sections": [
+        {
+          "heading": "Six columns, because one number answers nothing",
+          "paragraphs": [
+            "A wedding budget template needs six columns per line, because a single amount cannot express the difference between what you guessed, what you were quoted, what you signed, and what has actually left your account. Each of those is a different state, and the questions people ask about a budget are questions about which state a line is in.",
+            "The template becomes auditable the moment those states are separate. How much is still a guess is a filter. How much is contractually committed is a sum. How much is left to pay, and when, is a total by due month."
+          ],
+          "bullets": [
+            "Estimate: what you assumed before asking anyone.",
+            "Quote received, with the date it was issued and the date it expires.",
+            "Contracted: the figure in the signed agreement, with a document reference.",
+            "Paid to date, reconciled against receipts or cleared payments.",
+            "Balance outstanding, derived rather than typed.",
+            "Due month, so cash requirements can be totalled by month."
+          ]
+        },
+        {
+          "heading": "Preserve the estimate after the contract arrives",
+          "paragraphs": [
+            "The instinct when a contract lands is to replace the guess with the real number. Doing so loses the only feedback the template can give you, which is how far your estimates were from reality on the lines that have already settled.",
+            "If the first four contracted lines each came in above the estimate, the remaining estimates are probably low too, and that is actionable months before it becomes a shortfall. Overwriting removes the evidence and leaves you re-estimating with the same method that already missed."
+          ]
+        },
+        {
+          "heading": "Total by due month, not only by category",
+          "paragraphs": [
+            "A budget that balances across the whole plan can still fail in a single month. Venue balances, catering deposits, and final payments cluster, and the cluster is invisible when the sheet only totals by category.",
+            "Add a due month to every line and total it. The result is a cash-flow view that answers a different question from the budget view: not whether you can afford the wedding, but whether you can afford it in the month the money is actually required."
+          ]
+        },
+        {
+          "heading": "Give the additions their own lines",
+          "paragraphs": [
+            "Tax, service charge, delivery, corkage, overtime, and gratuity are amounts you owe, and folding them into a supplier's headline figure makes the line impossible to check against an invoice. Give each one its own row under the supplier it belongs to.",
+            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records. A line whose contracted amount cannot be traced to a document is an estimate wearing a contract's label."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "The catering line carries an estimate made before any conversation, a quote with an issue date and an expiry, a contracted amount referencing the signed agreement, a deposit already paid, a derived balance, and a due month set by the contract's final payment date. Beneath it sit separate lines for service charge and for the overtime rate. When the guest ceiling drops, the contracted amount changes and every downstream figure follows without anyone retyping a total."
+        },
+        {
+          "title": "Control check",
+          "body": "Before treating the budget as settled, confirm that every contracted amount has a document reference, that no estimate has been overwritten, that tax and service charge appear as their own lines, and that the month with the largest cash requirement has been checked against what will actually be available that month."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What columns should a wedding budget template have?",
+          "answer": "Estimate, quote received with its issue and expiry dates, contracted amount with a document reference, paid to date, balance outstanding, and the month the balance is due. Those six separate the states a line can be in, which is what makes the sheet answerable rather than just a total."
+        },
+        {
+          "question": "Should the estimate be replaced when the contract is signed?",
+          "answer": "No. Keep both. The gap between estimate and contracted amount on settled lines is the only evidence you have about whether your estimates on the unsettled lines are realistic, and overwriting removes it at exactly the point it becomes useful."
+        },
+        {
+          "question": "Why total the budget by month?",
+          "answer": "Because a budget that balances overall can still fail in one month. Venue balances, catering deposits, and final payments cluster together, and a category total hides that. A due-month total answers whether the money is available when it is actually required."
+        },
+        {
+          "question": "How should tax and service charge be recorded?",
+          "answer": "As their own lines beneath the supplier they belong to, never folded into the supplier's headline figure. Kept separate, each one can be checked directly against the invoice; folded in, the line cannot be reconciled at all."
+        }
+      ],
+      "semantic_key": "budget-spreadsheet:wedding-budget-template",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
+      "related_slugs": [
+        "wedding-budget-calculator",
+        "wedding-budget-spreadsheet-categories",
+        "wedding-vendor-payment-tracker",
+        "wedding-deposit-schedule",
+        "wedding-monthly-cash-flow"
+      ],
+      "hub_route": "/wedding-budget-spreadsheet"
+    },
+    {
+      "slug": "wedding-rehearsal-timeline",
+      "title": "Wedding Rehearsal Timeline",
+      "cluster": "Wedding timeline",
+      "product_id": "timeline-template",
+      "summary": "A ceremony rehearsal is a short working session with one purpose, which is to make sure every person who moves during the ceremony knows their cue without being told on the day.",
+      "answer": "A ceremony rehearsal is a short working session with one purpose, which is to make sure every person who moves during the ceremony knows their cue without being told on the day. Run it in under an hour by starting with the processional in reverse, setting positions before movement, walking the full sequence twice, and ending with the readings and handoffs, so that the people who have to act are the people who have practised rather than the people who were briefed.",
+      "steps": [
+        "Confirm the rehearsal slot with the venue in writing, because access for a rehearsal is often a separate permission from access on the day.",
+        "Set positions first: mark where the couple, officiant, and wedding party stand before anybody walks anywhere.",
+        "Build the processional in reverse by placing people at the front and sending them back down the aisle in order.",
+        "Walk the processional forward twice, at the real pace, with whoever is cueing the music present.",
+        "Rehearse the moments that involve an object changing hands: rings, readings, unity elements, and any document to be signed.",
+        "Confirm the recessional and where the wedding party goes immediately after it, which is the transition most often left undefined.",
+        "Name who cues the officiant, who cues the music, and who holds the rings, and say those names out loud to the group.",
+        "Close the rehearsal at a fixed time and give everyone the travel detail for the rehearsal dinner before dismissing them."
+      ],
+      "mistakes": [
+        "Rehearsing the walk but never the handoffs, so the ring exchange and the readings are the parts that stall during the real ceremony.",
+        "Letting the rehearsal expand into a social occasion, which loses the attention of the people who actually have a cue.",
+        "Rehearsing without whoever controls the music, so the processional pace is practised against silence and changes completely on the day.",
+        "Leaving the recessional undefined, so the wedding party exits and then stands in a doorway while guests try to leave behind them."
+      ],
+      "sections": [
+        {
+          "heading": "Set positions before anyone walks",
+          "paragraphs": [
+            "A ceremony rehearsal is a short working session with one purpose, which is to make sure every person who moves during the ceremony knows their cue without being told on the day. The fastest way to get there is to place people where they end up first, then work backward to how they arrived.",
+            "Standing positions resolve most of the questions people would otherwise ask mid-walk: which side, how far apart, who is holding what, and where the officiant stands relative to the couple. Once those are fixed, the processional becomes a matter of order and pace rather than a series of decisions made while walking."
+          ]
+        },
+        {
+          "heading": "Build the processional in reverse, then walk it forward twice",
+          "paragraphs": [
+            "Place everyone at the front in final position, then send them back down the aisle in reverse order. Each person now knows exactly where they are going because they have just come from there, and the order is established without anyone having to memorise a list.",
+            "Then walk it forward twice. Once to establish the sequence and once at the pace the music sets. Two passes is usually enough, and a third rarely improves anything, because attention drops sharply after the second."
+          ]
+        },
+        {
+          "heading": "Rehearse every moment where something changes hands",
+          "paragraphs": [
+            "The parts of a ceremony that stall are almost never the walking. They are the ring exchange, a reader who does not know when to approach, a unity element nobody has physically handled, and a licence or register that has to be signed with witnesses who were not told they were witnesses.",
+            "Walk each of those once. Say the name of the person who holds the rings out loud. Have the readers approach from where they will actually be sitting. Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors, because some of these moments depend on venue permissions rather than on preference."
+          ],
+          "bullets": [
+            "Who physically holds the rings, and where they keep them.",
+            "How and when each reader approaches, and from which seat.",
+            "Any unity element, handled once rather than described.",
+            "The register or licence signing, with the witnesses named.",
+            "Who cues the officiant to begin, and who cues the music."
+          ]
+        },
+        {
+          "heading": "Finish on time and hand off to the dinner",
+          "paragraphs": [
+            "A rehearsal that runs long borrows time from the rehearsal dinner, which usually has a booked table and a kitchen expecting a service time. Set an end time before you start and hold it.",
+            "Close by giving everyone the travel detail for the dinner: address, time, and how they are getting there. The gap between the ceremony site and the dinner is a common place for the group to fragment, and thirty seconds of instruction at the end of the rehearsal prevents it."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "The rehearsal is booked for a fixed hour. The first fifteen minutes set standing positions. The next ten build the processional in reverse. Two forward walks take twelve minutes with the music cue present. Twenty minutes cover the rings, two readings, and the signing with named witnesses. The last three minutes are the address and travel time for the dinner, and the group leaves together."
+        },
+        {
+          "title": "Control check",
+          "body": "Before ending the rehearsal, confirm that every person with a cue has heard their own name said out loud, that the recessional destination is known, that whoever controls the music was present for both forward walks, and that the venue has the rehearsal access confirmed in writing."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "How long should a wedding rehearsal take?",
+          "answer": "Under an hour is normal and sufficient for most ceremonies. Positions take about fifteen minutes, the processional built in reverse takes ten, two forward walks take a little over ten, and the handoffs take twenty. Attention drops sharply after that, so a longer rehearsal usually rehearses less."
+        },
+        {
+          "question": "What is the difference between a wedding rehearsal timeline and a rehearsal dinner timeline?",
+          "answer": "The rehearsal is the ceremony walk-through at the ceremony site, and its timeline is about positions, cues, and handoffs. The rehearsal dinner is a hosted meal afterwards, and its timeline is about arrival, seating, courses, and toasts. They run back to back, and the rehearsal overrunning is the most common reason the dinner starts late."
+        },
+        {
+          "question": "Who needs to attend the ceremony rehearsal?",
+          "answer": "Everyone who moves or speaks during the ceremony: the couple, the officiant, the wedding party, readers, anyone escorting, whoever holds the rings, and the witnesses to any signing. Whoever controls the music should also be there, because the processional pace is set by the music and rehearsing it in silence teaches the wrong pace."
+        },
+        {
+          "question": "Why rehearse the processional backwards?",
+          "answer": "Because placing everyone in their final position first and then sending them back down the aisle means each person walks away from the spot they are trying to reach. When they walk forward, they are returning somewhere they have already stood, so the order is established without anyone memorising it."
+        }
+      ],
+      "semantic_key": "timeline-template:wedding-rehearsal-timeline",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "rehearsal-dinner-timeline",
+        "rehearsal-dinner-checklist",
+        "church-ceremony-wedding-timeline",
+        "wedding-party-timeline",
+        "wedding-day-timeline-template"
+      ],
+      "hub_route": "/wedding-timeline-template"
+    },
+    {
+      "slug": "bridal-shower-checklist",
+      "title": "Bridal Shower Checklist",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "A bridal shower is somebody else's hosted event, so the checklist has to settle decision rights and who is paying before it settles anything about the party itself.",
+      "answer": "A bridal shower is somebody else's hosted event, so the checklist has to settle decision rights and who is paying before it settles anything about the party itself. Name the host, agree what the host decides and what the couple decides, apply the rule that shower invitees must already be wedding invitees, and set the date far enough from the wedding that it does not compete with the weeks when imposed deadlines cluster.",
+      "steps": [
+        "Name the host or hosts, and write down who is paying for what before any venue or date is discussed.",
+        "Agree which decisions belong to the host and which belong to the couple, particularly the guest list and the theme.",
+        "Build the guest list from the wedding list, applying the rule that anyone invited to the shower must already be invited to the wedding.",
+        "Choose a date that avoids the weeks holding wedding deadlines such as final headcount, stationery mailing, and final payments.",
+        "Confirm the venue and whether it permits outside food, decorations, or alcohol, since home and restaurant hosting differ on all three.",
+        "Send invitations with enough notice for guests who are travelling, and collect dietary requirements at the same time.",
+        "Plan gift logistics: who records who gave what, how gifts get home, and who is responsible for transporting them.",
+        "Hand the gift record to the couple the same day, while the association between gift and giver is still reliable."
+      ],
+      "mistakes": [
+        "Inviting someone to the shower who is not on the wedding guest list, which is the single most common cause of lasting offence around this event.",
+        "Leaving payment unspoken between multiple hosts until the bill arrives.",
+        "Scheduling the shower into a week that already holds a wedding deadline, so both are handled badly.",
+        "Relying on memory for the gift record, which makes accurate thank-you notes impossible within a week."
+      ],
+      "sections": [
+        {
+          "heading": "Settle hosting and money first",
+          "paragraphs": [
+            "A bridal shower is somebody else's hosted event, so the checklist has to settle decision rights and who is paying before it settles anything about the party itself. Showers are frequently hosted by more than one person, and the friction almost always comes from an unspoken assumption about who is covering what.",
+            "Write it down early and plainly: who is hosting, who is contributing, what each contribution covers, and who settles the bill on the day. That conversation is uncomfortable once and avoidable afterwards, and having it after a venue deposit has been paid makes it worse rather than easier."
+          ]
+        },
+        {
+          "heading": "The guest list rule that prevents the worst outcome",
+          "paragraphs": [
+            "Anyone invited to the shower should already be invited to the wedding. This is the rule worth holding even when the shower guest list is being built by someone who has not seen the wedding list, because a shower invitation reads as a signal about the wedding invitation that follows it.",
+            "That makes the wedding guest ceiling a hard input to the shower plan. If the ceiling has not been settled, the shower list cannot be built safely, and building it anyway is how people end up invited to one event and not the other."
+          ]
+        },
+        {
+          "heading": "Place the date against the wedding calendar, not against the season",
+          "paragraphs": [
+            "The weeks that hold wedding deadlines are already full. Final headcount, stationery mailing, final vendor payments, and licence collection all cluster, and dropping a hosted event into one of those weeks means something is handled badly.",
+            "Look at the wedding plan first and choose a clear window. Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event, because the shower venue may have its own booking terms that constrain the choice further."
+          ],
+          "bullets": [
+            "Avoid the week of the final headcount deadline.",
+            "Avoid the week stationery has to be addressed and mailed.",
+            "Avoid the weeks holding final vendor payments.",
+            "Leave a clear weekend between the shower and any other wedding-adjacent event."
+          ]
+        },
+        {
+          "heading": "Gifts are a records problem",
+          "paragraphs": [
+            "The party is straightforward. The part that goes wrong afterwards is the record: who gave what, so that thank-you notes are accurate and prompt. Assign one person to write it down as gifts are opened, not to reconstruct it later.",
+            "Decide before the day how gifts get home and who is carrying them, because this is regularly discovered at the end of a shower with a car that is too small and a host who has to store them."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Two hosts agree that one covers the venue and the other covers food and decorations, with the bar settled on the day by whoever booked it. The guest list is drawn directly from the wedding list, so no name appears that is not already invited to the wedding. The date is chosen for a weekend that holds no wedding deadline. One person records gifts as they are opened and hands the list over before everyone leaves."
+        },
+        {
+          "title": "Control check",
+          "body": "Before sending shower invitations, confirm that every name on the list is already on the wedding guest list, that the wedding guest ceiling has been settled, that hosting and payment are agreed in writing, and that the chosen date holds no wedding deadline."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Who hosts and pays for a bridal shower?",
+          "answer": "It is a hosted event, usually hosted by someone other than the couple, and frequently by more than one person together. Whoever hosts should agree in writing who is covering which costs and who settles the bill on the day, before a venue deposit is paid, because that is the point at which an unspoken assumption becomes an argument."
+        },
+        {
+          "question": "Can you invite someone to the bridal shower who is not invited to the wedding?",
+          "answer": "It is the mistake most likely to cause lasting offence, because a shower invitation reads as a signal about the wedding invitation. Build the shower list from the wedding list, which means the wedding guest ceiling has to be settled before the shower list can safely be built."
+        },
+        {
+          "question": "When should a bridal shower be scheduled?",
+          "answer": "In a window that holds no wedding deadline. Final headcount, stationery mailing, final vendor payments, and licence collection all cluster into particular weeks, and a hosted event dropped into one of them means either the shower or the deadline is handled badly."
+        },
+        {
+          "question": "How should gifts be recorded?",
+          "answer": "By one named person writing it down as each gift is opened, and handed to the couple the same day. Reconstructing the association between gift and giver a week later is unreliable, and it is the reason thank-you notes are late or wrong."
+        }
+      ],
+      "semantic_key": "checklist-pdf:bridal-shower-checklist",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "rehearsal-dinner-checklist",
+        "wedding-planning-timeline",
+        "wedding-vendor-booking-checklist",
+        "post-wedding-return-checklist",
+        "wedding-planning-binder"
+      ],
+      "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "wedding-emergency-kit",
+      "title": "Wedding Emergency Kit List",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "A wedding emergency kit should be packed by failure mode rather than by product category, and split into two bags because the getting-ready room and the venue need different things.",
+      "answer": "A wedding emergency kit should be packed by failure mode rather than by product category, and split into two bags because the getting-ready room and the venue need different things. Pack for the failures that actually occur, which are garment, body, paper, power, and weather, then name one person who carries each bag and one place each bag lives, because a complete kit nobody can find is the same as no kit at all.",
+      "steps": [
+        "List the failure modes rather than the products: garment damage, physical discomfort, paperwork, power and connectivity, and weather.",
+        "Pack a getting-ready bag for the preparation location, where most garment and body items are needed.",
+        "Pack a venue bag for the ceremony and reception, where paperwork, power, and weather items are needed.",
+        "Name one carrier for each bag and one fixed location where it lives once it arrives.",
+        "Put anything legally or contractually required, such as the marriage licence and vendor contracts, in the venue bag rather than in a pocket.",
+        "Add chargers and a battery pack matched to the actual devices in use, not a generic cable set.",
+        "Check every medication and personal item against the people who actually need them, and confirm who is carrying each.",
+        "Tell the wedding party and the coordinator where both bags are before the ceremony, not during a problem."
+      ],
+      "mistakes": [
+        "Packing one enormous bag that lives wherever it was last put down, so nobody can find it when something goes wrong.",
+        "Buying a generic kit and assuming it covers the specific garments, shoes, and devices actually being used.",
+        "Keeping the marriage licence in a jacket pocket or a handbag rather than in a named bag with a named carrier.",
+        "Filling the kit with items for scenarios that need a professional rather than a supply, which adds weight without adding capability."
+      ],
+      "sections": [
+        {
+          "heading": "Pack by failure mode",
+          "paragraphs": [
+            "A wedding emergency kit should be packed by failure mode rather than by product category, and split into two bags because the getting-ready room and the venue need different things. Category-based packing produces a bag full of plausible items and no coverage of the things that actually fail.",
+            "There are five modes worth planning for. Garment: a seam, a hem, a stain, a stuck zip, a broken strap. Body: blisters, headache, allergies, contact lenses, anything prescribed. Paper: the licence, vendor contacts, contracts, a printed timeline. Power: phones, a battery pack, the right cables. Weather: what the forecast actually says for that location on that day."
+          ],
+          "bullets": [
+            "Garment: safety pins, a small sewing kit in the right thread colours, fabric tape, a stain pen, a lint roller.",
+            "Body: blister plasters, pain relief, antihistamines, tissues, anything anybody in the party takes regularly.",
+            "Paper: marriage licence, vendor contact sheet, signed contracts, printed timeline.",
+            "Power: a charged battery pack and the specific cables the devices in use require.",
+            "Weather: umbrellas, flat shoes, a wrap, or sun protection, chosen against the actual forecast."
+          ]
+        },
+        {
+          "heading": "Two bags, because they live in different places",
+          "paragraphs": [
+            "The getting-ready location and the venue are usually different rooms and often different buildings. Most garment and body items are needed where people are dressing; paperwork, power, and weather items are needed where the ceremony and reception happen.",
+            "One combined bag means every item is in the wrong place half the time, and the bag travels between locations with whoever remembers it. Two smaller bags, each with a home, is more reliable than one comprehensive one."
+          ]
+        },
+        {
+          "heading": "A kit without a named carrier is not a plan",
+          "paragraphs": [
+            "The failure is almost never a missing item. It is that the bag containing the item is in a car, in a room that is now locked, or with someone who is currently walking down an aisle.",
+            "Name one carrier per bag and one fixed location where the bag lives once it arrives, then tell the wedding party and whoever is coordinating. Thirty seconds of instruction before the ceremony is what turns a packed bag into something usable during a problem."
+          ]
+        },
+        {
+          "heading": "What does not belong in the kit",
+          "paragraphs": [
+            "Anything for a scenario that needs a professional rather than a supply. A medical emergency needs a call, not a kit. A venue failure needs the coordinator and the venue's own staff. A missing supplier needs the contact sheet and a decision, not an item.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event, because some venues restrict what may be brought in, and a kit that cannot enter the building is not a kit."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "The getting-ready bag holds sewing supplies in the thread colours actually used, fabric tape, a stain pen, blister plasters, and the two prescriptions anybody in the party takes. It stays on a marked chair in the preparation room. The venue bag holds the licence, a printed vendor contact sheet, a charged battery pack with the right cables, and two umbrellas because the forecast says so. It lives with the coordinator, and the wedding party is told both locations before anyone gets dressed."
+        },
+        {
+          "title": "Control check",
+          "body": "Before the ceremony, confirm that both bags have arrived at their named locations, that a named person is responsible for each, that the marriage licence is in the venue bag rather than a pocket, and that at least two people other than the carrier know where each bag is."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What should be in a wedding emergency kit?",
+          "answer": "Items chosen against five failure modes rather than by category: garment repair, body comfort and medication, paperwork including the marriage licence and vendor contacts, power for the specific devices in use, and weather items chosen against the actual forecast for that location and date."
+        },
+        {
+          "question": "Should the emergency kit be one bag or two?",
+          "answer": "Two. Garment and body items are needed where people are dressing; paperwork, power, and weather items are needed at the venue. One combined bag puts half the contents in the wrong place all day and travels with whoever last remembered it."
+        },
+        {
+          "question": "Who should carry the wedding emergency kit?",
+          "answer": "One named person per bag, with one fixed location where each bag lives once it arrives, and both locations announced to the wedding party and the coordinator before the ceremony. The usual failure is not a missing item but a bag nobody can locate during the problem it was packed for."
+        },
+        {
+          "question": "What is the difference between an emergency kit and an emergency plan?",
+          "answer": "The kit is what is physically packed. The plan is who decides, who is called, and at what point a professional is involved. A kit handles small physical failures; anything medical, contractual, or structural needs the plan, and no amount of packing substitutes for it."
+        }
+      ],
+      "semantic_key": "checklist-pdf:wedding-emergency-kit",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "wedding-day-emergency-checklist",
+        "wedding-week-checklist",
+        "day-of-coordinator-checklist",
+        "wedding-vendor-list",
+        "backyard-wedding-checklist"
+      ],
+      "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "day-of-coordinator-checklist",
+      "title": "Day-of Wedding Coordinator Checklist",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "A day-of coordinator can only run what has been handed over, so the checklist is really a handover packet plus a written statement of what they are authorised to decide alone.",
+      "answer": "A day-of coordinator can only run what has been handed over, so the checklist is really a handover packet plus a written statement of what they are authorised to decide alone. Give them the frozen timeline, the vendor contact sheet, the signed contracts, the payment envelopes, the seating chart, the setup diagram, and a short list of decisions they may make without asking, because the value of the role is absorbing decisions rather than relaying them.",
+      "steps": [
+        "Book the handover meeting far enough ahead that anything missing can still be produced, not in the final week.",
+        "Hand over the frozen, dated timeline with role-specific versions already cut.",
+        "Hand over a vendor contact sheet with a name, a mobile number, an arrival time, and a load-in location for each supplier.",
+        "Hand over the signed contracts, so the coordinator can settle a scope dispute on the day without calling you.",
+        "Hand over labelled payment envelopes or a written payment schedule stating who is paid what, when, and by whom.",
+        "Hand over the seating chart and the setup diagram, including anything the venue must place rather than the coordinator.",
+        "Write down which decisions the coordinator may make alone, and which must escalate and to whom.",
+        "Agree the close-out: what comes back at the end of the night, to whom, and where it is stored."
+      ],
+      "mistakes": [
+        "Handing over a timeline that is still changing, so the coordinator runs a version nobody else received.",
+        "Giving contact details without arrival times or load-in locations, which turns the coordinator into a switchboard.",
+        "Leaving decision authority unstated, so every small question escalates to the couple during the parts of the day they should not be reachable.",
+        "Forgetting the close-out, so gifts, décor, hired items, and personal belongings are collected by nobody in particular."
+      ],
+      "sections": [
+        {
+          "heading": "The handover is the job",
+          "paragraphs": [
+            "A day-of coordinator can only run what has been handed over, so the checklist is really a handover packet plus a written statement of what they are authorised to decide alone. Everything a coordinator is worth on the day depends on what they received before it.",
+            "Book the handover early enough that anything missing can still be produced. A meeting in the final week discovers gaps at the point where the only remaining option is to run without them."
+          ],
+          "bullets": [
+            "The frozen, dated timeline, with role-specific versions already cut.",
+            "A vendor contact sheet: name, mobile, arrival time, load-in location.",
+            "Signed contracts for every supplier appearing on the day.",
+            "Payment envelopes or a written schedule of what is owed, when, and by whom.",
+            "Seating chart, escort card layout, and the setup diagram.",
+            "A written list of decisions the coordinator may make without asking."
+          ]
+        },
+        {
+          "heading": "Decision authority is what you are actually buying",
+          "paragraphs": [
+            "A coordinator who has to ask about everything has moved the interruptions rather than removed them, and the interruptions arrive during the parts of the day the couple should be unreachable.",
+            "Write the boundary down. Small timing shifts, seating adjustments, and supplier questions covered by contract should be theirs. Anything that costs money, changes the ceremony, or affects a named guest should escalate, and the list should say to whom, because it is usually not the couple."
+          ]
+        },
+        {
+          "heading": "Contracts, not summaries",
+          "paragraphs": [
+            "The most common on-the-day dispute is scope: a supplier believes something is excluded, or that overtime has begun, or that a service was never agreed. Only the contract settles it, and a coordinator holding a summary cannot settle anything.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event before the handover, so what the coordinator holds is current rather than an earlier draft."
+          ]
+        },
+        {
+          "heading": "Agree the close-out before the night starts",
+          "paragraphs": [
+            "The end of the night is when things are lost. Gifts, cards, hired items, personal belongings, leftover stationery, and anything that has to be returned by a deadline all need a named recipient and a destination.",
+            "Agree it in the handover: what comes back, to whom, in whose vehicle, and where it is stored. A hire return missed on the night usually becomes a charge, and a gift box left at a venue usually becomes a phone call the next morning."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "The handover happens with weeks in hand. The coordinator receives a dated timeline, a contact sheet listing each supplier's arrival time and load-in door, the signed contracts, five labelled payment envelopes with the times they are due, the seating chart, and a single page listing what they may decide alone. On the day the florist arrives late; the coordinator shifts two rows of the timeline within their stated authority, and nobody is called."
+        },
+        {
+          "title": "Control check",
+          "body": "Before the handover meeting ends, confirm that the timeline handed over is the frozen version, that every supplier on the contact sheet has an arrival time and a load-in location, that the escalation list names someone other than the couple, and that the close-out states who takes what home."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What should a day-of wedding coordinator receive at handover?",
+          "answer": "The frozen, dated timeline with role-specific versions cut, a vendor contact sheet with arrival times and load-in locations, the signed contracts, payment envelopes or a written payment schedule, the seating chart and setup diagram, and a written list of the decisions they may make without asking."
+        },
+        {
+          "question": "When should the handover meeting happen?",
+          "answer": "Early enough that anything missing can still be produced. A meeting in the final week discovers gaps at the point where the only option left is to run without them, which is when a coordinator becomes a switchboard rather than a decision-maker."
+        },
+        {
+          "question": "What decisions should a day-of coordinator be allowed to make alone?",
+          "answer": "Small timing shifts, seating adjustments, and any supplier question already covered by contract. Anything that costs money, changes the ceremony, or affects a named guest should escalate, and the escalation list should name someone other than the couple, because the value of the role is that the couple stays unreachable."
+        },
+        {
+          "question": "What is the close-out and why does it matter?",
+          "answer": "It is the written agreement about what comes back at the end of the night, to whom, in whose vehicle, and where it is stored: gifts, cards, hired items, personal belongings, and anything with a return deadline. Agreed in the handover it takes two minutes; left unstated it becomes a hire charge or a phone call the next morning."
+        }
+      ],
+      "semantic_key": "checklist-pdf:day-of-coordinator-checklist",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "wedding-vendor-list",
+        "wedding-week-checklist",
+        "wedding-final-payment-checklist",
+        "wedding-emergency-kit",
+        "wedding-planning-timeline"
+      ],
+      "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "rehearsal-dinner-timeline",
+      "title": "Rehearsal Dinner Timeline",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "A rehearsal dinner timeline should be anchored to the moment the ceremony rehearsal actually ends, because that is the variable everything else inherits.",
+      "answer": "A rehearsal dinner timeline should be anchored to the moment the ceremony rehearsal actually ends, because that is the variable everything else inherits. Set the invitation time from the rehearsal's end plus real travel, give the kitchen a service time it can hold, place the toasts against the courses rather than at the end, and name who closes the evening, so the people who have to be functional the next morning are released on purpose rather than by attrition.",
+      "steps": [
+        "Set the rehearsal's end time first and hold it, since the dinner inherits every minute it overruns.",
+        "Add real travel time between the ceremony site and the restaurant, checked at that time of day rather than estimated.",
+        "Set the invitation time from that arrival, and give guests who are not at the rehearsal a slightly later time so nobody waits in a doorway.",
+        "Agree a service time with the venue that the kitchen can actually hold, and confirm whether it is a set menu or ordered on the night.",
+        "Place the toasts deliberately: a welcome before or during the first course, and remaining remarks between courses rather than stacked at the end.",
+        "Name who speaks, in what order, and roughly for how long, and tell each of them in advance.",
+        "Set an end time and name who signals it, because a rehearsal dinner drifting late is the most common cause of a difficult wedding morning.",
+        "Confirm who settles the bill and how, before the meal rather than at the table."
+      ],
+      "mistakes": [
+        "Setting the invitation time from the rehearsal's scheduled end rather than its realistic end, so the whole evening starts late.",
+        "Stacking every toast at the end, which pushes the close of the evening past the point where anyone is listening.",
+        "Letting people speak without warning, which produces either silence or a speech nobody planned the length of.",
+        "Leaving the bill unsettled until the table is being cleared, in front of guests who did not need to see it."
+      ],
+      "sections": [
+        {
+          "heading": "Anchor to the rehearsal, not to the invitation",
+          "paragraphs": [
+            "A rehearsal dinner timeline should be anchored to the moment the ceremony rehearsal actually ends, because that is the variable everything else inherits. The rehearsal is the only part of the evening with a genuinely uncertain end time, and every minute it runs over is a minute taken from the dinner.",
+            "Set the rehearsal's end time in advance and hold it, then add travel checked at the real time of day. Rush hour between a ceremony site and a restaurant is a real constraint and a generic estimate will not capture it."
+          ]
+        },
+        {
+          "heading": "Give the kitchen a time it can hold",
+          "paragraphs": [
+            "Restaurants plan around a service time, and a group arriving forty minutes late for a set menu is a problem for the kitchen rather than a matter of patience. Agree the service time when booking and confirm whether the meal is a set menu, a limited menu, or ordered on the night, because each has a different tolerance for a late start.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event. A private room frequently comes with a minimum spend, a end time, and a decision about whether speeches are permitted at all."
+          ],
+          "bullets": [
+            "The agreed service time, and how late the kitchen can absorb.",
+            "Whether the menu is set, limited, or ordered on the night.",
+            "Any minimum spend and what counts toward it.",
+            "The room's own end time, which is often earlier than the restaurant's.",
+            "Whether speeches or a microphone are permitted."
+          ]
+        },
+        {
+          "heading": "Distribute the toasts across the courses",
+          "paragraphs": [
+            "Stacking every remark at the end guarantees the evening ends late and that the last speaker addresses a room that has stopped listening. Spread them: a short welcome as people are seated or during the first course, then one or two between courses.",
+            "Tell each speaker in advance that they are speaking, where in the meal, and roughly how long. Unwarned speakers produce either an awkward silence or a speech of unplanned length, and both are avoidable with one message sent a week earlier."
+          ]
+        },
+        {
+          "heading": "End the evening on purpose",
+          "paragraphs": [
+            "Everyone at this table has an early start and a role the next day. A rehearsal dinner that drifts is the most reliable predictor of a difficult wedding morning, and it drifts because nobody is responsible for ending it.",
+            "Name that person, set the end time, and settle the bill before the table is being cleared rather than in front of the guests. Then give people the next morning's call time and location as they leave, which is the moment they are most likely to retain it."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "The rehearsal is booked to end at a fixed time and does. Travel is checked for that hour and takes twenty-five minutes rather than the fifteen a map estimated. Guests not at the rehearsal are given a time fifteen minutes after the rehearsal party arrives. The kitchen has an agreed service time it can hold. A welcome toast lands during the first course, two more between courses, and a named person signals the close, having settled the bill twenty minutes earlier."
+        },
+        {
+          "title": "Control check",
+          "body": "Before the rehearsal dinner, confirm that the rehearsal's end time is agreed and enforceable, that travel time was checked at that hour, that the kitchen has a service time it can hold, that every speaker has been told in advance, and that one named person is responsible for closing the evening."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What time should a rehearsal dinner start?",
+          "answer": "Set it from the ceremony rehearsal's realistic end time plus travel checked at that hour, not from the rehearsal's scheduled end. The rehearsal is the only part of the evening with an uncertain finish, and every minute it overruns comes out of the dinner."
+        },
+        {
+          "question": "When should toasts happen at a rehearsal dinner?",
+          "answer": "Spread across the courses rather than stacked at the end. A short welcome as people are seated or during the first course, then one or two between courses. Stacking them at the end pushes the close past the point where anyone is listening, on a night when everyone has an early start."
+        },
+        {
+          "question": "How is a rehearsal dinner timeline different from a rehearsal dinner checklist?",
+          "answer": "The checklist settles what the event is: hosts, guests, venue, menu, budget, and who pays. The timeline settles how the evening runs: arrival, service time, the order of toasts, and who ends it. The checklist is planned weeks out; the timeline is what the hosts and the venue both hold on the night."
+        },
+        {
+          "question": "Who should end the rehearsal dinner?",
+          "answer": "One named person, at a set time. Everyone at the table has a role the next morning, and an evening that drifts is the most reliable predictor of a difficult wedding day. Settle the bill before the table is cleared and give people the next morning's call time as they leave."
+        }
+      ],
+      "semantic_key": "checklist-pdf:rehearsal-dinner-timeline",
+      "updated_at": "2026-08-27",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "rehearsal-dinner-checklist",
+        "wedding-rehearsal-timeline",
+        "wedding-week-checklist",
+        "bridal-shower-checklist",
+        "wedding-party-timeline"
+      ],
+      "hub_route": "/wedding-checklist"
     }
   ],
   "generated_at": "2026-08-27"
