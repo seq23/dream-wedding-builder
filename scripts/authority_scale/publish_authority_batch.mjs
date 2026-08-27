@@ -87,29 +87,28 @@ const existingKeys = new Set(doc.pages.map((p) => p.semantic_key));
 // ready queue may be released at once, and if the queue is empty they do nothing.
 const dailyCeiling = Number(gov.current_default_new_page_ceiling_per_day || 15);
 
-// A run counts toward the budget only for pages that still exist.
+// Capacity is measured against the REGISTRY, not against this script's own ledger.
 //
-// The ledger recorded 45 creations across 2026-08-25/26/27 that were retired the
-// same week for being unrenderable. Counted at face value they spend the cadence
-// budget forever on pages nobody can read, which would keep this job idle for the
-// wrong reason - the exact opposite failure to the one being fixed. So the budget
-// is computed against the registry rather than against the ledger's own claims:
-// a run with a slugs[] list counts the slugs that are actually in the registry
-// today, and a legacy run with no slugs[] is counted as retracted, because the only
-// pages ever written without one were the 45 that were removed.
-const creditFor = (r) => {
-  if (!Array.isArray(r.slugs)) return { credited: 0, retracted: Number(r.created || 0) };
-  const live = r.slugs.filter((s) => existingSlugs.has(s)).length;
-  return { credited: live, retracted: Number(r.created || 0) - live };
-};
-const inWindow = (r, since) => String(r.date || r.run_at || '').slice(0, 10) >= since;
+// The ledger only knows what this script published. Ten of the guides in the
+// library this week were written by hand and never passed through it, so a
+// ledger-based budget saw an empty week and would have released five more on top of
+// them - the cadence policy silently applying to one author and not the other. It
+// also had to reason about 45 entries it recorded as created and that were retired
+// days later, which is bookkeeping about pages that no longer exist.
+//
+// updated_at on a live registry entry answers both cleanly: it counts every guide
+// the library actually gained, whoever wrote it, and a retired guide is simply not
+// there to count. A refresh consumes the same budget as a new page, which is
+// correct - scripts/cadence/derive_capacity.mjs measures one throughput figure
+// because authoring a guide and substantively refreshing one are the same unit of
+// work.
 const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
-const publishedToday = (ledger.runs || []).filter((r) => inWindow(r, today)).reduce((n, r) => n + creditFor(r).credited, 0);
-const publishedThisWeek = (ledger.runs || []).filter((r) => inWindow(r, weekAgo)).reduce((n, r) => n + creditFor(r).credited, 0);
-const retractedThisWeek = (ledger.runs || []).filter((r) => inWindow(r, weekAgo)).reduce((n, r) => n + creditFor(r).retracted, 0);
+const livePages = doc.pages.filter(isComplete);
+const changedToday = livePages.filter((p) => String(p.updated_at || '') === today).length;
+const changedThisWeek = livePages.filter((p) => String(p.updated_at || '') >= weekAgo).length;
 const weeklyCap = Number(cadence.new_pages_per_week ?? Infinity);
-const dailyRemaining = Math.max(0, dailyCeiling - publishedToday);
-const weeklyRemaining = Number.isFinite(weeklyCap) ? Math.max(0, weeklyCap - publishedThisWeek) : Infinity;
+const dailyRemaining = Math.max(0, dailyCeiling - changedToday);
+const weeklyRemaining = Number.isFinite(weeklyCap) ? Math.max(0, weeklyCap - changedThisWeek) : Infinity;
 const budget = Math.min(dailyRemaining, weeklyRemaining);
 
 // ---------------------------------------------------------------------------
@@ -301,6 +300,7 @@ if (releasing.length) {
     daily_ceiling: dailyCeiling,
     weekly_cap: Number.isFinite(weeklyCap) ? weeklyCap : null,
     budget_before_run: Number.isFinite(budget) ? budget : null,
+    library_changed_this_week_before_run: changedThisWeek,
   });
   write(ledgerPath, ledger);
 }
@@ -317,8 +317,8 @@ const summary = {
   budget_this_run: Number.isFinite(budget) ? budget : null,
   daily_ceiling: dailyCeiling,
   weekly_cap: Number.isFinite(weeklyCap) ? weeklyCap : null,
-  published_this_week_before_run: publishedThisWeek,
-  retracted_in_window: retractedThisWeek,
+  guides_added_or_refreshed_this_week: changedThisWeek,
+  guides_added_or_refreshed_today: changedToday,
   similarity_ceiling: CEILING,
   registry_written: releasing.length > 0,
   total_guides: doc.pages.length,
@@ -331,7 +331,7 @@ if (releasing.length) {
   // The important line. This is a success, and it says why, so nobody reads a
   // green run with 0 pages as a silent failure.
   const why = admitted.length && budget <= 0
-    ? `${admitted.length} seed(s) are ready but this week's cadence budget is spent (${publishedThisWeek}/${weeklyCap} live pages published in the last 7 days).`
+    ? `${admitted.length} seed(s) are ready but this week's cadence budget is spent: ${changedThisWeek} of ${weeklyCap} guides were added or refreshed in the last 7 days, by any author.`
     : seeds.length === 0
       ? 'data/authority/editorial_seeds.json holds no seeds.'
       : `No seed is ready to publish. ${skipped.length} skipped, ${held.length} held for rewrite, ${queue.length} topic(s) awaiting authoring.`;

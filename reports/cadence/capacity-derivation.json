@@ -7,14 +7,14 @@
   "first_content_commit": "2026-07-10",
   "authoring_weeks": 6.9,
   "repo_age_weeks": 13.6,
-  "renderable_guides_now": 69,
-  "sustained_throughput_per_week": 10.06,
-  "throughput_if_measured_from_repo_start": 5.08,
+  "renderable_guides_now": 79,
+  "sustained_throughput_per_week": 11.52,
+  "throughput_if_measured_from_repo_start": 5.82,
   "window_choice": "Measured from the first commit that created content, not from the first commit in the repo. The registry did not exist for the first weeks of this repo and no guide could have been written in them, so including them measures setup time as authoring time and understates capacity by roughly half.",
   "best_single_interval_per_week": 78.17,
   "why_not_the_burst": "The best interval is a one-off bulk authoring event. Building a schedule on it guarantees the schedule is missed, which is how a cadence turns into a quota.",
-  "authoring_events_observed": 3,
-  "refresh_capacity_per_week": 10,
+  "authoring_events_observed": 5,
+  "refresh_capacity_per_week": 11,
   "new_pages_per_week": 5,
   "series": [
     {
@@ -53,9 +53,19 @@
       "renderable": 67
     },
     {
+      "sha": "a68b9864f273137e9d44a39291db341fc42d0b3a",
+      "date": "2026-08-27",
+      "renderable": 77
+    },
+    {
       "sha": "d551b3dba2328d57b80c101d4d6514f52061ff19",
       "date": "2026-08-27",
       "renderable": 69
+    },
+    {
+      "sha": "977ae15e98f93e7e4e0b77e861d24ec6e95c5c58",
+      "date": "2026-08-27",
+      "renderable": 79
     }
   ]
 }
