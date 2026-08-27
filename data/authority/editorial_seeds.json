@@ -1,0 +1,178 @@
+{
+  "schema_version": "1.0",
+  "note": "The authored half of a guide. data/authority/guide_composition_spec.json supplies everything structural; these three sentences supply the subject. scripts/authority_scale/publish_authority_batch.mjs composes a full registry record from a seed and publishes it; a topic with no seed here is emitted as a draft for authoring, never as a page.",
+  "authoring_rules": [
+    "summary states what is actually true about the subject, and says what is unknown rather than filling it in.",
+    "recommendation is what to do about it, in the order it has to be done.",
+    "working_example must be self-evident arithmetic or an explicitly hedged illustration. Never a price, a statistic, a local rule, a vendor claim, or a duration presented as fact. Every one of the 67 shipping guides that carries a figure carries it with the hedge attached, and that is the pattern to keep.",
+    "A seed whose composed record scores above the observed human ceiling against any existing guide is held, not published. The ceiling is measured, not chosen - see publish_authority_batch.mjs."
+  ],
+  "cluster_assignment": {
+    "decision": "reassign_to_owned_domains",
+    "decided_on": "2026-08-27",
+    "why": "37 of the 45 retired backlog entries resolved to operations-suite, a $39 bundle SKU whose catalog entry has no domain and routes to /shop. Giving it a hub would mean standing up a fifth domain, hub page, sitemap and Search Console property - a purchasing and infrastructure decision, not something a content generator should invent a route for. It would also put bundle-branded guides in competition with the four SKU domains for the same queries. Every topic in the backlog is genuinely a facet of one of the four jobs already sold, so each is assigned to the cluster whose scaffold actually applies to it - meaning its four standing mistakes and its verification boundary are true of the topic. Assignment is by whether the scaffold fits, never by load balancing.",
+    "operations_suite_status": "unchanged and still sold at /shop as a bundle of the four products. No page or property was retired; it simply stops being used as a content destination, which it never was.",
+    "map": {
+      "wedding guest list": { "cluster": "Wedding seating chart", "why": "headcount and household rules are the guest record itself, which is what the seating scaffold governs" },
+      "wedding invitations": { "cluster": "Wedding seating chart", "why": "RSVP tracking is person-level guest data; the seating scaffold's mistakes about one source of truth and household-versus-person reconciliation are exactly the failure mode" },
+      "wedding meal planning": { "cluster": "Wedding seating chart", "why": "meal and allergy fields live on the guest row in this product; the seating verification boundary about catering handoff is the operative one" },
+      "wedding day logistics": { "cluster": "Wedding timeline", "why": "movement between fixed times with named handoffs is the timeline scaffold's subject" },
+      "wedding reception planning": { "cluster": "Wedding timeline", "why": "reception flow is a sequencing problem against service timing" },
+      "wedding music planning": { "cluster": "Wedding timeline", "why": "cues are timed handoffs with owners" },
+      "wedding photography planning": { "cluster": "Wedding timeline", "why": "coverage is scheduled against ceremony and light; already partly covered by wedding-photography-timeline, so any new seed must be a distinct question" },
+      "wedding venue planning": { "cluster": "Wedding checklist", "why": "capacity, access, curfew and vendor rules are confirmations with owners and deadlines" },
+      "wedding vendor selection": { "cluster": "Wedding checklist", "why": "scope, contract terms and lead times are checklist confirmations" },
+      "wedding ceremony planning": { "cluster": "Wedding checklist", "why": "officiant authority, documents and required sequence are requirements to verify" },
+      "accessible wedding planning": { "cluster": "Wedding checklist", "why": "access needs are requirements confirmed against a venue, with the checklist boundary about verifying venue rules" },
+      "cultural wedding planning": { "cluster": "Wedding checklist", "why": "traditions carry requirements and decision authority that must be confirmed, not assumed" },
+      "elopement planning": { "cluster": "Wedding checklist", "why": "licence, officiant and witness rules are legal deadlines, which the checklist boundary names explicitly" },
+      "destination wedding planning": { "cluster": "Wedding checklist", "why": "travel, lodging and local constraints are deadline-bearing confirmations; the weekend itinerary side is already covered in the timeline cluster" },
+      "wedding contingency planning": { "cluster": "Wedding checklist", "why": "a contingency is a pre-decided trigger with an owner and a deadline" },
+      "wedding attire planning": { "cluster": "Wedding checklist", "why": "order, fitting and alteration lead times are deadline items" },
+      "wedding decor planning": { "cluster": "Wedding checklist", "why": "venue installation rules, setup windows and teardown ownership are confirmations" },
+      "wedding registry planning": { "cluster": "Wedding checklist", "why": "registry setup is a scoped task list with a communication deadline" },
+      "family dynamics at weddings": { "cluster": "Wedding checklist", "why": "decision rights and boundaries are ownership questions, which the checklist scaffold's mistake about one accountable owner addresses directly" },
+      "micro wedding planning": { "cluster": "Wedding checklist", "why": "already covered by micro-wedding-checklist; further seeds must be distinct questions" },
+      "wedding planning": { "cluster": "Wedding checklist", "why": "the general case is the master checklist" },
+      "DIY wedding planning": { "cluster": "Wedding budget", "why": "the real DIY question is whether labour, storage and transport make the saving real, which is a cost-tradeoff the budget scaffold governs" },
+      "wedding budget": { "cluster": "Wedding budget", "why": "already owned" },
+      "wedding checklist": { "cluster": "Wedding checklist", "why": "already owned" },
+      "wedding seating chart": { "cluster": "Wedding seating chart", "why": "already owned" },
+      "wedding timeline": { "cluster": "Wedding timeline", "why": "already owned" }
+    }
+  },
+  "seeds": [
+    {
+      "slug": "wedding-guest-list-headcount-control",
+      "title": "Wedding Guest List and Headcount Control",
+      "cluster": "Wedding seating chart",
+      "source_topic": "wedding guest list",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "A guest list is a capacity decision before it is an invitation decision, because the venue-approved maximum, the per-guest cost, and the household rules together set how many names it can hold.",
+      "recommendation": "Fix the capacity ceiling first, build the list at household level with a priority tier on every name, track declines before releasing held seats, and keep one person-level record so headcount, meals, and seating all read from the same source.",
+      "working_example": "Example: if the venue-approved seated maximum is 120 and forty invited households average 2.4 people, the list stands at roughly 96 before a single individual invitation is added; the arithmetic shows the remaining room, and the venue's own seated number decides the ceiling."
+    },
+    {
+      "slug": "wedding-rsvp-tracking-system",
+      "title": "Wedding RSVP Tracking System",
+      "cluster": "Wedding seating chart",
+      "source_topic": "wedding invitations",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "RSVP tracking fails at the household boundary, because invitations are addressed to households while meals, seating, and accessibility are recorded per person, and one response field cannot carry both.",
+      "recommendation": "Send from a cleaned household list, hold one row per invited person, capture meal, allergy, and accessibility answers on that same row, set one deadline with a named follow-up owner, and reconcile household totals against person-level responses before closing the count.",
+      "working_example": "Example: a household invited as two adults and one child is three person rows, so a single household-level yes still leaves two rows unresolved; counting that as one response is how a final headcount drifts away from the seated count."
+    },
+    {
+      "slug": "wedding-meal-count-dietary-tracking",
+      "title": "Wedding Meal Counts and Dietary Tracking",
+      "cluster": "Wedding seating chart",
+      "source_topic": "wedding meal planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "Meal counts are a guest-record problem rather than a catering one, because the kitchen needs both a total and a breakdown by selection and restriction, and both have to survive every late RSVP change.",
+      "recommendation": "Keep meal choice, allergy, and dietary restriction on the guest row instead of a separate list, reconcile selections against confirmed attendance before the caterer's count deadline, and reissue one dated breakdown each time a change lands.",
+      "working_example": "Example: 118 confirmed guests with 62 choosing one entree and 54 another leaves two rows unresolved, and a guaranteed-count deadline will bill those two as whatever the contract names as the default; the contract decides that, not the spreadsheet."
+    },
+    {
+      "slug": "wedding-day-logistics-timeline",
+      "title": "Wedding Day Logistics Timeline",
+      "cluster": "Wedding timeline",
+      "source_topic": "wedding day logistics",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "Day-of logistics is the movement of people, vehicles, and materials between times that cannot move, and it breaks at the handoffs between those events far more often than inside them.",
+      "recommendation": "Anchor the schedule to the fixed times first, work backward through travel, load-in, and setup, put a named owner on every handoff, and state the buffer between transitions rather than leaving it implied.",
+      "working_example": "Example: a four o'clock ceremony behind a transfer and a vendor load-in cannot start from an arrival time chosen by preference; add the confirmed transfer duration for that route and day, plus the load-in window the vendor contract states, and read the latest safe departure off the total."
+    },
+    {
+      "slug": "wedding-reception-flow-timeline",
+      "title": "Wedding Reception Flow Timeline",
+      "cluster": "Wedding timeline",
+      "source_topic": "wedding reception planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "A reception timeline manages guest attention and kitchen capacity at the same time, and the two collide whenever a speech and a course are scheduled into the same window.",
+      "recommendation": "Sequence arrival, seating, service, speeches, and entertainment so that no two compete for the room, check each block against the caterer's own service timing, and name the person who cues every transition.",
+      "working_example": "Example: three speeches of four minutes each is twelve minutes of speaking but noticeably longer once handoffs and applause are included, which can consume a full service window; the caterer's stated timing decides whether it actually fits."
+    },
+    {
+      "slug": "wedding-music-cue-sheet",
+      "title": "Wedding Music and Cue Sheet",
+      "cluster": "Wedding timeline",
+      "source_topic": "wedding music planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "Music problems on the day are usually ownership problems rather than taste problems, because the unresolved question is who presses play, on whose equipment, at which cue.",
+      "recommendation": "List every cue in event order with the moment it starts and stops, name one owner per cue, confirm in writing what sound equipment the venue actually supplies, and keep an offline copy of every required track.",
+      "working_example": "Example: a processional needs a start cue, a hold for a walk of unpredictable length, and a stop cue, so one song title is really three instructions; venue sound restrictions and supplied equipment have to be confirmed rather than assumed."
+    },
+    {
+      "slug": "wedding-venue-selection-checklist",
+      "title": "Wedding Venue Selection Checklist",
+      "cluster": "Wedding checklist",
+      "source_topic": "wedding venue planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "A venue is a set of constraints before it is a look, and capacity, access, curfew, vendor rules, and the weather fallback decide more about the day than the photographs do.",
+      "recommendation": "Confirm the seated capacity with the intended layout, the accessibility and load-in routes, the curfew and noise limits, any exclusive-vendor requirement, and what the weather fallback actually seats, all in writing, before comparing venues on anything else.",
+      "working_example": "Example: a room described by its standing capacity will seat fewer people once tables, a dance floor, and service clearances are placed, so ask for the seated-with-dancing figure specifically and have it written into the contract."
+    },
+    {
+      "slug": "accessible-wedding-planning-checklist",
+      "title": "Accessible Wedding Planning Checklist",
+      "cluster": "Wedding checklist",
+      "source_topic": "accessible wedding planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "Accessibility is a design input rather than a late accommodation, because routes, seating, sightlines, sound, and dietary needs all constrain decisions that lock early in planning.",
+      "recommendation": "Ask about access needs at invitation time, walk the whole route from parking to seat to restroom yourself, confirm exactly what the venue's accessibility description covers, and record every need against the guest it belongs to.",
+      "working_example": "Example: an accessible entrance does not guarantee a step-free path onward to the ceremony space or the restrooms; walking the full route is what confirms it, and a venue listing is not a substitute for that walk."
+    },
+    {
+      "slug": "elopement-planning-checklist",
+      "title": "Elopement Planning Checklist",
+      "cluster": "Wedding checklist",
+      "source_topic": "elopement planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "An elopement removes guests and production but not legal requirements, because the licence, the officiant's authority, and the witness rules still decide whether the marriage is valid.",
+      "recommendation": "Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel.",
+      "working_example": "Example: licence validity windows, waiting periods, and required witness counts vary by jurisdiction and change over time, so confirm the current rule with the issuing office for your location rather than relying on any general guide, this one included."
+    },
+    {
+      "slug": "wedding-rain-plan-checklist",
+      "title": "Wedding Rain Plan Checklist",
+      "cluster": "Wedding checklist",
+      "source_topic": "wedding contingency planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "A rain plan is only real when the trigger, the backup space, the decision-maker, and the decision deadline have all been settled before the day itself.",
+      "recommendation": "Write down the specific condition that triggers the move, confirm what the backup space seats under the same layout, name who makes the call and by when, and check what the change costs in vendor and rental terms.",
+      "working_example": "Example: a backup room that holds the same headcount without room for a dance floor is not the same plan, so compare the fallback against the actual layout and confirm the decision deadline each vendor needs in order to switch."
+    },
+    {
+      "slug": "diy-wedding-cost-tradeoffs",
+      "title": "DIY Wedding Cost Tradeoffs",
+      "cluster": "Wedding budget",
+      "source_topic": "DIY wedding planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials.",
+      "recommendation": "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
+      "working_example": "Example: a centrepiece whose materials cost less than a florist's quote can still cost more once build hours, storage, and day-of setup labour are counted; the comparison only means something against a real written quote."
+    },
+    {
+      "slug": "wedding-attire-lead-time-checklist",
+      "title": "Wedding Attire Lead Time Checklist",
+      "cluster": "Wedding checklist",
+      "source_topic": "wedding attire planning",
+      "status": "ready",
+      "authored_on": "2026-08-27",
+      "summary": "Attire is governed by lead times that are set by other people, because the order window, the alteration schedule, and the final fitting each depend on a supplier's calendar rather than yours.",
+      "recommendation": "Get the order and alteration lead times in writing from each supplier, schedule the final fitting close enough to the date that the fit still holds, and plan transport, steaming, and emergency repair before the week of the wedding.",
+      "working_example": "Example: an order lead time and an alteration window are two separate waits that run in sequence, not together, so confirm both dates with the supplier and count backward from the wedding rather than forward from the order."
+    }
+  ]
+}

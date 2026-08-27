@@ -975,6 +975,32 @@
       "hub_route": "/wedding-checklist",
       "status": "admitted",
       "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "wedding guest list and headcount control",
+      "semantic_key": "seating-chart-maker:wedding-guest-list-headcount-control",
+      "cluster": "Wedding seating chart",
+      "domain": "weddingseatingchartmaker.com",
+      "product_id": "seating-chart-maker",
+      "route": "/guides/wedding-guest-list-headcount-control",
+      "entity": "Wedding Guest List and Headcount Control",
+      "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
+      "status": "admitted",
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
+    },
+    {
+      "query": "wedding rsvp tracking system",
+      "semantic_key": "seating-chart-maker:wedding-rsvp-tracking-system",
+      "cluster": "Wedding seating chart",
+      "domain": "weddingseatingchartmaker.com",
+      "product_id": "seating-chart-maker",
+      "route": "/guides/wedding-rsvp-tracking-system",
+      "entity": "Wedding RSVP Tracking System",
+      "conversion_route": "/products/seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
+      "status": "admitted",
+      "source_requirement": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
     }
   ]
 }

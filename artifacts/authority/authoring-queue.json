@@ -1,0 +1,384 @@
+{
+  "schema_version": "1.0",
+  "run_at": "2026-08-27T15:45:06.071Z",
+  "note": "Backlog topics that now have a home but not yet an author. Each needs three sentences; the other twelve fields are composed. This file is the replacement for a generator that refused and failed the build.",
+  "topics_awaiting_authoring": 25,
+  "seeds_ready_not_yet_released": 10,
+  "queue": [
+    {
+      "topic": "cultural wedding planning",
+      "intent": "cultural wedding planning checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "traditions carry requirements and decision authority that must be confirmed, not assumed",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "cultural wedding planning",
+      "intent": "how to plan cultural wedding planning",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "traditions carry requirements and decision authority that must be confirmed, not assumed",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "destination wedding planning",
+      "intent": "destination wedding planning checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "travel, lodging and local constraints are deadline-bearing confirmations; the weekend itinerary side is already covered in the timeline cluster",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "destination wedding planning",
+      "intent": "how to plan destination wedding planning",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "travel, lodging and local constraints are deadline-bearing confirmations; the weekend itinerary side is already covered in the timeline cluster",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "family dynamics at weddings",
+      "intent": "family dynamics at weddings checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "decision rights and boundaries are ownership questions, which the checklist scaffold's mistake about one accountable owner addresses directly",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "family dynamics at weddings",
+      "intent": "how to plan family dynamics at weddings",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "decision rights and boundaries are ownership questions, which the checklist scaffold's mistake about one accountable owner addresses directly",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "micro wedding planning",
+      "intent": "how to plan micro wedding planning",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "already covered by micro-wedding-checklist; further seeds must be distinct questions",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "micro wedding planning",
+      "intent": "micro wedding planning checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "already covered by micro-wedding-checklist; further seeds must be distinct questions",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding budget",
+      "intent": "how to plan wedding budget",
+      "assigned_cluster": "Wedding budget",
+      "assignment_reason": "already owned",
+      "product_id": "budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding budget\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding budget",
+      "intent": "wedding budget checklist",
+      "assigned_cluster": "Wedding budget",
+      "assignment_reason": "already owned",
+      "product_id": "budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding budget\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding ceremony planning",
+      "intent": "how to plan wedding ceremony planning",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "officiant authority, documents and required sequence are requirements to verify",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding ceremony planning",
+      "intent": "wedding ceremony planning checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "officiant authority, documents and required sequence are requirements to verify",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding checklist",
+      "intent": "how to plan wedding checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "already owned",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding checklist",
+      "intent": "wedding checklist checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "already owned",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding decor planning",
+      "intent": "how to plan wedding decor planning",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "venue installation rules, setup windows and teardown ownership are confirmations",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding photography planning",
+      "intent": "how to plan wedding photography planning",
+      "assigned_cluster": "Wedding timeline",
+      "assignment_reason": "coverage is scheduled against ceremony and light; already partly covered by wedding-photography-timeline, so any new seed must be a distinct question",
+      "product_id": "timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding timeline\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding planning",
+      "intent": "how to plan wedding planning",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "the general case is the master checklist",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding planning",
+      "intent": "wedding planning checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "the general case is the master checklist",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding registry planning",
+      "intent": "how to plan wedding registry planning",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "registry setup is a scoped task list with a communication deadline",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding seating chart",
+      "intent": "how to plan wedding seating chart",
+      "assigned_cluster": "Wedding seating chart",
+      "assignment_reason": "already owned",
+      "product_id": "seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding seating chart\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding seating chart",
+      "intent": "wedding seating chart checklist",
+      "assigned_cluster": "Wedding seating chart",
+      "assignment_reason": "already owned",
+      "product_id": "seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding seating chart\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding timeline",
+      "intent": "how to plan wedding timeline",
+      "assigned_cluster": "Wedding timeline",
+      "assignment_reason": "already owned",
+      "product_id": "timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding timeline\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding timeline",
+      "intent": "wedding timeline checklist",
+      "assigned_cluster": "Wedding timeline",
+      "assignment_reason": "already owned",
+      "product_id": "timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding timeline\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding vendor selection",
+      "intent": "how to plan wedding vendor selection",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "scope, contract terms and lead times are checklist confirmations",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding vendor selection",
+      "intent": "wedding vendor selection checklist",
+      "assigned_cluster": "Wedding checklist",
+      "assignment_reason": "scope, contract terms and lead times are checklist confirmations",
+      "product_id": "checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    }
+  ]
+}

@@ -1,235 +1,343 @@
 #!/usr/bin/env node
+// Publish the guides that are ready. Draft the ones that are not. Never invent one.
+//
+// History this replaces
+// ---------------------
+// Between 2026-07-30 and 2026-08-27 this script emitted ten fields per record when
+// app/guides/[slug]/page.tsx needed fifteen, so it wrote 15 unrenderable entries a
+// day for 28 days while the number of guides that actually served 200 stayed at 67.
+// On 2026-08-27 it was changed to refuse rather than write junk, which was correct
+// and also guaranteed the daily cron failed every single day: 5 candidates, 0
+// written, exit 1.
+//
+// Both states came from the same mistake - treating a fan-out query string as if it
+// were content. It is not. It is a question with no answer attached. The generator
+// could compose the structure around an answer perfectly well; what it never had was
+// the answer.
+//
+// What changed
+// ------------
+// data/authority/guide_composition_spec.json records what a guide in this library
+// actually is, derived from the 67 that ship rather than invented: every structural
+// field is a pure function of the cluster and the title, and exactly three sentences
+// per guide carry judgement about the subject. derive_composition_spec.mjs proves it
+// by recomposing all 67 from those three sentences, byte-identically.
+//
+// So the three sentences are the input, not the output. They live in
+// data/authority/editorial_seeds.json, written by a person. This script composes the
+// other twelve fields around them, checks the result against the predicate the router
+// applies and against the library's own measured similarity ceiling, and publishes.
+//
+// The three states, and why only one of them is a failure
+// -------------------------------------------------------
+//   published   a seed was ready and passed every check                    exit 0
+//   idle        no seed is ready, or the cadence budget is spent           exit 0
+//   broken      a seed is malformed, or a composed record fails the        exit 1
+//               router's own predicate - meaning this script has a bug
+//
+// "Nothing to publish" is a correct outcome and reports as one. A library with no
+// unwritten material is a library that is caught up. The failure mode being guarded
+// against is the opposite one: a scheduled job that treats an empty queue as pressure
+// to produce something, which is exactly how 45 skeletons got written.
+//
+// Unseeded topics are not refused into a void either - they are composed as far as
+// they can honestly be composed and written to artifacts/authority/authoring-queue.json
+// with the three missing sentences named. That is a small, explicit human step, not a
+// dead end.
+
 import fs from 'node:fs';
 import path from 'node:path';
-import zlib from 'node:zlib';
 
 import { findPlaceholders, isComplete, missingRequiredFields } from '../../lib/authority-complete.mjs';
-const root=process.cwd();
-const read=p=>JSON.parse(fs.readFileSync(path.join(root,p),'utf8'));
-const write=(p,v)=>{const f=path.join(root,p);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(v,null,2)+'\n');};
-const idx=read('data/authority_scale/fanout_100k/index.json');
-const gov=read('data/authority_scale/velocity_governor.json');
-const velocityDecision=fs.existsSync(path.join(root,'data/authority_scale/velocity_decision.json'))?read('data/authority_scale/velocity_decision.json'):{};
-const doc=read('data/authority/content_registry.json');
-const existingSlugs=new Set(doc.pages.map(p=>p.slug));
-const existingTitles=new Set(doc.pages.map(p=>String(p.title||'').trim().toLowerCase()));
-const ledgerPath='data/authority_scale/publication_ledger.json';
-const ledger=fs.existsSync(path.join(root,ledgerPath))?read(ledgerPath):{schema_version:'1.1',published_ids:[],runs:[]};
-const used=new Set(ledger.published_ids||[]);
-const today=new Date().toISOString().slice(0,10);
-const alreadyToday=(ledger.runs||[]).filter(r=>String(r.run_at||'').startsWith(today)).reduce((n,r)=>n+Number(r.created||0),0);
-const dailyCeiling=Number(velocityDecision.recommended_new_url_ceiling_per_day||gov.current_default_new_page_ceiling_per_day||15);
-const remaining=Math.max(0,dailyCeiling-alreadyToday);
-const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90);
-const titleCase=s=>String(s).replace(/\b\w/g,c=>c.toUpperCase());
-const productFor=t=>t.includes('seat')?'seating-chart-maker':t.includes('budget')||t.includes('payment')?'budget-spreadsheet':t.includes('timeline')||t.includes('schedule')||t.includes('run of show')?'timeline-template':t.includes('checklist')||t.includes('emergency')?'checklist-pdf':'operations-suite';
-const allowedIntents=new Set(['how to plan {topic}','{topic} checklist','{topic} decision guide','{topic} step by step','how to organize {topic}','how to simplify {topic}','{topic} workflow','{topic} framework','{topic} FAQ']);
-function topicProfile(topic){
-  const t=String(topic).toLowerCase();
-  const profiles=[
-    [/seating chart|seating conflicts/,{focus:'table capacity, relationship dynamics, accessibility, and a stable seat-assignment version',inputs:['final-ish guest attendance','table shapes and capacities','household or relationship constraints','mobility and accessibility needs'],pitfalls:['splitting linked households without intent','placing high-conflict guests together','changing table capacities after assignments are built']}],
-    [/budget|payment schedule|tradeoffs/,{focus:'a hard spending ceiling, committed-versus-estimated costs, payment timing, and an explicit contingency reserve',inputs:['total spending ceiling','signed commitments and deposits','remaining estimates','payment due dates'],pitfalls:['counting estimates as final costs','forgetting taxes, fees, gratuities, or delivery charges','committing deposits before tradeoffs are visible']}],
-    [/timeline|run of show/,{focus:'backward planning from immovable event times with realistic buffers and handoff owners',inputs:['ceremony and reception start times','vendor arrival and setup windows','travel and transition time','photo and meal timing'],pitfalls:['building the day with no transition buffer','letting vendors hold conflicting timelines','changing one event without updating downstream handoffs']}],
-    [/checklist|emergency kit/,{focus:'a single status-controlled list that distinguishes done, blocked, waiting, and not-applicable work',inputs:['required decisions','owner for each item','due date','blocking dependency'],pitfalls:['using multiple conflicting checklists','marking waiting items as complete','keeping tasks that no longer apply']}],
-    [/venue/,{focus:'capacity, access, restrictions, weather fallback, vendor rules, and total logistical fit before aesthetics',inputs:['guest-count range','indoor and outdoor capacity','accessibility and load-in rules','curfew, noise, catering, and vendor restrictions'],pitfalls:['choosing for appearance before capacity and access are proven','assuming rain backup is equivalent to the primary plan','missing exclusive-vendor or timing restrictions']}],
-    [/guest list|guest experience/,{focus:'a controlled headcount model tied to capacity, budget, household rules, and invitation priority',inputs:['maximum capacity','per-guest cost pressure','household and plus-one policy','priority tiers'],pitfalls:['inviting before the capacity ceiling is real','using inconsistent plus-one rules','failing to track declines before filling open capacity']}],
-    [/vendor selection|vendor handoff|contracts/,{focus:'scope clarity, availability, contract terms, dependencies, and handoff ownership across vendors',inputs:['required scope','availability','written deliverables','payment and cancellation terms'],pitfalls:['comparing vendors on price without scope parity','relying on verbal promises not reflected in the contract','leaving cross-vendor handoffs ownerless']}],
-    [/day logistics|day-of coordination|transportation/,{focus:'movement of people, materials, vendors, and information through timed handoffs',inputs:['arrival and departure windows','load-in and parking constraints','transport routes','named handoff owners'],pitfalls:['assuming travel time is zero','leaving setup dependencies between vendors undefined','having no escalation owner for late arrivals']}],
-    [/ceremony/,{focus:'the legal, cultural, accessibility, processional, and timing requirements that define the ceremony sequence',inputs:['officiant requirements','ceremony order','processional participants','accessibility and language needs'],pitfalls:['treating ceremonial requirements as decor choices','forgetting document or officiant deadlines','changing the processional without updating cues and seating']}],
-    [/reception/,{focus:'guest flow across arrival, seating, food, speeches, entertainment, and departure without bottlenecks',inputs:['room layout','meal service plan','speech and entertainment sequence','guest movement and accessibility'],pitfalls:['stacking speeches and service in conflicting windows','creating dead zones between major moments','ignoring how guests move between spaces']}],
-    [/destination|lodging blocks|hotel/,{focus:'travel, lodging, local logistics, communication deadlines, and contingency planning for guests away from home',inputs:['travel window','lodging inventory','ground transportation','local venue and vendor constraints'],pitfalls:['assuming guests will infer travel logistics','holding too little lodging inventory','publishing plans before local constraints are confirmed']}],
-    [/micro wedding|small wedding/,{focus:'protecting the highest-value guest experience while deliberately limiting headcount, vendor count, and production complexity',inputs:['guest ceiling','must-have shared moments','space and meal format','minimum vendor support'],pitfalls:['rebuilding a large-wedding production at smaller headcount','adding complexity that does not improve the guest experience','spending the saved headcount budget without reprioritizing']}],
-    [/elopement/,{focus:'legal readiness, ceremony essentials, travel logistics, witness requirements, and intentional documentation with minimal production overhead',inputs:['marriage-license requirements to verify','officiant and witness plan','travel and ceremony location access','photo or documentation priorities'],pitfalls:['assuming an elopement removes legal requirements','arriving without a weather or access fallback','adding last-minute guests without revisiting permits, transport, or ceremony logistics']}],
-    [/diy/,{focus:'time, skill, material, storage, transport, setup, teardown, and fallback capacity for work the couple owns directly',inputs:['build hours available','material cost','storage and transport plan','setup and teardown labor'],pitfalls:['valuing materials but not labor time','creating decor that cannot be transported or installed easily','having no fallback if a DIY item is unfinished']}],
-    [/cultural|interfaith|multicultural/,{focus:'explicitly mapping traditions, decision authority, language, timing, and family expectations before combining ceremonies or customs',inputs:['required traditions','who has decision authority','language or translation needs','timing and venue constraints'],pitfalls:['treating a tradition as decorative without understanding its requirements','letting families assume conflicting sequences','failing to explain unfamiliar customs to vendors or guests']}],
-    [/accessib|inclusive|dietary/,{focus:'designing access, communication, food, mobility, sensory, and participation needs into the plan before vendors and layouts lock',inputs:['known accommodation needs','venue access details','dietary requirements','communication and sensory considerations'],pitfalls:['asking about accommodations too late','treating accessibility as a special add-on','assuming a venue label guarantees the specific access needed']}],
-    [/invitation|rsvp/,{focus:'one authoritative guest-contact and response record with deadlines, household logic, meal needs, and follow-up ownership',inputs:['household list','mail or digital contact data','RSVP deadline','meal and accommodation questions'],pitfalls:['sending invitations from an unclean guest list','tracking responses in multiple places','failing to reconcile household-level and individual responses']}],
-    [/meal|cake/,{focus:'headcount, dietary needs, service format, timing, storage, delivery, and venue constraints',inputs:['confirmed headcount range','dietary restrictions','service style','delivery and storage requirements'],pitfalls:['finalizing quantities before RSVP reconciliation','assuming dietary labels are sufficient without vendor confirmation','ignoring service timing in the event flow']}],
-    [/photo|video/,{focus:'coverage priorities, shot constraints, timeline access, lighting, and coordination with ceremony and reception flow',inputs:['must-capture moments','coverage hours','location transitions','family or group shot priorities'],pitfalls:['creating a shot list that cannot fit the timeline','forgetting travel and setup time','letting photo priorities conflict with guest flow or meal service']}],
-    [/music/,{focus:'music responsibilities, cue timing, equipment, licensing or venue constraints, and backup playback',inputs:['ceremony cues','reception moments','equipment plan','venue sound restrictions'],pitfalls:['leaving cue ownership ambiguous','assuming venue equipment meets every need','having no offline or backup playback path']}],
-    [/decor|flower/,{focus:'visual priorities constrained by venue rules, installation time, transport, reuse, teardown, and budget',inputs:['priority visual zones','venue installation rules','setup window','transport and teardown ownership'],pitfalls:['designing pieces that exceed setup time','ignoring venue attachment or flame rules','buying decor before reuse and teardown are planned']}],
-    [/attire/,{focus:'selection, fittings, alterations, accessories, transport, weather, and day-of dressing timing',inputs:['order deadlines','fitting schedule','alteration lead time','day-of dressing location'],pitfalls:['ordering against optimistic lead times','scheduling final fitting too early','forgetting transport, steaming, or emergency repair needs']}],
-    [/registry/,{focus:'a useful, non-duplicative registry aligned with household needs, price range variety, fulfillment, and communication etiquette',inputs:['actual household needs','price-point mix','fulfillment and shipping preferences','registry communication plan'],pitfalls:['adding items only to increase count','duplicating incompatible versions of the same need','sharing registry details in contexts where etiquette expectations differ']}],
-    [/family dynamics|wedding party|planning with family/,{focus:'decision rights, boundaries, communication channels, responsibilities, and escalation paths among people helping plan',inputs:['who decides what','who is contributing money or labor','communication cadence','boundary and escalation rules'],pitfalls:['confusing financial contribution with unlimited decision authority','assigning responsibilities without explicit acceptance','using multiple family members as parallel decision channels']}],
-    [/rain plan|contingency/,{focus:'pre-deciding trigger conditions, backup spaces, communication, vendor changes, and timing impacts before disruption occurs',inputs:['weather or disruption trigger','backup location','vendor contingency requirements','guest communication method'],pitfalls:['calling a backup plan "the same" without checking capacity and flow','waiting until the event day to assign decision authority','failing to identify costs or timing changes caused by the fallback']}],
-  ];
-  for(const [re,p] of profiles) if(re.test(t)) return p;
-  return {focus:'a dependency-aware plan with one source of truth, explicit ownership, and decisions sequenced before downstream commitments',inputs:['confirmed constraints','open decisions','owners and deadlines','dependencies'],pitfalls:['starting from preferences before constraints','maintaining conflicting versions','treating assumptions as confirmed facts']};
-}
-function pageCopy(r){
-  const topic=r.topic, audience=r.audience||'engaged couples', modifier=r.modifier||'practical';
-  const modifierLabel=String(modifier).replace(/_/g,' '), intent=r.intent_pattern||'', profile=topicProfile(topic);
-  const inputs=profile.inputs;
-  let angle='planning sequence',steps=[];
-  if(intent.includes('checklist')){angle='completion checklist';steps=[`Create the ${topic} checklist around ${inputs[0]} and ${inputs[1]}.`,`Mark each item confirmed, blocked, waiting, or not applicable.`,`Assign an owner and due date to every unfinished item.`,`Before closing the checklist, reconcile ${inputs[2]} and ${inputs[3]||'downstream dependencies'}.`,`Publish one final checklist version and reopen only items affected by a confirmed change.`];}
-  else if(intent.includes('decision guide')){angle='decision framework';steps=[`Define the exact ${topic} decision and the constraint that cannot move.`,`Limit the choice set to realistic options using ${inputs[0]} and ${inputs[1]}.`,`Compare tradeoffs against ${inputs[2]} and ${inputs[3]||'downstream dependencies'}.`,`Document the winning tradeoff and who owns the follow-through.`,`State the specific condition that would justify reopening the decision.`];}
-  else if(intent.includes('workflow')||intent.includes('organize')){angle='ownership workflow';steps=[`Create one source of truth for ${topic} centered on ${inputs[0]}.`,`Separate confirmed inputs from open questions, especially ${inputs[1]}.`,`Assign ownership for ${inputs[2]} and every dependent handoff.`,`Resolve ${inputs[3]||'the highest-risk dependency'} before downstream work locks.`,`Record changes in the same system so old versions cannot keep circulating.`];}
-  else if(intent.includes('framework')){angle='planning framework';steps=[`Define the outcome ${topic} must produce for ${audience}.`,`Map ${inputs.join(', ')} as the controlling inputs.`,`Sequence high-dependency decisions before low-dependency preferences.`,`Run one cross-check against guest experience, accessibility, budget, timing, and vendor handoffs.`,`Lock the accepted version and reopen only the affected decision when a material input changes.`];}
-  else if(intent.includes('FAQ')){angle='question-and-answer guide';steps=[`List the questions that determine ${inputs[0]} and ${inputs[1]}.`,`Answer what can be answered from confirmed planning facts.`,`Flag questions that require confirmation of ${inputs[2]} or ${inputs[3]||'external constraints'} instead of guessing.`,`Turn every unresolved question into an owner plus next action.`,`Retire outdated answers when the underlying plan changes.`];}
-  else {steps=[`Confirm ${inputs[0]} before making downstream ${topic} commitments.`,`Document ${inputs[1]} in the same source of truth.`,`Resolve or assign ownership for ${inputs[2]}.`,`Stress-test the plan against ${inputs[3]||'the next dependent decision'}.`,`Publish the accepted ${topic} plan and update only the dependencies affected by a real change.`];}
-  // summary is the standalone lead sentence; answer is that sentence plus the
-  // recommendation that follows it. Every shipping guide in the registry already
-  // follows this convention, and app/guides/[slug]/page.tsx relies on it: the
-  // header renders the summary and the recommendation_summary block renders the
-  // remainder, so a generated page carries the block without any later authoring.
-  const summary=`For ${audience}, ${topic} works best as a ${angle} focused on ${profile.focus}.`;
-  const answer=`${summary} Start with ${inputs[0]}, then make ${inputs[1]} explicit before downstream choices harden. A ${modifierLabel} plan should show who owns the next decision, what evidence makes it final, and which later choices depend on it. Do not treat estimates, preferences, or tentative vendor statements as confirmed facts. This guide provides general wedding-planning support and does not invent local rules, current prices, contract terms, vendor availability, or guaranteed outcomes.`;
-  const mistakes=profile.pitfalls.map(x=>x.charAt(0).toUpperCase()+x.slice(1)+'.');
-  return {summary,answer,steps,mistakes};
-}
-// Distinct topics can share one profile in topicProfile(), so two different
-// queries can produce copy that is word-for-word the same apart from the topic
-// name. scripts/authority_scale/validate_authority_scale.mjs rejects any pair of
-// generated pages scoring above 0.82 on this exact measure, so publishing them
-// only moves the failure one step down the pipeline. Measure a candidate before
-// admitting it and skip the ones that would collide - the same metric, the same
-// threshold, applied by the producer instead of discovered by the validator.
-const NEAR_DUPLICATE_CEILING=0.82;
-const normTokens=v=>String(v||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
-const tokenSet=p=>new Set(normTokens([p.answer,...(p.steps||[]),...(p.mistakes||[])].join(' ')).split(' ').filter(x=>x.length>3));
-const jaccard=(a,b)=>{let inter=0;for(const x of a)if(b.has(x))inter++;const union=new Set([...a,...b]).size;return union?inter/union:0;};
-// Compare against the generated population the validator compares against.
-const publishedTokenSets=doc.pages.filter(p=>p.source_opportunity_id).map(tokenSet);
-let candidates=[];const batchTopics=new Set();const batchQueries=new Set();let nearDuplicatesSkipped=0;
-if(remaining>0){
-  outer: for(const sh of idx.shards){
-    const raw=zlib.gunzipSync(fs.readFileSync(path.join(root,sh.path.includes('/')?sh.path:`data/authority_scale/fanout_100k/${sh.path}`))).toString('utf8').trim();
-    for(const line of raw?raw.split(/\n/):[]){
-      const r=JSON.parse(line);const id=r.opportunity_id||r.id;
-      if(r.geography||r.source_required||used.has(id)||!allowedIntents.has(r.intent_pattern))continue;
-      const s=slug(r.query);const qKey=String(r.query).trim().toLowerCase();
-      if(existingSlugs.has(s)||existingTitles.has(qKey)||batchQueries.has(qKey)||batchTopics.has(r.topic))continue;
-      const copy=pageCopy(r);const ts=tokenSet(copy);
-      if(publishedTokenSets.some(prev=>jaccard(ts,prev)>NEAR_DUPLICATE_CEILING)){nearDuplicatesSkipped++;continue;}
-      publishedTokenSets.push(ts);
-      candidates.push({...r,slug:s,copy});batchQueries.add(qKey);batchTopics.add(r.topic);
-      if(candidates.length>=remaining)break outer;
-    }
-  }
-}
+import { aboutnessTokens, composeGuide } from '../../lib/authority-compose.mjs';
+
+const root = process.cwd();
+const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf8'));
+const exists = (p) => fs.existsSync(path.join(root, p));
+const write = (p, v) => {
+  const f = path.join(root, p);
+  fs.mkdirSync(path.dirname(f), { recursive: true });
+  fs.writeFileSync(f, JSON.stringify(v, null, 2) + '\n');
+};
+
+const doc = read('data/authority/content_registry.json');
+const spec = read('data/authority/guide_composition_spec.json');
+const seedDoc = read('data/authority/editorial_seeds.json');
+const backlog = exists('data/authority/editorial_backlog.json') ? read('data/authority/editorial_backlog.json') : { gaps: [] };
+const gov = read('data/authority_scale/velocity_governor.json');
+const ownershipPath = 'data/seo/route_ownership.json';
+const ownership = read(ownershipPath);
+const cadence = exists('data/cadence/policy.json') ? read('data/cadence/policy.json') : {};
+
+const today = new Date().toISOString().slice(0, 10);
+const ledgerPath = 'data/authority_scale/publication_ledger.json';
+const ledger = exists(ledgerPath) ? read(ledgerPath) : { schema_version: '1.1', published_ids: [], runs: [] };
+
+const existingSlugs = new Set(doc.pages.map((p) => p.slug));
+const existingTitles = new Set(doc.pages.map((p) => String(p.title || '').trim().toLowerCase()));
+const existingKeys = new Set(doc.pages.map((p) => p.semantic_key));
+
 // ---------------------------------------------------------------------------
-// Admission gate.
+// Budget. Two independent ceilings, and the run takes the smaller.
 //
-// Between 2026-07-30 and 2026-08-27 this script wrote 45 entries that no route
-// would ever serve. It emitted ten fields; app/guides/[slug]/page.tsx needs five
-// more - sections, faqs, related_slugs, examples, hub_route - and dereferences
-// them unconditionally, so every record it wrote notFound()ed on arrival. The
-// template was upgraded at the 07-30 baseline and this generator never was, and
-// nothing in between compared the two. Renderable pages stayed frozen at 67 for
-// 28 days while the registry grew by 15 a day.
+// The daily governor is a safety cap on a bad run. The weekly figure is the one
+// that means something: data/cadence/policy.json carries it, and
+// scripts/cadence/derive_capacity.mjs measures it from this repo's own history
+// rather than asserting it. Neither is a target. Both are limits on how much of a
+// ready queue may be released at once, and if the queue is empty they do nothing.
+const dailyCeiling = Number(gov.current_default_new_page_ceiling_per_day || 15);
+
+// A run counts toward the budget only for pages that still exist.
 //
-// So the producer now applies the consumer's own test. isComplete() is imported
-// from lib/authority-complete.mjs - the same function object app/sitemap.xml,
-// app/guides/[slug]/page.tsx and scripts/validate-authority-registry.mjs call -
-// and a candidate that fails it is not written at all. Writing nothing is the
-// correct outcome when the honest content is not available: an unwritten topic
-// is a gap someone can fill, while a written skeleton is a 404 in the sitemap,
-// a rejection in the admission report, and a topic that now looks handled.
-//
-// The same applies to an unexpanded {placeholder}. All 45 retired entries carried
-// a literal {topic} in semantic_key because the intent pattern was interpolated
-// without being expanded. That is a generator bug reaching a data file, so it
-// fails the record rather than warning about it.
+// The ledger recorded 45 creations across 2026-08-25/26/27 that were retired the
+// same week for being unrenderable. Counted at face value they spend the cadence
+// budget forever on pages nobody can read, which would keep this job idle for the
+// wrong reason - the exact opposite failure to the one being fixed. So the budget
+// is computed against the registry rather than against the ledger's own claims:
+// a run with a slugs[] list counts the slugs that are actually in the registry
+// today, and a legacy run with no slugs[] is counted as retracted, because the only
+// pages ever written without one were the 45 that were removed.
+const creditFor = (r) => {
+  if (!Array.isArray(r.slugs)) return { credited: 0, retracted: Number(r.created || 0) };
+  const live = r.slugs.filter((s) => existingSlugs.has(s)).length;
+  return { credited: live, retracted: Number(r.created || 0) - live };
+};
+const inWindow = (r, since) => String(r.date || r.run_at || '').slice(0, 10) >= since;
+const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+const publishedToday = (ledger.runs || []).filter((r) => inWindow(r, today)).reduce((n, r) => n + creditFor(r).credited, 0);
+const publishedThisWeek = (ledger.runs || []).filter((r) => inWindow(r, weekAgo)).reduce((n, r) => n + creditFor(r).credited, 0);
+const retractedThisWeek = (ledger.runs || []).filter((r) => inWindow(r, weekAgo)).reduce((n, r) => n + creditFor(r).retracted, 0);
+const weeklyCap = Number(cadence.new_pages_per_week ?? Infinity);
+const dailyRemaining = Math.max(0, dailyCeiling - publishedToday);
+const weeklyRemaining = Number.isFinite(weeklyCap) ? Math.max(0, weeklyCap - publishedThisWeek) : Infinity;
+const budget = Math.min(dailyRemaining, weeklyRemaining);
 
-// hub_route is derived, never invented: a product only has a hub if a guide that
-// actually ships already points at one. 37 of the 45 retired entries resolved to
-// operations-suite, a bundle SKU with no domain and no hub, so there was no honest
-// value to emit - and that is exactly the case this refuses instead of guessing.
-const hubByProduct={};
-for(const p of doc.pages) if(isComplete(p)&&!hubByProduct[p.product_id]) hubByProduct[p.product_id]=p.hub_route;
+// ---------------------------------------------------------------------------
+// Similarity. The ceiling is the library's own measured maximum, not the build's
+// tolerance. See the near_duplicate block in the composition spec: the hand-written
+// guides top out around 0.73 while validate_authority_scale.mjs only breaks at 0.82.
+// Holding new pages to 0.82 would let them be measurably more repetitive than
+// anything a person wrote here and still pass. So they are held to 0.73.
+const CEILING = Number(spec.near_duplicate?.observed_max_among_shipping_guides ?? 0.73);
+const norm = (v) => String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
+const tokenSet = (p) => new Set(norm([p.answer, ...(p.steps || []), ...(p.mistakes || [])].join(' ')).split(' ').filter((x) => x.length > 3));
+const jaccard = (a, b) => { let i = 0; for (const x of a) if (b.has(x)) i++; const u = new Set([...a, ...b]).size; return u ? i / u : 0; };
+const libraryTokenSets = doc.pages.filter(isComplete).map((p) => ({ slug: p.slug, set: tokenSet(p) }));
 
-const expandTemplate=(value,topic)=>String(value??'').split('{topic}').join(topic);
-
-function buildRecord(r){
-  const copy=r.copy, topic=String(r.topic);
-  const record={
-    slug:r.slug,
-    title:titleCase(r.query),
-    cluster:titleCase(r.topic),
-    product_id:productFor(r.topic),
-    semantic_key:`${topic}|${expandTemplate(r.intent_pattern,topic)}|${r.audience||''}`,
-    source_opportunity_id:r.opportunity_id||r.id,
-    summary:copy.summary,
-    answer:copy.answer,
-    steps:copy.steps,
-    mistakes:copy.mistakes
-  };
-  const hub=hubByProduct[record.product_id];
-  if(hub)record.hub_route=hub;
-  return record;
+// ---------------------------------------------------------------------------
+// related_slugs. Four siblings from the same cluster, ranked by what the guides are
+// actually about - title, summary and recommendation together, not the title alone.
+// Four is the shape every shipping guide has; a guide with two related links is a
+// different object, so a cluster that cannot supply four holds the seed instead.
+function pickRelated(seed, clusterPool) {
+  const mine = aboutnessTokens(seed.title, seed.summary, seed.recommendation);
+  return clusterPool
+    .filter((p) => p.slug !== seed.slug)
+    .map((p) => {
+      const theirs = aboutnessTokens(p.title, p.summary, p.steps?.[1]);
+      let overlap = 0;
+      for (const w of mine) if (theirs.has(w)) overlap++;
+      return { slug: p.slug, overlap };
+    })
+    .sort((a, b) => b.overlap - a.overlap || a.slug.localeCompare(b.slug))
+    .slice(0, 4)
+    .map((x) => x.slug);
 }
 
-// Each reason carries a stable code so a run can be summarised by cause rather
-// than by 15 near-identical sentences.
-function refusalReasons(record){
-  const reasons=[];
-  const missing=missingRequiredFields(record);
-  if(missing.length)reasons.push({code:'INCOMPLETE_RECORD',detail:`isComplete() rejects this record: no ${missing.join(', ')}. app/guides/[slug]/page.tsx would notFound() /guides/${record.slug}.`});
-  if(!hubByProduct[record.product_id])reasons.push({code:'NO_HUB_FOR_PRODUCT',detail:`no hub_route available: product_id "${record.product_id}" owns no shipping hub in data/authority/content_registry.json.`});
-  for(const hit of findPlaceholders(record))reasons.push({code:'UNEXPANDED_PLACEHOLDER',detail:`unexpanded template placeholder at ${hit.path}: ${JSON.stringify(hit.value)}.`});
-  return reasons;
-}
+// ---------------------------------------------------------------------------
+const seeds = seedDoc.seeds || [];
+const problems = [];
+const skipped = [];
+const held = [];
+const admitted = [];
 
-const admitted=[],refused=[];
-for(const r of candidates){
-  const record=buildRecord(r);
-  const reasons=refusalReasons(record);
-  if(reasons.length){
-    refused.push({slug:record.slug,topic:r.topic,intent_pattern:r.intent_pattern,audience:r.audience||'engaged couples',cluster:record.cluster,product_id:record.product_id,source_opportunity_id:record.source_opportunity_id,reasons});
+for (const seed of seeds) {
+  const where = `editorial_seeds.json seed "${seed.slug || '(no slug)'}"`;
+
+  // A malformed seed is a broken data file, not an empty queue. It fails the run.
+  for (const field of ['slug', 'title', 'cluster', 'summary', 'recommendation', 'working_example']) {
+    if (!seed[field] || typeof seed[field] !== 'string' || !seed[field].trim()) problems.push(`${where}: missing or empty "${field}"`);
+  }
+  if (seed.status && !['ready', 'draft', 'held'].includes(seed.status)) problems.push(`${where}: unknown status "${seed.status}"`);
+  const cluster = spec.clusters?.[seed.cluster];
+  if (!cluster) {
+    problems.push(`${where}: cluster "${seed.cluster}" is not in guide_composition_spec.json. Known clusters: ${Object.keys(spec.clusters || {}).join(', ')}`);
     continue;
   }
-  // Belt and braces: refusalReasons() is derived from the same predicate, so this
-  // can only fire if someone edits one of them apart from the other.
-  if(!isComplete(record)){console.error(`REFUSAL LOGIC DRIFT: ${record.slug} passed refusalReasons() but fails isComplete()`);process.exit(1);}
-  admitted.push(record);
+  if (problems.length) continue;
+
+  if (seed.status !== 'ready') { skipped.push({ slug: seed.slug, reason: 'NOT_READY', detail: `status is "${seed.status || 'unset'}"` }); continue; }
+  if (existingSlugs.has(seed.slug)) { skipped.push({ slug: seed.slug, reason: 'ALREADY_PUBLISHED', detail: 'slug is already in the registry' }); continue; }
+  if (existingTitles.has(String(seed.title).trim().toLowerCase())) { skipped.push({ slug: seed.slug, reason: 'DUPLICATE_TITLE', detail: 'a guide with this title already ships' }); continue; }
+
+  const clusterPool = doc.pages.filter((p) => p.cluster === seed.cluster && isComplete(p));
+  const record = composeGuide({ ...seed, updated_at: today }, cluster, pickRelated(seed, clusterPool));
+
+  // The composed record is checked against the router's own predicate. A failure
+  // here is a bug in lib/authority-compose.mjs, not a content gap, so it stops the
+  // run rather than being quietly skipped.
+  const missing = missingRequiredFields(record);
+  if (missing.length) { problems.push(`${where}: composed record is missing ${missing.join(', ')} - lib/authority-compose.mjs is broken`); continue; }
+  const placeholders = findPlaceholders(record);
+  if (placeholders.length) { problems.push(`${where}: unexpanded placeholder at ${placeholders[0].path}: ${JSON.stringify(placeholders[0].value)}`); continue; }
+  if (existingKeys.has(record.semantic_key)) { skipped.push({ slug: seed.slug, reason: 'DUPLICATE_SEMANTIC_KEY', detail: record.semantic_key }); continue; }
+  if (record.related_slugs.length !== 4) {
+    skipped.push({ slug: seed.slug, reason: 'TOO_FEW_SIBLINGS', detail: `cluster "${seed.cluster}" offers only ${record.related_slugs.length} other shipping guides; every guide in this library links to four` });
+    continue;
+  }
+
+  // Held, not failed. A seed too close to an existing guide is a rewrite request
+  // for its author, and the run carries on with the rest of the queue.
+  const set = tokenSet(record);
+  let worst = { slug: null, score: 0 };
+  for (const other of libraryTokenSets) { const s = jaccard(set, other.set); if (s > worst.score) worst = { slug: other.slug, score: s }; }
+  if (worst.score > CEILING) {
+    held.push({ slug: seed.slug, reason: 'TOO_SIMILAR', detail: `scores ${worst.score.toFixed(3)} against ${worst.slug}; this library's hand-written maximum is ${CEILING}. Rewrite the summary, recommendation or working example so it says something the existing guide does not.` });
+    continue;
+  }
+
+  admitted.push({ seed, record, set });
 }
 
-for(const record of admitted){
+// A broken seed file is a failure. This is the "something is wrong" case.
+if (problems.length) {
+  console.error(`EDITORIAL SEEDS INVALID: ${problems.length} problem(s). Nothing was published.`);
+  for (const p of problems) console.error(`  ${p}`);
+  process.exit(1);
+}
+
+// ---------------------------------------------------------------------------
+// Route ownership.
+//
+// data/seo/route_ownership.json decides which host serves a path, and it feeds
+// app/sitemap.xml, lib/site-config.ts, the sitemap builder, the distribution
+// preparer and scripts/validate-seo-recovery.mjs. Nothing regenerates it - it was
+// last written by hand - so a guide added to the registry alone is a guide the
+// routing layer has never heard of, and validate-seo-recovery.mjs fails it with
+// "missing guide ownership".
+//
+// That is the same producer/consumer split that caused the original 45-skeleton
+// failure, one file over: the generator wrote to the store it knew about and not to
+// the one the router reads. So publishing now registers the route in the same
+// operation, deriving the host from the product exactly as lib/site-config.ts does.
+const hostForProduct = Object.fromEntries(
+  Object.entries(ownership.hosts).map(([host, cfg]) => [cfg.product_id, host]),
+);
+function registerRoute(record) {
+  const p = `/guides/${record.slug}`;
+  if (ownership.routes.some((r) => r.path === p)) return true;
+  const host = hostForProduct[record.product_id];
+  if (!host) return false;
+  ownership.routes.push({ path: p, host, type: 'guide', indexable: true });
+  return true;
+}
+
+// ---------------------------------------------------------------------------
+// Release up to the budget. Everything beyond it stays ready for the next run -
+// it is not discarded, and it is not a reason to fail.
+const releasing = admitted.slice(0, Math.max(0, budget));
+const waiting = admitted.slice(releasing.length);
+
+for (const { record } of releasing) {
+  if (!registerRoute(record)) {
+    console.error(`ROUTE OWNERSHIP: no host in ${ownershipPath} owns product_id "${record.product_id}", so /guides/${record.slug} would have nowhere to be served from.`);
+    process.exit(1);
+  }
   doc.pages.push(record);
   existingSlugs.add(record.slug);
   existingTitles.add(String(record.title).trim().toLowerCase());
-  // Only an admitted opportunity is spent. A refused one stays unpublished and
-  // available, so repairing this generator makes the backlog reachable again.
-  used.add(record.source_opportunity_id);
+  existingKeys.add(record.semantic_key);
+  libraryTokenSets.push({ slug: record.slug, set: tokenSet(record) });
 }
 
-// Refusals are recorded rather than discarded: these are the topics an author
-// still has to write, and they belong next to the ones already listed in
-// data/authority/editorial_backlog.json.
-write('artifacts/authority/publish-refusals.json',{
-  schema_version:'1.0',
-  run_at:new Date().toISOString(),
-  date:today,
-  policy:'refuse_to_write_what_the_router_will_not_serve',
-  predicate:'isComplete() from lib/authority-complete.mjs, re-exported by lib/authority-registry.ts',
-  candidates_considered:candidates.length,
-  admitted:admitted.length,
-  refused:refused.length,
-  refusals:refused
+// ---------------------------------------------------------------------------
+// The authoring queue: backlog topics with no seed, composed as far as they
+// honestly can be. Each entry names the cluster it now belongs to, the scaffold it
+// would use, and the exact three sentences a person still has to write. This is
+// what replaces "refuse and exit 1" - the work is visible and small.
+const seededTopics = new Set(seeds.map((s) => s.source_topic).filter(Boolean));
+const assignment = seedDoc.cluster_assignment?.map || {};
+const queue = [];
+for (const gap of backlog.gaps || []) {
+  if (seededTopics.has(gap.topic)) continue;
+  const assigned = assignment[gap.topic];
+  if (!assigned) continue;
+  const cluster = spec.clusters?.[assigned.cluster];
+  if (!cluster) continue;
+  if (queue.some((q) => q.topic === gap.topic && q.intent === gap.intent)) continue;
+  queue.push({
+    topic: gap.topic,
+    intent: gap.intent,
+    assigned_cluster: assigned.cluster,
+    assignment_reason: assigned.why,
+    product_id: cluster.product_id,
+    hub_route: cluster.hub_route,
+    scaffold_ready: true,
+    needs_authoring: ['summary', 'recommendation', 'working_example'],
+    instruction: `Add a seed to data/authority/editorial_seeds.json with cluster "${assigned.cluster}" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file.`,
+  });
+}
+write('artifacts/authority/authoring-queue.json', {
+  schema_version: '1.0',
+  run_at: new Date().toISOString(),
+  note: 'Backlog topics that now have a home but not yet an author. Each needs three sentences; the other twelve fields are composed. This file is the replacement for a generator that refused and failed the build.',
+  topics_awaiting_authoring: queue.length,
+  seeds_ready_not_yet_released: waiting.length,
+  queue,
 });
 
-// The registry and the publication ledger are only touched when something was
-// actually admitted, so a fully refused run leaves no trace in committed data
-// beyond the refusal record.
-if(admitted.length){
-  doc.generated_at=today;
-  write('data/authority/content_registry.json',doc);
-  ledger.published_ids=[...used];
-  ledger.runs.push({run_at:new Date().toISOString(),date:today,created:admitted.length,refused:refused.length,ceiling:dailyCeiling,already_published_today_before_run:alreadyToday,remaining_budget_before_run:remaining});
-  write(ledgerPath,ledger);
+// ---------------------------------------------------------------------------
+if (releasing.length) {
+  doc.generated_at = today;
+  write('data/authority/content_registry.json', doc);
+  write(ownershipPath, ownership);
+  ledger.published_ids = [...new Set([...(ledger.published_ids || []), ...releasing.map((r) => r.record.semantic_key)])];
+  ledger.runs.push({
+    run_at: new Date().toISOString(),
+    date: today,
+    created: releasing.length,
+    source: 'editorial_seeds',
+    slugs: releasing.map((r) => r.record.slug),
+    daily_ceiling: dailyCeiling,
+    weekly_cap: Number.isFinite(weeklyCap) ? weeklyCap : null,
+    budget_before_run: Number.isFinite(budget) ? budget : null,
+  });
+  write(ledgerPath, ledger);
 }
 
-console.log(JSON.stringify({created:admitted.length,refused:refused.length,candidates_considered:candidates.length,daily_ceiling:dailyCeiling,already_today:alreadyToday,remaining_before_run:remaining,near_duplicates_skipped:nearDuplicatesSkipped,total_guides:doc.pages.length,distinct_topics_in_batch:batchTopics.size,registry_written:admitted.length>0},null,2));
+const summary = {
+  status: releasing.length ? 'PUBLISHED' : 'IDLE',
+  published: releasing.length,
+  published_slugs: releasing.map((r) => r.record.slug),
+  seeds_total: seeds.length,
+  seeds_ready_waiting_for_budget: waiting.length,
+  seeds_skipped: skipped.length,
+  seeds_held_for_rewrite: held.length,
+  topics_awaiting_authoring: queue.length,
+  budget_this_run: Number.isFinite(budget) ? budget : null,
+  daily_ceiling: dailyCeiling,
+  weekly_cap: Number.isFinite(weeklyCap) ? weeklyCap : null,
+  published_this_week_before_run: publishedThisWeek,
+  retracted_in_window: retractedThisWeek,
+  similarity_ceiling: CEILING,
+  registry_written: releasing.length > 0,
+  total_guides: doc.pages.length,
+};
+console.log(JSON.stringify(summary, null, 2));
 
-if(refused.length){
-  const byReason={};
-  for(const r of refused) for(const reason of r.reasons) byReason[reason.code]=(byReason[reason.code]||0)+1;
-  console.error(`\nPUBLICATION REFUSED: ${refused.length} of ${candidates.length} candidate(s) could not satisfy isComplete(); ${admitted.length} written.`);
-  console.error('Nothing was written for the refused topics. That is deliberate - a record the router will not serve is a 404 in the sitemap, not a page.');
-  for(const [code,count] of Object.entries(byReason).sort((a,b)=>b[1]-a[1]))console.error(`  ${String(count).padStart(3)}x ${code}`);
-  console.error(`\nFirst refusal in full: ${refused[0].slug}\n  - ${refused[0].reasons.map(x=>x.detail).join('\n  - ')}`);
-  console.error(`\nRefused topics: ${[...new Set(refused.map(r=>r.topic))].sort().join(', ')}`);
-  console.error('Recorded in artifacts/authority/publish-refusals.json. These are authoring work, not generation work - see data/authority/editorial_backlog.json.');
-  console.error('To publish again this generator must produce genuine sections, faqs, related_slugs and examples, and the topic must belong to a product that owns a hub.\n');
-  process.exit(1);
+if (releasing.length) {
+  console.log(`\nPublished ${releasing.length} guide(s): ${releasing.map((r) => r.record.slug).join(', ')}`);
+} else {
+  // The important line. This is a success, and it says why, so nobody reads a
+  // green run with 0 pages as a silent failure.
+  const why = admitted.length && budget <= 0
+    ? `${admitted.length} seed(s) are ready but this week's cadence budget is spent (${publishedThisWeek}/${weeklyCap} live pages published in the last 7 days).`
+    : seeds.length === 0
+      ? 'data/authority/editorial_seeds.json holds no seeds.'
+      : `No seed is ready to publish. ${skipped.length} skipped, ${held.length} held for rewrite, ${queue.length} topic(s) awaiting authoring.`;
+  console.log(`\nNOTHING TO PUBLISH - this is a successful run. ${why}`);
+  console.log('A library with nothing ready is caught up, not broken. Publishing requires authored material; this job will not manufacture it.');
 }
+for (const h of held) console.log(`  HELD    ${h.slug}: ${h.detail}`);
+for (const s of skipped.filter((x) => x.reason !== 'ALREADY_PUBLISHED')) console.log(`  SKIP    ${s.slug}: ${s.reason} - ${s.detail}`);
+if (queue.length) console.log(`  ${queue.length} topic(s) need three sentences each - see artifacts/authority/authoring-queue.json`);

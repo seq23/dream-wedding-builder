@@ -339,6 +339,16 @@
       "slug": "wedding-vendor-list",
       "sha256": "67cf879ccdd889e3b3ed37c10f502e1de40b72bc30af27bc4429aebe9454b292",
       "blob": "data/release/frozen_accepted_outputs/67cf879ccdd889e3b3ed37c10f502e1de40b72bc30af27bc4429aebe9454b292.json.gz"
+    },
+    "/guides/wedding-guest-list-headcount-control": {
+      "slug": "wedding-guest-list-headcount-control",
+      "sha256": "bff2cc642b93d6e2c090e0f397f395ec05e861c081198506549d0c2309fde825",
+      "blob": "data/release/frozen_accepted_outputs/bff2cc642b93d6e2c090e0f397f395ec05e861c081198506549d0c2309fde825.json.gz"
+    },
+    "/guides/wedding-rsvp-tracking-system": {
+      "slug": "wedding-rsvp-tracking-system",
+      "sha256": "393631c3aff29f844154e20af0cbee5196a43b6c771a992e04ecfc720c9fab54",
+      "blob": "data/release/frozen_accepted_outputs/393631c3aff29f844154e20af0cbee5196a43b6c771a992e04ecfc720c9fab54.json.gz"
     }
   }
 }

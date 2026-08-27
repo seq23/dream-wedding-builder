@@ -1,0 +1,52 @@
+{
+  "derived_at": "2026-08-27",
+  "derived_by": "scripts/cadence/derive_capacity.mjs",
+  "measured_from": "data/authority/content_registry.json",
+  "predicate": "lib/authority-complete.mjs isComplete() - a record the router 404s was never capacity",
+  "first_commit": "2026-05-24",
+  "repo_age_weeks": 13.6,
+  "renderable_guides_now": 67,
+  "sustained_throughput_per_week": 4.94,
+  "best_single_interval_per_week": 78.17,
+  "why_not_the_burst": "The best interval is a one-off bulk authoring event. Building a schedule on it guarantees the schedule is missed, which is how a cadence turns into a quota.",
+  "authoring_events_observed": 2,
+  "refresh_capacity_per_week": 4,
+  "new_pages_per_week": 2,
+  "series": [
+    {
+      "sha": "159ca45cfe1da88a45b9f129e77e82c779340a0f",
+      "date": "2026-07-10",
+      "renderable": 0
+    },
+    {
+      "sha": "f2673c22e10c63177f7ba9f19b9fd3298ebaabfc",
+      "date": "2026-07-24",
+      "renderable": 0
+    },
+    {
+      "sha": "afcf398f63638209c901d91b6494a7668f32964c",
+      "date": "2026-07-30",
+      "renderable": 67
+    },
+    {
+      "sha": "930f98205ee56497ab54565013bbdc0e9bcd56f8",
+      "date": "2026-08-25",
+      "renderable": 67
+    },
+    {
+      "sha": "ef854d08513fc17bc257548f7a2ca403f82112e7",
+      "date": "2026-08-26",
+      "renderable": 67
+    },
+    {
+      "sha": "deef5604393048b01d8a3624de460b9df7feb510",
+      "date": "2026-08-27",
+      "renderable": 67
+    },
+    {
+      "sha": "ca63e3c83e229e06827c0b47508b30e8e7348d2c",
+      "date": "2026-08-27",
+      "renderable": 67
+    }
+  ]
+}

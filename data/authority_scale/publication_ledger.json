@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "published_ids": [
     "maxfanout_000061_0ef3a64789",
     "maxfanout_000062_1799256317",
@@ -45,7 +45,9 @@
     "maxfanout_000136_cc7948fbd7",
     "maxfanout_000139_4b1ea787a4",
     "maxfanout_000142_a2b935cac9",
-    "maxfanout_000144_db5e510039"
+    "maxfanout_000144_db5e510039",
+    "seating-chart-maker:wedding-guest-list-headcount-control",
+    "seating-chart-maker:wedding-rsvp-tracking-system"
   ],
   "runs": [
     {
@@ -54,7 +56,9 @@
       "created": 15,
       "ceiling": 15,
       "already_published_today_before_run": 0,
-      "remaining_budget_before_run": 15
+      "remaining_budget_before_run": 15,
+      "retracted": 15,
+      "retraction_note": "Retracted by commit ca63e3c on 2026-08-27. These records were written without the five fields app/guides/[slug]/page.tsx dereferences, so /guides/<slug> served 404 for every one of them and they were removed from data/authority/content_registry.json. They were never live URLs, so they do not count against the new-URL ceiling. The run is kept rather than deleted because the history of what the generator did is the reason it was rewritten."
     },
     {
       "run_at": "2026-08-25T10:25:54.853Z",
@@ -62,7 +66,9 @@
       "created": 0,
       "ceiling": 15,
       "already_published_today_before_run": 15,
-      "remaining_budget_before_run": 0
+      "remaining_budget_before_run": 0,
+      "retracted": 0,
+      "retraction_note": "Retracted by commit ca63e3c on 2026-08-27. These records were written without the five fields app/guides/[slug]/page.tsx dereferences, so /guides/<slug> served 404 for every one of them and they were removed from data/authority/content_registry.json. They were never live URLs, so they do not count against the new-URL ceiling. The run is kept rather than deleted because the history of what the generator did is the reason it was rewritten."
     },
     {
       "run_at": "2026-08-26T16:15:53.208Z",
@@ -70,7 +76,9 @@
       "created": 15,
       "ceiling": 15,
       "already_published_today_before_run": 0,
-      "remaining_budget_before_run": 15
+      "remaining_budget_before_run": 15,
+      "retracted": 15,
+      "retraction_note": "Retracted by commit ca63e3c on 2026-08-27. These records were written without the five fields app/guides/[slug]/page.tsx dereferences, so /guides/<slug> served 404 for every one of them and they were removed from data/authority/content_registry.json. They were never live URLs, so they do not count against the new-URL ceiling. The run is kept rather than deleted because the history of what the generator did is the reason it was rewritten."
     },
     {
       "run_at": "2026-08-27T13:53:56.451Z",
@@ -78,7 +86,24 @@
       "created": 15,
       "ceiling": 15,
       "already_published_today_before_run": 0,
-      "remaining_budget_before_run": 15
+      "remaining_budget_before_run": 15,
+      "retracted": 15,
+      "retraction_note": "Retracted by commit ca63e3c on 2026-08-27. These records were written without the five fields app/guides/[slug]/page.tsx dereferences, so /guides/<slug> served 404 for every one of them and they were removed from data/authority/content_registry.json. They were never live URLs, so they do not count against the new-URL ceiling. The run is kept rather than deleted because the history of what the generator did is the reason it was rewritten."
+    },
+    {
+      "run_at": "2026-08-27T15:44:45.955Z",
+      "date": "2026-08-27",
+      "created": 2,
+      "source": "editorial_seeds",
+      "slugs": [
+        "wedding-guest-list-headcount-control",
+        "wedding-rsvp-tracking-system"
+      ],
+      "daily_ceiling": 15,
+      "weekly_cap": 2,
+      "budget_before_run": 2
     }
-  ]
+  ],
+  "_reconciled_on": "2026-08-27",
+  "_reconciliation": "runs[] gained a retracted count. created minus retracted is the number of URLs a run actually added and still has in the registry, and that is what the daily ceiling and the cadence budget are measured against. Face-value created counts would charge the budget forever for 45 pages that no longer exist."
 }
