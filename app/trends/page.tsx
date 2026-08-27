@@ -1,6 +1,14 @@
+import { seoMetadata } from '@/lib/seo';
+import { PARENT_HOST } from '@/lib/site-config';
 import { Card, Badge } from '@/components/Card';
 import { TrendCatalogue } from '@/components/TrendCatalogue';
 import TrendSubmitForm from './trend-submit-form';
+export const metadata = seoMetadata({
+  title: 'Standout Wedding Ideas Catalogue',
+  description: 'A compact index of concrete wedding ideas: arrival moments, seating experiences, ceremony reveals, cocktail surprises, dinner design, sensory stations, and photo moments.',
+  host: PARENT_HOST,
+  path: '/trends'
+});
 
 export default function TrendsPage() {
   return <div className="space-y-8">
