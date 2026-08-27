@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 16,
+    "HARD_FAIL": 17,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -19,6 +19,15 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "authority contracts govern what may publish",
+      "composite": false
+    },
+    {
+      "id": "authority-registry",
+      "npmScript": "validate:authority-registry",
+      "command": "node scripts/validate-authority-registry.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "an entry that fails isComplete() is a 404 the moment it is written; 45 of them accumulated over 28 days with every other validator passing",
       "composite": false
     },
     {
@@ -129,7 +138,7 @@
     {
       "id": "structural",
       "npmScript": "validate:structural",
-      "command": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo && npm run validate:search-intelligence",
+      "command": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo && npm run validate:search-intelligence",
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "composite: purity, hygiene, proof readiness, seo, authority",
