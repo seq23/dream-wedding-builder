@@ -1,0 +1,10 @@
+{
+  "_note": "Microsoft Clarity project ids, one per canonical host served by this Worker. Ids come from the portfolio registry at ~/GitHub/.clarity/clarity-project-ids.json. Clarity project ids are public by design - they ship in the page - so they belong in source. Hosts must stay in sync with data/seo/route_ownership.json; scripts/install_clarity.mjs fails the build if they drift.",
+  "public_root": "public",
+  "projects": {
+    "weddingchecklistpdf.com": "y7kxxtr48q",
+    "weddingbudgetspreadsheet.com": "y7kzpu45jb",
+    "weddingtimelinetemplate.com": "y7l01t5b04",
+    "weddingseatingchartmaker.com": "y7kyy3fwc0"
+  }
+}

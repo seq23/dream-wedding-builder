@@ -4,7 +4,7 @@
   "private": true,
   "description": "No-auth wedding planning dashboard that turns a dream wedding into pricing, levers, trends, vendor options, and a printable Dream Wedding Starter Pack.",
   "scripts": {
-    "build": "NODE_OPTIONS=--max-old-space-size=3072 next build --no-lint",
+    "build": "node scripts/install_clarity.mjs && NODE_OPTIONS=--max-old-space-size=3072 next build --no-lint",
     "dev": "next dev",
     "start": "next start",
     "typecheck": "tsc --noEmit",
