@@ -3,6 +3,7 @@ import { PARENT_HOST } from '@/lib/site-config';
 import { Card, Badge } from '@/components/Card';
 import { TrendCatalogue } from '@/components/TrendCatalogue';
 import TrendSubmitForm from './trend-submit-form';
+import Link from 'next/link';
 export const metadata = seoMetadata({
   title: 'Standout Wedding Ideas Catalogue',
   description: 'A compact index of concrete wedding ideas: arrival moments, seating experiences, ceremony reveals, cocktail surprises, dinner design, sensory stations, and photo moments.',
@@ -20,5 +21,6 @@ export default function TrendsPage() {
     </section>
     <TrendCatalogue />
     <Card><h2 className="font-serif text-3xl">Have a standout idea we should add?</h2><p className="mt-2 text-sm text-charcoal/70">Submit concrete wedding ideas only: guest moments, design motifs, food experiences, reveal ideas, sensory stations, or wildcards. Vendor roles and logistics jobs belong in planner metadata, not this catalogue.</p><TrendSubmitForm /></Card>
+    <Card><h2 className="font-serif text-3xl">Turning an idea into a booked line item</h2><p className="mt-2 text-sm text-charcoal/70">Each idea here becomes a cost, a vendor, a delivery window, and a place on the day-of schedule. The four editable wedding tools are where those land: budget lines, vendor payments, the master timeline, and the seating plan.</p><Link href="/shop" className="mt-4 inline-flex font-bold underline underline-offset-4">See the four wedding planning tools and prices →</Link></Card>
   </div>;
 }

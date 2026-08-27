@@ -366,6 +366,8 @@ export default function BuildPage() {
     <section className="grid gap-4 md:grid-cols-3" data-testid="scope-components-map">{scopeComponents.map(scope => <Card key={scope.category}><Badge>{scope.category}</Badge><p className="mt-3 text-sm"><strong>Components:</strong> {scope.components.join(' · ')}</p><p className="mt-3 text-sm"><strong>Vendors:</strong> {scope.vendors.join(' · ')}</p><p className="mt-3 text-xs text-charcoal/60"><strong>Warnings:</strong> {scope.warnings.join(' · ')}</p></Card>)}</section>
     <section className="grid gap-4 md:grid-cols-4">{inspirationScopes.map(scope => <Card key={scope.title}><Badge>{scope.confidence} confidence</Badge><h3 className="mt-3 font-serif text-2xl">{scope.title}</h3><p className="mt-2 text-sm text-charcoal/70">{scope.intakePrompt}</p></Card>)}</section>
 
+    <section className="rounded-[1.75rem] border border-charcoal/10 bg-white p-7"><h2 className="font-serif text-4xl">When the plan stops changing</h2><p className="mt-3 max-w-3xl text-base leading-7 text-charcoal/70">This builder works out the shape of the wedding. Executing it takes files you can edit and hand to other people: the checklist, the budget workbook, the master timeline, and the seating plan.</p><Link href="/shop" className="mt-4 inline-flex font-bold underline underline-offset-4">Compare the four wedding planning tools and prices →</Link></section>
+
     <StickyTotal total={displayEstimate} />
   </div>;
 }
