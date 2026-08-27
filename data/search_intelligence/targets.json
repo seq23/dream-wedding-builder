@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-08-26T16:15:55.951Z",
-  "count": 99,
+  "generated_at": "2026-08-27T15:21:49.738Z",
+  "count": 103,
   "targets": [
     {
       "target_id": "041f5ce832a91de82705",
@@ -604,6 +604,16 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "81ea2ddc4383a36a7483",
+      "query": "wedding budget checklist for engaged couples practical",
+      "host": "weddingbudgetspreadsheet.com",
+      "route": "/guides/wedding-budget-checklist-for-engaged-couples-practical",
+      "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "709a4b50276680b2b192",
       "query": "wedding budget contingency planning",
       "host": "weddingbudgetspreadsheet.com",
@@ -659,6 +669,16 @@
       "host": "weddingbudgetspreadsheet.com",
       "route": "/wedding-budget-spreadsheet",
       "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "f4fd07e14f6d2f724765",
+      "query": "wedding checklist checklist for engaged couples practical",
+      "host": "weddingchecklistpdf.com",
+      "route": "/guides/wedding-checklist-checklist-for-engaged-couples-practical",
+      "product_id": "checklist-pdf",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -814,6 +834,16 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "be20ff59db6091b45163",
+      "query": "wedding seating chart checklist for engaged couples practical",
+      "host": "weddingseatingchartmaker.com",
+      "route": "/guides/wedding-seating-chart-checklist-for-engaged-couples-practical",
+      "product_id": "seating-chart-maker",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "babfc0704a6ffa91cf2c",
       "query": "wedding seating chart for 100 guests",
       "host": "weddingseatingchartmaker.com",
@@ -889,6 +919,16 @@
       "host": "weddingseatingchartmaker.com",
       "route": "/guides/wedding-table-capacity-guide",
       "product_id": "seating-chart-maker",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "1fa508e66da958320932",
+      "query": "wedding timeline checklist for engaged couples practical",
+      "host": "weddingtimelinetemplate.com",
+      "route": "/guides/wedding-timeline-checklist-for-engaged-couples-practical",
+      "product_id": "timeline-template",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
