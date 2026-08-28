@@ -140,8 +140,12 @@ jobs:
           # repair that runs again tomorrow.
           git add data/authority data/authority_scale data/cadence data/release data/seo data/atlas data/search_intelligence artifacts/authority artifacts/sitemaps artifacts/distribution reports/cadence reports/validation 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: governed daily content expansion'
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+          # Push back to the ref the run started from. On the schedule that is
+          # main. A workflow_dispatch from a branch used to push that branch's
+          # content straight to main, which made testing a change to this lane
+          # impossible without releasing it.
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
       - name: Submit IndexNow and Google Search Console after validated publication
         env:
           RUN_MODE: live
@@ -158,8 +162,12 @@ jobs:
         run: |
           git add artifacts/distribution 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: record distribution receipts'
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+          # Push back to the ref the run started from. On the schedule that is
+          # main. A workflow_dispatch from a branch used to push that branch's
+          # content straight to main, which made testing a change to this lane
+          # impossible without releasing it.
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
       - uses: actions/upload-artifact@v7
         if: always()
         with:
