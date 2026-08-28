@@ -34,6 +34,11 @@
 - `data/authority/internal_link_registry.json`
 - `artifacts/authority/admission-report.json`
 - `artifacts/authority/release-manifest.json`
+- `artifacts/authority/publish-outcome.json` — the named outcome of each publish run (PUBLISHED / HELD_* / EDITORIAL_SEEDS_INVALID), why it stopped, and what would unblock it
+- `artifacts/authority/authoring-queue.json` — backlog topics with a cluster and a scaffold, awaiting three written sentences each
+- `data/search_intelligence/provider_status.json` — per-provider state; AVAILABLE requires requests>0 by construction
+- `data/search_intelligence/citation_occupancy.json` — observed answer-engine citations per query, and who occupies them
+- `reports/validation/self-heal-loop.json` — bounded repair loop result, including NO_REPAIR_AVAILABLE
 - `artifacts/distribution/manifest.json`
 - `data/release/accepted_output_freeze_registry.json`
 - `scripts/validate-seo-recovery.mjs`

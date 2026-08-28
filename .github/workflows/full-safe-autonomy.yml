@@ -13,7 +13,18 @@ jobs:
     if: ${{ vars.CONTENT_RELEASE_ENABLED == 'true' && vars.CONTENT_EMERGENCY_STOP != 'true' }}
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 because scripts/seo/build_lastmod_ledger.mjs derives every
+      # lastmod by walking committed history for the content that renders each
+      # path. Under the default depth-1 checkout there is no history to walk, so
+      # every path resolved to the single available commit and the ledger this
+      # lane committed on 2026-08-27 gave all 103 URLs the same date - the exact
+      # fabricated freshness signal the ledger exists to remove, and a failing
+      # tests/unit/lastmod-ledger.test.ts that only CI (a full checkout) could
+      # see. Rebuilt from real history the same content yields four distinct
+      # dates.
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: '20'
@@ -36,18 +47,66 @@ jobs:
       # rather than being silently dropped.
       - name: Publish authored guides
         run: npm run authority:scale:publish
-      - name: Report authoring queue
+      # The publish step's outcome is named, not inferred. publish-outcome.json
+      # carries one of PUBLISHED / HELD_* / EDITORIAL_SEEDS_INVALID, the reason,
+      # and what would unblock it. This step fails the run if that file is
+      # missing or carries an unrecognised code, so "published 0" can never
+      # again be indistinguishable from "did nothing and said nothing".
+      - name: Name the publish outcome
         if: always()
         run: |
-          if [ -f artifacts/authority/authoring-queue.json ]; then
-            node -e "const q=require('./artifacts/authority/authoring-queue.json');console.log(\`authoring queue: \${q.topics_awaiting_authoring} topic(s) need three sentences each; \${q.seeds_ready_not_yet_released} seed(s) ready and waiting on cadence budget\`)"
-          fi
+          node -e "
+          const fs=require('fs');
+          const p='artifacts/authority/publish-outcome.json';
+          if(!fs.existsSync(p)){console.error('publish step produced no outcome receipt at '+p);process.exit(1)}
+          const o=JSON.parse(fs.readFileSync(p,'utf8'));
+          const known=Object.keys(o.outcome_codes||{}).concat(['EDITORIAL_SEEDS_INVALID']);
+          console.log('publish outcome: '+o.outcome+' ('+o.outcome_kind+')');
+          console.log('reason: '+o.outcome_reason);
+          console.log('unblocked by: '+o.unblocked_by);
+          const b=o.authoring_backlog||{};
+          if(b.topics)console.log('authoring backlog: '+b.topics+' topic(s) need three sentences each ('+(b.sentences_required_each||[]).join(', ')+') - see '+b.file);
+          for(const t of b.next||[])console.log('  needs authoring: '+t.topic+'  ->  cluster '+t.cluster+', hub '+t.hub_route);
+          if(o.outcome!=='EDITORIAL_SEEDS_INVALID'&&!known.includes(o.outcome)){console.error('unnamed publish outcome: '+o.outcome);process.exit(1)}
+          "
       - run: npm run validate:authority-registry
       - run: npm run authority:atlas
       - run: npm run authority:flow
       - run: npm run authority:sitemaps
       - run: npm run distribution:prepare
       - run: npm run distribution:validate
+      # Repair before the gate, not instead of it.
+      #
+      # scripts/selfheal/heal_until_clean.mjs is a real bounded
+      # validate -> repair -> revalidate loop, and until now the publishing lane
+      # never called it: it lived only in self-heal.yml, whose cron
+      # ('18 16 * * 3') has never fired and which has run exactly once ever, by
+      # hand. So a content failure in the lane that actually publishes had no
+      # repair path at all, even for the validators that name the command that
+      # fixes them in _repo_validation_registry.json.
+      #
+      # It exits 0 only when `npm run validate:all` is green, and exits 1 with a
+      # named result otherwise - NO_REPAIR_AVAILABLE when nothing failing has a
+      # registered repair, GATE_DISAGREES when the gate and the attributed checks
+      # disagree. Neither is healed away silently, and validate:structural still
+      # runs afterwards as the unhealed gate.
+      - name: Repair then revalidate (bounded)
+        id: heal
+        run: npm run selfheal
+      - name: Name the heal outcome
+        if: always()
+        run: |
+          node -e "
+          const fs=require('fs');
+          const p='reports/validation/self-heal-loop.json';
+          if(!fs.existsSync(p)){console.log('self-heal produced no report');process.exit(0)}
+          const r=JSON.parse(fs.readFileSync(p,'utf8'));
+          console.log('self-heal: '+r.status+' (safe_to_push='+r.safe_to_push+')');
+          for(const a of r.attempts||[]){
+            console.log('  attempt '+a.attempt+': '+a.result+(a.failed.length?' failed=['+a.failed.join(', ')+']':''));
+            if(a.result==='NO_REPAIR_AVAILABLE')console.error('  no registered repair for: '+a.failed.join(', ')+' - add a repair_command in _repo_validation_registry.json or fix by hand');
+          }
+          "
       - run: npm run validate:structural
       - run: npm run authority:scale:freeze
       - run: npm run authority:scale:validate
@@ -75,10 +134,18 @@ jobs:
           # one oversized batch. data/seo carries route_ownership.json, which publish
           # now writes so a new guide has a host to be served from, and
           # lastmod_ledger.json rebuilt by authority:sitemaps.
-          git add data/authority data/authority_scale data/cadence data/release data/seo artifacts/authority artifacts/sitemaps artifacts/distribution reports/cadence 2>/dev/null || true
+          # data/atlas and data/search_intelligence are here because the heal
+          # step's registered repairs (atlas:build, search:diagnose,
+          # search:repair) write there. A repair that is not committed is a
+          # repair that runs again tomorrow.
+          git add data/authority data/authority_scale data/cadence data/release data/seo data/atlas data/search_intelligence artifacts/authority artifacts/sitemaps artifacts/distribution reports/cadence reports/validation 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: governed daily content expansion'
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+          # Push back to the ref the run started from. On the schedule that is
+          # main. A workflow_dispatch from a branch used to push that branch's
+          # content straight to main, which made testing a change to this lane
+          # impossible without releasing it.
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
       - name: Submit IndexNow and Google Search Console after validated publication
         env:
           RUN_MODE: live
@@ -95,8 +162,12 @@ jobs:
         run: |
           git add artifacts/distribution 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: record distribution receipts'
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+          # Push back to the ref the run started from. On the schedule that is
+          # main. A workflow_dispatch from a branch used to push that branch's
+          # content straight to main, which made testing a change to this lane
+          # impossible without releasing it.
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
       - uses: actions/upload-artifact@v7
         if: always()
         with:

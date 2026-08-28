@@ -48,6 +48,17 @@ const fingerprint = (value) => (value === undefined ? null : sha(JSON.stringify(
 
 const runAt = (process.env.LASTMOD_RUN_AT || process.env.AUTHORITY_RUN_AT || new Date().toISOString()).slice(0, 10);
 
+// A shallow clone has no history to walk, so every path would fall through to
+// "uncommitted" and take the run date - 103 URLs stamped with one identical
+// date, which is the fabricated freshness signal this file exists to remove.
+// That is exactly what the daily lane committed on 2026-08-27 under the default
+// depth-1 actions/checkout. Refuse instead of producing it: this is a
+// misconfigured checkout, not a content state.
+if (git('rev-parse', '--is-shallow-repository').trim() === 'true') {
+  console.error('LASTMOD LEDGER: refusing to build from a shallow clone. Every lastmod would collapse to today. Check out with fetch-depth: 0.');
+  process.exit(1);
+}
+
 // Commit list per file, newest first, plus that file's blob at each commit.
 const historyCache = new Map();
 function history(file) {
