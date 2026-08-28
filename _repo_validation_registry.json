@@ -28,7 +28,9 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "an entry that fails isComplete() is a 404 the moment it is written; 45 of them accumulated over 28 days with every other validator passing",
-      "composite": false
+      "composite": false,
+      "repair_command": "npm run authority:scale:restore",
+      "repair_evidence": "proved on 2026-08-28: deleting faqs from a frozen guide fails this validator with UNRENDERABLE_ENTRY, and restore_authority_content.mjs rewrites the entry from its frozen blob and the validator passes again"
     },
     {
       "id": "commerce",

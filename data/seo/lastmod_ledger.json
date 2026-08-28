@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "f4418c688dcd40a5784972dd56ebd071c2a03e81",
+  "generated_from_commit": "510b08f3cf3de815bd0a3cad75c46e5a868fc9d2",
   "shipping_guide_count": 79,
   "paths": {
     "/": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "app/page.tsx"
     },
     "/build": {
@@ -22,39 +22,39 @@
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/1-month-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=1-month-wedding-checklist]"
     },
     "/guides/12-month-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=12-month-wedding-checklist]"
     },
     "/guides/18-month-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=18-month-wedding-checklist]"
     },
     "/guides/3-month-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=3-month-wedding-checklist]"
     },
     "/guides/6-month-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=6-month-wedding-checklist]"
     },
     "/guides/9-month-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=9-month-wedding-checklist]"
     },
     "/guides/alphabetical-vs-table-order-seating-chart": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=alphabetical-vs-table-order-seating-chart]"
     },
     "/guides/backyard-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=backyard-wedding-checklist]"
     },
     "/guides/backyard-wedding-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=backyard-wedding-timeline]"
     },
     "/guides/bridal-shower-checklist": {
@@ -62,19 +62,19 @@
       "source": "data/authority/content_registry.json#pages[slug=bridal-shower-checklist]"
     },
     "/guides/brunch-wedding-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=brunch-wedding-timeline]"
     },
     "/guides/children-high-chairs-seating-chart": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=children-high-chairs-seating-chart]"
     },
     "/guides/church-ceremony-wedding-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=church-ceremony-wedding-timeline]"
     },
     "/guides/courthouse-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=courthouse-wedding-checklist]"
     },
     "/guides/day-of-coordinator-checklist": {
@@ -82,51 +82,51 @@
       "source": "data/authority/content_registry.json#pages[slug=day-of-coordinator-checklist]"
     },
     "/guides/destination-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=destination-wedding-checklist]"
     },
     "/guides/destination-wedding-weekend-itinerary": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=destination-wedding-weekend-itinerary]"
     },
     "/guides/estimated-vs-actual-wedding-costs": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=estimated-vs-actual-wedding-costs]"
     },
     "/guides/evening-wedding-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=evening-wedding-timeline]"
     },
     "/guides/family-contributions-wedding-budget": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=family-contributions-wedding-budget]"
     },
     "/guides/family-photo-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=family-photo-timeline]"
     },
     "/guides/late-rsvp-seating-chart-changes": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=late-rsvp-seating-chart-changes]"
     },
     "/guides/long-table-wedding-seating": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=long-table-wedding-seating]"
     },
     "/guides/micro-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=micro-wedding-checklist]"
     },
     "/guides/one-venue-wedding-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=one-venue-wedding-timeline]"
     },
     "/guides/post-wedding-return-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=post-wedding-return-checklist]"
     },
     "/guides/rehearsal-dinner-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=rehearsal-dinner-checklist]"
     },
     "/guides/rehearsal-dinner-timeline": {
@@ -134,35 +134,35 @@
       "source": "data/authority/content_registry.json#pages[slug=rehearsal-dinner-timeline]"
     },
     "/guides/round-table-seating-plan": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=round-table-seating-plan]"
     },
     "/guides/seat-divorced-parents-wedding": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=seat-divorced-parents-wedding]"
     },
     "/guides/sweetheart-table-vs-head-table": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=sweetheart-table-vs-head-table]"
     },
     "/guides/two-venue-wedding-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=two-venue-wedding-timeline]"
     },
     "/guides/wedding-budget-10000": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-10000]"
     },
     "/guides/wedding-budget-20000": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-20000]"
     },
     "/guides/wedding-budget-30000": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-30000]"
     },
     "/guides/wedding-budget-50000": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-50000]"
     },
     "/guides/wedding-budget-calculator": {
@@ -170,23 +170,23 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-calculator]"
     },
     "/guides/wedding-budget-contingency": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-contingency]"
     },
     "/guides/wedding-budget-for-100-guests": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-100-guests]"
     },
     "/guides/wedding-budget-for-150-guests": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-150-guests]"
     },
     "/guides/wedding-budget-for-50-guests": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-50-guests]"
     },
     "/guides/wedding-budget-spreadsheet-categories": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-spreadsheet-categories]"
     },
     "/guides/wedding-budget-template": {
@@ -194,11 +194,11 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-template]"
     },
     "/guides/wedding-day-emergency-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-day-emergency-checklist]"
     },
     "/guides/wedding-day-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-day-timeline]"
     },
     "/guides/wedding-day-timeline-template": {
@@ -206,7 +206,7 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-day-timeline-template]"
     },
     "/guides/wedding-deposit-schedule": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-deposit-schedule]"
     },
     "/guides/wedding-emergency-kit": {
@@ -214,15 +214,15 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-emergency-kit]"
     },
     "/guides/wedding-escort-card-data-export": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-escort-card-data-export]"
     },
     "/guides/wedding-final-payment-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-final-payment-checklist]"
     },
     "/guides/wedding-gratuity-planner": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-gratuity-planner]"
     },
     "/guides/wedding-guest-list-headcount-control": {
@@ -230,23 +230,23 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-guest-list-headcount-control]"
     },
     "/guides/wedding-hidden-costs-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-hidden-costs-checklist]"
     },
     "/guides/wedding-monthly-cash-flow": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-monthly-cash-flow]"
     },
     "/guides/wedding-party-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-party-timeline]"
     },
     "/guides/wedding-photography-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-photography-timeline]"
     },
     "/guides/wedding-planning-binder": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-planning-binder]"
     },
     "/guides/wedding-planning-timeline": {
@@ -254,7 +254,7 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-planning-timeline]"
     },
     "/guides/wedding-reception-order-of-events": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-reception-order-of-events]"
     },
     "/guides/wedding-rehearsal-timeline": {
@@ -266,27 +266,27 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-rsvp-tracking-system]"
     },
     "/guides/wedding-seating-chart-accessibility": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-accessibility]"
     },
     "/guides/wedding-seating-chart-allergy-tracker": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-allergy-tracker]"
     },
     "/guides/wedding-seating-chart-for-100-guests": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-for-100-guests]"
     },
     "/guides/wedding-seating-chart-for-150-guests": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-for-150-guests]"
     },
     "/guides/wedding-seating-chart-for-50-guests": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-for-50-guests]"
     },
     "/guides/wedding-seating-chart-meal-tracker": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-meal-tracker]"
     },
     "/guides/wedding-seating-chart-template": {
@@ -294,47 +294,47 @@
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-template]"
     },
     "/guides/wedding-seating-chart-vendor-handoff": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-seating-chart-vendor-handoff]"
     },
     "/guides/wedding-setup-breakdown-timeline": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-setup-breakdown-timeline]"
     },
     "/guides/wedding-table-capacity-guide": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-table-capacity-guide]"
     },
     "/guides/wedding-timeline-travel-buffer": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-timeline-travel-buffer]"
     },
     "/guides/wedding-timeline-with-first-look": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-timeline-with-first-look]"
     },
     "/guides/wedding-timeline-without-first-look": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-timeline-without-first-look]"
     },
     "/guides/wedding-vendor-arrival-schedule": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-vendor-arrival-schedule]"
     },
     "/guides/wedding-vendor-booking-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-vendor-booking-checklist]"
     },
     "/guides/wedding-vendor-list": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-vendor-list]"
     },
     "/guides/wedding-vendor-payment-tracker": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-vendor-payment-tracker]"
     },
     "/guides/wedding-week-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-week-checklist]"
     },
     "/photos": {
@@ -342,7 +342,7 @@
       "source": "app/photos/page.tsx"
     },
     "/printable-wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.printable-wedding-checklist"
     },
     "/privacy": {
@@ -350,23 +350,23 @@
       "source": "app/privacy/page.tsx"
     },
     "/products/budget-spreadsheet": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-08-26",
       "source": "data/products/product_catalog.json#products[id=budget-spreadsheet]"
     },
     "/products/checklist-pdf": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/products/product_catalog.json#products[id=checklist-pdf]"
     },
     "/products/operations-suite": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "app/products/operations-suite/page.tsx"
     },
     "/products/seating-chart-maker": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-08-26",
       "source": "data/products/product_catalog.json#products[id=seating-chart-maker]"
     },
     "/products/timeline-template": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/refund-policy": {
@@ -390,31 +390,31 @@
       "source": "app/trends/page.tsx"
     },
     "/wedding-budget-spreadsheet": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-budget-spreadsheet"
     },
     "/wedding-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-checklist"
     },
     "/wedding-checklist-pdf": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-checklist-pdf"
     },
     "/wedding-guest-list-template": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-08-08",
       "source": "data/seo/hub_pages.json#pages.wedding-guest-list-template"
     },
     "/wedding-planning-checklist": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-planning-checklist"
     },
     "/wedding-seating-chart": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-seating-chart"
     },
     "/wedding-timeline-template": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-timeline-template"
     }
   }

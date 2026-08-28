@@ -26,6 +26,18 @@
         "provider",
         "results"
       ]
+    },
+    "answer_engine_citation": {
+      "enabled_when_configured": true,
+      "cost_class": "OpenRouter web plugin, billed per web result",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "max_results_per_query": 5,
+      "queries_per_run": 13,
+      "min_hours_between_runs": 168,
+      "query_source": "data/queries/evidence/evidence_queries.json",
+      "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+      "truth_boundary": "answer-engine citations observed on a date; never reported as rank, and no rate is written for a run the provider did not answer"
     }
   },
   "budgets": {

@@ -200,6 +200,15 @@ for (const seed of seeds) {
 
 // A broken seed file is a failure. This is the "something is wrong" case.
 if (problems.length) {
+  write('artifacts/authority/publish-outcome.json', {
+    schema_version: '1.0',
+    run_at: new Date().toISOString(),
+    outcome: 'EDITORIAL_SEEDS_INVALID',
+    outcome_kind: 'FAILURE',
+    outcome_reason: problems.join(' | '),
+    unblocked_by: 'fix data/authority/editorial_seeds.json, or lib/authority-compose.mjs if a composed record failed the router predicate',
+    counts: { published: 0, seeds_total: seeds.length },
+  });
   console.error(`EDITORIAL SEEDS INVALID: ${problems.length} problem(s). Nothing was published.`);
   for (const p of problems) console.error(`  ${p}`);
   process.exit(1);
@@ -305,8 +314,47 @@ if (releasing.length) {
   write(ledgerPath, ledger);
 }
 
+// ---------------------------------------------------------------------------
+// The outcome, named and machine-readable.
+//
+// "IDLE" was true but useless: it covered a spent cadence budget, an empty seed
+// file, a queue of 25 unwritten topics and a set of seeds held for being too
+// similar, all with the same word, and it existed only in stdout. A reader
+// could not tell a legitimate stop from a job that had quietly stopped doing
+// anything, which is the failure mode this repo is full of. Each stop now has
+// its own code, the thing that would unblock it, and a file downstream tooling
+// can read.
+function decideOutcome() {
+  if (releasing.length) return { code: 'PUBLISHED', blocking: false, unblocked_by: null, detail: `published ${releasing.length} guide(s)` };
+  if (admitted.length && budget <= 0) {
+    return {
+      code: 'HELD_CADENCE_BUDGET_SPENT', blocking: false,
+      unblocked_by: 'time: the 7-day window rolls forward, or data/cadence/policy.json is re-derived from measured throughput',
+      detail: `${admitted.length} seed(s) passed every check and are waiting. ${changedThisWeek} of ${weeklyCap} guides were added or refreshed in the last 7 days, by any author.`,
+    };
+  }
+  if (!seeds.length) {
+    return { code: 'HELD_NO_SEEDS', blocking: false, unblocked_by: `author ${queue.length} seed(s) in data/authority/editorial_seeds.json`, detail: 'data/authority/editorial_seeds.json holds no seeds.' };
+  }
+  if (held.length && !skipped.filter((s) => s.reason === 'NOT_READY').length) {
+    return { code: 'HELD_FOR_REWRITE', blocking: false, unblocked_by: `rewrite ${held.length} seed(s) that score above the library's own similarity ceiling of ${CEILING}`, detail: held.map((h) => `${h.slug}: ${h.detail}`).join(' | ') };
+  }
+  if (queue.length || skipped.some((s) => s.reason === 'NOT_READY')) {
+    return {
+      code: 'HELD_AWAITING_AUTHORING', blocking: false,
+      unblocked_by: `write three sentences (summary, recommendation, working_example) for ${queue.length} topic(s) listed in artifacts/authority/authoring-queue.json`,
+      detail: `${skipped.filter((s) => s.reason === 'NOT_READY').length} seed(s) are not marked ready; ${queue.length} backlog topic(s) have a cluster and a scaffold but no author.`,
+    };
+  }
+  return { code: 'HELD_NOTHING_ELIGIBLE', blocking: false, unblocked_by: 'inspect the skip reasons below - every seed was skipped for a reason that is not authoring', detail: skipped.map((s) => `${s.slug}: ${s.reason}`).join(' | ') || 'no seed was eligible' };
+}
+const outcome = decideOutcome();
+
 const summary = {
-  status: releasing.length ? 'PUBLISHED' : 'IDLE',
+  status: outcome.code,
+  outcome_code: outcome.code,
+  legitimate_stop: !releasing.length,
+  unblocked_by: outcome.unblocked_by,
   published: releasing.length,
   published_slugs: releasing.map((r) => r.record.slug),
   seeds_total: seeds.length,
@@ -325,6 +373,46 @@ const summary = {
 };
 console.log(JSON.stringify(summary, null, 2));
 
+// The machine-readable receipt. A run that published nothing is now
+// distinguishable from a run that failed and from a run that did nothing for no
+// stated reason, by reading a file rather than by parsing stdout.
+write('artifacts/authority/publish-outcome.json', {
+  schema_version: '1.0',
+  run_at: new Date().toISOString(),
+  outcome: outcome.code,
+  outcome_kind: releasing.length ? 'WORK_DONE' : 'LEGITIMATE_STOP',
+  outcome_reason: outcome.detail,
+  unblocked_by: outcome.unblocked_by,
+  policy: 'Publishing requires authored material; this job will not manufacture it. A stop is named, never silent.',
+  outcome_codes: {
+    PUBLISHED: 'guides were released this run',
+    HELD_CADENCE_BUDGET_SPENT: 'seeds are ready and the measured weekly cadence is spent',
+    HELD_AWAITING_AUTHORING: 'the blocker is human writing: three sentences per topic',
+    HELD_FOR_REWRITE: 'seeds exist but are too similar to guides that already ship',
+    HELD_NO_SEEDS: 'the seed file is empty',
+    HELD_NOTHING_ELIGIBLE: 'seeds exist but every one was skipped for a non-authoring reason',
+    EDITORIAL_SEEDS_INVALID: 'exit 1: the seed file or the composer is broken',
+  },
+  counts: {
+    published: releasing.length,
+    seeds_total: seeds.length,
+    seeds_ready_waiting_for_budget: waiting.length,
+    seeds_held_for_rewrite: held.length,
+    seeds_skipped: skipped.length,
+    topics_awaiting_authoring: queue.length,
+  },
+  // The backlog, in the same file as the stop, so the thing that unblocks it is
+  // never more than one read away.
+  authoring_backlog: {
+    file: 'artifacts/authority/authoring-queue.json',
+    topics: queue.length,
+    sentences_required_each: ['summary', 'recommendation', 'working_example'],
+    next: queue.slice(0, 10).map((q) => ({ topic: q.topic, cluster: q.assigned_cluster, hub_route: q.hub_route })),
+  },
+  held_seeds: held,
+  skipped_seeds: skipped.filter((s) => s.reason !== 'ALREADY_PUBLISHED'),
+});
+
 if (releasing.length) {
   console.log(`\nPublished ${releasing.length} guide(s): ${releasing.map((r) => r.record.slug).join(', ')}`);
 } else {
@@ -335,7 +423,8 @@ if (releasing.length) {
     : seeds.length === 0
       ? 'data/authority/editorial_seeds.json holds no seeds.'
       : `No seed is ready to publish. ${skipped.length} skipped, ${held.length} held for rewrite, ${queue.length} topic(s) awaiting authoring.`;
-  console.log(`\nNOTHING TO PUBLISH - this is a successful run. ${why}`);
+  console.log(`\nNOTHING TO PUBLISH - ${outcome.code} - this is a successful run. ${why}`);
+  console.log(`UNBLOCKED BY: ${outcome.unblocked_by}`);
   console.log('A library with nothing ready is caught up, not broken. Publishing requires authored material; this job will not manufacture it.');
 }
 for (const h of held) console.log(`  HELD    ${h.slug}: ${h.detail}`);
