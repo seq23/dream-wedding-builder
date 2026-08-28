@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-27",
+  "generated_at": "2026-08-28",
   "policy_source": "data/cadence/policy.json",
   "urls": 105,
   "dated": 105,
   "undated": 0,
-  "stale_over_window": 4,
-  "stale_pct": 3.8,
-  "fresh_within_30d": 97,
-  "lastmod_within_7d": 18,
+  "stale_over_window": 0,
+  "stale_pct": 0,
+  "fresh_within_30d": 105,
+  "lastmod_within_7d": 105,
   "new_since_last_run": 0,
   "ledger_initialised": true,
   "maintainable_ceiling": 143,
@@ -30,6 +30,8 @@
     }
   },
   "blocking": [],
-  "warnings": [],
+  "warnings": [
+    "uniform_lastmod: 105 of 105 pages share a lastmod inside 7 days - that is a date bump pattern, not a refresh, and it makes the freshness signal meaningless"
+  ],
   "status": "CLEAR"
 }
