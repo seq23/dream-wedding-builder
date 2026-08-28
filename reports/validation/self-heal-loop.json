@@ -1,11 +1,12 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-27T18:23:56.040Z",
+  "generated_at": "2026-08-28T17:19:38.131Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
   "gate_exit_code": 0,
   "registered_repairs": {
+    "authority-registry": "npm run authority:scale:restore",
     "proof-readiness": "npm run authority:flow",
     "query-atlas": "npm run atlas:build",
     "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair"
