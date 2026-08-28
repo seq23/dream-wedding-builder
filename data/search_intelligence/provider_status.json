@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-08-28T15:41:21.460Z",
+  "updated_at": "2026-08-28T16:36:43.962Z",
   "providers": {
     "gsc": {
       "state": "AVAILABLE",
-      "requests": 0,
-      "rows_added": 0,
+      "requests": 4,
+      "rows_added": 2,
       "period": {
         "start": "2026-07-30",
         "end": "2026-08-26"
