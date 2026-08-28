@@ -45,6 +45,12 @@ const DRY = argv.includes('--dry-run');
 const OUT = 'data/search_intelligence/citation_occupancy.json';
 const cfg = read('data/search_intelligence/config.json');
 const probeCfg = cfg.providers?.answer_engine_citation || {};
+// OpenRouter's default web engine bills per RESULT (~$0.04/query measured on
+// this account); the parallel engine in turbo mode bills per REQUEST with 10
+// results included ($0.00127/call measured), an identical url_citation schema
+// for ~1/31st the cost. Overridable so a run can be pointed back if needed.
+const WEB_ENGINE = process.env.OPENROUTER_WEB_ENGINE || 'parallel';
+const WEB_MODE = process.env.OPENROUTER_WEB_MODE || 'turbo';
 const MODEL = process.env.OPENROUTER_MODEL || probeCfg.model || 'openai/gpt-4o-mini';
 const MAX_RESULTS = Number(process.env.CITATION_MAX_RESULTS || probeCfg.max_results_per_query || 5);
 const MIN_HOURS = Number(process.env.CITATION_MIN_HOURS || probeCfg.min_hours_between_runs || 168);
@@ -106,7 +112,7 @@ async function ask(query) {
       headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
       body: JSON.stringify({
         model: MODEL,
-        plugins: [{ id: 'web', max_results: MAX_RESULTS }],
+        plugins: [{ id: 'web', engine: WEB_ENGINE, mode: WEB_MODE, max_results: MAX_RESULTS }],
         temperature: 0,
         max_tokens: 500,
         messages: [{ role: 'user', content: query }],
