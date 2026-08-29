@@ -135,7 +135,7 @@ describe('no gate may pass having examined nothing', () => {
 
   it.each(zeroGuarded)('%s hard-fails when it examines zero items', (rel) => {
     const src = read(rel);
-    expect(src, `${rel} has no zero-item guard`).toMatch(/(scanned === 0|pages\.length === 0|length === 0|\.length\b[^\n]*=== 0)/);
+    expect(src, `${rel} has no zero-item guard`).toMatch(/(scanned|\.length|rootItems\.length|pages\.length)\s*===\s*0/);
     expect(src).toMatch(/process\.exit\(1\)/);
   });
 
