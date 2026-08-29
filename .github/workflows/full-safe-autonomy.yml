@@ -110,6 +110,19 @@ jobs:
       - run: npm run validate:structural
       - run: npm run authority:scale:freeze
       - run: npm run authority:scale:validate
+      # Close the derivation loop before the gate reads the policy.
+      #
+      # data/cadence/policy.json carries refresh_capacity_per_week and
+      # new_pages_per_week, both derived from measured throughput and then stored
+      # as literals. Until 2026-08-29 no workflow ran derive_capacity.mjs, so the
+      # literals never moved while the rate they came from did: under a simulated
+      # clock the stored 11/5 becomes 7/3 by 2026-09-20, i.e. the publisher
+      # releasing five guides a week against a measured sustainable three, and
+      # cadence_gate.js computing maintainable_ceiling from a rate the repo no
+      # longer achieved. Re-deriving here means the gate below is measured against
+      # today's history, and data/cadence is already staged by the commit step.
+      - name: Re-derive cadence capacity from measured history
+        run: npm run cadence:derive -- --write
       # The cadence policy is enforced against the publisher, not only against CI.
       # data/cadence/policy.json carries numbers measured by
       # scripts/cadence/derive_capacity.mjs from this repo's own history; without

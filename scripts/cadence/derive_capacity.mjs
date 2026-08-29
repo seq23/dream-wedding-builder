@@ -28,7 +28,27 @@
  * funds both, and new pages are capped well below it so the majority of capacity
  * stays available for keeping the tail inside the 91-day citability window.
  *
- * Usage: node scripts/cadence/derive_capacity.mjs [--write] [--json]
+ * --check: the loop was open
+ * ---------------------------
+ * These two numbers are derived from a rate and then written into
+ * data/cadence/policy.json as literals. Until 2026-08-29 no workflow ran this
+ * script, so nothing re-derived them and nothing asserted they still followed
+ * from the measurement. Proved with a simulated clock on 2026-08-29: the stored
+ * policy said refresh 11 / new 5, and this same unmodified derivation yields
+ * 9/4 by 2026-09-05, 7/3 by 2026-09-20 and 5/2 by 2026-10-20 - so the publisher
+ * would have kept releasing 5 guides a week against a measured sustainable 2,
+ * and cadence_gate.js would have computed its maintainable_ceiling (refresh
+ * capacity x 13 weeks) from a rate the repo no longer achieves. A rate used as a
+ * total, getting staler every day it was not re-derived.
+ *
+ * --check fails when the stored policy claims MORE capacity than the measurement
+ * supports, or when new_pages_per_week no longer follows from
+ * refresh_capacity_per_week. It carries a repair_command in
+ * _repo_validation_registry.json, so the publishing lane re-derives rather than
+ * waiting for a human. A shallow clone cannot measure history at all and is a
+ * hard failure, never a quiet pass.
+ *
+ * Usage: node scripts/cadence/derive_capacity.mjs [--write] [--json] [--check]
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -37,6 +57,7 @@ import { isComplete } from '../../lib/authority-complete.mjs';
 
 const root = process.cwd();
 const WRITE = process.argv.includes('--write');
+const CHECK = process.argv.includes('--check');
 const JSON_ONLY = process.argv.includes('--json');
 const REGISTRY = 'data/authority/content_registry.json';
 const POLICY = 'data/cadence/policy.json';
@@ -55,6 +76,18 @@ for (const c of commits) {
     renderable = (JSON.parse(blob).pages ?? []).filter(isComplete).length;
   } catch { continue; }
   series.push({ ...c, renderable });
+}
+
+// A shallow clone cannot see the history this measurement is made of. Passing
+// there would be a validator that hardcodes PASS in exactly the environment (CI)
+// where it is most likely to be the only thing looking.
+if (CHECK) {
+  const shallow = git('rev-parse', '--is-shallow-repository').trim() === 'true';
+  if (shallow || series.length < 2) {
+    console.error('CADENCE POLICY CHECK CANNOT RUN: ' + (shallow ? 'this is a shallow clone' : `only ${series.length} registry commit(s) are visible`) + '.');
+    console.error('  The cadence policy is derived from committed history. Check out with fetch-depth: 0.');
+    process.exit(1);
+  }
 }
 
 // Measure over the period this repo was actually authoring guides, not over its
@@ -108,8 +141,13 @@ const derivation = {
 };
 
 const report = { ...derivation, series };
-fs.mkdirSync(path.join(root, 'reports/cadence'), { recursive: true });
-fs.writeFileSync(path.join(root, 'reports/cadence/capacity-derivation.json'), JSON.stringify(report, null, 2) + '\n');
+// --check is a validator and must not mutate: it runs inside validate:structural,
+// and a validator that dirties the tree turns every run into a spurious diff for
+// the lanes that `git add -A`.
+if (!CHECK) {
+  fs.mkdirSync(path.join(root, 'reports/cadence'), { recursive: true });
+  fs.writeFileSync(path.join(root, 'reports/cadence/capacity-derivation.json'), JSON.stringify(report, null, 2) + '\n');
+}
 
 if (WRITE) {
   const policy = JSON.parse(fs.readFileSync(path.join(root, POLICY), 'utf8'));
@@ -125,6 +163,33 @@ if (WRITE) {
     note: 'Whole-period average over the authoring window, floored. The best single interval is a bulk authoring event and is deliberately not used.',
   };
   fs.writeFileSync(path.join(root, POLICY), JSON.stringify(policy, null, 2) + '\n');
+}
+
+if (CHECK) {
+  const policy = JSON.parse(fs.readFileSync(path.join(root, POLICY), 'utf8'));
+  const problems = [];
+  const storedRefresh = Number(policy.refresh_capacity_per_week);
+  const storedNew = Number(policy.new_pages_per_week);
+  // Over-claiming is the direction that does harm: it lets the publisher release
+  // faster than the library has ever been maintained. A policy set below the
+  // measurement is conservative and is not an error.
+  if (!Number.isFinite(storedRefresh) || storedRefresh > refreshCapacity) {
+    problems.push(`refresh_capacity_per_week is ${policy.refresh_capacity_per_week} but measured sustained throughput is ${derivation.sustained_throughput_per_week}/week, which supports ${refreshCapacity}`);
+  }
+  // new_pages_per_week is not independent: it is half the refresh figure, so the
+  // rest of capacity stays available to hold the tail inside the refresh window.
+  const impliedNew = Math.max(1, Math.floor(storedRefresh / 2));
+  if (!Number.isFinite(storedNew) || storedNew !== impliedNew) {
+    problems.push(`new_pages_per_week is ${policy.new_pages_per_week} but refresh_capacity_per_week ${policy.refresh_capacity_per_week} implies ${impliedNew} (half, floored)`);
+  }
+  if (problems.length) {
+    console.error('CADENCE POLICY IS STALE - data/cadence/policy.json no longer follows from measured throughput:');
+    for (const problem of problems) console.error(`  - ${problem}`);
+    console.error('  repair: npm run cadence:derive -- --write');
+    process.exit(1);
+  }
+  console.log(`cadence policy currency: PASS (stored refresh ${storedRefresh}/week, new ${storedNew}/week; measured ${derivation.sustained_throughput_per_week}/week over ${derivation.authoring_weeks} authoring weeks from ${series.length} registry commits)`);
+  process.exit(0);
 }
 
 if (JSON_ONLY) console.log(JSON.stringify(derivation, null, 2));

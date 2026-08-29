@@ -331,6 +331,16 @@ fs.writeFileSync(EVIDENCE, `${JSON.stringify({
   blocking_backlog: blockingFailures.slice(0, 200),
 }, null, 2)}\n`);
 
+// Zero pages is a failure, not a 100% pass. Note coverage_pct above divides by
+// Math.max(pages.length, 1), so an empty page set would have reported every
+// pattern at 100% coverage - a phantom denominator making an unchecked library
+// look complete. Confirmed elsewhere on 2026-08-29 as the shape that let three
+// HARD_FAIL gates examine nothing and exit 0.
+if (pages.length === 0) {
+  console.error('VALIDATION FAIL: content-pattern-contract examined 0 content pages.');
+  console.error('- a pass on an empty page set reports 100% coverage of every pattern');
+  process.exit(1);
+}
 console.log(`content-pattern-contract: ${pages.length} content pages checked (enforcement: ${ENFORCEMENT})`);
 for (const s of summary) {
   const tag = s.blocking ? 'BLOCKING' : 'gap     ';

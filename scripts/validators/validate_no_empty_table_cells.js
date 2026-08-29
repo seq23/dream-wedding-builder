@@ -64,6 +64,21 @@ if (fs.existsSync(dataDir)) {
 }
 
 const totalCells = offenders.reduce((sum, o) => sum + o.empty_cells, 0);
+// A gate whose pass is indistinguishable from "found nothing to check" is not a
+// gate. Confirmed in a sibling repo on 2026-08-29: three HARD_FAIL validators of
+// this same family globbed for built HTML under a gitignored dist/, validation
+// ran before the build, and they examined zero pages and exited 0 on every push.
+// This repo's SCAN_DIRS are committed source (app, components, public) so the
+// count has always been real - 77 files on 2026-08-29 - but the shape that made
+// the sibling silently unchecked is one deleted directory away, so zero is now a
+// failure rather than a pass.
+if (scanned === 0) {
+  console.error('VALIDATION FAIL: examined 0 files.');
+  console.error(`- scan surface: ${[...SCAN_DIRS, 'data/*.ts'].join(', ')}`);
+  console.error('- a pass here would mean "nothing was checked", not "nothing is wrong"');
+  process.exit(1);
+}
+
 fs.mkdirSync(path.dirname(EVIDENCE), { recursive: true });
 fs.writeFileSync(EVIDENCE, `${JSON.stringify({
   schema_version: '1.0',
