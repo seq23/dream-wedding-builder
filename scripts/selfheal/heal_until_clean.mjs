@@ -176,6 +176,32 @@ const report = {
 fs.mkdirSync(path.join(ROOT, 'reports/validation'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports/validation/self-heal-loop.json'), `${JSON.stringify(report, null, 2)}\n`);
 
+// A dry run is a report, not a verdict. It deliberately performs no repair, so
+// "not clean" is its expected output whenever there is anything to do - and
+// exiting non-zero for that made .github/workflows/self-heal.yml unable to heal
+// anything at all: its "Report what the loop would repair" step runs before
+// "Apply bounded repairs" under `bash -e`, so the moment a repairable failure
+// existed the dry step failed the job and the real repair never ran. Proved on
+// 2026-08-29 by deleting data/authority_scale/query_atlas.json: `selfheal:dry`
+// exited 1 with "would repair query-atlas", while `selfheal` on the same tree
+// repaired it and exited 0. The repair path was unreachable in exactly the case
+// it exists for, and a no-op in every other.
+//
+// The dry run still fails loudly for what is a real failure of the run itself -
+// the gate contradicting the attributed checks - because that is not "work is
+// pending", it is "this loop cannot be trusted".
+if (DRY) {
+  console.log(`[self-heal] dry run complete: ${clean ? 'nothing to repair' : `status=${report.status}`} - see reports/validation/self-heal-loop.json`);
+  for (const a of attempts) {
+    if (a.result === 'NO_REPAIR_AVAILABLE') console.log(`  would NOT be repairable: ${a.failed.join(', ')} - no repair_command registered`);
+  }
+  if (attempts.some((a) => a.result === 'GATE_DISAGREES')) {
+    console.error('[self-heal] dry run: validate:all disagrees with the attributed checks - the loop cannot be trusted until that is resolved.');
+    process.exit(1);
+  }
+  process.exit(0);
+}
+
 if (!clean) {
   console.error(`[self-heal] NOT CLEAN after ${attempts.length} attempt(s) - refusing to declare the tree publishable.`);
   console.error('  see reports/validation/self-heal-loop.json');

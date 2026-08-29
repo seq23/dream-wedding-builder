@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 17,
+    "HARD_FAIL": 19,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -75,6 +75,15 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "paid customers must receive the file they bought",
+      "composite": false
+    },
+    {
+      "id": "fulfillment-path",
+      "npmScript": "validate:fulfillment-path",
+      "command": "node scripts/validate-fulfillment-path.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
       "composite": false
     },
     {
@@ -226,6 +235,18 @@
       "blocksRelease": false,
       "reason": "working tree debris is a maintenance problem, not a release risk",
       "composite": false
+    },
+    {
+      "id": "cadence-policy-currency",
+      "npmScript": "validate:cadence-policy",
+      "command": "node scripts/cadence/derive_capacity.mjs --check",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "data/cadence/policy.json restates two numbers derived from a measured rate; nothing re-derived or asserted them, and a simulated clock on 2026-08-29 showed the stored 11/5 becoming 7/3 by 2026-09-20 while the publisher kept releasing 5 a week",
+      "composite": false,
+      "repair_command": "npm run cadence:derive -- --write",
+      "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
+      "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0"
     }
   ],
   "repair_contract": "A validator may declare repair_command only when that command fixes the same defect this validator detects. scripts/selfheal/heal_until_clean.mjs runs it on failure and re-validates. Pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."

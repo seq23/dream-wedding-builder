@@ -17,7 +17,7 @@
     "validate:profile-purity": "node scripts/validate-profile-purity.mjs",
     "validate:tree-hygiene": "node scripts/validate-tree-hygiene.mjs",
     "validate:proof-readiness": "node scripts/validate-proof-readiness.mjs",
-    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:no-instruction-leak && npm run validate:no-empty-cells && npm run validate:content-pattern && npm run validate:seo && npm run validate:search-intelligence",
+    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:no-instruction-leak && npm run validate:no-empty-cells && npm run validate:content-pattern && npm run validate:seo && npm run validate:search-intelligence && npm run validate:cadence-policy",
     "validate:all": "npm run typecheck && npm run test && npm run validate:structural",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
@@ -33,7 +33,7 @@
     "validate:secrets": "node scripts/validate-secrets.mjs",
     "vault:init": "node scripts/vault/vault.mjs init",
     "vault:check": "node scripts/vault/vault.mjs check",
-    "validate:contracts": "npm run validate:commerce && npm run validate:authority && npm run validate:downloads && npm run validate:secrets",
+    "validate:contracts": "npm run validate:commerce && npm run validate:authority && npm run validate:downloads && npm run validate:secrets && npm run validate:fulfillment-path",
     "authority:atlas": "node scripts/authority/build-atlas.mjs",
     "authority:flow": "node scripts/authority/run-full-flow.mjs",
     "seo:lastmod": "node scripts/seo/build_lastmod_ledger.mjs",
@@ -92,7 +92,9 @@
     "authority:spec:derive": "node scripts/authority_scale/derive_composition_spec.mjs",
     "validate:composition-spec": "node scripts/authority_scale/derive_composition_spec.mjs --check",
     "cadence:derive": "node scripts/cadence/derive_capacity.mjs",
-    "authority:routes:check": "node scripts/authority_scale/check_guide_routes.mjs"
+    "authority:routes:check": "node scripts/authority_scale/check_guide_routes.mjs",
+    "validate:fulfillment-path": "node scripts/validate-fulfillment-path.mjs",
+    "validate:cadence-policy": "node scripts/cadence/derive_capacity.mjs --check"
   },
   "dependencies": {
     "next": "15.5.18",

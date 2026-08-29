@@ -1,11 +1,33 @@
 name: CI - Build and Validate
-on: [push, pull_request]
+
+# The schedule is not redundant with `push`.
+#
+# Three lanes commit to main with GITHUB_TOKEN (full-safe-autonomy, search
+# intelligence, self-heal), and a push made with GITHUB_TOKEN does not trigger
+# workflows. On 2026-08-29 three bot commits landed on main - 4401e07, cd5e561
+# and 3f5cf9c - and no CI run exists for any of them; the last CI run on main was
+# from the previous day's human push. Everything those lanes write to main was
+# therefore unverified by this gate until the next person happened to push.
+# 12:40 UTC is after the daily publishing lane (10:17) and the search
+# intelligence lane (11:41) have finished committing.
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '40 12 * * *'
+  workflow_dispatch:
 permissions: { contents: read }
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 because validate:cadence-policy re-derives publishing
+      # capacity from the committed history of data/authority/content_registry.json.
+      # Under a depth-1 checkout there is no history to measure and the check
+      # hard-fails rather than passing on the one visible commit.
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with: { node-version: '20', cache: npm }
       - run: npm ci

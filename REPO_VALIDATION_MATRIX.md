@@ -9,8 +9,10 @@
 | Disclaimers | npm run validate:disclaimers | HARD FAIL | required warnings exist | legal sufficiency |
 | Anti-theater | npm run validate:no-theater | HARD FAIL | no fake-live/provider theater terms in source | provider accuracy |
 | Build | npm run build | HARD FAIL | production build compiles | user journeys |
-| E2E Gauntlet | npm run test:e2e:gauntlet | HARD FAIL when browser available | surface/transaction/outcome/common-sense journeys | deployed Cloudflare behavior |
+| E2E Gauntlet | npm run test:e2e:gauntlet | OPERATOR-RUN, not a CI gate - **no workflow invokes it**, verified 2026-08-29 across all five files in .github/workflows | surface/transaction/outcome/common-sense journeys | deployed Cloudflare behavior |
 | Headed E2E | npm run test:e2e:headed | Local proof | visible browser testing | CI display unless Xvfb configured |
+| Fulfillment path | npm run validate:fulfillment-path | HARD FAIL | the four money-path routes exist, the download URL the webhook mints resolves to a route, each route still uses signature/token/entitlement/R2 outside its imports, every catalog product's derived Stripe price env key is required by validate-env and present in both env examples, and the release manifest r2_keys match the template lib/fulfillment.ts serves | that a live payment is fulfilled end to end - that is npm run proof:fulfillment against a deployed worker, which no workflow runs |
+| Cadence policy currency | npm run validate:cadence-policy | HARD FAIL (repairable: npm run cadence:derive -- --write) | data/cadence/policy.json still follows from throughput measured out of committed history, and new_pages_per_week is still half the refresh figure | that the measured throughput is the right cadence |
 
 | Hallmark Visual Review | Manual: UI_QUALITY_GATES.md + screenshots | STRONG WARNING | visual trust, anti-slop risk, CTA hierarchy, mobile sticky-widget sanity | build/runtime/user journeys |
 | Numbered Planning Steps | Manual/structural review of app/build/page.tsx | HARD FAIL if removed | Step 0 through Step 7 remain visible and linkable in the build flow | visual polish or runtime interaction depth |
