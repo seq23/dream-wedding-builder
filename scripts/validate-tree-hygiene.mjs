@@ -117,8 +117,20 @@ function getRootItems() {
   }));
 }
 
+const rootItems = getRootItems();
+
+// Zero items examined is a failure, not a clean tree. getRootItems() returns
+// whatever `git ls-files` produced, and its catch falls back to a plain readdir
+// outside CI - both can yield an empty list, and this printed "tree hygiene:
+// PASS" for it. Confirmed 2026-08-29.
+if (rootItems.length === 0) {
+  console.error('VALIDATION FAIL: tree hygiene examined 0 root entries.');
+  console.error('- a pass here would mean "nothing was listed", not "the tree is clean"');
+  process.exit(1);
+}
+
 const errors = [];
-for (const item of getRootItems()) {
+for (const item of rootItems) {
   if (item.name === '.git') continue;
   if (forbiddenNames.has(item.name)) {
     errors.push(`forbidden generated/dependency artifact at root: ${item.name}`);
@@ -134,4 +146,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('tree hygiene: PASS');
+console.log(`tree hygiene: PASS (${rootItems.length} root entries examined)`);

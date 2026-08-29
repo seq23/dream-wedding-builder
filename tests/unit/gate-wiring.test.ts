@@ -127,6 +127,10 @@ describe('no gate may pass having examined nothing', () => {
     'scripts/validators/validate_no_empty_table_cells.js',
     'scripts/validators/validate_content_pattern_contract.js',
     'scripts/validate-fulfillment-path.mjs',
+    // Both of these passed on a truly empty directory before 2026-08-29:
+    // "No stub markers found" and "tree hygiene: PASS", exit 0, zero items read.
+    'scripts/validate-no-stubs.mjs',
+    'scripts/validate-tree-hygiene.mjs',
   ];
 
   it.each(zeroGuarded)('%s hard-fails when it examines zero items', (rel) => {
@@ -137,7 +141,7 @@ describe('no gate may pass having examined nothing', () => {
 
   it('the content gates report how many items they examined', () => {
     for (const rel of zeroGuarded) {
-      expect(read(rel), `${rel} passes without saying how much it looked at`).toMatch(/PASS[^\n]*\$\{|checked \(enforcement/);
+      expect(read(rel), `${rel} passes without saying how much it looked at`).toMatch(/(PASS|found)[^\n]*\$\{|checked \(enforcement/);
     }
   });
 });
