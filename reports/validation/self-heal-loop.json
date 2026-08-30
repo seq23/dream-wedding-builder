@@ -1,15 +1,17 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-08-29T10:22:51.078Z",
+  "generated_at": "2026-08-30T10:22:48.275Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
   "gate_exit_code": 0,
   "registered_repairs": {
     "authority-registry": "npm run authority:scale:restore",
+    "book-domain": "node scripts/providers/attach-book-domain.mjs",
     "proof-readiness": "npm run authority:flow",
     "query-atlas": "npm run atlas:build",
-    "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair"
+    "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair",
+    "cadence-policy-currency": "npm run cadence:derive -- --write"
   },
   "status": "CLEAN",
   "safe_to_push": true,
