@@ -864,6 +864,561 @@
       ],
       "product_id": "seating-chart-maker",
       "schema": "Article"
+    },
+    "amazon/wedding-day-timeline": {
+      "title": "Wedding Day Timeline: Companion Files for Book Readers",
+      "description": "You finished The Wedding Day Timeline. The book holds the whole method; this page offers the same schedule as a pre-built editable workbook.",
+      "host": "weddingchecklistpdf.com",
+      "eyebrow": "Companion page for The Wedding Day Timeline",
+      "h1": "Wedding day timeline: the companion working files",
+      "intro": "You reached the last page of The Wedding Day Timeline and followed the link here. The book is complete on its own: every stage of the method, every template, and every worked example is printed in full, and you can build your entire schedule from it with paper and a pen. This page exists for one reason only, which is to hand you the same structure already built so you spend your evening entering times rather than drawing a grid.",
+      "direct_answer": "The book teaches the complete timeline method and prints every template in full, so nothing is held back. The Wedding Timeline Template is the same structure delivered as a pre-built editable workbook and printable packet, which removes the setup work of recreating the master timeline, vendor arrival sheet and role handoff views by hand.",
+      "sections": [
+        {
+          "heading": "What the book already gave you",
+          "paragraphs": [
+            "Everything below is in the book you just read, printed in full and usable without buying anything. It is listed here so you can see exactly where the boundary sits before you decide whether the workbook is worth twelve dollars to you."
+          ],
+          "bullets": [
+            "The full backward-planning method, from ceremony time outward",
+            "Every timeline template reproduced in print, ready to copy by hand",
+            "The buffer rules and how to size them for your venue count",
+            "Vendor arrival, setup and breakdown sequencing",
+            "Worked examples for one-venue and two-venue wedding days"
+          ]
+        },
+        {
+          "heading": "What the paid workbook adds",
+          "paragraphs": [
+            "The Wedding Timeline Template does not teach a different method and does not contain a chapter the book withheld. It contains the same method as files you can type into, sort, reprint and hand to a coordinator. What you are buying is the hours of setup, not the knowledge."
+          ],
+          "bullets": [
+            "Master Timeline sheet with 64 rows already laid out",
+            "Vendor Arrivals sheet with owners, locations and dependencies",
+            "Role Handoffs sheet with 44 rows for wedding party and family",
+            "A 12-page printable PDF packet for the venue and the coordinator",
+            "Setup CSV and operating instructions included with purchase"
+          ]
+        },
+        {
+          "heading": "How readers use the book and the files together",
+          "paragraphs": [
+            "Most people who arrive from the book read it once end to end, decide their ceremony time, and then want somewhere to put the answers. The process below is the one the book describes; the workbook simply becomes the place the answers land."
+          ],
+          "bullets": [
+            "Fix the ceremony start time and work backward as the book describes",
+            "Enter each block into the Master Timeline sheet with an owner",
+            "Add the buffers the book recommends for your travel and venue count",
+            "Print the vendor view and the wedding-party view separately",
+            "Reprint after every change so no one is working from an old copy"
+          ]
+        }
+      ],
+      "table": {
+        "headers": [
+          "Piece of the method",
+          "In the book",
+          "In the Wedding Timeline Template"
+        ],
+        "rows": [
+          [
+            "Backward-planning method",
+            "Taught in full, with worked examples",
+            "Not repeated; the workbook assumes it"
+          ],
+          [
+            "Master timeline template",
+            "Printed in full, copy by hand",
+            "Pre-built sheet, 64 rows, editable"
+          ],
+          [
+            "Vendor arrival schedule",
+            "Printed in full, copy by hand",
+            "Pre-built sheet with owners and locations"
+          ],
+          [
+            "Role and family handoffs",
+            "Printed in full, copy by hand",
+            "Pre-built sheet, 44 rows, editable"
+          ],
+          [
+            "Printable coordinator packet",
+            "Photocopy the book pages",
+            "12-page PDF sized for handing out"
+          ]
+        ]
+      },
+      "faqs": [
+        {
+          "question": "Do I need to buy anything to use the method in the book?",
+          "answer": "No. The book prints the complete method and every template in full. It was written to work on its own with nothing but paper, and buying the workbook adds no step of the method that the book left out."
+        },
+        {
+          "question": "What is actually different about the paid workbook?",
+          "answer": "Format and setup time. The workbook is the same structure delivered as an editable XLSX plus a 12-page printable PDF, so you enter times into a built sheet instead of ruling one up and copying the columns across."
+        },
+        {
+          "question": "Will the workbook guarantee my wedding day runs on time?",
+          "answer": "No, and nothing can. A wedding day is affected by weather, traffic, vendors and people. The workbook describes a process for recording and communicating the schedule, which is a different thing from promising an outcome."
+        },
+        {
+          "question": "I only want one part of it. Is that possible?",
+          "answer": "The workbook is sold as one file set at twelve dollars rather than in parts. If you only need the printable side, the book already reproduces every template in print and you can work from that."
+        }
+      ],
+      "related": [
+        "/wedding-timeline-template",
+        "/products/timeline-template",
+        "/guides/wedding-vendor-arrival-schedule",
+        "/guides/wedding-setup-breakdown-timeline",
+        "/guides/wedding-timeline-travel-buffer"
+      ],
+      "product_id": "timeline-template",
+      "schema": "Article"
+    },
+    "amazon/wedding-vendor-questions": {
+      "title": "Questions to Ask Every Wedding Vendor: Where the Answers Go",
+      "description": "You finished Questions to Ask Every Wedding Vendor. The book holds every question; this page is about where you record what the vendors answer.",
+      "host": "weddingchecklistpdf.com",
+      "eyebrow": "Companion page for Questions to Ask Every Wedding Vendor",
+      "h1": "Questions to ask every wedding vendor: where the answers go",
+      "intro": "You reached the last page of Questions to Ask Every Wedding Vendor and followed the link here. The book contains every question in full, organised by vendor type, and you can walk into any meeting with nothing but the book and be fully prepared. This page is honest about a gap: there is no separate paid product that is a vendor-questions tool. What we do sell is the workbook where the answers to the money questions end up.",
+      "direct_answer": "The book already contains every question, in full, organised by vendor type, and needs no companion to be usable. There is no paid vendor-questions product on this site. The nearest working file is the Wedding Budget Spreadsheet, which is where the answers to the price, deposit, cancellation and final-payment questions get recorded once a vendor has given them.",
+      "sections": [
+        {
+          "heading": "What the book already gave you",
+          "paragraphs": [
+            "The book is the product for this topic. Every question is printed, grouped by vendor, with the reasoning for why each one matters and what a poor answer sounds like. There is no locked appendix and no list held back for buyers."
+          ],
+          "bullets": [
+            "The full question set for every vendor category covered",
+            "The reasoning behind each question, so you can adapt it",
+            "What a vague or evasive answer tends to sound like",
+            "Which answers should be written into a contract",
+            "Follow-up questions to ask when an answer is unclear"
+          ]
+        },
+        {
+          "heading": "There is no vendor-questions product, and we will not invent one",
+          "paragraphs": [
+            "It would be easy to point you at a generic planning bundle and call it the companion to this book. It is not one. The four paid tools on this site cover seating, budget, timeline and the master checklist, and none of them is a vendor-questions tool. If that is what you came for, the book you already own is the whole of it."
+          ],
+          "bullets": [
+            "Wedding Seating Chart Maker covers guests, tables and meals",
+            "Wedding Budget Spreadsheet covers money, contracts and payments",
+            "Wedding Timeline Template covers the wedding-day schedule",
+            "Wedding Checklist PDF covers the planning tasks and deadlines",
+            "None of the four is a vendor-questions product"
+          ]
+        },
+        {
+          "heading": "Where the money answers land: the Wedding Budget Spreadsheet",
+          "paragraphs": [
+            "A large share of the questions in the book are money questions. What is quoted, what is included, what is the deposit, when is the balance due, what happens on cancellation. Those answers have to live somewhere once the meeting ends, and the Wedding Budget Spreadsheet is the working file built for exactly that record. It teaches nothing the book teaches; it is a place to put answers."
+          ],
+          "bullets": [
+            "Estimated, contracted, paid, remaining and variance fields per vendor",
+            "Deposit and final-payment tracking worksheet with due dates",
+            "Prompts for taxes, service fees, gratuities and hidden costs",
+            "Printable monthly cash-flow and scenario worksheets",
+            "Editable XLSX workbook plus an 11-page printable PDF"
+          ]
+        }
+      ],
+      "table": {
+        "headers": [
+          "What you asked the vendor",
+          "Where the book covers it",
+          "Where the answer is recorded"
+        ],
+        "rows": [
+          [
+            "What is your quoted price",
+            "Question set, printed in full",
+            "Budget workbook, estimated column"
+          ],
+          [
+            "What exactly is included",
+            "Question set, printed in full",
+            "Budget workbook, category notes"
+          ],
+          [
+            "What deposit and when",
+            "Question set, printed in full",
+            "Payments sheet, deposit and due date"
+          ],
+          [
+            "When is the balance due",
+            "Question set, printed in full",
+            "Payments sheet, final payment row"
+          ],
+          [
+            "What is your cancellation policy",
+            "Question set, printed in full",
+            "Contract file; the book explains why"
+          ]
+        ]
+      },
+      "faqs": [
+        {
+          "question": "Is there a paid product that matches this book?",
+          "answer": "No. There is no vendor-questions tool for sale on this site, and we would rather say so than point you at a generic bundle. The book contains the complete question set and is the whole of what we have on this topic."
+        },
+        {
+          "question": "Then why link to the Wedding Budget Spreadsheet?",
+          "answer": "Because most of the questions in the book are money questions, and the answers need somewhere to live. The workbook is the record, not the question list. It adds no questions the book left out."
+        },
+        {
+          "question": "Does the workbook tell me whether a vendor quote is fair?",
+          "answer": "No. It records what you were quoted, what you contracted and what you have paid, and shows the variance between them. Judging whether a price is reasonable in your market is a decision the book helps you reason about."
+        },
+        {
+          "question": "Can I use the book with no purchase at all?",
+          "answer": "Yes, and many readers do. Take the book to the meeting, work through the questions, and write the answers wherever you already keep notes. Nothing in the method depends on owning a file."
+        }
+      ],
+      "related": [
+        "/wedding-budget-spreadsheet",
+        "/products/budget-spreadsheet",
+        "/guides/wedding-vendor-payment-tracker",
+        "/guides/wedding-deposit-schedule",
+        "/guides/wedding-vendor-booking-checklist"
+      ],
+      "product_id": "budget-spreadsheet",
+      "schema": "Article"
+    },
+    "amazon/wedding-seating-chart": {
+      "title": "The Wedding Seating Chart: Companion Files for Book Readers",
+      "description": "You finished The Wedding Seating Chart. The book holds the whole method; this page offers the same guest and table structure as an editable workbook.",
+      "host": "weddingchecklistpdf.com",
+      "eyebrow": "Companion page for The Wedding Seating Chart",
+      "h1": "The wedding seating chart: the companion working files",
+      "intro": "You reached the last page of The Wedding Seating Chart and followed the link here. The book is complete on its own: the whole method for turning a confirmed guest list into assigned tables is printed in full, including every worksheet, and readers do finish their charts with nothing but the book and a pencil. This page offers the same worksheets already built, for readers who would rather not redraw a hundred-row grid by hand.",
+      "direct_answer": "The book teaches the complete seating method and prints every worksheet in full, so nothing is withheld from readers who do not buy. The Wedding Seating Chart Maker is that same structure as a pre-built editable workbook and printable packet, which removes the work of rebuilding the guest master, table capacity and vendor handoff sheets by hand.",
+      "sections": [
+        {
+          "heading": "What the book already gave you",
+          "paragraphs": [
+            "This is the part people ask about first, so it is set out plainly. Every item below is printed in the book in full, and a reader who buys nothing can still complete a seating chart from start to finish."
+          ],
+          "bullets": [
+            "The full method from confirmed RSVPs to assigned seats",
+            "Every worksheet reproduced in print, ready to copy by hand",
+            "Table capacity rules for round, long and mixed layouts",
+            "How to handle divorced parents, late RSVPs and no-shows",
+            "The vendor and caterer handoff sequence, step by step"
+          ]
+        },
+        {
+          "heading": "What the paid workbook adds",
+          "paragraphs": [
+            "The Wedding Seating Chart Maker holds no seating rule that the book left out. It is the same structure delivered as files you can sort, filter, reprint and hand to a caterer, with the columns already named and the formulas already written."
+          ],
+          "bullets": [
+            "Guest Master sheet with 104 rows already laid out",
+            "Tables sheet with 34 rows and capacity checks",
+            "Vendor Handoff sheet sized for the caterer and venue",
+            "30 built-in formulas for counts, meals and unassigned seats",
+            "An 11-page printable PDF packet, plus escort-card worksheets"
+          ]
+        },
+        {
+          "heading": "How readers use the book and the files together",
+          "paragraphs": [
+            "The order below is the one the book sets out. The workbook does not change it. It gives each step a place to be recorded so the count you hand the caterer is the count you actually assigned."
+          ],
+          "bullets": [
+            "Enter one row per person, as the book insists, not per household",
+            "Record meals, allergies, accessibility and children as you go",
+            "Set table capacities before assigning anyone to a seat",
+            "Reconcile late RSVPs against unassigned seats",
+            "Freeze and date the vendor handoff before sending it"
+          ]
+        }
+      ],
+      "table": {
+        "headers": [
+          "Piece of the method",
+          "In the book",
+          "In the Wedding Seating Chart Maker"
+        ],
+        "rows": [
+          [
+            "Guest-to-seat method",
+            "Taught in full, with worked examples",
+            "Not repeated; the workbook assumes it"
+          ],
+          [
+            "Guest master worksheet",
+            "Printed in full, copy by hand",
+            "Pre-built sheet, 104 rows, editable"
+          ],
+          [
+            "Table capacity worksheet",
+            "Printed in full, copy by hand",
+            "Pre-built sheet, 34 rows, with checks"
+          ],
+          [
+            "Meal and allergy tracking",
+            "Printed in full, copy by hand",
+            "Columns built in, counted by formula"
+          ],
+          [
+            "Caterer and venue handoff",
+            "Photocopy the book pages",
+            "11-page PDF packet plus export sheet"
+          ]
+        ]
+      },
+      "faqs": [
+        {
+          "question": "Is the book usable without the workbook?",
+          "answer": "Yes. The book prints the complete method and every worksheet in full. It was written to be finished with paper alone, and the workbook adds no seating rule that the book held back."
+        },
+        {
+          "question": "What am I paying nineteen dollars for?",
+          "answer": "Setup and file format. The guest master, table and handoff sheets are already built, the columns are named, and thirty formulas already count meals, capacities and unassigned guests as you type."
+        },
+        {
+          "question": "Does it rearrange my tables automatically?",
+          "answer": "No. It is an editable workbook, not an algorithm. You make the seating decisions using the method in the book; the workbook records them, checks capacities and counts what you have assigned."
+        },
+        {
+          "question": "Can I see inside before buying?",
+          "answer": "Yes. The product page shows flattened, watermarked images generated from the actual paid PDF and workbook, so you can inspect the real structure before deciding."
+        }
+      ],
+      "related": [
+        "/wedding-seating-chart",
+        "/products/seating-chart-maker",
+        "/guides/wedding-table-capacity-guide",
+        "/guides/late-rsvp-seating-chart-changes",
+        "/guides/wedding-seating-chart-vendor-handoff"
+      ],
+      "product_id": "seating-chart-maker",
+      "schema": "Article"
+    },
+    "amazon/wedding-budget-line-by-line": {
+      "title": "The Wedding Budget, Line by Line: Companion Files for Readers",
+      "description": "You finished The Wedding Budget, Line by Line. The book holds every category and method; this page offers the same budget as a working spreadsheet.",
+      "host": "weddingchecklistpdf.com",
+      "eyebrow": "Companion page for The Wedding Budget, Line by Line",
+      "h1": "The wedding budget, line by line: the companion working files",
+      "intro": "You reached the last page of The Wedding Budget, Line by Line and followed the link here. The book is complete on its own: every category, every hidden-cost prompt and the full estimate-to-actual method are printed in it, and a reader with a notebook can run the whole budget from the book. This page offers the same categories already built into a spreadsheet, with the arithmetic done for you.",
+      "direct_answer": "The book teaches the complete budgeting method and prints every category and worksheet in full, so nothing is reserved for buyers. The Wedding Budget Spreadsheet is that same structure as an editable workbook with forty formulas already written, which removes the arithmetic and the rebuilding of the category, payments and hidden-cost sheets.",
+      "sections": [
+        {
+          "heading": "What the book already gave you",
+          "paragraphs": [
+            "Every item below is printed in the book in full. A reader who buys nothing can still build and run a complete wedding budget, because the method and the category list are the book, not the file."
+          ],
+          "bullets": [
+            "The full category list, line by line, with what belongs in each",
+            "The estimate, contract, paid and remaining method explained",
+            "The hidden-cost prompts: taxes, service fees, gratuities, overtime",
+            "How to handle family contributions and who controls which line",
+            "Contingency sizing and when to release it"
+          ]
+        },
+        {
+          "heading": "What the paid workbook adds",
+          "paragraphs": [
+            "The Wedding Budget Spreadsheet contains no category and no rule the book withheld. It is the same budget as a file that adds up, so that changing one contracted amount updates the remaining and variance figures without you recalculating a column."
+          ],
+          "bullets": [
+            "Categories sheet with 24 rows already named",
+            "Payments sheet with 34 rows for deposits and balances",
+            "Hidden Costs sheet with 24 prompts already listed",
+            "40 built-in formulas for remaining, variance and totals",
+            "An 11-page printable PDF plus monthly cash-flow worksheets"
+          ]
+        },
+        {
+          "heading": "How readers use the book and the files together",
+          "paragraphs": [
+            "This is the sequence the book describes. The workbook does not shorten it or replace a decision; it holds the numbers so the estimate-to-actual comparison the book asks for is visible without manual addition."
+          ],
+          "bullets": [
+            "Enter your estimates category by category, as the book sets out",
+            "Replace each estimate with the contracted figure once signed",
+            "Record every deposit and balance with its due date",
+            "Work the hidden-cost prompts before declaring a total",
+            "Review variance monthly and move contingency deliberately"
+          ]
+        }
+      ],
+      "table": {
+        "headers": [
+          "Piece of the method",
+          "In the book",
+          "In the Wedding Budget Spreadsheet"
+        ],
+        "rows": [
+          [
+            "Category list, line by line",
+            "Printed in full, all categories",
+            "Pre-built sheet, 24 rows, editable"
+          ],
+          [
+            "Estimate to actual method",
+            "Taught in full, with worked examples",
+            "Not repeated; the workbook assumes it"
+          ],
+          [
+            "Deposit and payment tracking",
+            "Printed in full, copy by hand",
+            "Pre-built sheet, 34 rows, with due dates"
+          ],
+          [
+            "Hidden-cost prompts",
+            "Printed in full, all prompts",
+            "Pre-built sheet, 24 prompts, editable"
+          ],
+          [
+            "Remaining and variance arithmetic",
+            "You add it up yourself",
+            "40 formulas recalculate as you type"
+          ]
+        ]
+      },
+      "faqs": [
+        {
+          "question": "Does the book leave anything out that the spreadsheet has?",
+          "answer": "No. Every category, prompt and rule is printed in the book in full. The spreadsheet is the same content as a file that performs the arithmetic; it introduces no new budgeting guidance."
+        },
+        {
+          "question": "What does twelve dollars actually buy?",
+          "answer": "An editable XLSX with the categories, payments and hidden-cost sheets already built and forty formulas already written, plus an 11-page printable PDF and a setup CSV."
+        },
+        {
+          "question": "Will it tell me what my wedding should cost?",
+          "answer": "No. Costs depend on your market, guest count and choices. The workbook records what you estimated, contracted and paid, and shows the difference. Deciding what to spend stays with you."
+        },
+        {
+          "question": "Does it work in Google Sheets?",
+          "answer": "It is delivered as an editable XLSX workbook with a setup CSV. Most spreadsheet applications that open XLSX will open it, though formula rendering can differ between applications."
+        }
+      ],
+      "related": [
+        "/wedding-budget-spreadsheet",
+        "/products/budget-spreadsheet",
+        "/guides/wedding-hidden-costs-checklist",
+        "/guides/estimated-vs-actual-wedding-costs",
+        "/guides/wedding-budget-contingency"
+      ],
+      "product_id": "budget-spreadsheet",
+      "schema": "Article"
+    },
+    "amazon/wedding-guest-list-problem": {
+      "title": "The Wedding Guest List Problem: Companion Files for Readers",
+      "description": "You finished The Wedding Guest List Problem. The book holds the whole framework; this page offers the guest master sheet already built for you.",
+      "host": "weddingchecklistpdf.com",
+      "eyebrow": "Companion page for The Wedding Guest List Problem",
+      "h1": "The wedding guest list problem: the companion working files",
+      "intro": "You reached the last page of The Wedding Guest List Problem and followed the link here. The book is complete on its own: the whole framework for guest counts, family input, capacity limits and venue constraints is printed in it, along with every tracking sheet. This page offers that guest master sheet already built, for readers who would rather type than rule up columns.",
+      "direct_answer": "The book teaches the complete guest-list framework and prints every tracking sheet in full, so a reader who buys nothing can still resolve their list. There is no standalone guest-list product; the guest master lives inside the Wedding Seating Chart Maker, which carries the 104-row guest sheet, household grouping and RSVP reconciliation as editable files.",
+      "sections": [
+        {
+          "heading": "What the book already gave you",
+          "paragraphs": [
+            "The framework is the book. Every item below is printed in it in full, and the hard parts of a guest list are decisions rather than files, which is why the book is written to stand alone."
+          ],
+          "bullets": [
+            "The full framework for setting and defending a guest count",
+            "How to handle family input and competing lists",
+            "Working backward from venue capacity and catering minimums",
+            "The A-list and B-list mechanics, with the timing rules",
+            "Every tracking sheet reproduced in print, ready to copy"
+          ]
+        },
+        {
+          "heading": "There is no separate guest-list product, and here is why that matters",
+          "paragraphs": [
+            "We do not sell a guest-list tool on its own. The guest master sheet is part of the Wedding Seating Chart Maker, because in practice the guest list and the seating chart are the same data at two stages. If you only ever need the list and never the tables, the book alone is a reasonable place to stop."
+          ],
+          "bullets": [
+            "Guest Master sheet with 104 rows, one row per person",
+            "Household and social-group fields for invitation grouping",
+            "RSVP status, response date and follow-up owner columns",
+            "Meal, allergy, accessibility and child tracking columns",
+            "Manual RSVP-to-table reconciliation views for later"
+          ]
+        },
+        {
+          "heading": "How readers use the book and the files together",
+          "paragraphs": [
+            "This is the order the book sets out, and the workbook does not change it. It gives each decision a column so the count you defend to your family is the same count the venue and caterer receive."
+          ],
+          "bullets": [
+            "Set the ceiling from venue capacity before writing any names",
+            "Enter one row per person, keeping the household field for grouping",
+            "Mark unknowns explicitly rather than leaving cells blank",
+            "Track A-list and B-list movement with response dates",
+            "Reconcile the confirmed count before it becomes a seating chart"
+          ]
+        }
+      ],
+      "table": {
+        "headers": [
+          "Piece of the framework",
+          "In the book",
+          "In the Wedding Seating Chart Maker"
+        ],
+        "rows": [
+          [
+            "Setting and defending a count",
+            "Taught in full, with worked examples",
+            "Not repeated; the workbook assumes it"
+          ],
+          [
+            "One row per person rule",
+            "Explained in full, with reasoning",
+            "Sheet is already built that way"
+          ],
+          [
+            "Household and group fields",
+            "Printed in full, copy by hand",
+            "Pre-built columns, 104 rows"
+          ],
+          [
+            "RSVP and follow-up tracking",
+            "Printed in full, copy by hand",
+            "Pre-built columns with response dates"
+          ],
+          [
+            "Handover into a seating chart",
+            "Described as the next stage",
+            "Same workbook, tables and handoff sheets"
+          ]
+        ]
+      },
+      "faqs": [
+        {
+          "question": "Is there a guest-list product I can buy on its own?",
+          "answer": "No. The guest master sheet is part of the Wedding Seating Chart Maker rather than a separate purchase, because the guest list and the seating chart are the same records at two stages of planning."
+        },
+        {
+          "question": "Do I need it to use the framework in the book?",
+          "answer": "No. The book prints the framework and every tracking sheet in full. The hardest parts of a guest list are decisions about people, and no file makes those for you."
+        },
+        {
+          "question": "What does the workbook add for a guest list specifically?",
+          "answer": "A 104-row guest master already laid out with household, RSVP, meal, allergy, accessibility and child columns, so you type into a built sheet rather than designing one."
+        },
+        {
+          "question": "Will it stop family disagreements about the list?",
+          "answer": "No. It records who is invited, who has responded and against what capacity, which makes the constraint visible. The conversation itself is what the book prepares you for."
+        }
+      ],
+      "related": [
+        "/wedding-guest-list-template",
+        "/products/seating-chart-maker",
+        "/guides/wedding-guest-list-headcount-control",
+        "/guides/wedding-rsvp-tracking-system",
+        "/guides/wedding-seating-chart-for-100-guests"
+      ],
+      "product_id": "seating-chart-maker",
+      "schema": "Article"
     }
   }
 }

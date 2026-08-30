@@ -33,7 +33,7 @@
     "validate:secrets": "node scripts/validate-secrets.mjs",
     "vault:init": "node scripts/vault/vault.mjs init",
     "vault:check": "node scripts/vault/vault.mjs check",
-    "validate:contracts": "npm run validate:commerce && npm run validate:authority && npm run validate:downloads && npm run validate:secrets && npm run validate:fulfillment-path",
+    "validate:contracts": "npm run validate:commerce && npm run validate:authority && npm run validate:downloads && npm run validate:secrets && npm run validate:fulfillment-path && npm run validate:amazon-paths",
     "authority:atlas": "node scripts/authority/build-atlas.mjs",
     "authority:flow": "node scripts/authority/run-full-flow.mjs",
     "seo:lastmod": "node scripts/seo/build_lastmod_ledger.mjs",
@@ -94,7 +94,8 @@
     "cadence:derive": "node scripts/cadence/derive_capacity.mjs",
     "authority:routes:check": "node scripts/authority_scale/check_guide_routes.mjs",
     "validate:fulfillment-path": "node scripts/validate-fulfillment-path.mjs",
-    "validate:cadence-policy": "node scripts/cadence/derive_capacity.mjs --check"
+    "validate:cadence-policy": "node scripts/cadence/derive_capacity.mjs --check",
+    "validate:amazon-paths": "node scripts/validate-amazon-landing-paths.mjs"
   },
   "dependencies": {
     "next": "15.5.18",

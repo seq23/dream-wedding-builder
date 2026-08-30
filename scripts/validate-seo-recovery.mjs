@@ -23,7 +23,7 @@ const pageText = (page) => [page.answer, ...(page.sections ?? []).flatMap((secti
 
 if (ownership.parent_host !== 'weddingchecklistpdf.com') errors.push('wrong parent host');
 if (Object.keys(ownership.hosts).length !== 4) errors.push('expected four canonical hosts');
-if (Object.keys(hubs).length !== 8) errors.push(`expected 8 hub/product-preview pages, found ${Object.keys(hubs).length}`);
+if (Object.keys(hubs).length !== 13) errors.push(`expected 13 hub/product-preview pages, found ${Object.keys(hubs).length}`);
 if (products.length !== 4) errors.push(`expected 4 domain-owned products, found ${products.length}`);
 
 const routeKeys = new Set();
