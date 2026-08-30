@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 19,
+    "HARD_FAIL": 20,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -84,6 +84,15 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
+      "composite": false
+    },
+    {
+      "id": "amazon-landing-paths",
+      "npmScript": "validate:amazon-paths",
+      "command": "node scripts/validate-amazon-landing-paths.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
       "composite": false
     },
     {

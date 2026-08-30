@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-30T00:26:38.795Z",
+  "book_host": "weddingchecklistpdf.com",
+  "paths_examined": 5,
+  "build_output_checked": true,
+  "build_dir": ".next/server/app",
+  "sitemap_checked": "artifacts/sitemaps/weddingchecklistpdf.com.xml",
+  "wiring": [
+    {
+      "path": "/amazon/wedding-day-timeline",
+      "product_id": "timeline-template",
+      "sku": "DWB-TIMELINE-001",
+      "price": 12,
+      "product_route": "/products/timeline-template"
+    },
+    {
+      "path": "/amazon/wedding-vendor-questions",
+      "product_id": "budget-spreadsheet",
+      "sku": "DWB-BUDGET-001",
+      "price": 12,
+      "product_route": "/products/budget-spreadsheet"
+    },
+    {
+      "path": "/amazon/wedding-seating-chart",
+      "product_id": "seating-chart-maker",
+      "sku": "DWB-SEATING-001",
+      "price": 19,
+      "product_route": "/products/seating-chart-maker"
+    },
+    {
+      "path": "/amazon/wedding-budget-line-by-line",
+      "product_id": "budget-spreadsheet",
+      "sku": "DWB-BUDGET-001",
+      "price": 12,
+      "product_route": "/products/budget-spreadsheet"
+    },
+    {
+      "path": "/amazon/wedding-guest-list-problem",
+      "product_id": "seating-chart-maker",
+      "sku": "DWB-SEATING-001",
+      "price": 19,
+      "product_route": "/products/seating-chart-maker"
+    }
+  ],
+  "errors": [],
+  "notes": [],
+  "status": "PASS"
+}

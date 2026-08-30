@@ -636,6 +636,36 @@
       "host": "weddingseatingchartmaker.com",
       "type": "guide",
       "indexable": true
+    },
+    {
+      "path": "/amazon/wedding-day-timeline",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/amazon/wedding-vendor-questions",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/amazon/wedding-seating-chart",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/amazon/wedding-budget-line-by-line",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/amazon/wedding-guest-list-problem",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
     }
   ],
   "shared_host_routes": [
