@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-30T01:00:13.487Z",
-  "passed": 24,
-  "hard_failed": 1,
+  "generated_at": "2026-08-30T01:37:22.036Z",
+  "passed": 25,
+  "hard_failed": 0,
   "warned": 0,
   "results": [
     {
@@ -13,7 +13,7 @@
       "reason": "authority contracts govern what may publish",
       "composite": false,
       "ok": true,
-      "ms": 135
+      "ms": 126
     },
     {
       "id": "authority-registry",
@@ -26,7 +26,7 @@
       "repair_command": "npm run authority:scale:restore",
       "repair_evidence": "proved on 2026-08-28: deleting faqs from a frozen guide fails this validator with UNRENDERABLE_ENTRY, and restore_authority_content.mjs rewrites the entry from its frozen blob and the validator passes again",
       "ok": true,
-      "ms": 132
+      "ms": 128
     },
     {
       "id": "commerce",
@@ -37,7 +37,7 @@
       "reason": "broken checkout or product binding costs real revenue",
       "composite": false,
       "ok": true,
-      "ms": 125
+      "ms": 124
     },
     {
       "id": "conversion-admin",
@@ -70,7 +70,7 @@
       "reason": "paid customers must receive the file they bought",
       "composite": false,
       "ok": true,
-      "ms": 133
+      "ms": 129
     },
     {
       "id": "fulfillment-path",
@@ -81,7 +81,7 @@
       "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
       "composite": false,
       "ok": true,
-      "ms": 129
+      "ms": 127
     },
     {
       "id": "amazon-landing-paths",
@@ -92,7 +92,7 @@
       "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
       "composite": false,
       "ok": true,
-      "ms": 142
+      "ms": 129
     },
     {
       "id": "book-domain",
@@ -104,8 +104,8 @@
       "composite": false,
       "repair_command": "node scripts/providers/attach-book-domain.mjs",
       "repair_evidence": "proved on 2026-08-29: the gate exited 1 with getaddrinfo ENOTFOUND on all five printed URLs before weddingpdfchecklist.com was attached to the Worker, and passed once attach-book-domain.mjs created the custom domain and the deployed middleware answered 301 -> 200 on each path",
-      "ok": false,
-      "ms": 364
+      "ok": true,
+      "ms": 1134
     },
     {
       "id": "env",
@@ -116,7 +116,7 @@
       "reason": "missing environment configuration breaks the deploy",
       "composite": false,
       "ok": true,
-      "ms": 136
+      "ms": 142
     },
     {
       "id": "no-stubs",
@@ -127,7 +127,7 @@
       "reason": "stub content must never reach a live page",
       "composite": false,
       "ok": true,
-      "ms": 162
+      "ms": 138
     },
     {
       "id": "proof-readiness",
@@ -140,7 +140,7 @@
       "repair_command": "npm run authority:flow",
       "repair_rationale": "validate:proof-readiness fails when artifacts/authority/admission-report.json and release-manifest.json no longer balance against data/authority/content_registry.json; authority:flow (scripts/authority/run-full-flow.mjs) is the script that regenerates both from that registry.",
       "ok": true,
-      "ms": 130
+      "ms": 131
     },
     {
       "id": "query-atlas",
@@ -153,7 +153,7 @@
       "repair_command": "npm run atlas:build",
       "repair_rationale": "validate:query-atlas fails with \"missing data/authority_scale/query_atlas.json - run the atlas build first\" when the generated atlas is absent or stale; atlas:build (scripts/atlas/build_query_atlas.mjs) is the script that writes that file from the evidence it validates.",
       "ok": true,
-      "ms": 124
+      "ms": 125
     },
     {
       "id": "secrets",
@@ -164,7 +164,7 @@
       "reason": "leaked or missing credentials",
       "composite": false,
       "ok": true,
-      "ms": 147
+      "ms": 138
     },
     {
       "id": "seo",
@@ -188,7 +188,7 @@
       "reason": "external-agent build directives rendered as page copy are visible defects and poison the text answer engines extract",
       "composite": false,
       "ok": true,
-      "ms": 133
+      "ms": 138
     },
     {
       "id": "no-empty-table-cells",
@@ -199,7 +199,7 @@
       "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
       "composite": false,
       "ok": true,
-      "ms": 129
+      "ms": 131
     },
     {
       "id": "content-pattern-contract",
@@ -210,7 +210,7 @@
       "reason": "a content page with no direct answer, no usable h1, an empty table cell, or no paid-product conversion path cannot be quoted or acted on by an answer engine",
       "composite": false,
       "ok": true,
-      "ms": 138
+      "ms": 139
     },
     {
       "id": "content",
@@ -221,7 +221,7 @@
       "reason": "content quality signal; the SEO and authority gates block the real risks",
       "composite": false,
       "ok": true,
-      "ms": 129
+      "ms": 128
     },
     {
       "id": "kpi-truth",
@@ -232,7 +232,7 @@
       "reason": "measurement honesty check; reports rather than blocks",
       "composite": false,
       "ok": true,
-      "ms": 124
+      "ms": 126
     },
     {
       "id": "no-theater",
@@ -243,7 +243,7 @@
       "reason": "advisory copy-quality signal",
       "composite": false,
       "ok": true,
-      "ms": 133
+      "ms": 132
     },
     {
       "id": "profile-purity",
@@ -254,7 +254,7 @@
       "reason": "profile drift should be corrected but does not break the site",
       "composite": false,
       "ok": true,
-      "ms": 124
+      "ms": 128
     },
     {
       "id": "search-intelligence",
@@ -265,7 +265,7 @@
       "reason": "observational signal, no live-site impact",
       "composite": false,
       "ok": true,
-      "ms": 126
+      "ms": 128
     },
     {
       "id": "tree-hygiene",
@@ -290,7 +290,7 @@
       "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
       "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0",
       "ok": true,
-      "ms": 319
+      "ms": 276
     }
   ]
 }

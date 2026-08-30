@@ -94,16 +94,23 @@ const MIDDLEWARE = 'middleware.ts';
 if (!fs.existsSync(path.join(ROOT, MIDDLEWARE))) {
   errors.push(`missing ${MIDDLEWARE} - nothing would redirect ${BOOK_HOST}`);
 } else {
+  // Match the CALL, not the identifier. An import line alone satisfies a bare
+  // /aliasRedirectTarget/ test while the call has been deleted from the body -
+  // proved on 2026-08-29 by replacing the call with a literal and watching this
+  // stay green. The same mistake is why the redirect is located, not just found.
   const src = fs.readFileSync(path.join(ROOT, MIDDLEWARE), 'utf8');
-  if (!/aliasRedirectTarget/.test(src)) {
-    errors.push(`${MIDDLEWARE} does not call aliasRedirectTarget, so ${BOOK_HOST} would render the site instead of redirecting`);
+  const aliasAt = src.indexOf('aliasRedirectTarget(originalHost)');
+  if (aliasAt < 0) {
+    errors.push(`${MIDDLEWARE} does not call aliasRedirectTarget(originalHost), so ${BOOK_HOST} would render the site instead of redirecting`);
   } else {
-    const aliasAt = src.indexOf('aliasRedirectTarget(');
     const passthroughAt = src.indexOf('passthroughPrefixes.some(');
     if (passthroughAt >= 0 && aliasAt > passthroughAt) {
       errors.push(`${MIDDLEWARE} applies the alias redirect after the passthrough list, so some paths would still render on ${BOOK_HOST}`);
     }
-    if (!/NextResponse\.redirect\(url, 301\)/.test(src)) errors.push(`${MIDDLEWARE} does not issue a 301 for the alias host`);
+    // The result has to be acted on. A call whose value is never turned into a
+    // 301 is dead code that reads like a redirect.
+    const after = src.slice(aliasAt, aliasAt + 600);
+    if (!/NextResponse\.redirect\(url, 301\)/.test(after)) errors.push(`${MIDDLEWARE} calls aliasRedirectTarget but does not issue a 301 from its result, so the alias host would fall through and render`);
   }
 }
 
