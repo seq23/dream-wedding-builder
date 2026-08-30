@@ -24,6 +24,21 @@
       "product_id": "seating-chart-maker"
     }
   },
+  "alias_hosts": {
+    "weddingpdfchecklist.com": {
+      "redirects_to": "weddingchecklistpdf.com",
+      "status": 301,
+      "indexable": false,
+      "reason": "Five published Kindle EPUBs print https://weddingpdfchecklist.com/amazon/<slug> on their last page. The domain transposes the canonical one and the link is baked into files that are already on sale, so the path cannot be edited from this repo. The host is served only as a permanent redirect that preserves the path: it is never a second indexable copy of the site, and the per-slug path survives the hop so the canonical page records the visit.",
+      "book_paths": [
+        "/amazon/wedding-day-timeline",
+        "/amazon/wedding-vendor-questions",
+        "/amazon/wedding-seating-chart",
+        "/amazon/wedding-budget-line-by-line",
+        "/amazon/wedding-guest-list-problem"
+      ]
+    }
+  },
   "routes": [
     {
       "path": "/wedding-checklist",

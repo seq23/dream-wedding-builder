@@ -4,11 +4,28 @@ import registryJson from '@/data/authority/content_registry.json';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
 
 export type HubSection = { heading: string; paragraphs: string[]; bullets?: string[] };
+
+// A bundle offer is the one way a hub page may sell something other than the
+// product it is about. It exists for the two /amazon/ book pages whose topic has
+// no matching SKU: the owner decided on 2026-08-29 to send those readers to the
+// bundle rather than build three more products.
+//
+// `excludes` is required, not optional. A reader arriving from a book with a
+// specific expectation is the reader most likely to file a mismatch dispute, and
+// the only defence is saying, on the page, what the bundle does not contain
+// before they pay. A bundle offer that cannot state its own exclusion is not
+// allowed to render, which is why the field is part of the type rather than a
+// convention. scripts/validate-amazon-landing-paths.mjs enforces the same rule
+// against the data.
+export type HubBundleOffer = {
+  product_id: string; href: string; eyebrow: string; heading: string;
+  paragraphs: string[]; includes: string[]; excludes: string; cta: string;
+};
 export type HubPage = {
   title: string; description: string; host: string; eyebrow: string; h1: string; intro: string; direct_answer: string;
   sections: HubSection[]; table: { headers: string[]; rows: string[][] }; faqs: { question: string; answer: string }[];
   related: string[]; asset?: { label: string; href: string; secondary_label?: string; secondary_href?: string } | null;
-  product_id: string; schema: string; printable?: boolean;
+  product_id: string; schema: string; printable?: boolean; bundle_offer?: HubBundleOffer;
 };
 export type GuidePage = (typeof registryJson.pages)[number];
 export const hubs = hubsJson.pages as Record<string, HubPage>;

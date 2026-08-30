@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 20,
+    "HARD_FAIL": 21,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -94,6 +94,17 @@
       "blocksRelease": true,
       "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
       "composite": false
+    },
+    {
+      "id": "book-domain",
+      "npmScript": "validate:book-domain",
+      "command": "node scripts/validate-book-domain.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "Five published Kindle EPUBs print https://weddingpdfchecklist.com/amazon/<slug> on their last page. That hostname transposes the canonical one and is baked into files already on sale, so a host-level failure - no DNS, an invalid certificate, or the redirect losing the path - cannot be fixed by editing this repo and breaks every reader arriving from a book. validate:amazon-paths covers the five paths on the canonical host and cannot see the host the books actually print. This gate fetches all five over HTTPS on the book domain, requires a 301 to the same path on weddingchecklistpdf.com ending in a 200, and separately asserts the alias is never declared as a canonical host - a second host that renders would be a duplicate indexable copy of the whole site. It uses the canonical host as a network control so an offline machine reports UNPROVEN rather than a false red.",
+      "composite": false,
+      "repair_command": "node scripts/providers/attach-book-domain.mjs",
+      "repair_evidence": "proved on 2026-08-29: the gate exited 1 with getaddrinfo ENOTFOUND on all five printed URLs before weddingpdfchecklist.com was attached to the Worker, and passed once attach-book-domain.mjs created the custom domain and the deployed middleware answered 301 -> 200 on each path"
     },
     {
       "id": "env",

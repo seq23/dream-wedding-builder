@@ -982,8 +982,8 @@
       "host": "weddingchecklistpdf.com",
       "eyebrow": "Companion page for Questions to Ask Every Wedding Vendor",
       "h1": "Questions to ask every wedding vendor: where the answers go",
-      "intro": "You reached the last page of Questions to Ask Every Wedding Vendor and followed the link here. The book contains every question in full, organised by vendor type, and you can walk into any meeting with nothing but the book and be fully prepared. This page is honest about a gap: there is no separate paid product that is a vendor-questions tool. What we do sell is the workbook where the answers to the money questions end up.",
-      "direct_answer": "The book already contains every question, in full, organised by vendor type, and needs no companion to be usable. There is no paid vendor-questions product on this site. The nearest working file is the Wedding Budget Spreadsheet, which is where the answers to the price, deposit, cancellation and final-payment questions get recorded once a vendor has given them.",
+      "intro": "You reached the last page of Questions to Ask Every Wedding Vendor and followed the link here. The book contains every question in full, organised by vendor type, and you can walk into any meeting with nothing but the book and be fully prepared. This page is honest about a gap: there is no separate paid product that is a vendor-questions tool, and the bundle offered further down does not contain one either. What we sell is where the answers to the money questions end up.",
+      "direct_answer": "The book already contains every question, in full, organised by vendor type, and needs no companion to be usable. There is no vendor-questions product on this site, and the Dream Wedding Operations Suite does not contain one: not a single question from the book is in it. What the suite gives a reader of this book is where the answers go - the Wedding Budget Spreadsheet for quoted, contracted, deposit and final-payment figures, and the shared vendor contact and payment trackers - bundled with the checklist, timeline and seating tools for $39.",
       "sections": [
         {
           "heading": "What the book already gave you",
@@ -999,22 +999,25 @@
           ]
         },
         {
-          "heading": "There is no vendor-questions product, and we will not invent one",
+          "heading": "There is still no vendor-questions product, and the suite does not add one",
           "paragraphs": [
-            "It would be easy to point you at a generic planning bundle and call it the companion to this book. It is not one. The four paid tools on this site cover seating, budget, timeline and the master checklist, and none of them is a vendor-questions tool. If that is what you came for, the book you already own is the whole of it."
+            "It would be easy to describe the bundle below as the companion to this book. It is not one, and this page will not pretend otherwise. Nothing in the Dream Wedding Operations Suite is a vendor-questions tool, and buying it will not hand you a question the book left out, because there are none. What it gives you is the file the answers land in once the meeting is over.",
+            "The four paid tools cover seating, budget, timeline and the master checklist. The suite is those four together plus the shared vendor, payment and wedding-week handoff files. That is the whole of what $39 buys, set out here so you can check it against what you actually came for before you decide."
           ],
           "bullets": [
             "Wedding Seating Chart Maker covers guests, tables and meals",
             "Wedding Budget Spreadsheet covers money, contracts and payments",
             "Wedding Timeline Template covers the wedding-day schedule",
             "Wedding Checklist PDF covers the planning tasks and deadlines",
-            "None of the four is a vendor-questions product"
+            "Shared vendor contact, payment and wedding-week handoff files",
+            "No vendor-questions list of any kind; the book is the whole of that"
           ]
         },
         {
           "heading": "Where the money answers land: the Wedding Budget Spreadsheet",
           "paragraphs": [
-            "A large share of the questions in the book are money questions. What is quoted, what is included, what is the deposit, when is the balance due, what happens on cancellation. Those answers have to live somewhere once the meeting ends, and the Wedding Budget Spreadsheet is the working file built for exactly that record. It teaches nothing the book teaches; it is a place to put answers."
+            "A large share of the questions in the book are money questions. What is quoted, what is included, what is the deposit, when is the balance due, what happens on cancellation. Those answers have to live somewhere once the meeting ends, and the Wedding Budget Spreadsheet is the working file built for exactly that record. It teaches nothing the book teaches; it is a place to put answers.",
+            "That workbook is one of the four tools inside the suite, and it is also sold on its own for twelve dollars if the budget sheet is the only part you want. The suite is the four together for thirty-nine. Both buy the same budget workbook, and neither adds a question to the book."
           ],
           "bullets": [
             "Estimated, contracted, paid, remaining and variance fields per vendor",
@@ -1062,11 +1065,11 @@
       "faqs": [
         {
           "question": "Is there a paid product that matches this book?",
-          "answer": "No. There is no vendor-questions tool for sale on this site, and we would rather say so than point you at a generic bundle. The book contains the complete question set and is the whole of what we have on this topic."
+          "answer": "No. There is no vendor-questions tool for sale on this site, and the Dream Wedding Operations Suite does not contain one. The book holds the complete question set and is the whole of what we have on this topic. The suite is where the answers to the money questions get recorded afterwards, which is a different job."
         },
         {
-          "question": "Then why link to the Wedding Budget Spreadsheet?",
-          "answer": "Because most of the questions in the book are money questions, and the answers need somewhere to live. The workbook is the record, not the question list. It adds no questions the book left out."
+          "question": "Then why offer the Operations Suite on this page?",
+          "answer": "Because most of the questions in the book are money questions, and the answers need somewhere to live. The suite is the record, not the question list. If you only want the record and not the other three tools, the Wedding Budget Spreadsheet on its own is twelve dollars and holds the same sheets."
         },
         {
           "question": "Does the workbook tell me whether a vendor quote is fair?",
@@ -1078,12 +1081,34 @@
         }
       ],
       "related": [
+        "/products/operations-suite",
         "/wedding-budget-spreadsheet",
         "/products/budget-spreadsheet",
         "/guides/wedding-vendor-payment-tracker",
-        "/guides/wedding-deposit-schedule",
-        "/guides/wedding-vendor-booking-checklist"
+        "/guides/wedding-deposit-schedule"
       ],
+      "bundle_offer": {
+        "product_id": "operations-suite",
+        "href": "/products/operations-suite",
+        "eyebrow": "The bundle, and what it does not contain",
+        "heading": "Dream Wedding Operations Suite",
+        "paragraphs": [
+          "This is what we have for a reader of this book, and we would rather be plain about the fit than sell you a surprise. The suite is the four paid planning files in one purchase, including the budget workbook where the price, deposit, cancellation and final-payment answers you collect get recorded.",
+          "Fifty-two dollars of tools for thirty-nine, as one payment, delivered as editable workbooks with printable packets and a personal-use licence."
+        ],
+        "includes": [
+          "Wedding Seating Chart Maker",
+          "Wedding Budget Spreadsheet",
+          "Wedding Timeline Template",
+          "Wedding Checklist PDF",
+          "Venue comparison worksheet",
+          "Vendor contact and payment trackers",
+          "Wedding-week handoff packet",
+          "Emergency contacts and responsibility matrix"
+        ],
+        "excludes": "It does not contain the questions. Not one of them is in the suite, and nothing in it repeats, extends or replaces the list you already own - the book is the complete question set, and buying this adds no question to it.",
+        "cta": "Get the complete suite - $39"
+      },
       "product_id": "budget-spreadsheet",
       "schema": "Article"
     },
@@ -1315,8 +1340,8 @@
       "host": "weddingchecklistpdf.com",
       "eyebrow": "Companion page for The Wedding Guest List Problem",
       "h1": "The wedding guest list problem: the companion working files",
-      "intro": "You reached the last page of The Wedding Guest List Problem and followed the link here. The book is complete on its own: the whole framework for guest counts, family input, capacity limits and venue constraints is printed in it, along with every tracking sheet. This page offers that guest master sheet already built, for readers who would rather type than rule up columns.",
-      "direct_answer": "The book teaches the complete guest-list framework and prints every tracking sheet in full, so a reader who buys nothing can still resolve their list. There is no standalone guest-list product; the guest master lives inside the Wedding Seating Chart Maker, which carries the 104-row guest sheet, household grouping and RSVP reconciliation as editable files.",
+      "intro": "You reached the last page of The Wedding Guest List Problem and followed the link here. The book is complete on its own: the whole framework for guest counts, family input, capacity limits and venue constraints is printed in it, along with every tracking sheet. This page offers that guest master sheet already built, for readers who would rather type than rule up columns. There is still no standalone guest-list product, and this page says plainly where the sheet actually lives.",
+      "direct_answer": "The book teaches the complete guest-list framework and prints every tracking sheet in full, so a reader who buys nothing can still resolve their list. There is no standalone guest-list product: the 104-row guest master is a sheet inside the Wedding Seating Chart Maker, and the Wedding Seating Chart Maker is one of the four tools in the $39 Dream Wedding Operations Suite. The suite is how you get that sheet together with the budget, timeline and checklist files; the Seating Chart Maker on its own is $19 and contains the same guest master.",
       "sections": [
         {
           "heading": "What the book already gave you",
@@ -1332,9 +1357,10 @@
           ]
         },
         {
-          "heading": "There is no separate guest-list product, and here is why that matters",
+          "heading": "There is no separate guest-list product; the guest master is a sheet inside the seating tool",
           "paragraphs": [
-            "We do not sell a guest-list tool on its own. The guest master sheet is part of the Wedding Seating Chart Maker, because in practice the guest list and the seating chart are the same data at two stages. If you only ever need the list and never the tables, the book alone is a reasonable place to stop."
+            "We do not sell a guest-list tool on its own, and the bundle below does not add one. The guest master sheet is part of the Wedding Seating Chart Maker, because in practice the guest list and the seating chart are the same data at two stages. That is the sheet described here, and it is what you would be buying.",
+            "The Wedding Seating Chart Maker is one of the four tools in the Dream Wedding Operations Suite, so the suite includes this guest master. It is also sold on its own for nineteen dollars. If you only ever need the list and never the tables, the book alone is a reasonable place to stop."
           ],
           "bullets": [
             "Guest Master sheet with 104 rows, one row per person",
@@ -1395,7 +1421,7 @@
       "faqs": [
         {
           "question": "Is there a guest-list product I can buy on its own?",
-          "answer": "No. The guest master sheet is part of the Wedding Seating Chart Maker rather than a separate purchase, because the guest list and the seating chart are the same records at two stages of planning."
+          "answer": "No. The guest master sheet is part of the Wedding Seating Chart Maker rather than a separate purchase, because the guest list and the seating chart are the same records at two stages of planning. That tool is nineteen dollars on its own, and it is also one of the four inside the thirty-nine dollar Dream Wedding Operations Suite."
         },
         {
           "question": "Do I need it to use the framework in the book?",
@@ -1408,15 +1434,41 @@
         {
           "question": "Will it stop family disagreements about the list?",
           "answer": "No. It records who is invited, who has responded and against what capacity, which makes the constraint visible. The conversation itself is what the book prepares you for."
+        },
+        {
+          "question": "Should I buy the suite or just the Seating Chart Maker?",
+          "answer": "Both contain the same 104-row guest master. The Seating Chart Maker on its own is nineteen dollars and stops at guests and tables. The suite is thirty-nine and adds the budget, timeline and checklist tools plus the shared vendor and wedding-week handoff files. If the guest list is the only thing you want a file for, the smaller purchase is the honest answer."
         }
       ],
       "related": [
+        "/products/operations-suite",
         "/wedding-guest-list-template",
         "/products/seating-chart-maker",
         "/guides/wedding-guest-list-headcount-control",
-        "/guides/wedding-rsvp-tracking-system",
-        "/guides/wedding-seating-chart-for-100-guests"
+        "/guides/wedding-rsvp-tracking-system"
       ],
+      "bundle_offer": {
+        "product_id": "operations-suite",
+        "href": "/products/operations-suite",
+        "eyebrow": "The bundle, and what it does not contain",
+        "heading": "Dream Wedding Operations Suite",
+        "paragraphs": [
+          "The 104-row guest master is a sheet inside the Wedding Seating Chart Maker, and the Wedding Seating Chart Maker is one of the four tools in this suite. Buying the suite gets you that sheet, along with the budget, timeline and checklist files and the shared vendor and wedding-week handoff pages.",
+          "Fifty-two dollars of tools for thirty-nine, as one payment. If the guest master is genuinely all you want, the Wedding Seating Chart Maker is sold on its own for nineteen dollars and carries the same sheet."
+        ],
+        "includes": [
+          "Wedding Seating Chart Maker",
+          "Wedding Budget Spreadsheet",
+          "Wedding Timeline Template",
+          "Wedding Checklist PDF",
+          "Venue comparison worksheet",
+          "Vendor contact and payment trackers",
+          "Wedding-week handoff packet",
+          "Emergency contacts and responsibility matrix"
+        ],
+        "excludes": "It does not contain a standalone guest-list product, because none exists. The guest master is a sheet inside the Wedding Seating Chart Maker, not a separate file, and nothing in the suite repeats the framework the book already prints in full.",
+        "cta": "Get the complete suite - $39"
+      },
       "product_id": "seating-chart-maker",
       "schema": "Article"
     }
