@@ -24,6 +24,38 @@ export function isPreviewHost(host: string): boolean {
   return !host || host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.pages.dev') || /^127\./.test(host);
 }
 
+// Alias hosts are domains the Worker answers on but never publishes from.
+//
+// weddingpdfchecklist.com exists because five finished Kindle titles print
+// https://weddingpdfchecklist.com/amazon/<slug> on their last page. The domain
+// transposes the canonical one, and the link is inside EPUBs that are already
+// on sale, so the only way to change it is to re-upload five books. The domain
+// therefore has to answer - but it must not become a second copy of the site.
+//
+// Every request on an alias host is answered with a permanent redirect to the
+// same path on its canonical host. Nothing renders here, so there is no second
+// indexable copy to split rankings or confuse a canonical tag, and because the
+// path survives the hop the canonical page records the visit under its own
+// per-slug URL exactly as a direct arrival would.
+export type AliasHostConfig = { redirects_to: SiteHost; status: number; indexable: boolean; reason: string; book_paths: string[] };
+export const aliasHosts = (ownership.alias_hosts ?? {}) as Record<string, AliasHostConfig>;
+export const ALIAS_HOSTS = Object.keys(aliasHosts);
+
+export function isAliasHost(host: string): boolean {
+  return Object.prototype.hasOwnProperty.call(aliasHosts, host);
+}
+
+// Returns the canonical host an alias host must redirect to, or null when the
+// host is not an alias. Both the apex and its www. form resolve to the same
+// target, because a reader who types www. in front of a printed URL must not
+// land on a dead name.
+export function aliasRedirectTarget(rawHost: string): SiteHost | null {
+  const host = apexHost(rawHost);
+  const alias = aliasHosts[host];
+  if (!alias) return null;
+  return isCanonicalHost(alias.redirects_to) ? alias.redirects_to : PARENT_HOST;
+}
+
 export const productsWithDomains = products.filter(
   (product): product is typeof product & { domain: SiteHost } => isCanonicalHost(product.domain)
 );

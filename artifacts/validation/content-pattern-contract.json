@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "validator": "content-pattern-contract",
   "spec": ".clarity/content-pattern-spec.json",
-  "generated_at": "2026-08-30T00:29:09.419Z",
+  "generated_at": "2026-08-30T01:37:20.955Z",
   "enforcement": "block",
   "pages_checked": 96,
   "pages_by_kind": {
@@ -70,8 +70,8 @@
     {
       "id": "concrete_numbers",
       "blocking": false,
-      "pages_missing": 80,
-      "coverage_pct": 16.7,
+      "pages_missing": 78,
+      "coverage_pct": 18.8,
       "why": "no concrete cost or timeline figures (agent request #5, 365 occurrences)"
     },
     {
@@ -181,9 +181,7 @@
     "concrete_numbers": [
       "/amazon/wedding-budget-line-by-line",
       "/amazon/wedding-day-timeline",
-      "/amazon/wedding-guest-list-problem",
       "/amazon/wedding-seating-chart",
-      "/amazon/wedding-vendor-questions",
       "/guides/1-month-wedding-checklist",
       "/guides/12-month-wedding-checklist",
       "/guides/18-month-wedding-checklist",
@@ -203,7 +201,9 @@
       "/guides/destination-wedding-weekend-itinerary",
       "/guides/evening-wedding-timeline",
       "/guides/family-photo-timeline",
-      "/guides/late-rsvp-seating-chart-changes"
+      "/guides/late-rsvp-seating-chart-changes",
+      "/guides/long-table-wedding-seating",
+      "/guides/micro-wedding-checklist"
     ],
     "named_sources": [
       "/amazon/wedding-budget-line-by-line",

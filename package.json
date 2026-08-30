@@ -95,7 +95,8 @@
     "authority:routes:check": "node scripts/authority_scale/check_guide_routes.mjs",
     "validate:fulfillment-path": "node scripts/validate-fulfillment-path.mjs",
     "validate:cadence-policy": "node scripts/cadence/derive_capacity.mjs --check",
-    "validate:amazon-paths": "node scripts/validate-amazon-landing-paths.mjs"
+    "validate:amazon-paths": "node scripts/validate-amazon-landing-paths.mjs",
+    "validate:book-domain": "node scripts/validate-book-domain.mjs"
   },
   "dependencies": {
     "next": "15.5.18",

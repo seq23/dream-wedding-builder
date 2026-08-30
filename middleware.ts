@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apexHost, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
+import { aliasRedirectTarget, apexHost, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
 
 // Search Console verification files must be served verbatim at each domain root.
 // The matcher catches everything outside _next, so without a passthrough the
@@ -15,6 +15,22 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (isPreviewHost(originalHost)) return NextResponse.next();
+
+  // Alias hosts redirect before anything else, including the passthroughs below.
+  // weddingpdfchecklist.com is printed inside five published Kindle EPUBs and is
+  // attached to this Worker only so those links resolve; it must never render a
+  // page, serve a robots.txt of its own, or carry a verification file, because
+  // any of those would turn it into a second indexable copy of the site. The
+  // path and query are preserved so a reader lands on the exact page the book
+  // sent them to and the canonical URL is the one that gets recorded.
+  const aliasTarget = aliasRedirectTarget(originalHost);
+  if (aliasTarget) {
+    const url = request.nextUrl.clone();
+    url.protocol = 'https:';
+    url.host = aliasTarget;
+    url.port = '';
+    return NextResponse.redirect(url, 301);
+  }
 
   if (originalHost.startsWith('www.') && isCanonicalHost(host)) {
     const url = request.nextUrl.clone();
