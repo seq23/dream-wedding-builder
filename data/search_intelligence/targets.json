@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-08-29T11:45:16.441Z",
-  "count": 104,
+  "generated_at": "2026-08-30T11:45:20.605Z",
+  "count": 109,
   "targets": [
     {
       "target_id": "041f5ce832a91de82705",
@@ -544,6 +544,16 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "a4d35b0dafbc7c7edd46",
+      "query": "questions to ask every wedding vendor: where the answers go",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/wedding-vendor-questions",
+      "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "5cbc0762b78f10285ab3",
       "query": "rehearsal dinner checklist",
       "host": "weddingchecklistpdf.com",
@@ -568,6 +578,36 @@
       "query": "sweetheart table vs. head table",
       "host": "weddingseatingchartmaker.com",
       "route": "/guides/sweetheart-table-vs-head-table",
+      "product_id": "seating-chart-maker",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "a57781ae35738ac60c30",
+      "query": "the wedding budget, line by line: companion files for readers",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/wedding-budget-line-by-line",
+      "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "a36f345ce903049f3240",
+      "query": "the wedding guest list problem: companion files for readers",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/wedding-guest-list-problem",
+      "product_id": "seating-chart-maker",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "bdeac05d987bc435eefd",
+      "query": "the wedding seating chart: companion files for book readers",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/wedding-seating-chart",
       "product_id": "seating-chart-maker",
       "intent": "authority",
       "priority": "MEDIUM",
@@ -688,6 +728,16 @@
       "query": "wedding day timeline: build a realistic schedule",
       "host": "weddingtimelinetemplate.com",
       "route": "/guides/wedding-day-timeline",
+      "product_id": "timeline-template",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "3301b72ab8de20b70d5d",
+      "query": "wedding day timeline: companion files for book readers",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/wedding-day-timeline",
       "product_id": "timeline-template",
       "intent": "authority",
       "priority": "MEDIUM",

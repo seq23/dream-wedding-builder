@@ -72,6 +72,42 @@
       "ctr": 0,
       "average_position": 81,
       "target_match": true
+    },
+    {
+      "observation_id": "caf2ade17979e48955f8",
+      "observed_at": "2026-08-30T11:45:21.643Z",
+      "period": {
+        "start": "2026-08-01",
+        "end": "2026-08-28"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "destination wedding itinerary",
+      "page": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 96,
+      "target_match": false
+    },
+    {
+      "observation_id": "6e84883ebcef4713b943",
+      "observed_at": "2026-08-30T11:45:21.643Z",
+      "period": {
+        "start": "2026-08-01",
+        "end": "2026-08-28"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "evening wedding timeline",
+      "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 79.5,
+      "target_match": true
     }
   ]
 }
