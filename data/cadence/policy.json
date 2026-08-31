@@ -10,8 +10,8 @@
   "_capacity_derivation": {
     "renderable_guides_now": 79,
     "measured_from": "2026-07-10",
-    "authoring_weeks": 7.3,
-    "sustained_throughput_per_week": 10.84,
+    "authoring_weeks": 7.4,
+    "sustained_throughput_per_week": 10.63,
     "best_single_interval_per_week": 78.17,
     "note": "Whole-period average over the authoring window, floored. The best single interval is a bulk authoring event and is deliberately not used."
   }

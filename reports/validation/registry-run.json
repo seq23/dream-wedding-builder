@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T10:22:39.955Z",
+  "generated_at": "2026-08-31T10:27:10.429Z",
   "passed": 25,
   "hard_failed": 0,
   "warned": 0,
@@ -13,7 +13,7 @@
       "reason": "authority contracts govern what may publish",
       "composite": false,
       "ok": true,
-      "ms": 138
+      "ms": 183
     },
     {
       "id": "authority-registry",
@@ -26,7 +26,7 @@
       "repair_command": "npm run authority:scale:restore",
       "repair_evidence": "proved on 2026-08-28: deleting faqs from a frozen guide fails this validator with UNRENDERABLE_ENTRY, and restore_authority_content.mjs rewrites the entry from its frozen blob and the validator passes again",
       "ok": true,
-      "ms": 140
+      "ms": 194
     },
     {
       "id": "commerce",
@@ -37,7 +37,7 @@
       "reason": "broken checkout or product binding costs real revenue",
       "composite": false,
       "ok": true,
-      "ms": 137
+      "ms": 181
     },
     {
       "id": "conversion-admin",
@@ -48,7 +48,7 @@
       "reason": "conversion and admin surfaces must resolve",
       "composite": false,
       "ok": true,
-      "ms": 134
+      "ms": 184
     },
     {
       "id": "disclaimers",
@@ -59,7 +59,7 @@
       "reason": "legal disclaimers are non-negotiable on published pages",
       "composite": false,
       "ok": true,
-      "ms": 137
+      "ms": 186
     },
     {
       "id": "downloads",
@@ -70,7 +70,7 @@
       "reason": "paid customers must receive the file they bought",
       "composite": false,
       "ok": true,
-      "ms": 151
+      "ms": 203
     },
     {
       "id": "fulfillment-path",
@@ -81,7 +81,7 @@
       "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
       "composite": false,
       "ok": true,
-      "ms": 141
+      "ms": 185
     },
     {
       "id": "amazon-landing-paths",
@@ -92,7 +92,7 @@
       "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
       "composite": false,
       "ok": true,
-      "ms": 139
+      "ms": 184
     },
     {
       "id": "book-domain",
@@ -105,7 +105,7 @@
       "repair_command": "node scripts/providers/attach-book-domain.mjs",
       "repair_evidence": "proved on 2026-08-29: the gate exited 1 with getaddrinfo ENOTFOUND on all five printed URLs before weddingpdfchecklist.com was attached to the Worker, and passed once attach-book-domain.mjs created the custom domain and the deployed middleware answered 301 -> 200 on each path",
       "ok": true,
-      "ms": 2868
+      "ms": 2810
     },
     {
       "id": "env",
@@ -116,7 +116,7 @@
       "reason": "missing environment configuration breaks the deploy",
       "composite": false,
       "ok": true,
-      "ms": 140
+      "ms": 178
     },
     {
       "id": "no-stubs",
@@ -127,7 +127,7 @@
       "reason": "stub content must never reach a live page",
       "composite": false,
       "ok": true,
-      "ms": 150
+      "ms": 201
     },
     {
       "id": "proof-readiness",
@@ -140,7 +140,7 @@
       "repair_command": "npm run authority:flow",
       "repair_rationale": "validate:proof-readiness fails when artifacts/authority/admission-report.json and release-manifest.json no longer balance against data/authority/content_registry.json; authority:flow (scripts/authority/run-full-flow.mjs) is the script that regenerates both from that registry.",
       "ok": true,
-      "ms": 151
+      "ms": 193
     },
     {
       "id": "query-atlas",
@@ -153,7 +153,7 @@
       "repair_command": "npm run atlas:build",
       "repair_rationale": "validate:query-atlas fails with \"missing data/authority_scale/query_atlas.json - run the atlas build first\" when the generated atlas is absent or stale; atlas:build (scripts/atlas/build_query_atlas.mjs) is the script that writes that file from the evidence it validates.",
       "ok": true,
-      "ms": 138
+      "ms": 183
     },
     {
       "id": "secrets",
@@ -164,7 +164,7 @@
       "reason": "leaked or missing credentials",
       "composite": false,
       "ok": true,
-      "ms": 143
+      "ms": 191
     },
     {
       "id": "seo",
@@ -177,7 +177,7 @@
       "repair_command": "npm run authority:flow && npm run search:diagnose && npm run search:repair",
       "repair_rationale": "validate:seo reports \"stale authority admission report\" and \"missing upward link registry\", both regenerated by authority:flow, and \"incomplete hub core: <slug>\" when a hub in data/seo/hub_pages.json has no description - the exact field search:diagnose flags as hub_missing_meta_description and search:repair writes. Partial by design: the content-quality failures this validator also reports have no generated fix, and the loop re-validates and reports them by name.",
       "ok": true,
-      "ms": 823
+      "ms": 1039
     },
     {
       "id": "no-internal-instruction-leak",
@@ -188,7 +188,7 @@
       "reason": "external-agent build directives rendered as page copy are visible defects and poison the text answer engines extract",
       "composite": false,
       "ok": true,
-      "ms": 139
+      "ms": 179
     },
     {
       "id": "no-empty-table-cells",
@@ -199,7 +199,7 @@
       "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
       "composite": false,
       "ok": true,
-      "ms": 138
+      "ms": 182
     },
     {
       "id": "content-pattern-contract",
@@ -210,7 +210,7 @@
       "reason": "a content page with no direct answer, no usable h1, an empty table cell, or no paid-product conversion path cannot be quoted or acted on by an answer engine",
       "composite": false,
       "ok": true,
-      "ms": 152
+      "ms": 197
     },
     {
       "id": "content",
@@ -221,7 +221,7 @@
       "reason": "content quality signal; the SEO and authority gates block the real risks",
       "composite": false,
       "ok": true,
-      "ms": 142
+      "ms": 188
     },
     {
       "id": "kpi-truth",
@@ -232,7 +232,7 @@
       "reason": "measurement honesty check; reports rather than blocks",
       "composite": false,
       "ok": true,
-      "ms": 135
+      "ms": 181
     },
     {
       "id": "no-theater",
@@ -243,7 +243,7 @@
       "reason": "advisory copy-quality signal",
       "composite": false,
       "ok": true,
-      "ms": 147
+      "ms": 194
     },
     {
       "id": "profile-purity",
@@ -254,7 +254,7 @@
       "reason": "profile drift should be corrected but does not break the site",
       "composite": false,
       "ok": true,
-      "ms": 138
+      "ms": 183
     },
     {
       "id": "search-intelligence",
@@ -265,7 +265,7 @@
       "reason": "observational signal, no live-site impact",
       "composite": false,
       "ok": true,
-      "ms": 143
+      "ms": 188
     },
     {
       "id": "tree-hygiene",
@@ -276,7 +276,7 @@
       "reason": "working tree debris is a maintenance problem, not a release risk",
       "composite": false,
       "ok": true,
-      "ms": 145
+      "ms": 195
     },
     {
       "id": "cadence-policy-currency",
@@ -290,7 +290,7 @@
       "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
       "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0",
       "ok": true,
-      "ms": 199
+      "ms": 270
     }
   ]
 }
