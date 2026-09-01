@@ -89,3 +89,33 @@ test('the old /build URL redirects permanently and keeps its query string', asyn
   expect(page.url()).toContain('guests=80');
   await expect(page.getByTestId('seed-notice')).toBeVisible();
 });
+
+test('the methodology worked example is the shipped planner output, not prose about it', async ({ page }) => {
+  // Computed here from the same function the page calls. If /methodology ever
+  // starts describing Step 3 rather than running it, these two stop matching.
+  const { budgetReality, emptyPlan } = await import('../../../data/planning');
+  const expected = budgetReality({
+    ...emptyPlan,
+    constraintMode: 'hard',
+    guestCount: '80',
+    budgetTarget: '18000',
+    budgetMode: 'hard',
+    priorities: ['Food + Bar', 'Photography', 'Guest Comfort']
+  });
+
+  await page.goto('/methodology');
+  await expect(page.getByTestId('methodology-contrast')).toBeVisible();
+  await expect(page.getByTestId('methodology-contrast')).toContainText('Calculators tell you what a wedding costs. This tells you what to change.');
+  await expect(page.getByTestId('methodology-worked-example')).toHaveText(expected);
+
+  // The claim stays narrower than the headline: no affordability verdict.
+  await expect(page.getByTestId('methodology-contrast')).toContainText('It orders the cuts.');
+
+  // And the contrast reaches the structured data, which is what gets quoted.
+  // The page emits several blocks (breadcrumb, DefinedTerm, HowTo); the contrast
+  // must be in the DefinedTerm description specifically.
+  const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const definedTerm = blocks.map((block) => JSON.parse(block)).flat().find((node) => node['@type'] === 'DefinedTerm');
+  expect(definedTerm, 'no DefinedTerm in the structured data').toBeTruthy();
+  expect(definedTerm.description).toContain('Calculators tell you what a wedding costs. This tells you what to change.');
+});

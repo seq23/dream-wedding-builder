@@ -85,6 +85,7 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
       <h2 className="mt-3 font-serif text-4xl md:text-5xl">Now answer it for your wedding</h2>
       <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">Everything above is true in general. These three things are only answerable for you:</p>
       <ul className="mt-5 grid gap-3">{landing.plannerAdds.map((item) => <li key={item} className="rounded-2xl bg-linen p-4 leading-7">{item}</li>)}</ul>
+      {landing.categoryContrast && <p className="mt-5 border-l-4 border-charcoal/25 pl-4 leading-7 text-charcoal/70" data-testid="landing-category-contrast">{landing.categoryContrast} <Link href="/methodology" className="font-bold underline underline-offset-4">How constraint-first planning differs</Link></p>}
       <Link href={href} data-testid="landing-planner-link" className="mt-7 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">{landing.ctaLabel}</Link>
       <p className="mt-3 text-xs leading-6 text-charcoal/55">Opens with this page&rsquo;s constraint already entered. If you have used the planner before, your saved answers win — a link can never overwrite work you have already done.</p>
     </section>

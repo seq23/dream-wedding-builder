@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 26,
+    "HARD_FAIL": 27,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -153,6 +153,17 @@
       "blocksRelease": false,
       "reason": "measurement honesty check; reports rather than blocks",
       "composite": false
+    },
+    {
+      "id": "methodology-contrast",
+      "npmScript": "validate:methodology-contrast",
+      "command": "node scripts/validators/validate_methodology_contrast.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "the positioning sentence is the thing a model quotes when asked how this differs from a budget calculator; it must stay true of the shipped Step 3 and must stay a contrast with a category rather than with a named competitor, or it is either a false claim or an indefensible one",
+      "composite": false,
+      "repair_command": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
+      "repair_evidence": "proved on 2026-09-01: claiming \"tradeoff engine computes\" fails with an overclaim error, transcribing the worked example instead of calling budgetReality fails with \"no longer calls budgetReality\", and naming a competitor fails on the surface that names it"
     },
     {
       "id": "no-empty-table-cells",

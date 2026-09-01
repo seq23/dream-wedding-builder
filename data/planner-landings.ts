@@ -50,6 +50,13 @@ export interface PlannerLanding {
   faqs: { question: string; answer: string }[];
   /** What the planner does that this page cannot. If this is weak, the page is a blog post. */
   plannerAdds: string[];
+  /**
+   * The category contrast, on the two pages where a reader has almost certainly
+   * arrived from a calculator query and is holding that expectation. Stated
+   * against the category, never against a named competitor. Omitted elsewhere:
+   * repeating positioning on a page that did not raise the question is noise.
+   */
+  categoryContrast?: string;
   ctaLabel: string;
   seed: PlannerSeed;
   verificationBoundary: string;
@@ -126,6 +133,7 @@ export const plannerLandings: PlannerLanding[] = [
       'Scores that number against the priorities you said you will not cut, so the tradeoff it suggests is yours and not the average couple\'s.',
       'Flags the hidden fee categories — service charge, tax, vendor meals, setup and strike labour — that a per-guest average silently includes and a venue quote silently excludes.'
     ],
+    categoryContrast: 'A calculator answers what 80 guests cost and stops there. The question after that one is "I only have $18,000 — what do I change?", and answering it needs to know which three things you refuse to cut.',
     ctaLabel: 'Run this against your own guest count →',
     seed: { guests: '80', focus: 'Budget + Tradeoffs', budgetmode: 'unknown', q: 'What does my wedding cost at my guest count, and what actually changes if I cut the list?' },
     verificationBoundary: 'Per-guest figures on this page are published planning benchmarks, not quotes. No live vendor pricing or availability is claimed anywhere on this site. Verify every number against a written quote before signing or paying a deposit.',
@@ -259,6 +267,7 @@ export const plannerLandings: PlannerLanding[] = [
       'Surfaces the second-order costs a swap creates — corkage, staffing, rentals, labour — rather than only the line you cut.',
       'Tells you when a saving does not clear a threshold, which is the answer an article cannot give because it depends on your venue.'
     ],
+    categoryContrast: 'A calculator prices the wedding you described. It has no view on which swap is right, because that depends entirely on what you already said you would not give up.',
     ctaLabel: 'Test your own tradeoff →',
     seed: { focus: 'Budget + Tradeoffs', mode: 'flexible', protect: 'Food + Bar,Photography', q: 'If I cut this category, can I afford the better venue, and what does it cost me elsewhere?' },
     verificationBoundary: 'Per-guest bar and catering figures are published planning benchmarks, not quotes. Venue minimums, corkage terms, and licensing rules vary by property and jurisdiction and must be confirmed in the contract.',
