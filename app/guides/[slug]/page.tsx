@@ -7,6 +7,8 @@ import { dateModifiedFor } from '@/lib/lastmod';
 import { productById } from '@/lib/products';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
 import { guideLead, guideMetadata, guideRecommendation } from '@/lib/seo';
+import { plannerHref, plannerLabelForGuide, seedFromGuide } from '@/lib/planner-seed';
+import { PlannerCta } from '@/components/PlannerCta';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { RecommendationSummary } from '@/components/seo/RecommendationSummary';
@@ -29,6 +31,19 @@ export default async function Guide({ params }: { params: Promise<{ slug: string
     <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.cluster}</p><h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">{page.title}</h1><p className="mt-6 max-w-4xl text-xl leading-9 text-charcoal/70">{guideLead(page)}</p><Link href={page.hub_route ?? "/guides"} className="no-print mt-7 inline-flex rounded-2xl border border-charcoal/20 bg-linen px-5 py-3 font-bold">Start with the complete {page.cluster.toLowerCase()} hub →</Link></header>
     <RecommendationSummary statement={guideRecommendation(page)} product={product ?? null} productHref={product?.route} />
     <section className="rounded-[1.75rem] bg-linen p-7 md:p-9"><h2 className="font-serif text-4xl">The practical method</h2><ol className="mt-5 grid gap-3">{(page.steps ?? []).map((step, index) => <li key={step} className="grid grid-cols-[2rem_1fr] gap-3 rounded-2xl bg-white p-4"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-charcoal text-sm font-bold text-linen">{index + 1}</span><span className="pt-1 leading-6">{step}</span></li>)}</ol></section>
+    {/* The guide explains the decision in general. The planner is where the reader
+        applies it to their own numbers, so the handoff sits immediately after the
+        method and carries this guide's own constraint - focus, and any guest count
+        or month figure the slug already states - rather than dropping them into an
+        empty planner and asking them to re-type what the page already knew. */}
+    <section className="no-print rounded-[1.75rem] border border-charcoal/15 bg-white p-7 md:p-9" data-testid="guide-planner-entry">
+      <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free, no account, nothing leaves your browser</p>
+      <h2 className="mt-3 font-serif text-4xl">Apply this to your own wedding</h2>
+      <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">This guide answers the question in general. The free planner answers it for your guest count, your budget position, and the things you have already said you will not cut.</p>
+      <Link href={plannerHref(seedFromGuide(page))} className="mt-6 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen" data-testid="guide-planner-link">{plannerLabelForGuide(page)}</Link>
+      <p className="mt-3 text-xs text-charcoal/55">Opens with this guide&rsquo;s constraint already entered. It will never overwrite a plan you have already saved.</p>
+    </section>
+    <PlannerCta label={plannerLabelForGuide(page)} seed={seedFromGuide(page)} />
     {(page.sections ?? []).map((section) => <section key={section.heading} className="rounded-[1.75rem] bg-white p-7 md:p-9"><h2 className="font-serif text-4xl md:text-5xl">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-7 text-charcoal/70">{paragraph}</p>)}{'bullets' in section && section.bullets && <ul className="mt-5 grid gap-3 md:grid-cols-2">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4">✓ {item}</li>)}</ul>}</section>)}
     <section className="grid gap-4 md:grid-cols-2">{(page.examples ?? []).map((example) => <article key={example.title} className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><h2 className="font-serif text-3xl">{example.title}</h2><p className="mt-3 leading-7 text-charcoal/70">{example.body}</p></article>)}</section>
     <section><h2 className="font-serif text-5xl">What commonly goes wrong</h2><div className="mt-6 grid gap-4 md:grid-cols-2">{(page.mistakes ?? []).map((mistake) => <div key={mistake} className="rounded-2xl border border-charcoal/10 bg-white p-5">{mistake}</div>)}</div></section>

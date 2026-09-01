@@ -182,7 +182,7 @@ const routeFile = (pathname) => (pathname === '/' ? 'app/page.tsx' : `app/${path
 for (const route of ownership.routes ?? []) {
   if (entries[route.path]) continue;
   // Page file only. A layout is shared chrome, not this route's content, and for
-  // /build and /photos the layout exists solely to hold metadata a client component
+  // /free-wedding-planner and /photos the layout exists solely to hold metadata a client component
   // cannot export - dating the route from it would say those pages changed on the
   // day their canonical tag was added.
   record(route.path, fileLastChanged(routeFile(route.path)), routeFile(route.path));

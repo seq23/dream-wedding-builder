@@ -521,7 +521,7 @@
       "indexable": true
     },
     {
-      "path": "/build",
+      "path": "/free-wedding-planner",
       "host": "weddingchecklistpdf.com",
       "type": "parent",
       "indexable": true
@@ -680,6 +680,54 @@
       "path": "/amazon/wedding-guest-list-problem",
       "host": "weddingchecklistpdf.com",
       "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/methodology",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/readiness-score",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "landing",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-budget-tradeoffs",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "landing",
+      "indexable": true
+    },
+    {
+      "path": "/what-to-do-6-months-before-the-wedding",
+      "host": "weddingtimelinetemplate.com",
+      "type": "landing",
+      "indexable": true
+    },
+    {
+      "path": "/backyard-wedding-planning",
+      "host": "weddingchecklistpdf.com",
+      "type": "landing",
+      "indexable": true
+    },
+    {
+      "path": "/micro-wedding-planning",
+      "host": "weddingchecklistpdf.com",
+      "type": "landing",
+      "indexable": true
+    },
+    {
+      "path": "/wedding-planning-reality-check",
+      "host": "weddingchecklistpdf.com",
+      "type": "landing",
       "indexable": true
     }
   ],

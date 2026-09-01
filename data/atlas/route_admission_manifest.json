@@ -1,5 +1,5 @@
 {
-  "minimum_score": 9.0,
+  "minimum_score": 9,
   "required_checks": [
     "canonical_owner",
     "unique_intent",
@@ -16,7 +16,15 @@
     "/products/timeline-template",
     "/products/checklist-pdf",
     "/",
-    "/build",
-    "/shop"
+    "/free-wedding-planner",
+    "/shop",
+    "/methodology",
+    "/readiness-score",
+    "/wedding-cost-per-guest",
+    "/wedding-budget-tradeoffs",
+    "/what-to-do-6-months-before-the-wedding",
+    "/backyard-wedding-planning",
+    "/micro-wedding-planning",
+    "/wedding-planning-reality-check"
   ]
 }

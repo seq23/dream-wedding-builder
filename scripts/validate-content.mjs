@@ -32,7 +32,7 @@ for (const term of ['Color Smoke Kiss Moment','Late-Night Comfort Food Window','
   if (!trends.includes(term)) { console.error('Missing locked standout idea:', term); process.exit(1); }
 }
 
-const build = fs.readFileSync('app/build/page.tsx','utf8');
+const build = fs.readFileSync('app/free-wedding-planner/page.tsx','utf8');
 for (const term of [
   'Planning Reality Check',
   'Constraint Profile',

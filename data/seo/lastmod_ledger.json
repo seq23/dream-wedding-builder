@@ -2,12 +2,12 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "73d5671b0f4138c50eb39f503bcde6e90659ef2a",
+  "generated_from_commit": "4d81a07e10ac9e597954bb235d1fcb72aae1c196",
   "shipping_guide_count": 79,
   "paths": {
     "/": {
-      "lastmod": "2026-07-30",
-      "source": "app/page.tsx"
+      "lastmod": "2026-09-02",
+      "source": "app/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/amazon/wedding-budget-line-by-line": {
       "lastmod": "2026-08-29",
@@ -29,13 +29,17 @@
       "lastmod": "2026-08-29",
       "source": "data/seo/hub_pages.json#pages.amazon/wedding-vendor-questions"
     },
-    "/build": {
-      "lastmod": "2026-08-27",
-      "source": "app/build/page.tsx"
+    "/backyard-wedding-planning": {
+      "lastmod": "2026-09-02",
+      "source": "app/backyard-wedding-planning/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/disclaimer": {
       "lastmod": "2026-08-27",
       "source": "app/disclaimer/page.tsx"
+    },
+    "/free-wedding-planner": {
+      "lastmod": "2026-09-02",
+      "source": "app/free-wedding-planner/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/guides": {
       "lastmod": "2026-08-27",
@@ -357,6 +361,14 @@
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=wedding-week-checklist]"
     },
+    "/methodology": {
+      "lastmod": "2026-09-02",
+      "source": "app/methodology/page.tsx (uncommitted at generation; pinned to run date)"
+    },
+    "/micro-wedding-planning": {
+      "lastmod": "2026-09-02",
+      "source": "app/micro-wedding-planning/page.tsx (uncommitted at generation; pinned to run date)"
+    },
     "/photos": {
       "lastmod": "2026-08-27",
       "source": "app/photos/page.tsx"
@@ -366,8 +378,8 @@
       "source": "data/seo/hub_pages.json#pages.printable-wedding-checklist"
     },
     "/privacy": {
-      "lastmod": "2026-08-27",
-      "source": "app/privacy/page.tsx"
+      "lastmod": "2026-09-02",
+      "source": "app/privacy/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/products/budget-spreadsheet": {
       "lastmod": "2026-08-26",
@@ -388,6 +400,10 @@
     "/products/timeline-template": {
       "lastmod": "2026-07-30",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
+    },
+    "/readiness-score": {
+      "lastmod": "2026-09-02",
+      "source": "app/readiness-score/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/refund-policy": {
       "lastmod": "2026-08-27",
@@ -413,6 +429,10 @@
       "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-budget-spreadsheet"
     },
+    "/wedding-budget-tradeoffs": {
+      "lastmod": "2026-09-02",
+      "source": "app/wedding-budget-tradeoffs/page.tsx (uncommitted at generation; pinned to run date)"
+    },
     "/wedding-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-checklist"
@@ -420,6 +440,10 @@
     "/wedding-checklist-pdf": {
       "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-checklist-pdf"
+    },
+    "/wedding-cost-per-guest": {
+      "lastmod": "2026-09-02",
+      "source": "app/wedding-cost-per-guest/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/wedding-guest-list-template": {
       "lastmod": "2026-08-08",
@@ -429,6 +453,10 @@
       "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-planning-checklist"
     },
+    "/wedding-planning-reality-check": {
+      "lastmod": "2026-09-02",
+      "source": "app/wedding-planning-reality-check/page.tsx (uncommitted at generation; pinned to run date)"
+    },
     "/wedding-seating-chart": {
       "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-seating-chart"
@@ -436,6 +464,10 @@
     "/wedding-timeline-template": {
       "lastmod": "2026-07-30",
       "source": "data/seo/hub_pages.json#pages.wedding-timeline-template"
+    },
+    "/what-to-do-6-months-before-the-wedding": {
+      "lastmod": "2026-09-02",
+      "source": "app/what-to-do-6-months-before-the-wedding/page.tsx (uncommitted at generation; pinned to run date)"
     }
   }
 }

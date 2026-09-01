@@ -7,11 +7,20 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 21,
+    "HARD_FAIL": 26,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
   "validators": [
+    {
+      "id": "amazon-landing-paths",
+      "npmScript": "validate:amazon-paths",
+      "command": "node scripts/validate-amazon-landing-paths.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
+      "composite": false
+    },
     {
       "id": "authority",
       "npmScript": "validate:authority",
@@ -33,12 +42,53 @@
       "repair_evidence": "proved on 2026-08-28: deleting faqs from a frozen guide fails this validator with UNRENDERABLE_ENTRY, and restore_authority_content.mjs rewrites the entry from its frozen blob and the validator passes again"
     },
     {
+      "id": "book-domain",
+      "npmScript": "validate:book-domain",
+      "command": "node scripts/validate-book-domain.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "Five published Kindle EPUBs print https://weddingpdfchecklist.com/amazon/<slug> on their last page. That hostname transposes the canonical one and is baked into files already on sale, so a host-level failure - no DNS, an invalid certificate, or the redirect losing the path - cannot be fixed by editing this repo and breaks every reader arriving from a book. validate:amazon-paths covers the five paths on the canonical host and cannot see the host the books actually print. This gate fetches all five over HTTPS on the book domain, requires a 301 to the same path on weddingchecklistpdf.com ending in a 200, and separately asserts the alias is never declared as a canonical host - a second host that renders would be a duplicate indexable copy of the whole site. It uses the canonical host as a network control so an offline machine reports UNPROVEN rather than a false red.",
+      "composite": false,
+      "repair_command": "node scripts/providers/attach-book-domain.mjs",
+      "repair_evidence": "proved on 2026-08-29: the gate exited 1 with getaddrinfo ENOTFOUND on all five printed URLs before weddingpdfchecklist.com was attached to the Worker, and passed once attach-book-domain.mjs created the custom domain and the deployed middleware answered 301 -> 200 on each path"
+    },
+    {
+      "id": "cadence-policy-currency",
+      "npmScript": "validate:cadence-policy",
+      "command": "node scripts/cadence/derive_capacity.mjs --check",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "data/cadence/policy.json restates two numbers derived from a measured rate; nothing re-derived or asserted them, and a simulated clock on 2026-08-29 showed the stored 11/5 becoming 7/3 by 2026-09-20 while the publisher kept releasing 5 a week",
+      "composite": false,
+      "repair_command": "npm run cadence:derive -- --write",
+      "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
+      "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0"
+    },
+    {
       "id": "commerce",
       "npmScript": "validate:commerce",
       "command": "node scripts/validate-commerce.mjs",
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "broken checkout or product binding costs real revenue",
+      "composite": false
+    },
+    {
+      "id": "content",
+      "npmScript": "validate:content",
+      "command": "node scripts/validate-content.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "content quality signal; the SEO and authority gates block the real risks",
+      "composite": false
+    },
+    {
+      "id": "content-pattern-contract",
+      "npmScript": "validate:content-pattern",
+      "command": "node scripts/validators/validate_content_pattern_contract.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "a content page with no direct answer, no usable h1, an empty table cell, or no paid-product conversion path cannot be quoted or acted on by an answer engine",
       "composite": false
     },
     {
@@ -78,35 +128,6 @@
       "composite": false
     },
     {
-      "id": "fulfillment-path",
-      "npmScript": "validate:fulfillment-path",
-      "command": "node scripts/validate-fulfillment-path.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
-      "composite": false
-    },
-    {
-      "id": "amazon-landing-paths",
-      "npmScript": "validate:amazon-paths",
-      "command": "node scripts/validate-amazon-landing-paths.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
-      "composite": false
-    },
-    {
-      "id": "book-domain",
-      "npmScript": "validate:book-domain",
-      "command": "node scripts/validate-book-domain.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "Five published Kindle EPUBs print https://weddingpdfchecklist.com/amazon/<slug> on their last page. That hostname transposes the canonical one and is baked into files already on sale, so a host-level failure - no DNS, an invalid certificate, or the redirect losing the path - cannot be fixed by editing this repo and breaks every reader arriving from a book. validate:amazon-paths covers the five paths on the canonical host and cannot see the host the books actually print. This gate fetches all five over HTTPS on the book domain, requires a 301 to the same path on weddingchecklistpdf.com ending in a 200, and separately asserts the alias is never declared as a canonical host - a second host that renders would be a duplicate indexable copy of the whole site. It uses the canonical host as a network control so an offline machine reports UNPROVEN rather than a false red.",
-      "composite": false,
-      "repair_command": "node scripts/providers/attach-book-domain.mjs",
-      "repair_evidence": "proved on 2026-08-29: the gate exited 1 with getaddrinfo ENOTFOUND on all five printed URLs before weddingpdfchecklist.com was attached to the Worker, and passed once attach-book-domain.mjs created the custom domain and the deployed middleware answered 301 -> 200 on each path"
-    },
-    {
       "id": "env",
       "npmScript": "validate:env",
       "command": "node scripts/validate-env.mjs",
@@ -116,12 +137,110 @@
       "composite": false
     },
     {
+      "id": "fulfillment-path",
+      "npmScript": "validate:fulfillment-path",
+      "command": "node scripts/validate-fulfillment-path.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
+      "composite": false
+    },
+    {
+      "id": "kpi-truth",
+      "npmScript": "validate:kpi-truth",
+      "command": "node scripts/authority_scale/validate_kpi_truth.mjs",
+      "severity": "SOFT_WARNING",
+      "blocksRelease": false,
+      "reason": "measurement honesty check; reports rather than blocks",
+      "composite": false
+    },
+    {
+      "id": "no-empty-table-cells",
+      "npmScript": "validate:no-empty-cells",
+      "command": "node scripts/validators/validate_no_empty_table_cells.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
+      "composite": false
+    },
+    {
+      "id": "no-internal-instruction-leak",
+      "npmScript": "validate:no-instruction-leak",
+      "command": "node scripts/validators/validate_no_internal_instruction_leak.js",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "external-agent build directives rendered as page copy are visible defects and poison the text answer engines extract",
+      "composite": false
+    },
+    {
       "id": "no-stubs",
       "npmScript": "validate:no-stubs",
       "command": "node scripts/validate-no-stubs.mjs",
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "stub content must never reach a live page",
+      "composite": false
+    },
+    {
+      "id": "no-theater",
+      "npmScript": "validate:no-theater",
+      "command": "node scripts/validate-no-theater.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "advisory copy-quality signal",
+      "composite": false
+    },
+    {
+      "id": "planner-persistent-entry",
+      "npmScript": "validate:planner-persistent-entry",
+      "command": "node scripts/validators/validate_planner_persistent_entry.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "the persistent banner is the planner entry on every page of every host, and a dismissal that is not stored re-nags a reader who already declined - worse than no dismiss control at all",
+      "composite": false,
+      "repair_command": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
+      "repair_evidence": "proved on 2026-09-01: removing the localStorage.setItem for the dismissal fails with \"dismissal is never written to storage\"; restoring it passes"
+    },
+    {
+      "id": "planner-reachability",
+      "npmScript": "validate:planner-reachability",
+      "command": "node scripts/validators/validate_planner_reachability.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "the free planner is the entry point every other surface now points at; a planner missing from the desktop nav or from a guide is a dead funnel, and it shipped exactly that way for six days without anything noticing",
+      "composite": false,
+      "repair_command": "restore the desktop nav entry in components/AppShell.tsx and the planner section in app/guides/[slug]/page.tsx",
+      "repair_evidence": "proved on 2026-09-01: deleting the desktop-nav-planner entry fails with \"AppShell desktop nav: no planner entry\"; restoring it passes"
+    },
+    {
+      "id": "planner-seed-contract",
+      "npmScript": "validate:planner-seed-contract",
+      "command": "node scripts/validators/validate_planner_seed_contract.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "a landing page whose seed does not hydrate is a link, not a lead magnet; this runs the real seeding logic over every landing seed and every shipping guide rather than checking that a query string is present",
+      "composite": false,
+      "repair_command": "fix lib/planner-seed.ts or the offending seed in data/planner-landings.ts",
+      "repair_evidence": "proved on 2026-09-01: making planPatchFromSeed return an empty patch fails with 6 landing-page assertions; restoring it passes 27"
+    },
+    {
+      "id": "product-reachability",
+      "npmScript": "validate:product-reachability",
+      "command": "node scripts/validators/validate_product_reachability.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "money: three of the four paid products had no path from any plan state, only a bundled shop link, while the planner became the destination for every other surface",
+      "composite": false,
+      "repair_command": "restore the working-files block in app/free-wedding-planner/page.tsx",
+      "repair_evidence": "proved on 2026-09-01: removing the working-files block fails with 4 unreachable products; restoring it passes"
+    },
+    {
+      "id": "profile-purity",
+      "npmScript": "validate:profile-purity",
+      "command": "node scripts/validate-profile-purity.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "profile drift should be corrected but does not break the site",
       "composite": false
     },
     {
@@ -145,6 +264,26 @@
       "composite": false,
       "repair_command": "npm run atlas:build",
       "repair_rationale": "validate:query-atlas fails with \"missing data/authority_scale/query_atlas.json - run the atlas build first\" when the generated atlas is absent or stale; atlas:build (scripts/atlas/build_query_atlas.mjs) is the script that writes that file from the evidence it validates."
+    },
+    {
+      "id": "readiness-rubric",
+      "npmScript": "validate:readiness-rubric",
+      "command": "node scripts/validators/validate_readiness_rubric.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "/readiness-score publishes how the score works; a page that describes its own behaviour incorrectly is worse than no page, so the rubric must render from lib/readiness.ts and must never restate it",
+      "composite": false,
+      "repair_command": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
+      "repair_evidence": "proved on 2026-09-01: hardcoding a check label in the rubric page fails with \"hardcodes the check label\"; rendering it from the module passes"
+    },
+    {
+      "id": "search-intelligence",
+      "npmScript": "validate:search-intelligence",
+      "command": "node scripts/search_intelligence/validate.mjs",
+      "severity": "SOFT_WARNING",
+      "blocksRelease": false,
+      "reason": "observational signal, no live-site impact",
+      "composite": false
     },
     {
       "id": "secrets",
@@ -176,78 +315,6 @@
       "composite": true
     },
     {
-      "id": "no-internal-instruction-leak",
-      "npmScript": "validate:no-instruction-leak",
-      "command": "node scripts/validators/validate_no_internal_instruction_leak.js",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "external-agent build directives rendered as page copy are visible defects and poison the text answer engines extract",
-      "composite": false
-    },
-    {
-      "id": "no-empty-table-cells",
-      "npmScript": "validate:no-empty-cells",
-      "command": "node scripts/validators/validate_no_empty_table_cells.js",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
-      "composite": false
-    },
-    {
-      "id": "content-pattern-contract",
-      "npmScript": "validate:content-pattern",
-      "command": "node scripts/validators/validate_content_pattern_contract.js",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "a content page with no direct answer, no usable h1, an empty table cell, or no paid-product conversion path cannot be quoted or acted on by an answer engine",
-      "composite": false
-    },
-    {
-      "id": "content",
-      "npmScript": "validate:content",
-      "command": "node scripts/validate-content.mjs",
-      "severity": "STRONG_WARNING",
-      "blocksRelease": false,
-      "reason": "content quality signal; the SEO and authority gates block the real risks",
-      "composite": false
-    },
-    {
-      "id": "kpi-truth",
-      "npmScript": "validate:kpi-truth",
-      "command": "node scripts/authority_scale/validate_kpi_truth.mjs",
-      "severity": "SOFT_WARNING",
-      "blocksRelease": false,
-      "reason": "measurement honesty check; reports rather than blocks",
-      "composite": false
-    },
-    {
-      "id": "no-theater",
-      "npmScript": "validate:no-theater",
-      "command": "node scripts/validate-no-theater.mjs",
-      "severity": "STRONG_WARNING",
-      "blocksRelease": false,
-      "reason": "advisory copy-quality signal",
-      "composite": false
-    },
-    {
-      "id": "profile-purity",
-      "npmScript": "validate:profile-purity",
-      "command": "node scripts/validate-profile-purity.mjs",
-      "severity": "STRONG_WARNING",
-      "blocksRelease": false,
-      "reason": "profile drift should be corrected but does not break the site",
-      "composite": false
-    },
-    {
-      "id": "search-intelligence",
-      "npmScript": "validate:search-intelligence",
-      "command": "node scripts/search_intelligence/validate.mjs",
-      "severity": "SOFT_WARNING",
-      "blocksRelease": false,
-      "reason": "observational signal, no live-site impact",
-      "composite": false
-    },
-    {
       "id": "tree-hygiene",
       "npmScript": "validate:tree-hygiene",
       "command": "node scripts/validate-tree-hygiene.mjs",
@@ -255,18 +322,6 @@
       "blocksRelease": false,
       "reason": "working tree debris is a maintenance problem, not a release risk",
       "composite": false
-    },
-    {
-      "id": "cadence-policy-currency",
-      "npmScript": "validate:cadence-policy",
-      "command": "node scripts/cadence/derive_capacity.mjs --check",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "data/cadence/policy.json restates two numbers derived from a measured rate; nothing re-derived or asserted them, and a simulated clock on 2026-08-29 showed the stored 11/5 becoming 7/3 by 2026-09-20 while the publisher kept releasing 5 a week",
-      "composite": false,
-      "repair_command": "npm run cadence:derive -- --write",
-      "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
-      "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0"
     }
   ],
   "repair_contract": "A validator may declare repair_command only when that command fixes the same defect this validator detects. scripts/selfheal/heal_until_clean.mjs runs it on failure and re-validates. Pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."

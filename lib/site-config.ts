@@ -88,7 +88,7 @@ export function canonicalHostForPath(pathname: string): SiteHost | null {
   }
   if (pathname.startsWith('/admin')) return PARENT_HOST;
   if (pathname.startsWith('/order') || pathname.startsWith('/dashboard') || pathname.startsWith('/pack')) return PARENT_HOST;
-  if (pathname.startsWith('/shop') || pathname === '/build' || pathname === '/photos' || pathname === '/trends') return PARENT_HOST;
+  if (pathname.startsWith('/shop') || pathname === '/free-wedding-planner' || pathname === '/photos' || pathname === '/trends') return PARENT_HOST;
   if (['/privacy', '/disclaimer', '/terms', '/refund-policy'].includes(pathname)) return PARENT_HOST;
   return null;
 }
