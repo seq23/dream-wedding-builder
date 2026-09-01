@@ -602,11 +602,22 @@
       "summary": {
         "self_cited_rate_pct": null
       }
+    },
+    {
+      "run_at": "2026-09-01T11:45:12.444Z",
+      "state": "HELD_CADENCE",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "reason": "last measured run was 90.5h ago; this probe bills per web result and runs at most every 168h. Use --force to override.",
+      "observations": [],
+      "summary": {
+        "self_cited_rate_pct": null
+      }
     }
   ],
-  "updated_at": "2026-08-31T11:45:05.141Z",
+  "updated_at": "2026-09-01T11:45:12.444Z",
   "latest": {
-    "run_at": "2026-08-31T11:45:05.141Z",
+    "run_at": "2026-09-01T11:45:12.444Z",
     "state": "HELD_CADENCE",
     "self_cited_rate_pct": null
   }
