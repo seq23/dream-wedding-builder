@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-01",
+  "generated_at": "2026-09-02",
   "policy_source": "data/cadence/policy.json",
-  "urls": 110,
-  "dated": 110,
+  "urls": 118,
+  "dated": 118,
   "undated": 0,
   "stale_over_window": 0,
   "stale_pct": 0,
-  "fresh_within_30d": 32,
-  "lastmod_within_7d": 31,
+  "fresh_within_30d": 41,
+  "lastmod_within_7d": 40,
   "new_since_last_run": 0,
   "ledger_initialised": true,
   "maintainable_ceiling": 130,
@@ -23,8 +23,8 @@
     "_capacity_derivation": {
       "renderable_guides_now": 79,
       "measured_from": "2026-07-10",
-      "authoring_weeks": 7.6,
-      "sustained_throughput_per_week": 10.43,
+      "authoring_weeks": 7.7,
+      "sustained_throughput_per_week": 10.24,
       "best_single_interval_per_week": 78.17,
       "note": "Whole-period average over the authoring window, floored. The best single interval is a bulk authoring event and is deliberately not used."
     }
