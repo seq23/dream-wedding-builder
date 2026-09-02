@@ -161,10 +161,45 @@ const SITEMAP = `artifacts/sitemaps/${BOOK_HOST}.xml`;
 const sitemapXml = exists(SITEMAP) ? fs.readFileSync(path.join(ROOT, SITEMAP), 'utf8') : null;
 if (!sitemapXml) errors.push(`sitemap missing: ${SITEMAP} - run npm run authority:sitemaps`);
 
-// Built output. Present after npm run build; absent in a bare checkout. Absence
-// is reported as unproven, never silently treated as a pass.
+// Built output. Present after npm run build; absent in a bare checkout.
+//
+// INERT-GATE FIX, 2026-09-02. Absence used to be reported as a note and the run
+// passed anyway. That was honest but useless where it mattered: CI ran
+// `npm run validate:all` BEFORE `npm run build`, so assertion 6 - the only one
+// that proves these five paths actually render - had never once executed in CI.
+// A gate that cannot reach what it governs is not a gate.
+//
+// So absence is now a decision the CALLER makes, not one this script makes for
+// itself. Under REQUIRE_BUILD_OUTPUT=1 an absent build is a hard failure, and CI
+// runs the gate a second time in that mode after the build step. A bare local
+// checkout still gets the note, so iterating without a 90-second build works.
+const STRICT_BUILD = process.env.REQUIRE_BUILD_OUTPUT === '1';
 const BUILD_DIRS = ['.next/server/app', '.open-next/server-functions/default/.next/server/app'];
 const buildDir = BUILD_DIRS.map((d) => path.join(ROOT, d)).find((d) => fs.existsSync(d)) ?? null;
+let builtChecked = 0;
+
+if (STRICT_BUILD && !buildDir) {
+  errors.push(`REQUIRE_BUILD_OUTPUT=1 but no built output found in any of ${BUILD_DIRS.join(', ')}. Run npm run build first. This mode exists so the 200-in-build assertion cannot be skipped in CI.`);
+}
+
+// The other half of the same defect: a strict invocation that no workflow makes
+// is exactly the inert gate this fix is removing. Assert that CI actually calls
+// it, and calls it after a build, rather than trusting that someone wired it.
+const CI_WORKFLOW = '.github/workflows/ci.yml';
+if (!exists(CI_WORKFLOW)) {
+  errors.push(`missing ${CI_WORKFLOW} - cannot confirm the build-output assertion is ever enforced`);
+} else {
+  const ci = fs.readFileSync(path.join(ROOT, CI_WORKFLOW), 'utf8');
+  const strictAt = ci.search(/REQUIRE_BUILD_OUTPUT=1[^\n]*validate:amazon-paths/);
+  const buildAt = ci.search(/run:\s*npm run build\b/);
+  if (strictAt === -1) {
+    errors.push(`${CI_WORKFLOW} never runs this gate with REQUIRE_BUILD_OUTPUT=1, so the 200-in-build assertion would silently not run in CI - the exact defect this mode was added to fix`);
+  } else if (buildAt === -1) {
+    errors.push(`${CI_WORKFLOW} runs the strict gate but has no "npm run build" step, so the build output it requires is never produced`);
+  } else if (strictAt < buildAt) {
+    errors.push(`${CI_WORKFLOW} runs the strict gate before "npm run build", so it would hard-fail on output that has not been created yet`);
+  }
+}
 
 for (const bookPath of BOOK_PATHS) {
   examined += 1;
@@ -270,6 +305,7 @@ for (const bookPath of BOOK_PATHS) {
   }
 
   if (buildDir) {
+    builtChecked += 1;
     // Next writes one of these per rendered route. Either shape counts; neither
     // present means the path did not build.
     const built = [
@@ -282,6 +318,14 @@ for (const bookPath of BOOK_PATHS) {
 }
 
 if (!buildDir) notes.push('built output absent: the 200-in-build assertion did not run. Run npm run build before relying on this gate for a release.');
+
+// Rule 0 for assertion 6. In strict mode the build check must have examined every
+// declared path; a strict run that checked zero has not passed, it has done
+// nothing while claiming the strongest assertion in this file.
+if (STRICT_BUILD && builtChecked !== BOOK_PATHS.length) {
+  console.error(`AMAZON LANDING PATHS: REQUIRE_BUILD_OUTPUT=1 but the build-output assertion examined ${builtChecked} of ${BOOK_PATHS.length} paths.`);
+  process.exit(2);
+}
 
 // Rule 0. A gate that examined nothing has not passed.
 if (examined === 0) {
@@ -319,4 +363,4 @@ if (errors.length) {
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
 }
-console.log(`amazon landing paths: PASS (${examined} book paths, ${bundleExamined} bundle offers on ${BUNDLE_SKU}, sitemap ${SITEMAP}, build output ${buildDir ? 'checked' : 'ABSENT'})`);
+console.log(`amazon landing paths: PASS (${examined} book paths, ${bundleExamined} bundle offers on ${BUNDLE_SKU}, sitemap ${SITEMAP}, build output ${buildDir ? `checked on ${builtChecked}/${BOOK_PATHS.length}` : 'ABSENT'}${STRICT_BUILD ? ', STRICT' : ''})`);
