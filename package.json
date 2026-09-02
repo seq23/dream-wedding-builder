@@ -17,7 +17,7 @@
     "validate:profile-purity": "node scripts/validate-profile-purity.mjs",
     "validate:tree-hygiene": "node scripts/validate-tree-hygiene.mjs",
     "validate:proof-readiness": "node scripts/validate-proof-readiness.mjs",
-    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:no-instruction-leak && npm run validate:no-empty-cells && npm run validate:content-pattern && npm run validate:seo && npm run validate:search-intelligence && npm run validate:cadence-policy && npm run validate:planner-reachability && npm run validate:planner-persistent-entry && npm run validate:planner-seed-contract && npm run validate:readiness-rubric && npm run validate:product-reachability && npm run validate:methodology-contrast",
+    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:no-instruction-leak && npm run validate:no-empty-cells && npm run validate:content-pattern && npm run validate:seo && npm run validate:search-intelligence && npm run validate:cadence-policy && npm run validate:planner-reachability && npm run validate:planner-persistent-entry && npm run validate:planner-seed-contract && npm run validate:readiness-rubric && npm run validate:product-reachability && npm run validate:methodology-contrast && npm run validate:worker-entrypoint",
     "validate:all": "npm run typecheck && npm run test && npm run validate:structural",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
@@ -102,7 +102,8 @@
     "validate:planner-seed-contract": "node scripts/validators/validate_planner_seed_contract.mjs",
     "validate:readiness-rubric": "node scripts/validators/validate_readiness_rubric.mjs",
     "validate:product-reachability": "node scripts/validators/validate_product_reachability.mjs",
-    "validate:methodology-contrast": "node scripts/validators/validate_methodology_contrast.mjs"
+    "validate:methodology-contrast": "node scripts/validators/validate_methodology_contrast.mjs",
+    "validate:worker-entrypoint": "node scripts/validate-worker-entrypoint.mjs"
   },
   "dependencies": {
     "next": "15.5.18",

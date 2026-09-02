@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 27,
+    "HARD_FAIL": 28,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -333,6 +333,17 @@
       "blocksRelease": false,
       "reason": "working tree debris is a maintenance problem, not a release risk",
       "composite": false
+    },
+    {
+      "id": "worker-entrypoint",
+      "npmScript": "validate:worker-entrypoint",
+      "command": "node scripts/validate-worker-entrypoint.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "a deploy that does not build the worker it uploads fails only on a clean checkout, so it reaches production configuration unnoticed; this is what broke Workers Builds on 2026-09-01 while every local build passed",
+      "composite": false,
+      "repair_command": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
+      "repair_evidence": "proved on 2026-09-01: recording the production misconfiguration (npx wrangler versions upload) in the runbook table fails this validator, as does removing the build step from any publishing script; restoring either passes"
     }
   ],
   "repair_contract": "A validator may declare repair_command only when that command fixes the same defect this validator detects. scripts/selfheal/heal_until_clean.mjs runs it on failure and re-validates. Pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
