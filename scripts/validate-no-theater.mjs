@@ -19,14 +19,14 @@ for (const file of files) {
   for (const term of forbidden) if (text.includes(term)) { console.error(`Forbidden theater phrase "${term}" in ${file}`); process.exit(1); }
 }
 
-const activeStateFiles = ['app/page.tsx','app/build/page.tsx','app/dashboard/page.tsx','app/pack/page.tsx'];
+const activeStateFiles = ['app/page.tsx','app/free-wedding-planner/page.tsx','app/dashboard/page.tsx','app/pack/page.tsx'];
 const activeStateForbidden = ['Lake Como · 125 guests', 'Old Money Garden Elegance celebration', 'style:</strong><br />Old Money Garden Elegance', 'location:</strong><br />Lake Como', "useState('Lake Como')", 'useState(125)', "useState<string[]>(['lake-como-color-smoke'])"];
 for (const file of activeStateFiles) {
   const text = fs.readFileSync(file, 'utf8');
   for (const term of activeStateForbidden) if (text.includes(term)) { console.error(`Active fake user state found in ${file}: ${term}`); process.exit(1); }
 }
 
-const build = fs.readFileSync('app/build/page.tsx','utf8');
+const build = fs.readFileSync('app/free-wedding-planner/page.tsx','utf8');
 for (const term of ['Location not selected','Guest count unknown','No live venue availability','Nothing is selected until the bride chooses it','Trace:','No fake live vendor/product search is claimed','Exact pricing, vendor fit, product match, and availability require verification']) {
   if (!build.includes(term)) { console.error(`Missing anti-theater product guardrail in build page: ${term}`); process.exit(1); }
 }

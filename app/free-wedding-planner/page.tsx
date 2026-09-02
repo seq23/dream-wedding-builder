@@ -25,6 +25,7 @@ import {
   plannerBuckets,
   plannerLanguage,
   planningBuckets,
+  priorityOptions,
   planningConstraintSummary,
   protectedPriorities,
   riskChecklist,
@@ -42,9 +43,10 @@ import {
   type WeddingPlan
 } from '@/data/planning';
 import { chooseScope, inspirationScopes, tableCountFromPlan } from '@/data/inspiration';
+import { applySeed, planPatchFromSeed, seedFieldLabels } from '@/lib/planner-seed';
+import { readinessBand, readinessBreakdown } from '@/lib/readiness';
 
 const stepLabels = ['Reality Check / Planning Reality Check', 'Recommendation Studio / Recommendation Studio', 'Venue Strategy / Venue + Lodging Matchmaker', 'Budget Reality / Budget + Tradeoff Reality', 'Design Language / Design + scope', 'Vendor Questions / Vendor Team + Inquiry Builder', 'Standout ideas / Standout Ideas', 'Planner Packet'];
-const priorityOptions = ['Venue privacy', 'Full buyout', 'Guest lodging', 'Food + Bar', 'Photography', 'Florals', 'Guest Comfort', 'Family Ease', 'Party Energy', 'Budget Control', 'Travel/Lodging', 'Cultural Traditions', 'Fashion', 'Rain Plan', 'Accessibility'];
 const visionKeyMap = { feeling: 'feelings', setting: 'settings', formality: 'formality', florals: 'florals', food: 'food', photos: 'photos', avoid: 'avoids' } as const;
 
 function updateArray(list: string[], value: string) {
@@ -86,17 +88,39 @@ export default function BuildPage() {
   const [photoAnalyzed, setPhotoAnalyzed] = useState(false);
   const [scopeCategory, setScopeCategory] = useState('tablescape');
   const [scopeDescription, setScopeDescription] = useState('');
+  const [seedReport, setSeedReport] = useState<{ applied: (keyof WeddingPlan)[]; skipped: (keyof WeddingPlan)[] } | null>(null);
 
+  // Mount does two things in one pass: restore the saved plan, then let any seed
+  // in the URL fill the fields the saved plan left empty. Order matters - seeding
+  // a restored plan is what makes "never lose the reader's work" true rather than
+  // aspirational. Every step is individually guarded: a corrupt localStorage blob
+  // or a malformed query string leaves the planner exactly as it renders with no
+  // URL and no history, because a broken inbound link is not the reader's problem.
   useEffect(() => {
-    const saved = localStorage.getItem('dwb-plan');
-    if (saved) setPlan({ ...emptyPlan, ...JSON.parse(saved) });
-    const savedScope = localStorage.getItem('dwb-scope');
-    if (savedScope) {
-      const scope = JSON.parse(savedScope);
-      setScopeCategory(scope.category || 'tablescape');
-      setScopeDescription(scope.description || '');
-      setPhotoAnalyzed(Boolean(scope.scopeTitle));
-    }
+    let restored: WeddingPlan = emptyPlan;
+    try {
+      const saved = localStorage.getItem('dwb-plan');
+      if (saved) restored = { ...emptyPlan, ...JSON.parse(saved) };
+    } catch { restored = emptyPlan; }
+
+    try {
+      const patch = planPatchFromSeed(window.location.search.replace(/^\?/, ''));
+      const result = applySeed(restored, patch);
+      restored = result.plan;
+      if (result.applied.length || result.skipped.length) setSeedReport({ applied: result.applied, skipped: result.skipped });
+    } catch { /* an unreadable seed is dropped; the planner still opens */ }
+
+    setPlan(restored);
+
+    try {
+      const savedScope = localStorage.getItem('dwb-scope');
+      if (savedScope) {
+        const scope = JSON.parse(savedScope);
+        setScopeCategory(scope.category || 'tablescape');
+        setScopeDescription(scope.description || '');
+        setPhotoAnalyzed(Boolean(scope.scopeTitle));
+      }
+    } catch { /* scope is a convenience; a bad blob must not block the planner */ }
   }, []);
 
   const readiness = derivePlanReadiness(plan);
@@ -113,6 +137,17 @@ export default function BuildPage() {
   const protectedItems = protectedPriorities(plan);
   const risks = riskChecklist(plan);
   const recommendation = plan.recommendationResult;
+  const seededConstraintFields = Boolean(seedReport?.applied.some(field => ['guestCount', 'locations', 'season', 'venueTypes', 'priorities', 'budgetTarget', 'budgetMode'].includes(String(field))));
+
+  // Reasons are derived from the plan, so a couple who has entered a guest count
+  // is told what the seating tool does with THAT number rather than being shown a
+  // generic product grid.
+  const workingFiles = [
+    { id: 'checklist-pdf', name: 'Wedding Checklist PDF', price: 9, route: '/products/checklist-pdf', reason: plan.constraintMode ? `Your ${plan.constraintMode} constraints as a printable checklist you can hand to someone else.` : 'The printable checklist version of Step 0, once your constraints are recorded.' },
+    { id: 'budget-spreadsheet', name: 'Wedding Budget Spreadsheet', price: 12, route: '/products/budget-spreadsheet', reason: plan.budgetTarget ? `Your ${plan.budgetTarget} target split across categories, with the hidden fee lines from Step 3 already present.` : 'The working file for Step 3, including the hidden fee lines venues leave off a quote.' },
+    { id: 'timeline-template', name: 'Wedding Timeline Template', price: 12, route: '/products/timeline-template', reason: plan.constraints ? `Your stated timing constraint turned into a dated sequence with vendor load-in and strike.` : 'The dated version of the weekend flow, with vendor load-in and strike windows.' },
+    { id: 'seating-chart-maker', name: 'Wedding Seating Chart Maker', price: 19, route: '/products/seating-chart-maker', reason: plan.guestCount ? `Your ${plan.guestCount} guests arranged into tables, which is the last thing that can be finished and the first thing people ask about.` : 'Tables and place settings, once the guest count above is entered.' }
+  ];
 
   const patch = (partial: Partial<WeddingPlan>) => setPlan(current => ({ ...current, ...partial }));
   const toggle = (key: keyof WeddingPlan, value: string) => setPlan(current => ({ ...current, [key]: updateArray(current[key] as string[], value) }));
@@ -155,6 +190,13 @@ export default function BuildPage() {
   const selectConstraintMode = (mode: ConstraintMode) => patch({ constraintMode: mode });
 
   return <div className="space-y-10 pb-24">
+    {seedReport && <section data-testid="seed-notice" className="rounded-[1.5rem] border border-charcoal/15 bg-white p-5 text-sm leading-6">
+      <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Seeded from the page you came from</p>
+      {seedReport.applied.length > 0 && <p className="mt-2 font-semibold" data-testid="seed-applied">Filled in for you: {seedReport.applied.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}.</p>}
+      {seedReport.skipped.length > 0 && <p className="mt-2 font-semibold text-charcoal/70" data-testid="seed-skipped">Kept your saved answers for: {seedReport.skipped.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}. A link can never overwrite work you already entered.</p>}
+      {seedReport.applied.length === 0 && seedReport.skipped.length === 0 && <p className="mt-2 font-semibold">Nothing to fill in.</p>}
+      <p className="mt-2 text-xs text-charcoal/60">These are starting values from a seeded example, not verified quotes. Nothing is written to this browser until you press Save.</p>
+    </section>}
     <section className="grid gap-6 lg:grid-cols-[1fr_380px]">
       <div>
         <Badge>Master planner intelligence · constraint-first</Badge>
@@ -174,7 +216,7 @@ export default function BuildPage() {
         <p className="text-xs uppercase tracking-[0.3em] text-charcoal/50">Working Plan</p>
         <p data-testid="guided-total" className="mt-2 font-serif text-4xl">{displayEstimate}</p>
         <p className="mt-2 text-sm text-charcoal/70">{plan.locations || 'Location not selected'} · {plan.guestCount || 'Guest count unknown'} guests · {budgetModes.find(m => m.id === plan.budgetMode)?.title || 'Budget not decided yet'}</p>
-        <div className="mt-5 grid gap-2 text-sm"><p><strong>Readiness:</strong> {readiness}%</p><p><strong>Constraint mode:</strong> {plan.constraintMode || 'Not decided yet'}</p><p><strong>Selected venues:</strong> {chosenVenues.length}</p><p><strong>Vendor focus:</strong> {chosenVendors.length}</p><p><strong>Selected standout ideas:</strong> {chosenTrends.length}</p><p><strong>Venue/vendor data:</strong> seeded examples and user input only. No live venue availability. No live vendor availability.</p></div>
+        <div className="mt-5 grid gap-2 text-sm"><p data-testid="plan-readiness"><strong>Readiness:</strong> {readiness}% &middot; {readinessBand(readiness).name} <Link href="/readiness-score" className="font-bold underline underline-offset-4">How this is scored</Link></p><p className="text-xs text-charcoal/60">{readinessBreakdown(plan).filter(check => !check.satisfied).length} of {readinessBreakdown(plan).length} scored inputs still unanswered.</p><p><strong>Constraint mode:</strong> {plan.constraintMode || 'Not decided yet'}</p><p><strong>Selected venues:</strong> {chosenVenues.length}</p><p><strong>Vendor focus:</strong> {chosenVendors.length}</p><p><strong>Selected standout ideas:</strong> {chosenTrends.length}</p><p><strong>Venue/vendor data:</strong> seeded examples and user input only. No live venue availability. No live vendor availability.</p></div>
         <Trace label="User input + seeded planning benchmarks + Recommendation Studio + selected decisions" confidence="Low until verified" />
         <button data-testid="save-guided-plan" onClick={savePlan} className="mt-6 w-full rounded-full bg-charcoal px-5 py-4 font-bold text-linen">Save this working plan</button>
         <Link href="/pack" className="mt-3 block rounded-full border border-charcoal/20 bg-white px-5 py-4 text-center font-bold">Open planner packet</Link>
@@ -192,7 +234,11 @@ export default function BuildPage() {
           <button data-testid="constraint-mode-discovery" onClick={() => selectConstraintMode('discovery')} className={`rounded-3xl border p-4 text-left font-bold ${plan.constraintMode === 'discovery' ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-white'}`}>No — help me figure it out<span className="mt-2 block text-sm font-normal opacity-75">Start with discovery prompts and ask the studio.</span></button>
         </div>
 
-        {plan.constraintMode && <div className="mt-6 space-y-6" data-testid="constraint-fields">
+        {/* The fields also open when a seed has already filled one of them. Without
+            this, a link that seeds a guest count writes it into an input the reader
+            cannot see - which is a silent seed, and a silent seed is the same as a
+            broken one. */}
+        {(plan.constraintMode || seededConstraintFields) && <div className="mt-6 space-y-6" data-testid="constraint-fields">
           <div className="grid gap-4 md:grid-cols-2">
             <Field label="Primary location / region"><TextInput testId="location-input" value={plan.locations} onChange={locations => patch({ locations })} placeholder="Italy, Tuscany, Georgia, Charleston, not sure yet" /></Field>
             <Field label="Backup locations"><TextInput value={plan.backupLocations} onChange={backupLocations => patch({ backupLocations })} placeholder="France/Spain okay, coastal Southeast, none" /></Field>
@@ -366,7 +412,16 @@ export default function BuildPage() {
     <section className="grid gap-4 md:grid-cols-3" data-testid="scope-components-map">{scopeComponents.map(scope => <Card key={scope.category}><Badge>{scope.category}</Badge><p className="mt-3 text-sm"><strong>Components:</strong> {scope.components.join(' · ')}</p><p className="mt-3 text-sm"><strong>Vendors:</strong> {scope.vendors.join(' · ')}</p><p className="mt-3 text-xs text-charcoal/60"><strong>Warnings:</strong> {scope.warnings.join(' · ')}</p></Card>)}</section>
     <section className="grid gap-4 md:grid-cols-4">{inspirationScopes.map(scope => <Card key={scope.title}><Badge>{scope.confidence} confidence</Badge><h3 className="mt-3 font-serif text-2xl">{scope.title}</h3><p className="mt-2 text-sm text-charcoal/70">{scope.intakePrompt}</p></Card>)}</section>
 
-    <section className="rounded-[1.75rem] border border-charcoal/10 bg-white p-7"><h2 className="font-serif text-4xl">When the plan stops changing</h2><p className="mt-3 max-w-3xl text-base leading-7 text-charcoal/70">This builder works out the shape of the wedding. Executing it takes files you can edit and hand to other people: the checklist, the budget workbook, the master timeline, and the seating plan.</p><Link href="/shop" className="mt-4 inline-flex font-bold underline underline-offset-4">Compare the four wedding planning tools and prices →</Link></section>
+    {/* Every paid file is reachable from here, and each one states which part of
+        the plan above it corresponds to. A tool that only ever offers a bundled
+        "compare prices" link makes the reader work out the mapping themselves,
+        and three of the four products were previously unreachable from any plan
+        state at all. Reasons are computed from the plan, so they change as it does. */}
+    <section className="rounded-[1.75rem] border border-charcoal/10 bg-white p-7" data-testid="planner-working-files"><h2 className="font-serif text-4xl">When the plan stops changing</h2><p className="mt-3 max-w-3xl text-base leading-7 text-charcoal/70">This builder works out the shape of the wedding. Executing it takes files you can edit and hand to other people. Each one below carries the part of the plan you just built.</p>
+      <div className="mt-5 grid gap-3 md:grid-cols-2">{workingFiles.map(file => <a key={file.id} data-testid={`planner-product-${file.id}`} href={file.route} className="rounded-2xl border border-charcoal/10 bg-ivory p-4 transition hover:bg-linen"><span className="block font-bold">{file.name} — ${file.price}</span><span className="mt-1 block text-sm leading-6 text-charcoal/65">{file.reason}</span></a>)}</div>
+      <Link href="/shop" className="mt-5 inline-flex font-bold underline underline-offset-4">Compare the four wedding planning tools and prices →</Link>
+      <p className="mt-3 text-xs text-charcoal/55">The planner itself is free and stays free. These are optional working files, not a paywall on anything above.</p>
+    </section>
 
     <StickyTotal total={displayEstimate} />
   </div>;

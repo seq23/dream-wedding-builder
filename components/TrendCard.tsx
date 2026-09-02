@@ -38,7 +38,7 @@ export function TrendCard({ trend, compact = false }: { trend: Trend; compact?: 
     <p className="mt-2 text-xs leading-5 text-charcoal/55"><strong>Verify:</strong> {trend.verificationNote || trend.plannerWarning}</p>
     <div className="mt-4 flex flex-col gap-2 sm:flex-row">
       <button onClick={add} className="rounded-full bg-charcoal px-4 py-3 text-sm font-bold text-linen">Add to Planner Packet</button>
-      <a href={`/build#step-1`} className="rounded-full border border-charcoal/20 px-4 py-3 text-center text-sm font-bold">Use in Recommendation Studio</a>
+      <a href={`/free-wedding-planner#step-1`} className="rounded-full border border-charcoal/20 px-4 py-3 text-center text-sm font-bold">Use in Recommendation Studio</a>
     </div>
   </Card>;
 }

@@ -17,3 +17,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .print-card { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; }
   .page-break { break-before: page; }
 }
+
+/* Entrance for the scroll-triggered planner pill. Applied via motion-safe:, so a
+   reader with prefers-reduced-motion gets the pill with no movement at all - the
+   link is still there, it simply does not travel. */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -63,7 +63,7 @@ export function TrendCatalogue() {
           <p className="text-sm">{trend.budgetPressure || trend.complexity}</p>
           <p className="text-sm text-charcoal/70">{trend.whyItStandsOut}</p>
           <p className="text-xs text-charcoal/55">{trend.verificationNote}</p>
-          <div className="flex flex-col gap-2"><button data-testid={`add-trend-${trend.id}`} onClick={() => saveTrendToPlan(trend)} className="rounded-full bg-charcoal px-4 py-2 text-sm font-bold text-linen">Add</button><a className="rounded-full border border-charcoal/20 px-4 py-2 text-center text-xs font-bold" href="/build#step-1">Use in Studio</a></div>
+          <div className="flex flex-col gap-2"><button data-testid={`add-trend-${trend.id}`} onClick={() => saveTrendToPlan(trend)} className="rounded-full bg-charcoal px-4 py-2 text-sm font-bold text-linen">Add</button><a className="rounded-full border border-charcoal/20 px-4 py-2 text-center text-xs font-bold" href="/free-wedding-planner#step-1">Use in Studio</a></div>
         </div>)}
       </div>
     </div> : <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{filtered.map(trend => <TrendCard key={trend.id} trend={trend} />)}</div>}

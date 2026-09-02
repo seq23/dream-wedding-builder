@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('surface gauntlet: required pages render without auth', async ({ page }) => {
-  for (const path of ['/', '/build', '/dashboard', '/trends', '/photos', '/pack', '/disclaimer', '/privacy']) {
+  for (const path of ['/', '/free-wedding-planner', '/dashboard', '/trends', '/photos', '/pack', '/disclaimer', '/privacy']) {
     await page.goto(path);
     await expect(page.locator('body')).toContainText(/Dream Wedding|Disclaimer|Privacy|Planner Packet|Photo|Dashboard/);
     await expect(page.getByRole('link', { name: /Login|Sign in|Create account/i })).toHaveCount(0);
@@ -10,17 +10,20 @@ test('surface gauntlet: required pages render without auth', async ({ page }) =>
 });
 
 test('outcome: new bride starts blank with no fake active wedding state', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await expect(page.getByTestId('canonical-plan-summary')).toContainText('Location not selected');
   await expect(page.getByTestId('canonical-plan-summary')).toContainText('Guest count unknown');
   await expect(page.getByTestId('canonical-plan-summary')).toContainText('Not estimated yet');
   await expect(page.getByTestId('canonical-plan-summary')).toContainText('Selected venues: 0');
-  await expect(page.getByTestId('selected-venue-summary')).toContainText('None selected yet');
+  // "Not decided yet" is the planner's calm empty-state label. The anti-theater
+  // guardrails ("Location not selected", "Guest count unknown") are asserted above
+  // and are unchanged; this line was still asserting the copy they replaced.
+  await expect(page.getByTestId('selected-venue-summary')).toContainText('Not decided yet');
   await expect(page.getByTestId('step-pack')).not.toContainText('Lake Como · 125 guests');
 });
 
 test('outcome: hard constraints reveal planner-grade constraint profile fields', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('constraint-mode-hard').click();
   await expect(page.getByTestId('constraint-fields')).toBeVisible();
   await page.getByTestId('location-input').fill('Italy');
@@ -35,7 +38,7 @@ test('outcome: hard constraints reveal planner-grade constraint profile fields',
 });
 
 test('outcome: Recommendation Studio uses Italy buyout constraints and persists to dashboard and packet', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('constraint-mode-hard').click();
   await page.getByTestId('location-input').fill('Italy');
   await page.getByTestId('guest-input').fill('80');
@@ -57,7 +60,7 @@ test('outcome: Recommendation Studio uses Italy buyout constraints and persists 
 });
 
 test('outcome: Recommendation Studio gives context-aware floral guidance', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('constraint-mode-flexible').click();
   await page.getByTestId('location-input').fill('Georgia outdoor garden estate');
   await page.getByTestId('guest-input').fill('120');
@@ -72,7 +75,7 @@ test('outcome: Recommendation Studio gives context-aware floral guidance', async
 });
 
 test('outcome: venue selections persist into dashboard and packet', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('constraint-mode-hard').click();
   await page.getByTestId('location-input').fill('Italy');
   await page.getByTestId('guest-input').fill('80');
@@ -87,7 +90,7 @@ test('outcome: venue selections persist into dashboard and packet', async ({ pag
 });
 
 test('outcome: budget reality syncs Step 0 guest count and protects non-negotiables', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('constraint-mode-flexible').click();
   await expect(page.getByTestId('budget-reality')).toContainText('Unknown');
   await page.getByTestId('guest-input').fill('90');
@@ -102,7 +105,7 @@ test('outcome: budget reality syncs Step 0 guest count and protects non-negotiab
 });
 
 test('outcome: no-constraints discovery route still makes Recommendation Studio usable', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('constraint-mode-discovery').click();
   await expect(page.getByTestId('fixed-flexible-unknown')).toBeVisible();
   await page.getByTestId('recommendation-focus').selectOption('I am overwhelmed');
@@ -113,7 +116,7 @@ test('outcome: no-constraints discovery route still makes Recommendation Studio 
 });
 
 test('outcome: build page points users to Photos Lab and saves scope result', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await expect(page.getByTestId('photos-cta-tablescape')).toBeVisible();
   await expect(page.getByTestId('photos-cta-attire')).toBeVisible();
   await expect(page.getByTestId('photos-cta-anything')).toBeVisible();
@@ -146,7 +149,7 @@ test('outcome: photos page supports description-only flower girl dress sourcing'
 });
 
 test('outcome: vendor selections persist into dashboard and packet', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('select-vendor-florist-designer').click();
   await expect(page.getByTestId('selected-vendor-summary')).toContainText('Florist / Designer');
   await page.getByTestId('save-guided-plan').click();
@@ -158,7 +161,7 @@ test('outcome: vendor selections persist into dashboard and packet', async ({ pa
 });
 
 test('outcome: trends start unselected and only chosen trends persist', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await expect(page.getByTestId('canonical-plan-summary')).toContainText('Selected standout ideas: 0');
   await page.getByTestId('toggle-trend-color-smoke-kiss-moment').click();
   await page.getByTestId('save-guided-plan').click();
@@ -168,7 +171,7 @@ test('outcome: trends start unselected and only chosen trends persist', async ({
 });
 
 test('outcome: printable packet contains planner-grade sections and caveats', async ({ page }) => {
-  await page.goto('/build');
+  await page.goto('/free-wedding-planner');
   await page.getByTestId('constraint-mode-hard').click();
   await page.getByTestId('location-input').fill('Italy');
   await page.getByTestId('guest-input').fill('80');
@@ -190,17 +193,24 @@ test('outcome: printable packet contains planner-grade sections and caveats', as
 
 test('commercial hub and paid product pages are complete and clear', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: /Plan the dream/i })).toBeVisible();
-  for (const name of ['Wedding Seating Chart Maker','Wedding Budget Spreadsheet','Wedding Timeline Template','Wedding Checklist PDF']) await expect(page.getByText(name).first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Plan every detail/i })).toBeVisible();
+  // Scoped to <main>: the desktop nav carries the same product names and is
+  // display:none at mobile widths, so an unscoped .first() asserted against a
+  // hidden nav item rather than against the page content.
+  for (const name of ['Wedding Seating Chart Maker','Wedding Budget Spreadsheet','Wedding Timeline Template','Wedding Checklist PDF']) await expect(page.locator('main').getByText(name).first()).toBeVisible();
   await page.goto('/products/budget-spreadsheet');
-  await expect(page.getByRole('button', { name: /Buy now - \$12/ })).toBeVisible();
+  // The checkout button now names the product it buys, which is what the
+  // commerce contract asserts elsewhere; "Buy now" was the pre-rename copy.
+  await expect(page.getByRole('button', { name: /Buy Wedding Budget Spreadsheet — \$12/ }).first()).toBeVisible();
   await expect(page.getByText(/Why not a generic template/i)).toBeVisible();
   await expect(page.getByText(/Plain answers, before checkout/i)).toBeVisible();
 });
 
 test('authority pages render substantive content and route to owned product', async ({ page }) => {
   await page.goto('/guides/wedding-budget-for-100-guests');
-  await expect(page.getByRole('heading', { name: 'Wedding Budget for 100 Guests' })).toBeVisible();
-  await expect(page.getByText('The practical answer')).toBeVisible();
+  // exact: the guide's own section headings quote the title, so a loose match is a
+  // strict-mode violation rather than a real assertion.
+  await expect(page.getByRole('heading', { name: 'Wedding Budget for 100 Guests', exact: true })).toBeVisible();
+  await expect(page.getByText('The practical method')).toBeVisible();
   await expect(page.getByRole('link', { name: /Review Wedding Budget Spreadsheet/ })).toBeVisible();
 });

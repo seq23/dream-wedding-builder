@@ -195,6 +195,7 @@ export const plannerBucketDescriptions: Record<PlannerBucket, string> = {
   'I am overwhelmed': 'A decision-first triage of what matters now and what can wait.'
 };
 
+export const priorityOptions = ['Venue privacy', 'Full buyout', 'Guest lodging', 'Food + Bar', 'Photography', 'Florals', 'Guest Comfort', 'Family Ease', 'Party Energy', 'Budget Control', 'Travel/Lodging', 'Cultural Traditions', 'Fashion', 'Rain Plan', 'Accessibility'];
 export const venueTypeOptions = ['villa / estate', 'boutique resort / borgo', 'hotel / ballroom', 'beach club', 'vineyard', 'castle / historic property', 'restaurant buyout', 'private home / backyard', 'tent / blank canvas', 'garden / outdoor estate', 'museum / gallery', 'not sure'];
 export const multiDayOptions = ['welcome party onsite', 'ceremony onsite', 'reception onsite', 'after-party onsite', 'brunch onsite', 'multi-day access required'];
 
@@ -295,10 +296,10 @@ export function estimateRange(plan: WeddingPlan) {
   return { low: Math.round(guests * 550 * destinationMultiplier * buyoutMultiplier), high: Math.round(guests * 1250 * destinationMultiplier * buyoutMultiplier) };
 }
 
-export function derivePlanReadiness(plan: WeddingPlan) {
-  const checks = [plan.constraintMode, plan.locations, plan.guestCount, plan.budgetTarget || plan.budgetMode, plan.ownVibeWords || plan.colorsLoved, plan.priorities.length >= 1, plan.recommendationResult, plan.selectedVenueIds.length >= 1, plan.selectedVendorCategories.length >= 1];
-  return Math.round((checks.filter(Boolean).length / checks.length) * 100);
-}
+// The readiness rubric is published at /readiness-score, so it lives in one place
+// that both the planner and that page import. Re-exported here so every existing
+// caller keeps working.
+export { derivePlanReadiness, readinessBreakdown, readinessBand, readinessChecks } from '@/lib/readiness';
 
 export function planningConstraintSummary(plan: WeddingPlan) {
   const items = [

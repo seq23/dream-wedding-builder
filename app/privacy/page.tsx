@@ -10,7 +10,7 @@ import { supportEmail } from '@/lib/products';
 // page, sends buyers to Stripe, stores order email addresses in D1, and mails
 // download links through Resend. None of that was disclosed. Sources, in order of
 // the sections below:
-//   localStorage keys        app/build/page.tsx, app/pack/page.tsx,
+//   localStorage keys        app/free-wedding-planner/page.tsx, app/pack/page.tsx,
 //                            app/dashboard/page.tsx, components/TrendCard.tsx,
 //                            components/TrendCatalogue.tsx
 //   photo handling           app/photos/page.tsx (reads files[0].name only; the
