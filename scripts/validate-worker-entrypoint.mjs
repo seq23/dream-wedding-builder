@@ -69,27 +69,51 @@ if (buildScript && buildScript.includes(WORKER_BUILD)) {
 
 // --- 3. The recorded dashboard configuration obeys the same rule -------------
 const runbook = read('docs/runbooks/deployment.md');
-const row = (label) => {
-  const match = runbook.match(new RegExp(`\\|\\s*${label}\\s*\\|\\s*\`([^\`]+)\`\\s*\\|`));
-  return match ? match[1].trim() : null;
-};
-const recorded = { build: row('Build command'), deploy: row('Deploy command') };
-const recordedCount = Object.values(recorded).filter(Boolean).length;
-if (recordedCount === 0) fail('docs/runbooks/deployment.md: the Workers Builds command table is missing, so the dashboard configuration is unrecorded and undiffable');
-for (const [label, value] of Object.entries(recorded)) {
-  if (!value) { fail(`docs/runbooks/deployment.md: no "${label} command" recorded`); continue; }
-  const scriptName = value.startsWith('npm run ') ? value.slice('npm run '.length).trim() : null;
-  if (!scriptName) fail(`recorded ${label} command "${value}" is not an npm script. Deploy behaviour must live in package.json where it is code-reviewed, not in a dashboard field.`);
-  else if (!scripts[scriptName]) fail(`recorded ${label} command runs "${scriptName}", which is not a script in package.json`);
-  else if (label === 'deploy' && !scripts[scriptName].includes(WORKER_BUILD)) {
-    fail(`recorded deploy command "${value}" does not run "${WORKER_BUILD}", so the deploy stage cannot find ${entryPoint}`);
-  }
+
+// Workers Builds has one row per TRIGGER, and each trigger keeps its own copy of
+// the build and deploy commands. Restoring one trigger does not restore another:
+// that is precisely how the 2026-09-01 incident survived its first fix. So every
+// trigger row is checked, and a table that lists fewer than the triggers that
+// actually exist is a failure rather than a short loop that quietly passes.
+const MIN_TRIGGERS = 2; // production + non-production; raise this when a trigger is added
+const triggerRows = [...runbook.matchAll(
+  /^\|\s*([^|]*?)\s*\|\s*([^|]*?)\s*\|\s*`([^`]+)`\s*\|\s*`([^`]+)`\s*\|\s*$/gm,
+)]
+  .map((m) => ({ trigger: m[1].trim(), branches: m[2].trim(), build: m[3].trim(), deploy: m[4].trim() }))
+  .filter((r) => r.trigger && !/^-+$/.test(r.trigger) && r.trigger.toLowerCase() !== 'trigger');
+
+if (triggerRows.length === 0) {
+  fail('docs/runbooks/deployment.md: the Workers Builds trigger table is missing or unparseable, so the dashboard configuration is unrecorded and undiffable');
+} else if (triggerRows.length < MIN_TRIGGERS) {
+  fail(`docs/runbooks/deployment.md: only ${triggerRows.length} Workers Builds trigger(s) recorded, expected at least ${MIN_TRIGGERS}. Each trigger holds its own deploy command; an unrecorded one can fail alone.`);
 }
 
-console.log(`worker entrypoint: entry_point=${entryPoint} producers=${producers.length} publishing_scripts=${publishing.length} recorded_commands=${recordedCount}`);
+const seen = new Set();
+for (const row of triggerRows) {
+  if (seen.has(row.trigger)) fail(`docs/runbooks/deployment.md: trigger "${row.trigger}" is listed twice`);
+  seen.add(row.trigger);
+  for (const label of ['build', 'deploy']) {
+    const value = row[label];
+    const scriptName = value.startsWith('npm run ') ? value.slice('npm run '.length).trim() : null;
+    if (!scriptName) {
+      fail(`trigger "${row.trigger}": recorded ${label} command "${value}" is not an npm script. Deploy behaviour must live in package.json where it is code-reviewed, not in a dashboard field.`);
+      continue;
+    }
+    if (!scripts[scriptName]) {
+      fail(`trigger "${row.trigger}": recorded ${label} command runs "${scriptName}", which is not a script in package.json`);
+      continue;
+    }
+    if (label === 'deploy' && !scripts[scriptName].includes(WORKER_BUILD)) {
+      fail(`trigger "${row.trigger}": recorded deploy command "${value}" does not run "${WORKER_BUILD}", so the deploy stage cannot find ${entryPoint}`);
+    }
+  }
+}
+const recordedCount = triggerRows.length;
+
+console.log(`worker entrypoint: entry_point=${entryPoint} producers=${producers.length} publishing_scripts=${publishing.length} recorded_triggers=${recordedCount}`);
 if (failures.length) {
   for (const message of failures) console.error(`  FAIL ${message}`);
   console.error(`worker entrypoint: FAIL (${failures.length} problem(s))`);
   process.exit(1);
 }
-console.log(`worker entrypoint: PASS (${publishing.length} publishing scripts all build ${entryPoint} first; recorded dashboard commands consistent)`);
+console.log(`worker entrypoint: PASS (${publishing.length} publishing scripts all build ${entryPoint} first; recorded dashboard commands consistent across ${recordedCount} triggers)`);
