@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "validator": "no-internal-instruction-leak",
-  "generated_at": "2026-08-30T01:37:20.686Z",
+  "generated_at": "2026-09-02T16:31:54.891Z",
   "status": "PASS",
   "scan_surface": [
     "app",
@@ -10,7 +10,7 @@
     "out",
     "data/*.ts"
   ],
-  "files_scanned": 83,
+  "files_scanned": 94,
   "offender_count": 0,
   "offenders": []
 }
