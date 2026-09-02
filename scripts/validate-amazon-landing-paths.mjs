@@ -183,22 +183,46 @@ if (STRICT_BUILD && !buildDir) {
 }
 
 // The other half of the same defect: a strict invocation that no workflow makes
-// is exactly the inert gate this fix is removing. Assert that CI actually calls
-// it, and calls it after a build, rather than trusting that someone wired it.
-const CI_WORKFLOW = '.github/workflows/ci.yml';
-if (!exists(CI_WORKFLOW)) {
-  errors.push(`missing ${CI_WORKFLOW} - cannot confirm the build-output assertion is ever enforced`);
-} else {
-  const ci = fs.readFileSync(path.join(ROOT, CI_WORKFLOW), 'utf8');
-  const strictAt = ci.search(/REQUIRE_BUILD_OUTPUT=1[^\n]*validate:amazon-paths/);
-  const buildAt = ci.search(/run:\s*npm run build\b/);
+// is exactly the inert gate this fix is removing. So rather than naming one
+// workflow, find every workflow that runs `npm run validate:all` and require
+// each to also run this gate in strict mode, after a build.
+//
+// Generalised 2026-09-02 after self-heal.yml turned out to have the identical
+// hole. Pinning the check to ci.yml would have kept passing while the lane that
+// pushes straight to main - on a token that suppresses CI, making it the last
+// gate its own output sees - never ran the assertion at all.
+const WORKFLOW_DIR = '.github/workflows';
+// Drop comment lines before searching. self-heal.yml and full-safe-autonomy.yml
+// both mention `npm run validate:all` in prose; a substring match on the raw
+// file treats a comment as an invocation and checks the wrong workflows.
+const stripComments = (text) => text.split('\n').filter((l) => !/^\s*#/.test(l)).join('\n');
+
+const workflowFiles = fs.existsSync(path.join(ROOT, WORKFLOW_DIR))
+  ? fs.readdirSync(path.join(ROOT, WORKFLOW_DIR)).filter((f) => /\.ya?ml$/.test(f))
+  : [];
+if (workflowFiles.length === 0) {
+  errors.push(`no workflows found in ${WORKFLOW_DIR} - cannot confirm the build-output assertion is ever enforced`);
+}
+
+let gatedWorkflows = 0;
+for (const file of workflowFiles) {
+  const rel = `${WORKFLOW_DIR}/${file}`;
+  const body = stripComments(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+  if (!/npm run validate:all\b/.test(body)) continue; // not a validating lane
+  gatedWorkflows += 1;
+  const strictAt = body.search(/REQUIRE_BUILD_OUTPUT=1[^\n]*validate:amazon-paths/);
+  const buildAt = body.search(/run:\s*npm run build\b/);
   if (strictAt === -1) {
-    errors.push(`${CI_WORKFLOW} never runs this gate with REQUIRE_BUILD_OUTPUT=1, so the 200-in-build assertion would silently not run in CI - the exact defect this mode was added to fix`);
+    errors.push(`${rel} runs validate:all but never runs this gate with REQUIRE_BUILD_OUTPUT=1, so the 200-in-build assertion would silently not run there - the exact defect this mode was added to fix`);
   } else if (buildAt === -1) {
-    errors.push(`${CI_WORKFLOW} runs the strict gate but has no "npm run build" step, so the build output it requires is never produced`);
+    errors.push(`${rel} runs the strict gate but has no "npm run build" step, so the build output it requires is never produced`);
   } else if (strictAt < buildAt) {
-    errors.push(`${CI_WORKFLOW} runs the strict gate before "npm run build", so it would hard-fail on output that has not been created yet`);
+    errors.push(`${rel} runs the strict gate before "npm run build", so it would hard-fail on output that has not been created yet`);
   }
+}
+// Rule 0 again: if no workflow validates, this whole self-check examined nothing.
+if (workflowFiles.length > 0 && gatedWorkflows === 0) {
+  errors.push(`no workflow in ${WORKFLOW_DIR} runs validate:all, so nothing enforces any gate in this repo`);
 }
 
 for (const bookPath of BOOK_PATHS) {
@@ -363,4 +387,4 @@ if (errors.length) {
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
 }
-console.log(`amazon landing paths: PASS (${examined} book paths, ${bundleExamined} bundle offers on ${BUNDLE_SKU}, sitemap ${SITEMAP}, build output ${buildDir ? `checked on ${builtChecked}/${BOOK_PATHS.length}` : 'ABSENT'}${STRICT_BUILD ? ', STRICT' : ''})`);
+console.log(`amazon landing paths: PASS (${examined} book paths, ${bundleExamined} bundle offers on ${BUNDLE_SKU}, sitemap ${SITEMAP}, build output ${buildDir ? `checked on ${builtChecked}/${BOOK_PATHS.length}` : 'ABSENT'}${STRICT_BUILD ? ', STRICT' : ''}, ${gatedWorkflows} validating workflow(s) enforce it)`);
