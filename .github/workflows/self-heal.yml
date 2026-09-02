@@ -34,6 +34,10 @@ jobs:
       # upstream to rebase onto, so it passes on dispatch and fails on schedule.
       - run: git pull --rebase --autostash origin main
       - run: npm ci --ignore-scripts
+      # Baseline for the explicit-pathspec commit below. Captured before any
+      # repair runs, so anything already dirty is never attributed to a repair.
+      - name: Record pre-repair working tree
+        run: git status --porcelain | cut -c4- | sed 's/.* -> //' | sort > /tmp/selfheal-before.txt
       - name: Report what the loop would repair
         run: npm run selfheal:dry
       - name: Apply bounded repairs
@@ -42,11 +46,55 @@ jobs:
         # Nothing is committed unless the repo validates after the repair, so a
         # bad repair cannot be pushed.
         run: npm run validate:all
+      # This lane pushes straight to main, and a push made with GITHUB_TOKEN does
+      # not trigger CI - so whatever it commits is unverified by ci.yml until the
+      # next scheduled run 20 hours later. That makes this the LAST gate its own
+      # output ever passes through, and it had the same blind spot ci.yml had:
+      # validate:all above runs with no build, so the amazon-paths 200-in-build
+      # assertion reported itself unproven and passed.
+      - run: npm run build
+      - name: Amazon landing paths (strict, post-build)
+        run: REQUIRE_BUILD_OUTPUT=1 npm run validate:amazon-paths
       - name: Commit only validated repair output
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+
+          # Explicit pathspec, never `git add -A`. This step used to stage the
+          # whole tree, which meant it committed anything a repair command
+          # incidentally touched, plus any churn that was already dirty before
+          # the repairs ran - to main, unreviewed, on a token that suppresses CI.
+          #
+          # Stage exactly the delta the repair steps produced: the files dirty
+          # now that were not dirty before. BEFORE_STATE is captured immediately
+          # after checkout, so pre-existing churn is excluded by construction.
+          # cut -c4- rather than awk $NF: the porcelain prefix is a fixed three
+          # characters, and $NF drops everything before the last space in a path
+          # that contains one. The sed strips the old name from a rename entry.
+          #
+          # A file already dirty at baseline is excluded even if a repair also
+          # touched it. That is deliberate: this lane pushes to main unreviewed,
+          # so an ambiguous file is left uncommitted rather than guessed at.
+          CHANGED=$(comm -13 /tmp/selfheal-before.txt <(git status --porcelain | cut -c4- | sed 's/.* -> //' | sort))
+          if [ -z "$CHANGED" ]; then
+            echo "No safe repairs were needed."
+            exit 0
+          fi
+          echo "Repair delta:"; echo "$CHANGED" | sed 's/^/  /'
+
+          # A self-healing lane must never rewrite the things that judge it. If a
+          # repair command touches CI, a validator, or the manifest that wires
+          # them, that is not a repair - it is the loop editing its own gates,
+          # and it stops here rather than pushing.
+          FORBIDDEN=$(echo "$CHANGED" | grep -E '^(\.github/|scripts/|package(-lock)?\.json$)' || true)
+          if [ -n "$FORBIDDEN" ]; then
+            echo "REFUSING TO COMMIT: a repair modified files that gate this lane:"
+            echo "$FORBIDDEN" | sed 's/^/  /'
+            echo "A self-heal run may fix repo content. It may not edit CI, validators, or package.json."
+            exit 1
+          fi
+
+          echo "$CHANGED" | xargs -r git add --
           if git diff --cached --quiet; then
             echo "No safe repairs were needed."
           else

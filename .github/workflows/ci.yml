@@ -36,6 +36,14 @@ jobs:
       # either ignore or hard-fail on. See _repo_validation_registry.json.
       - run: npm run validate:registry
       - run: npm run build
+      # The 200-in-build assertion in validate:amazon-paths can only run once the
+      # build exists. validate:all above runs before the build, so that assertion
+      # was reported as unproven and never actually executed in CI. Re-run just
+      # that gate here in strict mode, where an absent build is a hard failure.
+      # The five paths are printed inside already-published EPUBs: if one stops
+      # rendering, the only remedy is re-uploading five books.
+      - name: Amazon landing paths (strict, post-build)
+        run: REQUIRE_BUILD_OUTPUT=1 npm run validate:amazon-paths
       - name: Cadence gate
         # Blocks publishing faster than the library can be kept inside the
         # 91-day window where pages stay citable. Warnings are reported
