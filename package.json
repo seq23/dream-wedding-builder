@@ -103,7 +103,8 @@
     "validate:readiness-rubric": "node scripts/validators/validate_readiness_rubric.mjs",
     "validate:product-reachability": "node scripts/validators/validate_product_reachability.mjs",
     "validate:methodology-contrast": "node scripts/validators/validate_methodology_contrast.mjs",
-    "validate:worker-entrypoint": "node scripts/validate-worker-entrypoint.mjs"
+    "validate:worker-entrypoint": "node scripts/validate-worker-entrypoint.mjs",
+    "validate:internal-links": "node scripts/validators/validate_internal_link_graph.mjs"
   },
   "dependencies": {
     "next": "15.5.18",

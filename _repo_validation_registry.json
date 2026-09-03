@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 28,
+    "HARD_FAIL": 29,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -144,6 +144,18 @@
       "blocksRelease": true,
       "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
       "composite": false
+    },
+    {
+      "id": "internal-link-graph",
+      "npmScript": "validate:internal-links",
+      "command": "node scripts/validators/validate_internal_link_graph.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "a URL in the sitemap with no inbound internal link is a published page the site itself does not admit exists: it can neither receive nor pass authority, and no other gate can see it because the sitemap producer (data/seo/route_ownership.json) and the link producers (the templates) were never connected. Ahrefs found six on 2026-09-03 - the five /amazon/ book pages added 2026-08-29 and /what-to-do-6-months-before-the-wedding added 2026-09-02. This gate boots the real build, reads each host's real sitemap, and reads the anchors out of the HTML the server returned, so it asserts behaviour rather than the model. Requires a build: it hard-fails rather than skipping when .next is absent, so it can never exit 0 having crawled nothing.",
+      "composite": false,
+      "requires_build": true,
+      "repair_command": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
+      "repair_evidence": "proved negatively on 2026-09-03: deleting the footer directory block from components/AppShell.tsx returns exactly the six orphans Ahrefs reported; deleting only directoryLabel from the timeline landing returns exactly /what-to-do-6-months-before-the-wedding"
     },
     {
       "id": "kpi-truth",

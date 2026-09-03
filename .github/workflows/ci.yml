@@ -32,10 +32,16 @@ jobs:
         with: { node-version: '20', cache: npm }
       - run: npm ci
       - run: npm run validate:all
+      - run: npm run build
       # Severity-aware pass: reports non-blocking warnings that validate:all would
       # either ignore or hard-fail on. See _repo_validation_registry.json.
+      #
+      # This runs AFTER the build. validate:internal-links boots the built site,
+      # reads each host's real sitemap and crawls it, so it needs .next to exist;
+      # with no build it hard-fails rather than skipping, which is correct for the
+      # gate and wrong for this step's position in the job. Everything else in the
+      # registry is indifferent to build order.
       - run: npm run validate:registry
-      - run: npm run build
       # The 200-in-build assertion in validate:amazon-paths can only run once the
       # build exists. validate:all above runs before the build, so that assertion
       # was reported as unproven and never actually executed in CI. Re-run just

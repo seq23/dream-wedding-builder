@@ -40,6 +40,13 @@ export interface PlannerLanding {
   productId: string;
   title: string;
   h1: string;
+  /**
+   * Short link text for the site directory in the footer, which is what gives
+   * this page an inbound internal link on its own host. Required: a landing
+   * with no directory label is a landing nothing links to, which is how
+   * /what-to-do-6-months-before-the-wedding shipped as an orphan on 2026-09-02.
+   */
+  directoryLabel: string;
   description: string;
   /** The exact question a person types. Rendered as the page's stated question. */
   question: string;
@@ -70,6 +77,7 @@ export const plannerLandings: PlannerLanding[] = [
     productId: 'budget-spreadsheet',
     title: 'Wedding cost per guest: what 50, 80, 100, and 150 guests actually cost',
     h1: 'What a wedding costs per guest — and why guest count is the only number that changes everything',
+    directoryLabel: 'What a wedding costs per guest',
     description: 'Guest count is the single largest driver of wedding cost. Published planning benchmarks put the all-in figure at roughly $235–$400 per guest. Here is what that means at 50, 80, 100, 150, and 200 guests, which costs actually scale per head, and which do not.',
     question: 'How much does a wedding cost for 80 guests?',
     directAnswer: [
@@ -145,6 +153,7 @@ export const plannerLandings: PlannerLanding[] = [
     productId: 'timeline-template',
     title: 'What to do 6 months before the wedding (and at 12, 9, 3, and 1)',
     h1: 'What to do 6 months before the wedding',
+    directoryLabel: 'What to do 6 months before the wedding',
     description: 'The six-month mark is where a wedding plan either converts into bookings or quietly stalls. Here is exactly what belongs at 12, 9, 6, 3, and 1 month out, what is genuinely late, and what most checklists put in the wrong place.',
     question: 'What should I be doing 6 months before my wedding?',
     directAnswer: [
@@ -208,6 +217,7 @@ export const plannerLandings: PlannerLanding[] = [
     productId: 'budget-spreadsheet',
     title: 'Wedding budget tradeoffs: what a better venue actually costs you elsewhere',
     h1: 'Can I afford a better venue if I cut the open bar?',
+    directoryLabel: 'Wedding budget tradeoffs: what to cut first',
     description: 'A structured answer to the wedding tradeoff question nobody answers well: what an upgrade in one category actually costs you in the others, which swaps are real, and which ones quietly cost more than they save.',
     question: 'Can I afford a better venue if I cut the open bar?',
     directAnswer: [
@@ -279,6 +289,7 @@ export const plannerLandings: PlannerLanding[] = [
     productId: 'checklist-pdf',
     title: 'Backyard wedding planning: the costs a blank space adds back',
     h1: 'Backyard wedding planning — what a free venue actually costs',
+    directoryLabel: 'Backyard wedding planning',
     description: 'A backyard wedding removes the venue fee and adds a venue\'s worth of infrastructure. Here is the full list of what a house has to supply, what it usually cannot, and when a backyard wedding is genuinely cheaper.',
     question: 'How much does a backyard wedding cost, and what do I have to supply myself?',
     directAnswer: [
@@ -345,6 +356,7 @@ export const plannerLandings: PlannerLanding[] = [
     productId: 'checklist-pdf',
     title: 'Micro wedding and courthouse wedding planning: what changes below 50 guests',
     h1: 'Micro weddings and courthouse weddings — what actually changes below 50 guests',
+    directoryLabel: 'Micro and courthouse wedding planning',
     description: 'Below about 50 guests a wedding stops being a smaller version of a big wedding and becomes a different event with different constraints. What changes, what stops mattering, and where the small-wedding budget actually goes.',
     question: 'What is different about planning a micro wedding or a courthouse wedding?',
     directAnswer: [
@@ -417,6 +429,7 @@ export const plannerLandings: PlannerLanding[] = [
     productId: 'checklist-pdf',
     title: 'We have no idea what a wedding costs: an honest starting point',
     h1: 'We have no idea what things cost. Where do we actually start?',
+    directoryLabel: 'Where to start when you do not know costs',
     description: 'An honest first step for couples with no reference point: why published averages mislead, the five numbers that decide everything else, and what to settle before talking to a single vendor.',
     question: 'We just got engaged and have no idea what anything costs. Where do we start?',
     directAnswer: [
