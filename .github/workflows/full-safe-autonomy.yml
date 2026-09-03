@@ -75,6 +75,27 @@ jobs:
       - run: npm run authority:sitemaps
       - run: npm run distribution:prepare
       - run: npm run distribution:validate
+      # Build before the gate, because one of the gates is a crawl.
+      #
+      # ROOT CAUSE of every red scheduled run from 2026-09-03 onward. PR #9 added
+      # the internal-link-graph validator, a HARD_FAIL that boots the built app,
+      # fetches each host's real sitemap and reads the anchors out of the returned
+      # HTML. It is marked `requires_build: true` and hard-fails when .next is
+      # absent, deliberately: a link-graph gate that passed without crawling
+      # anything would be the empty-loop pass this repo keeps rediscovering.
+      #
+      # That PR added `npm run build` to ci.yml and to self-heal.yml and missed
+      # this file - the only other lane that reaches the registry, via `npm run
+      # selfheal`. So this job asked for a crawl it had given nothing to crawl,
+      # every night at 10:17. It was not a content defect: at a95501e with a build
+      # present the same gate reports 118 sitemap URLs across 4 hosts and 0
+      # orphans. The build is the fix; nothing about the assertion changes.
+      #
+      # validate_repair_contract.mjs now fails if any lane reaching a
+      # requires_build validator has no build ahead of it, so the next validator
+      # of this class cannot be added to one lane and forgotten in another.
+      - run: npm run build
+
       # Repair before the gate, not instead of it.
       #
       # scripts/selfheal/heal_until_clean.mjs is a real bounded
@@ -104,8 +125,17 @@ jobs:
           console.log('self-heal: '+r.status+' (safe_to_push='+r.safe_to_push+')');
           for(const a of r.attempts||[]){
             console.log('  attempt '+a.attempt+': '+a.result+(a.failed.length?' failed=['+a.failed.join(', ')+']':''));
-            if(a.result==='NO_REPAIR_AVAILABLE')console.error('  no registered repair for: '+a.failed.join(', ')+' - add a repair_command in _repo_validation_registry.json or fix by hand');
+            for(const [id,text] of Object.entries(a.manual||{}))console.log('  fix by hand: '+id+' - '+text);
+          for(const [id,cmd] of Object.entries(a.unrunnable_repairs||{}))console.error('  registry defect: '+id+' repair_command is not runnable: '+cmd);
+          if(a.result==='NO_REPAIR_AVAILABLE')console.error('  no automated repair for: '+a.failed.join(', ')+' - add a repair_command in _repo_validation_registry.json, or a manual_repair if no script can fix it');
           }
+          const lines=['## self-heal: '+r.status+' (safe_to_push='+r.safe_to_push+')'];
+          for(const a of r.attempts||[]){
+            lines.push('- attempt '+a.attempt+': **'+a.result+'**'+(a.failed.length?' failed: '+a.failed.join(', '):''));
+            for(const [id,text] of Object.entries(a.manual||{}))lines.push('  - fix by hand - **'+id+'**: '+text);
+            for(const [id,cmd] of Object.entries(a.unrunnable_repairs||{}))lines.push('  - registry defect - **'+id+'** repair_command is not runnable: `'+cmd+'`');
+          }
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY||'/dev/stdout', lines.join('\\n')+'\\n');
           "
       - run: npm run validate:structural
       - run: npm run authority:scale:freeze

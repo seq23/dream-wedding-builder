@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 29,
+    "HARD_FAIL": 30,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -154,7 +154,7 @@
       "reason": "a URL in the sitemap with no inbound internal link is a published page the site itself does not admit exists: it can neither receive nor pass authority, and no other gate can see it because the sitemap producer (data/seo/route_ownership.json) and the link producers (the templates) were never connected. Ahrefs found six on 2026-09-03 - the five /amazon/ book pages added 2026-08-29 and /what-to-do-6-months-before-the-wedding added 2026-09-02. This gate boots the real build, reads each host's real sitemap, and reads the anchors out of the HTML the server returned, so it asserts behaviour rather than the model. Requires a build: it hard-fails rather than skipping when .next is absent, so it can never exit 0 having crawled nothing.",
       "composite": false,
       "requires_build": true,
-      "repair_command": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
+      "manual_repair": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
       "repair_evidence": "proved negatively on 2026-09-03: deleting the footer directory block from components/AppShell.tsx returns exactly the six orphans Ahrefs reported; deleting only directoryLabel from the timeline landing returns exactly /what-to-do-6-months-before-the-wedding"
     },
     {
@@ -174,7 +174,7 @@
       "blocksRelease": true,
       "reason": "the positioning sentence is the thing a model quotes when asked how this differs from a budget calculator; it must stay true of the shipped Step 3 and must stay a contrast with a category rather than with a named competitor, or it is either a false claim or an indefensible one",
       "composite": false,
-      "repair_command": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
+      "manual_repair": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
       "repair_evidence": "proved on 2026-09-01: claiming \"tradeoff engine computes\" fails with an overclaim error, transcribing the worked example instead of calling budgetReality fails with \"no longer calls budgetReality\", and naming a competitor fails on the surface that names it"
     },
     {
@@ -221,7 +221,7 @@
       "blocksRelease": true,
       "reason": "the persistent banner is the planner entry on every page of every host, and a dismissal that is not stored re-nags a reader who already declined - worse than no dismiss control at all",
       "composite": false,
-      "repair_command": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
+      "manual_repair": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
       "repair_evidence": "proved on 2026-09-01: removing the localStorage.setItem for the dismissal fails with \"dismissal is never written to storage\"; restoring it passes"
     },
     {
@@ -232,7 +232,7 @@
       "blocksRelease": true,
       "reason": "the free planner is the entry point every other surface now points at; a planner missing from the desktop nav or from a guide is a dead funnel, and it shipped exactly that way for six days without anything noticing",
       "composite": false,
-      "repair_command": "restore the desktop nav entry in components/AppShell.tsx and the planner section in app/guides/[slug]/page.tsx",
+      "manual_repair": "restore the desktop nav entry in components/AppShell.tsx and the planner section in app/guides/[slug]/page.tsx",
       "repair_evidence": "proved on 2026-09-01: deleting the desktop-nav-planner entry fails with \"AppShell desktop nav: no planner entry\"; restoring it passes"
     },
     {
@@ -243,7 +243,7 @@
       "blocksRelease": true,
       "reason": "a landing page whose seed does not hydrate is a link, not a lead magnet; this runs the real seeding logic over every landing seed and every shipping guide rather than checking that a query string is present",
       "composite": false,
-      "repair_command": "fix lib/planner-seed.ts or the offending seed in data/planner-landings.ts",
+      "manual_repair": "fix lib/planner-seed.ts or the offending seed in data/planner-landings.ts",
       "repair_evidence": "proved on 2026-09-01: making planPatchFromSeed return an empty patch fails with 6 landing-page assertions; restoring it passes 27"
     },
     {
@@ -254,7 +254,7 @@
       "blocksRelease": true,
       "reason": "money: three of the four paid products had no path from any plan state, only a bundled shop link, while the planner became the destination for every other surface",
       "composite": false,
-      "repair_command": "restore the working-files block in app/free-wedding-planner/page.tsx",
+      "manual_repair": "restore the working-files block in app/free-wedding-planner/page.tsx",
       "repair_evidence": "proved on 2026-09-01: removing the working-files block fails with 4 unreachable products; restoring it passes"
     },
     {
@@ -296,7 +296,7 @@
       "blocksRelease": true,
       "reason": "/readiness-score publishes how the score works; a page that describes its own behaviour incorrectly is worse than no page, so the rubric must render from lib/readiness.ts and must never restate it",
       "composite": false,
-      "repair_command": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
+      "manual_repair": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
       "repair_evidence": "proved on 2026-09-01: hardcoding a check label in the rubric page fails with \"hardcodes the check label\"; rendering it from the module passes"
     },
     {
@@ -354,9 +354,20 @@
       "blocksRelease": true,
       "reason": "a deploy that does not build the worker it uploads fails only on a clean checkout, so it reaches production configuration unnoticed; this is what broke Workers Builds on 2026-09-01 while every local build passed",
       "composite": false,
-      "repair_command": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
+      "manual_repair": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
       "repair_evidence": "proved on 2026-09-01: recording the production misconfiguration (npx wrangler versions upload) in the runbook table fails this validator, as does removing the build step from any publishing script; restoring either passes"
+    },
+    {
+      "id": "repair-contract",
+      "npmScript": "validate:repair-contract",
+      "command": "node scripts/validators/validate_repair_contract.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "the self-heal loop executes repair_command verbatim, and nothing checked that the field held a command. Eight of thirteen were English sentences: five exited 127, and internal-link-graph's exited 2 on the unbalanced quote in \"route's\", so the loop burned three attempts reporting a failed repair it had never attempted while the instruction a human needed sat unprinted in the same field. It also pairs requires_build validators with the lanes that reach them: internal-link-graph hard-fails without .next by design, PR #9 gave ci.yml and self-heal.yml a build and missed full-safe-autonomy.yml, and because nothing tied the registry flag to the workflows that miss only showed up as a cron that went red every night. Reachability is derived by expanding npm scripts and following run-registry.mjs, so a second copy of the wiring cannot drift from the first. Counts what it examined and hard-fails on zero repair fields, zero requires_build validators, or zero workflows.",
+      "composite": false,
+      "manual_repair": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
+      "repair_evidence": "proved negatively on 2026-09-03: restoring the prose into internal-link-graph's repair_command fails with \"repair_command is not runnable\"; deleting the `npm run build` step from full-safe-autonomy.yml fails with \"reaches internal-link-graph ... but never runs a build\"; with both fixed it passes 6 runnable commands, 8 manual instructions and 4 build-paired lanes"
     }
   ],
-  "repair_contract": "A validator may declare repair_command only when that command fixes the same defect this validator detects. scripts/selfheal/heal_until_clean.mjs runs it on failure and re-validates. Pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
+  "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
 }

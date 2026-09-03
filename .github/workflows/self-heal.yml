@@ -34,6 +34,26 @@ jobs:
       # upstream to rebase onto, so it passes on dispatch and fails on schedule.
       - run: git pull --rebase --autostash origin main
       - run: npm ci --ignore-scripts
+      # Build before the heal steps, not after them.
+      #
+      # This build used to sit below `Revalidate after repair`, where it served
+      # only the strict amazon-paths assertion. PR #9 then added
+      # internal-link-graph, a HARD_FAIL that boots the built app and crawls it
+      # and hard-fails when .next is absent by design. It is reached from
+      # `npm run selfheal` through validate:registry, so all three heal steps
+      # above the old build position - selfheal:dry, selfheal, validate:all - were
+      # asking for a crawl with nothing built. The dry step would report a
+      # failure that does not exist, and `Apply bounded repairs` would exit 1 on
+      # it, in the lane whose entire job is repairing things.
+      #
+      # Building here serves both assertions and costs nothing extra: .next/ and
+      # tsconfig.tsbuildinfo are both gitignored, so this cannot dirty the tree
+      # that `Record pre-repair working tree` is about to baseline.
+      #
+      # validate_repair_contract.mjs now fails the build if any lane reaches a
+      # requires_build validator without a build ahead of it - it is what caught
+      # this ordering, which the first draft of that gate had wrongly passed.
+      - run: npm run build
       # Baseline for the explicit-pathspec commit below. Captured before any
       # repair runs, so anything already dirty is never attributed to a repair.
       - name: Record pre-repair working tree
@@ -49,10 +69,9 @@ jobs:
       # This lane pushes straight to main, and a push made with GITHUB_TOKEN does
       # not trigger CI - so whatever it commits is unverified by ci.yml until the
       # next scheduled run 20 hours later. That makes this the LAST gate its own
-      # output ever passes through, and it had the same blind spot ci.yml had:
-      # validate:all above runs with no build, so the amazon-paths 200-in-build
-      # assertion reported itself unproven and passed.
-      - run: npm run build
+      # output ever passes through, which is why the strict 200-in-build form of
+      # the amazon-paths assertion runs here rather than only in ci.yml. The build
+      # it needs now happens above, before the heal steps.
       - name: Amazon landing paths (strict, post-build)
         run: REQUIRE_BUILD_OUTPUT=1 npm run validate:amazon-paths
       - name: Commit only validated repair output
