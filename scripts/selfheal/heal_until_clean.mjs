@@ -42,6 +42,37 @@ const registry = readJson('_repo_validation_registry.json', { validators: [] });
 const validators = (registry.validators || []).filter((v) => !v.composite);
 const byId = new Map(validators.map((v) => [v.id, v]));
 const repairFor = new Map(validators.filter((v) => v.repair_command).map((v) => [v.id, v.repair_command]));
+// Prose is not a command. `manual_repair` carries the human instruction for a
+// defect no script can fix; it is printed, never executed.
+//
+// Until 2026-09-03 both lived in `repair_command`, and eight of the thirteen
+// entries were English sentences. This loop shells out whatever it finds there,
+// so it ran them: "restore the working-files block in app/..." exits 127, and
+// "add the route's label to lib/site-directory.ts (or a hub/landing record) ..."
+// exits 2 because bash never finds the closing quote of "route's". Either way the
+// loop called it a failed repair, retried the identical tree twice more, and
+// exited 1 - so the daily authority lane reported "repair FAILED (exit 2)" three
+// times and never once printed the sentence a human could have acted on. Keeping
+// the two apart is what makes NO_REPAIR_AVAILABLE reachable for these validators.
+const manualFor = new Map(validators.filter((v) => v.manual_repair).map((v) => [v.id, v.manual_repair]));
+
+// A repair_command is executed verbatim, so it has to be a command. This does not
+// try to judge whether the repair is correct - validate_repair_contract.mjs does
+// that, at rest, for the whole registry. This is the runtime backstop that stops
+// this loop from ever again shelling out a sentence: an unrunnable repair is a
+// registry defect, and reporting it as one beats burning three attempts on it.
+const executable = (cmd) => {
+  if (spawnSync('bash', ['-n', '-c', cmd], { encoding: 'utf8' }).status !== 0) return false;
+  const heads = cmd.split(/&&|\|\||;/).map((part) => part.trim()).filter(Boolean);
+  if (!heads.length) return false;
+  return heads.every((part) => {
+    const m = part.match(/^npm run (?:--silent )?([\w:-]+)/);
+    if (m) return Boolean(pkg.scripts?.[m[1]]);
+    const n = part.match(/^node (\S+)/);
+    if (n) return fs.existsSync(path.join(ROOT, n[1]));
+    return false;
+  });
+};
 
 // Which npm scripts does the repo's own release gate actually reach? Derived from
 // package.json rather than hard-coded, so a change to validate:all cannot quietly
@@ -136,15 +167,28 @@ for (let attempt = 1; attempt <= MAX; attempt += 1) {
   }
 
   const failedIds = failures.map((f) => f.id);
-  const repairable = failedIds.filter((id) => repairFor.has(id));
-  const unrepairable = failedIds.filter((id) => !repairFor.has(id));
+  // A registered repair that cannot run is not a repair. Sorting it here rather
+  // than at the spawn keeps it out of `repairable`, so it can neither consume an
+  // attempt nor make the loop look like it tried something.
+  const unrunnable = failedIds.filter((id) => repairFor.has(id) && !executable(repairFor.get(id)));
+  const repairable = failedIds.filter((id) => repairFor.has(id) && !unrunnable.includes(id));
+  const unrepairable = failedIds.filter((id) => !repairable.includes(id));
   console.log(`[self-heal] attempt ${attempt}: ${blocking.length} blocking, ${warnings.length} warning (${repairable.length} repairable)`);
-  for (const id of unrepairable) console.log(`  no registered repair: ${id}`);
+  for (const id of unrepairable) {
+    if (manualFor.has(id)) console.log(`  no automated repair: ${id} - fix by hand: ${manualFor.get(id)}`);
+    else if (unrunnable.includes(id)) console.error(`  registry defect: ${id} declares a repair_command that is not runnable: ${repairFor.get(id)}`);
+    else console.log(`  no registered repair: ${id}`);
+  }
 
   if (!repairable.length) {
     // Nothing would change, so another pass would fail identically. Stop and say
     // so rather than burning attempts to reach the same place.
-    attempts.push({ attempt, failed: failedIds, warnings: warnings.map((w) => w.id), repaired: [], result: 'NO_REPAIR_AVAILABLE' });
+    attempts.push({
+      attempt, failed: failedIds, warnings: warnings.map((w) => w.id), repaired: [],
+      manual: Object.fromEntries(failedIds.filter((id) => manualFor.has(id)).map((id) => [id, manualFor.get(id)])),
+      unrunnable_repairs: Object.fromEntries(unrunnable.map((id) => [id, repairFor.get(id)])),
+      result: 'NO_REPAIR_AVAILABLE',
+    });
     break;
   }
 
@@ -157,7 +201,12 @@ for (let attempt = 1; attempt <= MAX; attempt += 1) {
     if (r.code !== 0) console.log(`  repair FAILED for ${id} (exit ${r.code})`);
     repaired.push({ id, cmd, code: r.code });
   }
-  attempts.push({ attempt, failed: failedIds, warnings: warnings.map((w) => w.id), repaired, result: 'REPAIRED_RETRYING' });
+  attempts.push({
+    attempt, failed: failedIds, warnings: warnings.map((w) => w.id), repaired,
+    manual: Object.fromEntries(failedIds.filter((id) => manualFor.has(id)).map((id) => [id, manualFor.get(id)])),
+    unrunnable_repairs: Object.fromEntries(unrunnable.map((id) => [id, repairFor.get(id)])),
+    result: 'REPAIRED_RETRYING',
+  });
   if (DRY) break;
 }
 
@@ -169,6 +218,7 @@ const report = {
   gate_command: 'npm run validate:all',
   gate_exit_code: gate ? gate.code : null,
   registered_repairs: Object.fromEntries(repairFor),
+  manual_repairs: Object.fromEntries(manualFor),
   status: clean ? 'CLEAN' : 'NOT_CLEAN',
   safe_to_push: clean,
   attempts,
