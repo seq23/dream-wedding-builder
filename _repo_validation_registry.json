@@ -367,6 +367,18 @@
       "composite": false,
       "manual_repair": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
       "repair_evidence": "proved negatively on 2026-09-03: restoring the prose into internal-link-graph's repair_command fails with \"repair_command is not runnable\"; deleting the `npm run build` step from full-safe-autonomy.yml fails with \"reaches internal-link-graph ... but never runs a build\"; with both fixed it passes 6 runnable commands, 8 manual instructions and 4 build-paired lanes"
+    },
+    {
+      "id": "selfheal-status-contract",
+      "npmScript": "validate:selfheal-contract",
+      "command": "node scripts/validators/validate_selfheal_status_contract.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "a repair that exits non-zero, or exits 0 having changed no file, must never be recorded as a repair. Scheduled run 33744292112 (Full Safe Autonomy, main, 2026-09-03) printed \"repair FAILED for internal-link-graph (exit 2)\" and recorded REPAIRED_RETRYING on the same attempt, three times: heal_until_clean.mjs wrote the attempt result as a string literal instead of deriving it, so a failed repair claimed success and all three attempts were spent revalidating a tree nothing had touched. This gate executes the classification over a case table including that exact exit code, asserts heal_until_clean.mjs actually imports and calls it rather than keeping a second copy of the mapping, and asserts the loop report on disk: any attempt claiming REPAIRED_RETRYING must carry a repair that changed the tree.",
+      "composite": false,
+      "requires_build": false,
+      "manual_repair": "derive the attempt result from classifyAttempt in scripts/selfheal/repair_status.mjs instead of writing a result literal, and fingerprint the tree around each repair so a no-op repair cannot be reported as a repair",
+      "repair_evidence": "proved negatively on 2026-09-03: restoring the literal result:REPAIRED_RETRYING in heal_until_clean.mjs turns this gate red; a synthetic repair_command exiting 2 produces REPAIR_FAILED and one attempt instead of REPAIRED_RETRYING and three"
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
