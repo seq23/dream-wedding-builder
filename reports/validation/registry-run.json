@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T15:26:57.192Z",
+  "generated_at": "2026-09-03T15:39:11.490Z",
   "passed": 34,
   "hard_failed": 0,
   "warned": 0,
@@ -13,7 +13,7 @@
       "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
       "composite": false,
       "ok": true,
-      "ms": 141
+      "ms": 191
     },
     {
       "id": "authority",
@@ -24,7 +24,7 @@
       "reason": "authority contracts govern what may publish",
       "composite": false,
       "ok": true,
-      "ms": 125
+      "ms": 177
     },
     {
       "id": "authority-registry",
@@ -37,7 +37,7 @@
       "repair_command": "npm run authority:scale:restore",
       "repair_evidence": "proved on 2026-08-28: deleting faqs from a frozen guide fails this validator with UNRENDERABLE_ENTRY, and restore_authority_content.mjs rewrites the entry from its frozen blob and the validator passes again",
       "ok": true,
-      "ms": 129
+      "ms": 187
     },
     {
       "id": "book-domain",
@@ -50,7 +50,7 @@
       "repair_command": "node scripts/providers/attach-book-domain.mjs",
       "repair_evidence": "proved on 2026-08-29: the gate exited 1 with getaddrinfo ENOTFOUND on all five printed URLs before weddingpdfchecklist.com was attached to the Worker, and passed once attach-book-domain.mjs created the custom domain and the deployed middleware answered 301 -> 200 on each path",
       "ok": true,
-      "ms": 2023
+      "ms": 7386
     },
     {
       "id": "cadence-policy-currency",
@@ -64,7 +64,7 @@
       "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
       "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0",
       "ok": true,
-      "ms": 353
+      "ms": 264
     },
     {
       "id": "commerce",
@@ -75,7 +75,7 @@
       "reason": "broken checkout or product binding costs real revenue",
       "composite": false,
       "ok": true,
-      "ms": 129
+      "ms": 184
     },
     {
       "id": "content",
@@ -86,7 +86,7 @@
       "reason": "content quality signal; the SEO and authority gates block the real risks",
       "composite": false,
       "ok": true,
-      "ms": 128
+      "ms": 186
     },
     {
       "id": "content-pattern-contract",
@@ -97,7 +97,7 @@
       "reason": "a content page with no direct answer, no usable h1, an empty table cell, or no paid-product conversion path cannot be quoted or acted on by an answer engine",
       "composite": false,
       "ok": true,
-      "ms": 141
+      "ms": 196
     },
     {
       "id": "conversion-admin",
@@ -108,7 +108,7 @@
       "reason": "conversion and admin surfaces must resolve",
       "composite": false,
       "ok": true,
-      "ms": 195
+      "ms": 178
     },
     {
       "id": "disclaimers",
@@ -119,7 +119,7 @@
       "reason": "legal disclaimers are non-negotiable on published pages",
       "composite": false,
       "ok": true,
-      "ms": 195
+      "ms": 175
     },
     {
       "id": "downloads",
@@ -130,7 +130,7 @@
       "reason": "paid customers must receive the file they bought",
       "composite": false,
       "ok": true,
-      "ms": 251
+      "ms": 198
     },
     {
       "id": "env",
@@ -141,7 +141,7 @@
       "reason": "missing environment configuration breaks the deploy",
       "composite": false,
       "ok": true,
-      "ms": 141
+      "ms": 173
     },
     {
       "id": "fulfillment-path",
@@ -152,7 +152,7 @@
       "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
       "composite": false,
       "ok": true,
-      "ms": 130
+      "ms": 186
     },
     {
       "id": "internal-link-graph",
@@ -166,7 +166,7 @@
       "manual_repair": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
       "repair_evidence": "proved negatively on 2026-09-03: deleting the footer directory block from components/AppShell.tsx returns exactly the six orphans Ahrefs reported; deleting only directoryLabel from the timeline landing returns exactly /what-to-do-6-months-before-the-wedding",
       "ok": true,
-      "ms": 5182
+      "ms": 5163
     },
     {
       "id": "kpi-truth",
@@ -177,7 +177,7 @@
       "reason": "measurement honesty check; reports rather than blocks",
       "composite": false,
       "ok": true,
-      "ms": 741
+      "ms": 177
     },
     {
       "id": "methodology-contrast",
@@ -190,7 +190,7 @@
       "manual_repair": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
       "repair_evidence": "proved on 2026-09-01: claiming \"tradeoff engine computes\" fails with an overclaim error, transcribing the worked example instead of calling budgetReality fails with \"no longer calls budgetReality\", and naming a competitor fails on the surface that names it",
       "ok": true,
-      "ms": 244
+      "ms": 176
     },
     {
       "id": "no-empty-table-cells",
@@ -201,7 +201,7 @@
       "reason": "an empty table cell breaks column-to-header alignment and makes the table unusable as a fact source",
       "composite": false,
       "ok": true,
-      "ms": 246
+      "ms": 172
     },
     {
       "id": "no-internal-instruction-leak",
@@ -212,7 +212,7 @@
       "reason": "external-agent build directives rendered as page copy are visible defects and poison the text answer engines extract",
       "composite": false,
       "ok": true,
-      "ms": 150
+      "ms": 180
     },
     {
       "id": "no-stubs",
@@ -223,7 +223,7 @@
       "reason": "stub content must never reach a live page",
       "composite": false,
       "ok": true,
-      "ms": 186
+      "ms": 197
     },
     {
       "id": "no-theater",
@@ -234,7 +234,7 @@
       "reason": "advisory copy-quality signal",
       "composite": false,
       "ok": true,
-      "ms": 146
+      "ms": 195
     },
     {
       "id": "planner-persistent-entry",
@@ -247,7 +247,7 @@
       "manual_repair": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
       "repair_evidence": "proved on 2026-09-01: removing the localStorage.setItem for the dismissal fails with \"dismissal is never written to storage\"; restoring it passes",
       "ok": true,
-      "ms": 521
+      "ms": 182
     },
     {
       "id": "planner-reachability",
@@ -260,7 +260,7 @@
       "manual_repair": "restore the desktop nav entry in components/AppShell.tsx and the planner section in app/guides/[slug]/page.tsx",
       "repair_evidence": "proved on 2026-09-01: deleting the desktop-nav-planner entry fails with \"AppShell desktop nav: no planner entry\"; restoring it passes",
       "ok": true,
-      "ms": 190
+      "ms": 188
     },
     {
       "id": "planner-seed-contract",
@@ -273,7 +273,7 @@
       "manual_repair": "fix lib/planner-seed.ts or the offending seed in data/planner-landings.ts",
       "repair_evidence": "proved on 2026-09-01: making planPatchFromSeed return an empty patch fails with 6 landing-page assertions; restoring it passes 27",
       "ok": true,
-      "ms": 1779
+      "ms": 1409
     },
     {
       "id": "product-reachability",
@@ -286,7 +286,7 @@
       "manual_repair": "restore the working-files block in app/free-wedding-planner/page.tsx",
       "repair_evidence": "proved on 2026-09-01: removing the working-files block fails with 4 unreachable products; restoring it passes",
       "ok": true,
-      "ms": 141
+      "ms": 179
     },
     {
       "id": "profile-purity",
@@ -297,7 +297,7 @@
       "reason": "profile drift should be corrected but does not break the site",
       "composite": false,
       "ok": true,
-      "ms": 134
+      "ms": 180
     },
     {
       "id": "proof-readiness",
@@ -310,7 +310,7 @@
       "repair_command": "npm run authority:flow",
       "repair_rationale": "validate:proof-readiness fails when artifacts/authority/admission-report.json and release-manifest.json no longer balance against data/authority/content_registry.json; authority:flow (scripts/authority/run-full-flow.mjs) is the script that regenerates both from that registry.",
       "ok": true,
-      "ms": 137
+      "ms": 195
     },
     {
       "id": "query-atlas",
@@ -323,7 +323,7 @@
       "repair_command": "npm run atlas:build",
       "repair_rationale": "validate:query-atlas fails with \"missing data/authority_scale/query_atlas.json - run the atlas build first\" when the generated atlas is absent or stale; atlas:build (scripts/atlas/build_query_atlas.mjs) is the script that writes that file from the evidence it validates.",
       "ok": true,
-      "ms": 127
+      "ms": 182
     },
     {
       "id": "readiness-rubric",
@@ -336,7 +336,7 @@
       "manual_repair": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
       "repair_evidence": "proved on 2026-09-01: hardcoding a check label in the rubric page fails with \"hardcodes the check label\"; rendering it from the module passes",
       "ok": true,
-      "ms": 128
+      "ms": 181
     },
     {
       "id": "search-intelligence",
@@ -347,7 +347,7 @@
       "reason": "observational signal, no live-site impact",
       "composite": false,
       "ok": true,
-      "ms": 132
+      "ms": 186
     },
     {
       "id": "secrets",
@@ -358,7 +358,7 @@
       "reason": "leaked or missing credentials",
       "composite": false,
       "ok": true,
-      "ms": 230
+      "ms": 188
     },
     {
       "id": "seo",
@@ -371,7 +371,7 @@
       "repair_command": "npm run authority:flow && npm run search:diagnose && npm run search:repair",
       "repair_rationale": "validate:seo reports \"stale authority admission report\" and \"missing upward link registry\", both regenerated by authority:flow, and \"incomplete hub core: <slug>\" when a hub in data/seo/hub_pages.json has no description - the exact field search:diagnose flags as hub_missing_meta_description and search:repair writes. Partial by design: the content-quality failures this validator also reports have no generated fix, and the loop re-validates and reports them by name.",
       "ok": true,
-      "ms": 716
+      "ms": 1061
     },
     {
       "id": "tree-hygiene",
@@ -382,7 +382,7 @@
       "reason": "working tree debris is a maintenance problem, not a release risk",
       "composite": false,
       "ok": true,
-      "ms": 167
+      "ms": 191
     },
     {
       "id": "worker-entrypoint",
@@ -395,7 +395,7 @@
       "manual_repair": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
       "repair_evidence": "proved on 2026-09-01: recording the production misconfiguration (npx wrangler versions upload) in the runbook table fails this validator, as does removing the build step from any publishing script; restoring either passes",
       "ok": true,
-      "ms": 134
+      "ms": 183
     },
     {
       "id": "repair-contract",
@@ -408,7 +408,7 @@
       "manual_repair": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
       "repair_evidence": "proved negatively on 2026-09-03: restoring the prose into internal-link-graph's repair_command fails with \"repair_command is not runnable\"; deleting the `npm run build` step from full-safe-autonomy.yml fails with \"reaches internal-link-graph ... but never runs a build\"; with both fixed it passes 6 runnable commands, 8 manual instructions and 4 build-paired lanes",
       "ok": true,
-      "ms": 190
+      "ms": 244
     }
   ]
 }

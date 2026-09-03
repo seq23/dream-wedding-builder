@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-09-02T16:31:46.553Z",
+  "generated_at": "2026-09-03T15:39:25.475Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -9,16 +9,20 @@
     "authority-registry": "npm run authority:scale:restore",
     "book-domain": "node scripts/providers/attach-book-domain.mjs",
     "cadence-policy-currency": "npm run cadence:derive -- --write",
+    "proof-readiness": "npm run authority:flow",
+    "query-atlas": "npm run atlas:build",
+    "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair"
+  },
+  "manual_repairs": {
+    "internal-link-graph": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
     "methodology-contrast": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
     "planner-persistent-entry": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
     "planner-reachability": "restore the desktop nav entry in components/AppShell.tsx and the planner section in app/guides/[slug]/page.tsx",
     "planner-seed-contract": "fix lib/planner-seed.ts or the offending seed in data/planner-landings.ts",
     "product-reachability": "restore the working-files block in app/free-wedding-planner/page.tsx",
-    "proof-readiness": "npm run authority:flow",
-    "query-atlas": "npm run atlas:build",
     "readiness-rubric": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
-    "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair",
-    "worker-entrypoint": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json"
+    "worker-entrypoint": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
+    "repair-contract": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate"
   },
   "status": "CLEAN",
   "safe_to_push": true,
