@@ -342,6 +342,132 @@
       "ctr": 0,
       "average_position": 64,
       "target_match": false
+    },
+    {
+      "observation_id": "975afe8b52ae7ff2d3d5",
+      "observed_at": "2026-09-03T11:45:17.248Z",
+      "period": {
+        "start": "2026-08-05",
+        "end": "2026-09-01"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "destination wedding itinerary",
+      "page": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 7,
+      "ctr": 0,
+      "average_position": 94.71428571428571,
+      "target_match": false
+    },
+    {
+      "observation_id": "5c3b336aa1f3678132c9",
+      "observed_at": "2026-09-03T11:45:17.248Z",
+      "period": {
+        "start": "2026-08-05",
+        "end": "2026-09-01"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "destination wedding weekend itinerary",
+      "page": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "average_position": 75,
+      "target_match": true
+    },
+    {
+      "observation_id": "71dd4a26595fba05a2e4",
+      "observed_at": "2026-09-03T11:45:17.248Z",
+      "period": {
+        "start": "2026-08-05",
+        "end": "2026-09-01"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "editable wedding timeline template",
+      "page": "https://weddingtimelinetemplate.com/products/timeline-template",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 51,
+      "target_match": false
+    },
+    {
+      "observation_id": "174a6f45b2185617d834",
+      "observed_at": "2026-09-03T11:45:17.248Z",
+      "period": {
+        "start": "2026-08-05",
+        "end": "2026-09-01"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "evening wedding timeline",
+      "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "average_position": 79.75,
+      "target_match": true
+    },
+    {
+      "observation_id": "e919a71bd412f726a2d1",
+      "observed_at": "2026-09-03T11:45:17.453Z",
+      "period": {
+        "start": "2026-08-05",
+        "end": "2026-09-01"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "day of wedding coordinator checklist",
+      "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "average_position": 54.333333333333336,
+      "target_match": false
+    },
+    {
+      "observation_id": "2ddedc0f5382ad5c059c",
+      "observed_at": "2026-09-03T11:45:17.453Z",
+      "period": {
+        "start": "2026-08-05",
+        "end": "2026-09-01"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "printable day of wedding coordinator checklist",
+      "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 59,
+      "target_match": false
+    },
+    {
+      "observation_id": "a2cf04d4b1b677f917d5",
+      "observed_at": "2026-09-03T11:45:17.453Z",
+      "period": {
+        "start": "2026-08-05",
+        "end": "2026-09-01"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding coordinator wedding day checklist",
+      "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 64,
+      "target_match": false
     }
   ]
 }
