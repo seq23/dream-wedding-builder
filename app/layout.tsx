@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { AppShell } from '@/components/AppShell';
 import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
+import { siteDirectory } from '@/lib/site-directory';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://weddingchecklistpdf.com'),
@@ -21,7 +22,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             it resolves the project id from location.hostname because one Worker serves all
             four canonical domains from a single build. */}
         <script data-clarity-loader src="/assets/clarity-loader.js" defer />
-        <AppShell siteHost={siteHost}>{children}</AppShell>
+        {/* The directory is resolved here, on the server, and handed to AppShell
+            as plain strings. AppShell is a client component and importing
+            hub_pages.json there would ship every hub's full body text to the
+            browser to produce a dozen link labels. */}
+        <AppShell siteHost={siteHost} directory={siteDirectory(siteHost)}>{children}</AppShell>
       </body>
     </html>
   );
