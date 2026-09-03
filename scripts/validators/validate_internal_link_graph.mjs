@@ -36,6 +36,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import net from 'node:net';
+import { createRequire } from 'node:module';
 import { spawn } from 'node:child_process';
 
 const ROOT = process.cwd();
@@ -70,13 +71,40 @@ async function freePort() {
   });
 }
 
+// Spawned as `node <next-bin>` rather than through `npx`, and in its own process
+// group. Through npx the child is a grandchild of this process: SIGTERM reaches
+// the npx wrapper, next keeps running, the child handle never closes, and this
+// script never exits - which hangs the whole registry run rather than failing it.
+// Killing the group with SIGKILL takes the server with it on every platform.
+const nextBin = createRequire(import.meta.url).resolve('next/dist/bin/next');
 const port = await freePort();
-const server = spawn('npx', ['next', 'start', '-p', String(port)], { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'] });
+const server = spawn(process.execPath, [nextBin, 'start', '-p', String(port)], {
+  cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'], detached: true
+});
 let serverLog = '';
 server.stdout.on('data', (chunk) => { serverLog += chunk; });
 server.stderr.on('data', (chunk) => { serverLog += chunk; });
-const shutdown = () => { try { server.kill('SIGTERM'); } catch { /* already gone */ } };
+let stopped = false;
+const shutdown = () => {
+  if (stopped) return;
+  stopped = true;
+  try { process.kill(-server.pid, 'SIGKILL'); } catch { /* group already gone */ }
+  try { server.kill('SIGKILL'); } catch { /* already gone */ }
+  server.unref();
+};
 process.on('exit', shutdown);
+
+// Watchdog. Unref'd, so it only fires while something else is still holding the
+// event loop open - which is precisely the hang case. A gate that stalls the
+// release queue is worse than a gate that fails, so this ends the process with a
+// verdict rather than letting CI sit on it.
+const WATCHDOG_MS = 8 * 60 * 1000;
+setTimeout(() => {
+  shutdown();
+  console.error(`  FAIL crawl did not finish within ${WATCHDOG_MS / 1000}s. Server output:\n${serverLog.slice(-800)}`);
+  console.error('internal link graph: FAIL (1 problem(s))');
+  process.exit(1);
+}, WATCHDOG_MS).unref();
 
 const base = `http://127.0.0.1:${port}`;
 const request = (host, pathname) => fetch(base + pathname, { headers: { Host: host, 'x-forwarded-host': host }, redirect: 'manual' });
@@ -154,3 +182,7 @@ if (failures.length) {
   process.exit(1);
 }
 console.log(`internal link graph: PASS (all ${examined} sitemap URLs on ${HOSTS.length} hosts have at least one inbound internal link)`);
+// Explicit. A validator that has printed its verdict must not sit in the event
+// loop waiting on a socket or a child handle - the registry runner waits on this
+// process, so hanging here stalls the whole release gate instead of failing it.
+process.exit(0);
