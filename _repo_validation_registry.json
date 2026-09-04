@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 31,
+    "HARD_FAIL": 32,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -63,6 +63,17 @@
       "repair_command": "npm run cadence:derive -- --write",
       "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
       "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0"
+    },
+    {
+      "id": "cadence-determinism",
+      "npmScript": "validate:cadence-determinism",
+      "command": "node scripts/validators/validate_cadence_determinism.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "derive_capacity.mjs measured throughput as a cumulative stock over weeks elapsed since the first content commit, so the figure fell a little every day and Math.floor dropped it a whole unit on an arbitrary calendar date. 79 guides read 10.05/week on 2026-09-03 and 9.88/week on 2026-09-04, and three scheduled runs on commit 3990a02 - CI 33874876728, Search Intelligence 33869403684 and Full Safe Autonomy 33863160216 - went red with no code change behind them, on a commit that had been green nine hours earlier. cadence-policy-currency could not catch this: it was the check whose verdict depended on the clock. This runs the derivation under seven simulated clocks out to a year against an untouched tree and requires identical capacity figures and a clean --check at every one, forbids any wall-clock read outside the one reported-and-unused diagnostic, and requires every lane that re-derives the budget to do so before it is spent - the ordering that made 33863160216 fail the publisher for releasing exactly the 5 guides the policy allowed, against a cap of 4 the same job had just written. Counts what it examined and hard-fails on zero simulated clocks, zero source assertions or zero re-deriving lanes.",
+      "manual_repair": "close the measurement window in scripts/cadence/derive_capacity.mjs on a commit date rather than on new Date(), or move the `cadence:derive -- --write` step in the named workflow ahead of the step that spends the budget. Re-running or re-deriving does not fix this class: --write only moves the next calendar boundary a few days out.",
+      "repair_evidence": "proved negatively on 2026-09-04: restoring the wall-clock window (weeks measured to new Date()) fails with \"the derivation is not a function of the tree: a simulated clock of 2026-09-03 yields refresh 10 but 2026-09-04 yields refresh 9\" plus six --check failures; moving `cadence:derive -- --write` back after `authority:scale:publish` in full-safe-autonomy.yml fails with \"spends the cadence budget at line N but only re-derives it at line M\". Both restored, and the gate returns to PASS with 7 simulated clocks, 3 source assertions and 1 re-deriving lane."
     },
     {
       "id": "commerce",

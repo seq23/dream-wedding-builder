@@ -30,6 +30,23 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
+      # Re-derive the cadence policy BEFORE anything spends it.
+      #
+      # This step used to sit between the publisher and the gate, and that ordering
+      # was the whole of run 33863160216's failure. publish_authority_batch.mjs reads
+      # new_pages_per_week from data/cadence/policy.json and released exactly 5
+      # guides against the 5 it found. This step then rewrote the figure to 4, and
+      # cadence_gate.js blocked the run for publishing 5 against a cap of 4 that did
+      # not exist when they were published - a budget lowered after it had been
+      # spent, and the run failed for obeying it.
+      #
+      # Because the gate exits 1 ahead of the commit step, that also discarded the
+      # five guides, the re-derived policy and known_urls.json, so the next night
+      # regenerated the identical five and blocked identically. Deriving first means
+      # the publisher and the gate read one policy, the gate can only fire on a real
+      # violation, and a block is something the next run can actually clear.
+      - name: Re-derive cadence capacity from measured history
+        run: npm run cadence:derive -- --write
       - run: npm run authority:yield:build
       - run: npm run authority:scale:fanout
       - run: npm run authority:scale:restore
@@ -140,19 +157,6 @@ jobs:
       - run: npm run validate:structural
       - run: npm run authority:scale:freeze
       - run: npm run authority:scale:validate
-      # Close the derivation loop before the gate reads the policy.
-      #
-      # data/cadence/policy.json carries refresh_capacity_per_week and
-      # new_pages_per_week, both derived from measured throughput and then stored
-      # as literals. Until 2026-08-29 no workflow ran derive_capacity.mjs, so the
-      # literals never moved while the rate they came from did: under a simulated
-      # clock the stored 11/5 becomes 7/3 by 2026-09-20, i.e. the publisher
-      # releasing five guides a week against a measured sustainable three, and
-      # cadence_gate.js computing maintainable_ceiling from a rate the repo no
-      # longer achieved. Re-deriving here means the gate below is measured against
-      # today's history, and data/cadence is already staged by the commit step.
-      - name: Re-derive cadence capacity from measured history
-        run: npm run cadence:derive -- --write
       # The cadence policy is enforced against the publisher, not only against CI.
       # data/cadence/policy.json carries numbers measured by
       # scripts/cadence/derive_capacity.mjs from this repo's own history; without
