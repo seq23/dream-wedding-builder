@@ -186,9 +186,21 @@ if (sourceAssertions.length === 0) {
 
 // ---------------------------------------------------------------- 3. ordering
 //
-// A lane that both re-derives the cadence policy and spends it must re-derive
-// first. Spending means anything that reads new_pages_per_week or is judged against
-// it: publish_authority_batch.mjs consumes the budget, cadence_gate.js enforces it.
+// Three orderings, each of which has already cost a red run on main.
+//
+//  a. The budget must be derived BEFORE it is spent. Spending means anything that
+//     reads new_pages_per_week or is judged against it: publish_authority_batch.mjs
+//     consumes the budget, cadence_gate.js enforces it.
+//  b. Nothing may rewrite the budget BETWEEN the spending and the judging. That is
+//     run 33863160216 stated exactly: the publisher released the 5 guides it was
+//     allowed, a re-derive then lowered the figure to 4, and the gate blocked the
+//     run for the difference.
+//  c. A lane that COMMITS published content must re-derive AFTER that commit and
+//     before it pushes. derive_capacity.mjs measures committed history, so a
+//     derivation taken before the content commit is structurally one authoring
+//     commit behind. On 2026-09-04 this put a policy of 11/week - measured from 79
+//     guides - into the very commit that raised the library to 84, where the
+//     measurement supports 10, and main went red on a policy the lane wrote itself.
 const SPENDERS = [/authority:scale:publish/, /cadence:gate/];
 let lanesExamined = 0;
 if (!exists(WORKFLOWS)) {
@@ -200,14 +212,40 @@ for (const file of fs.readdirSync(path.join(ROOT, WORKFLOWS)).filter((f) => /\.y
   // Ignore comment lines: several of these workflows describe the ordering defect
   // in prose immediately above the step that fixes it.
   const codeLines = lines.map((l) => (/^\s*#/.test(l) ? '' : l));
-  const deriveAt = codeLines.findIndex((l) => /cadence:derive/.test(l) && /--write/.test(l));
-  if (deriveAt < 0) continue;
+  const derivesAt = codeLines.map((l, i) => (/cadence:derive/.test(l) && /--write/.test(l) ? i : -1)).filter((i) => i >= 0);
+  if (derivesAt.length === 0) continue;
   lanesExamined += 1;
+  const deriveAt = derivesAt[0];
+
+  // (a)
   for (const spender of SPENDERS) {
     const spendAt = codeLines.findIndex((l) => spender.test(l));
     if (spendAt < 0) continue;
     if (spendAt < deriveAt) {
       errors.push(`${WORKFLOWS}/${file} spends the cadence budget at line ${spendAt + 1} (${codeLines[spendAt].trim()}) but only re-derives it at line ${deriveAt + 1}. A budget lowered after it has been spent, then used to judge the spending, is how run 33863160216 failed the publisher for obeying the policy it was given.`);
+    }
+  }
+
+  // (b)
+  const publishAt = codeLines.findIndex((l) => /authority:scale:publish/.test(l));
+  const gateAt = codeLines.findIndex((l) => /cadence:gate/.test(l));
+  if (publishAt >= 0 && gateAt > publishAt) {
+    for (const d of derivesAt) {
+      if (d > publishAt && d < gateAt) {
+        errors.push(`${WORKFLOWS}/${file} rewrites the cadence budget at line ${d + 1}, between the publisher at line ${publishAt + 1} and the gate at line ${gateAt + 1}. The gate would then judge the publisher against a budget that did not exist when it published - the exact shape of run 33863160216.`);
+      }
+    }
+  }
+
+  // (c)
+  if (publishAt >= 0) {
+    const firstCommitAt = codeLines.findIndex((l) => /git commit\b/.test(l));
+    const lastPushAt = codeLines.reduce((acc, l, i) => (/git push\b/.test(l) ? i : acc), -1);
+    if (firstCommitAt >= 0 && lastPushAt > firstCommitAt) {
+      const closes = derivesAt.some((d) => d > firstCommitAt && d < lastPushAt);
+      if (!closes) {
+        errors.push(`${WORKFLOWS}/${file} publishes content and commits it at line ${firstCommitAt + 1}, then pushes at line ${lastPushAt + 1}, without re-deriving the cadence policy in between. derive_capacity.mjs reads committed history, so every derivation taken before that commit is one authoring commit stale - which is how a policy of 11/week measured from 79 guides was committed alongside the 84 that make it 10, and main went red on 2026-09-04.`);
+      }
     }
   }
 }

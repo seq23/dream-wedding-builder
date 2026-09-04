@@ -187,6 +187,35 @@ jobs:
           # repair that runs again tomorrow.
           git add data/authority data/authority_scale data/cadence data/release data/seo data/atlas data/search_intelligence artifacts/authority artifacts/sitemaps artifacts/distribution reports/cadence reports/validation 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'authority: governed daily content expansion'
+
+          # Close the derivation against the commit that was just made, before the
+          # push - not against the tree the run started from.
+          #
+          # derive_capacity.mjs measures committed history: it reads the registry out
+          # of git objects, so it is structurally incapable of seeing the guides this
+          # job has not committed yet. The re-derive at the top of this job is
+          # therefore always one authoring commit behind - it has to be, because the
+          # publisher must be given a budget before it spends one - and on 2026-09-04
+          # this lane committed a policy of 11/week derived from 79 guides in the same
+          # commit that raised the library to 84, where the measurement supports 10.
+          # main went red on the next CI run, on a policy this lane had written itself.
+          #
+          # The content commit exists locally at this point, so the derivation can now
+          # see it. Re-deriving here and committing the result means the head commit
+          # that gets pushed carries a policy that follows from its own registry.
+          #
+          # It is a second commit rather than an amend, and it lands in the same push,
+          # so CI evaluates the head - which is the commit that is self-consistent.
+          # Deriving here cannot move the goalposts under the publisher either:
+          # cadence:gate has already run, against the budget the publisher was given.
+          npm run cadence:derive -- --write
+          git add data/cadence/policy.json reports/cadence 2>/dev/null || true
+          git diff --cached --quiet || git commit -m 'cadence: re-derive capacity from the content just committed'
+          # The policy now has to follow from the tree being pushed. If it does not,
+          # this lane has produced a head commit that CI will reject, and it says so
+          # here rather than pushing it and finding out on main.
+          npm run validate:cadence-policy
+
           # Push back to the ref the run started from. On the schedule that is
           # main. A workflow_dispatch from a branch used to push that branch's
           # content straight to main, which made testing a change to this lane
