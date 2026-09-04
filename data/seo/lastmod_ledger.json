@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "ee1b8715e9b3af4625415dc9208c1bd4e1046eda",
+  "generated_from_commit": "45c952aae211a4d411279469f634ea6d16dcfb74",
   "shipping_guide_count": 84,
   "paths": {
     "/": {
@@ -223,7 +223,7 @@
     },
     "/guides/wedding-day-logistics-timeline": {
       "lastmod": "2026-09-04",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-day-logistics-timeline] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-day-logistics-timeline]"
     },
     "/guides/wedding-day-timeline": {
       "lastmod": "2026-07-30",
@@ -263,7 +263,7 @@
     },
     "/guides/wedding-meal-count-dietary-tracking": {
       "lastmod": "2026-09-04",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-meal-count-dietary-tracking] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-meal-count-dietary-tracking]"
     },
     "/guides/wedding-monthly-cash-flow": {
       "lastmod": "2026-07-30",
@@ -271,7 +271,7 @@
     },
     "/guides/wedding-music-cue-sheet": {
       "lastmod": "2026-09-04",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-music-cue-sheet] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-music-cue-sheet]"
     },
     "/guides/wedding-party-timeline": {
       "lastmod": "2026-07-30",
@@ -291,7 +291,7 @@
     },
     "/guides/wedding-reception-flow-timeline": {
       "lastmod": "2026-09-04",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-reception-flow-timeline] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-reception-flow-timeline]"
     },
     "/guides/wedding-reception-order-of-events": {
       "lastmod": "2026-07-30",
@@ -375,7 +375,7 @@
     },
     "/guides/wedding-venue-selection-checklist": {
       "lastmod": "2026-09-04",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-venue-selection-checklist] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-venue-selection-checklist]"
     },
     "/guides/wedding-week-checklist": {
       "lastmod": "2026-07-30",
