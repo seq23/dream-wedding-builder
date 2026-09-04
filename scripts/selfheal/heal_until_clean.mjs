@@ -21,8 +21,13 @@
 // explicitly allowed to mutate, and never inside a validator.
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  classifyRepair, classifyAttempt, shouldRetry, explain,
+  REPAIRED, FAILED, NO_OP,
+} from './repair_status.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const argv = process.argv.slice(2);
@@ -100,6 +105,41 @@ const run = (cmd) => {
   });
   return { cmd, code: r.status ?? 1, out: `${r.stdout || ''}${r.stderr || ''}`, ms: Date.now() - started };
 };
+
+// Did this command change anything? Progress is measured against the tree, never
+// against an exit code, because a repair that exits 0 having touched no file
+// leaves the next validation pass byte-identical - Rule 0 at the granularity of
+// one command. Only the paths git already reports as changed are hashed, so this
+// stays bounded no matter how large the checkout is; HEAD is included because a
+// repair is allowed to commit.
+const git = (...args) => spawnSync('git', args, { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+
+function treeFingerprint() {
+  const head = git('rev-parse', 'HEAD');
+  const status = git('status', '--porcelain=v1', '-uall', '--no-renames');
+  if (head.status !== 0 || status.status !== 0) {
+    // Not an environment this loop can tell the truth in. Say so and stop rather
+    // than falling back to "assume it worked" - that fallback is the defect.
+    console.error('[self-heal] cannot read the git working tree, so a repair cannot be proved to have repaired anything.');
+    console.error(`  git rev-parse HEAD -> ${(head.stderr || '').trim()}`);
+    console.error(`  git status -> ${(status.stderr || '').trim()}`);
+    process.exit(2);
+  }
+  const paths = (status.stdout || '').split('\n').filter(Boolean).map((l) => l.slice(3).trim()).filter(Boolean);
+  const parts = [`HEAD ${(head.stdout || '').trim()}`, status.stdout || ''];
+  for (const rel of paths.sort()) {
+    const abs = path.join(ROOT, rel);
+    let h = 'absent';
+    try {
+      if (fs.statSync(abs).isFile()) {
+        const o = git('hash-object', '--', rel);
+        h = o.status === 0 ? (o.stdout || '').trim() : 'unhashable';
+      } else h = 'dir';
+    } catch { h = 'absent'; }
+    parts.push(`${rel} ${h}`);
+  }
+  return createHash('sha256').update(parts.join('\n')).digest('hex');
+}
 
 // typecheck and test are members of validate:all but are not registry validators,
 // so they are run as named phases - otherwise a TypeScript error would surface as
@@ -195,19 +235,40 @@ for (let attempt = 1; attempt <= MAX; attempt += 1) {
   const repaired = [];
   for (const id of repairable) {
     const cmd = repairFor.get(id);
-    if (DRY) { console.log(`  would repair ${id}: ${cmd}`); repaired.push({ id, cmd, code: 0, dry: true }); continue; }
+    if (DRY) {
+      console.log(`  would repair ${id}: ${cmd}`);
+      repaired.push({ id, cmd, code: null, changed: null, outcome: classifyRepair({ dry: true }), dry: true });
+      continue;
+    }
     console.log(`  repairing ${id}: ${cmd}`);
+    const before = treeFingerprint();
     const r = run(cmd);
-    if (r.code !== 0) console.log(`  repair FAILED for ${id} (exit ${r.code})`);
-    repaired.push({ id, cmd, code: r.code });
+    const changed = r.code === 0 ? treeFingerprint() !== before : null;
+    const outcome = classifyRepair({ code: r.code, changed: changed === null ? undefined : changed });
+    if (outcome === FAILED) console.log(`  repair FAILED for ${id} (exit ${r.code}) - not counted as a repair`);
+    else if (outcome === NO_OP) console.log(`  repair for ${id} exited 0 but changed no file - not counted as a repair`);
+    else console.log(`  repaired ${id}`);
+    repaired.push({ id, cmd, code: r.code, changed, outcome });
   }
+  // Derived, never asserted. The literal that used to sit here said
+  // REPAIRED_RETRYING no matter what the repairs did.
+  const result = classifyAttempt(repaired.map((x) => x.outcome));
+  console.log(`  attempt ${attempt}: ${result} - ${explain(result, repairable)}`);
   attempts.push({
     attempt, failed: failedIds, warnings: warnings.map((w) => w.id), repaired,
     manual: Object.fromEntries(failedIds.filter((id) => manualFor.has(id)).map((id) => [id, manualFor.get(id)])),
     unrunnable_repairs: Object.fromEntries(unrunnable.map((id) => [id, repairFor.get(id)])),
-    result: 'REPAIRED_RETRYING',
+    result,
+    reason: explain(result, repairable),
   });
   if (DRY) break;
+  // An unchanged tree revalidates identically, so a further attempt is not a
+  // retry, it is the same run again. Stop and report the real failure mode
+  // instead of burning the remaining attempts to arrive back here.
+  if (!shouldRetry(result)) {
+    console.error(`[self-heal] stopping after attempt ${attempt}: ${explain(result, repairable)}`);
+    break;
+  }
 }
 
 const report = {

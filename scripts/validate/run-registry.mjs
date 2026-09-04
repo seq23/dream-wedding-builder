@@ -16,6 +16,38 @@ const ROOT = process.cwd();
 const registry = JSON.parse(fs.readFileSync(path.join(ROOT, '_repo_validation_registry.json'), 'utf8'));
 const only = process.argv.includes('--hard-fail-only');
 
+// The registry declares a `counts` block and also carries the list those counts
+// describe. Nothing connected the two, so adding selfheal-status-contract on
+// 2026-09-03 left the header saying 30 HARD_FAILs above a list of 31 and every
+// gate stayed green - the "two components each keeping their own list with no
+// link between them" defect this repo keeps rediscovering, in the file that
+// exists to prevent it. The runner owns this file, so it asserts it here, before
+// spawning anything: a stale header is a registry that cannot be trusted to say
+// what it enforces.
+//
+// Rule 0: an empty validator list is a hard failure, not a clean run of nothing.
+{
+  const all = registry.validators || [];
+  if (all.length === 0) {
+    console.error('[validate:registry] the registry declares zero validators. A run that validated nothing has not passed.');
+    process.exit(1);
+  }
+  const actual = {};
+  for (const v of all) actual[v.severity] = (actual[v.severity] || 0) + 1;
+  const declared = registry.counts || {};
+  const keys = [...new Set([...Object.keys(declared), ...Object.keys(actual)])].sort();
+  const drift = keys.filter((k) => (declared[k] || 0) !== (actual[k] || 0));
+  if (!Object.keys(declared).length) {
+    console.error('[validate:registry] the registry has no `counts` block to check the validator list against.');
+    process.exit(1);
+  }
+  if (drift.length) {
+    for (const k of drift) console.error(`[validate:registry] counts.${k} declares ${declared[k] || 0} but the validator list holds ${actual[k] || 0}`);
+    console.error('[validate:registry] BLOCKING: _repo_validation_registry.json counts disagree with its own validator list. Update counts so the header states what the registry actually enforces.');
+    process.exit(1);
+  }
+}
+
 const results = [];
 for (const v of registry.validators) {
   // Composites re-run their members; skip them so a failure is attributed to the

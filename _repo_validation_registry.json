@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 30,
+    "HARD_FAIL": 32,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -63,6 +63,17 @@
       "repair_command": "npm run cadence:derive -- --write",
       "repair_rationale": "derive_capacity.mjs --check fails only when data/cadence/policy.json claims more capacity than measured throughput supports, or when new_pages_per_week no longer follows from refresh_capacity_per_week; --write is the same script re-deriving both from the same measurement, so it fixes exactly the defect the check detects.",
       "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0"
+    },
+    {
+      "id": "cadence-determinism",
+      "npmScript": "validate:cadence-determinism",
+      "command": "node scripts/validators/validate_cadence_determinism.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "derive_capacity.mjs measured throughput as a cumulative stock over weeks elapsed since the first content commit, so the figure fell a little every day and Math.floor dropped it a whole unit on an arbitrary calendar date. 79 guides read 10.05/week on 2026-09-03 and 9.88/week on 2026-09-04, and three scheduled runs on commit 3990a02 - CI 33874876728, Search Intelligence 33869403684 and Full Safe Autonomy 33863160216 - went red with no code change behind them, on a commit that had been green nine hours earlier. cadence-policy-currency could not catch this: it was the check whose verdict depended on the clock. This runs the derivation under seven simulated clocks out to a year against an untouched tree and requires identical capacity figures and a clean --check at every one, forbids any wall-clock read outside the one reported-and-unused diagnostic, and requires every lane that re-derives the budget to do so before it is spent - the ordering that made 33863160216 fail the publisher for releasing exactly the 5 guides the policy allowed, against a cap of 4 the same job had just written. Counts what it examined and hard-fails on zero simulated clocks, zero source assertions or zero re-deriving lanes.",
+      "manual_repair": "close the measurement window in scripts/cadence/derive_capacity.mjs on a commit date rather than on new Date(), or move the `cadence:derive -- --write` step in the named workflow ahead of the step that spends the budget. Re-running or re-deriving does not fix this class: --write only moves the next calendar boundary a few days out.",
+      "repair_evidence": "proved negatively on 2026-09-04: restoring the wall-clock window (weeks measured to new Date()) fails with \"the derivation is not a function of the tree: a simulated clock of 2026-09-03 yields refresh 10 but 2026-09-04 yields refresh 9\" plus six --check failures; moving `cadence:derive -- --write` back after `authority:scale:publish` in full-safe-autonomy.yml fails with \"spends the cadence budget at line N but only re-derives it at line M\". Both restored, and the gate returns to PASS with 7 simulated clocks, 3 source assertions and 1 re-deriving lane."
     },
     {
       "id": "commerce",
@@ -367,6 +378,18 @@
       "composite": false,
       "manual_repair": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
       "repair_evidence": "proved negatively on 2026-09-03: restoring the prose into internal-link-graph's repair_command fails with \"repair_command is not runnable\"; deleting the `npm run build` step from full-safe-autonomy.yml fails with \"reaches internal-link-graph ... but never runs a build\"; with both fixed it passes 6 runnable commands, 8 manual instructions and 4 build-paired lanes"
+    },
+    {
+      "id": "selfheal-status-contract",
+      "npmScript": "validate:selfheal-contract",
+      "command": "node scripts/validators/validate_selfheal_status_contract.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "a repair that exits non-zero, or exits 0 having changed no file, must never be recorded as a repair. Scheduled run 33744292112 (Full Safe Autonomy, main, 2026-09-03) printed \"repair FAILED for internal-link-graph (exit 2)\" and recorded REPAIRED_RETRYING on the same attempt, three times: heal_until_clean.mjs wrote the attempt result as a string literal instead of deriving it, so a failed repair claimed success and all three attempts were spent revalidating a tree nothing had touched. This gate executes the classification over a case table including that exact exit code, asserts heal_until_clean.mjs actually imports and calls it rather than keeping a second copy of the mapping, and asserts the loop report on disk: any attempt claiming REPAIRED_RETRYING must carry a repair that changed the tree.",
+      "composite": false,
+      "requires_build": false,
+      "manual_repair": "derive the attempt result from classifyAttempt in scripts/selfheal/repair_status.mjs instead of writing a result literal, and fingerprint the tree around each repair so a no-op repair cannot be reported as a repair",
+      "repair_evidence": "proved negatively on 2026-09-03: restoring the literal result:REPAIRED_RETRYING in heal_until_clean.mjs turns this gate red; a synthetic repair_command exiting 2 produces REPAIR_FAILED and one attempt instead of REPAIRED_RETRYING and three"
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
