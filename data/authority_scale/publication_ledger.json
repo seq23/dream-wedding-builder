@@ -47,7 +47,12 @@
     "maxfanout_000142_a2b935cac9",
     "maxfanout_000144_db5e510039",
     "seating-chart-maker:wedding-guest-list-headcount-control",
-    "seating-chart-maker:wedding-rsvp-tracking-system"
+    "seating-chart-maker:wedding-rsvp-tracking-system",
+    "seating-chart-maker:wedding-meal-count-dietary-tracking",
+    "timeline-template:wedding-day-logistics-timeline",
+    "timeline-template:wedding-reception-flow-timeline",
+    "timeline-template:wedding-music-cue-sheet",
+    "checklist-pdf:wedding-venue-selection-checklist"
   ],
   "runs": [
     {
@@ -102,6 +107,23 @@
       "daily_ceiling": 15,
       "weekly_cap": 2,
       "budget_before_run": 2
+    },
+    {
+      "run_at": "2026-09-04T15:31:44.992Z",
+      "date": "2026-09-04",
+      "created": 5,
+      "source": "editorial_seeds",
+      "slugs": [
+        "wedding-meal-count-dietary-tracking",
+        "wedding-day-logistics-timeline",
+        "wedding-reception-flow-timeline",
+        "wedding-music-cue-sheet",
+        "wedding-venue-selection-checklist"
+      ],
+      "daily_ceiling": 15,
+      "weekly_cap": 5,
+      "budget_before_run": 5,
+      "library_changed_this_week_before_run": 0
     }
   ],
   "_reconciled_on": "2026-08-27",

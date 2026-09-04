@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-09-03T15:39:25.475Z",
+  "generated_at": "2026-09-04T15:32:52.685Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -14,6 +14,7 @@
     "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair"
   },
   "manual_repairs": {
+    "cadence-determinism": "close the measurement window in scripts/cadence/derive_capacity.mjs on a commit date rather than on new Date(), or move the `cadence:derive -- --write` step in the named workflow ahead of the step that spends the budget. Re-running or re-deriving does not fix this class: --write only moves the next calendar boundary a few days out.",
     "internal-link-graph": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
     "methodology-contrast": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
     "planner-persistent-entry": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
@@ -22,7 +23,8 @@
     "product-reachability": "restore the working-files block in app/free-wedding-planner/page.tsx",
     "readiness-rubric": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
     "worker-entrypoint": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
-    "repair-contract": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate"
+    "repair-contract": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
+    "selfheal-status-contract": "derive the attempt result from classifyAttempt in scripts/selfheal/repair_status.mjs instead of writing a result literal, and fingerprint the tree around each repair so a no-op repair cannot be reported as a repair"
   },
   "status": "CLEAN",
   "safe_to_push": true,

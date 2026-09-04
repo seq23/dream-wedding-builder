@@ -2904,6 +2904,186 @@
       "to": "/guides/wedding-seating-chart-for-150-guests",
       "anchor": "Wedding Seating Chart for 150 Guests",
       "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-meal-count-dietary-tracking",
+      "to": "/wedding-seating-chart",
+      "anchor": "Start with the wedding seating chart hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-meal-count-dietary-tracking",
+      "to": "/products/seating-chart-maker",
+      "anchor": "Wedding Seating Chart Maker",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-meal-count-dietary-tracking",
+      "to": "/guides/wedding-seating-chart-meal-tracker",
+      "anchor": "Wedding Seating Chart Meal-Choice Tracking",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-meal-count-dietary-tracking",
+      "to": "/guides/wedding-rsvp-tracking-system",
+      "anchor": "Wedding RSVP Tracking System",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-meal-count-dietary-tracking",
+      "to": "/guides/late-rsvp-seating-chart-changes",
+      "anchor": "Managing Late RSVP Seating Changes",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-meal-count-dietary-tracking",
+      "to": "/guides/wedding-seating-chart-allergy-tracker",
+      "anchor": "Wedding Seating Chart Allergy Tracking",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-logistics-timeline",
+      "to": "/wedding-timeline-template",
+      "anchor": "Start with the wedding timeline hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-day-logistics-timeline",
+      "to": "/products/timeline-template",
+      "anchor": "Wedding Timeline Template",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-day-logistics-timeline",
+      "to": "/guides/wedding-day-timeline",
+      "anchor": "Wedding Day Timeline: Build a Realistic Schedule",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-logistics-timeline",
+      "to": "/guides/wedding-timeline-with-first-look",
+      "anchor": "Wedding Timeline With a First Look",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-logistics-timeline",
+      "to": "/guides/brunch-wedding-timeline",
+      "anchor": "Brunch Wedding Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-day-logistics-timeline",
+      "to": "/guides/evening-wedding-timeline",
+      "anchor": "Evening Wedding Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-reception-flow-timeline",
+      "to": "/wedding-timeline-template",
+      "anchor": "Start with the wedding timeline hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-reception-flow-timeline",
+      "to": "/products/timeline-template",
+      "anchor": "Wedding Timeline Template",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-reception-flow-timeline",
+      "to": "/guides/one-venue-wedding-timeline",
+      "anchor": "One-Venue Wedding Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-reception-flow-timeline",
+      "to": "/guides/wedding-reception-order-of-events",
+      "anchor": "Wedding Reception Order of Events",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-reception-flow-timeline",
+      "to": "/guides/wedding-party-timeline",
+      "anchor": "Wedding-Party Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-reception-flow-timeline",
+      "to": "/guides/evening-wedding-timeline",
+      "anchor": "Evening Wedding Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-music-cue-sheet",
+      "to": "/wedding-timeline-template",
+      "anchor": "Start with the wedding timeline hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-music-cue-sheet",
+      "to": "/products/timeline-template",
+      "anchor": "Wedding Timeline Template",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-music-cue-sheet",
+      "to": "/guides/brunch-wedding-timeline",
+      "anchor": "Brunch Wedding Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-music-cue-sheet",
+      "to": "/guides/family-photo-timeline",
+      "anchor": "Family Photo Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-music-cue-sheet",
+      "to": "/guides/wedding-reception-order-of-events",
+      "anchor": "Wedding Reception Order of Events",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-music-cue-sheet",
+      "to": "/guides/wedding-timeline-without-first-look",
+      "anchor": "Wedding Timeline Without a First Look",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-venue-selection-checklist",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-venue-selection-checklist",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-venue-selection-checklist",
+      "to": "/guides/3-month-wedding-checklist",
+      "anchor": "3-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-venue-selection-checklist",
+      "to": "/guides/wedding-planning-timeline",
+      "anchor": "Wedding Planning Timeline",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-venue-selection-checklist",
+      "to": "/guides/backyard-wedding-checklist",
+      "anchor": "Backyard Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-venue-selection-checklist",
+      "to": "/guides/18-month-wedding-checklist",
+      "anchor": "18-Month Wedding Checklist",
+      "relationship": "related"
     }
   ]
 }

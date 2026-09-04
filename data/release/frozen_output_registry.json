@@ -399,6 +399,31 @@
       "slug": "wedding-rsvp-tracking-system",
       "sha256": "393631c3aff29f844154e20af0cbee5196a43b6c771a992e04ecfc720c9fab54",
       "blob": "data/release/frozen_accepted_outputs/393631c3aff29f844154e20af0cbee5196a43b6c771a992e04ecfc720c9fab54.json.gz"
+    },
+    "/guides/wedding-meal-count-dietary-tracking": {
+      "slug": "wedding-meal-count-dietary-tracking",
+      "sha256": "c0077099c66ad0ac2845fe5825d1fad4a8469f9ca32ff0687ccdaa23139a26d9",
+      "blob": "data/release/frozen_accepted_outputs/c0077099c66ad0ac2845fe5825d1fad4a8469f9ca32ff0687ccdaa23139a26d9.json.gz"
+    },
+    "/guides/wedding-day-logistics-timeline": {
+      "slug": "wedding-day-logistics-timeline",
+      "sha256": "807419e7896c43f76f7068bd716e5c6127dd8f46a85a259499ba3c8cee37e397",
+      "blob": "data/release/frozen_accepted_outputs/807419e7896c43f76f7068bd716e5c6127dd8f46a85a259499ba3c8cee37e397.json.gz"
+    },
+    "/guides/wedding-reception-flow-timeline": {
+      "slug": "wedding-reception-flow-timeline",
+      "sha256": "fbdfc75272539e0a9c185b335ded39aed4191e68c58c433f981bbc45ee727ef6",
+      "blob": "data/release/frozen_accepted_outputs/fbdfc75272539e0a9c185b335ded39aed4191e68c58c433f981bbc45ee727ef6.json.gz"
+    },
+    "/guides/wedding-music-cue-sheet": {
+      "slug": "wedding-music-cue-sheet",
+      "sha256": "78ec1d576e917dabd898489a0b4a064f2ae3477ccab35cdd239e1e5ce2ee6f7e",
+      "blob": "data/release/frozen_accepted_outputs/78ec1d576e917dabd898489a0b4a064f2ae3477ccab35cdd239e1e5ce2ee6f7e.json.gz"
+    },
+    "/guides/wedding-venue-selection-checklist": {
+      "slug": "wedding-venue-selection-checklist",
+      "sha256": "41dbccc0c48071c5fb4c3b274b9122905b075c0c9e68d463e6bf975ca456384e",
+      "blob": "data/release/frozen_accepted_outputs/41dbccc0c48071c5fb4c3b274b9122905b075c0c9e68d463e6bf975ca456384e.json.gz"
     }
   }
 }

@@ -6872,7 +6872,432 @@
         "wedding-seating-chart-for-150-guests"
       ],
       "hub_route": "/wedding-seating-chart"
+    },
+    {
+      "slug": "wedding-meal-count-dietary-tracking",
+      "title": "Wedding Meal Counts and Dietary Tracking",
+      "cluster": "Wedding seating chart",
+      "product_id": "seating-chart-maker",
+      "summary": "Meal counts are a guest-record problem rather than a catering one, because the kitchen needs both a total and a breakdown by selection and restriction, and both have to survive every late RSVP change.",
+      "answer": "Meal counts are a guest-record problem rather than a catering one, because the kitchen needs both a total and a breakdown by selection and restriction, and both have to survive every late RSVP change. Keep meal choice, allergy, and dietary restriction on the guest row instead of a separate list, reconcile selections against confirmed attendance before the caterer's count deadline, and reissue one dated breakdown each time a change lands.",
+      "steps": [
+        "Define the exact outcome for wedding meal counts and dietary tracking and name the person responsible for the final version.",
+        "Keep meal choice, allergy, and dietary restriction on the guest row instead of a separate list, reconcile selections against confirmed attendance before the caterer's count deadline, and reissue one dated breakdown each time a change lands.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Building from multiple guest lists instead of one confirmed person-level source of truth.",
+        "Assuming table capacity without the venue-approved layout and service clearances.",
+        "Separating meal, allergy, accessibility, child, or RSVP data from the guest record.",
+        "Sending conflicting exports after late changes instead of issuing one new version."
+      ],
+      "sections": [
+        {
+          "heading": "Build the guest data for Wedding Meal Counts and Dietary Tracking",
+          "paragraphs": [
+            "Meal counts are a guest-record problem rather than a catering one, because the kitchen needs both a total and a breakdown by selection and restriction, and both have to survive every late RSVP change.",
+            "Use one row per person with stable display and sort names, household or social group, RSVP, meal, allergy, accessibility, child/high-chair, table, and unresolved-status fields as applicable."
+          ]
+        },
+        {
+          "heading": "Place, count, and reconcile",
+          "paragraphs": [
+            "Keep meal choice, allergy, and dietary restriction on the guest row instead of a separate list, reconcile selections against confirmed attendance before the caterer's count deadline, and reissue one dated breakdown each time a change lands.",
+            "Example: 118 confirmed guests with 62 choosing one entree and 54 another leaves two rows unresolved, and a guaranteed-count deadline will bill those two as whatever the contract names as the default; the contract decides that, not the spreadsheet."
+          ],
+          "bullets": [
+            "Keep meal choice, allergy, and dietary restriction on the guest row instead of a separate list, reconcile selections against confirmed attendance before the caterer's count deadline, and reissue one dated breakdown each time a change lands.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Prepare the final handoff",
+          "paragraphs": [
+            "Generate alphabetical and table-order views from the same source. Share only the fields each vendor needs, record the version, and retain one master copy.",
+            "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: 118 confirmed guests with 62 choosing one entree and 54 another leaves two rows unresolved, and a guaranteed-count deadline will bill those two as whatever the contract names as the default; the contract decides that, not the spreadsheet."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding meal counts and dietary tracking reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding meal counts and dietary tracking?",
+          "answer": "Meal counts are a guest-record problem rather than a catering one, because the kitchen needs both a total and a breakdown by selection and restriction, and both have to survive every late RSVP change."
+        },
+        {
+          "question": "How should I use this wedding seating chart guide?",
+          "answer": "Keep meal choice, allergy, and dietary restriction on the guest row instead of a separate list, reconcile selections against confirmed attendance before the caterer's count deadline, and reissue one dated breakdown each time a change lands. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors."
+        }
+      ],
+      "semantic_key": "seating-chart-maker:wedding-meal-count-dietary-tracking",
+      "updated_at": "2026-09-04",
+      "verification_boundary": "Confirm table sizes, capacity, accessibility routes, fire and service clearances, and catering handoff requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "wedding-seating-chart-meal-tracker",
+        "wedding-rsvp-tracking-system",
+        "late-rsvp-seating-chart-changes",
+        "wedding-seating-chart-allergy-tracker"
+      ],
+      "hub_route": "/wedding-seating-chart"
+    },
+    {
+      "slug": "wedding-day-logistics-timeline",
+      "title": "Wedding Day Logistics Timeline",
+      "cluster": "Wedding timeline",
+      "product_id": "timeline-template",
+      "summary": "Day-of logistics is the movement of people, vehicles, and materials between times that cannot move, and it breaks at the handoffs between those events far more often than inside them.",
+      "answer": "Day-of logistics is the movement of people, vehicles, and materials between times that cannot move, and it breaks at the handoffs between those events far more often than inside them. Anchor the schedule to the fixed times first, work backward through travel, load-in, and setup, put a named owner on every handoff, and state the buffer between transitions rather than leaving it implied.",
+      "steps": [
+        "Define the exact outcome for wedding day logistics timeline and name the person responsible for the final version.",
+        "Anchor the schedule to the fixed times first, work backward through travel, load-in, and setup, put a named owner on every handoff, and state the buffer between transitions rather than leaving it implied.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using event start times without setup, movement, travel, or recovery buffers.",
+        "Giving every person the full master timeline instead of a clear role-specific handoff.",
+        "Assuming access, parking, load-in, photography, or service timing without vendor confirmation.",
+        "Allowing several edited versions to circulate without one dated final schedule."
+      ],
+      "sections": [
+        {
+          "heading": "Anchor Wedding Day Logistics Timeline to fixed facts",
+          "paragraphs": [
+            "Day-of logistics is the movement of people, vehicles, and materials between times that cannot move, and it breaks at the handoffs between those events far more often than inside them.",
+            "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors."
+          ]
+        },
+        {
+          "heading": "Sequence people, places, and dependencies",
+          "paragraphs": [
+            "Anchor the schedule to the fixed times first, work backward through travel, load-in, and setup, put a named owner on every handoff, and state the buffer between transitions rather than leaving it implied.",
+            "Example: a four o'clock ceremony behind a transfer and a vendor load-in cannot start from an arrival time chosen by preference; add the confirmed transfer duration for that route and day, plus the load-in window the vendor contract states, and read the latest safe departure off the total."
+          ],
+          "bullets": [
+            "Anchor the schedule to the fixed times first, work backward through travel, load-in, and setup, put a named owner on every handoff, and state the buffer between transitions rather than leaving it implied.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Issue role-specific handoffs",
+          "paragraphs": [
+            "Create one master timeline, then filter it for the couple, wedding party, family, photographer, venue, and vendors. Record the version and the contact who can approve changes.",
+            "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: a four o'clock ceremony behind a transfer and a vendor load-in cannot start from an arrival time chosen by preference; add the confirmed transfer duration for that route and day, plus the load-in window the vendor contract states, and read the latest safe departure off the total."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding day logistics timeline reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding day logistics timeline?",
+          "answer": "Day-of logistics is the movement of people, vehicles, and materials between times that cannot move, and it breaks at the handoffs between those events far more often than inside them."
+        },
+        {
+          "question": "How should I use this wedding timeline guide?",
+          "answer": "Anchor the schedule to the fixed times first, work backward through travel, load-in, and setup, put a named owner on every handoff, and state the buffer between transitions rather than leaving it implied. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
+        }
+      ],
+      "semantic_key": "timeline-template:wedding-day-logistics-timeline",
+      "updated_at": "2026-09-04",
+      "verification_boundary": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "wedding-day-timeline",
+        "wedding-timeline-with-first-look",
+        "brunch-wedding-timeline",
+        "evening-wedding-timeline"
+      ],
+      "hub_route": "/wedding-timeline-template"
+    },
+    {
+      "slug": "wedding-reception-flow-timeline",
+      "title": "Wedding Reception Flow Timeline",
+      "cluster": "Wedding timeline",
+      "product_id": "timeline-template",
+      "summary": "A reception timeline manages guest attention and kitchen capacity at the same time, and the two collide whenever a speech and a course are scheduled into the same window.",
+      "answer": "A reception timeline manages guest attention and kitchen capacity at the same time, and the two collide whenever a speech and a course are scheduled into the same window. Sequence arrival, seating, service, speeches, and entertainment so that no two compete for the room, check each block against the caterer's own service timing, and name the person who cues every transition.",
+      "steps": [
+        "Define the exact outcome for wedding reception flow timeline and name the person responsible for the final version.",
+        "Sequence arrival, seating, service, speeches, and entertainment so that no two compete for the room, check each block against the caterer's own service timing, and name the person who cues every transition.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using event start times without setup, movement, travel, or recovery buffers.",
+        "Giving every person the full master timeline instead of a clear role-specific handoff.",
+        "Assuming access, parking, load-in, photography, or service timing without vendor confirmation.",
+        "Allowing several edited versions to circulate without one dated final schedule."
+      ],
+      "sections": [
+        {
+          "heading": "Anchor Wedding Reception Flow Timeline to fixed facts",
+          "paragraphs": [
+            "A reception timeline manages guest attention and kitchen capacity at the same time, and the two collide whenever a speech and a course are scheduled into the same window.",
+            "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors."
+          ]
+        },
+        {
+          "heading": "Sequence people, places, and dependencies",
+          "paragraphs": [
+            "Sequence arrival, seating, service, speeches, and entertainment so that no two compete for the room, check each block against the caterer's own service timing, and name the person who cues every transition.",
+            "Example: three speeches of four minutes each is twelve minutes of speaking but noticeably longer once handoffs and applause are included, which can consume a full service window; the caterer's stated timing decides whether it actually fits."
+          ],
+          "bullets": [
+            "Sequence arrival, seating, service, speeches, and entertainment so that no two compete for the room, check each block against the caterer's own service timing, and name the person who cues every transition.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Issue role-specific handoffs",
+          "paragraphs": [
+            "Create one master timeline, then filter it for the couple, wedding party, family, photographer, venue, and vendors. Record the version and the contact who can approve changes.",
+            "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: three speeches of four minutes each is twelve minutes of speaking but noticeably longer once handoffs and applause are included, which can consume a full service window; the caterer's stated timing decides whether it actually fits."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding reception flow timeline reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding reception flow timeline?",
+          "answer": "A reception timeline manages guest attention and kitchen capacity at the same time, and the two collide whenever a speech and a course are scheduled into the same window."
+        },
+        {
+          "question": "How should I use this wedding timeline guide?",
+          "answer": "Sequence arrival, seating, service, speeches, and entertainment so that no two compete for the room, check each block against the caterer's own service timing, and name the person who cues every transition. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
+        }
+      ],
+      "semantic_key": "timeline-template:wedding-reception-flow-timeline",
+      "updated_at": "2026-09-04",
+      "verification_boundary": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "one-venue-wedding-timeline",
+        "wedding-reception-order-of-events",
+        "wedding-party-timeline",
+        "evening-wedding-timeline"
+      ],
+      "hub_route": "/wedding-timeline-template"
+    },
+    {
+      "slug": "wedding-music-cue-sheet",
+      "title": "Wedding Music and Cue Sheet",
+      "cluster": "Wedding timeline",
+      "product_id": "timeline-template",
+      "summary": "Music problems on the day are usually ownership problems rather than taste problems, because the unresolved question is who presses play, on whose equipment, at which cue.",
+      "answer": "Music problems on the day are usually ownership problems rather than taste problems, because the unresolved question is who presses play, on whose equipment, at which cue. List every cue in event order with the moment it starts and stops, name one owner per cue, confirm in writing what sound equipment the venue actually supplies, and keep an offline copy of every required track.",
+      "steps": [
+        "Define the exact outcome for wedding music and cue sheet and name the person responsible for the final version.",
+        "List every cue in event order with the moment it starts and stops, name one owner per cue, confirm in writing what sound equipment the venue actually supplies, and keep an offline copy of every required track.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using event start times without setup, movement, travel, or recovery buffers.",
+        "Giving every person the full master timeline instead of a clear role-specific handoff.",
+        "Assuming access, parking, load-in, photography, or service timing without vendor confirmation.",
+        "Allowing several edited versions to circulate without one dated final schedule."
+      ],
+      "sections": [
+        {
+          "heading": "Anchor Wedding Music and Cue Sheet to fixed facts",
+          "paragraphs": [
+            "Music problems on the day are usually ownership problems rather than taste problems, because the unresolved question is who presses play, on whose equipment, at which cue.",
+            "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors."
+          ]
+        },
+        {
+          "heading": "Sequence people, places, and dependencies",
+          "paragraphs": [
+            "List every cue in event order with the moment it starts and stops, name one owner per cue, confirm in writing what sound equipment the venue actually supplies, and keep an offline copy of every required track.",
+            "Example: a processional needs a start cue, a hold for a walk of unpredictable length, and a stop cue, so one song title is really three instructions; venue sound restrictions and supplied equipment have to be confirmed rather than assumed."
+          ],
+          "bullets": [
+            "List every cue in event order with the moment it starts and stops, name one owner per cue, confirm in writing what sound equipment the venue actually supplies, and keep an offline copy of every required track.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Issue role-specific handoffs",
+          "paragraphs": [
+            "Create one master timeline, then filter it for the couple, wedding party, family, photographer, venue, and vendors. Record the version and the contact who can approve changes.",
+            "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: a processional needs a start cue, a hold for a walk of unpredictable length, and a stop cue, so one song title is really three instructions; venue sound restrictions and supplied equipment have to be confirmed rather than assumed."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding music and cue sheet reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding music and cue sheet?",
+          "answer": "Music problems on the day are usually ownership problems rather than taste problems, because the unresolved question is who presses play, on whose equipment, at which cue."
+        },
+        {
+          "question": "How should I use this wedding timeline guide?",
+          "answer": "List every cue in event order with the moment it starts and stops, name one owner per cue, confirm in writing what sound equipment the venue actually supplies, and keep an offline copy of every required track. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors."
+        }
+      ],
+      "semantic_key": "timeline-template:wedding-music-cue-sheet",
+      "updated_at": "2026-09-04",
+      "verification_boundary": "Confirm access, timing, travel, photography, service, setup, and breakdown requirements with the venue and responsible vendors.",
+      "related_slugs": [
+        "brunch-wedding-timeline",
+        "family-photo-timeline",
+        "wedding-reception-order-of-events",
+        "wedding-timeline-without-first-look"
+      ],
+      "hub_route": "/wedding-timeline-template"
+    },
+    {
+      "slug": "wedding-venue-selection-checklist",
+      "title": "Wedding Venue Selection Checklist",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "A venue is a set of constraints before it is a look, and capacity, access, curfew, vendor rules, and the weather fallback decide more about the day than the photographs do.",
+      "answer": "A venue is a set of constraints before it is a look, and capacity, access, curfew, vendor rules, and the weather fallback decide more about the day than the photographs do. Confirm the seated capacity with the intended layout, the accessibility and load-in routes, the curfew and noise limits, any exclusive-vendor requirement, and what the weather fallback actually seats, all in writing, before comparing venues on anything else.",
+      "steps": [
+        "Define the exact outcome for wedding venue selection checklist and name the person responsible for the final version.",
+        "Confirm the seated capacity with the intended layout, the accessibility and load-in routes, the curfew and noise limits, any exclusive-vendor requirement, and what the weather fallback actually seats, all in writing, before comparing venues on anything else.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using a generic date sequence without adjusting it to the wedding's actual planning window.",
+        "Leaving tasks without one accountable owner or a proof-of-completion field.",
+        "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
+        "Continuing to add scope during the final handoff period instead of reconciling the plan."
+      ],
+      "sections": [
+        {
+          "heading": "Define the real scope of Wedding Venue Selection Checklist",
+          "paragraphs": [
+            "A venue is a set of constraints before it is a look, and capacity, access, curfew, vendor rules, and the weather fallback decide more about the day than the photographs do.",
+            "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
+          ]
+        },
+        {
+          "heading": "Work in dependency order",
+          "paragraphs": [
+            "Confirm the seated capacity with the intended layout, the accessibility and load-in routes, the curfew and noise limits, any exclusive-vendor requirement, and what the weather fallback actually seats, all in writing, before comparing venues on anything else.",
+            "Example: a room described by its standing capacity will seat fewer people once tables, a dance floor, and service clearances are placed, so ask for the seated-with-dancing figure specifically and have it written into the contract."
+          ],
+          "bullets": [
+            "Confirm the seated capacity with the intended layout, the accessibility and load-in routes, the curfew and noise limits, any exclusive-vendor requirement, and what the weather fallback actually seats, all in writing, before comparing venues on anything else.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Close the loop and hand it off",
+          "paragraphs": [
+            "Update the related budget, vendor, guest, and timeline records whenever this checklist changes. Then issue one dated final version and tell affected people exactly what changed.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: a room described by its standing capacity will seat fewer people once tables, a dance floor, and service clearances are placed, so ask for the seated-with-dancing figure specifically and have it written into the contract."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding venue selection checklist reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding venue selection checklist?",
+          "answer": "A venue is a set of constraints before it is a look, and capacity, access, curfew, vendor rules, and the weather fallback decide more about the day than the photographs do."
+        },
+        {
+          "question": "How should I use this wedding checklist guide?",
+          "answer": "Confirm the seated capacity with the intended layout, the accessibility and load-in routes, the curfew and noise limits, any exclusive-vendor requirement, and what the weather fallback actually seats, all in writing, before comparing venues on anything else. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+        }
+      ],
+      "semantic_key": "checklist-pdf:wedding-venue-selection-checklist",
+      "updated_at": "2026-09-04",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "3-month-wedding-checklist",
+        "wedding-planning-timeline",
+        "backyard-wedding-checklist",
+        "18-month-wedding-checklist"
+      ],
+      "hub_route": "/wedding-checklist"
     }
   ],
-  "generated_at": "2026-08-27"
+  "generated_at": "2026-09-04"
 }

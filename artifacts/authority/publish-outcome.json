@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
-  "run_at": "2026-09-03T15:38:01.904Z",
-  "outcome": "HELD_CADENCE_BUDGET_SPENT",
-  "outcome_kind": "LEGITIMATE_STOP",
-  "outcome_reason": "10 seed(s) passed every check and are waiting. 12 of 5 guides were added or refreshed in the last 7 days, by any author.",
-  "unblocked_by": "time: the 7-day window rolls forward, or data/cadence/policy.json is re-derived from measured throughput",
+  "run_at": "2026-09-04T15:31:44.995Z",
+  "outcome": "PUBLISHED",
+  "outcome_kind": "WORK_DONE",
+  "outcome_reason": "published 5 guide(s)",
+  "unblocked_by": null,
   "policy": "Publishing requires authored material; this job will not manufacture it. A stop is named, never silent.",
   "outcome_codes": {
     "PUBLISHED": "guides were released this run",
@@ -16,9 +16,9 @@
     "EDITORIAL_SEEDS_INVALID": "exit 1: the seed file or the composer is broken"
   },
   "counts": {
-    "published": 0,
+    "published": 5,
     "seeds_total": 12,
-    "seeds_ready_waiting_for_budget": 10,
+    "seeds_ready_waiting_for_budget": 5,
     "seeds_held_for_rewrite": 0,
     "seeds_skipped": 2,
     "topics_awaiting_authoring": 25

@@ -2,18 +2,18 @@
   "report": {
     "run_at": "2026-07-30T00:00:00.000Z",
     "mode": "FULL_SAFE_AUTONOMY",
-    "discovered": 79,
-    "admitted": 79,
+    "discovered": 84,
+    "admitted": 84,
     "rejected": 0,
     "defective": 0,
     "pending_authoring": 0,
     "quality_floor": 9,
     "hub_count": 13,
     "domain_counts": {
-      "weddingseatingchartmaker.com": 19,
+      "weddingseatingchartmaker.com": 20,
       "weddingbudgetspreadsheet.com": 18,
-      "weddingtimelinetemplate.com": 19,
-      "weddingchecklistpdf.com": 23
+      "weddingtimelinetemplate.com": 22,
+      "weddingchecklistpdf.com": 24
     }
   },
   "rejected": []

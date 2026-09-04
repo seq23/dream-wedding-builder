@@ -729,6 +729,36 @@
       "host": "weddingchecklistpdf.com",
       "type": "landing",
       "indexable": true
+    },
+    {
+      "path": "/guides/wedding-meal-count-dietary-tracking",
+      "host": "weddingseatingchartmaker.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-day-logistics-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-reception-flow-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-music-cue-sheet",
+      "host": "weddingtimelinetemplate.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-venue-selection-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
     }
   ],
   "shared_host_routes": [

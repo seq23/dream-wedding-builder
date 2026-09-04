@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "run_at": "2026-09-03T15:38:01.900Z",
+  "run_at": "2026-09-04T15:31:44.989Z",
   "note": "Backlog topics that now have a home but not yet an author. Each needs three sentences; the other twelve fields are composed. This file is the replacement for a generator that refused and failed the build.",
   "topics_awaiting_authoring": 25,
-  "seeds_ready_not_yet_released": 10,
+  "seeds_ready_not_yet_released": 5,
   "queue": [
     {
       "topic": "cultural wedding planning",
