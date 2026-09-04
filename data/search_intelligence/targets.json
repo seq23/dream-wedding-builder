@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-09-04T15:31:45.358Z",
-  "count": 109,
+  "generated_at": "2026-09-04T15:42:29.173Z",
+  "count": 114,
   "targets": [
     {
       "target_id": "041f5ce832a91de82705",
@@ -714,6 +714,16 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "efa65b5393a339a7d83d",
+      "query": "wedding day logistics timeline",
+      "host": "weddingtimelinetemplate.com",
+      "route": "/guides/wedding-day-logistics-timeline",
+      "product_id": "timeline-template",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "1132c8e53a45880e6070",
       "query": "wedding day timeline template",
       "host": "weddingtimelinetemplate.com",
@@ -814,11 +824,31 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "5e5b62815a4f63161ecb",
+      "query": "wedding meal counts and dietary tracking",
+      "host": "weddingseatingchartmaker.com",
+      "route": "/guides/wedding-meal-count-dietary-tracking",
+      "product_id": "seating-chart-maker",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "a670d435c27c66455997",
       "query": "wedding monthly cash-flow planning",
       "host": "weddingbudgetspreadsheet.com",
       "route": "/guides/wedding-monthly-cash-flow",
       "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "a65209dde1008aa60b5d",
+      "query": "wedding music and cue sheet",
+      "host": "weddingtimelinetemplate.com",
+      "route": "/guides/wedding-music-cue-sheet",
+      "product_id": "timeline-template",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -849,6 +879,16 @@
       "host": "weddingchecklistpdf.com",
       "route": "/wedding-planning-checklist",
       "product_id": "checklist-pdf",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "ba3f1d447827d955a985",
+      "query": "wedding reception flow timeline",
+      "host": "weddingtimelinetemplate.com",
+      "route": "/guides/wedding-reception-flow-timeline",
+      "product_id": "timeline-template",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -1059,6 +1099,16 @@
       "host": "weddingbudgetspreadsheet.com",
       "route": "/guides/wedding-vendor-payment-tracker",
       "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "8c34bb31b621e6c565bd",
+      "query": "wedding venue selection checklist",
+      "host": "weddingchecklistpdf.com",
+      "route": "/guides/wedding-venue-selection-checklist",
+      "product_id": "checklist-pdf",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"

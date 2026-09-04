@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-09-04T15:31:46.306Z",
+  "updated_at": "2026-09-04T15:42:29.973Z",
   "providers": {
     "gsc": {
       "state": "AVAILABLE",
@@ -16,7 +16,7 @@
         "start": "2026-08-06",
         "end": "2026-09-02"
       },
-      "checked_at": "2026-09-04T15:31:46.306Z"
+      "checked_at": "2026-09-04T15:42:29.973Z"
     },
     "agent_observation_import": {
       "state": "READY"
