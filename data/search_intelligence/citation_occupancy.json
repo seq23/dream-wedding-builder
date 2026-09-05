@@ -657,12 +657,641 @@
       "summary": {
         "self_cited_rate_pct": null
       }
+    },
+    {
+      "run_at": "2026-09-05T11:45:11.217Z",
+      "state": "MEASURED",
+      "provider": "openrouter",
+      "model": "openai/gpt-4o-mini",
+      "web_max_results": 5,
+      "owned_hosts": [
+        "weddingchecklistpdf.com",
+        "weddingbudgetspreadsheet.com",
+        "weddingtimelinetemplate.com",
+        "weddingseatingchartmaker.com"
+      ],
+      "observations": [
+        {
+          "query": "wedding rehearsal timeline",
+          "property": "weddingtimelinetemplate.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:17.824Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://stg.nyiad.edu/design-articles/wedding-planning/wedding-day-timeline-example",
+            "https://assets.ctfassets.net/77l22z9el0aa/6LcygIpjZkfogLXH65oFna/1ee1787117fb87bd68c12e76a21b64b5/wedding-party-timeline__1_.pdf",
+            "https://www.themanorsva.com/post/creating-a-wedding-timeline-a-step-by-step-guide-from-engagement-to-the-big-day",
+            "https://www.wedding-spot.com/blog/wedding-timeline-ultimate-guide",
+            "https://apracticalwedding.com/calculate-wedding-timeline"
+          ],
+          "cited_domains": [
+            "stg.nyiad.edu",
+            "assets.ctfassets.net",
+            "themanorsva.com",
+            "wedding-spot.com",
+            "apracticalwedding.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding day timeline",
+          "property": "weddingtimelinetemplate.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:22.364Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://blog.wedsites.com/how-to-create-your-wedding-day-timeline",
+            "https://www.brides.com/wedding-day-getting-ready-timeline-11804098",
+            "https://www.brides.com/best-wedding-day-timeline-11806394",
+            "https://stg.nyiad.edu/design-articles/wedding-planning/wedding-day-timeline-example",
+            "https://www.hitched.co.uk/wedding-planning/organising-and-planning/wedding-day-timeline"
+          ],
+          "cited_domains": [
+            "blog.wedsites.com",
+            "brides.com",
+            "stg.nyiad.edu",
+            "hitched.co.uk"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding budget spreadsheet",
+          "property": "weddingbudgetspreadsheet.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:26.693Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://www.weddingwire.com/wedding-planning/wedding-budget.html",
+            "https://tiller.com/how-to-use-a-wedding-spreadsheet-to-budget/",
+            "https://thebudgetsavvybride.com/savvy-spreadsheets-wedding-budget-spreadsheets",
+            "https://tiller.com/10-of-the-best-free-wedding-planning-spreadsheets",
+            "https://callia.com/en-ca/wedding-budget-template"
+          ],
+          "cited_domains": [
+            "weddingwire.com",
+            "tiller.com",
+            "thebudgetsavvybride.com",
+            "callia.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding checklist pdf",
+          "property": "weddingchecklistpdf.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:32.408Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://static1.squarespace.com/static/549f8d47e4b0d2d550a9d970/t/5534f5bde4b06631eac9d9f4/1429534141469/WeddingCheckList.pdf",
+            "https://s3.us-west-2.amazonaws.com/images.herecomestheguide.com/downloads/Wedding-Checklist-Worksheet.pdf?v=1733948945",
+            "https://www.westsussex.gov.uk/media/19664/ceremonies_planning_checklist.pdf",
+            "https://cdn.prod.website-files.com/66f3cd9aac71a14c4a11712f/66fa50063aceafcdedd2d9d2_33890370289.pdf",
+            "https://static1.squarespace.com/static/5c9a2250b2cf793a3a4af9c5/t/5cc70bfa4e17b66ef0eaeab4/1556548608454/Wedding+Checklist.pdf"
+          ],
+          "cited_domains": [
+            "static1.squarespace.com",
+            "s3.us-west-2.amazonaws.com",
+            "westsussex.gov.uk",
+            "cdn.prod.website-files.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding day timeline template",
+          "property": "weddingtimelinetemplate.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:37.411Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://www.hitched.co.uk/wedding-planning/organising-and-planning/wedding-day-timeline",
+            "https://www.foreverweddingfavors.com/blogs/news/wedding-day-timeline",
+            "https://ganttpro.com/wedding-day-timeline-template",
+            "https://blissandbone.com/resources/wedding-day-timeline",
+            "https://static.showit.com/file/xKlu72Pt-x141GdmOMp0LA/108317/wedding_timeline_templates.pdf"
+          ],
+          "cited_domains": [
+            "hitched.co.uk",
+            "foreverweddingfavors.com",
+            "ganttpro.com",
+            "blissandbone.com",
+            "static.showit.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "seating chart maker",
+          "property": "weddingseatingchartmaker.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:42.284Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://www.seatingplan.com/",
+            "https://www.seatplanning.com/",
+            "https://www.seatingplan.com/?lang=en_GB",
+            "https://creately.com/usage/seating-chart-templates",
+            "https://www.socialtables.com/seating-chart-maker/"
+          ],
+          "cited_domains": [
+            "seatingplan.com",
+            "seatplanning.com",
+            "creately.com",
+            "socialtables.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding seating chart template",
+          "property": "weddingseatingchartmaker.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:47.159Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://www.canva.com/create/wedding-seating-charts",
+            "https://onplanners.com/templates/wedding-seating-chart-original",
+            "https://fwd.iws.edu/en/wedding-seating-table-chart-template.html",
+            "https://fwd.iws.edu/en/wedding-seating-chart-template-excel.html",
+            "https://www.vistaprint.com/consumer-signage/foam-board-wedding-signs/templates/custom/wedding-seating-chart"
+          ],
+          "cited_domains": [
+            "canva.com",
+            "onplanners.com",
+            "fwd.iws.edu",
+            "vistaprint.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding timeline template",
+          "property": "weddingtimelinetemplate.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:51.344Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://ganttpro.com/wedding-day-timeline-template",
+            "https://static.showit.com/file/xKlu72Pt-x141GdmOMp0LA/108317/wedding_timeline_templates.pdf",
+            "https://blissandbone.com/resources/wedding-day-timeline",
+            "https://text-my-wedding.com/wedding-timeline-generator",
+            "https://creately.com/diagram/example/CMdG1pontCA/wedding-timeline-template"
+          ],
+          "cited_domains": [
+            "ganttpro.com",
+            "static.showit.com",
+            "blissandbone.com",
+            "text-my-wedding.com",
+            "creately.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding budget template",
+          "property": "weddingbudgetspreadsheet.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:45:57.767Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://www.ynab.com/templates/wedding",
+            "https://www.ally.com/content/dam/pdf/content-hub/Ally_Wedding-Budget-Prioritization-Worksheet_022722.pdf.coredownload.pdf",
+            "https://blueprint.thebudgetsavvybride.com/",
+            "https://www.ramseysolutions.com/saving/how-to-create-a-wedding-budget",
+            "https://thegoodocs.com/freebies/wedding-budgets"
+          ],
+          "cited_domains": [
+            "ynab.com",
+            "ally.com",
+            "blueprint.thebudgetsavvybride.com",
+            "ramseysolutions.com",
+            "thegoodocs.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding planning timeline",
+          "property": "weddingchecklistpdf.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:46:02.526Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://www.wedgewoodweddings.com/blog/essential-wedding-planning-timeline",
+            "https://misstomrsbox.com/wp-content/themes/misstomrs/file/wedding-planning/wedding-planning-timeline.pdf",
+            "https://harrisburgmagazine.com/from-yes-to-i-do-a-real-world-wedding-planning-timeline",
+            "https://www.weddingshop.com/inspiration/wedding-planning/wedding-checklist-to-do-list-timeline",
+            "https://tulletogether.com/2024/09/22/the-ultimate-wedding-planning-timeline-what-to-do-and-when-to-do-it"
+          ],
+          "cited_domains": [
+            "wedgewoodweddings.com",
+            "misstomrsbox.com",
+            "harrisburgmagazine.com",
+            "weddingshop.com",
+            "tulletogether.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding budget calculator",
+          "property": "weddingbudgetspreadsheet.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:46:08.397Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://www.sofi.com/wedding-cost-calculator",
+            "https://www.ramseysolutions.com/saving/wedding-budget-calculator",
+            "https://www.nerdwallet.com/finance/learn/wedding-budget-cost-calculator",
+            "https://ukcalculator.com/wedding-cost-calculator.html",
+            "https://www.weddingwire.com/wedding-planning/wedding-budget.html"
+          ],
+          "cited_domains": [
+            "sofi.com",
+            "ramseysolutions.com",
+            "nerdwallet.com",
+            "ukcalculator.com",
+            "weddingwire.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "printable wedding checklist",
+          "property": "weddingchecklistpdf.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:46:12.528Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://theweddingnotebook.com/inspire/ideas-and-advice/complete-wedding-checklist-free-printable-timeline",
+            "https://www.uprinting.com/wedding-checklist-for-printed-materials.html",
+            "https://www.herecomestheguide.com/wedding-ideas/category/printable",
+            "https://www.herecomestheguide.com/wedding-ideas/the-guide-brides-wedding-checklist",
+            "https://iris.londoncouncils.gov.uk/viewer/free-printable-wedding-checklist.html"
+          ],
+          "cited_domains": [
+            "theweddingnotebook.com",
+            "uprinting.com",
+            "herecomestheguide.com",
+            "iris.londoncouncils.gov.uk"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        },
+        {
+          "query": "wedding seating chart",
+          "property": "weddingseatingchartmaker.com",
+          "evidence_tier": "T2b",
+          "engine": "openrouter:openai/gpt-4o-mini",
+          "observed_at": "2026-09-05T11:46:18.917Z",
+          "status": "observed",
+          "evidence_class": "ANSWER_ENGINE_CITATION_SURFACE",
+          "note": "answer-engine citations for this query on this date; not universal rank and not equivalent to a SERP position",
+          "citations": [
+            "https://iowa.wedsociety.com/article/seating-chart/",
+            "https://www.wedsociety.com/article/seating-chart",
+            "https://www.socialtables.com/blog/event-planning/how-to-create-seating-chart-wedding",
+            "https://www.seatcanvas.app/blog/wedding-seating-chart-guide",
+            "https://www.canva.com/create/wedding-seating-charts"
+          ],
+          "cited_domains": [
+            "iowa.wedsociety.com",
+            "wedsociety.com",
+            "socialtables.com",
+            "seatcanvas.app",
+            "canva.com"
+          ],
+          "cited_ours": [],
+          "self_cited": false
+        }
+      ],
+      "incumbents": [
+        {
+          "domain": "blissandbone.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "canva.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "creately.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "ganttpro.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "hitched.co.uk",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "ramseysolutions.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "socialtables.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "static.showit.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "stg.nyiad.edu",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "weddingwire.com",
+          "queries_cited_on": 2,
+          "share_of_answered_pct": 15.4
+        },
+        {
+          "domain": "ally.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "apracticalwedding.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "assets.ctfassets.net",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "blog.wedsites.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "blueprint.thebudgetsavvybride.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "brides.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "callia.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "cdn.prod.website-files.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "foreverweddingfavors.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "fwd.iws.edu",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "harrisburgmagazine.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "herecomestheguide.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "iowa.wedsociety.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "iris.londoncouncils.gov.uk",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "misstomrsbox.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "nerdwallet.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "onplanners.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "s3.us-west-2.amazonaws.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "seatcanvas.app",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "seatingplan.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "seatplanning.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "sofi.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "static1.squarespace.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "text-my-wedding.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "thebudgetsavvybride.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "thegoodocs.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "themanorsva.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "theweddingnotebook.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "tiller.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "tulletogether.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "ukcalculator.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "uprinting.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "vistaprint.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "wedding-spot.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "weddingshop.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "wedgewoodweddings.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "wedsociety.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "westsussex.gov.uk",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        },
+        {
+          "domain": "ynab.com",
+          "queries_cited_on": 1,
+          "share_of_answered_pct": 7.7
+        }
+      ],
+      "by_property": {
+        "weddingtimelinetemplate.com": {
+          "queries_answered": 4,
+          "queries_self_cited": 0,
+          "self_cited_rate_pct": 0
+        },
+        "weddingbudgetspreadsheet.com": {
+          "queries_answered": 3,
+          "queries_self_cited": 0,
+          "self_cited_rate_pct": 0
+        },
+        "weddingchecklistpdf.com": {
+          "queries_answered": 3,
+          "queries_self_cited": 0,
+          "self_cited_rate_pct": 0
+        },
+        "weddingseatingchartmaker.com": {
+          "queries_answered": 3,
+          "queries_self_cited": 0,
+          "self_cited_rate_pct": 0
+        }
+      },
+      "summary": {
+        "queries_attempted": 13,
+        "queries_answered": 13,
+        "queries_errored": 0,
+        "queries_self_cited": 0,
+        "self_cited_rate_pct": 0,
+        "distinct_domains_cited": 49
+      }
     }
   ],
-  "updated_at": "2026-09-04T15:42:30.126Z",
+  "updated_at": "2026-09-05T11:45:11.217Z",
   "latest": {
-    "run_at": "2026-09-04T15:42:30.126Z",
-    "state": "HELD_CADENCE",
-    "self_cited_rate_pct": null
+    "run_at": "2026-09-05T11:45:11.217Z",
+    "state": "MEASURED",
+    "queries_attempted": 13,
+    "queries_answered": 13,
+    "queries_errored": 0,
+    "queries_self_cited": 0,
+    "self_cited_rate_pct": 0,
+    "distinct_domains_cited": 49
   }
 }
