@@ -11,7 +11,7 @@
   "renderable_guides_now": 84,
   "sustained_throughput_per_week": 10.5,
   "throughput_if_measured_from_repo_start": 5.71,
-  "throughput_if_measured_to_today": 10.32,
+  "throughput_if_measured_to_today": 1.4,
   "window_choice": "Measured from the first commit that created content, not from the first commit in the repo. The registry did not exist for the first weeks of this repo and no guide could have been written in them, so including them measures setup time as authoring time and understates capacity by roughly half.",
   "window_close_choice": "The window closes at the last commit that changed the registry, not at today. Closing it at today divides a cumulative stock by a denominator that grows with the clock, so the rate falls every idle day and floor() drops it a whole unit on an arbitrary calendar date - which is what turned three green scheduled runs red on 2026-09-04 with no commit behind them. Anchored to the last authoring event the figure is a pure function of committed history: the same tree derives the same numbers whenever it is measured. throughput_if_measured_to_today is reported to show the difference and is not used.",
   "best_single_interval_per_week": 78.17,
