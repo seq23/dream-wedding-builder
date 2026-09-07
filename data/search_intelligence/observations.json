@@ -900,6 +900,186 @@
       "ctr": 0,
       "average_position": 64,
       "target_match": false
+    },
+    {
+      "observation_id": "64d348ab2a77b9f8d93b",
+      "observed_at": "2026-09-07T11:45:11.548Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "cost of wedding for 100 people",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 71,
+      "target_match": false
+    },
+    {
+      "observation_id": "7e68eb7d063f96a2bf8f",
+      "observed_at": "2026-09-07T11:45:11.548Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "how much is a 100 person wedding",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 85,
+      "target_match": false
+    },
+    {
+      "observation_id": "bbb02c544bd0ad232d0a",
+      "observed_at": "2026-09-07T11:45:11.823Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "destination wedding itinerary",
+      "page": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "average_position": 95.58333333333333,
+      "target_match": false
+    },
+    {
+      "observation_id": "66658ccde9459490bc45",
+      "observed_at": "2026-09-07T11:45:11.823Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "destination wedding weekend itinerary",
+      "page": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "average_position": 80,
+      "target_match": true
+    },
+    {
+      "observation_id": "b119046ab29bc03d7f08",
+      "observed_at": "2026-09-07T11:45:11.823Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "editable wedding timeline template",
+      "page": "https://weddingtimelinetemplate.com/products/timeline-template",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 51,
+      "target_match": false
+    },
+    {
+      "observation_id": "c030d3104ef22f5344dc",
+      "observed_at": "2026-09-07T11:45:11.823Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "evening timeline",
+      "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 78,
+      "target_match": false
+    },
+    {
+      "observation_id": "340b458ff51cf5893836",
+      "observed_at": "2026-09-07T11:45:11.824Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "evening wedding timeline",
+      "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "average_position": 80.16666666666667,
+      "target_match": true
+    },
+    {
+      "observation_id": "cf69cf7eca76922ad1f1",
+      "observed_at": "2026-09-07T11:45:12.007Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "day of wedding coordinator checklist",
+      "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "average_position": 54.333333333333336,
+      "target_match": false
+    },
+    {
+      "observation_id": "f1c47c28e5f2163907e3",
+      "observed_at": "2026-09-07T11:45:12.007Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "printable day of wedding coordinator checklist",
+      "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 59,
+      "target_match": false
+    },
+    {
+      "observation_id": "73bcca09fdc47b690627",
+      "observed_at": "2026-09-07T11:45:12.007Z",
+      "period": {
+        "start": "2026-08-09",
+        "end": "2026-09-05"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding coordinator wedding day checklist",
+      "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 64,
+      "target_match": false
     }
   ]
 }
