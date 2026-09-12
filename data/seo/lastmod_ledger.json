@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "75d6b9d9f8a3a19c9dde56f1fb5eda1ded3461a0",
-  "shipping_guide_count": 84,
+  "generated_from_commit": "6372f7478998dbdd70927278583a18fdfe5ed5ed",
+  "shipping_guide_count": 89,
   "paths": {
     "/": {
       "lastmod": "2026-09-02",
@@ -42,7 +42,7 @@
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
-      "lastmod": "2026-09-04",
+      "lastmod": "2026-09-12",
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/1-month-wedding-checklist": {
@@ -68,6 +68,10 @@
     "/guides/9-month-wedding-checklist": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=9-month-wedding-checklist]"
+    },
+    "/guides/accessible-wedding-planning-checklist": {
+      "lastmod": "2026-09-12",
+      "source": "data/authority/content_registry.json#pages[slug=accessible-wedding-planning-checklist] (uncommitted at generation; pinned to run date)"
     },
     "/guides/alphabetical-vs-table-order-seating-chart": {
       "lastmod": "2026-07-30",
@@ -112,6 +116,14 @@
     "/guides/destination-wedding-weekend-itinerary": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=destination-wedding-weekend-itinerary]"
+    },
+    "/guides/diy-wedding-cost-tradeoffs": {
+      "lastmod": "2026-09-12",
+      "source": "data/authority/content_registry.json#pages[slug=diy-wedding-cost-tradeoffs] (uncommitted at generation; pinned to run date)"
+    },
+    "/guides/elopement-planning-checklist": {
+      "lastmod": "2026-09-12",
+      "source": "data/authority/content_registry.json#pages[slug=elopement-planning-checklist] (uncommitted at generation; pinned to run date)"
     },
     "/guides/estimated-vs-actual-wedding-costs": {
       "lastmod": "2026-07-30",
@@ -172,6 +184,10 @@
     "/guides/two-venue-wedding-timeline": {
       "lastmod": "2026-07-30",
       "source": "data/authority/content_registry.json#pages[slug=two-venue-wedding-timeline]"
+    },
+    "/guides/wedding-attire-lead-time-checklist": {
+      "lastmod": "2026-09-12",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-attire-lead-time-checklist] (uncommitted at generation; pinned to run date)"
     },
     "/guides/wedding-budget-10000": {
       "lastmod": "2026-07-30",
@@ -288,6 +304,10 @@
     "/guides/wedding-planning-timeline": {
       "lastmod": "2026-08-27",
       "source": "data/authority/content_registry.json#pages[slug=wedding-planning-timeline]"
+    },
+    "/guides/wedding-rain-plan-checklist": {
+      "lastmod": "2026-09-12",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-rain-plan-checklist] (uncommitted at generation; pinned to run date)"
     },
     "/guides/wedding-reception-flow-timeline": {
       "lastmod": "2026-09-04",

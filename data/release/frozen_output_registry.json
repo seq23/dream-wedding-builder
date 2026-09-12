@@ -424,6 +424,31 @@
       "slug": "wedding-venue-selection-checklist",
       "sha256": "41dbccc0c48071c5fb4c3b274b9122905b075c0c9e68d463e6bf975ca456384e",
       "blob": "data/release/frozen_accepted_outputs/41dbccc0c48071c5fb4c3b274b9122905b075c0c9e68d463e6bf975ca456384e.json.gz"
+    },
+    "/guides/accessible-wedding-planning-checklist": {
+      "slug": "accessible-wedding-planning-checklist",
+      "sha256": "24c3398a307a6fbc1b6d698f063b96014cf52904b571f90547af54db5135aad6",
+      "blob": "data/release/frozen_accepted_outputs/24c3398a307a6fbc1b6d698f063b96014cf52904b571f90547af54db5135aad6.json.gz"
+    },
+    "/guides/elopement-planning-checklist": {
+      "slug": "elopement-planning-checklist",
+      "sha256": "2af2a43170bb1a13580d6b2cafda8b7e6f54e84813982d32099b0fa61a0e9b4e",
+      "blob": "data/release/frozen_accepted_outputs/2af2a43170bb1a13580d6b2cafda8b7e6f54e84813982d32099b0fa61a0e9b4e.json.gz"
+    },
+    "/guides/wedding-rain-plan-checklist": {
+      "slug": "wedding-rain-plan-checklist",
+      "sha256": "e72d8e92ad02fe62bc2a98b0bd689fc12291c5479e07960a3201a5c4f394c3cb",
+      "blob": "data/release/frozen_accepted_outputs/e72d8e92ad02fe62bc2a98b0bd689fc12291c5479e07960a3201a5c4f394c3cb.json.gz"
+    },
+    "/guides/diy-wedding-cost-tradeoffs": {
+      "slug": "diy-wedding-cost-tradeoffs",
+      "sha256": "822a4030907b6419777a67cfcecc8e41ce6af9b8b3820f9fbb0dbba4aa820ecf",
+      "blob": "data/release/frozen_accepted_outputs/822a4030907b6419777a67cfcecc8e41ce6af9b8b3820f9fbb0dbba4aa820ecf.json.gz"
+    },
+    "/guides/wedding-attire-lead-time-checklist": {
+      "slug": "wedding-attire-lead-time-checklist",
+      "sha256": "3f612f579e7d708d6c0b5f0ab6faabe48545932ba816a2973db329de2394c524",
+      "blob": "data/release/frozen_accepted_outputs/3f612f579e7d708d6c0b5f0ab6faabe48545932ba816a2973db329de2394c524.json.gz"
     }
   }
 }

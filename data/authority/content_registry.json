@@ -7297,7 +7297,432 @@
         "18-month-wedding-checklist"
       ],
       "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "accessible-wedding-planning-checklist",
+      "title": "Accessible Wedding Planning Checklist",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "Accessibility is a design input rather than a late accommodation, because routes, seating, sightlines, sound, and dietary needs all constrain decisions that lock early in planning.",
+      "answer": "Accessibility is a design input rather than a late accommodation, because routes, seating, sightlines, sound, and dietary needs all constrain decisions that lock early in planning. Ask about access needs at invitation time, walk the whole route from parking to seat to restroom yourself, confirm exactly what the venue's accessibility description covers, and record every need against the guest it belongs to.",
+      "steps": [
+        "Define the exact outcome for accessible wedding planning checklist and name the person responsible for the final version.",
+        "Ask about access needs at invitation time, walk the whole route from parking to seat to restroom yourself, confirm exactly what the venue's accessibility description covers, and record every need against the guest it belongs to.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using a generic date sequence without adjusting it to the wedding's actual planning window.",
+        "Leaving tasks without one accountable owner or a proof-of-completion field.",
+        "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
+        "Continuing to add scope during the final handoff period instead of reconciling the plan."
+      ],
+      "sections": [
+        {
+          "heading": "Define the real scope of Accessible Wedding Planning Checklist",
+          "paragraphs": [
+            "Accessibility is a design input rather than a late accommodation, because routes, seating, sightlines, sound, and dietary needs all constrain decisions that lock early in planning.",
+            "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
+          ]
+        },
+        {
+          "heading": "Work in dependency order",
+          "paragraphs": [
+            "Ask about access needs at invitation time, walk the whole route from parking to seat to restroom yourself, confirm exactly what the venue's accessibility description covers, and record every need against the guest it belongs to.",
+            "Example: an accessible entrance does not guarantee a step-free path onward to the ceremony space or the restrooms; walking the full route is what confirms it, and a venue listing is not a substitute for that walk."
+          ],
+          "bullets": [
+            "Ask about access needs at invitation time, walk the whole route from parking to seat to restroom yourself, confirm exactly what the venue's accessibility description covers, and record every need against the guest it belongs to.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Close the loop and hand it off",
+          "paragraphs": [
+            "Update the related budget, vendor, guest, and timeline records whenever this checklist changes. Then issue one dated final version and tell affected people exactly what changed.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: an accessible entrance does not guarantee a step-free path onward to the ceremony space or the restrooms; walking the full route is what confirms it, and a venue listing is not a substitute for that walk."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by accessible wedding planning checklist reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of accessible wedding planning checklist?",
+          "answer": "Accessibility is a design input rather than a late accommodation, because routes, seating, sightlines, sound, and dietary needs all constrain decisions that lock early in planning."
+        },
+        {
+          "question": "How should I use this wedding checklist guide?",
+          "answer": "Ask about access needs at invitation time, walk the whole route from parking to seat to restroom yourself, confirm exactly what the venue's accessibility description covers, and record every need against the guest it belongs to. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+        }
+      ],
+      "semantic_key": "checklist-pdf:accessible-wedding-planning-checklist",
+      "updated_at": "2026-09-12",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "9-month-wedding-checklist",
+        "rehearsal-dinner-checklist",
+        "18-month-wedding-checklist",
+        "wedding-venue-selection-checklist"
+      ],
+      "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "elopement-planning-checklist",
+      "title": "Elopement Planning Checklist",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "An elopement removes guests and production but not legal requirements, because the licence, the officiant's authority, and the witness rules still decide whether the marriage is valid.",
+      "answer": "An elopement removes guests and production but not legal requirements, because the licence, the officiant's authority, and the witness rules still decide whether the marriage is valid. Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel.",
+      "steps": [
+        "Define the exact outcome for elopement planning checklist and name the person responsible for the final version.",
+        "Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using a generic date sequence without adjusting it to the wedding's actual planning window.",
+        "Leaving tasks without one accountable owner or a proof-of-completion field.",
+        "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
+        "Continuing to add scope during the final handoff period instead of reconciling the plan."
+      ],
+      "sections": [
+        {
+          "heading": "Define the real scope of Elopement Planning Checklist",
+          "paragraphs": [
+            "An elopement removes guests and production but not legal requirements, because the licence, the officiant's authority, and the witness rules still decide whether the marriage is valid.",
+            "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
+          ]
+        },
+        {
+          "heading": "Work in dependency order",
+          "paragraphs": [
+            "Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel.",
+            "Example: licence validity windows, waiting periods, and required witness counts vary by jurisdiction and change over time, so confirm the current rule with the issuing office for your location rather than relying on any general guide, this one included."
+          ],
+          "bullets": [
+            "Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Close the loop and hand it off",
+          "paragraphs": [
+            "Update the related budget, vendor, guest, and timeline records whenever this checklist changes. Then issue one dated final version and tell affected people exactly what changed.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: licence validity windows, waiting periods, and required witness counts vary by jurisdiction and change over time, so confirm the current rule with the issuing office for your location rather than relying on any general guide, this one included."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by elopement planning checklist reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of elopement planning checklist?",
+          "answer": "An elopement removes guests and production but not legal requirements, because the licence, the officiant's authority, and the witness rules still decide whether the marriage is valid."
+        },
+        {
+          "question": "How should I use this wedding checklist guide?",
+          "answer": "Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+        }
+      ],
+      "semantic_key": "checklist-pdf:elopement-planning-checklist",
+      "updated_at": "2026-09-12",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "courthouse-wedding-checklist",
+        "3-month-wedding-checklist",
+        "destination-wedding-checklist",
+        "micro-wedding-checklist"
+      ],
+      "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "wedding-rain-plan-checklist",
+      "title": "Wedding Rain Plan Checklist",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "A rain plan is only real when the trigger, the backup space, the decision-maker, and the decision deadline have all been settled before the day itself.",
+      "answer": "A rain plan is only real when the trigger, the backup space, the decision-maker, and the decision deadline have all been settled before the day itself. Write down the specific condition that triggers the move, confirm what the backup space seats under the same layout, name who makes the call and by when, and check what the change costs in vendor and rental terms.",
+      "steps": [
+        "Define the exact outcome for wedding rain plan checklist and name the person responsible for the final version.",
+        "Write down the specific condition that triggers the move, confirm what the backup space seats under the same layout, name who makes the call and by when, and check what the change costs in vendor and rental terms.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using a generic date sequence without adjusting it to the wedding's actual planning window.",
+        "Leaving tasks without one accountable owner or a proof-of-completion field.",
+        "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
+        "Continuing to add scope during the final handoff period instead of reconciling the plan."
+      ],
+      "sections": [
+        {
+          "heading": "Define the real scope of Wedding Rain Plan Checklist",
+          "paragraphs": [
+            "A rain plan is only real when the trigger, the backup space, the decision-maker, and the decision deadline have all been settled before the day itself.",
+            "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
+          ]
+        },
+        {
+          "heading": "Work in dependency order",
+          "paragraphs": [
+            "Write down the specific condition that triggers the move, confirm what the backup space seats under the same layout, name who makes the call and by when, and check what the change costs in vendor and rental terms.",
+            "Example: a backup room that holds the same headcount without room for a dance floor is not the same plan, so compare the fallback against the actual layout and confirm the decision deadline each vendor needs in order to switch."
+          ],
+          "bullets": [
+            "Write down the specific condition that triggers the move, confirm what the backup space seats under the same layout, name who makes the call and by when, and check what the change costs in vendor and rental terms.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Close the loop and hand it off",
+          "paragraphs": [
+            "Update the related budget, vendor, guest, and timeline records whenever this checklist changes. Then issue one dated final version and tell affected people exactly what changed.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: a backup room that holds the same headcount without room for a dance floor is not the same plan, so compare the fallback against the actual layout and confirm the decision deadline each vendor needs in order to switch."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding rain plan checklist reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding rain plan checklist?",
+          "answer": "A rain plan is only real when the trigger, the backup space, the decision-maker, and the decision deadline have all been settled before the day itself."
+        },
+        {
+          "question": "How should I use this wedding checklist guide?",
+          "answer": "Write down the specific condition that triggers the move, confirm what the backup space seats under the same layout, name who makes the call and by when, and check what the change costs in vendor and rental terms. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+        }
+      ],
+      "semantic_key": "checklist-pdf:wedding-rain-plan-checklist",
+      "updated_at": "2026-09-12",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "wedding-venue-selection-checklist",
+        "3-month-wedding-checklist",
+        "bridal-shower-checklist",
+        "day-of-coordinator-checklist"
+      ],
+      "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "diy-wedding-cost-tradeoffs",
+      "title": "DIY Wedding Cost Tradeoffs",
+      "cluster": "Wedding budget",
+      "product_id": "budget-spreadsheet",
+      "summary": "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials.",
+      "answer": "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials. Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
+      "steps": [
+        "Define the exact outcome for diy wedding cost tradeoffs and name the person responsible for the final version.",
+        "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
+        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
+        "Tracking the final total without tracking the month cash is actually due.",
+        "Marking a payment complete without a receipt, cleared record, or dispute note."
+      ],
+      "sections": [
+        {
+          "heading": "Set the financial boundary for DIY Wedding Cost Tradeoffs",
+          "paragraphs": [
+            "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials.",
+            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
+          ]
+        },
+        {
+          "heading": "Model the decision before committing",
+          "paragraphs": [
+            "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
+            "Example: a centrepiece whose materials cost less than a florist's quote can still cost more once build hours, storage, and day-of setup labour are counted; the comparison only means something against a real written quote."
+          ],
+          "bullets": [
+            "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Reconcile contracts and cash",
+          "paragraphs": [
+            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
+            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: a centrepiece whose materials cost less than a florist's quote can still cost more once build hours, storage, and day-of setup labour are counted; the comparison only means something against a real written quote."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by diy wedding cost tradeoffs reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of diy wedding cost tradeoffs?",
+          "answer": "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials."
+        },
+        {
+          "question": "How should I use this wedding budget guide?",
+          "answer": "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
+        }
+      ],
+      "semantic_key": "budget-spreadsheet:diy-wedding-cost-tradeoffs",
+      "updated_at": "2026-09-12",
+      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
+      "related_slugs": [
+        "wedding-budget-calculator",
+        "wedding-hidden-costs-checklist",
+        "wedding-budget-30000",
+        "wedding-budget-for-50-guests"
+      ],
+      "hub_route": "/wedding-budget-spreadsheet"
+    },
+    {
+      "slug": "wedding-attire-lead-time-checklist",
+      "title": "Wedding Attire Lead Time Checklist",
+      "cluster": "Wedding checklist",
+      "product_id": "checklist-pdf",
+      "summary": "Attire is governed by lead times that are set by other people, because the order window, the alteration schedule, and the final fitting each depend on a supplier's calendar rather than yours.",
+      "answer": "Attire is governed by lead times that are set by other people, because the order window, the alteration schedule, and the final fitting each depend on a supplier's calendar rather than yours. Get the order and alteration lead times in writing from each supplier, schedule the final fitting close enough to the date that the fit still holds, and plan transport, steaming, and emergency repair before the week of the wedding.",
+      "steps": [
+        "Define the exact outcome for wedding attire lead time checklist and name the person responsible for the final version.",
+        "Get the order and alteration lead times in writing from each supplier, schedule the final fitting close enough to the date that the fit still holds, and plan transport, steaming, and emergency repair before the week of the wedding.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Using a generic date sequence without adjusting it to the wedding's actual planning window.",
+        "Leaving tasks without one accountable owner or a proof-of-completion field.",
+        "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
+        "Continuing to add scope during the final handoff period instead of reconciling the plan."
+      ],
+      "sections": [
+        {
+          "heading": "Define the real scope of Wedding Attire Lead Time Checklist",
+          "paragraphs": [
+            "Attire is governed by lead times that are set by other people, because the order window, the alteration schedule, and the final fitting each depend on a supplier's calendar rather than yours.",
+            "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
+          ]
+        },
+        {
+          "heading": "Work in dependency order",
+          "paragraphs": [
+            "Get the order and alteration lead times in writing from each supplier, schedule the final fitting close enough to the date that the fit still holds, and plan transport, steaming, and emergency repair before the week of the wedding.",
+            "Example: an order lead time and an alteration window are two separate waits that run in sequence, not together, so confirm both dates with the supplier and count backward from the wedding rather than forward from the order."
+          ],
+          "bullets": [
+            "Get the order and alteration lead times in writing from each supplier, schedule the final fitting close enough to the date that the fit still holds, and plan transport, steaming, and emergency repair before the week of the wedding.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Close the loop and hand it off",
+          "paragraphs": [
+            "Update the related budget, vendor, guest, and timeline records whenever this checklist changes. Then issue one dated final version and tell affected people exactly what changed.",
+            "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: an order lead time and an alteration window are two separate waits that run in sequence, not together, so confirm both dates with the supplier and count backward from the wedding rather than forward from the order."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding attire lead time checklist reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding attire lead time checklist?",
+          "answer": "Attire is governed by lead times that are set by other people, because the order window, the alteration schedule, and the final fitting each depend on a supplier's calendar rather than yours."
+        },
+        {
+          "question": "How should I use this wedding checklist guide?",
+          "answer": "Get the order and alteration lead times in writing from each supplier, schedule the final fitting close enough to the date that the fit still holds, and plan transport, steaming, and emergency repair before the week of the wedding. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+        }
+      ],
+      "semantic_key": "checklist-pdf:wedding-attire-lead-time-checklist",
+      "updated_at": "2026-09-12",
+      "verification_boundary": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event.",
+      "related_slugs": [
+        "9-month-wedding-checklist",
+        "6-month-wedding-checklist",
+        "1-month-wedding-checklist",
+        "18-month-wedding-checklist"
+      ],
+      "hub_route": "/wedding-checklist"
     }
   ],
-  "generated_at": "2026-09-04"
+  "generated_at": "2026-09-12"
 }

@@ -52,7 +52,12 @@
     "timeline-template:wedding-day-logistics-timeline",
     "timeline-template:wedding-reception-flow-timeline",
     "timeline-template:wedding-music-cue-sheet",
-    "checklist-pdf:wedding-venue-selection-checklist"
+    "checklist-pdf:wedding-venue-selection-checklist",
+    "checklist-pdf:accessible-wedding-planning-checklist",
+    "checklist-pdf:elopement-planning-checklist",
+    "checklist-pdf:wedding-rain-plan-checklist",
+    "budget-spreadsheet:diy-wedding-cost-tradeoffs",
+    "checklist-pdf:wedding-attire-lead-time-checklist"
   ],
   "runs": [
     {
@@ -119,6 +124,23 @@
         "wedding-reception-flow-timeline",
         "wedding-music-cue-sheet",
         "wedding-venue-selection-checklist"
+      ],
+      "daily_ceiling": 15,
+      "weekly_cap": 5,
+      "budget_before_run": 5,
+      "library_changed_this_week_before_run": 0
+    },
+    {
+      "run_at": "2026-09-12T10:22:36.472Z",
+      "date": "2026-09-12",
+      "created": 5,
+      "source": "editorial_seeds",
+      "slugs": [
+        "accessible-wedding-planning-checklist",
+        "elopement-planning-checklist",
+        "wedding-rain-plan-checklist",
+        "diy-wedding-cost-tradeoffs",
+        "wedding-attire-lead-time-checklist"
       ],
       "daily_ceiling": 15,
       "weekly_cap": 5,
