@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-09-11T11:45:15.612Z",
-  "count": 114,
+  "generated_at": "2026-09-12T11:45:31.017Z",
+  "count": 119,
   "targets": [
     {
       "target_id": "041f5ce832a91de82705",
@@ -254,6 +254,16 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "f1a698b662a01f2e7e0c",
+      "query": "accessible wedding planning checklist",
+      "host": "weddingchecklistpdf.com",
+      "route": "/guides/accessible-wedding-planning-checklist",
+      "product_id": "checklist-pdf",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "630f9d2cd5171516fe99",
       "query": "adding travel buffers to a wedding timeline",
       "host": "weddingtimelinetemplate.com",
@@ -369,6 +379,26 @@
       "host": "weddingtimelinetemplate.com",
       "route": "/guides/destination-wedding-weekend-itinerary",
       "product_id": "timeline-template",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "929bffff72ef909cad45",
+      "query": "diy wedding cost tradeoffs",
+      "host": "weddingbudgetspreadsheet.com",
+      "route": "/guides/diy-wedding-cost-tradeoffs",
+      "product_id": "budget-spreadsheet",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "07ad747a3481c733f84f",
+      "query": "elopement planning checklist",
+      "host": "weddingchecklistpdf.com",
+      "route": "/guides/elopement-planning-checklist",
+      "product_id": "checklist-pdf",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -634,6 +664,16 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "86e800746b29394dca82",
+      "query": "wedding attire lead time checklist",
+      "host": "weddingchecklistpdf.com",
+      "route": "/guides/wedding-attire-lead-time-checklist",
+      "product_id": "checklist-pdf",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "709a4b50276680b2b192",
       "query": "wedding budget contingency planning",
       "host": "weddingbudgetspreadsheet.com",
@@ -878,6 +918,16 @@
       "query": "wedding planning checklist: step-by-step process",
       "host": "weddingchecklistpdf.com",
       "route": "/wedding-planning-checklist",
+      "product_id": "checklist-pdf",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "fe7b2da4b4fa6abcb59e",
+      "query": "wedding rain plan checklist",
+      "host": "weddingchecklistpdf.com",
+      "route": "/guides/wedding-rain-plan-checklist",
       "product_id": "checklist-pdf",
       "intent": "authority",
       "priority": "MEDIUM",
