@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "6372f7478998dbdd70927278583a18fdfe5ed5ed",
+  "generated_from_commit": "e2d32affc823c336b419a103f5df0871e84d79f2",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
@@ -71,7 +71,7 @@
     },
     "/guides/accessible-wedding-planning-checklist": {
       "lastmod": "2026-09-12",
-      "source": "data/authority/content_registry.json#pages[slug=accessible-wedding-planning-checklist] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=accessible-wedding-planning-checklist]"
     },
     "/guides/alphabetical-vs-table-order-seating-chart": {
       "lastmod": "2026-07-30",
@@ -119,11 +119,11 @@
     },
     "/guides/diy-wedding-cost-tradeoffs": {
       "lastmod": "2026-09-12",
-      "source": "data/authority/content_registry.json#pages[slug=diy-wedding-cost-tradeoffs] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=diy-wedding-cost-tradeoffs]"
     },
     "/guides/elopement-planning-checklist": {
       "lastmod": "2026-09-12",
-      "source": "data/authority/content_registry.json#pages[slug=elopement-planning-checklist] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=elopement-planning-checklist]"
     },
     "/guides/estimated-vs-actual-wedding-costs": {
       "lastmod": "2026-07-30",
@@ -187,7 +187,7 @@
     },
     "/guides/wedding-attire-lead-time-checklist": {
       "lastmod": "2026-09-12",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-attire-lead-time-checklist] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-attire-lead-time-checklist]"
     },
     "/guides/wedding-budget-10000": {
       "lastmod": "2026-07-30",
@@ -307,7 +307,7 @@
     },
     "/guides/wedding-rain-plan-checklist": {
       "lastmod": "2026-09-12",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-rain-plan-checklist] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-rain-plan-checklist]"
     },
     "/guides/wedding-reception-flow-timeline": {
       "lastmod": "2026-09-04",
