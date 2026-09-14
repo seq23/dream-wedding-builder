@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-09-13T10:29:42.588Z",
+  "generated_at": "2026-09-14T10:27:34.210Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -24,7 +24,8 @@
     "readiness-rubric": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
     "worker-entrypoint": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
     "repair-contract": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
-    "selfheal-status-contract": "derive the attempt result from classifyAttempt in scripts/selfheal/repair_status.mjs instead of writing a result literal, and fingerprint the tree around each repair so a no-op repair cannot be reported as a repair"
+    "selfheal-status-contract": "derive the attempt result from classifyAttempt in scripts/selfheal/repair_status.mjs instead of writing a result literal, and fingerprint the tree around each repair so a no-op repair cannot be reported as a repair",
+    "workflow-inline-shell-quoting": "move the embedded script into a file under scripts/ and call it from the workflow - that removes the shell from the path entirely and makes the logic testable. Escaping the offending character as \\` or \\$ also works but leaves the next edit exposed."
   },
   "status": "CLEAN",
   "safe_to_push": true,
