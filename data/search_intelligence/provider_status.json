@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-09-13T11:45:30.486Z",
+  "updated_at": "2026-09-14T11:45:10.025Z",
   "providers": {
     "gsc": {
       "state": "AVAILABLE",
       "requests": 4,
-      "rows_added": 23,
+      "rows_added": 26,
       "answered": [
         "weddingseatingchartmaker.com",
         "weddingbudgetspreadsheet.com",
@@ -13,10 +13,10 @@
         "weddingchecklistpdf.com"
       ],
       "period": {
-        "start": "2026-08-15",
-        "end": "2026-09-11"
+        "start": "2026-08-16",
+        "end": "2026-09-12"
       },
-      "checked_at": "2026-09-13T11:45:30.486Z"
+      "checked_at": "2026-09-14T11:45:10.025Z"
     },
     "agent_observation_import": {
       "state": "READY"
