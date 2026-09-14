@@ -102,6 +102,20 @@ const runAt = (day, args) => spawnSync(process.execPath, [path.join(ROOT, DERIVE
   env: { ...process.env, NODE_OPTIONS: `${process.env.NODE_OPTIONS || ''} --require ${shimPath(day)}`.trim() },
 });
 
+// A validator may not leave a mark on the tree it is judging.
+//
+// This assertion exists because this file caused the defect it now forbids. The
+// seven runs below invoke the derivation with `--json`, and `--json` used to write
+// reports/cadence/capacity-derivation.json as a side effect. The last simulated
+// clock won, so the committed report was left holding
+// `throughput_if_measured_to_today` as it would read on 2027-09-04 - and because
+// full-safe-autonomy.yml runs validate:structural and then stages `reports/cadence`,
+// that fabricated 1.4 was committed to main at 45c952a and 0dd16c7 against a true
+// 10.32. A gate that corrupts the audit trail it exists to protect is worse than no
+// gate, so the invariant is asserted here rather than merely fixed there.
+const WITNESS = 'reports/cadence/capacity-derivation.json';
+const witnessBefore = exists(WITNESS) ? fs.readFileSync(path.join(ROOT, WITNESS)) : null;
+
 let clocksExamined = 0;
 const derivations = [];
 for (const day of SIMULATED_CLOCKS) {
@@ -147,6 +161,25 @@ if (derivations.length > 1) {
 // Rule 0.
 if (clocksExamined === 0) {
   console.error('cadence determinism: FAIL - zero simulated clocks were examined, so nothing about determinism was proved.');
+  process.exit(1);
+}
+
+// The tree must be exactly as it was found. Checked after the clock runs, while the
+// lie about the date is no longer in effect, so a difference here can only have been
+// written by the derivation itself.
+const witnessAfter = exists(WITNESS) ? fs.readFileSync(path.join(ROOT, WITNESS)) : null;
+let mutationAssertions = 0;
+if (witnessBefore === null && witnessAfter !== null) {
+  errors.push(`running the derivation under simulated clocks created ${WITNESS}. A validator must not write to the tree it is judging: whatever it writes was produced under a lie about the date, and the lanes that stage reports/cadence will commit it.`);
+} else if (witnessBefore !== null && witnessAfter === null) {
+  errors.push(`running the derivation under simulated clocks deleted ${WITNESS}.`);
+} else if (witnessBefore !== null && !witnessBefore.equals(witnessAfter)) {
+  errors.push(`running the derivation under simulated clocks rewrote ${WITNESS}. The content now on disk was derived under a simulated clock of ${SIMULATED_CLOCKS[SIMULATED_CLOCKS.length - 1]}, not under today's date, and full-safe-autonomy.yml stages reports/cadence after validate:structural - which is how a fabricated throughput_if_measured_to_today reached main. \`--json\` is a query and must not write.`);
+}
+mutationAssertions += 1;
+
+if (mutationAssertions === 0) {
+  console.error('cadence determinism: FAIL - the no-mutation invariant was never evaluated.');
   process.exit(1);
 }
 
@@ -256,10 +289,10 @@ if (lanesExamined === 0) {
 
 // ---------------------------------------------------------------- verdict
 fs.rmSync(tmp, { recursive: true, force: true });
-console.log(`  simulated clocks=${clocksExamined} source assertions=${sourceAssertions.length} re-deriving lanes=${lanesExamined}`);
+console.log(`  simulated clocks=${clocksExamined} source assertions=${sourceAssertions.length} re-deriving lanes=${lanesExamined} no-mutation assertions=${mutationAssertions}`);
 if (errors.length) {
   for (const e of errors) console.error(`  FAIL ${e}`);
   console.error(`cadence determinism: FAIL (${errors.length} problem(s))`);
   process.exit(1);
 }
-console.log(`cadence determinism: PASS (${clocksExamined} simulated clock(s) agree on ${JSON.parse(derivations[0].fingerprint).refresh_capacity_per_week}/week refresh and ${JSON.parse(derivations[0].fingerprint).new_pages_per_week}/week new, ${sourceAssertions.length} source assertion(s), ${lanesExamined} re-deriving lane(s))`);
+console.log(`cadence determinism: PASS (${clocksExamined} simulated clock(s) agree on ${JSON.parse(derivations[0].fingerprint).refresh_capacity_per_week}/week refresh and ${JSON.parse(derivations[0].fingerprint).new_pages_per_week}/week new, ${sourceAssertions.length} source assertion(s), ${lanesExamined} re-deriving lane(s), tree unchanged)`);

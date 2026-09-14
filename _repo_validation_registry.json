@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 32,
+    "HARD_FAIL": 33,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -390,6 +390,17 @@
       "requires_build": false,
       "manual_repair": "derive the attempt result from classifyAttempt in scripts/selfheal/repair_status.mjs instead of writing a result literal, and fingerprint the tree around each repair so a no-op repair cannot be reported as a repair",
       "repair_evidence": "proved negatively on 2026-09-03: restoring the literal result:REPAIRED_RETRYING in heal_until_clean.mjs turns this gate red; a synthetic repair_command exiting 2 produces REPAIR_FAILED and one attempt instead of REPAIRED_RETRYING and three"
+    },
+    {
+      "id": "workflow-inline-shell-quoting",
+      "npmScript": "validate:workflow-shell-quoting",
+      "command": "node scripts/validators/validate_workflow_inline_shell_quoting.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "full-safe-autonomy.yml ran the self-heal reporter as `node -e \"...\"`, and one line of the embedded JavaScript wrapped an interpolated repair_command in backticks. Inside a double-quoted shell word a backtick is command substitution, so bash executed `'+cmd+'` before node saw the script: run 33863160216 (main, 2026-09-04) logged \"+cmd+: command not found\", the failed substitution expanded to the empty string, and the job summary printed \"repair_command is not runnable:\" with the command deleted from the end of it. The step still exited 0 - the repo's recurring runs-but-inert class, a diagnostic that survives and silently drops the one fact it exists to carry. This scans every inline interpreter invocation in every workflow for unescaped ` and $ using double-quote semantics, and first proves the scanner works by running it over a table of known-bad and known-good bodies including the exact line from that run, so a corpus containing no inline scripts still cannot pass by having found nothing to look at. Counts detector cases, workflow files and run blocks, and hard-fails on zero of any of them.",
+      "manual_repair": "move the embedded script into a file under scripts/ and call it from the workflow - that removes the shell from the path entirely and makes the logic testable. Escaping the offending character as \\` or \\$ also works but leaves the next edit exposed.",
+      "repair_evidence": "proved negatively on 2026-09-05: restoring the original inline block in full-safe-autonomy.yml fails with \"full-safe-autonomy.yml:153: unescaped ` inside an inline `node -e \\\"` script - command substitution\", quoting the offending line; pointing the validator at a tree with an empty .github/workflows fails with \"no workflow files\", at a tree with no .github/workflows at all with \"there is nothing to scan\", and at a workflow with no run: blocks with \"zero run: blocks were found\". Restored, it passes with 8 detector cases, 5 workflow files, 47 run blocks and 1 inline script. Behavioural proof of the fix: run against the self-heal report fixture, the old inline step emitted \"repair_command is not runnable:\" with an empty tail, the file-based step emits \"repair_command is not runnable: `fix the route's link`\"."
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."

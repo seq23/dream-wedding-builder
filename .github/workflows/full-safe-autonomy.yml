@@ -131,29 +131,17 @@ jobs:
       - name: Repair then revalidate (bounded)
         id: heal
         run: npm run selfheal
+      # Reports what the self-heal loop did, to the log and to the job summary.
+      #
+      # This was `node -e "..."` inline until 2026-09-05. A backtick in the script
+      # body was command substitution to bash, so run 33863160216 logged
+      # `+cmd+: command not found` and the job summary printed "repair_command is not
+      # runnable:" with the command deleted from the end of it. The logic lives in a
+      # file now, so no shell parses it; validate:workflow-shell-quoting keeps inline
+      # interpreter scripts elsewhere from reintroducing the class.
       - name: Name the heal outcome
         if: always()
-        run: |
-          node -e "
-          const fs=require('fs');
-          const p='reports/validation/self-heal-loop.json';
-          if(!fs.existsSync(p)){console.log('self-heal produced no report');process.exit(0)}
-          const r=JSON.parse(fs.readFileSync(p,'utf8'));
-          console.log('self-heal: '+r.status+' (safe_to_push='+r.safe_to_push+')');
-          for(const a of r.attempts||[]){
-            console.log('  attempt '+a.attempt+': '+a.result+(a.failed.length?' failed=['+a.failed.join(', ')+']':''));
-            for(const [id,text] of Object.entries(a.manual||{}))console.log('  fix by hand: '+id+' - '+text);
-          for(const [id,cmd] of Object.entries(a.unrunnable_repairs||{}))console.error('  registry defect: '+id+' repair_command is not runnable: '+cmd);
-          if(a.result==='NO_REPAIR_AVAILABLE')console.error('  no automated repair for: '+a.failed.join(', ')+' - add a repair_command in _repo_validation_registry.json, or a manual_repair if no script can fix it');
-          }
-          const lines=['## self-heal: '+r.status+' (safe_to_push='+r.safe_to_push+')'];
-          for(const a of r.attempts||[]){
-            lines.push('- attempt '+a.attempt+': **'+a.result+'**'+(a.failed.length?' failed: '+a.failed.join(', '):''));
-            for(const [id,text] of Object.entries(a.manual||{}))lines.push('  - fix by hand - **'+id+'**: '+text);
-            for(const [id,cmd] of Object.entries(a.unrunnable_repairs||{}))lines.push('  - registry defect - **'+id+'** repair_command is not runnable: `'+cmd+'`');
-          }
-          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY||'/dev/stdout', lines.join('\\n')+'\\n');
-          "
+        run: node scripts/selfheal/name_heal_outcome.mjs
       - run: npm run validate:structural
       - run: npm run authority:scale:freeze
       - run: npm run authority:scale:validate

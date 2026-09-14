@@ -215,7 +215,26 @@ const report = { ...derivation, series };
 // --check is a validator and must not mutate: it runs inside validate:structural,
 // and a validator that dirties the tree turns every run into a spurious diff for
 // the lanes that `git add -A`.
-if (!CHECK) {
+//
+// --json is a QUERY and must not mutate either. That exemption was missing until
+// 2026-09-05, and it put a fabricated number into main's audit trail. Its only
+// caller is validate_cadence_determinism.mjs, which runs this script seven times
+// under simulated clocks; each run rewrote reports/cadence/capacity-derivation.json
+// and the last clock won, so `throughput_if_measured_to_today` - the one field that
+// is *supposed* to move with the clock, reported so a human can see the difference
+// the fix made - was left holding the value it would have had on 2027-09-04. Because
+// full-safe-autonomy.yml runs validate:structural and then stages `reports/cadence`,
+// that value was committed: 1.4 landed on main at 45c952a and again at 0dd16c7,
+// against a true 10.32. The field documenting the clock-dependence bug had itself
+// become clock-dependent, and in the most misleading direction available - a
+// plausible-looking figure, seven times too low, in the artifact a human would
+// consult to check the fix had worked.
+//
+// A read-only mode that writes a file is not a query. Nothing consumes this report
+// programmatically, so restricting the write to the two modes that are meant to
+// produce it costs nothing. validate_cadence_determinism.mjs now asserts that the
+// simulated-clock runs leave the tree byte-identical.
+if (!CHECK && !JSON_ONLY) {
   fs.mkdirSync(path.join(root, 'reports/cadence'), { recursive: true });
   fs.writeFileSync(path.join(root, 'reports/cadence/capacity-derivation.json'), JSON.stringify(report, null, 2) + '\n');
 }
