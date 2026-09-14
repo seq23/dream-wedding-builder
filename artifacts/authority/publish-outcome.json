@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
-  "run_at": "2026-09-05T10:22:24.685Z",
-  "outcome": "HELD_CADENCE_BUDGET_SPENT",
+  "run_at": "2026-09-13T10:28:47.566Z",
+  "outcome": "HELD_AWAITING_AUTHORING",
   "outcome_kind": "LEGITIMATE_STOP",
-  "outcome_reason": "5 seed(s) passed every check and are waiting. 5 of 5 guides were added or refreshed in the last 7 days, by any author.",
-  "unblocked_by": "time: the 7-day window rolls forward, or data/cadence/policy.json is re-derived from measured throughput",
+  "outcome_reason": "0 seed(s) are not marked ready; 25 backlog topic(s) have a cluster and a scaffold but no author.",
+  "unblocked_by": "write three sentences (summary, recommendation, working_example) for 25 topic(s) listed in artifacts/authority/authoring-queue.json",
   "policy": "Publishing requires authored material; this job will not manufacture it. A stop is named, never silent.",
   "outcome_codes": {
     "PUBLISHED": "guides were released this run",
@@ -18,9 +18,9 @@
   "counts": {
     "published": 0,
     "seeds_total": 12,
-    "seeds_ready_waiting_for_budget": 5,
+    "seeds_ready_waiting_for_budget": 0,
     "seeds_held_for_rewrite": 0,
-    "seeds_skipped": 7,
+    "seeds_skipped": 12,
     "topics_awaiting_authoring": 25
   },
   "authoring_backlog": {

@@ -1261,6 +1261,71 @@
       "hub_route": "/wedding-checklist",
       "status": "admitted",
       "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "accessible wedding planning checklist",
+      "semantic_key": "checklist-pdf:accessible-wedding-planning-checklist",
+      "cluster": "Wedding checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/accessible-wedding-planning-checklist",
+      "entity": "Accessible Wedding Planning Checklist",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "elopement planning checklist",
+      "semantic_key": "checklist-pdf:elopement-planning-checklist",
+      "cluster": "Wedding checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/elopement-planning-checklist",
+      "entity": "Elopement Planning Checklist",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "wedding rain plan checklist",
+      "semantic_key": "checklist-pdf:wedding-rain-plan-checklist",
+      "cluster": "Wedding checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/wedding-rain-plan-checklist",
+      "entity": "Wedding Rain Plan Checklist",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
+    },
+    {
+      "query": "diy wedding cost tradeoffs",
+      "semantic_key": "budget-spreadsheet:diy-wedding-cost-tradeoffs",
+      "cluster": "Wedding budget",
+      "domain": "weddingbudgetspreadsheet.com",
+      "product_id": "budget-spreadsheet",
+      "route": "/guides/diy-wedding-cost-tradeoffs",
+      "entity": "DIY Wedding Cost Tradeoffs",
+      "conversion_route": "/products/budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
+      "status": "admitted",
+      "source_requirement": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
+    },
+    {
+      "query": "wedding attire lead time checklist",
+      "semantic_key": "checklist-pdf:wedding-attire-lead-time-checklist",
+      "cluster": "Wedding checklist",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "checklist-pdf",
+      "route": "/guides/wedding-attire-lead-time-checklist",
+      "entity": "Wedding Attire Lead Time Checklist",
+      "conversion_route": "/products/checklist-pdf",
+      "hub_route": "/wedding-checklist",
+      "status": "admitted",
+      "source_requirement": "Verify venue rules, contracts, legal deadlines, vendor lead times, and the requirements that apply to your location and event."
     }
   ]
 }

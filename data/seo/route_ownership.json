@@ -759,6 +759,36 @@
       "host": "weddingchecklistpdf.com",
       "type": "guide",
       "indexable": true
+    },
+    {
+      "path": "/guides/accessible-wedding-planning-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/elopement-planning-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-rain-plan-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/diy-wedding-cost-tradeoffs",
+      "host": "weddingbudgetspreadsheet.com",
+      "type": "guide",
+      "indexable": true
+    },
+    {
+      "path": "/guides/wedding-attire-lead-time-checklist",
+      "host": "weddingchecklistpdf.com",
+      "type": "guide",
+      "indexable": true
     }
   ],
   "shared_host_routes": [

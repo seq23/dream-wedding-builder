@@ -3084,6 +3084,186 @@
       "to": "/guides/18-month-wedding-checklist",
       "anchor": "18-Month Wedding Checklist",
       "relationship": "related"
+    },
+    {
+      "from": "/guides/accessible-wedding-planning-checklist",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/accessible-wedding-planning-checklist",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/accessible-wedding-planning-checklist",
+      "to": "/guides/9-month-wedding-checklist",
+      "anchor": "9-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/accessible-wedding-planning-checklist",
+      "to": "/guides/rehearsal-dinner-checklist",
+      "anchor": "Rehearsal Dinner Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/accessible-wedding-planning-checklist",
+      "to": "/guides/18-month-wedding-checklist",
+      "anchor": "18-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/accessible-wedding-planning-checklist",
+      "to": "/guides/wedding-venue-selection-checklist",
+      "anchor": "Wedding Venue Selection Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/elopement-planning-checklist",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/elopement-planning-checklist",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/elopement-planning-checklist",
+      "to": "/guides/courthouse-wedding-checklist",
+      "anchor": "Courthouse Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/elopement-planning-checklist",
+      "to": "/guides/3-month-wedding-checklist",
+      "anchor": "3-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/elopement-planning-checklist",
+      "to": "/guides/destination-wedding-checklist",
+      "anchor": "Destination Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/elopement-planning-checklist",
+      "to": "/guides/micro-wedding-checklist",
+      "anchor": "Micro-Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rain-plan-checklist",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-rain-plan-checklist",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-rain-plan-checklist",
+      "to": "/guides/wedding-venue-selection-checklist",
+      "anchor": "Wedding Venue Selection Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rain-plan-checklist",
+      "to": "/guides/3-month-wedding-checklist",
+      "anchor": "3-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rain-plan-checklist",
+      "to": "/guides/bridal-shower-checklist",
+      "anchor": "Bridal Shower Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-rain-plan-checklist",
+      "to": "/guides/day-of-coordinator-checklist",
+      "anchor": "Day-of Wedding Coordinator Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/diy-wedding-cost-tradeoffs",
+      "to": "/wedding-budget-spreadsheet",
+      "anchor": "Start with the wedding budget hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/diy-wedding-cost-tradeoffs",
+      "to": "/products/budget-spreadsheet",
+      "anchor": "Wedding Budget Spreadsheet",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/diy-wedding-cost-tradeoffs",
+      "to": "/guides/wedding-budget-calculator",
+      "anchor": "Wedding Budget Calculator",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/diy-wedding-cost-tradeoffs",
+      "to": "/guides/wedding-hidden-costs-checklist",
+      "anchor": "Wedding Hidden Costs Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/diy-wedding-cost-tradeoffs",
+      "to": "/guides/wedding-budget-30000",
+      "anchor": "How to Plan a $30,000 Wedding Budget",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/diy-wedding-cost-tradeoffs",
+      "to": "/guides/wedding-budget-for-50-guests",
+      "anchor": "Wedding Budget for 50 Guests",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-attire-lead-time-checklist",
+      "to": "/wedding-checklist",
+      "anchor": "Start with the wedding checklist hub",
+      "relationship": "upward"
+    },
+    {
+      "from": "/guides/wedding-attire-lead-time-checklist",
+      "to": "/products/checklist-pdf",
+      "anchor": "Wedding Checklist PDF",
+      "relationship": "conversion"
+    },
+    {
+      "from": "/guides/wedding-attire-lead-time-checklist",
+      "to": "/guides/9-month-wedding-checklist",
+      "anchor": "9-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-attire-lead-time-checklist",
+      "to": "/guides/6-month-wedding-checklist",
+      "anchor": "6-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-attire-lead-time-checklist",
+      "to": "/guides/1-month-wedding-checklist",
+      "anchor": "One-Month Wedding Checklist",
+      "relationship": "related"
+    },
+    {
+      "from": "/guides/wedding-attire-lead-time-checklist",
+      "to": "/guides/18-month-wedding-checklist",
+      "anchor": "18-Month Wedding Checklist",
+      "relationship": "related"
     }
   ]
 }
