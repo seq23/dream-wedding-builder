@@ -208,8 +208,12 @@ jobs:
           # main. A workflow_dispatch from a branch used to push that branch's
           # content straight to main, which made testing a change to this lane
           # impossible without releasing it.
-          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
-          git push origin "HEAD:$GITHUB_REF_NAME"
+          #
+          # push_back.sh, not a bare `git push`: it fetches, rebases onto the ref,
+          # retries a bounded number of times, and treats "the ref already contains
+          # HEAD" as success. See the receipts step below for the run that made
+          # this necessary; validate:workflow-push-back keeps a bare push out.
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"
       - name: Submit IndexNow and Google Search Console after validated publication
         env:
           RUN_MODE: live
@@ -230,8 +234,21 @@ jobs:
           # main. A workflow_dispatch from a branch used to push that branch's
           # content straight to main, which made testing a change to this lane
           # impossible without releasing it.
-          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
-          git push origin "HEAD:$GITHUB_REF_NAME"
+          #
+          # This step was `git pull --rebase` then a bare `git push` until
+          # 2026-09-15. Run 34957914196 passed every gate, committed 7f8bbfd here,
+          # and the push came back:
+          #   ! [remote rejected] HEAD -> main (cannot lock ref 'refs/heads/main':
+          #       is at 7f8bbfd7... but expected fd94a6fb...)
+          # "is at 7f8bbfd7" is the commit this step had just made: the server
+          # applied the update and reported a rejection. The receipts were on main;
+          # the run was red and paged a human for a push that had succeeded. A
+          # bare push takes the rejection as final without asking where the ref
+          # actually is. push_back.sh asks: fetch, "ref already contains HEAD" is
+          # PUSH_ALREADY_LANDED, otherwise rebase and retry, and only a genuine
+          # rebase conflict is red - as PUSH_REBASE_CONFLICT, never resolved by
+          # force.
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"
       - uses: actions/upload-artifact@v7
         if: always()
         with:

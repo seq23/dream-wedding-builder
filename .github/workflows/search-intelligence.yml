@@ -48,5 +48,7 @@ jobs:
           # is main, unchanged. On a workflow_dispatch from a branch it is that
           # branch - the previous 'HEAD:main' meant any dispatch used to test a
           # change on a branch wrote its evidence straight to main.
-          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
-          git push origin "HEAD:$GITHUB_REF_NAME"
+          # Fetch, rebase, bounded retry, and "the ref already contains HEAD" is
+          # success - a bare `git push` turned a fully green Full Safe Autonomy run
+          # red on 2026-09-15 for a push that had landed (run 34957914196).
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"
