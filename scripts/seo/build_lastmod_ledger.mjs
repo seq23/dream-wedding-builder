@@ -19,7 +19,7 @@
 // new pages have no commit to point at. Those, and only those, take the run date,
 // supplied by LASTMOD_RUN_AT or AUTHORITY_RUN_AT so the workflow can pin it. Once
 // committed they resolve from history like everything else and stop moving.
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -74,7 +74,17 @@ function blobAt(commit, file) {
   const key = `${commit}:${file}`;
   if (blobCache.has(key)) return blobCache.get(key);
   let value = null;
-  try { value = git('show', `${commit}:${file}`); } catch { value = null; }
+  // A path that is absent at this commit is an expected stop in the walk - the file
+  // was deleted here and re-added later (app/methodology/page.tsx was deleted in
+  // 84fc97c and returned in f3eff20). Only that case is null. Anything else git
+  // reports is a real failure and is rethrown: this used to swallow every error
+  // AND let git's "fatal: path ... exists on disk, but not in <sha>" leak into the
+  // Full Safe Autonomy log, where it read as a failing step in a step that had not
+  // failed (run 34957914196).
+  const r = spawnSync('git', ['show', `${commit}:${file}`], { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  if (r.status === 0) value = r.stdout;
+  else if (/exists on disk, but not in|does not exist in|Path .* does not exist/.test(r.stderr || '')) value = null;
+  else throw new Error(`git show ${commit}:${file} failed: ${(r.stderr || '').trim()}`);
   blobCache.set(key, value);
   return value;
 }

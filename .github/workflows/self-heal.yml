@@ -32,7 +32,7 @@ jobs:
       # already dirtied. Without it this exits 128 with "cannot pull with rebase:
       # You have unstaged changes" - but only when there is actually something
       # upstream to rebase onto, so it passes on dispatch and fails on schedule.
-      - run: git pull --rebase --autostash origin main
+      - run: git pull --rebase --autostash origin "$GITHUB_REF_NAME"
       - run: npm ci --ignore-scripts
       # Build before the heal steps, not after them.
       #
@@ -118,5 +118,11 @@ jobs:
             echo "No safe repairs were needed."
           else
             git commit -m "Self-heal: apply bounded validated repairs"
-            git push origin main
+            # Push back to the ref this run started from - main on the schedule,
+            # the dispatched branch on a workflow_dispatch, matching the other two
+            # committing lanes. push_back.sh fetches, rebases, retries a bounded
+            # number of times and names every outcome; a bare `git push` turned a
+            # green run red on 2026-09-15 for a push that had landed (run
+            # 34957914196).
+            scripts/ci/push_back.sh "$GITHUB_REF_NAME"
           fi

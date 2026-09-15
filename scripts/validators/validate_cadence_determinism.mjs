@@ -273,7 +273,10 @@ for (const file of fs.readdirSync(path.join(ROOT, WORKFLOWS)).filter((f) => /\.y
   // (c)
   if (publishAt >= 0) {
     const firstCommitAt = codeLines.findIndex((l) => /git commit\b/.test(l));
-    const lastPushAt = codeLines.reduce((acc, l, i) => (/git push\b/.test(l) ? i : acc), -1);
+    // The push is scripts/ci/push_back.sh since 2026-09-15 (validate:workflow-push-back
+    // forbids a bare `git push` in these lanes); matching only `git push` here would
+    // leave lastPushAt at -1 and silently skip this assertion.
+    const lastPushAt = codeLines.reduce((acc, l, i) => (/(?:\bgit push\b|scripts\/ci\/push_back\.sh)/.test(l) ? i : acc), -1);
     if (firstCommitAt >= 0 && lastPushAt > firstCommitAt) {
       const closes = derivesAt.some((d) => d > firstCommitAt && d < lastPushAt);
       if (!closes) {
