@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-09-15T10:28:05.042Z",
+  "generated_at": "2026-09-15T15:29:44.849Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -25,7 +25,8 @@
     "worker-entrypoint": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
     "repair-contract": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
     "selfheal-status-contract": "derive the attempt result from classifyAttempt in scripts/selfheal/repair_status.mjs instead of writing a result literal, and fingerprint the tree around each repair so a no-op repair cannot be reported as a repair",
-    "workflow-inline-shell-quoting": "move the embedded script into a file under scripts/ and call it from the workflow - that removes the shell from the path entirely and makes the logic testable. Escaping the offending character as \\` or \\$ also works but leaves the next edit exposed."
+    "workflow-inline-shell-quoting": "move the embedded script into a file under scripts/ and call it from the workflow - that removes the shell from the path entirely and makes the logic testable. Escaping the offending character as \\` or \\$ also works but leaves the next edit exposed.",
+    "workflow-push-back": "replace the bare `git pull --rebase ... && git push ...` in the named workflow with `scripts/ci/push_back.sh \"$GITHUB_REF_NAME\"`. If the failure is PUSH_REBASE_CONFLICT on a run, the lane's commit and a human commit edited the same lines: rebase by hand, never with --force."
   },
   "status": "CLEAN",
   "safe_to_push": true,
