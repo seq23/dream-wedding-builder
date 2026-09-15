@@ -64,7 +64,9 @@ for attempt in $(seq 1 "$ATTEMPTS"); do
   if [ "$(git merge-base "$head_sha" "$remote_sha")" != "$remote_sha" ]; then
     say "attempt $attempt: $REMOTE/$REF moved to $remote_sha; rebasing $head_sha onto it"
     if ! git rebase --autostash "$remote_sha"; then
-      git rebase --abort || true
+      if ! git rebase --abort; then
+        say "rebase --abort itself failed; the worktree may still be mid-rebase - inspect before re-running"
+      fi
       say "PUSH_REBASE_CONFLICT - HEAD ($head_sha) does not rebase cleanly onto $REMOTE/$REF ($remote_sha). Nothing was pushed. Resolve by hand; this lane will not force."
       exit 1
     fi
@@ -78,6 +80,9 @@ for attempt in $(seq 1 "$ATTEMPTS"); do
   sleep "$((attempt * BACKOFF))"
 done
 
-git fetch --quiet "$REMOTE" "refs/heads/$REF" || true
-say "PUSH_EXHAUSTED - $ATTEMPTS attempts to push $(git rev-parse HEAD) to $REMOTE/$REF were rejected; remote is at $(git rev-parse FETCH_HEAD 2>/dev/null || echo unknown). Nothing was forced."
+remote_now="unknown (final refetch failed)"
+if git fetch --quiet "$REMOTE" "refs/heads/$REF"; then
+  remote_now="$(git rev-parse FETCH_HEAD)"
+fi
+say "PUSH_EXHAUSTED - $ATTEMPTS attempts to push $(git rev-parse HEAD) to $REMOTE/$REF were rejected; remote is at $remote_now. Nothing was forced."
 exit 1
