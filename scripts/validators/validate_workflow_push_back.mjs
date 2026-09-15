@@ -85,12 +85,16 @@ function fixture(name) {
   const work = path.join(dir, 'work');
   const other = path.join(dir, 'other');
   fs.mkdirSync(dir, { recursive: true });
-  git(dir, 'init', '-q', '--bare', remote);
+  // --initial-branch and -b: the fixture must not depend on init.defaultBranch.
+  // On a runner where it is unset the `other` clone would start on an unborn
+  // `master`, its commit would have no parent, and the race scenarios would fail
+  // in the fixture rather than in the script under test.
+  git(dir, 'init', '-q', '--bare', '--initial-branch=main', remote);
   git(dir, 'clone', '-q', remote, work);
   for (const c of [work]) { git(c, 'config', 'user.email', 'a@b'); git(c, 'config', 'user.name', 'a'); }
   fs.writeFileSync(path.join(work, 'f'), 'line1\nline2\n');
   git(work, 'add', 'f'); git(work, 'commit', '-qm', 'base'); git(work, 'branch', '-M', 'main'); git(work, 'push', '-q', 'origin', 'main');
-  git(dir, 'clone', '-q', remote, other);
+  git(dir, 'clone', '-q', '-b', 'main', remote, other);
   git(other, 'config', 'user.email', 'b@b'); git(other, 'config', 'user.name', 'b');
   return { dir, remote, work, other };
 }
