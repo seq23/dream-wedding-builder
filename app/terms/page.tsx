@@ -3,7 +3,7 @@ import { PARENT_HOST } from '@/lib/site-config';
 import Link from 'next/link';
 export const metadata = seoMetadata({
   title: 'Terms of Use',
-  description: 'Terms for the Dream Wedding Builder product family. Purchases grant a limited, non-transferable personal-use license, and product outputs are aids you must verify.',
+  description: 'Terms for Dream Wedding Builder products: a purchase grants a limited, non-transferable personal-use license, and every output is an aid you must verify.',
   host: PARENT_HOST,
   path: '/terms'
 });

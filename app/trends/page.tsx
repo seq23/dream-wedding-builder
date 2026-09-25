@@ -6,7 +6,7 @@ import TrendSubmitForm from './trend-submit-form';
 import Link from 'next/link';
 export const metadata = seoMetadata({
   title: 'Standout Wedding Ideas Catalogue',
-  description: 'A compact index of concrete wedding ideas: arrival moments, seating experiences, ceremony reveals, cocktail surprises, dinner design, sensory stations, and photo moments.',
+  description: 'An index of concrete wedding ideas: arrival moments, seating experiences, ceremony reveals, cocktail-hour surprises, dinner design, and photo moments.',
   host: PARENT_HOST,
   path: '/trends'
 });

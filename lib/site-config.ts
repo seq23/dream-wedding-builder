@@ -93,6 +93,26 @@ export function canonicalHostForPath(pathname: string): SiteHost | null {
   return null;
 }
 
+// The href a page on `fromHost` must emit for an internal `path` (which may carry
+// a query and a hash). A path owned by another host is linked at its final URL on
+// that host; a path the current host serves stays relative. Until 2026-09-25 the
+// templates emitted every path relative, and the middleware 308'd each cross-host
+// one: 21-27 /free-wedding-planner?... links per product host and 22 /products/*,
+// /guides/* and hub links on weddingchecklistpdf.com, every one a redirect hop that
+// Bing and the site audit reported. scripts/validators/validate_rendered_seo_contract.mjs
+// fetches every network link on the built site and fails on any 3XX.
+export function hrefFrom(fromHost: string, path: string): string {
+  if (!path.startsWith('/') || path.startsWith('//')) return path;
+  const pathname = path.split(/[?#]/)[0];
+  const current = isCanonicalHost(fromHost) ? fromHost : PARENT_HOST;
+  // '/' on a product host redirects to that host's hub, so link the hub itself -
+  // the destination a reader already reached, without the hop.
+  if (pathname === '/' && hostConfig[current].root_action === 'redirect') return hostConfig[current].root_target;
+  const owner = canonicalHostForPath(pathname);
+  if (!owner || owner === current) return path;
+  return `https://${owner}${path}`;
+}
+
 // The guide index links every page this returns, so it must return only pages
 // that render. Unfiltered it linked the fan-out skeletons, which 404 - the same
 // defect the sitemap had, on an internal-link surface instead of an external one.

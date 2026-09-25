@@ -55,13 +55,16 @@ export function PlannerCta({ label, seed }: { label: string; seed: PlannerSeed }
   return null;
 }
 
-export function PlannerCtaProvider({ children }: { children: ReactNode }) {
+// plannerAbsolute: the planner lives on weddingchecklistpdf.com only, so on the
+// three product hosts the pill links its absolute URL instead of a relative path
+// the middleware would 308 across hosts.
+export function PlannerCtaProvider({ children, plannerAbsolute = false }: { children: ReactNode; plannerAbsolute?: boolean }) {
   const [config, setConfig] = useState<CtaConfig>(defaultConfig);
   const value = useMemo(() => ({ config, setConfig }), [config]);
-  return <PlannerCtaContext.Provider value={value}>{children}<PlannerPill /></PlannerCtaContext.Provider>;
+  return <PlannerCtaContext.Provider value={value}>{children}<PlannerPill absolute={plannerAbsolute} /></PlannerCtaContext.Provider>;
 }
 
-function PlannerPill() {
+function PlannerPill({ absolute }: { absolute: boolean }) {
   const pathname = usePathname() ?? '/';
   const { config } = useContext(PlannerCtaContext);
   const [visible, setVisible] = useState(false);
@@ -99,7 +102,7 @@ function PlannerPill() {
 
   return <div data-testid="planner-pill" className="no-print fixed inset-x-0 bottom-4 z-40 flex justify-center px-4 motion-safe:animate-[fadeIn_.2s_ease-out] md:inset-x-auto md:right-6 md:justify-end">
     <div role="complementary" aria-label="Free wedding planner" className="flex max-w-[22rem] items-center gap-2 rounded-full border border-charcoal/15 bg-white/95 py-2 pl-4 pr-2 shadow-soft backdrop-blur">
-      <Link data-testid="planner-pill-link" href={plannerHref(config.seed)} className="text-sm font-bold leading-5 underline-offset-4 hover:underline">{config.label}</Link>
+      <Link data-testid="planner-pill-link" href={plannerHref(config.seed, { absolute })} className="text-sm font-bold leading-5 underline-offset-4 hover:underline">{config.label}</Link>
       <button data-testid="planner-pill-dismiss" type="button" onClick={dismiss} aria-label="Dismiss the free wedding planner prompt" className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-charcoal/10 text-lg leading-none text-charcoal/60 hover:bg-linen">×</button>
     </div>
   </div>;

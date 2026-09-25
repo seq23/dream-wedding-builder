@@ -96,6 +96,7 @@
     "validate:profile-purity": "node scripts/validate-profile-purity.mjs",
     "validate:proof-readiness": "node scripts/validate-proof-readiness.mjs",
     "validate:query-atlas": "node scripts/atlas/validate_query_atlas.mjs",
+    "validate:rendered-seo": "node scripts/validators/validate_rendered_seo_contract.mjs",
     "validate:readiness-rubric": "node scripts/validators/validate_readiness_rubric.mjs",
     "validate:registry": "node scripts/validate/run-registry.mjs",
     "validate:repair-contract": "node scripts/validators/validate_repair_contract.mjs",

@@ -142,11 +142,13 @@ export default function BuildPage() {
   // Reasons are derived from the plan, so a couple who has entered a guest count
   // is told what the seating tool does with THAT number rather than being shown a
   // generic product grid.
+  // The planner renders only on weddingchecklistpdf.com; the three sibling products
+  // are linked at their own host so the click is not a cross-host 308.
   const workingFiles = [
     { id: 'checklist-pdf', name: 'Wedding Checklist PDF', price: 9, route: '/products/checklist-pdf', reason: plan.constraintMode ? `Your ${plan.constraintMode} constraints as a printable checklist you can hand to someone else.` : 'The printable checklist version of Step 0, once your constraints are recorded.' },
-    { id: 'budget-spreadsheet', name: 'Wedding Budget Spreadsheet', price: 12, route: '/products/budget-spreadsheet', reason: plan.budgetTarget ? `Your ${plan.budgetTarget} target split across categories, with the hidden fee lines from Step 3 already present.` : 'The working file for Step 3, including the hidden fee lines venues leave off a quote.' },
-    { id: 'timeline-template', name: 'Wedding Timeline Template', price: 12, route: '/products/timeline-template', reason: plan.constraints ? `Your stated timing constraint turned into a dated sequence with vendor load-in and strike.` : 'The dated version of the weekend flow, with vendor load-in and strike windows.' },
-    { id: 'seating-chart-maker', name: 'Wedding Seating Chart Maker', price: 19, route: '/products/seating-chart-maker', reason: plan.guestCount ? `Your ${plan.guestCount} guests arranged into tables, which is the last thing that can be finished and the first thing people ask about.` : 'Tables and place settings, once the guest count above is entered.' }
+    { id: 'budget-spreadsheet', name: 'Wedding Budget Spreadsheet', price: 12, route: 'https://weddingbudgetspreadsheet.com/products/budget-spreadsheet', reason: plan.budgetTarget ? `Your ${plan.budgetTarget} target split across categories, with the hidden fee lines from Step 3 already present.` : 'The working file for Step 3, including the hidden fee lines venues leave off a quote.' },
+    { id: 'timeline-template', name: 'Wedding Timeline Template', price: 12, route: 'https://weddingtimelinetemplate.com/products/timeline-template', reason: plan.constraints ? `Your stated timing constraint turned into a dated sequence with vendor load-in and strike.` : 'The dated version of the weekend flow, with vendor load-in and strike windows.' },
+    { id: 'seating-chart-maker', name: 'Wedding Seating Chart Maker', price: 19, route: 'https://weddingseatingchartmaker.com/products/seating-chart-maker', reason: plan.guestCount ? `Your ${plan.guestCount} guests arranged into tables, which is the last thing that can be finished and the first thing people ask about.` : 'Tables and place settings, once the guest count above is entered.' }
   ];
 
   const patch = (partial: Partial<WeddingPlan>) => setPlan(current => ({ ...current, ...partial }));

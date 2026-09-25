@@ -26,7 +26,7 @@ const CONTRAST = 'Calculators tell you what a wedding costs. This tells you what
 
 export const metadata: Metadata = seoMetadata({
   title: 'Constraint-first wedding planning: the method',
-  description: `${CONTRAST} Constraint-first planning records the facts a couple has already committed to - guest count, region, date, format, and what they refuse to cut - before any budget figure, and scores every later decision against them.`,
+  description: `${CONTRAST} Fix guest count, date, region, and must-keeps first, then test every choice on them.`,
   host: PARENT_HOST,
   path: '/methodology',
   type: 'article'
