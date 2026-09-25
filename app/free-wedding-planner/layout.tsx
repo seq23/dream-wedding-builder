@@ -6,7 +6,7 @@ import { PARENT_HOST } from '@/lib/site-config';
 import { PLANNER_ROUTE } from '@/lib/planner-seed';
 export const metadata = seoMetadata({
   title: 'Free Wedding Planner — constraint-first planning in your browser',
-  description: 'A free browser-based wedding planner. Start with the planning reality check, then work venue, flowers, budget, guest experience, design, vendor, food, and timeline decisions against the constraints you have actually committed to. No account, no email, nothing leaves your browser.',
+  description: 'A free wedding planner that runs in your browser: start with a reality check, then weigh venue, budget, guest, and timeline choices against your constraints.',
   host: PARENT_HOST,
   path: PLANNER_ROUTE
 });

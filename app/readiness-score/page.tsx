@@ -17,9 +17,13 @@ import { readinessBands, readinessChecks, READINESS_CHECK_COUNT, READINESS_POINT
 const CANONICAL = canonicalUrl(PARENT_HOST, '/readiness-score');
 const DEFINITION = `The planning readiness score is a percentage measuring how many of ${READINESS_CHECK_COUNT} constraint-first planning inputs a couple has answered. Each input carries equal weight, so every answered input moves the score by about ${Math.round(READINESS_POINTS_PER_CHECK)} percentage points. It measures completeness of inputs, not the quality of the plan.`;
 
+// The search-result description. DEFINITION (290+ characters) stays the DefinedTerm
+// text below; a meta description over 160 characters is cut by every engine.
+const META_DESCRIPTION = `How the wedding planning readiness score works: the share of ${READINESS_CHECK_COUNT} constraint-first inputs answered, each worth about ${Math.round(READINESS_POINTS_PER_CHECK)} points. Completeness, not quality.`;
+
 export const metadata: Metadata = seoMetadata({
   title: 'The planning readiness score: inputs, weights, and what each number means',
-  description: DEFINITION,
+  description: META_DESCRIPTION,
   host: PARENT_HOST,
   path: '/readiness-score',
   type: 'article'

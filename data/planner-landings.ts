@@ -78,7 +78,7 @@ export const plannerLandings: PlannerLanding[] = [
     title: 'Wedding cost per guest: what 50, 80, 100, and 150 guests actually cost',
     h1: 'What a wedding costs per guest — and why guest count is the only number that changes everything',
     directoryLabel: 'What a wedding costs per guest',
-    description: 'Guest count is the single largest driver of wedding cost. Published planning benchmarks put the all-in figure at roughly $235–$400 per guest. Here is what that means at 50, 80, 100, 150, and 200 guests, which costs actually scale per head, and which do not.',
+    description: 'Guest count drives wedding cost more than anything else. See what roughly $235-$400 per guest means at 50 to 200 guests, and which costs really scale per head.',
     question: 'How much does a wedding cost for 80 guests?',
     directAnswer: [
       'Published planning benchmarks put an all-in wedding somewhere between roughly $235 and $400 per guest, before venue-specific minimums. At 80 guests that is a working range of about $19,000 to $32,000; at 100 guests, about $23,500 to $40,000; at 150 guests, about $35,000 to $60,000.',
@@ -154,7 +154,7 @@ export const plannerLandings: PlannerLanding[] = [
     title: 'What to do 6 months before the wedding (and at 12, 9, 3, and 1)',
     h1: 'What to do 6 months before the wedding',
     directoryLabel: 'What to do 6 months before the wedding',
-    description: 'The six-month mark is where a wedding plan either converts into bookings or quietly stalls. Here is exactly what belongs at 12, 9, 6, 3, and 1 month out, what is genuinely late, and what most checklists put in the wrong place.',
+    description: 'Six months out, a wedding plan either turns into bookings or stalls. What belongs at 12, 9, 6, 3, and 1 month, and what is genuinely late by now.',
     question: 'What should I be doing 6 months before my wedding?',
     directAnswer: [
       'At six months out, the work is conversion: turning shortlists into signed contracts. Specifically — send invitations or save-the-dates if they have not gone out, lock catering and bar, confirm the photographer and any second shooter, book hair and makeup, order attire that needs alterations, reserve the hotel block, and put a written timeline in front of every booked vendor.',
@@ -218,7 +218,7 @@ export const plannerLandings: PlannerLanding[] = [
     title: 'Wedding budget tradeoffs: what a better venue actually costs you elsewhere',
     h1: 'Can I afford a better venue if I cut the open bar?',
     directoryLabel: 'Wedding budget tradeoffs: what to cut first',
-    description: 'A structured answer to the wedding tradeoff question nobody answers well: what an upgrade in one category actually costs you in the others, which swaps are real, and which ones quietly cost more than they save.',
+    description: 'What an upgrade in one wedding budget category really costs in the others, which swaps are real, and which quietly cost more than they save.',
     question: 'Can I afford a better venue if I cut the open bar?',
     directAnswer: [
       'Usually yes on the arithmetic and often no on the outcome, and the reason is that venue and bar are not independent line items. A full open bar commonly runs $20–$45 per guest for a four-to-five hour reception, so at 120 guests cutting to beer, wine, and one signature cocktail frees roughly $2,000–$4,000. That is real money and it is rarely enough to move you a venue tier.',
@@ -290,7 +290,7 @@ export const plannerLandings: PlannerLanding[] = [
     title: 'Backyard wedding planning: the costs a blank space adds back',
     h1: 'Backyard wedding planning — what a free venue actually costs',
     directoryLabel: 'Backyard wedding planning',
-    description: 'A backyard wedding removes the venue fee and adds a venue\'s worth of infrastructure. Here is the full list of what a house has to supply, what it usually cannot, and when a backyard wedding is genuinely cheaper.',
+    description: 'A backyard wedding drops the venue fee but adds a venue\'s worth of infrastructure: what a house must supply, what it cannot, and when it is really cheaper.',
     question: 'How much does a backyard wedding cost, and what do I have to supply myself?',
     directAnswer: [
       'A backyard wedding removes the site fee and adds everything the site fee was paying for. You become the venue: power, water, level ground, shelter, restrooms, a kitchen, parking, waste removal, insurance, and the labour to install and remove all of it.',
@@ -357,7 +357,7 @@ export const plannerLandings: PlannerLanding[] = [
     title: 'Micro wedding and courthouse wedding planning: what changes below 50 guests',
     h1: 'Micro weddings and courthouse weddings — what actually changes below 50 guests',
     directoryLabel: 'Micro and courthouse wedding planning',
-    description: 'Below about 50 guests a wedding stops being a smaller version of a big wedding and becomes a different event with different constraints. What changes, what stops mattering, and where the small-wedding budget actually goes.',
+    description: 'Under about 50 guests a wedding becomes a different event, not a smaller one: what changes, what stops mattering, and where a micro-wedding budget goes.',
     question: 'What is different about planning a micro wedding or a courthouse wedding?',
     directAnswer: [
       'A micro wedding is not a large wedding scaled down. Below roughly 50 guests, three structural things change: venue options invert, the fixed costs stop being amortised, and the guest experience becomes the point rather than the logistics.',
@@ -430,7 +430,7 @@ export const plannerLandings: PlannerLanding[] = [
     title: 'We have no idea what a wedding costs: an honest starting point',
     h1: 'We have no idea what things cost. Where do we actually start?',
     directoryLabel: 'Where to start when you do not know costs',
-    description: 'An honest first step for couples with no reference point: why published averages mislead, the five numbers that decide everything else, and what to settle before talking to a single vendor.',
+    description: 'A first step for couples with no reference point: why published wedding cost averages mislead, the five numbers that decide the rest, and what to settle first.',
     question: 'We just got engaged and have no idea what anything costs. Where do we start?',
     directAnswer: [
       'Start by refusing to pick a budget number. You cannot set one yet, and a number chosen before you know what drives cost will be wrong in a way that shapes every later decision.',

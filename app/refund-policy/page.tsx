@@ -3,7 +3,7 @@ import { PARENT_HOST } from '@/lib/site-config';
 import Link from 'next/link';
 export const metadata = seoMetadata({
   title: 'Refund Policy',
-  description: 'Refund terms for digital wedding products. Completed downloads are generally final except where required by law or where the delivered file is materially defective.',
+  description: 'Refund terms for digital wedding products: completed downloads are final unless the law requires otherwise or the delivered file is materially defective.',
   host: PARENT_HOST,
   path: '/refund-policy'
 });

@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 34,
+    "HARD_FAIL": 35,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -167,6 +167,18 @@
       "requires_build": true,
       "manual_repair": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
       "repair_evidence": "proved negatively on 2026-09-03: deleting the footer directory block from components/AppShell.tsx returns exactly the six orphans Ahrefs reported; deleting only directoryLabel from the timeline landing returns exactly /what-to-do-6-months-before-the-wedding"
+    },
+    {
+      "id": "rendered-seo-contract",
+      "npmScript": "validate:rendered-seo",
+      "command": "node scripts/validators/validate_rendered_seo_contract.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "Bing Webmaster and the site audit of 2026-09-25 read these off the rendered pages: rules 113/117 on weddingseatingchartmaker.com/products/seating-chart-maker (the http:// copy answered 200 beside the https:// one on all four hosts), rule 118 on descriptions of 81-98 characters with 25 more past 160, and 94 internal links (21-27 /free-wedding-planner?... per product host, 22 /products/*, /guides/* and hub links on weddingchecklistpdf.com) that 308'd across hosts. The data files could not show any of it: the descriptions are assembled in templates, the redirects are decided by middleware, and the links by a dozen emitters. This gate boots the real build, fetches every sitemap URL on every host, and asserts title >= 30 and description 110-160 characters, no duplicate title or description across self-canonical pages, no network href answering 3XX, and a permanent redirect for a Cloudflare-marked http request. Requires a build and hard-fails without one, and on zero pages or zero links examined.",
+      "composite": false,
+      "requires_build": true,
+      "manual_repair": "a description out of range: edit data/seo/guide_meta_descriptions.json (guides), data/seo/hub_pages.json, data/planner-landings.ts or the page's metadata; a redirecting link: route the emitter's href through hrefFrom() in lib/site-config.ts; an http 200: restore the scheme redirect in middleware.ts",
+      "repair_evidence": "proved negatively on 2026-09-25: at origin/main it failed with 60 descriptions out of range, 94 redirecting network links and 4 http 200s; after the fix it passes on 128 pages and 226 network links"
     },
     {
       "id": "kpi-truth",

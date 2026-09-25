@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { landingBySlug, type PlannerLanding } from '@/data/planner-landings';
 import { productById } from '@/lib/products';
-import { canonicalUrl } from '@/lib/site-config';
+import { PARENT_HOST, canonicalUrl, hrefFrom } from '@/lib/site-config';
 import { seoMetadata } from '@/lib/seo';
 import { dateModifiedFor } from '@/lib/lastmod';
 import { plannerHref } from '@/lib/planner-seed';
@@ -25,7 +25,9 @@ export function landingMetadata(slug: string): Metadata {
 export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
   const product = productById(landing.productId);
   const canonical = canonicalUrl(landing.host, `/${landing.slug}`);
-  const href = plannerHref(landing.seed);
+  // Every link below goes through hrefFrom: the planner, /methodology and three of
+  // the four products live on other hosts than some landings do.
+  const href = hrefFrom(landing.host, plannerHref(landing.seed));
   const related = landing.relatedSlugs.map(landingBySlug).filter((item): item is PlannerLanding => Boolean(item));
 
   const article = {
@@ -44,7 +46,7 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
   };
 
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
-    <Breadcrumbs items={[{ name: 'Free wedding planner', href: '/free-wedding-planner', canonical: canonicalUrl(landing.host, '/free-wedding-planner') }, { name: landing.h1, href: `/${landing.slug}`, canonical }]} />
+    <Breadcrumbs items={[{ name: 'Free wedding planner', href: hrefFrom(landing.host, '/free-wedding-planner'), canonical: canonicalUrl(PARENT_HOST, '/free-wedding-planner') }, { name: landing.h1, href: `/${landing.slug}`, canonical }]} />
 
     <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12">
       <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Constraint-first planning</p>
@@ -85,7 +87,7 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
       <h2 className="mt-3 font-serif text-4xl md:text-5xl">Now answer it for your wedding</h2>
       <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">Everything above is true in general. These three things are only answerable for you:</p>
       <ul className="mt-5 grid gap-3">{landing.plannerAdds.map((item) => <li key={item} className="rounded-2xl bg-linen p-4 leading-7">{item}</li>)}</ul>
-      {landing.categoryContrast && <p className="mt-5 border-l-4 border-charcoal/25 pl-4 leading-7 text-charcoal/70" data-testid="landing-category-contrast">{landing.categoryContrast} <Link href="/methodology" className="font-bold underline underline-offset-4">How constraint-first planning differs</Link></p>}
+      {landing.categoryContrast && <p className="mt-5 border-l-4 border-charcoal/25 pl-4 leading-7 text-charcoal/70" data-testid="landing-category-contrast">{landing.categoryContrast} <Link href={hrefFrom(landing.host, '/methodology')} className="font-bold underline underline-offset-4">How constraint-first planning differs</Link></p>}
       <Link href={href} data-testid="landing-planner-link" className="mt-7 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">{landing.ctaLabel}</Link>
       <p className="mt-3 text-xs leading-6 text-charcoal/55">Opens with this page&rsquo;s constraint already entered. If you have used the planner before, your saved answers win — a link can never overwrite work you have already done.</p>
     </section>
@@ -102,7 +104,7 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
       <p className="text-xs font-bold uppercase tracking-[.22em] text-linen/55">If you want the working file</p>
       <h2 className="mt-3 font-serif text-5xl">{product.name}</h2>
       <p className="mt-4 max-w-3xl text-linen/75">The planner is free and always will be. {product.name} is the working file for the plan it produces — the version you fill in, print, and hand to a vendor.</p>
-      <Link className="mt-6 inline-flex rounded-2xl bg-linen px-6 py-4 font-bold text-charcoal" href={product.route}>Review {product.name} — ${product.price}</Link>
+      <Link className="mt-6 inline-flex rounded-2xl bg-linen px-6 py-4 font-bold text-charcoal" href={hrefFrom(landing.host, product.route)}>Review {product.name} — ${product.price}</Link>
     </section>}
 
     <footer className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">{landing.verificationBoundary}</footer>

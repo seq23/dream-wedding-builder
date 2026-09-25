@@ -24,7 +24,7 @@ import { supportEmail } from '@/lib/products';
 export const metadata = seoMetadata({
   title: 'Privacy',
   description:
-    'What this site stores and sends: plan data stays in your browser, Stripe handles payment, order emails and downloads are recorded, and Clarity runs on every page.',
+    'What this site stores and sends: your plan stays in your browser, Stripe takes payment, orders and downloads are recorded, and Clarity runs on every page.',
   host: PARENT_HOST,
   path: '/privacy'
 });

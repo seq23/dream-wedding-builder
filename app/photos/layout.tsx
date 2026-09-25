@@ -5,7 +5,7 @@ import { seoMetadata } from '@/lib/seo';
 import { PARENT_HOST } from '@/lib/site-config';
 export const metadata = seoMetadata({
   title: 'Inspiration to Planning Scope',
-  description: 'Upload an inspiration photo or describe the idea, and turn it into a scope breakdown, the vendors likely needed, cost drivers, and the questions to verify before booking.',
+  description: 'Turn a wedding inspiration photo or idea into a scope breakdown: the vendors it needs, what drives its cost, and what to verify before you book anyone.',
   host: PARENT_HOST,
   path: '/photos'
 });

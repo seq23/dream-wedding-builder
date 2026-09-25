@@ -7,7 +7,7 @@ import { CheckoutButton } from '@/components/CheckoutButton';
 import { products, suite, supportEmail } from '@/lib/products';
 export const metadata = seoMetadata({
   title: 'Wedding Planning Tools',
-  description: 'Four one-time-purchase wedding tools: checklist PDF, budget spreadsheet, timeline template, and seating chart maker. Editable files, protected delivery, no subscription.',
+  description: 'Four one-time-purchase wedding tools: a checklist PDF, budget spreadsheet, timeline template, and seating chart maker, delivered as editable files.',
   host: PARENT_HOST,
   path: '/shop'
 });

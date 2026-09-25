@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import hubsJson from '@/data/seo/hub_pages.json';
 import registryJson from '@/data/authority/content_registry.json';
+import guideMetaJson from '@/data/seo/guide_meta_descriptions.json';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
 
 export type HubSection = { heading: string; paragraphs: string[]; bullets?: string[] };
@@ -83,4 +84,28 @@ export function productRecommendation(product: { sub?: string }): string {
 }
 
 export function hubMetadata(slug: string): Metadata { const hub = hubBySlug(slug); return seoMetadata({ title: hub.title, description: hub.description, host: hub.host, path: `/${slug}` }); }
-export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForProduct(guide.product_id); return seoMetadata({ title: guide.title, description: guide.summary ?? '', host, path: `/guides/${guide.slug}`, type: 'article' }); }
+// Search engines show 110-160 characters; Bing reported guides at 81-98 as rule 118
+// on 2026-09-25, and 25 more ran past 160. The guide records are hash-frozen
+// (data/release/frozen_output_registry.json), so a hand-written description lives in
+// data/seo/guide_meta_descriptions.json. A guide with no entry uses its summary when
+// that already fits; otherwise it is extended with its own recommendation or cut at a
+// word boundary, so a newly published guide can never render outside the range.
+// scripts/validators/validate_rendered_seo_contract.mjs asserts the rendered result.
+export const META_DESCRIPTION_MIN = 110;
+export const META_DESCRIPTION_MAX = 160;
+const guideMetaDescriptions = guideMetaJson.descriptions as Record<string, string>;
+function clip(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 0)).replace(/[\s,;:.\u2014-]+$/, '')}\u2026`;
+}
+export function guideMetaDescription(guide: { slug: string; summary?: string; answer?: string }): string {
+  const written = guideMetaDescriptions[guide.slug];
+  if (written) return written;
+  const summary = (guide.summary ?? '').trim();
+  if (summary.length >= META_DESCRIPTION_MIN) return clip(summary, META_DESCRIPTION_MAX);
+  const extended = `${summary} ${guideRecommendation(guide)}`.trim();
+  return clip(extended, META_DESCRIPTION_MAX);
+}
+
+export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForProduct(guide.product_id); return seoMetadata({ title: guide.title, description: guideMetaDescription(guide), host, path: `/guides/${guide.slug}`, type: 'article' }); }

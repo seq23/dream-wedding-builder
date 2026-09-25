@@ -1,13 +1,24 @@
 import { test, expect } from '@playwright/test';
 import { plannerLandings } from '../../../data/planner-landings';
 import { plannerHref } from '../../../lib/planner-seed';
+import { PARENT_HOST, hrefFrom } from '../../../lib/site-config';
 
 // The browser half of the seeding proof. The unit spec proves the arithmetic;
 // this proves that a person who clicks a real link on a real page arrives at a
 // planner that has actually changed.
 
-test('every landing page opens the planner with its own constraint entered', async ({ page }) => {
+test('every landing page opens the planner with its own constraint entered', async ({ page, baseURL }) => {
   expect(plannerLandings.length, 'zero landing pages examined').toBeGreaterThan(0);
+
+  // Landings on the three product hosts link the planner at its final URL on
+  // weddingchecklistpdf.com rather than a relative path the middleware would 308
+  // across hosts (Bing/site audit, 2026-09-25). Serve that origin from the server
+  // under test, so the click below still lands on the planner this build ships.
+  await page.route(`https://${PARENT_HOST}/**`, async (route) => {
+    const url = new URL(route.request().url());
+    const response = await route.fetch({ url: new URL(`${url.pathname}${url.search}`, baseURL).toString() });
+    await route.fulfill({ response });
+  });
 
   for (const landing of plannerLandings) {
     // Start from the landing page itself, so the link under test is the one that
@@ -17,6 +28,8 @@ test('every landing page opens the planner with its own constraint entered', asy
     await expect(link, `${landing.slug} has no planner link`).toBeVisible();
     const href = await link.getAttribute('href');
     expect(href, `${landing.slug} planner link has no seed`).toContain('?');
+    // Exactly the final URL: relative on the planner's own host, absolute elsewhere.
+    expect(href, `${landing.slug} planner link is not the final URL`).toBe(hrefFrom(landing.host, plannerHref(landing.seed)));
 
     await page.evaluate(() => window.localStorage.clear());
     await link.click();
