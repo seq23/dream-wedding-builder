@@ -5,7 +5,8 @@ import ownership from '@/data/seo/route_ownership.json';
 import registry from '@/data/authority/content_registry.json';
 import guideMeta from '@/data/seo/guide_meta_descriptions.json';
 import { CANONICAL_HOSTS, PARENT_HOST, canonicalHostForPath, hrefFrom } from '@/lib/site-config';
-import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, guideMetaDescription } from '@/lib/seo';
+import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, SITE_TITLE_SUFFIX, TITLE_MAX, documentTitle, guideMetaDescription } from '@/lib/seo';
+import { shippingPages } from '@/lib/authority-registry';
 import { plannerHref } from '@/lib/planner-seed';
 
 // Bing Webmaster + site audit, 2026-09-25. The rendered-page gate
@@ -100,5 +101,26 @@ describe('every guide meta description is 110-160 characters and unique', () => 
     const long = guideMetaDescription({ slug: '__none__', summary: 'word '.repeat(60).trim() });
     expect(long.length).toBeLessThanOrEqual(META_DESCRIPTION_MAX);
     expect(long.endsWith('…')).toBe(true);
+  });
+});
+
+describe('rendered titles are 30-70 characters (Bing Site Scan "title too long")', () => {
+  const rendered = (title: string) => {
+    const value = documentTitle(title);
+    return typeof value === 'string' ? `${value}${SITE_TITLE_SUFFIX}` : (value as { absolute: string }).absolute;
+  };
+
+  it('keeps the suffix only when it fits', () => {
+    expect(rendered('Wedding Seating Chart for 150 Guests')).toBe('Wedding Seating Chart for 150 Guests | Dream Wedding Builder');
+    expect(rendered('Wedding Seating Chart Maker - Editable Wedding Planning Tool')).toBe('Wedding Seating Chart Maker - Editable Wedding Planning Tool');
+  });
+
+  it('every shipping guide title renders in range', () => {
+    expect(shippingPages.length).toBeGreaterThan(0);
+    for (const page of shippingPages) {
+      const title = rendered(page.title);
+      expect(title.length, `${page.slug}: "${title}"`).toBeGreaterThanOrEqual(30);
+      expect(title.length, `${page.slug}: "${title}"`).toBeLessThanOrEqual(TITLE_MAX);
+    }
   });
 });

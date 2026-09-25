@@ -35,11 +35,22 @@ export const guides = registryJson.pages;
 export function hubBySlug(slug: string): HubPage { const page = hubs[slug]; if (!page) throw new Error(`Unknown hub: ${slug}`); return page; }
 export function guideBySlug(slug: string): GuidePage | undefined { return guides.find((page) => page.slug === slug); }
 
+// Bing Site Scan flags a title over 70 characters ("title too long"); on
+// 2026-09-25 it flagged 4 pages on each of the four hosts and the rendered-page
+// gate found 29. Almost all were short enough on their own and pushed over by the
+// layout's " | Dream Wedding Builder" template, so the suffix is kept only when it
+// fits. A title over 70 by itself is a source defect the gate reports by page.
+export const SITE_TITLE_SUFFIX = ' | Dream Wedding Builder';
+export const TITLE_MAX = 70;
+export function documentTitle(title: string): Metadata['title'] {
+  return `${title}${SITE_TITLE_SUFFIX}`.length <= TITLE_MAX ? title : { absolute: title };
+}
+
 export function seoMetadata(input: { title: string; description: string; host: string; path: string; type?: 'website' | 'article'; image?: string }): Metadata {
   const url = canonicalUrl(input.host, input.path);
   const image = input.image ?? '/product-images/merch/operations-suite-hero.png';
   return {
-    title: input.title,
+    title: documentTitle(input.title),
     description: input.description,
     alternates: { canonical: url },
     robots: { index: true, follow: true },

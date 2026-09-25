@@ -22,7 +22,7 @@ const DEFINITION = `The planning readiness score is a percentage measuring how m
 const META_DESCRIPTION = `How the wedding planning readiness score works: the share of ${READINESS_CHECK_COUNT} constraint-first inputs answered, each worth about ${Math.round(READINESS_POINTS_PER_CHECK)} points. Completeness, not quality.`;
 
 export const metadata: Metadata = seoMetadata({
-  title: 'The planning readiness score: inputs, weights, and what each number means',
+  title: 'The planning readiness score: inputs, weights, and what they mean',
   description: META_DESCRIPTION,
   host: PARENT_HOST,
   path: '/readiness-score',
