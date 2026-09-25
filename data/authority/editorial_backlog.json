@@ -21,7 +21,7 @@
     "predicate": "lib/authority-complete.mjs isComplete(), re-exported by lib/authority-registry.ts",
     "gate": "npm run validate:authority-registry - an entry that fails isComplete(), or contains an unexpanded {placeholder}, blocks the release"
   },
-  "distinct_topics": 26,
+  "distinct_topics": 28,
   "topics": [
     "DIY wedding planning",
     "accessible wedding planning",
@@ -38,11 +38,13 @@
     "wedding day logistics",
     "wedding decor planning",
     "wedding guest list",
+    "wedding invitation timing",
     "wedding invitations",
     "wedding meal planning",
     "wedding music planning",
     "wedding photography planning",
     "wedding planning",
+    "wedding plus one etiquette",
     "wedding reception planning",
     "wedding registry planning",
     "wedding seating chart",
@@ -635,6 +637,54 @@
       "retired_slug": "wedding-venue-planning-checklist-for-engaged-couples-practical",
       "source_opportunity_id": "maxfanout_000126_8eecd0bb4d",
       "machine_title_do_not_reuse": "Wedding Venue Planning Checklist For Engaged Couples Practical"
+    },
+    {
+      "topic": "wedding budget",
+      "intent": "what is the average cost of a wedding in 2026",
+      "audience": "engaged couples",
+      "cluster": "Wedding Budget",
+      "product_id": "budget-spreadsheet",
+      "target_domain": "weddingbudgetspreadsheet.com",
+      "target_hub_route": "/wedding-budget-spreadsheet",
+      "domain_note": null,
+      "source": "query_coverage_review_2026-09-25",
+      "source_url": "https://www.zola.com/expert-advice/whats-the-average-cost-of-a-wedding"
+    },
+    {
+      "topic": "wedding invitation timing",
+      "intent": "when to send wedding invitations",
+      "audience": "engaged couples",
+      "cluster": "Wedding Invitations",
+      "product_id": "timeline-template",
+      "target_domain": "weddingtimelinetemplate.com",
+      "target_hub_route": "/wedding-timeline-template",
+      "domain_note": null,
+      "source": "query_coverage_review_2026-09-25",
+      "source_url": "https://www.theknot.com/content/when-to-send-wedding-invitations"
+    },
+    {
+      "topic": "wedding invitation timing",
+      "intent": "when to send save the dates",
+      "audience": "engaged couples",
+      "cluster": "Wedding Invitations",
+      "product_id": "timeline-template",
+      "target_domain": "weddingtimelinetemplate.com",
+      "target_hub_route": "/wedding-timeline-template",
+      "domain_note": null,
+      "source": "query_coverage_review_2026-09-25",
+      "source_url": "https://www.callablanche.com/blog/article/how-far-out-do-you-send-wedding-save-the-dates-invitations-and-rsvp-requests"
+    },
+    {
+      "topic": "wedding plus one etiquette",
+      "intent": "who gets a plus one at a wedding",
+      "audience": "engaged couples",
+      "cluster": "Wedding Guest List",
+      "product_id": "seating-chart-maker",
+      "target_domain": "weddingseatingchartmaker.com",
+      "target_hub_route": "/wedding-seating-chart",
+      "domain_note": null,
+      "source": "query_coverage_review_2026-09-25",
+      "source_url": "https://paperlust.co/blog/wedding-seating-chart-etiquette/"
     }
   ]
 }
