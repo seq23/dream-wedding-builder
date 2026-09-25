@@ -18,8 +18,8 @@
  * What it asserts, per canonical host, by booting `next start` and fetching every
  * sitemap URL with that host's Host header:
  *
- *   1. every sitemap URL responds 200 with a <title> of at least 30 characters and
- *      a meta description of 110-160 characters
+ *   1. every sitemap URL responds 200 with a <title> of 30-70 characters (Bing Site
+ *      Scan flags "title too long" above 70) and a meta description of 110-160
  *   2. no two self-canonical sitemap URLs, across all four hosts, share a title or
  *      a description
  *   3. every href on those pages that points at a network host (the four canonical
@@ -46,6 +46,7 @@ const ALIASES = Object.keys(ownership.alias_hosts ?? {});
 const NETWORK = new Set([...HOSTS, ...HOSTS.map((h) => `www.${h}`), ...ALIASES, ...ALIASES.map((h) => `www.${h}`)]);
 
 const TITLE_MIN = 30;
+const TITLE_MAX = 70;
 const DESC_MIN = 110;
 const DESC_MAX = 160;
 
@@ -138,7 +139,7 @@ try {
       const title = decode(html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? '');
       const desc = metaContent(html, 'name', 'description');
       const canonical = html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]*)"/i)?.[1] ?? null;
-      if (title.length < TITLE_MIN) fail(`${where}: title is ${title.length} chars (min ${TITLE_MIN}): "${title}"`);
+      if (title.length < TITLE_MIN || title.length > TITLE_MAX) fail(`${where}: title is ${title.length} chars (want ${TITLE_MIN}-${TITLE_MAX}): "${title}"`);
       if (desc === null) fail(`${where}: no meta description`);
       else if (desc.length < DESC_MIN || desc.length > DESC_MAX) fail(`${where}: description is ${desc.length} chars (want ${DESC_MIN}-${DESC_MAX}): "${desc}"`);
 

@@ -4,10 +4,13 @@ import { headers } from 'next/headers';
 import { AppShell } from '@/components/AppShell';
 import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
 import { siteDirectory } from '@/lib/site-directory';
+import { SITE_TITLE_SUFFIX } from '@/lib/seo';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://weddingchecklistpdf.com'),
-  title: { default: 'Dream Wedding Builder', template: '%s | Dream Wedding Builder' },
+  // One suffix, shared with lib/seo.ts documentTitle(), which drops it when it would
+  // push a title past 70 characters.
+  title: { default: 'Dream Wedding Builder', template: `%s${SITE_TITLE_SUFFIX}` },
   description: 'Free wedding planning guides and paid execution tools for checklists, budgets, timelines, guest lists, and seating charts.',
   robots: { index: true, follow: true }
 };
