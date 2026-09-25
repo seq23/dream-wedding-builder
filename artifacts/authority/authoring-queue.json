@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "run_at": "2026-09-25T10:27:23.491Z",
+  "run_at": "2026-09-25T20:15:03.647Z",
   "note": "Backlog topics that now have a home but not yet an author. Each needs three sentences; the other twelve fields are composed. This file is the replacement for a generator that refused and failed the build.",
-  "topics_awaiting_authoring": 25,
+  "topics_awaiting_authoring": 29,
   "seeds_ready_not_yet_released": 0,
   "queue": [
     {
@@ -379,6 +379,66 @@
         "working_example"
       ],
       "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding checklist\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding budget",
+      "intent": "what is the average cost of a wedding in 2026",
+      "assigned_cluster": "Wedding budget",
+      "assignment_reason": "already owned",
+      "product_id": "budget-spreadsheet",
+      "hub_route": "/wedding-budget-spreadsheet",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding budget\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding invitation timing",
+      "intent": "when to send wedding invitations",
+      "assigned_cluster": "Wedding timeline",
+      "assignment_reason": "when to mail save-the-dates and invitations is a countdown against the wedding date, which is what the timeline scaffold schedules",
+      "product_id": "timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding timeline\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding invitation timing",
+      "intent": "when to send save the dates",
+      "assigned_cluster": "Wedding timeline",
+      "assignment_reason": "when to mail save-the-dates and invitations is a countdown against the wedding date, which is what the timeline scaffold schedules",
+      "product_id": "timeline-template",
+      "hub_route": "/wedding-timeline-template",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding timeline\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
+    },
+    {
+      "topic": "wedding plus one etiquette",
+      "intent": "who gets a plus one at a wedding",
+      "assigned_cluster": "Wedding seating chart",
+      "assignment_reason": "a plus-one decision changes headcount and a seat, which is the guest record the seating scaffold governs",
+      "product_id": "seating-chart-maker",
+      "hub_route": "/wedding-seating-chart",
+      "scaffold_ready": true,
+      "needs_authoring": [
+        "summary",
+        "recommendation",
+        "working_example"
+      ],
+      "instruction": "Add a seed to data/authority/editorial_seeds.json with cluster \"Wedding seating chart\" and these three sentences. Everything else is composed by lib/authority-compose.mjs. See the authoring_rules in that file."
     }
   ]
 }
