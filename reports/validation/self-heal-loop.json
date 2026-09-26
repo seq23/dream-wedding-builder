@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-09-25T10:28:35.009Z",
+  "generated_at": "2026-09-26T10:25:47.045Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -16,6 +16,7 @@
   "manual_repairs": {
     "cadence-determinism": "close the measurement window in scripts/cadence/derive_capacity.mjs on a commit date rather than on new Date(), or move the `cadence:derive -- --write` step in the named workflow ahead of the step that spends the budget. Re-running or re-deriving does not fix this class: --write only moves the next calendar boundary a few days out.",
     "internal-link-graph": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
+    "rendered-seo-contract": "a description out of range: edit data/seo/guide_meta_descriptions.json (guides), data/seo/hub_pages.json, data/planner-landings.ts or the page's metadata; a redirecting link: route the emitter's href through hrefFrom() in lib/site-config.ts; an http 200: restore the scheme redirect in middleware.ts",
     "methodology-contrast": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
     "planner-persistent-entry": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
     "planner-reachability": "restore the desktop nav entry in components/AppShell.tsx and the planner section in app/guides/[slug]/page.tsx",
