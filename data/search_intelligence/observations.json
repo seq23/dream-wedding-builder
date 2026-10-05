@@ -14742,6 +14742,582 @@
       "ctr": 0,
       "average_position": 41,
       "target_match": false
+    },
+    {
+      "observation_id": "be64f414cf36daee09f0",
+      "observed_at": "2026-10-05T11:48:52.550Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "seating chart wedding maker",
+      "page": "https://weddingseatingchartmaker.com/wedding-seating-chart",
+      "host": "weddingseatingchartmaker.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 11,
+      "target_match": false
+    },
+    {
+      "observation_id": "0e5c4b5af8ec3b680a21",
+      "observed_at": "2026-10-05T11:48:52.672Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "average cost of a wedding for 100 people",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 70,
+      "target_match": false
+    },
+    {
+      "observation_id": "c8c0a76b7f3626194adb",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "average cost of wedding for 150 guests",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 87,
+      "target_match": false
+    },
+    {
+      "observation_id": "caff27da705d4d49b5f0",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "average cost of wedding for 50 guests",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 96,
+      "target_match": false
+    },
+    {
+      "observation_id": "6f69042fc66174f85812",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "average wedding cost for 100 people",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "average_position": 74,
+      "target_match": false
+    },
+    {
+      "observation_id": "cb147ff3ad2e610cdbb6",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "average wedding cost for 50 guests",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 93,
+      "target_match": false
+    },
+    {
+      "observation_id": "863c1fc71da35c976010",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "average wedding size by budget",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 79,
+      "target_match": false
+    },
+    {
+      "observation_id": "0372ead6d755c188c889",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "cost of a 100 person wedding",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 95,
+      "target_match": false
+    },
+    {
+      "observation_id": "0bb42cf50ce87f36af9e",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "cost of wedding for 100 people",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "average_position": 66.66666666666667,
+      "target_match": false
+    },
+    {
+      "observation_id": "18e00452f9b36a325519",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "how much does a 100 person wedding cost",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 98,
+      "target_match": false
+    },
+    {
+      "observation_id": "389f792c9800b1024134",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "how much does a 150 person wedding cost",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 83,
+      "target_match": false
+    },
+    {
+      "observation_id": "c2e19f00f986f51963f4",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "how much does a wedding for 100 people cost",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 79.5,
+      "target_match": false
+    },
+    {
+      "observation_id": "8e05d2cdf569e98bce77",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "how much is a 100 person wedding",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "average_position": 87.5,
+      "target_match": false
+    },
+    {
+      "observation_id": "a5d1059927cc212fde9d",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "how much is a wedding for 100 people",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "average_position": 76,
+      "target_match": false
+    },
+    {
+      "observation_id": "c7d453b5b5dee748a248",
+      "observed_at": "2026-10-05T11:48:52.673Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding cost for 100 people",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "host": "weddingbudgetspreadsheet.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 81,
+      "target_match": false
+    },
+    {
+      "observation_id": "2ff600575d8438458f28",
+      "observed_at": "2026-10-05T11:48:52.767Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "destination wedding itinerary",
+      "page": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0,
+      "average_position": 98.33333333333333,
+      "target_match": false
+    },
+    {
+      "observation_id": "a277d757639e754c25f7",
+      "observed_at": "2026-10-05T11:48:52.768Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "evening timeline",
+      "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 76,
+      "target_match": false
+    },
+    {
+      "observation_id": "4e6880375a5cf819088a",
+      "observed_at": "2026-10-05T11:48:52.768Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "evening wedding timeline",
+      "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+      "host": "weddingtimelinetemplate.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 81,
+      "target_match": true
+    },
+    {
+      "observation_id": "76c08d175653be10f68f",
+      "observed_at": "2026-10-05T11:48:52.930Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "destination wedding checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "average_position": 52,
+      "target_match": false
+    },
+    {
+      "observation_id": "9a1dba3c20ebc4b846dd",
+      "observed_at": "2026-10-05T11:48:52.930Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "elopement planning checklist",
+      "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 28,
+      "target_match": true
+    },
+    {
+      "observation_id": "16deeacce85e761c5f88",
+      "observed_at": "2026-10-05T11:48:52.930Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "how to plan a wedding step by step pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 89,
+      "target_match": false
+    },
+    {
+      "observation_id": "03cfa97c35b36373fff4",
+      "observed_at": "2026-10-05T11:48:52.930Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "printable wedding checklist",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "average_position": 74.5,
+      "target_match": true
+    },
+    {
+      "observation_id": "d023ba1b335ed205fd99",
+      "observed_at": "2026-10-05T11:48:52.930Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "printable wedding checklists",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 79,
+      "target_match": false
+    },
+    {
+      "observation_id": "6b8c73db7858b5e9a938",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding ceremony checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 85,
+      "target_match": false
+    },
+    {
+      "observation_id": "7cde772d4df90183e80b",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 85,
+      "target_match": true
+    },
+    {
+      "observation_id": "4e71ba51cd5b414cbdc3",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding checklist printable",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 58,
+      "target_match": false
+    },
+    {
+      "observation_id": "64ad278e49f9bfb0d595",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding plan pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 72,
+      "target_match": false
+    },
+    {
+      "observation_id": "177302abf6c00cad9572",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 96,
+      "target_match": false
+    },
+    {
+      "observation_id": "cd6d6d2a32a074b0aa81",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning checklist pdf",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 97,
+      "target_match": false
+    },
+    {
+      "observation_id": "566d44567cd6f0b089d0",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning timeline pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 68,
+      "target_match": false
+    },
+    {
+      "observation_id": "9aaf88c2bd3228330911",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding reception checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 71,
+      "target_match": false
+    },
+    {
+      "observation_id": "6e70c3d1e9a024a20d3b",
+      "observed_at": "2026-10-05T11:48:52.931Z",
+      "period": {
+        "start": "2026-09-06",
+        "end": "2026-10-03"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding vendors checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 41,
+      "target_match": false
     }
   ]
 }
