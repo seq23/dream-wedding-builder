@@ -10,6 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   search-intelligence:
+    timeout-minutes: 5  # ~3x median 0.8m over 8 green runs; fault detector, not a budget
     if: ${{ vars.CONTENT_RELEASE_ENABLED == 'true' && vars.CONTENT_EMERGENCY_STOP != 'true' }}
     runs-on: ubuntu-latest
     steps:

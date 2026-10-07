@@ -19,7 +19,7 @@ concurrency:
 jobs:
   self-heal:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 12  # was 25; ~4x median 2.9m over 7 green runs
     steps:
       - uses: actions/checkout@v7
         with:
