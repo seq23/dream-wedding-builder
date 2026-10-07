@@ -19,6 +19,7 @@ on:
 permissions: { contents: read }
 jobs:
   validate:
+    timeout-minutes: 6  # ~3x median 1.8m over 8 green runs; fault detector, not a budget
     runs-on: ubuntu-latest
     steps:
       # fetch-depth: 0 because validate:cadence-policy re-derives publishing
