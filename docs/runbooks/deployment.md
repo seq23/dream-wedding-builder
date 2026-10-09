@@ -66,6 +66,17 @@ Two further notes on that incident, both worth knowing before changing this agai
   replacement. `npm run upload` is the version-upload equivalent that still builds
   the worker.
 
+Cron triggers (2026-10-09). `wrangler.jsonc` `triggers.crons` schedules the hourly
+delivery retry (`worker.ts` -> `lib/delivery-retry.ts`). `npm run deploy` applies
+it (`opennextjs-cloudflare deploy` runs `wrangler deploy`, which registers triggers;
+`wrangler versions upload` never does) and then runs `scripts/check-live-cron.mjs`,
+a read-only GET of the live Worker's schedules that fails the deploy if any
+configured cron is missing. A newly created schedule takes up to 15 minutes to
+start firing: after PR #24 the schedule was registered at 05:48:09 UTC, the 06:00
+run fell inside that window, and 07:00 fired. A missed first run inside 15 minutes
+of a deploy is propagation, not a missing trigger; no manual
+`wrangler triggers deploy` is needed.
+
 `scripts/validate-worker-entrypoint.mjs` enforces the half of this that lives in the
 repo, and checks the table above against the scripts it names. (It is named for the
 entry point rather than for deployment because `validate:profile-purity` forbids a
