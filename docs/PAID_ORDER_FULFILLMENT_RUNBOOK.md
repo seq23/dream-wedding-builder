@@ -57,7 +57,7 @@ The order-status endpoint truthfully reports `AWAITING_ASSET` until the matching
 - Duplicate Stripe event IDs return success without creating duplicate orders, but only once the first attempt has finished. An event whose first attempt failed part-way through (for example a Resend outage) is re-processed on Stripe's retry rather than being dismissed as a duplicate, so the delivery email is not lost.
 - Missing or invalid signatures return HTTP 400.
 - A paid session without a governed SKU or customer email records the event error and returns HTTP 500 so Stripe can retry.
-- Missing Resend configuration records `PENDING_PROVIDER` in `delivery_attempts`.
+- Missing Resend configuration records `PENDING_PROVIDER` in `delivery_attempts` and returns HTTP 500 so Stripe retries once the key exists.
 - A Resend failure records `FAILED` and returns HTTP 500 so Stripe retries the webhook.
 - Missing R2 product objects do not fabricate fulfillment; the success page reports that the release awaits upload.
 - Revoked entitlements return HTTP 403 from the download route.
@@ -83,3 +83,19 @@ BASE_URL=http://localhost:8788 \
 ```
 
 It covers signature enforcement, the replay window, unpaid sessions, entitlement creation, event deduplication, and download-token gating. Two legs it cannot cover: Stripe's own session creation, which needs a real `sk_test_` key, and Resend delivery, which needs `RESEND_API_KEY`.
+
+## Delivery email is never silent (2026-10-08)
+
+Incident: the only real order (2026-07-11, order `ed5ddcdc-23ec-4dbf-83e5-a24bde689d04`) was paid but its
+email was rejected by Resend because `weddingchecklistpdf.com` was not a verified sending domain in the
+account behind `RESEND_API_KEY`. The error sat in `delivery_attempts` for three months unseen.
+
+- `lib/delivery-email.ts` is the only code path that emails a buyer; the webhook imports it.
+- Every non-SENT outcome writes a `DELIVERY_EMAIL_FAILED` JSON line to Workers Logs (`observability`
+  is on in `wrangler.jsonc`), with order id and email domain only.
+- `/api/health/delivery` returns 503 with `undelivered_count` while any paid order has no SENT email.
+- `/admin` shows a red panel listing undelivered paid orders (id, email domain, last error).
+- `tests/unit/delivery-email.test.ts` pins all of the above.
+
+Sending account: the owner's personal Resend account (the one sending `codes@mail.aplayermode.com`),
+never West Peek's. Sender: `orders@mail.weddingchecklistpdf.com`, set via the `APP_FROM_EMAIL` secret.

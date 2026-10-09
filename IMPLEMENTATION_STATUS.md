@@ -56,3 +56,12 @@ Dependency-backed `npm run validate:all`, Next/OpenNext build, Playwright, real 
 - $39 Operations Suite shown as a bundle against the four individual prices ($52, save $13). Stripe prices unchanged.
 - Affiliate slots (Zola, Minted, Amazon wedding registry) on every guide and hub page and the builder, driven by `data/affiliates/partners.json`; plain untracked links until `affiliate_url` is filled.
 - Cloudflare Web Analytics beacon rendered per host from `data/cf_web_analytics.json`.
+
+## Delivery email (2026-10-08)
+
+- Guard landed: failed delivery emails are logged (`DELIVERY_EMAIL_FAILED`), shown on `/admin`, and turn
+  `/api/health/delivery` to 503. See docs/PAID_ORDER_FULFILLMENT_RUNBOOK.md.
+- NAMED STOP: `mail.weddingchecklistpdf.com` is not yet a verified domain in the owner's personal Resend
+  account. Adding it needs a logged-in Resend session (or a full-access key from that account in the
+  vault); the vault's only labelled Resend key belongs to West Peek and must not be used. Until then
+  `/api/health/delivery` reports 503 for the 2026-07-11 order, by design.
