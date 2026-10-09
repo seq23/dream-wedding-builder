@@ -119,9 +119,26 @@ for (const row of triggerRows) {
     }
   }
 }
+
+// --- 4. The production deploy registers the cron schedule, and proves it -----
+// Incident 2026-10-09 (PR #24): the hourly delivery retry lives in wrangler.jsonc
+// "triggers". Only `wrangler deploy` (which `opennextjs-cloudflare deploy` runs)
+// applies triggers; `wrangler versions upload` never does. The production deploy
+// command must apply them and then run the read-only live check.
+const crons = wrangler.triggers?.crons ?? [];
+if (/scheduled\s*\(/.test(mainFile && fs.existsSync(path.join(ROOT, mainFile)) ? read(mainFile) : '') && crons.length === 0) {
+  fail(`${mainFile} has a scheduled handler but wrangler.jsonc declares no triggers.crons, so it never runs`);
+}
+if (crons.length) {
+  const prod = triggerRows.find((r) => r.branches.includes('main') && !/except/i.test(r.branches));
+  const cmd = prod && prod.deploy.startsWith('npm run ') ? scripts[prod.deploy.slice('npm run '.length).trim()] ?? '' : '';
+  if (!prod) fail('docs/runbooks/deployment.md: no production (main) trigger row, so the cron-registering deploy cannot be checked');
+  else if (!/opennextjs-cloudflare\s+deploy|wrangler\s+deploy/.test(cmd) || /versions\s+upload/.test(cmd)) fail(`trigger "${prod.trigger}": deploy command "${prod.deploy}" does not run \`wrangler deploy\`, so wrangler.jsonc triggers.crons (${crons.join(', ')}) are never applied`);
+  else if (!/deploy[^&]*&&\s*node scripts\/check-live-cron\.mjs/.test(cmd)) fail(`trigger "${prod.trigger}": deploy command "${prod.deploy}" does not finish with "node scripts/check-live-cron.mjs", so a deploy that drops the cron schedule passes`);
+}
 const recordedCount = triggerRows.length;
 
-console.log(`worker entrypoint: main=${mainFile} entry_point=${entryPoint} producers=${producers.length} publishing_scripts=${publishing.length} recorded_triggers=${recordedCount}`);
+console.log(`worker entrypoint: main=${mainFile} entry_point=${entryPoint} producers=${producers.length} publishing_scripts=${publishing.length} recorded_triggers=${recordedCount} crons=${crons.length}`);
 if (failures.length) {
   for (const message of failures) console.error(`  FAIL ${message}`);
   console.error(`worker entrypoint: FAIL (${failures.length} problem(s))`);

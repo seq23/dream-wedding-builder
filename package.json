@@ -29,7 +29,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "cloudflare:discover": "node scripts/providers/cloudflare-discover.mjs",
     "d1:migrate:remote": "wrangler d1 execute dream-wedding-builder --remote --file=migrations/0001_fulfillment.sql",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy && node scripts/check-live-cron.mjs",
     "dev": "next dev",
     "distribution:gsc": "node scripts/distribution/submit_gsc_sitemaps.mjs",
     "distribution:indexnow": "node scripts/distribution/submit_indexnow.mjs",
