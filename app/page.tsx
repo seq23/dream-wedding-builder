@@ -6,8 +6,8 @@ import { CheckoutButton } from '@/components/CheckoutButton';
 import { products, suite, supportEmail } from '@/lib/products';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Wedding Checklist PDF ($9): Printable, Editable Wedding Planning Checklist' },
-  description: 'The $9 Wedding Checklist PDF: a 104-row editable checklist and 13-page printable packet with owners, deadlines, dependencies, wedding-week handoffs and final payments. Instant download.',
+  title: { absolute: 'Wedding Checklist PDF ($9): Printable, Editable Planning Checklist' },
+  description: 'The $9 Wedding Checklist PDF: a 104-row editable checklist and 13-page printable packet with owners, deadlines and final payments. Instant download.',
   alternates: { canonical: 'https://weddingchecklistpdf.com/' },
   openGraph: { title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', url: 'https://weddingchecklistpdf.com/', type: 'website' }
 };
@@ -36,9 +36,9 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold"><Link href={checklist.route} className="underline underline-offset-4">Look inside the checklist first →</Link><Link href="/shop" className="underline underline-offset-4">All four tools in one bundle — $39</Link></div>
         <p className="mt-6 text-xs font-bold uppercase tracking-[.2em] text-charcoal/45">Or pick the tool you need</p>
         <div className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
-          <Link href="/products/seating-chart-maker" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Seating Chart Maker — $19</Link>
-          <Link href="/products/budget-spreadsheet" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Budget Spreadsheet — $12</Link>
-          <Link href="/products/timeline-template" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Timeline Template — $12</Link>
+          <a href="https://weddingseatingchartmaker.com/products/seating-chart-maker" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Seating Chart Maker — $19</a>
+          <a href="https://weddingbudgetspreadsheet.com/products/budget-spreadsheet" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Budget Spreadsheet — $12</a>
+          <a href="https://weddingtimelinetemplate.com/products/timeline-template" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Timeline Template — $12</a>
           <Link href="/products/operations-suite" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Operations Suite bundle — $39</Link>
         </div>
       </div>
