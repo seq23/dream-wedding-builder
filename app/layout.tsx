@@ -13,7 +13,9 @@ export const metadata: Metadata = {
   // push a title past 70 characters.
   title: { default: 'Dream Wedding Builder', template: `%s${SITE_TITLE_SUFFIX}` },
   description: 'Free wedding planning guides and paid execution tools for checklists, budgets, timelines, guest lists, and seating charts.',
-  robots: { index: true, follow: true }
+  robots: { index: true, follow: true },
+  // Impact (Zola affiliate programme) site-ownership check, owner-approved 9 Oct 2026.
+  other: { 'impact-site-verification': '625d5e62-9ea8-4408-8f13-c7ab8b89c814' }
 };
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const requestHeaders = await headers();
