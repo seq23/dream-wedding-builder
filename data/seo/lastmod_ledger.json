@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "270d21f2bb75518ea2e2b4f620654584beeef2b0",
+  "generated_from_commit": "fb0552c5a38f6abc26fed6dfdad92151cb0d426b",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-10-08",
       "source": "app/page.tsx"
     },
     "/amazon/wedding-budget-line-by-line": {
@@ -38,7 +38,7 @@
       "source": "app/disclaimer/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-10-08",
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
@@ -418,7 +418,7 @@
       "source": "data/seo/hub_pages.json#pages.printable-wedding-checklist"
     },
     "/privacy": {
-      "lastmod": "2026-09-02",
+      "lastmod": "2026-10-08",
       "source": "app/privacy/page.tsx"
     },
     "/products/budget-spreadsheet": {
@@ -442,7 +442,7 @@
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/readiness-score": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-10-08",
       "source": "app/readiness-score/page.tsx"
     },
     "/refund-policy": {
