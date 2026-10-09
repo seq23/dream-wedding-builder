@@ -3,6 +3,8 @@
 	"main": ".open-next/worker.js",
 	"name": "dream-wedding-builder",
 	"compatibility_date": "2026-07-10",
+	// Workers Logs: DELIVERY_EMAIL_FAILED lines from lib/delivery-email.ts land here.
+	"observability": { "enabled": true },
 	"compatibility_flags": [
 		"nodejs_compat",
 		"global_fetch_strictly_public"

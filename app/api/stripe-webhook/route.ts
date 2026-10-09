@@ -3,31 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { runtimeEnv } from '@/lib/cloudflare-runtime';
 import { createDownloadToken, releaseKeyForSku, safeEmail, verifyStripeSignature, type StripeSession } from '@/lib/fulfillment';
 import { productBySku } from '@/lib/products';
+import { sendDeliveryEmail } from '@/lib/delivery-email';
 
 export const dynamic = 'force-dynamic';
-
-async function sendDeliveryEmail(env: Awaited<ReturnType<typeof runtimeEnv>>, orderId: string, email: string, productName: string, downloadUrl: string) {
-  if (!env.RESEND_API_KEY) {
-    await env.DB!.prepare('INSERT INTO delivery_attempts (order_id, channel, status, error_message) VALUES (?, ?, ?, ?)')
-      .bind(orderId, 'email', 'PENDING_PROVIDER', 'RESEND_API_KEY is not configured').run();
-    return;
-  }
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: env.APP_FROM_EMAIL || 'Dream Wedding Builder <orders@weddingchecklistpdf.com>',
-      to: [email],
-      reply_to: env.APP_REPLY_TO_EMAIL || 'info@weddingchecklistpdf.com',
-      subject: `Your ${productName} is ready`,
-      html: `<div style="font-family:Arial,sans-serif;max-width:620px;margin:auto"><h1>Your wedding planning tool is ready.</h1><p>Thank you for purchasing <strong>${productName}</strong>.</p><p><a href="${downloadUrl}" style="display:inline-block;background:#27231f;color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:700">Download ${productName}</a></p><p>This secure link expires in 24 hours. You can return to your order success page to generate a fresh link.</p><p>Support: info@weddingchecklistpdf.com</p></div>`
-    })
-  });
-  const payload = await response.json().catch(() => ({}));
-  await env.DB!.prepare('INSERT INTO delivery_attempts (order_id, channel, status, provider_message_id, error_message) VALUES (?, ?, ?, ?, ?)')
-    .bind(orderId, 'email', response.ok ? 'SENT' : 'FAILED', payload?.id || null, response.ok ? null : (payload?.message || 'Resend request failed')).run();
-  if (!response.ok) throw new Error(payload?.message || 'Resend request failed');
-}
 
 export async function POST(req: NextRequest) {
   const raw = await req.text();
