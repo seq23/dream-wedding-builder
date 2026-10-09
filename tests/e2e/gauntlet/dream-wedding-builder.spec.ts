@@ -1,4 +1,7 @@
 import { test, expect } from '@playwright/test';
+import { unlockBuilder } from './unlock-builder';
+
+test.beforeEach(async ({ page }) => { await unlockBuilder(page); });
 
 test('surface gauntlet: required pages render without auth', async ({ page }) => {
   for (const path of ['/', '/free-wedding-planner', '/dashboard', '/trends', '/photos', '/pack', '/disclaimer', '/privacy']) {
@@ -193,7 +196,10 @@ test('outcome: printable packet contains planner-grade sections and caveats', as
 
 test('commercial hub and paid product pages are complete and clear', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: /Plan every detail/i })).toBeVisible();
+  // 2026-10-08: the homepage leads with the $9 checklist; its hero button posts that SKU to checkout.
+  await expect(page.getByRole('heading', { level: 1, name: /wedding checklist built around your actual date/i })).toBeVisible();
+  await expect(page.getByTestId('home-primary-cta').getByRole('button', { name: /Get the Wedding Checklist PDF — \$9/ })).toBeVisible();
+  await expect(page.getByTestId('home-primary-cta').locator('input[name="sku"]')).toHaveValue('DWB-CHECKLIST-001');
   // Scoped to <main>: the desktop nav carries the same product names and is
   // display:none at mobile widths, so an unscoped .first() asserted against a
   // hidden nav item rather than against the page content.

@@ -3,7 +3,10 @@ import fs from 'node:fs';
 const homepage = fs.readFileSync('app/page.tsx','utf8');
 const productCatalog = fs.readFileSync('data/products/product_catalog.json','utf8');
 const homepageRequirements = [
-  ['free wedding builder CTA', /Build my wedding free/i],
+  // 2026-10-08: the homepage sells the $9 checklist first; the builder stays linked.
+  ['$9 checklist checkout as the primary hero CTA', /data-testid="home-primary-cta"><CheckoutButton sku=\{checklist\.sku\}/],
+  ['checklist product resolved by id', /products\.find\(\(p\) => p\.id === 'checklist-pdf'\)/],
+  ['planning builder still linked', /href="\/free-wedding-planner"/],
   ['Wedding Seating Chart Maker', /Wedding Seating Chart Maker/],
   ['Wedding Budget Spreadsheet', /Wedding Budget Spreadsheet/],
   ['Wedding Timeline Template', /Wedding Timeline Template/],

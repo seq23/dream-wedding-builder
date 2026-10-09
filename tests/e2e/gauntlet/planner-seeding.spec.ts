@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { unlockBuilder } from './unlock-builder';
 import { plannerLandings } from '../../../data/planner-landings';
 import { plannerHref } from '../../../lib/planner-seed';
 import { PARENT_HOST, hrefFrom } from '../../../lib/site-config';
+
+test.beforeEach(async ({ page }) => { await unlockBuilder(page); });
 
 // The browser half of the seeding proof. The unit spec proves the arithmetic;
 // this proves that a person who clicks a real link on a real page arrives at a

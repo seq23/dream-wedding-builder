@@ -83,7 +83,7 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
     {/* The general answer is above. This is the part only a tool can do, and it is
         stated as three specific things rather than a promise. */}
     <section className="no-print rounded-[2rem] border border-charcoal/15 bg-white p-7 md:p-10" data-testid="landing-planner-cta">
-      <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free · no account · nothing leaves your browser</p>
+      <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free with your email · your plan stays in your browser</p>
       <h2 className="mt-3 font-serif text-4xl md:text-5xl">Now answer it for your wedding</h2>
       <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">Everything above is true in general. These three things are only answerable for you:</p>
       <ul className="mt-5 grid gap-3">{landing.plannerAdds.map((item) => <li key={item} className="rounded-2xl bg-linen p-4 leading-7">{item}</li>)}</ul>

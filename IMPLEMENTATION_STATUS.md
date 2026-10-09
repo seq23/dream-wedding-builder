@@ -30,7 +30,8 @@
 - Deploy the snapshot and prove the four-domain redirect/canonical matrix and paid-preview galleries against live hosts.
 - Submit deployed sitemaps/indexing requests and collect Search Console, IndexNow, crawl, ranking, product-preview, checkout, and conversion evidence.
 - Execute manual blogger/community outreach only where paid-product preview links are appropriate and record observed live backlink outcomes.
-- Complete one controlled live paid purchase and retain provider receipts.
+- DONE (verified 2026-10-08 against production D1): one live paid purchase completed on 2026-07-11, `DWB-CHECKLIST-001`, $9.00, `payment_status=paid`, Stripe `cs_live_` session and `checkout.session.completed` event recorded, entitlement issued. The provider receipt is the `orders`/`stripe_events` rows.
+- Open from that purchase: the delivery email failed (`delivery_attempts.status=FAILED`, Resend: "The weddingchecklistpdf.com domain is not verified"). On-screen access worked; email delivery needs the domain verified in the Resend account whose key is the Worker's `RESEND_API_KEY`.
 
 ## Current readiness
 
@@ -47,3 +48,11 @@ Deep repo-local validation now passes across structural validators, authority fl
 Dependency-backed `npm run validate:all`, Next/OpenNext build, Playwright, real Stripe test-mode session creation, provider fulfillment, deployment, and the locally reported security-audit findings remain unclaimed until executed in the appropriate environment.
 
 **Current readiness:** `STRUCTURALLY AND DEEPLY CHECKED — DEPENDENCY-BACKED LOCAL VALIDATION REQUIRED`
+
+## Revenue pass — 2026-10-08
+
+- Homepage sells the $9 Wedding Checklist PDF: title, hero and the primary CTA post straight to Stripe checkout (`DWB-CHECKLIST-001`).
+- Free planning builder opens after an email with explicit consent; addresses go to D1 `builder_signups` (`migrations/0002_builder_signups.sql`, also created by the route). No email is sent.
+- $39 Operations Suite shown as a bundle against the four individual prices ($52, save $13). Stripe prices unchanged.
+- Affiliate slots (Zola, Minted, Amazon wedding registry) on every guide and hub page and the builder, driven by `data/affiliates/partners.json`; plain untracked links until `affiliate_url` is filled.
+- Cloudflare Web Analytics beacon rendered per host from `data/cf_web_analytics.json`.

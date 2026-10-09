@@ -8,6 +8,8 @@ import { hubRecommendation, type HubPage as HubPageData } from '@/lib/seo';
 import { RecommendationSummary } from './RecommendationSummary';
 import { productById } from '@/lib/products';
 import { dateModifiedFor } from '@/lib/lastmod';
+import { AffiliatePicks } from '@/components/AffiliatePicks';
+import { placementForGuide } from '@/lib/affiliates';
 import { PrintButton } from '@/components/PrintButton';
 import { CheckoutButton } from '@/components/CheckoutButton';
 
@@ -51,6 +53,7 @@ export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
       <p className="mt-4 text-sm text-linen/65">One-time purchase. <Link href={hrefFrom(page.host, bundleOffer.offer.href)} className="font-bold underline underline-offset-4">See everything in {bundleOffer.bundle.name}</Link> before you decide.</p>
     </section>}
     {!bundleOffer && product && <section className="no-print rounded-[2rem] border border-charcoal/10 bg-white p-7 md:p-10"><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Continue with the working system</p><h2 className="mt-3 font-serif text-5xl">{product.name}</h2><p className="mt-4 max-w-3xl text-charcoal/70">This educational guide explains the method. The product page shows the actual paid-file previews, exact file inventory, and checkout path.</p><Link href={hrefFrom(page.host, product.route)} className="mt-6 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Review {product.name} — ${product.price}</Link></section>}
+    <AffiliatePicks placement={placementForGuide(slug)} />
     <RelatedLinks links={page.related} fromHost={page.host} />
     <footer className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">Educational planning guidance only. Verify venue rules, contracts, prices, timing, capacities, accessibility and dietary information, legal requirements, and vendor instructions with the appropriate source.</footer>
     <JsonLd data={[article, faq, ...(howTo ? [howTo] : [])]} />
