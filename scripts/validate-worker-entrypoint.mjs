@@ -34,8 +34,19 @@ const scripts = pkg.scripts ?? {};
 
 // wrangler.jsonc has comments; strip them before parsing.
 const wrangler = JSON.parse(read('wrangler.jsonc').replace(/^\s*\/\/.*$/gm, ''));
-const entryPoint = wrangler.main;
-if (!entryPoint) fail('wrangler.jsonc: no "main" entry point declared');
+// `main` is either OpenNext's generated worker itself, or a thin wrapper (worker.ts,
+// which adds the cron `scheduled` handler) that imports it. Either way the file that
+// only `opennextjs-cloudflare build` produces is .open-next/worker.js.
+const BUILT = '.open-next/worker.js';
+const mainFile = wrangler.main;
+if (!mainFile) fail('wrangler.jsonc: no "main" entry point declared');
+else if (mainFile !== BUILT) {
+  const wrapper = fs.existsSync(path.join(ROOT, mainFile)) ? read(mainFile) : '';
+  if (!wrapper) fail(`wrangler.jsonc main "${mainFile}" does not exist`);
+  else if (!/from\s+['"]\.\/\.open-next\/worker\.js['"]/.test(wrapper)) fail(`wrangler.jsonc main "${mainFile}" does not import ./${BUILT}, so it does not serve the Next.js app`);
+  else if (!/fetch:\s*handler\.fetch/.test(wrapper)) fail(`wrangler.jsonc main "${mainFile}" does not forward fetch to the OpenNext handler`);
+}
+const entryPoint = BUILT;
 
 const WORKER_BUILD = 'opennextjs-cloudflare build';
 // Anything that ships bytes to Cloudflare.
@@ -110,7 +121,7 @@ for (const row of triggerRows) {
 }
 const recordedCount = triggerRows.length;
 
-console.log(`worker entrypoint: entry_point=${entryPoint} producers=${producers.length} publishing_scripts=${publishing.length} recorded_triggers=${recordedCount}`);
+console.log(`worker entrypoint: main=${mainFile} entry_point=${entryPoint} producers=${producers.length} publishing_scripts=${publishing.length} recorded_triggers=${recordedCount}`);
 if (failures.length) {
   for (const message of failures) console.error(`  FAIL ${message}`);
   console.error(`worker entrypoint: FAIL (${failures.length} problem(s))`);
