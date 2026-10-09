@@ -67,7 +67,7 @@ describe('delivery email', () => {
 
   it('reports undelivered paid orders by id and email domain only', async () => {
     const rows = await undeliveredPaidOrders(fakeDb([{ order_id: 'ord-5', email: 'buyer@gmail.com', created_at: '2026-07-11', last_error: 'not verified' }]));
-    expect(rows).toEqual([{ order_id: 'ord-5', email_domain: '@gmail.com', created_at: '2026-07-11', last_error: 'not verified' }]);
+    expect(rows).toEqual([{ order_id: 'ord-5', email_domain: '@gmail.com', created_at: '2026-07-11', last_error: 'not verified', retries: 0 }]);
     expect(JSON.stringify(rows)).not.toContain('buyer');
   });
 

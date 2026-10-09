@@ -1,6 +1,8 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"main": ".open-next/worker.js",
+	"main": "worker.ts",
+	// Hourly: retry paid orders whose delivery email never went out (lib/delivery-retry.ts).
+	"triggers": { "crons": ["0 * * * *"] },
 	"name": "dream-wedding-builder",
 	"compatibility_date": "2026-07-10",
 	// Workers Logs: DELIVERY_EMAIL_FAILED lines from lib/delivery-email.ts land here.

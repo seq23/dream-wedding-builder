@@ -99,3 +99,26 @@ account behind `RESEND_API_KEY`. The error sat in `delivery_attempts` for three 
 
 Sending account: the owner's personal Resend account (the one sending `codes@mail.aplayermode.com`),
 never West Peek's. Sender: `orders@mail.weddingchecklistpdf.com`, set via the `APP_FROM_EMAIL` secret.
+
+## Undelivered orders recover on their own (2026-10-09)
+
+Replaying the Stripe event cannot re-send an email (`stripe_events` dedupes on `event_id`), so recovery
+is a Worker cron trigger, not a replay.
+
+- `wrangler.jsonc` `main` is `worker.ts`, a thin wrapper that forwards `fetch` to OpenNext's
+  `.open-next/worker.js` and adds `scheduled`. `triggers.crons` runs it hourly (`0 * * * *`).
+- `lib/delivery-retry.ts` `runDeliveryRetry()` picks paid orders with **no SENT attempt at all**, older
+  than 15 minutes, and re-sends through `sendDeliveryEmail()` with a fresh 24-hour download token.
+  Each retry records a `delivery_attempts` row with channel `email_retry`.
+- Cap: 5 retries, backoff 0 / 1 h / 3 h / 12 h / 24 h. An order that exhausts them stays on the
+  `/admin` red panel marked "automatic retries exhausted" and keeps `/api/health/delivery` at 503.
+- `/admin` has a "Resend delivery email" button per undelivered order
+  (`POST /api/admin/orders/<id>/resend`, owner session only). It ignores the cap, records channel
+  `email_manual`, and still refuses an order that already has a SENT attempt.
+- Each run logs one `DELIVERY_RETRY_RUN` line to Workers Logs (counts, order ids, outcomes).
+- To run it now rather than wait for the hour: press the button on `/admin`, or locally
+  `npx wrangler dev --test-scheduled` and `curl "http://localhost:8787/__scheduled?cron=0+*+*+*+*"`
+  (local D1 only). Production cron runs are listed under the Worker's Settings → Trigger Events.
+- `tests/unit/delivery-retry.test.ts` runs the real queries on SQLite (sql.js) against
+  `migrations/0001_fulfillment.sql` and pins: only undelivered paid orders, no double send, the cap,
+  backoff, and the wiring.

@@ -23,6 +23,7 @@ const allowedRootFiles = new Set([
   'next-env.d.ts',
   'next.config.ts',
   'open-next.config.ts',
+  'worker.ts', // Worker entry: OpenNext fetch + cron scheduled (lib/delivery-retry.ts)
   'package-lock.json',
   'package.json',
   'playwright.config.ts',

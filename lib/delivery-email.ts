@@ -44,11 +44,14 @@ export async function sendDeliveryEmail(
   email: string,
   productName: string,
   downloadUrl: string,
-  fetchImpl: typeof fetch = fetch
+  fetchImpl: typeof fetch = fetch,
+  // 'email' for the webhook's first send; the retry job and the /admin button record
+  // their own channels so the retry cap counts only retries (lib/delivery-retry.ts).
+  channel: string = 'email'
 ): Promise<DeliveryResult> {
   const record = (status: DeliveryResult['status'], messageId: string | null, error: string | null) =>
     env.DB!.prepare('INSERT INTO delivery_attempts (order_id, channel, status, provider_message_id, error_message) VALUES (?, ?, ?, ?, ?)')
-      .bind(orderId, 'email', status, messageId, error).run();
+      .bind(orderId, channel, status, messageId, error).run();
 
   if (!env.RESEND_API_KEY) {
     const error = 'RESEND_API_KEY is not configured';
@@ -93,13 +96,14 @@ export async function sendDeliveryEmail(
 
 // Paid orders with no SENT delivery attempt. Ids and email domains only.
 export const UNDELIVERED_SQL = `SELECT o.id AS order_id, o.customer_email AS email, o.created_at AS created_at,
-  (SELECT d.error_message FROM delivery_attempts d WHERE d.order_id = o.id ORDER BY d.id DESC LIMIT 1) AS last_error
+  (SELECT d.error_message FROM delivery_attempts d WHERE d.order_id = o.id ORDER BY d.id DESC LIMIT 1) AS last_error,
+  (SELECT COUNT(*) FROM delivery_attempts r WHERE r.order_id = o.id AND r.channel = 'email_retry') AS retries
   FROM orders o
   WHERE o.payment_status = 'paid'
     AND NOT EXISTS (SELECT 1 FROM delivery_attempts s WHERE s.order_id = o.id AND s.status = 'SENT')
   ORDER BY o.created_at`;
 
-export type UndeliveredOrder = { order_id: string; email_domain: string; created_at: string; last_error: string | null };
+export type UndeliveredOrder = { order_id: string; email_domain: string; created_at: string; last_error: string | null; retries: number };
 
 export async function undeliveredPaidOrders(db: any): Promise<UndeliveredOrder[]> {
   const result = await db.prepare(UNDELIVERED_SQL).all();
@@ -107,6 +111,7 @@ export async function undeliveredPaidOrders(db: any): Promise<UndeliveredOrder[]
     order_id: r.order_id,
     email_domain: emailDomain(String(r.email || '')),
     created_at: r.created_at,
-    last_error: r.last_error ?? null
+    last_error: r.last_error ?? null,
+    retries: Number(r.retries || 0)
   }));
 }
