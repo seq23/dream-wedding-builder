@@ -104,7 +104,7 @@ export default function ReadinessScore() {
 
     <section className="no-print rounded-[1.75rem] border border-charcoal/15 bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl">See your own score</h2>
-      <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">The planner shows your readiness score, which inputs are still unanswered, and what answering each one would change. Free, no account, and everything stays in your browser.</p>
+      <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">The planner shows your readiness score, which inputs are still unanswered, and what answering each one would change. Free with your email, and your plan stays in your browser.</p>
       <Link href={plannerHref({})} className="mt-6 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Open the free wedding planner →</Link>
     </section>
     <PlannerCta label="See your readiness score →" seed={{}} />

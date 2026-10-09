@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 import { AppShell } from '@/components/AppShell';
 import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
 import { siteDirectory } from '@/lib/site-directory';
+import { CF_BEACON_SRC, webAnalyticsToken } from '@/lib/web-analytics';
 import { SITE_TITLE_SUFFIX } from '@/lib/seo';
 
 export const metadata: Metadata = {
@@ -18,6 +19,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const requestHeaders = await headers();
   const rawHost = apexHost(requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host'));
   const siteHost = isCanonicalHost(rawHost) ? rawHost : PARENT_HOST;
+  // Only real canonical hosts report: previews and localhost would pollute production numbers.
+  const beaconToken = isCanonicalHost(rawHost) ? webAnalyticsToken(rawHost) : null;
   return (
     <html lang="en">
       <body>
@@ -25,6 +28,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             it resolves the project id from location.hostname because one Worker serves all
             four canonical domains from a single build. */}
         <script data-clarity-loader src="/assets/clarity-loader.js" defer />
+        {/* Cloudflare Web Analytics. Rendered here because the zone's auto-install never
+            reached this Worker's HTML; the token is per host (data/cf_web_analytics.json). */}
+        {beaconToken ? <script defer src={CF_BEACON_SRC} data-cf-beacon={JSON.stringify({ token: beaconToken })} /> : null}
         {/* The directory is resolved here, on the server, and handed to AppShell
             as plain strings. AppShell is a client component and importing
             hub_pages.json there would ship every hub's full body text to the

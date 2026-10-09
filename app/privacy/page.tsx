@@ -36,7 +36,7 @@ export default function Privacy() {
       <h1 className="mt-4 font-serif text-6xl">Privacy</h1>
       <p className="mt-6 text-lg leading-8 text-charcoal/70">
         This page describes what the four Dream Wedding Builder sites actually store and send. There are no accounts and no
-        login for the planning tools. Where something leaves your browser, it is named below along with the service that
+        login for the planning tools; the builder asks only for an email address. Where something leaves your browser, it is named below along with the service that
         receives it.
       </p>
 
@@ -46,6 +46,15 @@ export default function Privacy() {
         under the keys <code>dwb-plan</code>, <code>dwb-scope</code>, and <code>dwb-trends</code>. That data is not sent to a
         server, is not attached to a profile, and is visible only in the browser that created it. Clearing your browser
         storage deletes it, and it does not travel with you to another device.
+      </p>
+
+      <h2 className="mt-12 font-serif text-4xl">Your email, when you open the planning builder</h2>
+      <p className="mt-4 leading-7 text-charcoal/70">
+        The planning builder is free and opens after you enter an email address and agree to planning emails. We store that
+        address, the wording you agreed to, the site you signed up on, and the date, in this site&rsquo;s Cloudflare D1
+        database. Your plan itself still stays in your browser. Every email we send includes an unsubscribe link, and you can
+        also write to <a className="underline underline-offset-4" href={`mailto:${supportEmail}`}>{supportEmail}</a> to have
+        the address removed.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Inspiration photos are not uploaded</h2>
@@ -61,6 +70,10 @@ export default function Privacy() {
         origin. Each domain reports into its own Clarity project. Clarity records how pages are used — page views, clicks,
         scrolling, and session replay — and that data is processed by Microsoft under Microsoft&rsquo;s terms, not held here.
         It is used to see which pages work and which do not.
+      </p>
+      <p className="mt-4 leading-7 text-charcoal/70">
+        Pages also load Cloudflare Web Analytics, which counts page views and load times without cookies and without
+        tracking individual visitors across sites.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Buying a product</h2>

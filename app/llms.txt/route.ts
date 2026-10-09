@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     'Practical wedding planning guides, transparent paid-product previews, and protected working tools. Educational only; verify venue, vendor, contract, legal, dietary, accessibility, price, and timing requirements with the relevant source.',
     '',
     '## Free tool',
-    `- [Free wedding planner - constraint-first planning in your browser, no account](${PLANNER_ABSOLUTE})`,
+    `- [Free wedding planner - constraint-first planning in your browser, free with an email](${PLANNER_ABSOLUTE})`,
     `- [Constraint-first wedding planning: the method](https://${PARENT_HOST}/methodology)`,
     `- [The planning readiness score: inputs, weights, and what they mean](https://${PARENT_HOST}/readiness-score)`,
     ...(ownedLandings.length ? ['', '## Questions answered in full on this domain', ...ownedLandings.map((landing) => `- [${landing.question}](https://${host}/${landing.slug})`)] : []),

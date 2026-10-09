@@ -1,0 +1,41 @@
+{
+  "_comment": "The ONE config for affiliate links. Each partner links to plain_url until affiliate_url is filled in. To turn a partner on, paste the tracked link from the network into affiliate_url; every placement picks it up and gains rel=sponsored plus the disclosure line. lib/affiliates.ts reads this file; lib/__tests__/affiliates.test.ts pins its shape.",
+  "partners": [
+    {
+      "id": "zola",
+      "name": "Zola",
+      "category": "registry",
+      "label": "Start a Zola wedding registry",
+      "blurb": "Registry that combines gifts, cash funds and experiences in one list.",
+      "plain_url": "https://www.zola.com/wedding-registry",
+      "affiliate_url": null,
+      "signup_url": "https://app.impact.com/ (Impact marketplace, brand: Zola)"
+    },
+    {
+      "id": "minted",
+      "name": "Minted",
+      "category": "invitations",
+      "label": "Browse Minted wedding invitations",
+      "blurb": "Independent-artist save-the-dates, invitations and day-of paper.",
+      "plain_url": "https://www.minted.com/wedding-invitations",
+      "affiliate_url": null,
+      "signup_url": "https://www.minted.com/affiliates"
+    },
+    {
+      "id": "amazon-registry",
+      "name": "Amazon Wedding Registry",
+      "category": "registry",
+      "label": "Create an Amazon wedding registry",
+      "blurb": "Universal registry with a free welcome box and completion discount.",
+      "plain_url": "https://www.amazon.com/wedding",
+      "affiliate_url": null,
+      "signup_url": "https://affiliate-program.amazon.com/"
+    }
+  ],
+  "placements": {
+    "guide-default": ["zola", "amazon-registry", "minted"],
+    "planner": ["zola", "minted", "amazon-registry"],
+    "guest-list": ["minted", "zola", "amazon-registry"],
+    "checklist": ["zola", "minted", "amazon-registry"]
+  }
+}

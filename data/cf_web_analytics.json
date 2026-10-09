@@ -1,0 +1,7 @@
+{
+  "_comment": "Cloudflare Web Analytics site tokens per canonical host (account Owner Account, rum/site_info). Tokens are public by design: they appear in every page's HTML. The zone auto-install does not reach this Worker's responses, so app/layout.tsx renders the beacon itself.",
+  "weddingchecklistpdf.com": "d63c875fa19e4a78b942f04cfb3873fe",
+  "weddingbudgetspreadsheet.com": "7093433e2b7c4183afb4748c288cef55",
+  "weddingtimelinetemplate.com": "a0c8f72f683b46c0bb7e33112498a37b",
+  "weddingseatingchartmaker.com": "e5f0e0b48c744a4c96b0072dcc4d20d8"
+}

@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { BuilderEmailGate } from '@/components/BuilderEmailGate';
+import { AffiliatePicks } from '@/components/AffiliatePicks';
 import { Card, Badge } from '@/components/Card';
 import { TrendCard } from '@/components/TrendCard';
 import { StickyTotal } from '@/components/StickyTotal';
@@ -81,7 +83,7 @@ function TextArea({ testId, value, onChange, placeholder }: { testId?: string; v
   return <textarea data-testid={testId} value={value} onChange={event => onChange(event.target.value)} placeholder={placeholder} className="min-h-28 rounded-2xl border border-charcoal/10 bg-white p-3" />;
 }
 
-export default function BuildPage() {
+function BuildPage() {
   const [plan, setPlan] = useState<WeddingPlan>(emptyPlan);
   const [fileName, setFileName] = useState('');
   const [photoConsent, setPhotoConsent] = useState(false);
@@ -427,4 +429,8 @@ export default function BuildPage() {
 
     <StickyTotal total={displayEstimate} />
   </div>;
+}
+
+export default function GatedBuildPage() {
+  return <BuilderEmailGate><BuildPage /><div className="mt-10"><AffiliatePicks placement="planner" /></div></BuilderEmailGate>;
 }

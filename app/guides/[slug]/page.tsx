@@ -9,6 +9,8 @@ import { canonicalUrl, hostForProduct, hrefFrom } from '@/lib/site-config';
 import { guideLead, guideMetadata, guideRecommendation } from '@/lib/seo';
 import { plannerHref, plannerLabelForGuide, seedFromGuide } from '@/lib/planner-seed';
 import { PlannerCta } from '@/components/PlannerCta';
+import { AffiliatePicks } from '@/components/AffiliatePicks';
+import { placementForGuide } from '@/lib/affiliates';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { RecommendationSummary } from '@/components/seo/RecommendationSummary';
@@ -37,12 +39,13 @@ export default async function Guide({ params }: { params: Promise<{ slug: string
         or month figure the slug already states - rather than dropping them into an
         empty planner and asking them to re-type what the page already knew. */}
     <section className="no-print rounded-[1.75rem] border border-charcoal/15 bg-white p-7 md:p-9" data-testid="guide-planner-entry">
-      <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free, no account, nothing leaves your browser</p>
+      <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free with your email · your plan stays in your browser</p>
       <h2 className="mt-3 font-serif text-4xl">Apply this to your own wedding</h2>
       <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">This guide answers the question in general. The free planner answers it for your guest count, your budget position, and the things you have already said you will not cut.</p>
       <Link href={hrefFrom(host, plannerHref(seedFromGuide(page)))} className="mt-6 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen" data-testid="guide-planner-link">{plannerLabelForGuide(page)}</Link>
       <p className="mt-3 text-xs text-charcoal/55">Opens with this guide&rsquo;s constraint already entered. It will never overwrite a plan you have already saved.</p>
     </section>
+    <AffiliatePicks placement={placementForGuide(page.slug, page.cluster)} />
     <PlannerCta label={plannerLabelForGuide(page)} seed={seedFromGuide(page)} />
     {(page.sections ?? []).map((section) => <section key={section.heading} className="rounded-[1.75rem] bg-white p-7 md:p-9"><h2 className="font-serif text-4xl md:text-5xl">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-7 text-charcoal/70">{paragraph}</p>)}{'bullets' in section && section.bullets && <ul className="mt-5 grid gap-3 md:grid-cols-2">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4">✓ {item}</li>)}</ul>}</section>)}
     <section className="grid gap-4 md:grid-cols-2">{(page.examples ?? []).map((example) => <article key={example.title} className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><h2 className="font-serif text-3xl">{example.title}</h2><p className="mt-3 leading-7 text-charcoal/70">{example.body}</p></article>)}</section>

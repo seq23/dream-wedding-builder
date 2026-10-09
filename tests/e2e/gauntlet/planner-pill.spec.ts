@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { unlockBuilder } from './unlock-builder';
 import { PLANNER_PILL_DISMISS_KEY } from '../../../lib/planner-seed';
+
+test.beforeEach(async ({ page }) => { await unlockBuilder(page); });
 
 // The persistent planner entry, proved in a browser.
 //
