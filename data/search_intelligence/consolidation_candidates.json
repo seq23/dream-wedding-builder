@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-10-11T13:53:59.655Z",
+  "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
+  "thin_thresholds_words": {
+    "guide": 570,
+    "hub": 365
+  },
+  "hosts": {
+    "weddingseatingchartmaker.com": {
+      "state": "AWAITING_PAGE_TRUTH",
+      "reason": "gsc_truth.json holds no page-level rows for this host yet; the next search-intelligence run writes them",
+      "candidate_count": 0,
+      "candidates": []
+    },
+    "weddingbudgetspreadsheet.com": {
+      "state": "AWAITING_PAGE_TRUTH",
+      "reason": "gsc_truth.json holds no page-level rows for this host yet; the next search-intelligence run writes them",
+      "candidate_count": 0,
+      "candidates": []
+    },
+    "weddingtimelinetemplate.com": {
+      "state": "AWAITING_PAGE_TRUTH",
+      "reason": "gsc_truth.json holds no page-level rows for this host yet; the next search-intelligence run writes them",
+      "candidate_count": 0,
+      "candidates": []
+    },
+    "weddingchecklistpdf.com": {
+      "state": "AWAITING_PAGE_TRUTH",
+      "reason": "gsc_truth.json holds no page-level rows for this host yet; the next search-intelligence run writes them",
+      "candidate_count": 0,
+      "candidates": []
+    }
+  }
+}

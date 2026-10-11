@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "why": "2026-10-11 Search Console (28 days to 2026-10-08): the niche checklist guides rank around position 7 (elopement 7.3, courthouse 6.8) while the money page /printable-wedding-checklist sits at ~63-71 for 'printable wedding checklist'. Guide records are hash-frozen (data/release/frozen_output_registry.json), so the strengthening lives here and app/guides/[slug]/page.tsx + lib/seo.ts read it. validate_demand_repoint.mjs checks every entry against gsc_truth.json and the rendered contract.",
+  "money_page": {
+    "path": "/printable-wedding-checklist",
+    "host": "weddingchecklistpdf.com",
+    "target_query": "printable wedding checklist",
+    "link_label": "Printable wedding checklist"
+  },
+  "product_path": {
+    "pdf": { "product_id": "checklist-pdf", "route": "/products/checklist-pdf", "price": 9 },
+    "bundle": { "product_id": "operations-suite", "route": "/products/operations-suite", "price": 39 }
+  },
+  "guides": {
+    "elopement-planning-checklist": {
+      "target_query": "elopement planning checklist",
+      "title": "Elopement Planning Checklist: Licence, Witnesses, Permits",
+      "h1": "Elopement planning checklist",
+      "definition": "An elopement planning checklist is the short list of decisions and documents a couple must settle when they marry without a full guest list: where the ceremony is legally valid, which marriage licence and waiting period apply there, who officiates and witnesses, which location permit is needed, and how travel, photography and the announcement fit around those fixed points. Everything else on it is optional; the legal items are not.",
+      "faqs": [
+        { "question": "What goes on an elopement planning checklist?", "answer": "The legal items first: the marriage licence for the place the ceremony happens, any waiting period, the officiant's authority there, the witness rule, and a location permit if the site needs one. Then travel and lodging, the photographer or videographer, what you will wear and carry, and how and when you will tell family." },
+        { "question": "Is there a printable elopement planning checklist?", "answer": "Yes. This page prints from your browser with navigation hidden. If you want an editable tracker with owners, deadlines and final payments, the $9 Wedding Checklist PDF is a 13-page printable packet plus an editable XLSX that covers the same steps." },
+        { "question": "How far ahead should we plan an elopement?", "answer": "Work back from the licence: confirm how long it is valid and whether there is a waiting period where you are marrying, then book travel and any permit inside that window. The issuing office for your location is the only reliable source for those dates." }
+      ]
+    },
+    "courthouse-wedding-checklist": {
+      "target_query": "courthouse wedding checklist",
+      "title": "Courthouse Wedding Checklist: Licence, ID, Witnesses, Day-Of",
+      "h1": "Courthouse wedding checklist",
+      "definition": "A courthouse wedding checklist is the set of steps for a civil ceremony performed at a courthouse or registry office: booking the appointment if the office requires one, obtaining the marriage licence, bringing the identification and witnesses the jurisdiction asks for, and planning arrival, security screening, photography and whatever celebration follows. The office's own rules decide every item, so each line ends with confirming it directly.",
+      "faqs": [
+        { "question": "What do you need for a courthouse wedding?", "answer": "Usually a marriage licence, valid identification for both of you, any witnesses the jurisdiction requires, and an appointment if the office books ceremonies. Requirements and fees differ by location, so confirm each one with the clerk's office before the day." },
+        { "question": "Is there a printable courthouse wedding checklist?", "answer": "Yes. This page prints from your browser with navigation hidden. For an editable version with owners and deadlines, the $9 Wedding Checklist PDF includes a 13-page printable packet and an editable XLSX." },
+        { "question": "What should we plan after a courthouse ceremony?", "answer": "Decide before the day whether a meal, a small reception, photographs or an announcement follows, who pays for it, and who is invited, so the ceremony time and the celebration do not compete." }
+      ]
+    },
+    "destination-wedding-checklist": {
+      "target_query": "destination wedding checklist pdf",
+      "title": "Destination Wedding Checklist: Printable Steps + PDF Planner",
+      "h1": "Destination wedding checklist",
+      "definition": "A destination wedding checklist is a wedding plan with travel added to every line: whether the ceremony will be legal where it happens or symbolic with a civil ceremony at home, room blocks and guest travel, local vendors and contacts, documents, what can be shipped and what must travel in carry-on luggage, and a weather plan. It runs on longer lead times than a local wedding because guests have to book flights and rooms.",
+      "faqs": [
+        { "question": "Is there a destination wedding checklist PDF?", "answer": "This guide prints from your browser with navigation hidden. The $9 Wedding Checklist PDF is a 13-page printable packet plus an editable XLSX with owners, deadlines, dependencies and final payments, which you can adapt for a destination wedding." },
+        { "question": "What is different about a destination wedding checklist?", "answer": "It adds travel, lodging, local vendor, documentation, shipping and guest-communication dependencies to the normal plan, and it moves deadlines earlier so guests can book." },
+        { "question": "Should a destination wedding be legal or symbolic?", "answer": "Decide early. Some couples marry legally at home and hold a symbolic ceremony abroad to avoid foreign paperwork. If you want it legal at the destination, confirm the local requirements directly before booking." }
+      ]
+    }
+  }
+}

@@ -71,6 +71,16 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         ['Printable Wedding Checklist','/printable-wedding-checklist']
       ].map(([label,href])=><Link key={href} href={href} className="rounded-[1.25rem] bg-ivory p-5 font-serif text-2xl transition hover:bg-linen">{label} →</Link>)}
     </div>
+    {/* Checklists by wedding type: the guides Search Console ranks around position 7
+        (data/seo/guide_strengthening.json), linked from the homepage so they carry
+        the site's strongest internal link. */}
+    <div className="mt-5 grid gap-3 md:grid-cols-3" data-testid="home-niche-checklists">
+      {[
+        ['Elopement Planning Checklist','/guides/elopement-planning-checklist'],
+        ['Courthouse Wedding Checklist','/guides/courthouse-wedding-checklist'],
+        ['Destination Wedding Checklist','/guides/destination-wedding-checklist']
+      ].map(([label,href])=><Link key={href} href={href} className="rounded-2xl border border-charcoal/10 bg-white p-4 font-bold">{label} →</Link>)}
+    </div>
     <div className="mt-5 grid gap-3 md:grid-cols-3">
       <a href="https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet" className="rounded-2xl border border-charcoal/10 p-4 font-bold">Wedding Budget Spreadsheet Guide →</a>
       <a href="https://weddingtimelinetemplate.com/wedding-timeline-template" className="rounded-2xl border border-charcoal/10 p-4 font-bold">Wedding Timeline Template Guide →</a>

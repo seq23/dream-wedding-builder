@@ -41,7 +41,7 @@
     }
   },
   "budgets": {
-    "gsc_requests_per_run": 8,
+    "gsc_requests_per_run": 12,
     "agent_observations_per_import": 250,
     "repairs_per_run": 5
   },
@@ -71,5 +71,15 @@
   },
   "anti_thrash_days": 14,
   "retest_delay_days": 14,
-  "publishing_cadence_owned_elsewhere": true
+  "publishing_cadence_owned_elsewhere": true,
+  "publishing_freeze": {
+    "enabled": true,
+    "effective_from": "2026-10-11",
+    "rule": "The daily content job improves existing pages but publishes no new page until its target query has a measured number (scripts/search_intelligence/measured_demand.mjs). A frozen seed publishes automatically on the first run after its target is measured.",
+    "target_query_field": "seed.target_query, else seed.source_topic, else seed.title",
+    "read_by": [
+      "scripts/authority_scale/publish_authority_batch.mjs",
+      "scripts/search_intelligence/validate_demand_repoint.mjs"
+    ]
+  }
 }

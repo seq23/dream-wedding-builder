@@ -50,6 +50,7 @@ import path from 'node:path';
 
 import { findPlaceholders, isComplete, missingRequiredFields } from '../../lib/authority-complete.mjs';
 import { aboutnessTokens, composeGuide } from '../../lib/authority-compose.mjs';
+import { freezeDecision } from '../search_intelligence/publishing_freeze.mjs';
 
 const root = process.cwd();
 const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf8'));
@@ -144,6 +145,9 @@ function pickRelated(seed, clusterPool) {
 }
 
 // ---------------------------------------------------------------------------
+const hostForProduct = Object.fromEntries(
+  Object.entries(ownership.hosts).map(([host, cfg]) => [cfg.product_id, host]),
+);
 const seeds = seedDoc.seeds || [];
 const problems = [];
 const skipped = [];
@@ -195,7 +199,13 @@ for (const seed of seeds) {
     continue;
   }
 
-  admitted.push({ seed, record, set });
+  // Publishing freeze (data/search_intelligence/config.json publishing_freeze):
+  // a new page needs a measured number for its target query on its host. A
+  // frozen seed is not dropped - it publishes on the first run after its target
+  // is measured, because this check runs again every day.
+  const freeze = freezeDecision(seed, hostForProduct[record.product_id]);
+  if (freeze.frozen) { held.push({ slug: seed.slug, reason: 'FROZEN_UNMEASURED', detail: freeze.detail }); continue; }
+  admitted.push({ seed, record, set, measurement: freeze.measurement ?? null });
 }
 
 // A broken seed file is a failure. This is the "something is wrong" case.
@@ -228,9 +238,6 @@ if (problems.length) {
 // failure, one file over: the generator wrote to the store it knew about and not to
 // the one the router reads. So publishing now registers the route in the same
 // operation, deriving the host from the product exactly as lib/site-config.ts does.
-const hostForProduct = Object.fromEntries(
-  Object.entries(ownership.hosts).map(([host, cfg]) => [cfg.product_id, host]),
-);
 function registerRoute(record) {
   const p = `/guides/${record.slug}`;
   if (ownership.routes.some((r) => r.path === p)) return true;
@@ -306,6 +313,8 @@ if (releasing.length) {
     created: releasing.length,
     source: 'editorial_seeds',
     slugs: releasing.map((r) => r.record.slug),
+    // The measured number each released page was admitted on (publishing freeze).
+    target_measurements: Object.fromEntries(releasing.map((r) => [r.record.slug, r.measurement])),
     daily_ceiling: dailyCeiling,
     weekly_cap: Number.isFinite(weeklyCap) ? weeklyCap : null,
     budget_before_run: Number.isFinite(budget) ? budget : null,
@@ -336,6 +345,10 @@ function decideOutcome() {
   if (!seeds.length) {
     return { code: 'HELD_NO_SEEDS', blocking: false, unblocked_by: `author ${queue.length} seed(s) in data/authority/editorial_seeds.json`, detail: 'data/authority/editorial_seeds.json holds no seeds.' };
   }
+  const frozen = held.filter((h) => h.reason === 'FROZEN_UNMEASURED');
+  if (frozen.length && frozen.length === held.length && !admitted.length) {
+    return { code: 'HELD_PUBLISHING_FREEZE', blocking: false, unblocked_by: 'measurement: each frozen seed publishes on the first run after its target query has Search Console impressions or a keyword-volume figure in the repo', detail: frozen.map((h) => `${h.slug}: ${h.detail}`).join(' | ') };
+  }
   if (held.length && !skipped.filter((s) => s.reason === 'NOT_READY').length) {
     return { code: 'HELD_FOR_REWRITE', blocking: false, unblocked_by: `rewrite ${held.length} seed(s) that score above the library's own similarity ceiling of ${CEILING}`, detail: held.map((h) => `${h.slug}: ${h.detail}`).join(' | ') };
   }
@@ -360,7 +373,8 @@ const summary = {
   seeds_total: seeds.length,
   seeds_ready_waiting_for_budget: waiting.length,
   seeds_skipped: skipped.length,
-  seeds_held_for_rewrite: held.length,
+  seeds_held_for_rewrite: held.filter((h) => h.reason !== 'FROZEN_UNMEASURED').length,
+  seeds_frozen_unmeasured: held.filter((h) => h.reason === 'FROZEN_UNMEASURED').length,
   topics_awaiting_authoring: queue.length,
   budget_this_run: Number.isFinite(budget) ? budget : null,
   daily_ceiling: dailyCeiling,
@@ -389,6 +403,7 @@ write('artifacts/authority/publish-outcome.json', {
     HELD_CADENCE_BUDGET_SPENT: 'seeds are ready and the measured weekly cadence is spent',
     HELD_AWAITING_AUTHORING: 'the blocker is human writing: three sentences per topic',
     HELD_FOR_REWRITE: 'seeds exist but are too similar to guides that already ship',
+    HELD_PUBLISHING_FREEZE: 'seeds are ready but their target query has no measured number yet (publishing freeze)',
     HELD_NO_SEEDS: 'the seed file is empty',
     HELD_NOTHING_ELIGIBLE: 'seeds exist but every one was skipped for a non-authoring reason',
     EDITORIAL_SEEDS_INVALID: 'exit 1: the seed file or the composer is broken',

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import hubsJson from '@/data/seo/hub_pages.json';
 import registryJson from '@/data/authority/content_registry.json';
 import guideMetaJson from '@/data/seo/guide_meta_descriptions.json';
+import strengtheningJson from '@/data/seo/guide_strengthening.json';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
 import { ogImages, ogImageUrl } from '@/lib/site-home';
 
@@ -121,4 +122,10 @@ export function guideMetaDescription(guide: { slug: string; summary?: string; an
   return clip(extended, META_DESCRIPTION_MAX);
 }
 
-export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForProduct(guide.product_id); return seoMetadata({ title: guide.title, description: guideMetaDescription(guide), host, path: `/guides/${guide.slug}`, type: 'article' }); }
+// Demand-repoint strengthening (data/seo/guide_strengthening.json): title, H1,
+// definition and FAQs aligned to the query Search Console shows for the page.
+// The guide record stays hash-frozen; this overlay is what changes.
+export type GuideStrengthening = { target_query: string; title: string; h1: string; definition: string; faqs: { question: string; answer: string }[] };
+export const strengthening = strengtheningJson as unknown as { money_page: { path: string; host: string; target_query: string; link_label: string }; product_path: { pdf: { product_id: string; route: string; price: number }; bundle: { product_id: string; route: string; price: number } }; guides: Record<string, GuideStrengthening> };
+export function guideStrengthening(slug: string): GuideStrengthening | null { return strengthening.guides[slug] ?? null; }
+export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForProduct(guide.product_id); return seoMetadata({ title: guideStrengthening(slug)?.title ?? guide.title, description: guideMetaDescription(guide), host, path: `/guides/${guide.slug}`, type: 'article' }); }
