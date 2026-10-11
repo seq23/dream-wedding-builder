@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-11T11:47:14.237Z",
+  "updated_at": "2026-10-11T13:58:08.415Z",
   "providers": {
     "gsc": {
       "state": "AVAILABLE",
-      "requests": 4,
+      "requests": 12,
       "rows_added": 18,
       "answered": [
         "weddingseatingchartmaker.com",
@@ -16,7 +16,7 @@
         "start": "2026-09-12",
         "end": "2026-10-09"
       },
-      "checked_at": "2026-10-11T11:47:14.237Z"
+      "checked_at": "2026-10-11T13:58:08.415Z"
     },
     "agent_observation_import": {
       "state": "READY"

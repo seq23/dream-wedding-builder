@@ -1,50 +1,28 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-11T13:53:34.800Z",
+  "generated_at": "2026-10-11T13:58:08.510Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
-        "source": "observations_latest_window",
+        "source": "gsc_truth",
         "period": {
-          "start": "2026-09-06",
-          "end": "2026-10-03"
+          "start": "2026-09-12",
+          "end": "2026-10-09"
         },
-        "totals": null
+        "totals": {
+          "clicks": 0,
+          "impressions": 8,
+          "ctr": 0,
+          "position": 6.375
+        }
       },
-      "target_count": 4,
+      "target_count": 3,
       "dropped_count": 24,
       "by_source": {
-        "google_search_console": 1,
         "semrush_keyword_magic": 3
       },
       "targets": [
-        {
-          "query": "seating chart wedding maker",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 11,
-          "pages": [
-            "https://weddingseatingchartmaker.com/wedding-seating-chart"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-06",
-                "end": "2026-10-03"
-              },
-              "position": 11,
-              "pages": [
-                "https://weddingseatingchartmaker.com/wedding-seating-chart"
-              ]
-            }
-          ]
-        },
         {
           "query": "wedding seating chart",
           "source": "semrush_keyword_magic",
@@ -264,12 +242,17 @@
     },
     "weddingbudgetspreadsheet.com": {
       "gsc_window": {
-        "source": "observations_latest_window",
+        "source": "gsc_truth",
         "period": {
           "start": "2026-09-12",
           "end": "2026-10-09"
         },
-        "totals": null
+        "totals": {
+          "clicks": 0,
+          "impressions": 55,
+          "ctr": 0,
+          "position": 20
+        }
       },
       "target_count": 11,
       "dropped_count": 20,
@@ -677,72 +660,24 @@
     },
     "weddingtimelinetemplate.com": {
       "gsc_window": {
-        "source": "observations_latest_window",
+        "source": "gsc_truth",
         "period": {
-          "start": "2026-09-09",
-          "end": "2026-10-06"
+          "start": "2026-09-12",
+          "end": "2026-10-09"
         },
-        "totals": null
+        "totals": {
+          "clicks": 1,
+          "impressions": 2,
+          "ctr": 0.5,
+          "position": 5.5
+        }
       },
-      "target_count": 6,
+      "target_count": 4,
       "dropped_count": 24,
       "by_source": {
-        "google_search_console": 2,
         "semrush_keyword_magic": 4
       },
       "targets": [
-        {
-          "query": "destination wedding itinerary",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 96,
-          "pages": [
-            "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-09",
-                "end": "2026-10-06"
-              },
-              "position": 96,
-              "pages": [
-                "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "evening timeline",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 76,
-          "pages": [
-            "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-09",
-                "end": "2026-10-06"
-              },
-              "position": 76,
-              "pages": [
-                "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline"
-              ]
-            }
-          ]
-        },
         {
           "query": "wedding day timeline",
           "source": "semrush_keyword_magic",
@@ -977,12 +912,17 @@
     },
     "weddingchecklistpdf.com": {
       "gsc_window": {
-        "source": "observations_latest_window",
+        "source": "gsc_truth",
         "period": {
           "start": "2026-09-12",
           "end": "2026-10-09"
         },
-        "totals": null
+        "totals": {
+          "clicks": 1,
+          "impressions": 50,
+          "ctr": 0.02,
+          "position": 31.68
+        }
       },
       "target_count": 10,
       "dropped_count": 37,
