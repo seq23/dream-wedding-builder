@@ -203,6 +203,9 @@ if (policy) {
   const refused = [];
   const r401 = await routeChat({ messages: msg, apiKey: 'k', config, fetchImpl: async (u, i) => { refused.push(1); return { ok: false, status: 401, json: async () => ({ error: { message: 'User not found.' } }) }; } });
   if (r401.stop !== 'CREDENTIAL_REFUSED' || refused.length !== 1) errors.push('router: a refused key did not stop at once as CREDENTIAL_REFUSED');
+  const walked = [];
+  const r403 = await routeChat({ messages: msg, apiKey: 'k', config, fetchImpl: async (u, i) => { const model = JSON.parse(i.body).model; walked.push(model); return walked.length === 1 ? { ok: false, status: 403, json: async () => ({ error: { message: `${model} is only available on agentic harnesses` } }) } : { ok: true, status: 200, json: async () => ({ model, choices: [{ message: { content: 'ok' } }], usage: { cost: 0 } }) }; } });
+  if (r403.status !== 'OK' || walked.length !== 2) errors.push('router: a model-specific 403 stopped the walk instead of trying the next free model');
   let fetched = false;
   const nokey = await routeChat({ messages: msg, apiKey: '', config, fetchImpl: async () => { fetched = true; return {}; } });
   if (nokey.stop !== 'NO_FREE_MODEL_KEY' || fetched) errors.push('router: no key did not end in NAMED_STOP without a network call');
@@ -216,7 +219,7 @@ if (policy) {
   if (kinfo.key_label !== 'sk-or-v1-val...789' || JSON.stringify(kinfo).includes(secret)) errors.push('router: describeKey did not return the label alone, or leaked the key');
   const kref = await describeKey({ apiKey: secret, fetchImpl: resp(401, { error: { message: 'disabled' } }) });
   if (kref.key_state !== 'REFUSED') errors.push('router: a refused key was not described as REFUSED');
-  notes.push(`router behaviour: 10 cases`);
+  notes.push(`router behaviour: 11 cases`);
 }
 
 if (errors.length) {
