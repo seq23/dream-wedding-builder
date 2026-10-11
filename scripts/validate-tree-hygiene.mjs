@@ -47,6 +47,8 @@ const allowedRootDirs = new Set([
   'artifacts',
   'components',
   'data',
+  // config/llm_routing.json: the $0-only model policy read by scripts/llm/free_router.mjs.
+  'config',
   'docs',
   'lib',
   'migrations',

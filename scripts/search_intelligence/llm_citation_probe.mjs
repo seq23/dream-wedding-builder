@@ -36,6 +36,10 @@
 //
 // Usage: node scripts/search_intelligence/llm_citation_probe.mjs [--limit N] [--force] [--dry-run]
 import { read, write, now, hostOf } from './lib.mjs';
+import { refuseUnlessPaidConfirmed } from '../llm/free_router.mjs';
+
+// Paid lane, off by owner policy (11 Oct 2026). Dispatch-only behind confirm_paid.
+refuseUnlessPaidConfirmed('citation probe (scripts/search_intelligence/llm_citation_probe.mjs)');
 
 const argv = process.argv.slice(2);
 const arg = (name, dflt) => { const i = argv.indexOf(name); return i >= 0 && argv[i + 1] ? argv[i + 1] : dflt; };
