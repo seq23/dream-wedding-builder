@@ -31,12 +31,19 @@ jobs:
           GSC_SITE_URL_BUDGET: ${{ secrets.GSC_SITE_URL_BUDGET }}
           GSC_SITE_URL_TIMELINE: ${{ secrets.GSC_SITE_URL_TIMELINE }}
           GSC_SITE_URL_CHECKLIST: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
-          # The citation probe. It self-throttles to one measured run a week
-          # (min_hours_between_runs in data/search_intelligence/config.json)
-          # because the web plugin bills per result, and holds with a named
-          # HELD_CADENCE state in between rather than reporting an empty run.
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        # The citation probe (search:citations) used to run inside this cycle
+        # every day on a paid model plus the OpenRouter web plugin. Owner
+        # policy, 11 Oct 2026: "nothing should be paid" - it is out of
+        # search:cycle and lives in citation-probe.yml, dispatch only, behind
+        # confirm_paid. No provider key reaches this step any more.
         run: npm run search:cycle
+      # The $0 router's health check: live pricing of every configured model is
+      # still $0 and one free model answers (log line LLM_ROUTER_RECEIPT). A
+      # dead key is the named stop CREDENTIAL_REFUSED and the cycle stays green.
+      - name: Free model router check ($0 only)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: npm run llm:check
       - name: Re-run structural validation after any bounded repair
         run: npm run validate:structural
       - name: Commit evidence and bounded repairs only

@@ -1,0 +1,58 @@
+name: Paid Citation Probe
+
+# Paid lane, off by owner policy (11 Oct 2026: "nothing should be paid").
+# It asks a paid model with the OpenRouter web plugin (billed per web result)
+# which sites answer engines cite for our queries. It used to run inside the
+# daily search:cycle; it now has no schedule and runs only when a human
+# dispatches it with confirm_paid=true. Any other dispatch is a named stop.
+# Guarded by scripts/llm/validate_zero_paid_llm.mjs (npm run validate:zero-paid-llm).
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_paid:
+        description: "This run costs money (paid model + per-result web search). Must be true to run."
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dream-wedding-search-intelligence
+  cancel-in-progress: false
+
+jobs:
+  citation-probe:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse unless confirm_paid (named stop)
+        if: ${{ !inputs.confirm_paid }}
+        run: echo "NAMED STOP PAID_LANE_REFUSED - the citation probe is disabled by owner policy (11 Oct 2026). Re-dispatch with confirm_paid=true to run it once."
+
+      - uses: actions/checkout@v7
+        if: ${{ inputs.confirm_paid }}
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        if: ${{ inputs.confirm_paid }}
+        with:
+          node-version: '20'
+
+      - name: Observe answer-engine citations
+        if: ${{ inputs.confirm_paid }}
+        env:
+          CONFIRM_PAID: ${{ inputs.confirm_paid }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: node scripts/search_intelligence/llm_citation_probe.mjs --force
+
+      - name: Commit the observation
+        if: ${{ inputs.confirm_paid }}
+        run: |
+          git config user.name 'dream-wedding-search-intelligence-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/search_intelligence/citation_occupancy.json
+          git diff --cached --quiet || git commit -m 'search: record dispatched citation probe'
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"

@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 43,
+    "HARD_FAIL": 44,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -509,6 +509,15 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "index coverage, sitemap registration and GSC truth must be fresh and consistent with the committed sitemaps; every target carries a measured number; the publishing freeze must reach the publisher; consolidation candidates are review-only; strengthened pages stay aligned to the query Search Console shows. Each of these failed silently before 2026-10-11 (a SUBMITTED receipt stood in for coverage, 119 targets had no number).",
+      "composite": false
+    },
+    {
+      "id": "zero-paid-llm",
+      "npmScript": "validate:zero-paid-llm",
+      "command": "node scripts/llm/validate_zero_paid_llm.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "owner policy 2026-10-11 'nothing should be paid': config/llm_routing.json is $0-only with a snapshot date; no provider call outside scripts/llm/free_router.mjs or a declared paid lane; no scheduled workflow reaches the citation probe; the probe is dispatch-only behind confirm_paid and refuses without it; the router never falls back to paid and fails on a reported cost.",
       "composite": false
     }
   ],

@@ -41,7 +41,7 @@
     "proof:local-full": "npm run typecheck && npm run test && npm run authority:all && npm run validate:structural && npm run build",
     "release:package": "node scripts/providers/package-product-releases.mjs",
     "search:citations": "node scripts/search_intelligence/llm_citation_probe.mjs",
-    "search:cycle": "npm run search:targets && npm run search:gsc && npm run search:target-set && npm run search:consolidation && npm run search:citations && npm run search:diagnose && npm run search:repair && npm run search:retest && npm run validate:search-intelligence && npm run search:status",
+    "search:cycle": "npm run search:targets && npm run search:gsc && npm run search:target-set && npm run search:consolidation && npm run search:diagnose && npm run search:repair && npm run search:retest && npm run validate:search-intelligence && npm run search:status",
     "search:diagnose": "node scripts/search_intelligence/diagnose.mjs",
     "search:gsc": "node scripts/search_intelligence/collect_gsc.mjs",
     "search:coverage": "node scripts/search_intelligence/collect_index_coverage.mjs",
@@ -115,14 +115,16 @@
     "validate:seo-jsonld": "vitest run tests/unit/seo-hygiene-jsonld.test.ts",
     "validate:seo-lighthouse": "vitest run tests/unit/seo-hygiene-lighthouse.test.ts",
     "validate:seo-og": "vitest run tests/unit/seo-hygiene-og.test.ts",
-    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:no-instruction-leak && npm run validate:no-empty-cells && npm run validate:content-pattern && npm run validate:seo && npm run validate:search-intelligence && npm run validate:demand-repoint && npm run validate:cadence-policy && npm run validate:cadence-determinism && npm run validate:planner-reachability && npm run validate:planner-persistent-entry && npm run validate:planner-seed-contract && npm run validate:readiness-rubric && npm run validate:product-reachability && npm run validate:methodology-contrast && npm run validate:worker-entrypoint && npm run validate:repair-contract && npm run validate:selfheal-contract && npm run validate:workflow-shell-quoting && npm run validate:workflow-push-back",
+    "validate:structural": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:content && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:no-instruction-leak && npm run validate:no-empty-cells && npm run validate:content-pattern && npm run validate:seo && npm run validate:search-intelligence && npm run validate:zero-paid-llm && npm run validate:demand-repoint && npm run validate:cadence-policy && npm run validate:cadence-determinism && npm run validate:planner-reachability && npm run validate:planner-persistent-entry && npm run validate:planner-seed-contract && npm run validate:readiness-rubric && npm run validate:product-reachability && npm run validate:methodology-contrast && npm run validate:worker-entrypoint && npm run validate:repair-contract && npm run validate:selfheal-contract && npm run validate:workflow-shell-quoting && npm run validate:workflow-push-back",
     "validate:tree-hygiene": "node scripts/validate-tree-hygiene.mjs",
     "validate:worker-entrypoint": "node scripts/validate-worker-entrypoint.mjs",
     "validate:workflow-push-back": "node scripts/validators/validate_workflow_push_back.mjs",
     "validate:workflow-shell-quoting": "node scripts/validators/validate_workflow_inline_shell_quoting.mjs",
     "vault:check": "node scripts/vault/vault.mjs check",
     "vault:exec": "node scripts/vault/vault.mjs exec",
-    "vault:init": "node scripts/vault/vault.mjs init"
+    "vault:init": "node scripts/vault/vault.mjs init",
+    "llm:check": "node scripts/llm/free_router.mjs --check --ping",
+    "validate:zero-paid-llm": "node scripts/llm/validate_zero_paid_llm.mjs"
   },
   "dependencies": {
     "next": "15.5.18",
