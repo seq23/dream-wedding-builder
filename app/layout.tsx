@@ -6,8 +6,17 @@ import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
 import { siteDirectory } from '@/lib/site-directory';
 import { CF_BEACON_SRC, webAnalyticsToken } from '@/lib/web-analytics';
 import { SITE_TITLE_SUFFIX } from '@/lib/seo';
+import { ogImages, ogImageUrl, resolveSiteHost, siteHome } from '@/lib/site-home';
 
-export const metadata: Metadata = {
+// Host-aware so each of the four sites links its own icon, manifest and share card
+// (served per host by app/favicon.ico, app/og.png, ... route handlers). Pages that set
+// their own openGraph replace this block wholesale, which is why seoMetadata() and
+// app/page.tsx carry images too; tests/unit/seo-hygiene-og.test.ts checks both paths.
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const host = resolveSiteHost(requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host'));
+  const origin = `https://${host}`;
+  return {
   metadataBase: new URL('https://weddingchecklistpdf.com'),
   // One suffix, shared with lib/seo.ts documentTitle(), which drops it when it would
   // push a title past 70 characters.
@@ -15,8 +24,16 @@ export const metadata: Metadata = {
   description: 'Free wedding planning guides and paid execution tools for checklists, budgets, timelines, guest lists, and seating charts.',
   robots: { index: true, follow: true },
   // Impact (Zola affiliate programme) site-ownership check, owner-approved 9 Oct 2026.
-  other: { 'impact-site-verification': '625d5e62-9ea8-4408-8f13-c7ab8b89c814' }
-};
+  other: { 'impact-site-verification': '625d5e62-9ea8-4408-8f13-c7ab8b89c814' },
+  icons: {
+    icon: [{ url: `${origin}/favicon.ico`, sizes: '48x48' }, { url: `${origin}/icon-192.png`, type: 'image/png', sizes: '192x192' }],
+    apple: [{ url: `${origin}/apple-touch-icon.png`, sizes: '180x180' }]
+  },
+  manifest: `${origin}/site.webmanifest`,
+  openGraph: { siteName: 'Dream Wedding Builder', type: 'website', images: ogImages(host, siteHome(host).name) },
+  twitter: { card: 'summary_large_image', images: [ogImageUrl(host)] }
+  };
+}
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const requestHeaders = await headers();
   const rawHost = apexHost(requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host'));

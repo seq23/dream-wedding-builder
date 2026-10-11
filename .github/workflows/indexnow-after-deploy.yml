@@ -1,0 +1,53 @@
+name: IndexNow after deploy
+
+# Cloudflare Workers Builds deploys main outside GitHub Actions and reports back as
+# the "Workers Builds: dream-wedding-builder" check run on the commit. This lane
+# waits (bounded) for that check on the pushed commit, proves the IndexNow key
+# file answers on all four hosts, then submits each site's sitemap URLs
+# (artifacts/distribution/<host>-urls.txt) to api.indexnow.org. The daily Full Safe
+# Autonomy lane also submits, but only after its own publication and only when
+# CONTENT_RELEASE_ENABLED is set; a code deploy changed pages without telling
+# IndexNow. Receipts are printed, not committed (no push from this lane).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions: { contents: read, checks: read }
+concurrency:
+  group: indexnow-after-deploy
+  cancel-in-progress: true
+jobs:
+  submit:
+    timeout-minutes: 25  # 20 min deploy wait ceiling + submit; fault detector, not a budget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with: { node-version: '20' }
+      - name: Wait for the Workers Builds deploy of this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          deadline=$(( $(date +%s) + 1200 ))
+          while :; do
+            conclusion="$(gh api "repos/${REPO}/commits/${SHA}/check-runs" --jq '[.check_runs[] | select(.name | startswith("Workers Builds")) | select(.status == "completed") | .conclusion][0] // ""')"
+            if [ "$conclusion" = "success" ]; then echo "DEPLOYED ${SHA}"; break; fi
+            if [ -n "$conclusion" ]; then echo "::error::DEPLOY_NOT_GREEN Workers Builds concluded ${conclusion} for ${SHA}; nothing submitted"; exit 1; fi
+            if [ "$(date +%s)" -ge "$deadline" ]; then echo "::error::DEPLOY_WAIT_TIMEOUT no completed Workers Builds check for ${SHA} after 20 min"; exit 1; fi
+            sleep 30
+          done
+      - name: Prove the key file is live on every host
+        run: |
+          key="$(tr -d '[:space:]' < public/indexnow-key.txt)"
+          for host in $(node -e "console.log(require('./artifacts/distribution/manifest.json').domains.map((d) => d.host).join(' '))"); do
+            body="$(curl -fsS "https://${host}/${key}.txt" | tr -d '[:space:]')"
+            if [ "$body" != "$key" ]; then echo "::error::KEY_FILE_MISSING https://${host}/${key}.txt"; exit 1; fi
+            echo "key file live on ${host}"
+          done
+      - name: Submit sitemap URLs to IndexNow
+        env:
+          RUN_MODE: live
+        shell: bash  # explicit bash = -eo pipefail, so a failed submission fails the step through the pipe
+        run: node scripts/distribution/submit_indexnow.mjs | node -e "let s='';process.stdin.on('data',(c)=>s+=c).on('end',()=>{for(const r of JSON.parse(s))console.log(r.host,r.status,r.http_status,r.submitted_url_count)})"

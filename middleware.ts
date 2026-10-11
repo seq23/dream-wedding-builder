@@ -6,7 +6,8 @@ import { aliasRedirectTarget, apexHost, canonicalHostForPath, hostConfig, isCano
 // host-ownership rules would redirect the verification request and Google would
 // never see the file.
 const passthroughPrefixes = ['/api/', '/_next/', '/google'];
-const passthroughExact = ['/favicon.ico'];
+// Per-host icons, manifest and share card (app/<file>/route.ts) answer on every host.
+const passthroughExact = ['/favicon.ico', '/apple-touch-icon.png', '/icon-192.png', '/icon-512.png', '/og.png', '/site.webmanifest'];
 
 // The scheme the visitor actually used, as Cloudflare reports it to the Worker.
 // Returns null when the request did not come through Cloudflare (local `next

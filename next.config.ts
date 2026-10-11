@@ -3,6 +3,14 @@ import { PHASE_DEVELOPMENT_SERVER } from 'next/constants';
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Streaming metadata (Next 15.2+) renders <title>/<meta name="description"> in
+  // <head> only for user agents on Next's bot list; every other agent gets them
+  // appended to <body> after the page streams. Lighthouse's mobile UA is not on that
+  // list, so it reported meta-description missing (SEO 92) on three of the four
+  // homepages while curl saw the tag. Matching every UA puts metadata in <head> for
+  // all visitors. Pinned by tests/unit/seo-hygiene-lighthouse.test.ts (audit id
+  // meta-description).
+  htmlLimitedBots: /.*/,
   // The planner shipped at /build for six days. /build described the codebase, not
   // the search query, and nothing has ranked on it yet, so the rename is free.
   // next.config redirects resolve before middleware, so this fires before the
