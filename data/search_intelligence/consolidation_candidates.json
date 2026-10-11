@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-11T16:18:38.260Z",
+  "generated_at": "2026-10-11T16:43:01.884Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
     "guide": 570,
