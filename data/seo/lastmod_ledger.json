@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "ecac852f073089cbf2b986ca3ad6f90952720007",
+  "generated_from_commit": "66b46f2bbc2e31fbcf73565255100cdaf1bf32d1",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
-      "lastmod": "2026-10-08",
+      "lastmod": "2026-10-11",
       "source": "app/page.tsx"
     },
     "/amazon/wedding-budget-line-by-line": {
@@ -414,7 +414,7 @@
       "source": "app/photos/page.tsx"
     },
     "/printable-wedding-checklist": {
-      "lastmod": "2026-07-30",
+      "lastmod": "2026-10-11",
       "source": "data/seo/hub_pages.json#pages.printable-wedding-checklist"
     },
     "/privacy": {

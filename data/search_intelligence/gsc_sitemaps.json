@@ -1,43 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "collected_at": "2026-10-11T13:18:00.000Z",
-  "seeded_from": "gsc-sitemaps run 38142618891, 2026-10-11",
+  "collected_at": "2026-10-11T14:03:31.760Z",
   "hosts": {
-    "weddingchecklistpdf.com": {
-      "state": "LISTED",
-      "site_property": "sc-domain:weddingchecklistpdf.com",
-      "sitemap_url": "https://weddingchecklistpdf.com/sitemap.xml",
-      "listed_before": true,
-      "submitted_now": false,
-      "listed_after": true,
-      "last_submitted": "2026-10-11T10:28:40.283Z",
-      "last_downloaded": "2026-10-11T10:59:40.332Z",
-      "is_pending": false,
-      "errors": 0,
-      "warnings": 0,
-      "submitted_urls": 54,
-      "all_listed": [
-        "https://weddingchecklistpdf.com/sitemap.xml"
-      ]
-    },
-    "weddingbudgetspreadsheet.com": {
-      "state": "LISTED",
-      "site_property": "sc-domain:weddingbudgetspreadsheet.com",
-      "sitemap_url": "https://weddingbudgetspreadsheet.com/sitemap.xml",
-      "listed_before": true,
-      "submitted_now": false,
-      "listed_after": true,
-      "last_submitted": "2026-10-11T10:28:40.101Z",
-      "last_downloaded": "2026-10-10T11:01:18.478Z",
-      "is_pending": true,
-      "errors": 0,
-      "warnings": 0,
-      "submitted_urls": 24,
-      "all_listed": [
-        "http://www.weddingbudgetspreadsheet.com/sitemap.xml",
-        "https://weddingbudgetspreadsheet.com/sitemap.xml"
-      ]
-    },
     "weddingseatingchartmaker.com": {
       "state": "LISTED",
       "site_property": "sc-domain:weddingseatingchartmaker.com",
@@ -55,6 +19,24 @@
         "https://weddingseatingchartmaker.com/sitemap.xml"
       ]
     },
+    "weddingbudgetspreadsheet.com": {
+      "state": "LISTED",
+      "site_property": "sc-domain:weddingbudgetspreadsheet.com",
+      "sitemap_url": "https://weddingbudgetspreadsheet.com/sitemap.xml",
+      "listed_before": true,
+      "submitted_now": false,
+      "listed_after": true,
+      "last_submitted": "2026-10-11T10:28:40.101Z",
+      "last_downloaded": "2026-10-10T11:01:18.478Z",
+      "is_pending": true,
+      "errors": 0,
+      "warnings": 0,
+      "submitted_urls": 24,
+      "all_listed": [
+        "https://weddingbudgetspreadsheet.com/sitemap.xml",
+        "http://www.weddingbudgetspreadsheet.com/sitemap.xml"
+      ]
+    },
     "weddingtimelinetemplate.com": {
       "state": "LISTED",
       "site_property": "sc-domain:weddingtimelinetemplate.com",
@@ -70,6 +52,23 @@
       "submitted_urls": 26,
       "all_listed": [
         "https://weddingtimelinetemplate.com/sitemap.xml"
+      ]
+    },
+    "weddingchecklistpdf.com": {
+      "state": "LISTED",
+      "site_property": "sc-domain:weddingchecklistpdf.com",
+      "sitemap_url": "https://weddingchecklistpdf.com/sitemap.xml",
+      "listed_before": true,
+      "submitted_now": false,
+      "listed_after": true,
+      "last_submitted": "2026-10-11T10:28:40.283Z",
+      "last_downloaded": "2026-10-11T10:59:40.332Z",
+      "is_pending": false,
+      "errors": 0,
+      "warnings": 0,
+      "submitted_urls": 54,
+      "all_listed": [
+        "https://weddingchecklistpdf.com/sitemap.xml"
       ]
     }
   }
