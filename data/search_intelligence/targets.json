@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-11T13:58:06.243Z",
+  "generated_at": "2026-10-11T16:18:34.715Z",
   "count": 119,
   "targets": [
     {
@@ -564,8 +564,8 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "014df34d997a34ddbbf6",
-      "query": "printable wedding checklist: one-page planning overview",
+      "target_id": "ce8d89807c8e90e5671d",
+      "query": "printable wedding checklist: every task, owner and deadline",
       "host": "weddingchecklistpdf.com",
       "route": "/printable-wedding-checklist",
       "product_id": "checklist-pdf",

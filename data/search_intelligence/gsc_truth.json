@@ -7,7 +7,7 @@
         "start": "2026-09-12",
         "end": "2026-10-09"
       },
-      "collected_at": "2026-10-11T13:58:07.039Z",
+      "collected_at": "2026-10-11T16:18:35.997Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -49,7 +49,7 @@
         "start": "2026-09-12",
         "end": "2026-10-09"
       },
-      "collected_at": "2026-10-11T13:58:07.505Z",
+      "collected_at": "2026-10-11T16:18:36.593Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -160,7 +160,7 @@
         "start": "2026-09-12",
         "end": "2026-10-09"
       },
-      "collected_at": "2026-10-11T13:58:07.952Z",
+      "collected_at": "2026-10-11T16:18:37.254Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -190,7 +190,7 @@
         "start": "2026-09-12",
         "end": "2026-10-09"
       },
-      "collected_at": "2026-10-11T13:58:08.408Z",
+      "collected_at": "2026-10-11T16:18:37.861Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -420,5 +420,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-11T13:58:08.408Z"
+  "updated_at": "2026-10-11T16:18:37.861Z"
 }

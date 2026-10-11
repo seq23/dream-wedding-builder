@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-11T13:58:08.510Z",
+  "generated_at": "2026-10-11T16:18:38.098Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
@@ -1295,7 +1295,7 @@
           ]
         },
         {
-          "query": "printable wedding checklist: one-page planning overview",
+          "query": "printable wedding checklist: every task, owner and deadline",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:authority_atlas"
