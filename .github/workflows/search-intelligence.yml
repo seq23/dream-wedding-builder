@@ -1,6 +1,19 @@
 name: Search Intelligence - Observe Diagnose Repair Retest
 on:
   workflow_dispatch:
+    inputs:
+      week_diff_host:
+        description: 'Dispatch-only diagnosis: host for a week-over-week day/page/query diff (scripts/search_intelligence/week_diff.mjs); blank skips it'
+        required: false
+        default: ''
+      week_diff_current_start:
+        description: 'First day (YYYY-MM-DD) of the week being compared with the one before it'
+        required: false
+        default: ''
+      week_diff_label:
+        description: 'Label for data/search_intelligence/<host>/red_week_<label>.json'
+        required: false
+        default: ''
   schedule:
     - cron: '41 11 * * *'
 permissions:
@@ -37,6 +50,25 @@ jobs:
         # search:cycle and lives in citation-probe.yml, dispatch only, behind
         # confirm_paid. No provider key reaches this step any more.
         run: npm run search:cycle
+      # Dispatch-only: sitemap registration (list, submit if missing, delete
+      # http/www variants) and an optional week-over-week diff for one host, so a
+      # RED week can be diagnosed and repaired without waiting for the daily job.
+      - name: Sitemap registration and week diff (dispatch only)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL_SEATING: ${{ secrets.GSC_SITE_URL_SEATING }}
+          GSC_SITE_URL_BUDGET: ${{ secrets.GSC_SITE_URL_BUDGET }}
+          GSC_SITE_URL_TIMELINE: ${{ secrets.GSC_SITE_URL_TIMELINE }}
+          GSC_SITE_URL_CHECKLIST: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
+          WD_HOST: ${{ inputs.week_diff_host }}
+          WD_START: ${{ inputs.week_diff_current_start }}
+          WD_LABEL: ${{ inputs.week_diff_label }}
+        run: |
+          node scripts/search_intelligence/collect_index_coverage.mjs --sitemaps-only
+          if [ -n "$WD_HOST" ]; then
+            node scripts/search_intelligence/week_diff.mjs --host "$WD_HOST" --current-start "$WD_START" --label "$WD_LABEL"
+          fi
       # The $0 router's health check: live pricing of every configured model is
       # still $0 and one free model answers (log line LLM_ROUTER_RECEIPT). A
       # dead key is the named stop CREDENTIAL_REFUSED and the cycle stays green.

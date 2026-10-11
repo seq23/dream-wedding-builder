@@ -10,7 +10,14 @@
 //   data/search_intelligence/index_coverage.json  URL Inspection per sitemap URL,
 //       counts by coverageState per host
 //   data/search_intelligence/gsc_sitemaps.json    sitemaps.list per host, with a
-//       sitemaps.submit only when the host's sitemap is not listed
+//       sitemaps.submit only when the host's sitemap is not listed, and a
+//       sitemaps.delete for any http:// or www. variant of it (staleSitemaps)
+//
+// Stale variants (2026-10-11): sc-domain:weddingbudgetspreadsheet.com carried
+// http://www.weddingbudgetspreadsheet.com/sitemap.xml next to the apex one, with
+// 2 errors, because www redirects to the apex. A domain property should list one
+// sitemap per host: https://<host>/sitemap.xml. Run with --sitemaps-only to do
+// the registration part alone (search-intelligence.yml dispatch step).
 // validate_demand_repoint.mjs checks both are fresh and consistent with the
 // committed sitemaps.
 //
@@ -38,11 +45,18 @@ export function summarise(rows){
   for(const r of rows){const s=r.coverageState||'UNKNOWN';by_coverage_state[s]=(by_coverage_state[s]||0)+1;buckets[bucketOf(s)]++}
   return {by_coverage_state:Object.fromEntries(Object.entries(by_coverage_state).sort()),buckets};
 }
+// Listed sitemaps that are the host's own sitemap under the wrong scheme or a
+// www. prefix. Anything else (another path, another host) is left alone.
+export function staleSitemaps(paths,host){
+  const canonical=`https://${host}/sitemap.xml`;
+  return paths.filter(p=>{try{const u=new URL(p);return p!==canonical&&u.hostname.replace(/^www\./,'')===host&&u.pathname==='/sitemap.xml'}catch{return false}});
+}
 const notInspected=(url,why)=>({url,verdict:null,coverageState:'NOT_INSPECTED',lastCrawlTime:null,indexingState:null,googleCanonical:null,userCanonical:null,inspected_at:null,not_inspected_reason:why});
 
 async function pool(items,n,fn){const out=new Array(items.length);let i=0;await Promise.all(Array.from({length:Math.min(n,items.length)},async()=>{while(i<items.length){const k=i++;out[k]=await fn(items[k])}}));return out}
 
 async function main(){
+  const sitemapsOnly=process.argv.includes('--sitemaps-only');
   const raw=process.env.GSC_SERVICE_ACCOUNT_JSON||'';
   const previous=read(OUT,{hosts:{}});
   const hosts=Object.keys(GSC_HOST_ENV);
@@ -78,15 +92,18 @@ async function main(){
       const listed=s=>s.some(x=>x.path===sitemapUrl);
       let submitted=false;
       if(!listed(before)){const r=await fetch(`${smBase}/${encodeURIComponent(sitemapUrl)}`,{method:'PUT',headers:auth});if(!r.ok)throw Object.assign(new Error(`sitemaps.submit HTTP ${r.status}`),{status:r.status});submitted=true}
-      const after=submitted?await list():before;
+      const stale=staleSitemaps(before.map(x=>x.path),host),pruned=[];
+      for(const p of stale){const r=await fetch(`${smBase}/${encodeURIComponent(p)}`,{method:'DELETE',headers:auth});if(!r.ok)throw Object.assign(new Error(`sitemaps.delete ${p} HTTP ${r.status}`),{status:r.status});pruned.push(p);console.log(`gsc-sitemaps ${host}: deleted stale registration ${p}`)}
+      const after=submitted||pruned.length?await list():before;
       const row=after.find(x=>x.path===sitemapUrl)||null;
       sitemaps.hosts[host]={state:listed(after)?'LISTED':'NOT_LISTED_AFTER_SUBMIT',site_property:site,sitemap_url:sitemapUrl,listed_before:listed(before),submitted_now:submitted,listed_after:listed(after),
         last_submitted:row?.lastSubmitted||null,last_downloaded:row?.lastDownloaded||null,is_pending:row?.isPending??null,errors:Number(row?.errors||0),warnings:Number(row?.warnings||0),
-        submitted_urls:Number((row?.contents||[]).find(c=>c.type==='web')?.submitted||0)||null,all_listed:after.map(x=>x.path)};
+        submitted_urls:Number((row?.contents||[]).find(c=>c.type==='web')?.submitted||0)||null,pruned_now:pruned,stale_after:staleSitemaps(after.map(x=>x.path),host),all_listed:after.map(x=>x.path)};
     }catch(e){
       const stop=[401,403].includes(e.status)?`NAMED STOP gsc-sitemaps ${host}: Search Console refused (${e.message}). Owner step: Search Console > ${site} > Settings > Users and permissions > give ${sa.client_email} Full permission.`:`gsc-sitemaps ${host}: ${e.message}`;
       console.log(stop);sitemaps.hosts[host]={state:[401,403].includes(e.status)?'NAMED_STOP':'PROVIDER_ERROR',named_stop:stop,sitemap_url:sitemapUrl};
     }
+    if(sitemapsOnly)continue;
     // URL Inspection, oldest result first, capped.
     const carried=Object.fromEntries((previous.hosts?.[host]?.urls||[]).filter(r=>r.inspected_at&&urls.includes(r.url)).map(r=>[r.url,r]));
     const batch=[...urls].sort((a,b)=>String(carried[a]?.inspected_at||'').localeCompare(String(carried[b]?.inspected_at||''))).slice(0,PER_HOST_CAP);
@@ -118,6 +135,7 @@ async function main(){
     console.log(`index-coverage ${host} ${state}: ${urls.length} URLs - indexed ${b.indexed}, crawled-not-indexed ${b.crawled_not_indexed}, discovered-not-indexed ${b.discovered_not_indexed}, unknown ${b.unknown_to_google}, other ${b.other}, not inspected ${b.not_inspected} (${fresh.length} inspected this run); sitemap ${sitemaps.hosts[host]?.state}`);
   }
   write(SITEMAPS_OUT,sitemaps);
+  if(sitemapsOnly)return Object.values(sitemaps.hosts).some(h=>h.state==='PROVIDER_ERROR')?1:0;
   if(!inspectedTotal&&Object.values(coverage.hosts).every(h=>h.state!=='NAMED_STOP'&&h.state!=='HELD_QUOTA')){console.error('index-coverage: nothing could be inspected on any host');write(OUT,coverage);return 1}
   write(OUT,coverage);
   return 0;
