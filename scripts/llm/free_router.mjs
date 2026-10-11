@@ -119,7 +119,11 @@ export async function routeChat({
     }
     // A refused credential is not a model failure: every model would refuse it
     // the same way, so stop here and say so rather than walk the list.
-    if (res && [401, 403].includes(res.status)) {
+    // 403 is also how OpenRouter refuses one model to this caller (e.g. a model
+    // restricted to agentic harnesses, seen 2026-10-11), so a 403 only counts as
+    // the key when its message is about the key; otherwise try the next model.
+    const errMsg = String(json?.error?.message || '');
+    if (res && (res.status === 401 || (res.status === 403 && /\bkey\b|disabled|user not found|credit|limit/i.test(errMsg)))) {
       attempts.push({ model: m.id, outcome: 'credential_refused', http: res.status, error: String(json?.error?.message || '').slice(0, 200) || null });
       return stop('CREDENTIAL_REFUSED', 'OpenRouter key disabled or invalid; free routing needs an enabled key with a $0 limit', { purpose, attempts });
     }

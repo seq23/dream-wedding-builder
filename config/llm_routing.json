@@ -19,22 +19,13 @@
     "filter": "pricing.prompt == \"0\" && pricing.completion == \"0\" && context_length >= 32000",
     "free_models_listed": 19,
     "models_listed": 458,
-    "selection": "strongest general instruct models among the $0 list: largest text models first (Nemotron 3 Ultra 550B, Inkling), then Gemma 4 31B and Nemotron 3 Super 120B; excluded music (Lyria), safety-classifier, code-only and sub-10B models, the openrouter/free meta-router (non-deterministic), and inclusionai/ling-3.1-flash (priced $0 today without a :free variant, so it can turn paid silently)"
+    "selection": "strongest general instruct models among the $0 list: largest text models first (Nemotron 3 Ultra 550B, Inkling), then Gemma 4 31B and Nemotron 3 Super 120B; excluded music (Lyria), safety-classifier, code-only and sub-10B models, the openrouter/free meta-router (non-deterministic), and inclusionai/ling-3.1-flash (priced $0 today without a :free variant, so it can turn paid silently); 2026-10-11 later: thinkingmachines/inkling:free dropped (403 'only available on agentic harnesses' on the first live dispatch), google/gemma-4-26b-a4b-it:free added as the fourth fallback"
   },
   "models": [
     {
       "id": "nvidia/nemotron-3-ultra-550b-a55b:free",
       "name": "NVIDIA: Nemotron 3 Ultra (free)",
       "context_length": 1000000,
-      "pricing": {
-        "prompt": "0",
-        "completion": "0"
-      }
-    },
-    {
-      "id": "thinkingmachines/inkling:free",
-      "name": "Thinking Machines: Inkling (free)",
-      "context_length": 1048576,
       "pricing": {
         "prompt": "0",
         "completion": "0"
@@ -52,6 +43,15 @@
     {
       "id": "nvidia/nemotron-3-super-120b-a12b:free",
       "name": "NVIDIA: Nemotron 3 Super (free)",
+      "context_length": 262144,
+      "pricing": {
+        "prompt": "0",
+        "completion": "0"
+      }
+    },
+    {
+      "id": "google/gemma-4-26b-a4b-it:free",
+      "name": "Google: Gemma 4 26B A4B  (free)",
       "context_length": 262144,
       "pricing": {
         "prompt": "0",
