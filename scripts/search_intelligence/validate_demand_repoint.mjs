@@ -5,7 +5,7 @@
 // data it was derived from, never for prose. Hard-fails on zero items.
 import fs from 'node:fs';
 import {read,norm,pageKey,sitemapUrlsFor,GSC_HOST_ENV,daysBetween,now} from './lib.mjs';
-import {summarise,WORKERS,PER_HOST_CAP} from './collect_index_coverage.mjs';
+import {summarise,WORKERS,PER_HOST_CAP,staleSitemaps} from './collect_index_coverage.mjs';
 import {measurementsFor,gscWindows,volumeRows} from './measured_demand.mjs';
 import {freezeDecision,freezeConfig} from './publishing_freeze.mjs';
 
@@ -45,7 +45,14 @@ stale(sms.collected_at,'gsc_sitemaps.json');
 for(const h of hosts){const e=sms.hosts?.[h];if(!e){fail(`gsc_sitemaps.json: no record for ${h}`);continue}
   if(e.sitemap_url!==`https://${h}/sitemap.xml`)fail(`gsc_sitemaps ${h}: records ${e.sitemap_url}`);
   if(e.state==='NAMED_STOP'){if(!e.named_stop)fail(`gsc_sitemaps ${h}: NAMED_STOP without text`);continue}
-  if(e.state!=='LISTED'||e.listed_after!==true)fail(`gsc_sitemaps ${h}: sitemap not listed in Search Console (state ${e.state})`);}
+  if(e.state!=='LISTED'||e.listed_after!==true)fail(`gsc_sitemaps ${h}: sitemap not listed in Search Console (state ${e.state})`);
+  if(!Array.isArray(e.all_listed))fail(`gsc_sitemaps ${h}: all_listed missing`);
+  const staleNow=staleSitemaps(e.all_listed||[],h);
+  if(staleNow.length)fail(`gsc_sitemaps ${h}: stale registration(s) ${staleNow.join(', ')} still on the property; collect_index_coverage deletes http/www variants`);}
+// staleSitemaps must catch every scheme/www variant and never the canonical or another path.
+{const h='example.com',got=staleSitemaps(['https://example.com/sitemap.xml','http://www.example.com/sitemap.xml','https://www.example.com/sitemap.xml','http://example.com/sitemap.xml','https://example.com/news-sitemap.xml','https://other.com/sitemap.xml'],h);
+ const want=['http://www.example.com/sitemap.xml','https://www.example.com/sitemap.xml','http://example.com/sitemap.xml'];
+ if(JSON.stringify(got)!==JSON.stringify(want))fail(`staleSitemaps fixture: got ${JSON.stringify(got)}, want ${JSON.stringify(want)}`);}
 
 // C. GSC truth.
 const truth=read('data/search_intelligence/gsc_truth.json',{});

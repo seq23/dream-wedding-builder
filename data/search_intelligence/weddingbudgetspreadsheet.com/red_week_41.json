@@ -1,0 +1,516 @@
+{
+  "schema_version": "1.0.0",
+  "host": "weddingbudgetspreadsheet.com",
+  "site_property": "sc-domain:weddingbudgetspreadsheet.com",
+  "collected_at": "2026-10-11T16:58:33.133Z",
+  "truth_source": "google_search_console_search_analytics",
+  "data_state": "all",
+  "window": {
+    "start": "2026-07-13",
+    "end": "2026-10-10"
+  },
+  "weeks": {
+    "prior": {
+      "start": "2026-09-25",
+      "end": "2026-10-01",
+      "impressions": 24,
+      "clicks": 0,
+      "by_day": [
+        {
+          "date": "2026-09-25",
+          "clicks": 0,
+          "impressions": 5,
+          "position": 9.6
+        },
+        {
+          "date": "2026-09-26",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 8.7
+        },
+        {
+          "date": "2026-09-27",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 7
+        },
+        {
+          "date": "2026-09-28",
+          "clicks": 0,
+          "impressions": 6,
+          "position": 5.2
+        },
+        {
+          "date": "2026-09-29",
+          "clicks": 0,
+          "impressions": 6,
+          "position": 5.5
+        },
+        {
+          "date": "2026-09-30",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 3.5
+        },
+        {
+          "date": "2026-10-01",
+          "clicks": 0,
+          "impressions": 0,
+          "position": 0
+        }
+      ],
+      "impressions_in_query_rows": 0
+    },
+    "current": {
+      "start": "2026-10-02",
+      "end": "2026-10-08",
+      "impressions": 1,
+      "clicks": 0,
+      "by_day": [
+        {
+          "date": "2026-10-02",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 2
+        },
+        {
+          "date": "2026-10-03",
+          "clicks": 0,
+          "impressions": 0,
+          "position": 0
+        },
+        {
+          "date": "2026-10-04",
+          "clicks": 0,
+          "impressions": 0,
+          "position": 0
+        },
+        {
+          "date": "2026-10-05",
+          "clicks": 0,
+          "impressions": 0,
+          "position": 0
+        },
+        {
+          "date": "2026-10-06",
+          "clicks": 0,
+          "impressions": 0,
+          "position": 0
+        },
+        {
+          "date": "2026-10-07",
+          "clicks": 0,
+          "impressions": 0,
+          "position": 0
+        },
+        {
+          "date": "2026-10-08",
+          "clicks": 0,
+          "impressions": 0,
+          "position": 0
+        }
+      ],
+      "impressions_in_query_rows": 0
+    }
+  },
+  "by_page": [
+    {
+      "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "prior": 24,
+      "current": 0,
+      "delta": -24
+    },
+    {
+      "page": "http://weddingbudgetspreadsheet.com/terms",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    },
+    {
+      "page": "http://www.weddingbudgetspreadsheet.com/photos",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    },
+    {
+      "page": "https://weddingbudgetspreadsheet.com/guides",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    },
+    {
+      "page": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    }
+  ],
+  "by_page_canonical": [
+    {
+      "page": "weddingbudgetspreadsheet.com/wedding-cost-per-guest",
+      "prior": 24,
+      "current": 0,
+      "delta": -24
+    },
+    {
+      "page": "weddingbudgetspreadsheet.com/terms",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    },
+    {
+      "page": "weddingbudgetspreadsheet.com/photos",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    },
+    {
+      "page": "weddingbudgetspreadsheet.com/guides",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    },
+    {
+      "page": "weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "prior": 0,
+      "current": 1,
+      "delta": 1
+    }
+  ],
+  "by_query": [],
+  "www_or_http_page_rows": [
+    {
+      "date": "2026-09-03",
+      "page": "http://weddingbudgetspreadsheet.com/products/timeline-template",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 1
+    },
+    {
+      "date": "2026-09-07",
+      "page": "https://www.weddingbudgetspreadsheet.com/products/budget-spreadsheet",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 8
+    },
+    {
+      "date": "2026-10-02",
+      "page": "http://weddingbudgetspreadsheet.com/terms",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 3
+    },
+    {
+      "date": "2026-10-02",
+      "page": "http://www.weddingbudgetspreadsheet.com/photos",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 5
+    }
+  ],
+  "daily_90d": [
+    {
+      "date": "2026-08-24",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-08-25",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-08-26",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-08-27",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-08-28",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-08-29",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-08-30",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-08-31",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-01",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 9
+    },
+    {
+      "date": "2026-09-02",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-03",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 1
+    },
+    {
+      "date": "2026-09-04",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-05",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 78
+    },
+    {
+      "date": "2026-09-06",
+      "clicks": 0,
+      "impressions": 8,
+      "position": 34.8
+    },
+    {
+      "date": "2026-09-07",
+      "clicks": 0,
+      "impressions": 7,
+      "position": 50.7
+    },
+    {
+      "date": "2026-09-08",
+      "clicks": 0,
+      "impressions": 7,
+      "position": 71.1
+    },
+    {
+      "date": "2026-09-09",
+      "clicks": 0,
+      "impressions": 6,
+      "position": 55.8
+    },
+    {
+      "date": "2026-09-10",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 63
+    },
+    {
+      "date": "2026-09-11",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 74
+    },
+    {
+      "date": "2026-09-12",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 70
+    },
+    {
+      "date": "2026-09-13",
+      "clicks": 0,
+      "impressions": 8,
+      "position": 62.8
+    },
+    {
+      "date": "2026-09-14",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-15",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-16",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-17",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-18",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 4
+    },
+    {
+      "date": "2026-09-19",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 5
+    },
+    {
+      "date": "2026-09-20",
+      "clicks": 0,
+      "impressions": 5,
+      "position": 10
+    },
+    {
+      "date": "2026-09-21",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 10
+    },
+    {
+      "date": "2026-09-22",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-09-23",
+      "clicks": 0,
+      "impressions": 5,
+      "position": 9
+    },
+    {
+      "date": "2026-09-24",
+      "clicks": 0,
+      "impressions": 4,
+      "position": 9.5
+    },
+    {
+      "date": "2026-09-25",
+      "clicks": 0,
+      "impressions": 5,
+      "position": 9.6
+    },
+    {
+      "date": "2026-09-26",
+      "clicks": 0,
+      "impressions": 3,
+      "position": 8.7
+    },
+    {
+      "date": "2026-09-27",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 7
+    },
+    {
+      "date": "2026-09-28",
+      "clicks": 0,
+      "impressions": 6,
+      "position": 5.2
+    },
+    {
+      "date": "2026-09-29",
+      "clicks": 0,
+      "impressions": 6,
+      "position": 5.5
+    },
+    {
+      "date": "2026-09-30",
+      "clicks": 0,
+      "impressions": 2,
+      "position": 3.5
+    },
+    {
+      "date": "2026-10-01",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-10-02",
+      "clicks": 0,
+      "impressions": 1,
+      "position": 2
+    },
+    {
+      "date": "2026-10-03",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-10-04",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-10-05",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-10-06",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-10-07",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-10-08",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    },
+    {
+      "date": "2026-10-09",
+      "clicks": 0,
+      "impressions": 0,
+      "position": 0
+    }
+  ],
+  "finding": {
+    "decided_at": "2026-10-11",
+    "trigger": "seq23/local-guides-citation-velocity issue #187, reports/search_outcomes/2026-W41 RED (24 -> 1 impressions)",
+    "verdict": "a_volatility",
+    "summary": "One page, /wedding-cost-per-guest, carried all 24 prior-week impressions (53 of 55 in the 28-day window), every one on anonymised queries (0 query rows in either week). Google trialled it at average position 3.5-10 from 18 to 30 Sep (after ranking ~35-78 on 5-13 Sep), then stopped showing it from 1 Oct. The page is unchanged and healthy, so this is ranking volatility on a single new page, not a regression.",
+    "hypotheses": {
+      "a_volatility": {
+        "status": "CONFIRMED",
+        "evidence": "prior week 24 imp all on https://weddingbudgetspreadsheet.com/wedding-cost-per-guest, daily 5/3/2/6/6/2/0 at position 9.6->3.5; current week 1 imp (2 Oct, other pages); zero impressions on the property 3-9 Oct; 5-13 Sep the same page drew 47 imp at position 35-78, 14-17 Sep 0, 18-30 Sep 39 imp at position 3.5-10"
+      },
+      "b_page_lost": {
+        "status": "RULED_OUT",
+        "method": "git log on app/wedding-cost-per-guest/page.tsx (last change 2 Sep, #6) and -S wedding-cost-per-guest since 15 Sep (only data/search_intelligence evidence commits); live GET 200, <meta robots index, follow>, self canonical, title unchanged; URL Inspection 11 Oct: Submitted and indexed, PASS, last crawl 2026-10-02, googleCanonical = itself; the three sibling hosts 308 that path to this host"
+      },
+      "c_www_split": {
+        "status": "RULED_OUT_AS_CAUSE",
+        "method": "curl: https://www. 308 -> apex, http://www. 301 -> https apex, www sitemap 308 -> apex sitemap; www/http page rows total 2 impressions in 90 days (7 Sep, 2 Oct); index coverage 24/24 indexed under apex. The stale http://www.weddingbudgetspreadsheet.com/sitemap.xml registration (2 errors) was real hygiene debt and was deleted 2026-10-11 via sitemaps.delete; apex sitemap kept"
+      }
+    },
+    "action": "No page repair: nothing regressed. Stale www sitemap registration deleted and now guarded (collect_index_coverage deletes http/www variants daily; validate:demand-repoint hard-fails if one is listed). Measurement: the daily gsc_truth window and the W42 report; if /wedding-cost-per-guest stays at 0 impressions through 2026-10-25 the page goes to the strengthening queue (consolidation_candidates / niche-guide strengthening) rather than waiting."
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "collected_at": "2026-10-11T14:03:31.760Z",
+  "collected_at": "2026-10-11T16:58:31.706Z",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "state": "LISTED",
@@ -9,12 +9,14 @@
       "listed_before": true,
       "submitted_now": false,
       "listed_after": true,
-      "last_submitted": "2026-10-11T10:28:39.971Z",
-      "last_downloaded": "2026-10-10T10:27:33.416Z",
-      "is_pending": true,
+      "last_submitted": "2026-10-11T14:06:42.014Z",
+      "last_downloaded": "2026-10-11T14:06:45.967Z",
+      "is_pending": false,
       "errors": 0,
       "warnings": 0,
       "submitted_urls": 24,
+      "pruned_now": [],
+      "stale_after": [],
       "all_listed": [
         "https://weddingseatingchartmaker.com/sitemap.xml"
       ]
@@ -26,15 +28,18 @@
       "listed_before": true,
       "submitted_now": false,
       "listed_after": true,
-      "last_submitted": "2026-10-11T10:28:40.101Z",
-      "last_downloaded": "2026-10-10T11:01:18.478Z",
-      "is_pending": true,
+      "last_submitted": "2026-10-11T14:06:42.289Z",
+      "last_downloaded": "2026-10-11T14:06:43.912Z",
+      "is_pending": false,
       "errors": 0,
       "warnings": 0,
       "submitted_urls": 24,
-      "all_listed": [
-        "https://weddingbudgetspreadsheet.com/sitemap.xml",
+      "pruned_now": [
         "http://www.weddingbudgetspreadsheet.com/sitemap.xml"
+      ],
+      "stale_after": [],
+      "all_listed": [
+        "https://weddingbudgetspreadsheet.com/sitemap.xml"
       ]
     },
     "weddingtimelinetemplate.com": {
@@ -44,12 +49,14 @@
       "listed_before": true,
       "submitted_now": false,
       "listed_after": true,
-      "last_submitted": "2026-10-11T10:28:40.192Z",
+      "last_submitted": "2026-10-11T14:06:42.393Z",
       "last_downloaded": "2026-10-10T10:55:23.012Z",
       "is_pending": true,
       "errors": 0,
       "warnings": 0,
       "submitted_urls": 26,
+      "pruned_now": [],
+      "stale_after": [],
       "all_listed": [
         "https://weddingtimelinetemplate.com/sitemap.xml"
       ]
@@ -61,12 +68,14 @@
       "listed_before": true,
       "submitted_now": false,
       "listed_after": true,
-      "last_submitted": "2026-10-11T10:28:40.283Z",
-      "last_downloaded": "2026-10-11T10:59:40.332Z",
+      "last_submitted": "2026-10-11T14:06:42.513Z",
+      "last_downloaded": "2026-10-11T14:33:45.978Z",
       "is_pending": false,
       "errors": 0,
       "warnings": 0,
       "submitted_urls": 54,
+      "pruned_now": [],
+      "stale_after": [],
       "all_listed": [
         "https://weddingchecklistpdf.com/sitemap.xml"
       ]
