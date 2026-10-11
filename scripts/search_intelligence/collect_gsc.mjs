@@ -27,7 +27,7 @@
 //                  addressed, so nothing was asked                      exit 1
 //   UNCONFIGURED   no credential; nothing attempted, nothing claimed    exit 0
 import crypto from 'node:crypto';
-import {read,write,now,idFor,hostOf,writeProviderStatus} from './lib.mjs';
+import {read,write,now,idFor,hostOf,writeProviderStatus,pageKey} from './lib.mjs';
 const cfg=read('data/search_intelligence/config.json');
 const targets=read('data/search_intelligence/targets.json',{targets:[]}).targets||[];
 const existing=read('data/search_intelligence/observations.json',{schema_version:'1.0.0',observations:[]});
@@ -65,6 +65,7 @@ if(!addressable.length) finish({state:'MISCONFIGURED',requests:0,rows_added:0,re
 if(max<1) finish({state:'MISCONFIGURED',requests:0,rows_added:0,reason:`budgets.gsc_requests_per_run is ${max}, so no request was permitted`},1);
 
 const access=await token(sa); let requests=0, added=0; const failures=[]; const queried=[];
+const truth=read('data/search_intelligence/gsc_truth.json',{schema_version:'1.0.0',hosts:{}}); truth.hosts=truth.hosts||{};
 for(const [host,siteUrl] of addressable){
   if(requests>=max) continue; requests++;
   const endpoint=`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/searchAnalytics/query`;
@@ -75,8 +76,31 @@ for(const [host,siteUrl] of addressable){
     body=await r.json();
   }catch(e){failures.push({host,error:String(e.message||e)});continue}
   queried.push(host);
+  // Rolling 28-day truth per host (data/search_intelligence/gsc_truth.json): the
+  // query+page rows above plus a page-only and a property-total request, because
+  // GSC drops anonymised queries from query+page rows, so a page with impressions
+  // can be absent from them (courthouse-wedding-checklist on 2026-10-08). The
+  // consolidation and freeze decisions read page impressions, so they need both.
+  const extra={};
+  for(const [name,dims] of [['pages',['page']],['totals',[]]]){
+    if(requests>=max){extra[name]=null;continue}
+    requests++;
+    try{
+      const r=await fetch(endpoint,{method:'POST',headers:{authorization:`Bearer ${access}`,'content-type':'application/json'},body:JSON.stringify({startDate:period.start,endDate:period.end,dimensions:dims,type:'web',rowLimit:Number(cfg.providers?.gsc?.row_limit||25000),dataState:'final'})});
+      if(!r.ok) throw new Error(`HTTP ${r.status}: ${(await r.text()).slice(0,200)}`);
+      extra[name]=(await r.json()).rows||[];
+    }catch(e){failures.push({host,error:`${name}: ${String(e.message||e)}`});extra[name]=null}
+  }
+  const pages=new Map();
+  for(const row of extra.pages||[]){const k=pageKey(row.keys?.[0]);if(!k||!k.startsWith(host))continue;const p=pages.get(k)||{page:`https://${k}`,clicks:0,impressions:0,pos_weight:0};p.clicks+=Number(row.clicks||0);p.impressions+=Number(row.impressions||0);p.pos_weight+=Number(row.position||0)*Number(row.impressions||0);pages.set(k,p)}
+  const t=(extra.totals||[])[0]||null;
+  truth.hosts[host]={site_property:siteUrl,period,collected_at:now(),complete:extra.pages!==null&&extra.totals!==null,
+    totals:t?{clicks:Number(t.clicks||0),impressions:Number(t.impressions||0),ctr:Number(t.ctr||0),position:Number(t.position||0)}:null,
+    queries:(body.rows||[]).filter(r=>r.keys?.[0]&&r.keys?.[1]).map(r=>({query:r.keys[0],page:r.keys[1],clicks:Number(r.clicks||0),impressions:Number(r.impressions||0),position:Number(r.position||0)})).sort((a,b)=>b.impressions-a.impressions),
+    pages:[...pages.values()].map(p=>({page:p.page,clicks:p.clicks,impressions:p.impressions,position:p.impressions?Math.round(p.pos_weight/p.impressions*10)/10:null})).sort((a,b)=>b.impressions-a.impressions)};
   for(const row of body.rows||[]){const [query,page]=row.keys||[]; if(!query||!page)continue; const ph=hostOf(page); if(ph!==host)continue; existing.observations.push({observation_id:idFor('gsc',host,query,page,period.end,String(row.impressions)),observed_at:now(),period,provider:'google_search_console',evidence_class:'OWN_SITE_PERFORMANCE',query,page,host,clicks:Number(row.clicks||0),impressions:Number(row.impressions||0),ctr:Number(row.ctr||0),average_position:Number(row.position||0),target_match:targets.some(t=>t.host===host&&t.query.toLowerCase()===String(query).toLowerCase())});added++;}
 }
+truth.truth_source='google_search_console_search_analytics';truth.truth_boundary='Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.';truth.updated_at=now();write('data/search_intelligence/gsc_truth.json',truth);
 const dedup=new Map(existing.observations.map(o=>[o.observation_id,o])); existing.observations=[...dedup.values()].sort((a,b)=>String(a.observed_at).localeCompare(String(b.observed_at))).slice(-10000);write('data/search_intelligence/observations.json',existing);
 
 // requests counts attempts; queried counts properties that actually answered.

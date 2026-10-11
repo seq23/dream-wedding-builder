@@ -1,0 +1,257 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-10-11T13:58:08.619Z",
+  "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
+  "thin_thresholds_words": {
+    "guide": 570,
+    "hub": 365
+  },
+  "hosts": {
+    "weddingseatingchartmaker.com": {
+      "state": "MEASURED",
+      "gsc_period": {
+        "start": "2026-09-12",
+        "end": "2026-10-09"
+      },
+      "content_pages_examined": 22,
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "url": "https://weddingseatingchartmaker.com/wedding-guest-list-template",
+          "type": "hub",
+          "impressions_28d": 0,
+          "words": 363,
+          "thin_threshold": 365,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        }
+      ],
+      "excluded_utility_paths": [
+        "/guides",
+        "/products/seating-chart-maker"
+      ]
+    },
+    "weddingbudgetspreadsheet.com": {
+      "state": "MEASURED",
+      "gsc_period": {
+        "start": "2026-09-12",
+        "end": "2026-10-09"
+      },
+      "content_pages_examined": 20,
+      "candidate_count": 8,
+      "candidates": [
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-hidden-costs-checklist",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 524,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 540,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-deposit-schedule",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 548,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-gratuity-planner",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 550,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-contingency",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 555,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-vendor-payment-tracker",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 564,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 566,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-monthly-cash-flow",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 568,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        }
+      ],
+      "excluded_utility_paths": [
+        "/guides",
+        "/products/budget-spreadsheet",
+        "/wedding-budget-tradeoffs",
+        "/wedding-cost-per-guest"
+      ]
+    },
+    "weddingtimelinetemplate.com": {
+      "state": "MEASURED",
+      "gsc_period": {
+        "start": "2026-09-12",
+        "end": "2026-10-09"
+      },
+      "content_pages_examined": 23,
+      "candidate_count": 11,
+      "candidates": [
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/wedding-setup-breakdown-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 529,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/wedding-vendor-arrival-schedule",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 532,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 533,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 535,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/church-ceremony-wedding-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 540,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/one-venue-wedding-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 540,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 549,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/family-photo-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 554,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 558,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 558,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 569,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        }
+      ],
+      "excluded_utility_paths": [
+        "/guides",
+        "/products/timeline-template",
+        "/what-to-do-6-months-before-the-wedding"
+      ]
+    },
+    "weddingchecklistpdf.com": {
+      "state": "MEASURED",
+      "gsc_period": {
+        "start": "2026-09-12",
+        "end": "2026-10-09"
+      },
+      "content_pages_examined": 37,
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "url": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 538,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        }
+      ],
+      "excluded_utility_paths": [
+        "/",
+        "/backyard-wedding-planning",
+        "/disclaimer",
+        "/free-wedding-planner",
+        "/guides",
+        "/methodology",
+        "/micro-wedding-planning",
+        "/photos",
+        "/privacy",
+        "/products/checklist-pdf",
+        "/products/operations-suite",
+        "/readiness-score",
+        "/refund-policy",
+        "/shop",
+        "/terms",
+        "/trends",
+        "/wedding-planning-reality-check"
+      ]
+    }
+  }
+}

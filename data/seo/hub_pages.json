@@ -314,12 +314,12 @@
       "schema": "Article"
     },
     "printable-wedding-checklist": {
-      "title": "Printable Wedding Checklist: One-Page Planning Overview",
+      "title": "Printable Wedding Checklist: Every Task, Owner and Deadline",
       "description": "Learn how to choose and use a printable wedding checklist, then see real previews of the paid 13-page PDF and editable planning workbook.",
       "host": "weddingchecklistpdf.com",
       "eyebrow": "Printer-first planning page",
       "h1": "Printable wedding checklist",
-      "intro": "This page is designed to print cleanly from your browser. It keeps the critical path visible without turning the printout into a 20-page planning binder.",
+      "intro": "A printable wedding checklist is the planning list you print and work from by hand: every task from setting the date to the wedding-week handoff, with a line for who owns it, when it is due and whether it is done. This one prints cleanly from your browser and keeps the critical path on a few pages; the $9 Wedding Checklist PDF is the full 13-page printable packet with an editable tracker.",
       "direct_answer": "Print the checklist, cross out non-applicable tasks, write one owner beside each remaining line, and transfer contract-based dates into your calendar or working tracker. The printout is a control sheet, not a replacement for contracts or vendor instructions.",
       "sections": [
         {
@@ -420,7 +420,10 @@
         "/wedding-checklist",
         "/wedding-checklist-pdf",
         "/guides/wedding-week-checklist",
-        "/products/checklist-pdf"
+        "/products/checklist-pdf",
+        "/guides/elopement-planning-checklist",
+        "/guides/courthouse-wedding-checklist",
+        "/guides/destination-wedding-checklist"
       ],
       "product_id": "checklist-pdf",
       "schema": "HowTo",

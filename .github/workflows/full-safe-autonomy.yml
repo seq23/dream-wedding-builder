@@ -31,6 +31,20 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
+      # Index coverage and sitemap registration, measured before anything else so
+      # validate:demand-repoint (inside validate:structural, below) always reads a
+      # file this run refreshed. URL Inspection per sitemap URL, 8 in parallel,
+      # <=150 URLs per host per run; sitemaps.list per host with a submit only
+      # when the sitemap is missing. No credential is a NAMED STOP, never a red
+      # run and never a blanked file. data/search_intelligence is committed below.
+      - name: Measure index coverage and sitemap registration
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL_SEATING: ${{ secrets.GSC_SITE_URL_SEATING }}
+          GSC_SITE_URL_BUDGET: ${{ secrets.GSC_SITE_URL_BUDGET }}
+          GSC_SITE_URL_TIMELINE: ${{ secrets.GSC_SITE_URL_TIMELINE }}
+          GSC_SITE_URL_CHECKLIST: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
+        run: npm run search:coverage
       # Re-derive the cadence policy BEFORE anything spends it.
       #
       # This step used to sit between the publisher and the gate, and that ordering

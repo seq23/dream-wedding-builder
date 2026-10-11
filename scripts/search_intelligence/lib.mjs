@@ -54,3 +54,26 @@ export function writeProviderStatus(name,entry,statusDoc){
   write('data/search_intelligence/provider_status.json',status);
   return status;
 }
+
+// ---------------------------------------------------------------------------
+// Search Console service-account token, shared by every collector in this lane
+// (performance, URL Inspection, sitemaps) so the credential rules live once.
+export const GSC_HOST_ENV={
+  'weddingseatingchartmaker.com':'GSC_SITE_URL_SEATING',
+  'weddingbudgetspreadsheet.com':'GSC_SITE_URL_BUDGET',
+  'weddingtimelinetemplate.com':'GSC_SITE_URL_TIMELINE',
+  'weddingchecklistpdf.com':'GSC_SITE_URL_CHECKLIST'
+};
+export async function gscToken(sa,scope='https://www.googleapis.com/auth/webmasters.readonly'){
+  const b64=v=>Buffer.from(typeof v==='string'?v:JSON.stringify(v)).toString('base64url');
+  const issued=Math.floor(Date.now()/1000);
+  const unsigned=`${b64({alg:'RS256',typ:'JWT'})}.${b64({iss:sa.client_email,scope,aud:'https://oauth2.googleapis.com/token',iat:issued,exp:issued+3600})}`;
+  const sig=crypto.sign('RSA-SHA256',Buffer.from(unsigned),sa.private_key).toString('base64url');
+  const r=await fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'urn:ietf:params:oauth:grant-type:jwt-bearer',assertion:`${unsigned}.${sig}`})});
+  if(!r.ok) throw new Error(`GSC OAuth ${r.status}: ${(await r.text()).slice(0,200)}`);
+  return (await r.json()).access_token;
+}
+// Canonical page key: scheme and www dropped, so http://www.x.com/a and
+// https://x.com/a are one page (GSC reports both forms).
+export const pageKey=u=>{try{const x=new URL(u);return `${x.hostname.replace(/^www\./,'')}${x.pathname.replace(/\/$/,'')||'/'}`}catch{return ''}};
+export const sitemapUrlsFor=host=>{const f=path.join(root,'artifacts/sitemaps',`${host}.xml`);if(!fs.existsSync(f))return [];return [...fs.readFileSync(f,'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1])};
