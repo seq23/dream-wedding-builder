@@ -434,7 +434,7 @@
       "composite": false,
       "reason": "/favicon.ico answered 404 on all four sites and no page linked an icon or manifest (measured live 2026-10-11). One Worker serves four hosts, so a public/ file would be one icon for all; app/<file>/route.ts serves per-host bytes from lib/site-icons.generated.ts. Renders each route for each host and checks status, content type, ICO/PNG headers and sizes, distinct bytes per host, the manifest, the layout <link> URLs and the middleware passthrough.",
       "manual_repair": "re-run python3 scripts/seo/generate_site_icons.py after editing data/seo/site_homes.json; restore the route handler or layout icons/manifest entry the failure names.",
-      "repair_evidence": "PENDING"
+      "repair_evidence": "proved negatively on 2026-10-11: removing app/favicon.ico/route.ts fails it (exit 1); restored, it passes."
     },
     {
       "id": "seo-og",
@@ -445,7 +445,7 @@
       "composite": false,
       "reason": "weddingchecklistpdf.com's homepage declared openGraph without images, and Next replaces the layout's openGraph wholesale, so it had no og:image while its three siblings did (2026-10-11). Checks the per-host 1200x630 /og.png bytes, the layout default, seoMetadata and the checklist homepage all emit og:image with width/height plus twitter:image on the right host, and that no other page declares an openGraph block that could drop the image.",
       "manual_repair": "route the page's metadata through seoMetadata() or ogImages()/ogImageUrl() from lib/site-home.ts.",
-      "repair_evidence": "PENDING"
+      "repair_evidence": "proved negatively on 2026-10-11: dropping images: ogImages(...) from app/page.tsx openGraph (the original defect) fails it (exit 1); restored, it passes."
     },
     {
       "id": "seo-jsonld",
@@ -456,7 +456,7 @@
       "composite": false,
       "reason": "weddingchecklistpdf.com shipped no JSON-LD while the other three homepages carried Article/FAQPage/BreadcrumbList (+HowTo on two) - its `/` renders app/page.tsx, the others redirect to HubPage. Renders all four real homepages and requires the identical HOMEPAGE_SCHEMA_TYPES set (WebSite, Organization, WebPage, BreadcrumbList, Article, FAQPage, HowTo), one BreadcrumbList each, and that home nodes do not leak onto other hubs.",
       "manual_repair": "emit the homepage nodes through homeSchemaNodes() in lib/site-home.ts from whichever template renders the host's homepage.",
-      "repair_evidence": "PENDING"
+      "repair_evidence": "proved negatively on 2026-10-11: deleting the homeSchemaNodes JsonLd from app/page.tsx (the original defect) fails it (exit 1); restored, it passes."
     },
     {
       "id": "seo-definition",
@@ -467,7 +467,7 @@
       "composite": false,
       "reason": "Homepages had no self-contained definition for answer engines to lift. Renders all four homepages and requires the element immediately after </h1> to be the 40-60 word '<Site> is ...' paragraph whose id is the WebPage SpeakableSpecification cssSelector, appearing exactly once.",
       "manual_repair": "edit the definition in data/seo/site_homes.json (40-60 words, starting with the site name + ' is ') or restore <SiteDefinition/> directly after the H1.",
-      "repair_evidence": "PENDING"
+      "repair_evidence": "proved negatively on 2026-10-11: deleting <SiteDefinition/> from app/page.tsx fails it (exit 1); restored, it passes."
     },
     {
       "id": "seo-clarity",
@@ -478,7 +478,7 @@
       "composite": false,
       "reason": "Clarity projects exist for all four hosts; a host missing from the map or a wrong id silently records nothing. Pins the four owner-supplied ids, the map's host set to route_ownership.json, the committed loader's map, and the layout script tag plus build wiring.",
       "manual_repair": "fix data/clarity_projects.json and run node scripts/install_clarity.mjs to regenerate public/assets/clarity-loader.js.",
-      "repair_evidence": "PENDING"
+      "repair_evidence": "proved negatively on 2026-10-11: deleting weddingtimelinetemplate.com from data/clarity_projects.json fails it (exit 1); restored, it passes."
     },
     {
       "id": "seo-indexnow",
@@ -489,7 +489,7 @@
       "composite": false,
       "reason": "IndexNow needs <key>.txt at every host root and a submission after pages change; until 2026-10-11 submission ran only from the daily content lane, never after a code deploy. Checks the key file, that the distribution manifest has a non-empty same-host URL file per host, and that indexnow-after-deploy.yml waits for Workers Builds, proves the key file live, then submits.",
       "manual_repair": "restore public/<key>.txt matching public/indexnow-key.txt, or the step order in .github/workflows/indexnow-after-deploy.yml.",
-      "repair_evidence": "PENDING"
+      "repair_evidence": "proved negatively on 2026-10-11: deleting public/<key>.txt fails it (exit 1); restored, it passes."
     },
     {
       "id": "seo-lighthouse",
@@ -500,7 +500,7 @@
       "composite": false,
       "reason": "Lighthouse mobile SEO was 92 on three homepages, failing only audit `meta-description`: Next 15 streaming metadata placed <meta name=description> in <body> for UAs off its bot list, Lighthouse's included. Pinned to that audit id: next.config htmlLimitedBots must match the Lighthouse mobile UA and an ordinary browser UA, and every homepage must declare a description.",
       "manual_repair": "restore htmlLimitedBots: /.*/ in next.config.ts.",
-      "repair_evidence": "PENDING"
+      "repair_evidence": "proved negatively on 2026-10-11: deleting htmlLimitedBots from next.config.ts (the original cause) fails it (exit 1); restored, it passes."
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
