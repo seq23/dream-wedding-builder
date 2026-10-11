@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "validator": "content-pattern-contract",
   "spec": ".clarity/content-pattern-spec.json",
-  "generated_at": "2026-10-11T13:03:18.395Z",
+  "generated_at": "2026-10-11T16:59:59.381Z",
   "enforcement": "block",
   "pages_checked": 106,
   "pages_by_kind": {
@@ -70,8 +70,8 @@
     {
       "id": "concrete_numbers",
       "blocking": false,
-      "pages_missing": 88,
-      "coverage_pct": 17,
+      "pages_missing": 87,
+      "coverage_pct": 17.9,
       "why": "no concrete cost or timeline figures (agent request #5, 365 occurrences)"
     },
     {

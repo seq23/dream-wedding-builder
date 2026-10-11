@@ -491,5 +491,26 @@
       "impressions": 0,
       "position": 0
     }
-  ]
+  ],
+  "finding": {
+    "decided_at": "2026-10-11",
+    "trigger": "seq23/local-guides-citation-velocity issue #187, reports/search_outcomes/2026-W41 RED (24 -> 1 impressions)",
+    "verdict": "a_volatility",
+    "summary": "One page, /wedding-cost-per-guest, carried all 24 prior-week impressions (53 of 55 in the 28-day window), every one on anonymised queries (0 query rows in either week). Google trialled it at average position 3.5-10 from 18 to 30 Sep (after ranking ~35-78 on 5-13 Sep), then stopped showing it from 1 Oct. The page is unchanged and healthy, so this is ranking volatility on a single new page, not a regression.",
+    "hypotheses": {
+      "a_volatility": {
+        "status": "CONFIRMED",
+        "evidence": "prior week 24 imp all on https://weddingbudgetspreadsheet.com/wedding-cost-per-guest, daily 5/3/2/6/6/2/0 at position 9.6->3.5; current week 1 imp (2 Oct, other pages); zero impressions on the property 3-9 Oct; 5-13 Sep the same page drew 47 imp at position 35-78, 14-17 Sep 0, 18-30 Sep 39 imp at position 3.5-10"
+      },
+      "b_page_lost": {
+        "status": "RULED_OUT",
+        "method": "git log on app/wedding-cost-per-guest/page.tsx (last change 2 Sep, #6) and -S wedding-cost-per-guest since 15 Sep (only data/search_intelligence evidence commits); live GET 200, <meta robots index, follow>, self canonical, title unchanged; URL Inspection 11 Oct: Submitted and indexed, PASS, last crawl 2026-10-02, googleCanonical = itself; the three sibling hosts 308 that path to this host"
+      },
+      "c_www_split": {
+        "status": "RULED_OUT_AS_CAUSE",
+        "method": "curl: https://www. 308 -> apex, http://www. 301 -> https apex, www sitemap 308 -> apex sitemap; www/http page rows total 2 impressions in 90 days (7 Sep, 2 Oct); index coverage 24/24 indexed under apex. The stale http://www.weddingbudgetspreadsheet.com/sitemap.xml registration (2 errors) was real hygiene debt and was deleted 2026-10-11 via sitemaps.delete; apex sitemap kept"
+      }
+    },
+    "action": "No page repair: nothing regressed. Stale www sitemap registration deleted and now guarded (collect_index_coverage deletes http/www variants daily; validate:demand-repoint hard-fails if one is listed). Measurement: the daily gsc_truth window and the W42 report; if /wedding-cost-per-guest stays at 0 impressions through 2026-10-25 the page goes to the strengthening queue (consolidation_candidates / niche-guide strengthening) rather than waiting."
+  }
 }
