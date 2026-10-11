@@ -160,6 +160,24 @@ export async function checkLivePricing({ config = readConfig(), fetchImpl = glob
   return { state: nowPaid.length ? 'FAIL' : free.length ? 'OK' : 'NAMED_STOP', stop: free.length ? undefined : 'NO_CONFIGURED_MODEL_LISTED', free, missing, now_paid: nowPaid };
 }
 
+// Which key the repo secret is: GET /auth/key returns its label (OpenRouter's
+// masked display form, never the key itself) and its limit and usage. Only these
+// five fields leave this function; the key never appears in a receipt.
+export async function describeKey({ apiKey = process.env.OPENROUTER_API_KEY || '', fetchImpl = globalThis.fetch } = {}) {
+  if (!apiKey) return { key_state: 'ABSENT', key_label: null };
+  try {
+    const res = await fetchImpl(`${OPENROUTER_BASE}/auth/key`, { headers: { authorization: `Bearer ${apiKey}` } });
+    const json = await res.json().catch(() => null);
+    if (!res.ok) return { key_state: [401, 403].includes(res.status) ? 'REFUSED' : `HTTP_${res.status}`, key_label: null };
+    const d = json?.data || {};
+    const out = { key_state: 'LIVE', key_label: d.label ?? null, limit: d.limit ?? null, usage: d.usage ?? null, is_free_tier: d.is_free_tier ?? null, limit_remaining: d.limit_remaining ?? null };
+    if (JSON.stringify(out).includes(apiKey)) return { key_state: 'LIVE', key_label: '[withheld: label contained the key]' };
+    return out;
+  } catch (err) {
+    return { key_state: 'UNREACHABLE', key_label: null, error: String(err?.message || err) };
+  }
+}
+
 function receipt(obj) {
   console.log(`LLM_ROUTER_RECEIPT ${JSON.stringify({ at: new Date().toISOString(), max_cost_usd: 0, ...obj })}`);
 }
@@ -178,16 +196,18 @@ async function main(argv) {
   }
   if (pricing.missing?.length) console.log(`::warning::Configured free models no longer listed by OpenRouter: ${pricing.missing.join(', ')}`);
   if (!ping) { receipt({ check: 'pricing', ...pricing }); return; }
+  const key = await describeKey();
+  console.log(`openrouter key: label=${key.key_label} limit=${key.limit ?? 'none'} usage=${key.usage ?? 'n/a'} is_free_tier=${key.is_free_tier ?? 'n/a'} limit_remaining=${key.limit_remaining ?? 'n/a'} state=${key.key_state}`);
   let result;
   try {
     result = await routeChat({ purpose: 'router-health-ping', maxTokens: 512, messages: [{ role: 'user', content: 'Reply with the single word OK.' }] });
   } catch (err) {
-    receipt({ check: 'pricing+ping', pricing, state: 'FAIL', error: err.message, code: err.code });
+    receipt({ check: 'pricing+ping', key, pricing, state: 'FAIL', error: err.message, code: err.code });
     console.error(`::error::${err.message}`);
     process.exit(1);
   }
   const { content, ...rest } = result;
-  receipt({ check: 'pricing+ping', pricing, ...rest, answer_chars: content ? content.length : 0 });
+  receipt({ check: 'pricing+ping', key_label: key.key_label, key, pricing, ...rest, answer_chars: content ? content.length : 0 });
   if (result.status !== 'OK') console.log(`NAMED STOP ${result.stop}: ${result.reason}\n::warning::NAMED STOP ${result.stop}: ${result.reason}`);
   else console.log(`free model answered: ${result.model} (cost $0)`);
 }

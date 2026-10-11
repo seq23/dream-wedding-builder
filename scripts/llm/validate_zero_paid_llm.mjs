@@ -20,7 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { policyErrors, readConfig, routeChat, loadPolicy, PaidCostError } from './free_router.mjs';
+import { policyErrors, readConfig, routeChat, loadPolicy, PaidCostError, describeKey } from './free_router.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const rel = (p) => path.relative(ROOT, p).split(path.sep).join('/');
@@ -211,7 +211,12 @@ if (policy) {
     try { await routeChat({ messages: msg, apiKey: 'k', config: bad, fetchImpl: failing }); } catch (e) { refusedLoad = e.code === 'POLICY_REFUSED'; }
     if (!refusedLoad) errors.push('router: a non-$0 policy was loaded instead of refused');
   }
-  notes.push(`router behaviour: 8 cases`);
+  const secret = 'sk-or-v1-validator-secret-0123456789';
+  const kinfo = await describeKey({ apiKey: secret, fetchImpl: resp(200, { data: { label: 'sk-or-v1-val...789', limit: 0, usage: 0, is_free_tier: false, limit_remaining: 0, extra: secret } }) });
+  if (kinfo.key_label !== 'sk-or-v1-val...789' || JSON.stringify(kinfo).includes(secret)) errors.push('router: describeKey did not return the label alone, or leaked the key');
+  const kref = await describeKey({ apiKey: secret, fetchImpl: resp(401, { error: { message: 'disabled' } }) });
+  if (kref.key_state !== 'REFUSED') errors.push('router: a refused key was not described as REFUSED');
+  notes.push(`router behaviour: 10 cases`);
 }
 
 if (errors.length) {
