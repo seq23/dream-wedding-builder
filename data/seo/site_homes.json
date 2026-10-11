@@ -1,0 +1,54 @@
+{
+  "_note": "One record per canonical host. Read by lib/site-home.ts (definition paragraph, homepage JSON-LD, speakable selector), scripts/seo/generate_site_icons.py (favicon, apple-touch-icon, manifest icons, og.png) and the seo-hygiene validators. Hosts must match data/seo/route_ownership.json.",
+  "speakable_selector": "#site-definition",
+  "organization": { "name": "Dream Wedding Builder", "url": "https://weddingchecklistpdf.com/" },
+  "hosts": {
+    "weddingchecklistpdf.com": {
+      "name": "Wedding Checklist PDF",
+      "short_name": "Checklist PDF",
+      "initial": "C",
+      "background": "#27231F",
+      "accent": "#D7B98E",
+      "tagline": "104-row editable checklist + 13-page printable packet",
+      "definition": "Wedding Checklist PDF is a $9 wedding planning checklist with a 104-row editable master list and a 13-page printable packet. It organizes tasks by planning window from twelve months out through wedding week, with owners, dependencies, priorities, deadlines and final payments, so couples can see what is due and who is doing it.",
+      "faqs": [
+        { "question": "What is included in the Wedding Checklist PDF?", "answer": "A 104-row editable master checklist, planning-window worksheets from 12+ months through wedding week, separate wedding-week and final-payment trackers, and a 13-page printable PDF, delivered with an editable XLSX workbook and a setup CSV." },
+        { "question": "Is the Wedding Checklist PDF a subscription?", "answer": "No. It is a one-time $9 purchase. Pay once and keep the current release for personal use." },
+        { "question": "How are the files delivered?", "answer": "Stripe handles checkout and payment verification. Verified purchases unlock the protected files on the success page and by email, and order and access help goes to info@weddingchecklistpdf.com." }
+      ],
+      "steps": [
+        "Choose your tool: buy one clearly priced product or the complete suite.",
+        "Pay securely: Stripe handles checkout and payment verification.",
+        "Receive access: verified purchases unlock protected files on screen and by email.",
+        "Customize and hand off: use the editable files with your partner, venue, vendors, or coordinator."
+      ]
+    },
+    "weddingbudgetspreadsheet.com": {
+      "name": "Wedding Budget Spreadsheet",
+      "short_name": "Budget Sheet",
+      "initial": "B",
+      "background": "#3E4A3B",
+      "accent": "#9EAD9A",
+      "tagline": "Estimates, deposits, due dates and cash needed by month",
+      "definition": "Wedding Budget Spreadsheet is a free planning guide and a $12 editable workbook for tracking what a wedding really costs. It records estimates, contracts, deposits, due dates, taxes, service fees and gratuities, then shows the cash needed each month, so couples can see where the money is committed before the final payments arrive."
+    },
+    "weddingseatingchartmaker.com": {
+      "name": "Wedding Seating Chart Maker",
+      "short_name": "Seating Chart",
+      "initial": "S",
+      "background": "#5A3B38",
+      "accent": "#CFA7A1",
+      "tagline": "Guests, tables, meals and accessibility in one plan",
+      "definition": "Wedding Seating Chart Maker is a free seating guide and a $19 editable workbook for building a venue-ready seating plan. It tracks confirmed guests, households, table capacities, meals, allergies, accessibility needs and children, reconciles RSVPs against tables, and prints the sheets the venue, caterer and escort-card table need on the day."
+    },
+    "weddingtimelinetemplate.com": {
+      "name": "Wedding Timeline Template",
+      "short_name": "Timeline",
+      "initial": "T",
+      "background": "#2F3B4A",
+      "accent": "#C9B07A",
+      "tagline": "One wedding-day schedule for couple, vendors and family",
+      "definition": "Wedding Timeline Template is a free timeline guide and a $12 editable workbook for building the wedding-day schedule. It holds a master timeline with owners, locations, dependencies and buffers, vendor arrival and breakdown times, and printable views for the couple, wedding party, photographer and family, so everyone works from one schedule."
+    }
+  }
+}

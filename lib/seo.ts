@@ -3,6 +3,7 @@ import hubsJson from '@/data/seo/hub_pages.json';
 import registryJson from '@/data/authority/content_registry.json';
 import guideMetaJson from '@/data/seo/guide_meta_descriptions.json';
 import { canonicalUrl, hostForProduct } from '@/lib/site-config';
+import { ogImages, ogImageUrl } from '@/lib/site-home';
 
 export type HubSection = { heading: string; paragraphs: string[]; bullets?: string[] };
 
@@ -46,16 +47,17 @@ export function documentTitle(title: string): Metadata['title'] {
   return `${title}${SITE_TITLE_SUFFIX}`.length <= TITLE_MAX ? title : { absolute: title };
 }
 
-export function seoMetadata(input: { title: string; description: string; host: string; path: string; type?: 'website' | 'article'; image?: string }): Metadata {
+// Every page shares its host's 1200x630 /og.png (served per host by app/og.png/route.ts)
+// with explicit dimensions, so all four sites present the same card shape.
+export function seoMetadata(input: { title: string; description: string; host: string; path: string; type?: 'website' | 'article' }): Metadata {
   const url = canonicalUrl(input.host, input.path);
-  const image = input.image ?? '/product-images/merch/operations-suite-hero.png';
   return {
     title: documentTitle(input.title),
     description: input.description,
     alternates: { canonical: url },
     robots: { index: true, follow: true },
-    openGraph: { title: input.title, description: input.description, url, siteName: 'Dream Wedding Builder', type: input.type ?? 'website', images: [{ url: canonicalUrl(input.host, image), alt: input.title }] },
-    twitter: { card: 'summary_large_image', title: input.title, description: input.description, images: [canonicalUrl(input.host, image)] }
+    openGraph: { title: input.title, description: input.description, url, siteName: 'Dream Wedding Builder', type: input.type ?? 'website', images: ogImages(input.host, input.title) },
+    twitter: { card: 'summary_large_image', title: input.title, description: input.description, images: [ogImageUrl(input.host)] }
   };
 }
 

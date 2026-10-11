@@ -17,7 +17,7 @@ type Inventory = { pdf: string; workbook: string; sheets: string[]; formula_coun
 export function generateStaticParams(){ return products.map(product => ({ slug: product.id })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
  const { slug } = await params; const product = products.find(item => item.id === slug); if (!product) return {};
- return seoMetadata({ title: `${product.name} - Editable Wedding Planning Tool`, description: product.promise, host: product.domain, path: product.route, type: 'website', image: product.hero_image });
+ return seoMetadata({ title: `${product.name} - Editable Wedding Planning Tool`, description: product.promise, host: product.domain, path: product.route, type: 'website' });
 }
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
  const { slug } = await params; const product = products.find(item => item.id === slug); if (!product) notFound();

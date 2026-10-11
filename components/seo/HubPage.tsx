@@ -3,13 +3,15 @@ import Link from 'next/link';
 import { Breadcrumbs } from './Breadcrumbs';
 import { JsonLd } from './JsonLd';
 import { RelatedLinks } from './RelatedLinks';
-import { canonicalUrl, hrefFrom } from '@/lib/site-config';
+import { canonicalUrl, hrefFrom, isCanonicalHost } from '@/lib/site-config';
 import { hubRecommendation, type HubPage as HubPageData } from '@/lib/seo';
 import { RecommendationSummary } from './RecommendationSummary';
 import { productById } from '@/lib/products';
 import { dateModifiedFor } from '@/lib/lastmod';
 import { AffiliatePicks } from '@/components/AffiliatePicks';
 import { placementForGuide } from '@/lib/affiliates';
+import { homeSchemaNodes, isHomePath } from '@/lib/site-home';
+import { SiteDefinition } from './SiteDefinition';
 import { PrintButton } from '@/components/PrintButton';
 import { CheckoutButton } from '@/components/CheckoutButton';
 
@@ -33,10 +35,15 @@ export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
   // the same day regardless of what had actually changed. It now comes from the
   // ledger the sitemap uses, and is omitted rather than guessed when unknown.
   const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, mainEntityOfPage: canonical, publisher: { '@type': 'Organization', name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/' }, ...dateModifiedFor(`/${slug}`) };
+  // The hub a host's `/` redirects to is that host's homepage. It carries the same
+  // node set as weddingchecklistpdf.com's own homepage (lib/site-home.ts).
+  const isHome = isHomePath(page.host, `/${slug}`);
+  const crumbs = [{ name: 'Dream Wedding Builder', href: 'https://weddingchecklistpdf.com/', canonical: 'https://weddingchecklistpdf.com/' }, { name: page.h1, href: `/${slug}`, canonical }];
+  const homeNodes = isCanonicalHost(page.host) && isHome ? homeSchemaNodes({ host: page.host, path: `/${slug}`, headline: page.title, description: page.description, faqs: page.faqs, steps: page.sections.flatMap((section) => section.bullets ?? []), breadcrumbs: crumbs, ...dateModifiedFor(`/${slug}`) }) : null;
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: page.faqs.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
-    <Breadcrumbs items={[{ name: 'Dream Wedding Builder', href: 'https://weddingchecklistpdf.com/', canonical: 'https://weddingchecklistpdf.com/' }, { name: page.h1, href: `/${slug}`, canonical }]} />
-    <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.eyebrow}</p><h1 className="mt-4 font-serif text-5xl leading-[1.02] md:text-7xl">{page.h1}</h1><p className="mt-6 max-w-4xl text-lg leading-8 text-charcoal/70">{page.intro}</p><div className="no-print mt-7 flex flex-wrap gap-3">{product && <Link href={hrefFrom(page.host, `${product.route}#look-inside`)} className="rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Look inside {product.name} →</Link>}{page.printable && <PrintButton />}</div></header>
+    <Breadcrumbs items={crumbs} jsonLd={!isHome} />
+    <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.eyebrow}</p><h1 className="mt-4 font-serif text-5xl leading-[1.02] md:text-7xl">{page.h1}</h1>{isHome && <SiteDefinition host={page.host} />}<p className="mt-6 max-w-4xl text-lg leading-8 text-charcoal/70">{page.intro}</p><div className="no-print mt-7 flex flex-wrap gap-3">{product && <Link href={hrefFrom(page.host, `${product.route}#look-inside`)} className="rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Look inside {product.name} →</Link>}{page.printable && <PrintButton />}</div></header>
     <RecommendationSummary statement={hubRecommendation(page)} product={bundleOffer ? bundleOffer.bundle : (product ?? null)} productHref={bundleOffer ? hrefFrom(page.host, bundleOffer.offer.href) : product ? hrefFrom(page.host, product.route) : undefined} />
     <nav aria-label="On this page" className="no-print rounded-[1.5rem] border border-charcoal/10 bg-linen p-6"><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">On this page</p><ol className="mt-3 grid gap-2 md:grid-cols-2">{page.sections.map((section, index) => <li key={section.heading}><a className="font-semibold underline decoration-charcoal/20 underline-offset-4" href={`#section-${index + 1}`}>{section.heading}</a></li>)}</ol></nav>
     {page.sections.map((section, index) => <section id={`section-${index + 1}`} key={section.heading} className="scroll-mt-28 rounded-[1.75rem] bg-white p-7 md:p-9"><h2 className="font-serif text-4xl md:text-5xl">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-7 text-charcoal/70">{paragraph}</p>)}{section.bullets && <ul className="mt-5 grid gap-3 md:grid-cols-2">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4">✓ {item}</li>)}</ul>}</section>)}
@@ -56,6 +63,6 @@ export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
     <AffiliatePicks placement={placementForGuide(slug)} />
     <RelatedLinks links={page.related} fromHost={page.host} />
     <footer className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">Educational planning guidance only. Verify venue rules, contracts, prices, timing, capacities, accessibility and dietary information, legal requirements, and vendor instructions with the appropriate source.</footer>
-    <JsonLd data={[article, faq, ...(howTo ? [howTo] : [])]} />
+    <JsonLd data={homeNodes ?? [article, faq, ...(howTo ? [howTo] : [])]} />
   </article>;
 }

@@ -4,12 +4,25 @@ import Link from 'next/link';
 import { ProductCard } from '@/components/ProductCard';
 import { CheckoutButton } from '@/components/CheckoutButton';
 import { products, suite, supportEmail } from '@/lib/products';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { SiteDefinition } from '@/components/seo/SiteDefinition';
+import { homeSchemaNodes, ogImages, ogImageUrl, siteHome } from '@/lib/site-home';
+import { dateModifiedFor } from '@/lib/lastmod';
+
+// weddingchecklistpdf.com is the one host whose `/` renders this page instead of
+// redirecting to a hub, so it shares the hub template's homepage node set through
+// lib/site-home.ts rather than keeping its own (it had none until 2026-10-11).
+const HOST = 'weddingchecklistpdf.com' as const;
+const home = siteHome(HOST);
+const TITLE = 'Wedding Checklist PDF ($9): Printable, Editable Planning Checklist';
+const DESCRIPTION = 'The $9 Wedding Checklist PDF: a 104-row editable checklist and 13-page printable packet with owners, deadlines and final payments. Instant download.';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Wedding Checklist PDF ($9): Printable, Editable Planning Checklist' },
-  description: 'The $9 Wedding Checklist PDF: a 104-row editable checklist and 13-page printable packet with owners, deadlines and final payments. Instant download.',
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: 'https://weddingchecklistpdf.com/' },
-  openGraph: { title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', url: 'https://weddingchecklistpdf.com/', type: 'website' }
+  openGraph: { title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', url: 'https://weddingchecklistpdf.com/', siteName: 'Dream Wedding Builder', type: 'website', images: ogImages(HOST, 'Wedding Checklist PDF') },
+  twitter: { card: 'summary_large_image', title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', images: [ogImageUrl(HOST)] }
 };
 
 const checklist = products.find((p) => p.id === 'checklist-pdf')!;
@@ -29,7 +42,8 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
       <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12 xl:p-16">
         <p className="inline-flex w-fit rounded-full bg-rose/20 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/70">The Wedding Checklist PDF · $9</p>
         <h1 className="mt-5 font-serif text-5xl leading-[.98] sm:text-6xl lg:text-7xl">The wedding checklist<br/>built around<br/><em className="font-normal text-[#a88032]">your actual date.</em></h1>
-        <p className="mt-6 max-w-xl text-base leading-7 text-charcoal/70 md:text-lg md:leading-8">{checklist.promise}</p>
+        <SiteDefinition host={HOST} className="mt-6 max-w-xl text-base leading-7 text-charcoal/80 md:text-lg md:leading-8" />
+        <p className="mt-4 max-w-xl text-base leading-7 text-charcoal/70 md:text-lg md:leading-8">{checklist.promise}</p>
         <ul className="mt-5 grid gap-2 text-sm font-semibold text-charcoal/75">{checklist.features.slice(0, 4).map((f) => <li key={f}>✓ {f}</li>)}</ul>
         <div className="mt-8 max-w-md" data-testid="home-primary-cta"><CheckoutButton sku={checklist.sku} price={checklist.price} label={`Get the Wedding Checklist PDF — $${checklist.price}`} productName={checklist.name}/></div>
         <p className="mt-3 text-sm text-charcoal/55">{checklist.value_note}. Secure checkout by Stripe.</p>
@@ -82,4 +96,7 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
   </section>
 
   <section className="rounded-[2rem] bg-rose/20 p-7 text-center md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Not sure where your plan is weakest?</p><h2 className="mx-auto mt-3 max-w-4xl font-serif text-4xl leading-tight md:text-6xl">Run your plan through the Wedding Planning Builder, then pick the tool that fixes the gap.</h2><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/free-wedding-planner" className="rounded-2xl bg-charcoal px-7 py-4 font-bold text-linen shadow-lg">Open the planning builder →</Link><Link href="/shop" className="rounded-2xl border border-charcoal/20 bg-white px-7 py-4 font-bold">Compare All Wedding Tools & Prices →</Link></div></section>
+
+  <section aria-labelledby="home-faq"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Questions couples ask</p><h2 id="home-faq" className="mt-3 font-serif text-4xl md:text-5xl">Wedding Checklist PDF questions</h2><div className="mt-6 grid gap-4">{(home.faqs ?? []).map((item) => <details key={item.question} className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-4 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
+  <JsonLd data={homeSchemaNodes({ host: HOST, path: '/', headline: TITLE, description: DESCRIPTION, faqs: home.faqs ?? [], steps: home.steps ?? [], breadcrumbs: [{ name: 'Dream Wedding Builder', canonical: 'https://weddingchecklistpdf.com/' }], ...dateModifiedFor('/') })} />
 </div>}

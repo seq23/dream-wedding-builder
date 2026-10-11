@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 35,
+    "HARD_FAIL": 42,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -424,6 +424,83 @@
       "reason": "Full Safe Autonomy run 34957914196 (main, 2026-09-15) passed every gate, committed 7f8bbfd in its last step, and its bare `git push` came back `cannot lock ref 'refs/heads/main': is at 7f8bbfd7... but expected fd94a6fb...` - the sha the server was 'at' is the commit the step had just made. The update had been applied; the response said it had not; the receipts were on main and the run was red. A bare push takes a rejection as final without asking where the ref actually is, and is equally blind to the ordinary race where another lane lands between rebase and push. All three lanes that commit from CI (full-safe-autonomy, search-intelligence, self-heal) now push through scripts/ci/push_back.sh: fetch, PUSH_ALREADY_LANDED when the ref already contains HEAD, otherwise rebase and bounded retry, PUSH_REBASE_CONFLICT (red, nothing forced) only on a genuine conflict. This validator first proves the script against throwaway bare repositories - apply-then-reject, concurrent push, genuine conflict, nothing to push - and proves that the old bare push FAILS under the first, then requires every workflow that runs `git commit` to invoke push_back.sh with no bare `git push` and no --force. Counts scenarios, workflow files and commit-and-push lanes, and hard-fails on zero of any of them.",
       "manual_repair": "replace the bare `git pull --rebase ... && git push ...` in the named workflow with `scripts/ci/push_back.sh \"$GITHUB_REF_NAME\"`. If the failure is PUSH_REBASE_CONFLICT on a run, the lane's commit and a human commit edited the same lines: rebase by hand, never with --force.",
       "repair_evidence": "proved negatively on 2026-09-15: with the three lanes still on a bare push it fails with 7 findings naming full-safe-autonomy.yml:212 and :234, search-intelligence.yml:52 and self-heal.yml:121 plus 'never invokes scripts/ci/push_back.sh' for each; against a copy of the tree with an empty .github/workflows it fails with 'no workflow files'; against workflows that never commit it fails with 'examined zero lanes'. Reproduced the run's shape locally against a bare repo whose pre-receive hook applies the update then declines: the old step exits 1 with the commit already on main; push_back.sh exits 0 as PUSH_ALREADY_LANDED. Restored, it passes with 5 behaviour scenarios, 5 workflow files and 3 lanes."
+    },
+    {
+      "id": "seo-icons",
+      "npmScript": "validate:seo-icons",
+      "command": "vitest run tests/unit/seo-hygiene-icons.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "/favicon.ico answered 404 on all four sites and no page linked an icon or manifest (measured live 2026-10-11). One Worker serves four hosts, so a public/ file would be one icon for all; app/<file>/route.ts serves per-host bytes from lib/site-icons.generated.ts. Renders each route for each host and checks status, content type, ICO/PNG headers and sizes, distinct bytes per host, the manifest, the layout <link> URLs and the middleware passthrough.",
+      "manual_repair": "re-run python3 scripts/seo/generate_site_icons.py after editing data/seo/site_homes.json; restore the route handler or layout icons/manifest entry the failure names.",
+      "repair_evidence": "proved negatively on 2026-10-11: removing app/favicon.ico/route.ts fails it (exit 1); restored, it passes."
+    },
+    {
+      "id": "seo-og",
+      "npmScript": "validate:seo-og",
+      "command": "vitest run tests/unit/seo-hygiene-og.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "weddingchecklistpdf.com's homepage declared openGraph without images, and Next replaces the layout's openGraph wholesale, so it had no og:image while its three siblings did (2026-10-11). Checks the per-host 1200x630 /og.png bytes, the layout default, seoMetadata and the checklist homepage all emit og:image with width/height plus twitter:image on the right host, and that no other page declares an openGraph block that could drop the image.",
+      "manual_repair": "route the page's metadata through seoMetadata() or ogImages()/ogImageUrl() from lib/site-home.ts.",
+      "repair_evidence": "proved negatively on 2026-10-11: dropping images: ogImages(...) from app/page.tsx openGraph (the original defect) fails it (exit 1); restored, it passes."
+    },
+    {
+      "id": "seo-jsonld",
+      "npmScript": "validate:seo-jsonld",
+      "command": "vitest run tests/unit/seo-hygiene-jsonld.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "weddingchecklistpdf.com shipped no JSON-LD while the other three homepages carried Article/FAQPage/BreadcrumbList (+HowTo on two) - its `/` renders app/page.tsx, the others redirect to HubPage. Renders all four real homepages and requires the identical HOMEPAGE_SCHEMA_TYPES set (WebSite, Organization, WebPage, BreadcrumbList, Article, FAQPage, HowTo), one BreadcrumbList each, and that home nodes do not leak onto other hubs.",
+      "manual_repair": "emit the homepage nodes through homeSchemaNodes() in lib/site-home.ts from whichever template renders the host's homepage.",
+      "repair_evidence": "proved negatively on 2026-10-11: deleting the homeSchemaNodes JsonLd from app/page.tsx (the original defect) fails it (exit 1); restored, it passes."
+    },
+    {
+      "id": "seo-definition",
+      "npmScript": "validate:seo-definition",
+      "command": "vitest run tests/unit/seo-hygiene-definition.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Homepages had no self-contained definition for answer engines to lift. Renders all four homepages and requires the element immediately after </h1> to be the 40-60 word '<Site> is ...' paragraph whose id is the WebPage SpeakableSpecification cssSelector, appearing exactly once.",
+      "manual_repair": "edit the definition in data/seo/site_homes.json (40-60 words, starting with the site name + ' is ') or restore <SiteDefinition/> directly after the H1.",
+      "repair_evidence": "proved negatively on 2026-10-11: deleting <SiteDefinition/> from app/page.tsx fails it (exit 1); restored, it passes."
+    },
+    {
+      "id": "seo-clarity",
+      "npmScript": "validate:seo-clarity",
+      "command": "vitest run tests/unit/seo-hygiene-clarity.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Clarity projects exist for all four hosts; a host missing from the map or a wrong id silently records nothing. Pins the four owner-supplied ids, the map's host set to route_ownership.json, the committed loader's map, and the layout script tag plus build wiring.",
+      "manual_repair": "fix data/clarity_projects.json and run node scripts/install_clarity.mjs to regenerate public/assets/clarity-loader.js.",
+      "repair_evidence": "proved negatively on 2026-10-11: deleting weddingtimelinetemplate.com from data/clarity_projects.json fails it (exit 1); restored, it passes."
+    },
+    {
+      "id": "seo-indexnow",
+      "npmScript": "validate:seo-indexnow",
+      "command": "vitest run tests/unit/seo-hygiene-indexnow.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "IndexNow needs <key>.txt at every host root and a submission after pages change; until 2026-10-11 submission ran only from the daily content lane, never after a code deploy. Checks the key file, that the distribution manifest has a non-empty same-host URL file per host, and that indexnow-after-deploy.yml waits for Workers Builds, proves the key file live, then submits.",
+      "manual_repair": "restore public/<key>.txt matching public/indexnow-key.txt, or the step order in .github/workflows/indexnow-after-deploy.yml.",
+      "repair_evidence": "proved negatively on 2026-10-11: deleting public/<key>.txt fails it (exit 1); restored, it passes."
+    },
+    {
+      "id": "seo-lighthouse",
+      "npmScript": "validate:seo-lighthouse",
+      "command": "vitest run tests/unit/seo-hygiene-lighthouse.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Lighthouse mobile SEO was 92 on three homepages, failing only audit `meta-description`: Next 15 streaming metadata placed <meta name=description> in <body> for UAs off its bot list, Lighthouse's included. Pinned to that audit id: next.config htmlLimitedBots must match the Lighthouse mobile UA and an ordinary browser UA, and every homepage must declare a description.",
+      "manual_repair": "restore htmlLimitedBots: /.*/ in next.config.ts.",
+      "repair_evidence": "proved negatively on 2026-10-11: deleting htmlLimitedBots from next.config.ts (the original cause) fails it (exit 1); restored, it passes."
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
