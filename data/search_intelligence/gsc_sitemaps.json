@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "collected_at": "2026-10-11T16:58:31.706Z",
+  "collected_at": "2026-10-12T10:35:37.197Z",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "state": "LISTED",
@@ -34,9 +34,7 @@
       "errors": 0,
       "warnings": 0,
       "submitted_urls": 24,
-      "pruned_now": [
-        "http://www.weddingbudgetspreadsheet.com/sitemap.xml"
-      ],
+      "pruned_now": [],
       "stale_after": [],
       "all_listed": [
         "https://weddingbudgetspreadsheet.com/sitemap.xml"
@@ -50,7 +48,7 @@
       "submitted_now": false,
       "listed_after": true,
       "last_submitted": "2026-10-11T14:06:42.393Z",
-      "last_downloaded": "2026-10-10T10:55:23.012Z",
+      "last_downloaded": "2026-10-11T10:28:41.009Z",
       "is_pending": true,
       "errors": 0,
       "warnings": 0,
