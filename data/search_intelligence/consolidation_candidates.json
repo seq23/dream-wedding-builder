@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-11T16:58:30.880Z",
+  "generated_at": "2026-10-12T11:51:23.100Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
     "guide": 570,
@@ -10,8 +10,8 @@
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-12",
-        "end": "2026-10-09"
+        "start": "2026-09-13",
+        "end": "2026-10-10"
       },
       "content_pages_examined": 22,
       "candidate_count": 1,
@@ -33,8 +33,8 @@
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-12",
-        "end": "2026-10-09"
+        "start": "2026-09-13",
+        "end": "2026-10-10"
       },
       "content_pages_examined": 20,
       "candidate_count": 8,
@@ -114,8 +114,8 @@
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-12",
-        "end": "2026-10-09"
+        "start": "2026-09-13",
+        "end": "2026-10-10"
       },
       "content_pages_examined": 23,
       "candidate_count": 11,
@@ -218,17 +218,25 @@
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-12",
-        "end": "2026-10-09"
+        "start": "2026-09-13",
+        "end": "2026-10-10"
       },
       "content_pages_examined": 37,
-      "candidate_count": 1,
+      "candidate_count": 2,
       "candidates": [
         {
           "url": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
           "type": "guide",
           "impressions_28d": 0,
           "words": 538,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingchecklistpdf.com/guides/backyard-wedding-checklist",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 557,
           "thin_threshold": 570,
           "action": "REVIEW_FOR_CONSOLIDATION"
         }
