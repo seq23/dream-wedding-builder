@@ -1,20 +1,20 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-12T11:51:22.875Z",
+  "generated_at": "2026-10-13T11:51:25.536Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-13",
-          "end": "2026-10-10"
+          "start": "2026-09-14",
+          "end": "2026-10-11"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 8,
+          "impressions": 9,
           "ctr": 0,
-          "position": 6.375
+          "position": 6
         }
       },
       "target_count": 3,
@@ -244,153 +244,22 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-13",
-          "end": "2026-10-10"
+          "start": "2026-09-14",
+          "end": "2026-10-11"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 51,
+          "impressions": 43,
           "ctr": 0,
-          "position": 16.07843137254902
+          "position": 7.395348837209302
         }
       },
-      "target_count": 8,
+      "target_count": 3,
       "dropped_count": 20,
       "by_source": {
-        "google_search_console": 5,
         "semrush_keyword_magic": 3
       },
       "targets": [
-        {
-          "query": "average cost of a wedding for 100 people",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 2,
-          "position": 70,
-          "pages": [
-            "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 2,
-              "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
-              },
-              "position": 70,
-              "pages": [
-                "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "average cost of wedding for 150 guests",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 87,
-          "pages": [
-            "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
-              },
-              "position": 87,
-              "pages": [
-                "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "how much does a 100 person wedding cost",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 98,
-          "pages": [
-            "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
-              },
-              "position": 98,
-              "pages": [
-                "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "how much does a 150 person wedding cost",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 83,
-          "pages": [
-            "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
-              },
-              "position": 83,
-              "pages": [
-                "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "how much does a wedding for 100 people cost",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 75,
-          "pages": [
-            "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
-              },
-              "position": 75,
-              "pages": [
-                "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest"
-              ]
-            }
-          ]
-        },
         {
           "query": "wedding budget spreadsheet",
           "source": "semrush_keyword_magic",
@@ -584,14 +453,14 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-13",
-          "end": "2026-10-10"
+          "start": "2026-09-14",
+          "end": "2026-10-11"
         },
         "totals": {
           "clicks": 1,
-          "impressions": 2,
-          "ctr": 0.5,
-          "position": 5.5
+          "impressions": 3,
+          "ctr": 0.3333333333333333,
+          "position": 4
         }
       },
       "target_count": 4,
@@ -836,14 +705,14 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-13",
-          "end": "2026-10-10"
+          "start": "2026-09-14",
+          "end": "2026-10-11"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 47,
+          "impressions": 49,
           "ctr": 0,
-          "position": 33.234042553191486
+          "position": 30.489795918367346
         }
       },
       "target_count": 10,
@@ -869,8 +738,8 @@
               "metric": "impressions_28d",
               "number": 6,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 70.8,
               "pages": [
@@ -901,8 +770,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 45.3,
               "pages": [
@@ -928,39 +797,13 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 96.3,
               "pages": [
                 "https://weddingchecklistpdf.com/guides",
                 "https://weddingchecklistpdf.com/printable-wedding-checklist"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding ceremony checklist pdf",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 2,
-          "position": 85,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 2,
-              "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
-              },
-              "position": 85,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides"
               ]
             }
           ]
@@ -981,8 +824,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 59.5,
               "pages": [
@@ -1007,8 +850,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 28,
               "pages": [
@@ -1033,8 +876,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 79,
               "pages": [
@@ -1059,10 +902,36 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 74,
+              "pages": [
+                "https://weddingchecklistpdf.com/printable-wedding-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding checklist free printable",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 1,
+          "position": 89,
+          "pages": [
+            "https://weddingchecklistpdf.com/printable-wedding-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 1,
+              "period": {
+                "start": "2026-09-14",
+                "end": "2026-10-11"
+              },
+              "position": 89,
               "pages": [
                 "https://weddingchecklistpdf.com/printable-wedding-checklist"
               ]
@@ -1085,8 +954,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-13",
-                "end": "2026-10-10"
+                "start": "2026-09-14",
+                "end": "2026-10-11"
               },
               "position": 96,
               "pages": [
