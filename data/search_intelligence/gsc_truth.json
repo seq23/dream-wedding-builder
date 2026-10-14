@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-09-14",
-        "end": "2026-10-11"
+        "start": "2026-09-15",
+        "end": "2026-10-12"
       },
-      "collected_at": "2026-10-13T11:51:24.138Z",
+      "collected_at": "2026-10-14T11:47:30.593Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -46,10 +46,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-09-14",
-        "end": "2026-10-11"
+        "start": "2026-09-15",
+        "end": "2026-10-12"
       },
-      "collected_at": "2026-10-13T11:51:24.517Z",
+      "collected_at": "2026-10-14T11:47:30.922Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -100,10 +100,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-09-14",
-        "end": "2026-10-11"
+        "start": "2026-09-15",
+        "end": "2026-10-12"
       },
-      "collected_at": "2026-10-13T11:51:25.025Z",
+      "collected_at": "2026-10-14T11:47:31.265Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -136,16 +136,16 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-09-14",
-        "end": "2026-10-11"
+        "start": "2026-09-15",
+        "end": "2026-10-12"
       },
-      "collected_at": "2026-10-13T11:51:25.367Z",
+      "collected_at": "2026-10-14T11:47:31.584Z",
       "complete": true,
       "totals": {
         "clicks": 0,
         "impressions": 49,
         "ctr": 0,
-        "position": 30.489795918367346
+        "position": 29.632653061224488
       },
       "queries": [
         {
@@ -159,8 +159,8 @@
           "query": "destination wedding checklist pdf",
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 3,
-          "position": 45.333333333333336
+          "impressions": 2,
+          "position": 46.5
         },
         {
           "query": "wedding checklist printable",
@@ -229,20 +229,20 @@
         {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 9,
-          "position": 59.7
+          "impressions": 8,
+          "position": 61.8
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/privacy",
+          "clicks": 0,
+          "impressions": 8,
+          "position": 6.4
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
           "impressions": 7,
           "position": 7.3
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/privacy",
-          "clicks": 0,
-          "impressions": 7,
-          "position": 6.1
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/courthouse-wedding-checklist",
@@ -287,6 +287,12 @@
           "position": 6
         },
         {
+          "page": "https://weddingchecklistpdf.com/products/operations-suite",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 4.3
+        },
+        {
           "page": "https://weddingchecklistpdf.com/refund-policy",
           "clicks": 0,
           "impressions": 3,
@@ -315,12 +321,6 @@
           "clicks": 0,
           "impressions": 2,
           "position": 8
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/products/operations-suite",
-          "clicks": 0,
-          "impressions": 2,
-          "position": 6
         },
         {
           "page": "https://weddingchecklistpdf.com/readiness-score",
@@ -357,5 +357,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-13T11:51:25.368Z"
+  "updated_at": "2026-10-14T11:47:31.585Z"
 }
