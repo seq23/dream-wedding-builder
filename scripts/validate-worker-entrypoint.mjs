@@ -38,13 +38,24 @@ const wrangler = JSON.parse(read('wrangler.jsonc').replace(/^\s*\/\/.*$/gm, ''))
 // which adds the cron `scheduled` handler) that imports it. Either way the file that
 // only `opennextjs-cloudflare build` produces is .open-next/worker.js.
 const BUILT = '.open-next/worker.js';
+// The wrapper's fetch must reach the OpenNext handler on EVERY request: either
+// `fetch: handler.fetch`, or a fetch(request, env, ctx) method whose one and only
+// `return` is `handler.fetch(request, env, ctx)` (side work such as the Pinterest
+// visit log goes through ctx.waitUntil and can never short-circuit a page).
+export function forwardsFetch(src) {
+  if (/fetch:\s*handler\.fetch\s*[,}\n]/.test(src)) return true;
+  const m = src.match(/\bfetch\s*\(\s*request\b[^)]*\)\s*(?::[^{]*)?\{([\s\S]*?)\n  \}/);
+  if (!m) return false;
+  const returns = m[1].match(/\breturn\b[^;]*;/g) ?? [];
+  return returns.length === 1 && /^return\s+handler\.fetch\(\s*request\s*,\s*env\s*,\s*ctx\s*\);$/.test(returns[0]);
+}
 const mainFile = wrangler.main;
 if (!mainFile) fail('wrangler.jsonc: no "main" entry point declared');
 else if (mainFile !== BUILT) {
   const wrapper = fs.existsSync(path.join(ROOT, mainFile)) ? read(mainFile) : '';
   if (!wrapper) fail(`wrangler.jsonc main "${mainFile}" does not exist`);
   else if (!/from\s+['"]\.\/\.open-next\/worker\.js['"]/.test(wrapper)) fail(`wrangler.jsonc main "${mainFile}" does not import ./${BUILT}, so it does not serve the Next.js app`);
-  else if (!/fetch:\s*handler\.fetch/.test(wrapper)) fail(`wrangler.jsonc main "${mainFile}" does not forward fetch to the OpenNext handler`);
+  else if (!forwardsFetch(wrapper)) fail(`wrangler.jsonc main "${mainFile}" does not forward fetch to the OpenNext handler`);
 }
 const entryPoint = BUILT;
 
