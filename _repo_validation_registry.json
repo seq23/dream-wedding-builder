@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 44,
+    "HARD_FAIL": 46,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -519,6 +519,28 @@
       "blocksRelease": true,
       "reason": "owner policy 2026-10-11 'nothing should be paid': config/llm_routing.json is $0-only with a snapshot date; no provider call outside scripts/llm/free_router.mjs or a declared paid lane; no scheduled workflow reaches the citation probe; the probe is dispatch-only behind confirm_paid and refuses without it; the router never falls back to paid and fails on a reported cost.",
       "composite": false
+    },
+    {
+      "id": "pinfeed",
+      "npmScript": "validate:pinfeed",
+      "command": "vitest run tests/unit/pinfeed.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Pinterest launch (owner-approved 2026-10-16): weddingchecklistpdf.com's domain claim and its /pinfeed.xml pin feed. Pins the p:domain_verify token in the homepage metadata, RSS 2.0 parse (python xml.etree), >=5 items, every link a page owned by weddingchecklistpdf.com with the pinfeed utm params and never a checkout path, every image a committed 1000x1500 file whose enclosure length matches its bytes, and 404 on the three sibling hosts.",
+      "manual_repair": "edit lib/pinfeed.ts; after changing a source image run npm run pinterest:images and commit public/pinterest + data/pinterest/pin_images.json.",
+      "repair_evidence": "proved negatively on 2026-10-16: removing the other: { 'p:domain_verify' } line from app/page.tsx fails it; restored, it passes."
+    },
+    {
+      "id": "pinterest-built",
+      "npmScript": "validate:pinterest",
+      "command": "node scripts/validators/validate_pinterest.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "the same Pinterest launch against the BUILT site: boots next start, requires the exact <meta name=\"p:domain_verify\" ...> tag inside the homepage's rendered <head>, /pinfeed.xml and /pinfeed 200 application/rss+xml with >=5 parsed items, and every item page and image URL 200. No build is a hard failure, never a skip; CI runs it via validate:registry after build.",
+      "manual_repair": "see lib/pinfeed.ts and app/page.tsx metadata.other.",
+      "repair_evidence": "proved negatively on 2026-10-16: removing the p:domain_verify line and rebuilding fails it; restored, it passes."
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."

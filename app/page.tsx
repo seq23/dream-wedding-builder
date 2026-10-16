@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: 'https://weddingchecklistpdf.com/' },
+  // Pinterest domain claim (owner-approved 16 Oct 2026); guarded by tests/unit/pinfeed.test.ts and validate:pinterest.
+  other: { 'p:domain_verify': '0fcfdee391238788157a7120c048a945' },
   openGraph: { title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', url: 'https://weddingchecklistpdf.com/', siteName: 'Dream Wedding Builder', type: 'website', images: ogImages(HOST, 'Wedding Checklist PDF') },
   twitter: { card: 'summary_large_image', title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', images: [ogImageUrl(HOST)] }
 };
