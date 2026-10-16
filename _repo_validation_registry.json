@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 46,
+    "HARD_FAIL": 47,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -541,6 +541,17 @@
       "reason": "the same Pinterest launch against the BUILT site: boots next start, requires the exact <meta name=\"p:domain_verify\" ...> tag inside the homepage's rendered <head>, /pinfeed.xml and /pinfeed 200 application/rss+xml with >=5 parsed items, and every item page and image URL 200. No build is a hard failure, never a skip; CI runs it via validate:registry after build.",
       "manual_repair": "see lib/pinfeed.ts and app/page.tsx metadata.other.",
       "repair_evidence": "proved negatively on 2026-10-16: removing the p:domain_verify line and rebuilding fails it; restored, it passes."
+    },
+    {
+      "id": "pinqueue",
+      "npmScript": "validate:pinqueue",
+      "command": "vitest run tests/unit/pinqueue.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Pinterest daily drip (owner-approved 2026-10-16): data/pinterest/queue.json schema (pins_per_day = 1, 6-8 variants per launch page, >=20 dated, title<=100, description<=500, no price symbol, every number in the copy present in the page's own source record, no repeated headline per page, consecutive variants never share layout or palette); every image a committed 1000x1500 file whose declared length is its byte size; one pin a day from 2026-10-17 with no gaps and never the same page two days running (also at pins_per_day 2 and 3); /pinfeed.xml at fixed clocks shows exactly the launch six plus the variants due by that America/Chicago date, switching at local midnight, newest first, max 50; every link on-site with the pinfeed utm params and utm_content=<variant id>; refill triggers at 13 unreleased and not at 14, adds refill_batch distinct variants dated after the queue, and serves a newly joined page first.",
+      "manual_repair": "node scripts/pinterest/pin_queue.mjs (add --seed N to add N variants per page now); copy lives in data/pinterest/angles.json and scripts/pinterest/pin_sources.mjs; commit data/pinterest + public/pinterest/drip.",
+      "repair_evidence": "proved negatively on 2026-10-16: forcing two consecutive release dates onto one page in queue.json fails 'one pin a day ... never the same page two days running'; restored, it passes."
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."

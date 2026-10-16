@@ -128,7 +128,10 @@
     "vault:init": "node scripts/vault/vault.mjs init",
     "llm:check": "node scripts/llm/free_router.mjs --check --ping",
     "validate:zero-paid-llm": "node scripts/llm/validate_zero_paid_llm.mjs",
-    "search:week-diff": "node scripts/search_intelligence/week_diff.mjs"
+    "search:week-diff": "node scripts/search_intelligence/week_diff.mjs",
+    "validate:pinqueue": "vitest run tests/unit/pinqueue.test.ts",
+    "pinterest:queue": "node scripts/pinterest/pin_queue.mjs",
+    "pinterest:metrics": "node scripts/pinterest/collect_metrics.mjs"
   },
   "dependencies": {
     "next": "15.5.18",

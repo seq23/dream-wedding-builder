@@ -1,0 +1,53 @@
+name: Pinterest drip (weekly refill + metrics)
+
+# The daily release needs no workflow: lib/pinfeed.ts filters data/pinterest/queue.json
+# by release_date at request time on the Worker, so one new pin reaches /pinfeed.xml
+# each day in America/Chicago without a deploy.
+#
+# This weekly run (Monday 06:30 CT) keeps that queue stocked:
+#   1. scripts/pinterest/pin_queue.mjs: new /products/* and /guides/* pages join; when
+#      fewer than 14 variants are unreleased it plans, renders and dates the next
+#      batch ($0: template copy from the page's own data, sharp images from the
+#      product art). Exits 1 naming PINTEREST_QUEUE_EXHAUSTED if a refill is due and
+#      nothing truthful is left to say.
+#   2. scripts/pinterest/collect_metrics.mjs: Pinterest-referred visits per variant,
+#      or the named stop PINTEREST_METRICS_UNAVAILABLE.
+# The commit touches only data/pinterest, public/pinterest/drip and reports/pinterest,
+# none of which feeds any page's lastmod or a sitemap. Workers Builds deploys the push.
+on:
+  schedule:
+    - cron: '30 11 * * 1'
+  workflow_dispatch:
+
+permissions: { contents: write }
+
+concurrency:
+  group: pinterest-drip
+  cancel-in-progress: false
+
+jobs:
+  drip:
+    timeout-minutes: 15  # npm ci + a 21-image render is ~3 min; fault detector, not a budget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with: { node-version: '20', cache: npm }
+      - run: npm ci
+      - name: Join new pages, refill below threshold, date the queue
+        run: node scripts/pinterest/pin_queue.mjs
+      - name: Queue and feed guards
+        run: npx vitest run tests/unit/pinqueue.test.ts tests/unit/pinfeed.test.ts
+      - name: Pinterest-referred visits per variant
+        env:
+          CLARITY_EXPORT_TOKEN: ${{ secrets.CLARITY_EXPORT_TOKEN }}
+        run: node scripts/pinterest/collect_metrics.mjs
+      - name: Commit and push
+        run: |
+          git config user.name 'dream-wedding-pinterest-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/pinterest public/pinterest/drip reports/pinterest
+          git diff --cached --quiet || git commit -m 'pinterest: weekly drip refill and metrics'
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"
