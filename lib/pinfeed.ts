@@ -1,5 +1,7 @@
 import pinImages from '@/data/pinterest/pin_images.json';
+import pinQueue from '@/data/pinterest/queue.json';
 import { lastmodFor } from '@/lib/lastmod';
+import { chicagoDate, dueVariants, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
 
 // Pinterest RSS feed for weddingchecklistpdf.com (owner-approved 16 Oct 2026).
 // Canonical URL: https://weddingchecklistpdf.com/pinfeed.xml (/pinfeed answers too).
@@ -7,6 +9,13 @@ import { lastmodFor } from '@/lib/lastmod';
 // carries the pinfeed UTM params. Every image is a committed 1000x1500 pin from
 // scripts/pinterest/generate_pin_images.mjs. Guarded by tests/unit/pinfeed.test.ts
 // and, against the built site, scripts/validators/validate_pinterest.mjs.
+//
+// Daily drip (owner-approved 16 Oct 2026): besides the six launch items below, the
+// feed carries every variant in data/pinterest/queue.json whose release_date is on
+// or before today in America/Chicago, newest config.max_feed_items, decided at
+// request time on the Worker, so Pinterest sees config.pins_per_day new pin(s) a day
+// with no deploy. Variant links add utm_content=<variant id>. Guarded by
+// tests/unit/pinqueue.test.ts.
 export const PINFEED_HOST = 'weddingchecklistpdf.com';
 export const PINFEED_PATH = '/pinfeed.xml';
 export const PINFEED_UTM = { utm_source: 'pinterest', utm_medium: 'organic', utm_campaign: 'pinfeed' } as const;
@@ -24,9 +33,12 @@ export const pinItems: PinItem[] = [
   { path: '/guides/destination-wedding-checklist', image: 'destination-wedding-checklist', title: 'Destination Wedding Checklist: Travel, Lodging, Documents and Vendors', description: 'Destination planning adds travel, lodging, local vendor, documentation, shipping and guest-communication steps to the normal wedding plan. Work through each dependency in order so nothing is left to the week you fly.' }
 ];
 
-export function pinLink(path: string): string {
+export const queue = pinQueue as PinQueue;
+
+export function pinLink(path: string, utmContent?: string): string {
   const url = new URL(`https://${PINFEED_HOST}${path}`);
   for (const [key, value] of Object.entries(PINFEED_UTM)) url.searchParams.set(key, value);
+  if (utmContent) url.searchParams.set('utm_content', utmContent);
   return url.toString();
 }
 
@@ -38,22 +50,48 @@ export function pinImage(slug: PinSlug) {
 const esc = (value: string) => value.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[c] ?? c);
 const rfc822 = (isoDate: string) => new Date(`${isoDate.slice(0, 10)}T12:00:00Z`).toUTCString();
 
-export function buildPinfeed(): string {
-  const items = pinItems.map((item) => {
-    const image = pinImage(item.image);
-    const link = pinLink(item.path);
-    return [
-      '    <item>',
-      `      <title>${esc(item.title)}</title>`,
-      `      <link>${esc(link)}</link>`,
-      `      <guid isPermaLink="false">${esc(`https://${PINFEED_HOST}${item.path}`)}</guid>`,
-      `      <description>${esc(item.description)}</description>`,
-      `      <pubDate>${rfc822(lastmodFor(item.path) ?? FALLBACK_DATE)}</pubDate>`,
-      `      <enclosure url="${esc(image.url)}" type="${image.type}" length="${image.length}"/>`,
-      `      <media:content url="${esc(image.url)}" type="${image.type}" medium="image" width="${image.width}" height="${image.height}"/>`,
-      '    </item>'
-    ].join('\n');
-  });
+type FeedEntry = { title: string; link: string; guid: string; description: string; pubDate: string; image: { url: string; type: string; length: number; width: number; height: number } };
+
+function itemXml(entry: FeedEntry): string {
+  const { image } = entry;
+  return [
+    '    <item>',
+    `      <title>${esc(entry.title)}</title>`,
+    `      <link>${esc(entry.link)}</link>`,
+    `      <guid isPermaLink="false">${esc(entry.guid)}</guid>`,
+    `      <description>${esc(entry.description)}</description>`,
+    `      <pubDate>${entry.pubDate}</pubDate>`,
+    `      <enclosure url="${esc(image.url)}" type="${image.type}" length="${image.length}"/>`,
+    `      <media:content url="${esc(image.url)}" type="${image.type}" medium="image" width="${image.width}" height="${image.height}"/>`,
+    '    </item>'
+  ].join('\n');
+}
+
+/** Drip variants due at `now` (America/Chicago date), newest first. */
+export function releasedVariants(now: Date = new Date()): PinVariant[] {
+  return dueVariants(queue.variants, chicagoDate(now), queue.config.max_feed_items);
+}
+
+export function buildPinfeed(now: Date = new Date()): string {
+  const drip: FeedEntry[] = releasedVariants(now).filter((v) => v.image).map((v) => ({
+    title: v.title,
+    link: pinLink(v.path, v.id),
+    guid: `https://${PINFEED_HOST}/pin/${v.id}`,
+    description: v.description,
+    // 06:00 America/Chicago on the release day (11:00 UTC covers CST and CDT).
+    pubDate: new Date(`${v.release_date}T11:00:00Z`).toUTCString(),
+    image: { ...v.image!, url: `https://${PINFEED_HOST}${v.image!.path}` }
+  }));
+  const launch: FeedEntry[] = pinItems.map((item) => ({
+    title: item.title,
+    link: pinLink(item.path),
+    guid: `https://${PINFEED_HOST}${item.path}`,
+    description: item.description,
+    pubDate: rfc822(lastmodFor(item.path) ?? FALLBACK_DATE),
+    image: pinImage(item.image)
+  }));
+  // Newest first; the launch six stay until max_feed_items newer pins push them out.
+  const items = [...drip, ...launch].slice(0, queue.config.max_feed_items).map(itemXml);
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">',

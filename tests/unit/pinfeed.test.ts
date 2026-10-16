@@ -7,6 +7,7 @@ import { join } from 'node:path';
 import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
 import ownership from '@/data/seo/route_ownership.json';
+import { queue } from '@/lib/pinfeed';
 
 const HOST = 'weddingchecklistpdf.com';
 const TOKEN = '0fcfdee391238788157a7120c048a945';
@@ -56,7 +57,14 @@ describe('Pinterest feed /pinfeed.xml', () => {
       expect(link.host).toBe(HOST);
       expect(owned.has(link.pathname), link.pathname).toBe(true);
       expect(link.pathname).not.toMatch(/checkout|order|api|stripe/i);
-      expect(Object.fromEntries(link.searchParams)).toEqual({ utm_source: 'pinterest', utm_medium: 'organic', utm_campaign: 'pinfeed' });
+      // Launch items carry exactly the three pinfeed params; daily-drip items add
+      // utm_content=<variant id> for a variant of this very page (tests/unit/pinqueue.test.ts).
+      const params = Object.fromEntries(link.searchParams);
+      const base = { utm_source: 'pinterest', utm_medium: 'organic', utm_campaign: 'pinfeed' };
+      if ('utm_content' in params) {
+        expect(queue.variants.find((v) => v.id === params.utm_content)?.path, params.utm_content).toBe(link.pathname);
+        expect(params).toEqual({ ...base, utm_content: params.utm_content });
+      } else expect(params).toEqual(base);
       const enc = item.enclosure!;
       expect(item.media?.url).toBe(enc.url);
       const img = new URL(enc.url);
