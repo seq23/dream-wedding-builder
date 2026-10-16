@@ -42,7 +42,8 @@ jobs:
         run: npx vitest run tests/unit/pinqueue.test.ts tests/unit/pinfeed.test.ts
       - name: Pinterest-referred visits per variant
         env:
-          CLARITY_EXPORT_TOKEN: ${{ secrets.CLARITY_EXPORT_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: node scripts/pinterest/collect_metrics.mjs
       - name: Commit and push
         run: |

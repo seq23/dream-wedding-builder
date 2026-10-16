@@ -5,10 +5,16 @@
 // @ts-ignore -- generated at build time
 import handler from './.open-next/worker.js';
 import { runDeliveryRetry, type RetryEnv } from './lib/delivery-retry';
+import { recordPinterestVisit } from './lib/pinterest-visits';
 import { alertOwnerIfFailed, type AlertEnv } from './lib/delivery-alert';
 
 export default {
-  fetch: handler.fetch,
+  // Pinterest-referred page views (utm_source=pinterest) are counted per pin variant
+  // in D1 off the response path (lib/pinterest-visits.ts); every other request is untouched.
+  fetch(request: Request, env: RetryEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
+    if (request.url.includes('utm_source=')) ctx.waitUntil(recordPinterestVisit(env.DB as never, request));
+    return handler.fetch(request, env, ctx);
+  },
   async scheduled(_controller: unknown, env: RetryEnv & AlertEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
     ctx.waitUntil(
       runDeliveryRetry(env).then(
