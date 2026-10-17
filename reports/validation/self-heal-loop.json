@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-16T10:30:37.584Z",
+  "generated_at": "2026-10-17T10:27:27.650Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -34,7 +34,10 @@
     "seo-definition": "edit the definition in data/seo/site_homes.json (40-60 words, starting with the site name + ' is ') or restore <SiteDefinition/> directly after the H1.",
     "seo-clarity": "fix data/clarity_projects.json and run node scripts/install_clarity.mjs to regenerate public/assets/clarity-loader.js.",
     "seo-indexnow": "restore public/<key>.txt matching public/indexnow-key.txt, or the step order in .github/workflows/indexnow-after-deploy.yml.",
-    "seo-lighthouse": "restore htmlLimitedBots: /.*/ in next.config.ts."
+    "seo-lighthouse": "restore htmlLimitedBots: /.*/ in next.config.ts.",
+    "pinfeed": "edit lib/pinfeed.ts; after changing a source image run npm run pinterest:images and commit public/pinterest + data/pinterest/pin_images.json.",
+    "pinterest-built": "see lib/pinfeed.ts and app/page.tsx metadata.other.",
+    "pinqueue": "node scripts/pinterest/pin_queue.mjs (add --seed N to add N variants per page now); copy lives in data/pinterest/angles.json and scripts/pinterest/pin_sources.mjs; commit data/pinterest + public/pinterest/drip."
   },
   "status": "CLEAN",
   "safe_to_push": true,
