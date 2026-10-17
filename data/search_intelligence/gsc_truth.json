@@ -4,16 +4,16 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-09-17",
-        "end": "2026-10-14"
+        "start": "2026-09-18",
+        "end": "2026-10-15"
       },
-      "collected_at": "2026-10-16T11:46:43.678Z",
+      "collected_at": "2026-10-17T11:45:23.993Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 8,
+        "impressions": 9,
         "ctr": 0,
-        "position": 5.375
+        "position": 9.777777777777779
       },
       "queries": [],
       "pages": [
@@ -34,16 +34,22 @@
           "clicks": 0,
           "impressions": 2,
           "position": 10
+        },
+        {
+          "page": "https://weddingseatingchartmaker.com/guides/long-table-wedding-seating",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 45
         }
       ]
     },
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-09-17",
-        "end": "2026-10-14"
+        "start": "2026-09-18",
+        "end": "2026-10-15"
       },
-      "collected_at": "2026-10-16T11:46:44.038Z",
+      "collected_at": "2026-10-17T11:45:24.346Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -94,10 +100,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-09-17",
-        "end": "2026-10-14"
+        "start": "2026-09-18",
+        "end": "2026-10-15"
       },
-      "collected_at": "2026-10-16T11:46:44.410Z",
+      "collected_at": "2026-10-17T11:45:24.735Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -130,16 +136,16 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-09-17",
-        "end": "2026-10-14"
+        "start": "2026-09-18",
+        "end": "2026-10-15"
       },
-      "collected_at": "2026-10-16T11:46:44.954Z",
+      "collected_at": "2026-10-17T11:45:25.073Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 50,
+        "impressions": 58,
         "ctr": 0,
-        "position": 31.28
+        "position": 37.01724137931034
       },
       "queries": [
         {
@@ -148,6 +154,20 @@
           "clicks": 0,
           "impressions": 6,
           "position": 70.83333333333333
+        },
+        {
+          "query": "free wedding planner",
+          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+          "clicks": 0,
+          "impressions": 4,
+          "position": 71
+        },
+        {
+          "query": "wedding planning checklist pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 96.66666666666667
         },
         {
           "query": "destination wedding checklist pdf",
@@ -164,13 +184,6 @@
           "position": 59.5
         },
         {
-          "query": "wedding planning checklist pdf",
-          "page": "https://weddingchecklistpdf.com/guides",
-          "clicks": 0,
-          "impressions": 2,
-          "position": 96
-        },
-        {
           "query": "elopement planning checklist",
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
@@ -178,11 +191,11 @@
           "position": 28
         },
         {
-          "query": "free wedding planner",
+          "query": "free wedding planner online",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
           "impressions": 1,
-          "position": 72
+          "position": 91
         },
         {
           "query": "printable wedding checklists",
@@ -213,6 +226,13 @@
           "position": 96
         },
         {
+          "query": "wedding planner free",
+          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 71
+        },
+        {
           "query": "wedding planning checklist pdf",
           "page": "https://weddingchecklistpdf.com/",
           "clicks": 0,
@@ -232,6 +252,13 @@
           "clicks": 0,
           "impressions": 1,
           "position": 95
+        },
+        {
+          "query": "wedding planning free",
+          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 74
         }
       ],
       "pages": [
@@ -242,16 +269,22 @@
           "position": 60.9
         },
         {
-          "page": "https://weddingchecklistpdf.com/privacy",
+          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 8,
-          "position": 6.4
+          "impressions": 10,
+          "position": 54.4
         },
         {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 7,
-          "position": 60.9
+          "impressions": 8,
+          "position": 65.5
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/privacy",
+          "clicks": 0,
+          "impressions": 8,
+          "position": 6.4
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
@@ -272,10 +305,10 @@
           "position": 4.6
         },
         {
-          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+          "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
           "clicks": 0,
           "impressions": 4,
-          "position": 24
+          "position": 7.7
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/courthouse-wedding-checklist",
@@ -288,12 +321,6 @@
           "clicks": 0,
           "impressions": 4,
           "position": 5.8
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
-          "clicks": 0,
-          "impressions": 3,
-          "position": 8.3
         },
         {
           "page": "https://weddingchecklistpdf.com/photos",
@@ -362,10 +389,10 @@
           "position": 5
         },
         {
-          "page": "https://weddingchecklistpdf.com/guides/wedding-table-capacity-guide",
+          "page": "https://weddingchecklistpdf.com/guides/wedding-emergency-kit",
           "clicks": 0,
           "impressions": 1,
-          "position": 9
+          "position": 40
         },
         {
           "page": "https://weddingchecklistpdf.com/wedding-planning-checklist",
@@ -378,5 +405,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-16T11:46:44.955Z"
+  "updated_at": "2026-10-17T11:45:25.074Z"
 }
