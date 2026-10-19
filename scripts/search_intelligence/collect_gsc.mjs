@@ -28,6 +28,7 @@
 //   UNCONFIGURED   no credential; nothing attempted, nothing claimed    exit 0
 import crypto from 'node:crypto';
 import {read,write,now,idFor,hostOf,writeProviderStatus,pageKey} from './lib.mjs';
+import {PAGE_HISTORY,appendPageHistory} from './measured_demand.mjs';
 const cfg=read('data/search_intelligence/config.json');
 const targets=read('data/search_intelligence/targets.json',{targets:[]}).targets||[];
 const existing=read('data/search_intelligence/observations.json',{schema_version:'1.0.0',observations:[]});
@@ -101,6 +102,7 @@ for(const [host,siteUrl] of addressable){
   for(const row of body.rows||[]){const [query,page]=row.keys||[]; if(!query||!page)continue; const ph=hostOf(page); if(ph!==host)continue; existing.observations.push({observation_id:idFor('gsc',host,query,page,period.end,String(row.impressions)),observed_at:now(),period,provider:'google_search_console',evidence_class:'OWN_SITE_PERFORMANCE',query,page,host,clicks:Number(row.clicks||0),impressions:Number(row.impressions||0),ctr:Number(row.ctr||0),average_position:Number(row.position||0),target_match:targets.some(t=>t.host===host&&t.query.toLowerCase()===String(query).toLowerCase())});added++;}
 }
 truth.truth_source='google_search_console_search_analytics';truth.truth_boundary='Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.';truth.updated_at=now();write('data/search_intelligence/gsc_truth.json',truth);
+write(PAGE_HISTORY,appendPageHistory(read(PAGE_HISTORY,{rows:[]}),truth,now()));
 const dedup=new Map(existing.observations.map(o=>[o.observation_id,o])); existing.observations=[...dedup.values()].sort((a,b)=>String(a.observed_at).localeCompare(String(b.observed_at))).slice(-10000);write('data/search_intelligence/observations.json',existing);
 
 // requests counts attempts; queried counts properties that actually answered.

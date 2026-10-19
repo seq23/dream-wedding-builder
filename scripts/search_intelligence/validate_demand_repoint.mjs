@@ -6,7 +6,7 @@
 import fs from 'node:fs';
 import {read,norm,pageKey,sitemapUrlsFor,GSC_HOST_ENV,daysBetween,now} from './lib.mjs';
 import {summarise,WORKERS,PER_HOST_CAP,staleSitemaps} from './collect_index_coverage.mjs';
-import {measurementsFor,gscWindows,volumeRows} from './measured_demand.mjs';
+import {measurementsFor,gscWindows,volumeRows,resolveSelectionEvidence,appendPageHistory,PAGE_HISTORY} from './measured_demand.mjs';
 import {freezeDecision,freezeConfig} from './publishing_freeze.mjs';
 
 const FRESH_DAYS=4;
@@ -115,6 +115,19 @@ if(entries.length<3)fail(`guide_strengthening.json: ${entries.length} guides; th
 const home=fs.readFileSync('app/page.tsx','utf8');
 const guideSrc=fs.readFileSync('app/guides/[slug]/page.tsx','utf8');
 for(const id of ['guide-definition','guide-product-path','guide-pdf-link','guide-bundle-link','guide-money-link'])if(!guideSrc.includes(`data-testid="${id}"`))fail(`app/guides/[slug]/page.tsx no longer renders ${id}`);
+const evidenceSrc={observations:read('data/search_intelligence/observations.json',{observations:[]}).observations,pageHistory:read(PAGE_HISTORY,{rows:[]}).rows};
+if(!evidenceSrc.pageHistory.length)fail(`${PAGE_HISTORY}: zero page rows; collect_gsc.mjs appends every answered window's page rows there`);
+// The page history must hold every page row of the current gsc_truth window (collect_gsc appends it each run).
+{const want=appendPageHistory({rows:[]},truth,'x').rows.map(r=>r.observation_id),have=new Set(evidenceSrc.pageHistory.map(r=>r.observation_id));const miss=want.filter(i=>!have.has(i));if(miss.length)fail(`${PAGE_HISTORY}: ${miss.length} page row(s) of the current gsc_truth window are not recorded; collect_gsc.mjs is not appending`)}
+// Resolver self-test: a fabricated id and a real row for another guide must both be rejected.
+{const o={observation_id:'fixture-q',provider:'google_search_console',host:'example.com',query:'alpha checklist',page:'https://example.com/guides/alpha',impressions:3,period:{end:'2026-01-01'}};
+ const pg={observation_id:'fixture-p',host:'example.com',page:'https://example.com/guides/beta',impressions:2,period:{end:'2026-01-01'}};
+ const src={observations:[o],pageHistory:[pg]};
+ if(!resolveSelectionEvidence({host:'example.com',slug:'alpha',query:'alpha checklist',id:'fixture-q'},src))fail('selection evidence self-test: a real query row was rejected');
+ if(!resolveSelectionEvidence({host:'example.com',slug:'beta',query:'beta list',id:'fixture-p'},src))fail('selection evidence self-test: a real page row was rejected');
+ if(resolveSelectionEvidence({host:'example.com',slug:'alpha',query:'alpha checklist',id:'fixture-nope'},src))fail('selection evidence self-test: a fabricated id resolved');
+ if(resolveSelectionEvidence({host:'example.com',slug:'gamma',query:'gamma list',id:'fixture-p'},src))fail('selection evidence self-test: another guide\'s row resolved');}
+const lapsed=[];
 for(const [slug,g] of entries){
   const p=reg.pages.find(x=>x.slug===slug); if(!p){fail(`strengthened guide ${slug} is not in the registry`);continue}
   const host=hostFor(p.product_id);
@@ -124,7 +137,19 @@ for(const [slug,g] of entries){
   if(!/^an? /i.test(g.definition)||!norm(g.definition).includes(norm(g.h1)))fail(`${slug}: definition must open by defining "${g.h1}"`);
   if((g.faqs||[]).length<3)fail(`${slug}: needs at least 3 FAQs`);
   const pageImp=(truth.hosts?.[host]?.pages||[]).find(x=>pageKey(x.page)===`${host}/guides/${slug}`)?.impressions||0;
-  if(!measurementsFor(host,g.target_query,ctx).length&&!pageImp)fail(`${slug}: neither its target query nor the page has a measured Search Console number on ${host}`);
+  // Selection evidence: every strengthened guide names the retained Search
+  // Console row that measured it. It must resolve to a real row for this guide
+  // (fabricated or mismatched ids fail), so the guide was chosen from measured
+  // demand, never guessed. GSC is a rolling 28-day window: a guide whose
+  // impressions roll out of it today is MEASUREMENT_LAPSED (named in the PASS
+  // line, still checked), not a red main - on 2026-10-18 "destination wedding
+  // checklist pdf" decayed 4 -> 3 -> 2 -> 0 impressions and failed the job.
+  const measuredNow=measurementsFor(host,g.target_query,ctx).length>0||pageImp>0;
+  const ev=resolveSelectionEvidence({host,slug,query:g.target_query,id:g.selection_evidence},evidenceSrc);
+  if(!g.selection_evidence)fail(`${slug}: no selection_evidence; record the observation_id of the Search Console row (observations.json or ${PAGE_HISTORY}) that measured it`);
+  else if(!ev)fail(`${slug}: selection_evidence ${g.selection_evidence} does not resolve to a retained Search Console row with impressions for "${g.target_query}" or /guides/${slug} on ${host}`);
+  if(!measuredNow&&!ev)fail(`${slug}: neither its target query nor the page has a measured Search Console number on ${host}`);
+  if(!measuredNow&&ev)lapsed.push(`${slug} (last measured ${ev.impressions} imp, window to ${ev.period?.end})`);
   if(host===st.money_page.host&&!home.includes(`'/guides/${slug}'`))fail(`homepage does not link ${slug}`);
 }
 const hub=hubs.pages[st.money_page.path.slice(1)];
@@ -136,4 +161,4 @@ else{const q=norm(st.money_page.target_query);
 
 if(errors.length){console.error('DEMAND REPOINT VALIDATION FAIL');for(const e of errors)console.error(`- ${e}`);process.exit(1)}
 const b=hosts.map(h=>`${h.replace(/^wedding|\.com$/g,'')} ${cov.hosts[h].summary?.buckets?.indexed??'?'}/${cov.hosts[h].sitemap_url_count??'?'} indexed`).join(', ');
-console.log(`demand repoint validation: PASS (${coverageUrls} URLs inspected - ${b}; ${targetCount} measured targets; ${hosts.reduce((s,h)=>s+(cons.hosts[h].candidate_count||0),0)} consolidation candidates; freeze ${fz.enabled?'ON':'off'}; ${entries.length} strengthened guides)`);
+console.log(`demand repoint validation: PASS (${coverageUrls} URLs inspected - ${b}; ${targetCount} measured targets; ${hosts.reduce((s,h)=>s+(cons.hosts[h].candidate_count||0),0)} consolidation candidates; freeze ${fz.enabled?'ON':'off'}; ${entries.length} strengthened guides, ${entries.length-lapsed.length} measured now${lapsed.length?`; MEASUREMENT_LAPSED: ${lapsed.join(', ')}`:''})`);

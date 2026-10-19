@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "why": "2026-10-11 Search Console (28 days to 2026-10-08): the niche checklist guides rank around position 7 (elopement 7.3, courthouse 6.8) while the money page /printable-wedding-checklist sits at ~63-71 for 'printable wedding checklist'. Guide records are hash-frozen (data/release/frozen_output_registry.json), so the strengthening lives here and app/guides/[slug]/page.tsx + lib/seo.ts read it. validate_demand_repoint.mjs checks every entry against gsc_truth.json and the rendered contract.",
+  "why": "2026-10-11 Search Console (28 days to 2026-10-08): the niche checklist guides rank around position 7 (elopement 7.3, courthouse 6.8) while the money page /printable-wedding-checklist sits at ~63-71 for 'printable wedding checklist'. Guide records are hash-frozen (data/release/frozen_output_registry.json), so the strengthening lives here and app/guides/[slug]/page.tsx + lib/seo.ts read it. validate_demand_repoint.mjs checks every entry against gsc_truth.json and the rendered contract; selection_evidence is the id of a retained Search Console row (observations.json query row or gsc_page_history.json page row) that measured the guide, so a guide whose impressions roll out of the 28-day window stays provably measured-at-selection and is reported MEASUREMENT_LAPSED instead of turning main red.",
   "money_page": {
     "path": "/printable-wedding-checklist",
     "host": "weddingchecklistpdf.com",
@@ -14,6 +14,7 @@
   "guides": {
     "elopement-planning-checklist": {
       "target_query": "elopement planning checklist",
+      "selection_evidence": "884505effabfe8af16a1",
       "title": "Elopement Planning Checklist: Licence, Witnesses, Permits",
       "h1": "Elopement planning checklist",
       "definition": "An elopement planning checklist is the short list of decisions and documents a couple must settle when they marry without a full guest list: where the ceremony is legally valid, which marriage licence and waiting period apply there, who officiates and witnesses, which location permit is needed, and how travel, photography and the announcement fit around those fixed points. Everything else on it is optional; the legal items are not.",
@@ -25,6 +26,7 @@
     },
     "courthouse-wedding-checklist": {
       "target_query": "courthouse wedding checklist",
+      "selection_evidence": "b7959b8ca4a27d4266e2",
       "title": "Courthouse Wedding Checklist: Licence, ID, Witnesses, Day-Of",
       "h1": "Courthouse wedding checklist",
       "definition": "A courthouse wedding checklist is the set of steps for a civil ceremony performed at a courthouse or registry office: booking the appointment if the office requires one, obtaining the marriage licence, bringing the identification and witnesses the jurisdiction asks for, and planning arrival, security screening, photography and whatever celebration follows. The office's own rules decide every item, so each line ends with confirming it directly.",
@@ -36,6 +38,7 @@
     },
     "destination-wedding-checklist": {
       "target_query": "destination wedding checklist pdf",
+      "selection_evidence": "ead902859dce2eb34707",
       "title": "Destination Wedding Checklist: Printable Steps + PDF Planner",
       "h1": "Destination wedding checklist",
       "definition": "A destination wedding checklist is a wedding plan with travel added to every line: whether the ceremony will be legal where it happens or symbolic with a civil ceremony at home, room blocks and guest travel, local vendors and contacts, documents, what can be shipped and what must travel in carry-on luggage, and a weather plan. It runs on longer lead times than a local wedding because guests have to book flights and rooms.",
