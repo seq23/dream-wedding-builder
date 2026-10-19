@@ -6,7 +6,7 @@
 // (gsc_truth.json, falling back to the latest window in observations.json), or a
 // keyword-volume figure from the owner's Semrush export (query_atlas.json /
 // evidence_queries.json). Nothing is estimated; no number means unmeasured.
-import {read,norm} from './lib.mjs';
+import {read,norm,idFor,pageKey} from './lib.mjs';
 
 export function gscWindows(){
   const truth=read('data/search_intelligence/gsc_truth.json',{hosts:{}});
@@ -44,4 +44,37 @@ export function measurementsFor(host,query,ctx={gsc:gscWindows(),volumes:volumeR
   const seen=new Set();
   for(const v of ctx.volumes) if(v.host===host&&norm(v.query)===q&&!seen.has(v.volume)){seen.add(v.volume);out.push({source:v.source_type,metric:'monthly_search_volume',number:v.volume,file:v.file})}
   return out;
+}
+
+// Page-level Search Console history. gsc_truth.json holds only the current
+// rolling window, and observations.json holds only query+page rows (GSC drops
+// anonymised queries, so a page can carry impressions no query row shows). A
+// measurement that justified a decision must stay checkable after the window
+// rolls past it, so every answered window's page rows are appended here by
+// collect_gsc.mjs. Rows are immutable evidence: id = hash(host,page,end,imp).
+export const PAGE_HISTORY='data/search_intelligence/gsc_page_history.json';
+export const PAGE_HISTORY_CAP=10000;
+export function appendPageHistory(hist,truth,at){
+  const rows=new Map((hist?.rows||[]).map(r=>[r.observation_id,r]));
+  for(const [host,h] of Object.entries(truth?.hosts||{})){
+    if(!h?.period?.end)continue;
+    for(const p of h.pages||[]){if(!(Number(p.impressions)>0))continue;
+      const id=idFor('gsc_page',host,p.page,h.period.end,String(p.impressions));
+      if(!rows.has(id))rows.set(id,{observation_id:id,observed_at:at,provider:'google_search_console',dimension:'page',host,page:p.page,period:h.period,clicks:Number(p.clicks||0),impressions:Number(p.impressions)});}
+  }
+  return {schema_version:'1.0.0',boundary:'Append-only page-dimension Search Console rows, one per (host, page, window end); the evidence a past decision was measured, kept after the rolling window moves on.',rows:[...rows.values()].sort((a,b)=>String(a.observed_at).localeCompare(String(b.observed_at))).slice(-PAGE_HISTORY_CAP)};
+}
+
+// Resolve a recorded selection_evidence id to a retained Search Console row
+// that actually measures this guide: a query row for its target query on its
+// host, or a page row for the guide URL itself, with impressions > 0. Returns
+// the row, or null when the id is absent, fabricated or measures something else.
+export function resolveSelectionEvidence({host,slug,query,id},src={observations:read('data/search_intelligence/observations.json',{observations:[]}).observations,pageHistory:read(PAGE_HISTORY,{rows:[]}).rows}){
+  if(!id)return null;
+  const guide=`${host}/guides/${slug}`;
+  const q=(src.observations||[]).find(o=>o.observation_id===id&&o.provider==='google_search_console');
+  if(q&&q.host===host&&Number(q.impressions)>0&&(norm(q.query)===norm(query)||pageKey(q.page)===guide))return q;
+  const p=(src.pageHistory||[]).find(o=>o.observation_id===id);
+  if(p&&p.host===host&&Number(p.impressions)>0&&pageKey(p.page)===guide)return p;
+  return null;
 }
