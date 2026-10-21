@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "updated_at": "2026-10-20T15:50:25.594Z",
+  "updated_at": "2026-10-21T16:06:51.573Z",
   "providers": {
     "gsc": {
       "state": "AVAILABLE",
@@ -13,10 +13,10 @@
         "weddingchecklistpdf.com"
       ],
       "period": {
-        "start": "2026-09-21",
-        "end": "2026-10-18"
+        "start": "2026-09-22",
+        "end": "2026-10-19"
       },
-      "checked_at": "2026-10-20T15:50:25.594Z"
+      "checked_at": "2026-10-21T16:06:51.573Z"
     },
     "agent_observation_import": {
       "state": "READY"
