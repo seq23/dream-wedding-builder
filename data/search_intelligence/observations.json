@@ -20214,6 +20214,348 @@
       "ctr": 0,
       "average_position": 93,
       "target_match": false
+    },
+    {
+      "observation_id": "3abc66c9e8211f3957ff",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "elopement planning checklist",
+      "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 28,
+      "target_match": true
+    },
+    {
+      "observation_id": "70674e9e76b831ac7fae",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "free wedding planner",
+      "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": 0,
+      "average_position": 71,
+      "target_match": false
+    },
+    {
+      "observation_id": "d6e9080ab59849f88830",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "free wedding planner online",
+      "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 91,
+      "target_match": false
+    },
+    {
+      "observation_id": "a0a38ef7895ca00ee77b",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "printable wedding checklist",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": 0,
+      "average_position": 70.83333333333333,
+      "target_match": true
+    },
+    {
+      "observation_id": "66f5b3551a87392743b6",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "printable wedding checklists",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 79,
+      "target_match": false
+    },
+    {
+      "observation_id": "1f4db9e616d4c99ebf83",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "printable wedding planning checklist",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 74,
+      "target_match": false
+    },
+    {
+      "observation_id": "809fc7d0aa6d0112571e",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding checklist free printable",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 89,
+      "target_match": false
+    },
+    {
+      "observation_id": "1981edb1825eb401fdd5",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 96,
+      "target_match": true
+    },
+    {
+      "observation_id": "9cf37bb409e94c1ba7e7",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding checklist printable",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 59.5,
+      "target_match": false
+    },
+    {
+      "observation_id": "d2408fa819425d872a97",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding plan checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 96,
+      "target_match": false
+    },
+    {
+      "observation_id": "354a2c45b154461793d0",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planner checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 99,
+      "target_match": false
+    },
+    {
+      "observation_id": "67f023e3a33a45b7cc1f",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planner free",
+      "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": 0,
+      "average_position": 73.8,
+      "target_match": false
+    },
+    {
+      "observation_id": "86ed6ca159a42906aa91",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planner online free",
+      "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0,
+      "average_position": 94.5,
+      "target_match": false
+    },
+    {
+      "observation_id": "fc4c9f2192bbc11a830a",
+      "observed_at": "2026-10-22T16:01:17.848Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning checklist pdf",
+      "page": "https://weddingchecklistpdf.com/",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 100,
+      "target_match": false
+    },
+    {
+      "observation_id": "d32259f35ea91aa6804e",
+      "observed_at": "2026-10-22T16:01:17.849Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": 0,
+      "average_position": 96.5,
+      "target_match": false
+    },
+    {
+      "observation_id": "e13ffdbe0a75e35e9c8a",
+      "observed_at": "2026-10-22T16:01:17.849Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning checklist pdf",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 97,
+      "target_match": false
+    },
+    {
+      "observation_id": "3e8ad732da7019fa4f09",
+      "observed_at": "2026-10-22T16:01:17.849Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning checklist pdf",
+      "page": "https://weddingchecklistpdf.com/wedding-checklist",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 95,
+      "target_match": false
+    },
+    {
+      "observation_id": "4b49089971bcceac70ef",
+      "observed_at": "2026-10-22T16:01:17.849Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding planning free",
+      "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 74,
+      "target_match": false
+    },
+    {
+      "observation_id": "56a044b62c397bb87370",
+      "observed_at": "2026-10-22T16:01:17.849Z",
+      "period": {
+        "start": "2026-09-23",
+        "end": "2026-10-20"
+      },
+      "provider": "google_search_console",
+      "evidence_class": "OWN_SITE_PERFORMANCE",
+      "query": "wedding preparation checklist pdf",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "host": "weddingchecklistpdf.com",
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0,
+      "average_position": 93,
+      "target_match": false
     }
   ]
 }
