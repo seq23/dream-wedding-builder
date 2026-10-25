@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-09-25",
-        "end": "2026-10-22"
+        "start": "2026-09-26",
+        "end": "2026-10-23"
       },
-      "collected_at": "2026-10-24T14:53:47.665Z",
+      "collected_at": "2026-10-25T15:02:57.425Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -46,42 +46,54 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-09-25",
-        "end": "2026-10-22"
+        "start": "2026-09-26",
+        "end": "2026-10-23"
       },
-      "collected_at": "2026-10-24T14:53:48.415Z",
+      "collected_at": "2026-10-25T15:02:58.009Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 25,
+        "impressions": 23,
         "ctr": 0,
-        "position": 6.44
+        "position": 5.304347826086956
       },
       "queries": [],
       "pages": [
         {
           "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
           "clicks": 0,
-          "impressions": 24,
-          "position": 6.6
+          "impressions": 19,
+          "position": 5.8
         },
         {
           "page": "https://weddingbudgetspreadsheet.com/terms",
           "clicks": 0,
-          "impressions": 1,
-          "position": 3
+          "impressions": 4,
+          "position": 4.5
         },
         {
           "page": "https://weddingbudgetspreadsheet.com/photos",
           "clicks": 0,
-          "impressions": 1,
-          "position": 5
+          "impressions": 4,
+          "position": 5.8
         },
         {
           "page": "https://weddingbudgetspreadsheet.com/guides",
           "clicks": 0,
-          "impressions": 1,
-          "position": 2
+          "impressions": 4,
+          "position": 2.8
+        },
+        {
+          "page": "https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 8
+        },
+        {
+          "page": "https://weddingbudgetspreadsheet.com/wedding-budget-tradeoffs",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 10
         },
         {
           "page": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
@@ -94,10 +106,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-09-25",
-        "end": "2026-10-22"
+        "start": "2026-09-26",
+        "end": "2026-10-23"
       },
-      "collected_at": "2026-10-24T14:53:48.819Z",
+      "collected_at": "2026-10-25T15:02:58.508Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -130,16 +142,16 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-09-25",
-        "end": "2026-10-22"
+        "start": "2026-09-26",
+        "end": "2026-10-23"
       },
-      "collected_at": "2026-10-24T14:53:49.479Z",
+      "collected_at": "2026-10-25T15:02:59.055Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 85,
+        "impressions": 89,
         "ctr": 0,
-        "position": 47.2
+        "position": 46.91011235955056
       },
       "queries": [
         {
@@ -293,8 +305,8 @@
         {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 15,
-          "position": 78.4
+          "impressions": 17,
+          "position": 79.1
         },
         {
           "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
@@ -305,8 +317,8 @@
         {
           "page": "https://weddingchecklistpdf.com/privacy",
           "clicks": 0,
-          "impressions": 10,
-          "position": 5.6
+          "impressions": 13,
+          "position": 4.8
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
@@ -315,10 +327,28 @@
           "position": 7.6
         },
         {
+          "page": "https://weddingchecklistpdf.com/methodology",
+          "clicks": 0,
+          "impressions": 8,
+          "position": 3.5
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
+          "clicks": 0,
+          "impressions": 7,
+          "position": 8.3
+        },
+        {
           "page": "https://weddingchecklistpdf.com/",
           "clicks": 0,
           "impressions": 7,
           "position": 17.6
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/refund-policy",
+          "clicks": 0,
+          "impressions": 7,
+          "position": 6.4
         },
         {
           "page": "https://weddingchecklistpdf.com/terms",
@@ -327,34 +357,16 @@
           "position": 5
         },
         {
-          "page": "https://weddingchecklistpdf.com/methodology",
-          "clicks": 0,
-          "impressions": 5,
-          "position": 5
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
+          "page": "https://weddingchecklistpdf.com/disclaimer",
           "clicks": 0,
           "impressions": 4,
-          "position": 7.7
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
-          "clicks": 0,
-          "impressions": 4,
-          "position": 7.3
+          "position": 4.5
         },
         {
           "page": "https://weddingchecklistpdf.com/photos",
           "clicks": 0,
           "impressions": 4,
           "position": 5.5
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/refund-policy",
-          "clicks": 0,
-          "impressions": 4,
-          "position": 6
         },
         {
           "page": "https://weddingchecklistpdf.com/wedding-checklist",
@@ -367,6 +379,12 @@
           "clicks": 0,
           "impressions": 4,
           "position": 2
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 6.7
         },
         {
           "page": "https://weddingchecklistpdf.com/products/operations-suite",
@@ -411,12 +429,6 @@
           "position": 42
         },
         {
-          "page": "https://weddingchecklistpdf.com/disclaimer",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 6
-        },
-        {
           "page": "https://weddingchecklistpdf.com/guides/3-month-wedding-checklist",
           "clicks": 0,
           "impressions": 1,
@@ -439,5 +451,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-24T14:53:49.480Z"
+  "updated_at": "2026-10-25T15:02:59.057Z"
 }
