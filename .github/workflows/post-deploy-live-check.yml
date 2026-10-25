@@ -1,0 +1,47 @@
+name: Post-deploy live check
+
+# The build gate and validate:rendered-seo both run against a local `next start`.
+# Nothing in this repository ever looked at the live host, so everything between the
+# build and a reader - Workers Builds, the Worker's middleware, Cloudflare's cache and
+# redirect rules - could serve something the build never contained and no check would
+# notice. scripts/validate/live-check.mjs is that look: crawl files, icons, the share
+# card, the homepage's structured-data frame, a real 404, measured sitemap URLs
+# answering on the first hop, and the IndexNow key file, on all four canonical hosts.
+#
+# The deploy wait is the same bounded loop as .github/workflows/indexnow-after-deploy.yml,
+# which runs on the same trigger: Cloudflare Workers Builds deploys main outside GitHub
+# Actions and reports back as the "Workers Builds: dream-wedding-builder" check run on
+# the commit, so both lanes have to wait for that check before touching the live site.
+# Read-only and credential-free: every request is an unauthenticated GET.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions: { contents: read, checks: read }
+concurrency:
+  group: post-deploy-live-check
+  cancel-in-progress: true
+jobs:
+  live-check:
+    timeout-minutes: 28  # 20 min deploy wait ceiling + the check; fault detector, not a budget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with: { node-version: '20' }
+      - name: Wait for the Workers Builds deploy of this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          deadline=$(( $(date +%s) + 1200 ))
+          while :; do
+            conclusion="$(gh api "repos/${REPO}/commits/${SHA}/check-runs" --jq '[.check_runs[] | select(.name | startswith("Workers Builds")) | select(.status == "completed") | .conclusion][0] // ""')"
+            if [ "$conclusion" = "success" ]; then echo "DEPLOYED ${SHA}"; break; fi
+            if [ -n "$conclusion" ]; then echo "::error::DEPLOY_NOT_GREEN Workers Builds concluded ${conclusion} for ${SHA}; the live check did not run"; exit 1; fi
+            if [ "$(date +%s)" -ge "$deadline" ]; then echo "::error::DEPLOY_WAIT_TIMEOUT no completed Workers Builds check for ${SHA} after 20 min"; exit 1; fi
+            sleep 30
+          done
+      - name: Check what the edge serves
+        run: npm run validate:live-check

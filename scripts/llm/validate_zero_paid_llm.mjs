@@ -222,6 +222,26 @@ if (policy) {
   notes.push(`router behaviour: 11 cases`);
 }
 
+// 7. The rule is where the next agent will look, and this reads it ---------------
+// A policy only config files carry is a policy an agent editing this repo never
+// sees. The Search Readiness checklist (item i10) asks for the doc and a
+// "nothing paid" line in CLAUDE.md, with a test that reads it: this is that test.
+{
+  const doc = 'docs/cost/zero-paid-llm.md';
+  if (!fs.existsSync(path.join(ROOT, doc))) errors.push(`${doc} is missing: the policy has no written form`);
+  const claudeMdPath = path.join(ROOT, 'CLAUDE.md');
+  if (!fs.existsSync(claudeMdPath)) {
+    errors.push('CLAUDE.md is missing: the zero-paid rule is not where an agent working in this repo will look');
+  } else {
+    const claudeMd = fs.readFileSync(claudeMdPath, 'utf8');
+    if (!/nothing paid/i.test(claudeMd)) errors.push('CLAUDE.md does not say "nothing paid"');
+    if (!claudeMd.includes(doc)) errors.push(`CLAUDE.md does not point at ${doc}`);
+    if (!claudeMd.includes('config/llm_routing.json')) errors.push('CLAUDE.md does not point at config/llm_routing.json, the policy the router actually reads');
+    notes.push('CLAUDE.md states the rule and points at the doc and the config');
+  }
+  if (config.owner_policy?.doc && config.owner_policy.doc !== doc) errors.push(`config/llm_routing.json owner_policy.doc is ${config.owner_policy.doc}, not ${doc}`);
+}
+
 if (errors.length) {
   console.error(`zero-paid-llm: FAIL (${errors.length})`);
   for (const e of errors) console.error(` - ${e}`);

@@ -48,6 +48,31 @@ const only = process.argv.includes('--hard-fail-only');
   }
 }
 
+// The post-deploy lane. These checks fetch the live hosts, so they cannot be
+// pre-merge gates: on a pull request the fix under review is not deployed yet, and
+// gating the merge on production state would red every PR that fixes production.
+// They run once per deploy, from a workflow. What this gate owns is the other half
+// of the defect class: a check that exists and nothing invokes. Each declared entry
+// must name an npm script that exists and a workflow file that runs it.
+{
+  const declared = registry.post_deploy_checks || [];
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  const problems = [];
+  for (const c of declared) {
+    if (!c.npmScript || !pkg.scripts?.[c.npmScript]) { problems.push(`post_deploy_checks.${c.id} names npm script ${c.npmScript}, which package.json does not define`); continue; }
+    const wf = path.join(ROOT, c.workflow || '');
+    if (!c.workflow || !fs.existsSync(wf)) { problems.push(`post_deploy_checks.${c.id} names workflow ${c.workflow}, which does not exist`); continue; }
+    const text = fs.readFileSync(wf, 'utf8');
+    if (!text.includes(c.npmScript) && !text.includes(c.command || '\u0000')) problems.push(`${c.workflow} never runs ${c.npmScript}: the post-deploy check exists and nothing invokes it`);
+  }
+  if (problems.length) {
+    for (const m of problems) console.error(`[validate:registry] ${m}`);
+    console.error('[validate:registry] BLOCKING: a declared post-deploy check is inert.');
+    process.exit(1);
+  }
+  if (declared.length) console.log(`[validate:registry] post-deploy lane: ${declared.map((c) => c.npmScript).join(', ')} (run by workflow, not by this gate)`);
+}
+
 const results = [];
 for (const v of registry.validators) {
   // Composites re-run their members; skip them so a failure is attributed to the

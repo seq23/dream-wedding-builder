@@ -84,6 +84,7 @@
     "validate:downloads": "node scripts/validate-downloads.mjs",
     "validate:env": "node scripts/validate-env.mjs",
     "validate:fulfillment-path": "node scripts/validate-fulfillment-path.mjs",
+    "validate:live-check": "node scripts/validate/live-check.mjs",
     "validate:internal-links": "node scripts/validators/validate_internal_link_graph.mjs",
     "validate:kpi-truth": "node scripts/authority_scale/validate_kpi_truth.mjs",
     "validate:methodology-contrast": "node scripts/validators/validate_methodology_contrast.mjs",
