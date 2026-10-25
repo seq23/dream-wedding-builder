@@ -14,7 +14,9 @@ import { dateModifiedFor } from '@/lib/lastmod';
 // lib/site-home.ts rather than keeping its own (it had none until 2026-10-11).
 const HOST = 'weddingchecklistpdf.com' as const;
 const home = siteHome(HOST);
-const TITLE = 'Wedding Checklist PDF ($9): Printable, Editable Planning Checklist';
+// 66 characters until 2026-10-25, which is past the band a desktop result shows
+// (Search Readiness item b1). "Planning" was the word carrying no query weight.
+const TITLE = 'Wedding Checklist PDF ($9): Printable, Editable Checklist';
 const DESCRIPTION = 'The $9 Wedding Checklist PDF: a 104-row editable checklist and 13-page printable packet with owners, deadlines and final payments. Instant download.';
 
 export const metadata: Metadata = {

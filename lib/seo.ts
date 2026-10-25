@@ -43,7 +43,10 @@ export function guideBySlug(slug: string): GuidePage | undefined { return guides
 // layout's " | Dream Wedding Builder" template, so the suffix is kept only when it
 // fits. A title over 70 by itself is a source defect the gate reports by page.
 export const SITE_TITLE_SUFFIX = ' | Dream Wedding Builder';
-export const TITLE_MAX = 70;
+// 65, not 70: the Search Readiness band (item b1), tightened 2026-10-25. Eight guide
+// titles sat at 66-69 only because the suffix pushed them there, so dropping it
+// earlier fixes them without touching a single frozen guide record.
+export const TITLE_MAX = 65;
 export function documentTitle(title: string): Metadata['title'] {
   return `${title}${SITE_TITLE_SUFFIX}`.length <= TITLE_MAX ? title : { absolute: title };
 }
@@ -105,7 +108,10 @@ export function hubMetadata(slug: string): Metadata { const hub = hubBySlug(slug
 // that already fits; otherwise it is extended with its own recommendation or cut at a
 // word boundary, so a newly published guide can never render outside the range.
 // scripts/validators/validate_rendered_seo_contract.mjs asserts the rendered result.
-export const META_DESCRIPTION_MIN = 110;
+// 120, not 110: the Search Readiness band (item b2), tightened 2026-10-25. Eleven
+// guide descriptions generated from a short summary sat at 110-119; raising the floor
+// makes the generator extend them with the guide's own recommendation instead.
+export const META_DESCRIPTION_MIN = 120;
 export const META_DESCRIPTION_MAX = 160;
 const guideMetaDescriptions = guideMetaJson.descriptions as Record<string, string>;
 function clip(text: string, max: number): string {

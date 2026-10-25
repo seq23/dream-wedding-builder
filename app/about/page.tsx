@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { seoMetadata } from '@/lib/seo';
 import { canonicalUrl, CANONICAL_HOSTS, hrefFrom, PARENT_HOST, productForHost } from '@/lib/site-config';
-import { ORGANIZATION, ORGANIZATION_ID } from '@/lib/site-home';
+import { homePathFor, ORGANIZATION, ORGANIZATION_ID } from '@/lib/site-home';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 import { products, suite, supportEmail } from '@/lib/products';
@@ -44,7 +44,9 @@ export default function About() {
         {CANONICAL_HOSTS.map((host) => {
           const product = productForHost(host);
           return <li key={host} className="rounded-2xl bg-white p-4 leading-7">
-            <a href={canonicalUrl(host, '/')} className="font-bold underline decoration-charcoal/20 underline-offset-4">{host}</a>
+            {/* Each host's real homepage: `/` on three of the four is a 308 to the
+                hub, and the rendered-seo gate fails on a redirecting internal link. */}
+            <a href={canonicalUrl(host, homePathFor(host))} className="font-bold underline decoration-charcoal/20 underline-offset-4">{host}</a>
             {product ? <> — {product.name}, ${product.price}</> : null}
           </li>;
         })}
