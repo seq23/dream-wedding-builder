@@ -43,6 +43,12 @@ Deleting the line above does not relax the rule; it fails the validator.
 - Cloudflare Workers Builds deploys `main` outside GitHub Actions and reports back as
   the `Workers Builds: dream-wedding-builder` check. Never run a bare
   `wrangler deploy`.
+- The `deploy`, `preview` and `upload` scripts pass
+  `--dangerouslyUseUnsupportedNextVersion`, and it is load-bearing: without it
+  OpenNext refuses to build Next 15.5.18, which went out of its two-year support
+  window on 21 October 2026 and silently stopped production deploying for five days.
+  The reason, the cost and the upgrade that removes it are in
+  [`docs/next-version-support.md`](docs/next-version-support.md).
 - `.github/workflows/post-deploy-live-check.yml` waits for that check on the pushed
   commit and then runs `node scripts/validate/live-check.mjs` against the live hosts:
   the build can pass while the edge serves the wrong thing.
