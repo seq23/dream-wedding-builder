@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   // all visitors. Pinned by tests/unit/seo-hygiene-lighthouse.test.ts (audit id
   // meta-description).
   htmlLimitedBots: /.*/,
+  // Next's own trailing-slash redirect answers BEFORE middleware, so a made-up path
+  // ending in `/` answered 308 and only 404'd on the second hop - the soft-404 shape
+  // the Search Readiness audit reported on 2026-10-25. With this off, middleware.ts
+  // owns the rule: a real route segment still gets the 308, an unknown one is
+  // rewritten so Next renders its 404 page with a 404 status at the URL asked for.
+  skipTrailingSlashRedirect: true,
   // The planner shipped at /build for six days. /build described the codebase, not
   // the search query, and nothing has ranked on it yet, so the rename is free.
   // next.config redirects resolve before middleware, so this fires before the

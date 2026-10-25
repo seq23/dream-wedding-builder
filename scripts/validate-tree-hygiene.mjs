@@ -8,6 +8,9 @@ const allowedRootFiles = new Set([
   '.env.example',
   '.gitignore',
   'AGENTS.md',
+  // The repo's rules for the agents that work in it, starting with "nothing paid".
+  // scripts/llm/validate_zero_paid_llm.mjs reads it and fails without it.
+  'CLAUDE.md',
   'ARTIFACT_MANIFEST.md',
   'DESIGN_SYSTEM.md',
   'ENVIRONMENT_VARIABLES.md',

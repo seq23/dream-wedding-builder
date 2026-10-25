@@ -695,6 +695,12 @@
       "indexable": true
     },
     {
+      "path": "/about",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
       "path": "/wedding-cost-per-guest",
       "host": "weddingbudgetspreadsheet.com",
       "type": "landing",

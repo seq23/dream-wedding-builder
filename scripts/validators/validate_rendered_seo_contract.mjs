@@ -18,8 +18,10 @@
  * What it asserts, per canonical host, by booting `next start` and fetching every
  * sitemap URL with that host's Host header:
  *
- *   1. every sitemap URL responds 200 with a <title> of 30-70 characters (Bing Site
- *      Scan flags "title too long" above 70) and a meta description of 110-160
+ *   1. every sitemap URL responds 200 with a <title> of 30-65 characters and a meta
+ *      description of 120-160 (the Search Readiness bands, items b1/b2, tightened
+ *      from 30-70/110-160 on 2026-10-25 after the audit found 14 titles and 13
+ *      descriptions that the older bands passed)
  *   2. no two self-canonical sitemap URLs, across all four hosts, share a title or
  *      a description
  *   3. every href on those pages that points at a network host (the four canonical
@@ -27,6 +29,10 @@
  *      Host header, and must not answer 3XX - an emitter must link the final URL
  *   4. a request that Cloudflare marks as plain http (cf-visitor scheme http) is
  *      answered with a permanent redirect to the same https URL
+ *   5. the structured-data frame, per page: an Organization with name, url, logo and
+ *      sameAs; a WebPage; WebSite on the homepage and BreadcrumbList on inner pages;
+ *      no FAQ question and no Offer price in JSON-LD that the visible page does not
+ *      carry; and at least one priced Offer per host (Search Readiness c1/c2/c3/c5)
  *
  * Rule 0: it counts what it examined and fails on zero pages, zero network links,
  * or no build. A run that crawled nothing has not passed.
@@ -45,9 +51,14 @@ const HOSTS = Object.keys(ownership.hosts);
 const ALIASES = Object.keys(ownership.alias_hosts ?? {});
 const NETWORK = new Set([...HOSTS, ...HOSTS.map((h) => `www.${h}`), ...ALIASES, ...ALIASES.map((h) => `www.${h}`)]);
 
+// The Search Readiness bands (items b1/b2), tightened from 30-70 / 110-160 on
+// 2026-10-25. 65 is where a title stops being truncated in a desktop result; a
+// description under 120 leaves the snippet half empty and lets the engine write the
+// rest off the page. The audit found 14 titles and 13 descriptions outside these
+// bands that the old bands passed.
 const TITLE_MIN = 30;
-const TITLE_MAX = 70;
-const DESC_MIN = 110;
+const TITLE_MAX = 65;
+const DESC_MIN = 120;
 const DESC_MAX = 160;
 
 const failures = [];
@@ -117,7 +128,40 @@ const metaContent = (html, attr, name) => {
   return tag ? decode(tag.match(/content="([^"]*)"/i)?.[1] ?? '') : null;
 };
 
+// JSON-LD, flattened through @graph and arrays, and the visible text, so the
+// structured-data rules are read off the same HTML the title rules are.
+function jsonLdNodes(html) {
+  const nodes = [];
+  // Every nested object, not just @graph members: an Offer lives under
+  // Product.offers and a Question under FAQPage.mainEntity. Walking only the top
+  // level is how the first version of this check reported "no priced Offer" on
+  // four pages that each carried one.
+  const push = (value) => {
+    if (Array.isArray(value)) { value.forEach(push); return; }
+    if (!value || typeof value !== 'object') return;
+    nodes.push(value);
+    for (const nested of Object.values(value)) if (nested && typeof nested === 'object') push(nested);
+  };
+  for (const match of html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try { push(JSON.parse(match[1].replace(/\\u003c/g, '<'))); } catch { nodes.push({ __malformed: true }); }
+  }
+  return nodes;
+}
+const typesOf = (node) => [].concat(node['@type'] ?? []);
+const nodesOfType = (nodes, re) => nodes.filter((node) => typesOf(node).some((type) => re.test(String(type))));
+function visibleText(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z]+;|&#\d+;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .toLowerCase();
+}
+
 let pagesExamined = 0;
+let schemaChecks = 0;
+const pricedOffers = new Map(); // host -> the page that carried one
 const byTitle = new Map();
 const byDesc = new Map();
 const linkSources = new Map(); // "host path?query" -> Set(source)
@@ -142,6 +186,37 @@ try {
       if (title.length < TITLE_MIN || title.length > TITLE_MAX) fail(`${where}: title is ${title.length} chars (want ${TITLE_MIN}-${TITLE_MAX}): "${title}"`);
       if (desc === null) fail(`${where}: no meta description`);
       else if (desc.length < DESC_MIN || desc.length > DESC_MAX) fail(`${where}: description is ${desc.length} chars (want ${DESC_MIN}-${DESC_MAX}): "${desc}"`);
+
+      // The structured-data frame, on every page in the sitemap. Search Readiness
+      // items c1 (a complete Organization), c2 (WebPage everywhere, BreadcrumbList
+      // on inner pages, WebSite on the homepage) and c5 (no FAQ question and no
+      // Offer price in schema that the visible page does not carry). All four were
+      // failing in October on pages no template owner had looked at in months,
+      // because nothing in this repo read the rendered JSON-LD.
+      const nodes = jsonLdNodes(html);
+      const text = visibleText(html);
+      schemaChecks += 1;
+      if (nodes.some((node) => node.__malformed)) fail(`${where}: a JSON-LD block does not parse`);
+      const org = nodesOfType(nodes, /^(Organization|Corporation|NewsMediaOrganization|ProfessionalService|LocalBusiness)$/)[0];
+      if (!org) fail(`${where}: no Organization in JSON-LD`);
+      else {
+        const missing = ['name', 'url', 'logo', 'sameAs'].filter((key) => !org[key] || (Array.isArray(org[key]) && org[key].length === 0));
+        if (missing.length) fail(`${where}: the first Organization lacks ${missing.join(', ')}`);
+      }
+      if (nodesOfType(nodes, /WebPage$|^(AboutPage|ContactPage|FAQPage|CollectionPage|ItemPage|ProfilePage|QAPage)$/).length === 0) fail(`${where}: no WebPage in JSON-LD`);
+      const isHome = pathname === '/' || pathname === ownership.hosts[host]?.root_target;
+      if (isHome && nodesOfType(nodes, /^WebSite$/).length === 0) fail(`${where}: the homepage has no WebSite`);
+      if (!isHome && nodesOfType(nodes, /^BreadcrumbList$/).length === 0) fail(`${where}: an inner page with no BreadcrumbList`);
+      for (const question of nodesOfType(nodes, /^Question$/)) {
+        const name = String(question.name ?? '').replace(/\s+/g, ' ').trim().toLowerCase();
+        if (name && !text.includes(name.slice(0, 60))) fail(`${where}: FAQ question is marked up but not on the page: "${name.slice(0, 60)}"`);
+      }
+      for (const offer of nodesOfType(nodes, /^Offer$/)) {
+        if (offer.price === undefined || Number(offer.price) === 0) continue;
+        const price = String(offer.price).replace(/\.0+$/, '');
+        if (!text.includes(price)) fail(`${where}: schema offers ${price} and the page does not print it`);
+        else if (!pricedOffers.has(host)) pricedOffers.set(host, where);
+      }
 
       const selfCanonical = canonical === `https://${host}${pathname}`;
       if (selfCanonical) {
@@ -193,9 +268,13 @@ try {
 }
 
 if (pagesExamined === 0) fail('examined 0 pages across all hosts - a run that crawled nothing has not passed');
+if (schemaChecks === 0) fail('read JSON-LD on 0 pages - the structured-data rules examined nothing');
+// Search Readiness item c3: a brand site needs one priced Offer a result can carry.
+// Each host sells one product and prints its price on its own homepage.
+for (const host of HOSTS) if (!pricedOffers.has(host)) fail(`${host}: no page carries a priced Offer whose price is on the page`);
 if (linkSources.size === 0) fail('found 0 network links on any page - the link check examined nothing');
 
-console.log(`rendered seo contract: hosts=${HOSTS.length} pages=${pagesExamined} titles=${byTitle.size} descriptions=${byDesc.size} network_links=${linkSources.size}`);
+console.log(`rendered seo contract: hosts=${HOSTS.length} pages=${pagesExamined} titles=${byTitle.size} descriptions=${byDesc.size} network_links=${linkSources.size} schema_pages=${schemaChecks} priced_offers=${pricedOffers.size}`);
 if (failures.length) {
   for (const message of failures) console.error(`  FAIL ${message}`);
   console.error(`rendered seo contract: FAIL (${failures.length} problem(s))`);

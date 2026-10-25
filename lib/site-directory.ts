@@ -44,7 +44,8 @@ const COVERED_EXACT: Record<string, string> = {
   '/privacy': 'the footer legal column',
   '/disclaimer': 'the footer legal column',
   '/terms': 'the footer legal column',
-  '/refund-policy': 'the footer legal column'
+  '/refund-policy': 'the footer legal column',
+  '/about': 'the footer legal column, absolute on every host'
 };
 // /guides/* is linked from the /guides index, which is in the nav on every host.
 // /products/* is linked from the footer product list and from every hub page.

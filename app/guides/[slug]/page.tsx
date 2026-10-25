@@ -6,7 +6,8 @@ import { shippingPages } from '@/lib/authority-registry';
 import { dateModifiedFor } from '@/lib/lastmod';
 import { productById } from '@/lib/products';
 import { canonicalUrl, hostForProduct, hrefFrom } from '@/lib/site-config';
-import { guideLead, guideMetadata, guideRecommendation, guideStrengthening, strengthening } from '@/lib/seo';
+import { ORGANIZATION_ID } from '@/lib/site-home';
+import { guideLead, guideMetadata, guideMetaDescription, guideRecommendation, guideStrengthening, strengthening } from '@/lib/seo';
 import { plannerHref, plannerLabelForGuide, seedFromGuide } from '@/lib/planner-seed';
 import { PlannerCta } from '@/components/PlannerCta';
 import { AffiliatePicks } from '@/components/AffiliatePicks';
@@ -34,7 +35,9 @@ export default async function Guide({ params }: { params: Promise<{ slug: string
   const moneyHref = hrefFrom(host, strengthening.money_page.path);
   const pdf = productById(strengthening.product_path.pdf.product_id);
   const bundle = productById(strengthening.product_path.bundle.product_id);
-  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.summary, mainEntityOfPage: canonical, ...dateModifiedFor(`/guides/${page.slug}`), publisher: { '@type': 'Organization', name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/' } };
+  // publisher by @id: lib/site-home.ts owns the one Organization node, the one with
+  // the logo and the sameAs profiles, and app/layout.tsx emits it on every page.
+  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: guideStrengthening(page.slug)?.title ?? page.title, description: guideMetaDescription(page), mainEntityOfPage: canonical, ...dateModifiedFor(`/guides/${page.slug}`), publisher: { '@id': ORGANIZATION_ID } };
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
     <Breadcrumbs items={[{ name: 'Guides', href: '/guides', canonical: canonicalUrl(host, '/guides') }, { name: page.title, href: `/guides/${page.slug}`, canonical }]} />

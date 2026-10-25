@@ -11,6 +11,15 @@
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
+  "post_deploy_checks": [
+    {
+      "id": "live-check",
+      "npmScript": "validate:live-check",
+      "command": "node scripts/validate/live-check.mjs",
+      "workflow": ".github/workflows/post-deploy-live-check.yml",
+      "reason": "Everything in `validators` runs against the repo or a local `next start`, so nothing in this gate can see what the edge actually serves. This check fetches the live hosts and therefore cannot be a pre-merge gate: on a pull request the fix under review is not deployed yet, and gating the merge on production state would red every PR that fixes production. It runs once per deploy instead, from the workflow named here. validate:registry asserts the lane is not inert - the npm script exists and the workflow invokes it - so it cannot become a script nothing runs."
+    }
+  ],
   "validators": [
     {
       "id": "amazon-landing-paths",
