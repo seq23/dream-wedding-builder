@@ -21,6 +21,13 @@ const DEFINITION = `The planning readiness score is a percentage measuring how m
 // text below; a meta description over 160 characters is cut by every engine.
 const META_DESCRIPTION = `How the wedding planning readiness score works: the share of ${READINESS_CHECK_COUNT} constraint-first inputs answered, each worth about ${Math.round(READINESS_POINTS_PER_CHECK)} points. Completeness, not quality.`;
 
+const FAQS: Array<{ question: string; answer: string }> = [
+  { question: 'Why does a brand-new plan already show 11%?', answer: 'The budget-position input opens on "I have no idea what weddings cost", which is a real, workable answer rather than a blank. One of nine inputs answered rounds to 11%. Nothing has been assumed on your behalf.' },
+  { question: 'What does 70% readiness mean?', answer: 'Roughly six or seven of nine inputs are answered. In practice that means location, guest count, budget position, protected priorities, and a recommendation are all on record - the point at which sending vendor inquiries stops wasting your time.' },
+  { question: 'Does a higher readiness score mean a better wedding plan?', answer: 'No. The score counts answered inputs. It makes no judgement about whether the answers are good ones, and a fully answered plan built on an unrealistic guest count will score 100%.' },
+  { question: 'Are the inputs weighted differently?', answer: 'No. All nine carry equal weight. Weighting them would require asserting that one input matters more for every couple, which contradicts the constraint-first method the score belongs to.' }
+];
+
 export const metadata: Metadata = seoMetadata({
   title: 'The planning readiness score: inputs, weights, and what they mean',
   description: META_DESCRIPTION,
@@ -43,12 +50,7 @@ export default function ReadinessScore() {
   const faq = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      { '@type': 'Question', name: 'Why does a brand-new plan already show 11%?', acceptedAnswer: { '@type': 'Answer', text: 'The budget-position input opens on "I have no idea what weddings cost", which is a real, workable answer rather than a blank. One of nine inputs answered rounds to 11%. Nothing has been assumed on your behalf.' } },
-      { '@type': 'Question', name: 'What does 70% readiness mean?', acceptedAnswer: { '@type': 'Answer', text: 'Roughly six or seven of nine inputs are answered. In practice that means location, guest count, budget position, protected priorities, and a recommendation are all on record - the point at which sending vendor inquiries stops wasting your time.' } },
-      { '@type': 'Question', name: 'Does a higher readiness score mean a better wedding plan?', acceptedAnswer: { '@type': 'Answer', text: 'No. The score counts answered inputs. It makes no judgement about whether the answers are good ones, and a fully answered plan built on an unrealistic guest count will score 100%.' } },
-      { '@type': 'Question', name: 'Are the inputs weighted differently?', acceptedAnswer: { '@type': 'Answer', text: 'No. All nine carry equal weight. Weighting them would require asserting that one input matters more for every couple, which contradicts the constraint-first method the score belongs to.' } }
-    ]
+    mainEntity: FAQS.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } }))
   };
 
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
@@ -100,6 +102,15 @@ export default function ReadinessScore() {
         <li className="rounded-2xl bg-ivory p-4 leading-7">It is not a progress bar for the wedding. Answering all nine inputs is the start of vendor conversations, not the end of planning.</li>
         <li className="rounded-2xl bg-ivory p-4 leading-7">It is not comparable between couples. Two plans at 55% can be at completely different stages, because the inputs they answered are different.</li>
       </ul>
+    </section>
+
+    {/* The FAQPage node used to mark up four questions that appeared nowhere on the
+        page: the answers were in the prose above, but not as the questions couples
+        actually type, and markup the visible page does not support is treated as
+        deceptive. Both the section and the node read FAQS, so they cannot diverge. */}
+    <section className="rounded-[1.75rem] bg-white p-7 md:p-9">
+      <h2 className="font-serif text-4xl md:text-5xl">Questions couples ask about the score</h2>
+      <div className="mt-6 grid gap-4">{FAQS.map((item) => <details key={item.question} className="rounded-[1.5rem] border border-charcoal/10 bg-ivory p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-3 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div>
     </section>
 
     <section className="no-print rounded-[1.75rem] border border-charcoal/15 bg-white p-7 md:p-9">

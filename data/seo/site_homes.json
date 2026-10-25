@@ -1,7 +1,14 @@
 {
   "_note": "One record per canonical host. Read by lib/site-home.ts (definition paragraph, homepage JSON-LD, speakable selector), scripts/seo/generate_site_icons.py (favicon, apple-touch-icon, manifest icons, og.png) and the seo-hygiene validators. Hosts must match data/seo/route_ownership.json.",
   "speakable_selector": "#site-definition",
-  "organization": { "name": "Dream Wedding Builder", "url": "https://weddingchecklistpdf.com/" },
+  "organization": {
+    "name": "Dream Wedding Builder",
+    "url": "https://weddingchecklistpdf.com/",
+    "sameAs": [
+      "https://www.pinterest.com/weddingchecklistpdf/"
+    ],
+    "_sameAs_note": "The publisher's own public profiles, which is what sameAs is for: an engine uses them to decide that the four domains and this profile are one entity. Only accounts this business actually controls and that answer 200 may be listed - the Pinterest business account that auto-publishes from each site's /pinfeed.xml. Asserted live by scripts/validate/live-check.mjs and shape-checked by tests/unit/seo-hygiene-jsonld.test.ts."
+  },
   "hosts": {
     "weddingchecklistpdf.com": {
       "name": "Wedding Checklist PDF",
@@ -12,9 +19,18 @@
       "tagline": "104-row editable checklist + 13-page printable packet",
       "definition": "Wedding Checklist PDF is a $9 wedding planning checklist with a 104-row editable master list and a 13-page printable packet. It organizes tasks by planning window from twelve months out through wedding week, with owners, dependencies, priorities, deadlines and final payments, so couples can see what is due and who is doing it.",
       "faqs": [
-        { "question": "What is included in the Wedding Checklist PDF?", "answer": "A 104-row editable master checklist, planning-window worksheets from 12+ months through wedding week, separate wedding-week and final-payment trackers, and a 13-page printable PDF, delivered with an editable XLSX workbook and a setup CSV." },
-        { "question": "Is the Wedding Checklist PDF a subscription?", "answer": "No. It is a one-time $9 purchase. Pay once and keep the current release for personal use." },
-        { "question": "How are the files delivered?", "answer": "Stripe handles checkout and payment verification. Verified purchases unlock the protected files on the success page and by email, and order and access help goes to info@weddingchecklistpdf.com." }
+        {
+          "question": "What is included in the Wedding Checklist PDF?",
+          "answer": "A 104-row editable master checklist, planning-window worksheets from 12+ months through wedding week, separate wedding-week and final-payment trackers, and a 13-page printable PDF, delivered with an editable XLSX workbook and a setup CSV."
+        },
+        {
+          "question": "Is the Wedding Checklist PDF a subscription?",
+          "answer": "No. It is a one-time $9 purchase. Pay once and keep the current release for personal use."
+        },
+        {
+          "question": "How are the files delivered?",
+          "answer": "Stripe handles checkout and payment verification. Verified purchases unlock the protected files on the success page and by email, and order and access help goes to info@weddingchecklistpdf.com."
+        }
       ],
       "steps": [
         "Choose your tool: buy one clearly priced product or the complete suite.",

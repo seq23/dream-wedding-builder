@@ -6,7 +6,10 @@ import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
 import { siteDirectory } from '@/lib/site-directory';
 import { CF_BEACON_SRC, webAnalyticsToken } from '@/lib/web-analytics';
 import { SITE_TITLE_SUFFIX } from '@/lib/seo';
-import { ogImages, ogImageUrl, resolveSiteHost, siteHome } from '@/lib/site-home';
+import { ogImages, ogImageUrl, pageFrameNodes, resolveSiteHost, siteHome } from '@/lib/site-home';
+import { breadcrumbTrail, pageNameFor } from '@/lib/page-frame';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { PATHNAME_HEADER } from '@/lib/pathname-header';
 
 // Host-aware so each of the four sites links its own icon, manifest and share card
 // (served per host by app/favicon.ico, app/og.png, ... route handlers). Pages that set
@@ -40,6 +43,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const siteHost = isCanonicalHost(rawHost) ? rawHost : PARENT_HOST;
   // Only real canonical hosts report: previews and localhost would pollute production numbers.
   const beaconToken = isCanonicalHost(rawHost) ? webAnalyticsToken(rawHost) : null;
+  // The structured-data frame for whatever page this is: the one Organization, this
+  // page's WebPage and its breadcrumb trail (lib/page-frame.ts). It lives here
+  // because a frame each template has to remember is a frame the next page will be
+  // missing - sixteen indexable pages built from plain JSX had no structured data at
+  // all. Pages that emit their own richer WebPage or BreadcrumbList use the same
+  // @id, so the nodes merge rather than contradict. Skipped on the noindex surfaces
+  // (admin, checkout, dashboard, the download pack), which no engine reads.
+  const pathname = requestHeaders.get(PATHNAME_HEADER) ?? '/';
+  const indexable = !['/admin', '/api', '/order', '/dashboard', '/pack'].some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+  const pageName = pageNameFor(pathname) ?? siteHome(siteHost).name;
+  const frame = indexable ? pageFrameNodes({
+    host: siteHost, path: pathname, name: pageName,
+    description: siteHome(siteHost).definition,
+    breadcrumbs: breadcrumbTrail(siteHost, pathname, pageName)
+  }) : null;
   return (
     <html lang="en">
       <body>
@@ -54,6 +72,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             as plain strings. AppShell is a client component and importing
             hub_pages.json there would ship every hub's full body text to the
             browser to produce a dozen link labels. */}
+        {/* First in the body on purpose: an engine reads the first Organization it
+            finds, and this is the one with the logo and the sameAs profiles. */}
+        {frame ? <JsonLd data={frame} /> : null}
         <AppShell siteHost={siteHost} directory={siteDirectory(siteHost)}>{children}</AppShell>
       </body>
     </html>

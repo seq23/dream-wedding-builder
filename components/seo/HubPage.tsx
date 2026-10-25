@@ -10,7 +10,7 @@ import { productById } from '@/lib/products';
 import { dateModifiedFor } from '@/lib/lastmod';
 import { AffiliatePicks } from '@/components/AffiliatePicks';
 import { placementForGuide } from '@/lib/affiliates';
-import { homeSchemaNodes, isHomePath } from '@/lib/site-home';
+import { homeSchemaNodes, isHomePath, ORGANIZATION_ID } from '@/lib/site-home';
 import { SiteDefinition } from './SiteDefinition';
 import { PrintButton } from '@/components/PrintButton';
 import { CheckoutButton } from '@/components/CheckoutButton';
@@ -34,7 +34,10 @@ export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
   // dateModified was hardcoded, so every hub told crawlers it was last touched on
   // the same day regardless of what had actually changed. It now comes from the
   // ledger the sitemap uses, and is omitted rather than guessed when unknown.
-  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, mainEntityOfPage: canonical, publisher: { '@type': 'Organization', name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/' }, ...dateModifiedFor(`/${slug}`) };
+  // The publisher is referenced by @id, never restated: a second {name, url} stub is
+  // a second entity to an engine, and it is the one it reads first. lib/site-home.ts
+  // owns the node that has the logo and the sameAs profiles.
+  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, mainEntityOfPage: canonical, publisher: { '@id': ORGANIZATION_ID }, ...dateModifiedFor(`/${slug}`) };
   // The hub a host's `/` redirects to is that host's homepage. It carries the same
   // node set as weddingchecklistpdf.com's own homepage (lib/site-home.ts).
   const isHome = isHomePath(page.host, `/${slug}`);
