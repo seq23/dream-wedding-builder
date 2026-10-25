@@ -67,7 +67,12 @@ function withPathname(request: NextRequest) {
 function trailingSlash(request: NextRequest, pathname: string) {
   if (pathname === '/' || !pathname.endsWith('/')) return null;
   const stripped = pathname.replace(/\/+$/, '') || '/';
-  const url = request.nextUrl.clone();
+  // A plain URL, not request.nextUrl.clone(): with skipTrailingSlashRedirect set,
+  // NextURL remembers that the incoming path ended in a slash and puts it back when
+  // the URL is serialised, so assigning the stripped pathname to a clone produced
+  // `location: /about/` on a request for /about/ - a redirect to itself. Proved
+  // against `next start` on 2026-10-25 before this line changed.
+  const url = new URL(request.url);
   url.pathname = stripped;
   const segment = stripped.split('/')[1] ?? '';
   if (ROUTE_SEGMENTS.includes(segment)) return NextResponse.redirect(url, 308);

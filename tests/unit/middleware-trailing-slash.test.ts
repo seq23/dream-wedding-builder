@@ -10,7 +10,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { ROUTE_SEGMENTS } from '@/middleware';
+import { NextRequest } from 'next/server';
+import { middleware, ROUTE_SEGMENTS } from '@/middleware';
 
 const APP = path.join(process.cwd(), 'app');
 const actual = fs.readdirSync(APP, { withFileTypes: true })
@@ -31,5 +32,38 @@ describe('middleware route segments', () => {
   });
   it('is sorted, so a new route is added rather than appended twice', () => {
     expect([...ROUTE_SEGMENTS]).toEqual([...ROUTE_SEGMENTS].sort());
+  });
+});
+
+// The loop this very nearly shipped with. NextURL remembers that the incoming path
+// ended in a slash and puts it back when it is serialised, so `nextUrl.clone()` with
+// the stripped pathname assigned answered /about/ with `location: /about/` - a
+// permanent redirect to itself, on every real route on the site. Caught against
+// `next start`; pinned here so it cannot come back silently.
+describe('a trailing slash on a real route', () => {
+  const ask = (path: string) => middleware(new NextRequest(`https://weddingchecklistpdf.com${path}`, { headers: { host: 'weddingchecklistpdf.com' } }));
+  for (const path of ['/about/', '/guides/', '/guides/wedding-week-checklist/', '/products/checklist-pdf/']) {
+    it(`${path} redirects once, to the same path without it`, () => {
+      const response = ask(path);
+      expect(response.status).toBe(308);
+      const location = response.headers.get('location')!;
+      expect(new URL(location, 'https://weddingchecklistpdf.com').pathname).toBe(path.replace(/\/+$/, ''));
+      expect(location).not.toMatch(/\/$/);
+    });
+  }
+  it('keeps the query string', () => {
+    const location = ask('/guides/?utm_source=x')!.headers.get('location')!;
+    expect(location).toContain('utm_source=x');
+    expect(new URL(location, 'https://weddingchecklistpdf.com').pathname).toBe('/guides');
+  });
+  it('answers a made-up path without redirecting, so Next renders its 404', () => {
+    const response = ask('/sr-fake-nope/');
+    expect(response.status).toBe(200); // a rewrite, not a redirect
+    expect(response.headers.get('location')).toBeNull();
+    expect(response.headers.get('x-middleware-rewrite')).toContain('/sr-fake-nope');
+    expect(response.headers.get('x-middleware-rewrite')).not.toMatch(/\/$/);
+  });
+  it('leaves a path with no trailing slash alone', () => {
+    expect(ask('/about').headers.get('location')).toBeNull();
   });
 });
