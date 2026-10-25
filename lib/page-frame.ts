@@ -37,7 +37,8 @@ const NAV_LABELS: Record<string, string> = {
   '/terms': 'Terms of use',
   '/disclaimer': 'Disclaimer',
   '/refund-policy': 'Refund policy',
-  '/amazon': 'For book readers'
+  '/amazon': 'For book readers',
+  '/about': 'About Dream Wedding Builder'
 };
 
 const hubPages = hubsJson.pages as Record<string, { title: string; host: string }>;

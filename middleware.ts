@@ -12,7 +12,7 @@ const passthroughPrefixes = ['/api/', '/_next/', '/google'];
 // tests/unit/middleware-trailing-slash.test.ts, which reads the app directory and
 // fails if a route segment is missing here or a dead one is left behind.
 export const ROUTE_SEGMENTS = [
-  'admin', 'amazon', 'api', 'apple-touch-icon.png', 'backyard-wedding-planning',
+  'about', 'admin', 'amazon', 'api', 'apple-touch-icon.png', 'backyard-wedding-planning',
   'dashboard', 'disclaimer', 'favicon.ico', 'free-wedding-planner', 'guides',
   'icon-192.png', 'icon-512.png', 'llms.txt', 'methodology', 'micro-wedding-planning',
   'og.png', 'order', 'pack', 'photos', 'pinfeed', 'pinfeed.xml',
