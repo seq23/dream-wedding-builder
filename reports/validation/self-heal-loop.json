@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-25T14:24:53.378Z",
+  "generated_at": "2026-10-26T11:04:08.922Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -31,6 +31,7 @@
     "seo-icons": "re-run python3 scripts/seo/generate_site_icons.py after editing data/seo/site_homes.json; restore the route handler or layout icons/manifest entry the failure names.",
     "seo-og": "route the page's metadata through seoMetadata() or ogImages()/ogImageUrl() from lib/site-home.ts.",
     "seo-jsonld": "emit the homepage nodes through homeSchemaNodes() in lib/site-home.ts from whichever template renders the host's homepage.",
+    "search-readiness-brand-h1": "give the host's homepage title in data/seo/hub_pages.json (or app/page.tsx metadata) the site name from data/seo/site_homes.json, then rebuild the atlas with `npm run authority:atlas`; and keep every heading drawn OVER a page at h2 or lower, so the covered page's own h1 stays the only one.",
     "seo-definition": "edit the definition in data/seo/site_homes.json (40-60 words, starting with the site name + ' is ') or restore <SiteDefinition/> directly after the H1.",
     "seo-clarity": "fix data/clarity_projects.json and run node scripts/install_clarity.mjs to regenerate public/assets/clarity-loader.js.",
     "seo-indexnow": "restore public/<key>.txt matching public/indexnow-key.txt, or the step order in .github/workflows/indexnow-after-deploy.yml.",

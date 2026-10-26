@@ -2,16 +2,16 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "d449bec71b660a6327b3ba34739a101d82caca75",
+  "generated_from_commit": "267594032d4c7c94b717319fd95d9269196f819d",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
-      "lastmod": "2026-10-11",
+      "lastmod": "2026-10-25",
       "source": "app/page.tsx"
     },
     "/about": {
       "lastmod": "2026-10-25",
-      "source": "app/about/page.tsx (uncommitted at generation; pinned to run date)"
+      "source": "app/about/page.tsx"
     },
     "/amazon/wedding-budget-line-by-line": {
       "lastmod": "2026-08-29",
@@ -442,7 +442,7 @@
       "source": "data/products/product_catalog.json#products[id=seating-chart-maker]"
     },
     "/products/timeline-template": {
-      "lastmod": "2026-07-30",
+      "lastmod": "2026-10-25",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/readiness-score": {
@@ -490,7 +490,7 @@
       "source": "app/wedding-cost-per-guest/page.tsx"
     },
     "/wedding-guest-list-template": {
-      "lastmod": "2026-08-08",
+      "lastmod": "2026-10-25",
       "source": "data/seo/hub_pages.json#pages.wedding-guest-list-template"
     },
     "/wedding-planning-checklist": {
@@ -502,11 +502,11 @@
       "source": "app/wedding-planning-reality-check/page.tsx"
     },
     "/wedding-seating-chart": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-10-26",
       "source": "data/seo/hub_pages.json#pages.wedding-seating-chart"
     },
     "/wedding-timeline-template": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-10-25",
       "source": "data/seo/hub_pages.json#pages.wedding-timeline-template"
     },
     "/what-to-do-6-months-before-the-wedding": {
