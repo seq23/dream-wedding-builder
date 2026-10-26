@@ -75,10 +75,10 @@ export const plannerLandings: PlannerLanding[] = [
     slug: 'wedding-cost-per-guest',
     host: 'weddingbudgetspreadsheet.com',
     productId: 'budget-spreadsheet',
-    title: 'Wedding cost per guest: what 50 to 150 guests actually cost',
+    title: 'Wedding cost per guest: what 50, 100 and 150 guests actually cost',
     h1: 'What a wedding costs per guest — and why guest count is the only number that changes everything',
     directoryLabel: 'What a wedding costs per guest',
-    description: 'Guest count drives wedding cost more than anything else. See what roughly $235-$400 per guest means at 50 to 200 guests, and which costs really scale per head.',
+    description: 'Guest count drives wedding cost more than anything else. See what roughly $235-$400 per guest means at 50, 100, 150 and 200 guests, and what scales per head.',
     question: 'How much does a wedding cost for 80 guests?',
     directAnswer: [
       'Published planning benchmarks put an all-in wedding somewhere between roughly $235 and $400 per guest, before venue-specific minimums. At 80 guests that is a working range of about $19,000 to $32,000; at 100 guests, about $23,500 to $40,000; at 150 guests, about $35,000 to $60,000.',
