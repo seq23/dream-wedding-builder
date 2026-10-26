@@ -114,6 +114,7 @@
     "validate:seo-icons": "vitest run tests/unit/seo-hygiene-icons.test.ts",
     "validate:seo-indexnow": "vitest run tests/unit/seo-hygiene-indexnow.test.ts",
     "validate:seo-jsonld": "vitest run tests/unit/seo-hygiene-jsonld.test.ts",
+    "validate:search-readiness-brand-h1": "vitest run tests/unit/search-readiness-brand-and-h1.test.tsx",
     "validate:seo-lighthouse": "vitest run tests/unit/seo-hygiene-lighthouse.test.ts",
     "validate:seo-og": "vitest run tests/unit/seo-hygiene-og.test.ts",
     "validate:pinfeed": "vitest run tests/unit/pinfeed.test.ts",
