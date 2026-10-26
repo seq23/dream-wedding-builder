@@ -31,20 +31,6 @@ jobs:
           node-version: '20'
           cache: npm
       - run: npm ci
-      # Index coverage and sitemap registration, measured before anything else so
-      # validate:demand-repoint (inside validate:structural, below) always reads a
-      # file this run refreshed. URL Inspection per sitemap URL, 8 in parallel,
-      # <=150 URLs per host per run; sitemaps.list per host with a submit only
-      # when the sitemap is missing. No credential is a NAMED STOP, never a red
-      # run and never a blanked file. data/search_intelligence is committed below.
-      - name: Measure index coverage and sitemap registration
-        env:
-          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
-          GSC_SITE_URL_SEATING: ${{ secrets.GSC_SITE_URL_SEATING }}
-          GSC_SITE_URL_BUDGET: ${{ secrets.GSC_SITE_URL_BUDGET }}
-          GSC_SITE_URL_TIMELINE: ${{ secrets.GSC_SITE_URL_TIMELINE }}
-          GSC_SITE_URL_CHECKLIST: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
-        run: npm run search:coverage
       # Re-derive the cadence policy BEFORE anything spends it.
       #
       # This step used to sit between the publisher and the gate, and that ordering
@@ -105,6 +91,24 @@ jobs:
       - run: npm run authority:atlas
       - run: npm run authority:flow
       - run: npm run authority:sitemaps
+      # Index coverage and sitemap registration, measured AFTER authority:sitemaps
+      # rebuilds artifacts/sitemaps, so validate:demand-repoint (inside the self-heal
+      # gate, below) compares coverage against the sitemap this run ships.
+      # ROOT CAUSE of run 40307832325 (2026-10-26): measured first, it inspected the
+      # committed 54-URL weddingchecklistpdf.com sitemap; authority:sitemaps then
+      # rebuilt it with /about (55) and the gate failed "1 sitemap URL(s) absent".
+      # Any run whose sitemap grows hit the same wall. URL Inspection per sitemap URL,
+      # 8 in parallel, <=150 URLs per host per run; sitemaps.list per host with a
+      # submit only when the sitemap is missing. No credential is a NAMED STOP, never
+      # a red run and never a blanked file. data/search_intelligence is committed below.
+      - name: Measure index coverage and sitemap registration
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL_SEATING: ${{ secrets.GSC_SITE_URL_SEATING }}
+          GSC_SITE_URL_BUDGET: ${{ secrets.GSC_SITE_URL_BUDGET }}
+          GSC_SITE_URL_TIMELINE: ${{ secrets.GSC_SITE_URL_TIMELINE }}
+          GSC_SITE_URL_CHECKLIST: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
+        run: npm run search:coverage
       - run: npm run distribution:prepare
       - run: npm run distribution:validate
       # Build before the gate, because one of the gates is a crawl.
