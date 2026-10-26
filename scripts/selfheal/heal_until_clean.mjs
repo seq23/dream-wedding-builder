@@ -219,6 +219,19 @@ for (let attempt = 1; attempt <= MAX; attempt += 1) {
     else if (unrunnable.includes(id)) console.error(`  registry defect: ${id} declares a repair_command that is not runnable: ${repairFor.get(id)}`);
     else console.log(`  no registered repair: ${id}`);
   }
+  // A stop that does not say what failed sends the next person to reproduce it by
+  // hand (2026-10-26: main went red on "no registered repair: demand-repoint" with no
+  // validator output anywhere in the log or the artifact). Re-run each unrepairable
+  // blocking validator and print its own failure text, and keep it in the report.
+  const evidence = {};
+  for (const f of blocking.filter((x) => unrepairable.includes(x.id))) {
+    const v = byId.get(f.id);
+    const cmd = v?.npmScript ? `npm run --silent ${v.npmScript}` : PHASES.find((p) => p.id === f.id)?.cmd;
+    if (!cmd) continue;
+    const tail = run(cmd).out.trim().split('\n').slice(-15).join('\n');
+    evidence[f.id] = tail;
+    console.error(`  --- ${f.id} says:\n${tail.split('\n').map((l) => `    ${l}`).join('\n')}`);
+  }
 
   if (!repairable.length) {
     // Nothing would change, so another pass would fail identically. Stop and say
@@ -227,6 +240,7 @@ for (let attempt = 1; attempt <= MAX; attempt += 1) {
       attempt, failed: failedIds, warnings: warnings.map((w) => w.id), repaired: [],
       manual: Object.fromEntries(failedIds.filter((id) => manualFor.has(id)).map((id) => [id, manualFor.get(id)])),
       unrunnable_repairs: Object.fromEntries(unrunnable.map((id) => [id, repairFor.get(id)])),
+      evidence,
       result: 'NO_REPAIR_AVAILABLE',
     });
     break;

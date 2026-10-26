@@ -115,6 +115,20 @@ describe('the self-heal dry run cannot kill the real repair', () => {
   });
 });
 
+describe('a self-heal stop says what failed', () => {
+  // 2026-10-26: Full Safe Autonomy went red on main printing only "no registered
+  // repair: demand-repoint" - no validator text in the log or the artifact, so the
+  // cause could only be found by reproducing the run. An unrepairable blocking
+  // failure is now re-run and its own output printed and kept in the report.
+  it('heal_until_clean re-runs each unrepairable blocking validator and prints its output', () => {
+    const src = read('scripts/selfheal/heal_until_clean.mjs');
+    expect(src).toMatch(/blocking\.filter\(\(x\) => unrepairable\.includes\(x\.id\)\)/);
+    expect(src).toMatch(/run\(cmd\)\.out[\s\S]{0,80}slice\(-15\)/);
+    expect(src).toMatch(/console\.error\(`  --- \$\{f\.id\} says:/);
+    expect(src).toMatch(/evidence,\s*\n\s*result: 'NO_REPAIR_AVAILABLE'/);
+  });
+});
+
 describe('no gate may pass having examined nothing', () => {
   // Confirmed in a sibling repo on 2026-08-29: these three validators globbed
   // for built HTML under a gitignored dist/, validation ran before the build,
