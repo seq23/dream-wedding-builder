@@ -129,6 +129,20 @@ describe('a self-heal stop says what failed', () => {
   });
 });
 
+describe('index coverage is measured against the sitemap the run ships', () => {
+  // Run 40307832325 (2026-10-26): search:coverage ran before authority:sitemaps, so
+  // it inspected the committed 54-URL weddingchecklistpdf.com sitemap; the rebuild
+  // then added /about and validate:demand-repoint failed "1 sitemap URL(s) absent".
+  it('full-safe-autonomy.yml runs search:coverage after the last sitemap build and before the gate', () => {
+    const wf = workflows.find((w) => w.name === 'full-safe-autonomy.yml')!.body;
+    const coverage = wf.indexOf('run: npm run search:coverage');
+    expect(coverage).toBeGreaterThan(-1);
+    expect(wf.indexOf('run: npm run search:coverage', coverage + 1)).toBe(-1);
+    expect(coverage).toBeGreaterThan(wf.lastIndexOf('run: npm run authority:sitemaps'));
+    expect(coverage).toBeLessThan(wf.indexOf('run: npm run selfheal\n'));
+  });
+});
+
 describe('no gate may pass having examined nothing', () => {
   // Confirmed in a sibling repo on 2026-08-29: these three validators globbed
   // for built HTML under a gitignored dist/, validation ran before the build,
