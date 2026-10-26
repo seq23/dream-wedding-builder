@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-25T15:02:59.412Z",
+  "generated_at": "2026-10-26T12:05:54.097Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
     "guide": 570,
@@ -10,21 +10,12 @@
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-26",
-        "end": "2026-10-23"
+        "start": "2026-09-27",
+        "end": "2026-10-24"
       },
       "content_pages_examined": 22,
-      "candidate_count": 1,
-      "candidates": [
-        {
-          "url": "https://weddingseatingchartmaker.com/wedding-guest-list-template",
-          "type": "hub",
-          "impressions_28d": 0,
-          "words": 363,
-          "thin_threshold": 365,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        }
-      ],
+      "candidate_count": 0,
+      "candidates": [],
       "excluded_utility_paths": [
         "/guides",
         "/products/seating-chart-maker"
@@ -33,8 +24,8 @@
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-26",
-        "end": "2026-10-23"
+        "start": "2026-09-27",
+        "end": "2026-10-24"
       },
       "content_pages_examined": 20,
       "candidate_count": 8,
@@ -114,8 +105,8 @@
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-26",
-        "end": "2026-10-23"
+        "start": "2026-09-27",
+        "end": "2026-10-24"
       },
       "content_pages_examined": 23,
       "candidate_count": 11,
@@ -218,8 +209,8 @@
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-09-26",
-        "end": "2026-10-23"
+        "start": "2026-09-27",
+        "end": "2026-10-24"
       },
       "content_pages_examined": 37,
       "candidate_count": 2,
@@ -243,6 +234,7 @@
       ],
       "excluded_utility_paths": [
         "/",
+        "/about",
         "/backyard-wedding-planning",
         "/disclaimer",
         "/free-wedding-planner",

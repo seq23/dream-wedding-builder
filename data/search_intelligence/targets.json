@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-25T15:02:56.606Z",
+  "generated_at": "2026-10-26T12:05:50.940Z",
   "count": 119,
   "targets": [
     {
@@ -844,8 +844,8 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "732469280c62c28b3b79",
-      "query": "wedding guest list template: required fields + paid product preview",
+      "target_id": "3637ff03be6d7ed57f04",
+      "query": "wedding guest list template: required fields + preview",
       "host": "weddingseatingchartmaker.com",
       "route": "/wedding-guest-list-template",
       "product_id": "seating-chart-maker",
@@ -1024,20 +1024,20 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "4a8d57dac8882e9ecd3c",
-      "query": "wedding seating chart meal-choice tracking",
+      "target_id": "046ae7d8c94da72a86ab",
+      "query": "wedding seating chart maker + paid product preview",
       "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-seating-chart-meal-tracker",
+      "route": "/wedding-seating-chart",
       "product_id": "seating-chart-maker",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
     },
     {
-      "target_id": "d46c29c295b350d40e24",
-      "query": "wedding seating chart planner + paid product preview",
+      "target_id": "4a8d57dac8882e9ecd3c",
+      "query": "wedding seating chart meal-choice tracking",
       "host": "weddingseatingchartmaker.com",
-      "route": "/wedding-seating-chart",
+      "route": "/guides/wedding-seating-chart-meal-tracker",
       "product_id": "seating-chart-maker",
       "intent": "authority",
       "priority": "MEDIUM",
@@ -1084,8 +1084,8 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "652780ee5b3cad8408c4",
-      "query": "wedding timeline template: build the schedule + see the paid files",
+      "target_id": "2f547e0372160b9421a2",
+      "query": "wedding timeline template: build the wedding-day schedule",
       "host": "weddingtimelinetemplate.com",
       "route": "/wedding-timeline-template",
       "product_id": "timeline-template",
