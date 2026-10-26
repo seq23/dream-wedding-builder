@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 48,
+    "HARD_FAIL": 49,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -163,6 +163,15 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "the post-payment path is reached by file path, not by import, so nothing else in the gate can see it disappear: on 2026-08-29 deleting app/api/stripe-webhook/route.ts and app/api/download/[token]/route.ts left typecheck, 54 unit tests, validate:structural and validate:registry (passed=21, hard_failed=0) all green",
+      "composite": false
+    },
+    {
+      "id": "identity-domains",
+      "npmScript": "validate:identity-domains",
+      "command": "node scripts/validate-identity-domains.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "Boss OS refuses to record a repair against a repo that does not declare the repaired domain (siteAudit.ts: a resemblance is not a mapping), so this declaration is load-bearing and must not drift from route_ownership.json, which the Worker actually routes on. It also pins each host root action: a / that 308s to a product hub is deliberate, and the three a2 fix briefs of 26 Oct 2026 were an auditor comparing the hub page canonical against the pre-redirect /.",
       "composite": false
     },
     {
