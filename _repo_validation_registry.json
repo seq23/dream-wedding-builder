@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 47,
+    "HARD_FAIL": 48,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -466,6 +466,17 @@
       "reason": "weddingchecklistpdf.com shipped no JSON-LD while the other three homepages carried Article/FAQPage/BreadcrumbList (+HowTo on two) - its `/` renders app/page.tsx, the others redirect to HubPage. Renders all four real homepages and requires the identical HOMEPAGE_SCHEMA_TYPES set (WebSite, Organization, WebPage, BreadcrumbList, Article, FAQPage, HowTo), one BreadcrumbList each, and that home nodes do not leak onto other hubs.",
       "manual_repair": "emit the homepage nodes through homeSchemaNodes() in lib/site-home.ts from whichever template renders the host's homepage.",
       "repair_evidence": "proved negatively on 2026-10-11: deleting the homeSchemaNodes JsonLd from app/page.tsx (the original defect) fails it (exit 1); restored, it passes."
+    },
+    {
+      "id": "search-readiness-brand-h1",
+      "npmScript": "validate:search-readiness-brand-h1",
+      "command": "vitest run tests/unit/search-readiness-brand-and-h1.test.tsx",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Two Search Readiness Checklist failures, 26 Oct 2026. f6: weddingseatingchartmaker.com declared its WebSite name as \"Wedding Seating Chart Maker\" while its homepage title said \"Wedding Seating Chart Planner\", so the site never stated its own brand in the title. b3: /free-wedding-planner shipped two <h1> elements because BuilderEmailGate drew its own over a page that keeps rendering its own (aria-hidden and inert hide the covered page from assistive tech, not from a crawler). Requires every canonical host's homepage title - following the root redirect, as the checker reads it - to contain siteHome(host).name, and requires the rendered gate plus the page it covers to carry exactly one h1.",
+      "manual_repair": "give the host's homepage title in data/seo/hub_pages.json (or app/page.tsx metadata) the site name from data/seo/site_homes.json, then rebuild the atlas with `npm run authority:atlas`; and keep every heading drawn OVER a page at h2 or lower, so the covered page's own h1 stays the only one.",
+      "repair_evidence": "proved negatively on 2026-10-26: restoring the \"Wedding Seating Chart Planner\" title and the gate's <h1> (the original defects) fails it (3 tests, exit 1); restored, 10 tests pass."
     },
     {
       "id": "seo-definition",

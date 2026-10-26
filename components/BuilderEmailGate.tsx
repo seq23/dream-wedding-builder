@@ -40,7 +40,12 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
   return <div className="relative">
     <section data-testid="builder-email-gate" className="relative z-10 mx-auto mb-8 max-w-2xl rounded-[2rem] border border-charcoal/10 bg-white p-7 shadow-soft md:p-10">
       <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free wedding planning builder</p>
-      <h1 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">Enter your email to open the builder.</h1>
+      {/* An h2, not an h1: the gate is an interstitial drawn OVER the page, and the
+          page it covers keeps rendering its own h1 below (aria-hidden and inert hide
+          it from assistive tech, but both are invisible to crawlers, so an h1 here
+          put two h1 elements in the markup - Search Readiness b3, 26 Oct 2026). The
+          page's own h1 stays the document heading. */}
+      <h2 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">Enter your email to open the builder.</h2>
       <p className="mt-4 leading-7 text-charcoal/70">The builder is free. Your plan stays in this browser; we keep only your email address.</p>
       <form onSubmit={submit} className="mt-6 grid gap-4">
         <label className="grid gap-2 text-sm font-bold">Email address
