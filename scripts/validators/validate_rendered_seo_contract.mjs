@@ -207,6 +207,16 @@ try {
       const isHome = pathname === '/' || pathname === ownership.hosts[host]?.root_target;
       if (isHome && nodesOfType(nodes, /^WebSite$/).length === 0) fail(`${where}: the homepage has no WebSite`);
       if (!isHome && nodesOfType(nodes, /^BreadcrumbList$/).length === 0) fail(`${where}: an inner page with no BreadcrumbList`);
+      // Static bundle pages bypass the [slug] product template. Require their
+      // Product and its own priced Offer too, rather than passing because a
+      // different page on the host has one (Ahrefs, 27 Oct 2026).
+      if (pathname.startsWith('/products/')) {
+        const product = nodesOfType(nodes, /^Product$/)[0];
+        if (!product) fail(`${where}: a product page has no Product schema`);
+        else if (![product.offers].flat().some((offer) => Number(offer?.price) > 0 && offer?.priceCurrency === 'USD' && offer?.url === `https://${host}${pathname}`)) {
+          fail(`${where}: Product has no priced USD Offer for its canonical URL`);
+        }
+      }
       for (const question of nodesOfType(nodes, /^Question$/)) {
         const name = String(question.name ?? '').replace(/\s+/g, ' ').trim().toLowerCase();
         if (name && !text.includes(name.slice(0, 60))) fail(`${where}: FAQ question is marked up but not on the page: "${name.slice(0, 60)}"`);
