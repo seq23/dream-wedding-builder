@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-09-27",
-        "end": "2026-10-24"
+        "start": "2026-09-28",
+        "end": "2026-10-25"
       },
-      "collected_at": "2026-10-26T12:05:51.804Z",
+      "collected_at": "2026-10-27T11:49:56.491Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -64,24 +64,24 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-09-27",
-        "end": "2026-10-24"
+        "start": "2026-09-28",
+        "end": "2026-10-25"
       },
-      "collected_at": "2026-10-26T12:05:52.363Z",
+      "collected_at": "2026-10-27T11:49:56.961Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 20,
+        "impressions": 18,
         "ctr": 0,
-        "position": 4.8
+        "position": 4.555555555555555
       },
       "queries": [],
       "pages": [
         {
           "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
           "clicks": 0,
-          "impressions": 16,
-          "position": 5.3
+          "impressions": 14,
+          "position": 5.1
         },
         {
           "page": "https://weddingbudgetspreadsheet.com/terms",
@@ -124,52 +124,100 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-09-27",
-        "end": "2026-10-24"
+        "start": "2026-09-28",
+        "end": "2026-10-25"
       },
-      "collected_at": "2026-10-26T12:05:53.137Z",
+      "collected_at": "2026-10-27T11:49:57.406Z",
       "complete": true,
       "totals": {
         "clicks": 1,
-        "impressions": 3,
-        "ctr": 0.3333333333333333,
-        "position": 4
+        "impressions": 6,
+        "ctr": 0.16666666666666666,
+        "position": 2.5
       },
       "queries": [],
       "pages": [
         {
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 1,
-          "impressions": 2,
+          "impressions": 5,
+          "position": 1.6
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+          "clicks": 0,
+          "impressions": 4,
+          "position": 7.3
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides",
+          "clicks": 0,
+          "impressions": 3,
           "position": 1
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 7
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/brunch-wedding-timeline",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 5
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 8
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 10
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 4
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 6
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/products/timeline-template",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 3
         },
         {
           "page": "https://weddingtimelinetemplate.com/guides/wedding-timeline-travel-buffer",
           "clicks": 0,
           "impressions": 2,
           "position": 6.5
-        },
-        {
-          "page": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 2
         }
       ]
     },
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-09-27",
-        "end": "2026-10-24"
+        "start": "2026-09-28",
+        "end": "2026-10-25"
       },
-      "collected_at": "2026-10-26T12:05:53.604Z",
+      "collected_at": "2026-10-27T11:49:57.865Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 91,
+        "impressions": 90,
         "ctr": 0,
-        "position": 47.48351648351648
+        "position": 47.7
       },
       "queries": [
         {
@@ -213,13 +261,6 @@
           "clicks": 0,
           "impressions": 2,
           "position": 94.5
-        },
-        {
-          "query": "elopement planning checklist",
-          "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 28
         },
         {
           "query": "free wedding planner online",
@@ -384,8 +425,8 @@
         {
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
-          "impressions": 7,
-          "position": 29.1
+          "impressions": 6,
+          "position": 29.3
         },
         {
           "page": "https://weddingchecklistpdf.com/photos",
@@ -476,5 +517,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-26T12:05:53.605Z"
+  "updated_at": "2026-10-27T11:49:57.867Z"
 }

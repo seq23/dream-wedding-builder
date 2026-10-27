@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-26T12:05:53.958Z",
+  "generated_at": "2026-10-27T11:49:58.039Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-27",
-          "end": "2026-10-24"
+          "start": "2026-09-28",
+          "end": "2026-10-25"
         },
         "totals": {
           "clicks": 0,
@@ -244,14 +244,14 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-27",
-          "end": "2026-10-24"
+          "start": "2026-09-28",
+          "end": "2026-10-25"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 20,
+          "impressions": 18,
           "ctr": 0,
-          "position": 4.8
+          "position": 4.555555555555555
         }
       },
       "target_count": 3,
@@ -453,14 +453,14 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-27",
-          "end": "2026-10-24"
+          "start": "2026-09-28",
+          "end": "2026-10-25"
         },
         "totals": {
           "clicks": 1,
-          "impressions": 3,
-          "ctr": 0.3333333333333333,
-          "position": 4
+          "impressions": 6,
+          "ctr": 0.16666666666666666,
+          "position": 2.5
         }
       },
       "target_count": 4,
@@ -705,20 +705,20 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-09-27",
-          "end": "2026-10-24"
+          "start": "2026-09-28",
+          "end": "2026-10-25"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 91,
+          "impressions": 90,
           "ctr": 0,
-          "position": 47.48351648351648
+          "position": 47.7
         }
       },
-      "target_count": 19,
-      "dropped_count": 37,
+      "target_count": 18,
+      "dropped_count": 38,
       "by_source": {
-        "google_search_console": 18,
+        "google_search_console": 17,
         "semrush_keyword_magic": 1
       },
       "targets": [
@@ -738,8 +738,8 @@
               "metric": "impressions_28d",
               "number": 12,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 71,
               "pages": [
@@ -767,8 +767,8 @@
               "metric": "impressions_28d",
               "number": 7,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 97.6,
               "pages": [
@@ -796,8 +796,8 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 73.8,
               "pages": [
@@ -822,8 +822,8 @@
               "metric": "impressions_28d",
               "number": 4,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 66,
               "pages": [
@@ -854,8 +854,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 59.5,
               "pages": [
@@ -880,38 +880,12 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 94.5,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "elopement planning checklist",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 28,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
-          ],
-          "route": "/guides/elopement-planning-checklist",
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
-              },
-              "position": 28,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
               ]
             }
           ]
@@ -932,8 +906,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 91,
               "pages": [
@@ -958,8 +932,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 59,
               "pages": [
@@ -984,8 +958,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 78,
               "pages": [
@@ -1010,8 +984,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 79,
               "pages": [
@@ -1036,8 +1010,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 74,
               "pages": [
@@ -1062,8 +1036,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 89,
               "pages": [
@@ -1088,8 +1062,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 96,
               "pages": [
@@ -1120,8 +1094,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 96,
               "pages": [
@@ -1146,8 +1120,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 99,
               "pages": [
@@ -1172,8 +1146,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 74,
               "pages": [
@@ -1198,8 +1172,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-09-27",
-                "end": "2026-10-24"
+                "start": "2026-09-28",
+                "end": "2026-10-25"
               },
               "position": 93,
               "pages": [
@@ -1297,6 +1271,13 @@
         },
         {
           "query": "destination wedding checklist",
+          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
+          "origins": [
+            "targets.json:authority_atlas"
+          ]
+        },
+        {
+          "query": "elopement planning checklist",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:authority_atlas"
