@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "validator": "content-pattern-contract",
   "spec": ".clarity/content-pattern-spec.json",
-  "generated_at": "2026-10-26T07:43:17.204Z",
+  "generated_at": "2026-10-28T21:10:32.511Z",
   "enforcement": "block",
   "pages_checked": 106,
   "pages_by_kind": {
