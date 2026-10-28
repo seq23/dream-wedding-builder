@@ -4,16 +4,16 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-09-28",
-        "end": "2026-10-25"
+        "start": "2026-09-29",
+        "end": "2026-10-26"
       },
-      "collected_at": "2026-10-27T11:49:56.491Z",
+      "collected_at": "2026-10-28T11:45:03.364Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 9,
+        "impressions": 10,
         "ctr": 0,
-        "position": 7.888888888888889
+        "position": 7.6
       },
       "queries": [],
       "pages": [
@@ -58,30 +58,36 @@
           "clicks": 0,
           "impressions": 1,
           "position": 45
+        },
+        {
+          "page": "https://weddingseatingchartmaker.com/guides/wedding-meal-count-dietary-tracking",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 5
         }
       ]
     },
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-09-28",
-        "end": "2026-10-25"
+        "start": "2026-09-29",
+        "end": "2026-10-26"
       },
-      "collected_at": "2026-10-27T11:49:56.961Z",
+      "collected_at": "2026-10-28T11:45:04.084Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 18,
+        "impressions": 12,
         "ctr": 0,
-        "position": 4.555555555555555
+        "position": 4.25
       },
       "queries": [],
       "pages": [
         {
           "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
           "clicks": 0,
-          "impressions": 14,
-          "position": 5.1
+          "impressions": 8,
+          "position": 5
         },
         {
           "page": "https://weddingbudgetspreadsheet.com/terms",
@@ -124,10 +130,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-09-28",
-        "end": "2026-10-25"
+        "start": "2026-09-29",
+        "end": "2026-10-26"
       },
-      "collected_at": "2026-10-27T11:49:57.406Z",
+      "collected_at": "2026-10-28T11:45:04.568Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -208,16 +214,16 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-09-28",
-        "end": "2026-10-25"
+        "start": "2026-09-29",
+        "end": "2026-10-26"
       },
-      "collected_at": "2026-10-27T11:49:57.865Z",
+      "collected_at": "2026-10-28T11:45:05.018Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 90,
+        "impressions": 85,
         "ctr": 0,
-        "position": 47.7
+        "position": 48.68235294117647
       },
       "queries": [
         {
@@ -239,21 +245,14 @@
           "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
           "clicks": 0,
           "impressions": 4,
-          "position": 66
+          "position": 69.25
         },
         {
           "query": "wedding planning checklist pdf",
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 4,
-          "position": 97.75
-        },
-        {
-          "query": "wedding checklist printable",
-          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
-          "clicks": 0,
-          "impressions": 2,
-          "position": 59.5
+          "impressions": 3,
+          "position": 97
         },
         {
           "query": "wedding planner online free",
@@ -312,6 +311,13 @@
           "position": 96
         },
         {
+          "query": "wedding checklist printable",
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 61
+        },
+        {
           "query": "wedding plan checklist pdf",
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
@@ -331,13 +337,6 @@
           "clicks": 0,
           "impressions": 1,
           "position": 100
-        },
-        {
-          "query": "wedding planning checklist pdf",
-          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 97
         },
         {
           "query": "wedding planning checklist pdf",
@@ -365,14 +364,14 @@
         {
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 26,
-          "position": 64.1
+          "impressions": 25,
+          "position": 66.4
         },
         {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 17,
-          "position": 79.1
+          "impressions": 16,
+          "position": 77.8
         },
         {
           "page": "https://weddingchecklistpdf.com/privacy",
@@ -383,8 +382,8 @@
         {
           "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
           "clicks": 0,
-          "impressions": 15,
-          "position": 55.7
+          "impressions": 13,
+          "position": 53.3
         },
         {
           "page": "https://weddingchecklistpdf.com/refund-policy",
@@ -425,8 +424,8 @@
         {
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
-          "impressions": 6,
-          "position": 29.3
+          "impressions": 4,
+          "position": 42.5
         },
         {
           "page": "https://weddingchecklistpdf.com/photos",
@@ -517,5 +516,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-27T11:49:57.867Z"
+  "updated_at": "2026-10-28T11:45:05.019Z"
 }
