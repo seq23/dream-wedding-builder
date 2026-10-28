@@ -45,6 +45,7 @@ import { spawn } from 'node:child_process';
 
 const ROOT = process.cwd();
 const ownership = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/route_ownership.json'), 'utf8'));
+const siteHomes = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/site_homes.json'), 'utf8')).hosts;
 // One list of hosts, read from the file that produces the sitemaps, so this gate
 // cannot drift from what is actually published.
 const HOSTS = Object.keys(ownership.hosts);
@@ -184,6 +185,13 @@ try {
       const desc = metaContent(html, 'name', 'description');
       const canonical = html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]*)"/i)?.[1] ?? null;
       if (title.length < TITLE_MIN || title.length > TITLE_MAX) fail(`${where}: title is ${title.length} chars (want ${TITLE_MIN}-${TITLE_MAX}): "${title}"`);
+      // b10: shortening a title must never discard its owning site identity.
+      const siteName = siteHomes[host].name;
+      if (!title.toLowerCase().includes(siteName.toLowerCase())) fail(`${where}: title does not name ${siteName}: "${title}"`);
+      for (const sibling of HOSTS.filter((candidate) => candidate !== host)) {
+        if (title.toLowerCase().includes(siteHomes[sibling].name.toLowerCase())) fail(`${where}: title names sibling ${siteHomes[sibling].name}`);
+      }
+      if (metaContent(html, 'property', 'og:site_name') !== siteName) fail(`${where}: og:site_name does not name ${siteName}`);
       if (desc === null) fail(`${where}: no meta description`);
       else if (desc.length < DESC_MIN || desc.length > DESC_MAX) fail(`${where}: description is ${desc.length} chars (want ${DESC_MIN}-${DESC_MAX}): "${desc}"`);
 

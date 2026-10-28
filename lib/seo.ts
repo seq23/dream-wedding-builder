@@ -3,8 +3,8 @@ import hubsJson from '@/data/seo/hub_pages.json';
 import registryJson from '@/data/authority/content_registry.json';
 import guideMetaJson from '@/data/seo/guide_meta_descriptions.json';
 import strengtheningJson from '@/data/seo/guide_strengthening.json';
-import { canonicalUrl, hostForProduct } from '@/lib/site-config';
-import { ogImages, ogImageUrl } from '@/lib/site-home';
+import { canonicalUrl, hostForProduct, PARENT_HOST } from '@/lib/site-config';
+import { ogImages, ogImageUrl, siteHome } from '@/lib/site-home';
 
 export type HubSection = { heading: string; paragraphs: string[]; bullets?: string[] };
 
@@ -37,18 +37,15 @@ export const guides = registryJson.pages;
 export function hubBySlug(slug: string): HubPage { const page = hubs[slug]; if (!page) throw new Error(`Unknown hub: ${slug}`); return page; }
 export function guideBySlug(slug: string): GuidePage | undefined { return guides.find((page) => page.slug === slug); }
 
-// Bing Site Scan flags a title over 70 characters ("title too long"); on
-// 2026-09-25 it flagged 4 pages on each of the four hosts and the rendered-page
-// gate found 29. Almost all were short enough on their own and pushed over by the
-// layout's " | Dream Wedding Builder" template, so the suffix is kept only when it
-// fits. A title over 70 by itself is a source defect the gate reports by page.
-export const SITE_TITLE_SUFFIX = ' | Dream Wedding Builder';
-// 65, not 70: the Search Readiness band (item b1), tightened 2026-10-25. Eight guide
-// titles sat at 66-69 only because the suffix pushed them there, so dropping it
-// earlier fixes them without touching a single frozen guide record.
+// Keep the owning site's name even when the topic needs shortening. Dropping the
+// old parent-brand suffix on long titles left those pages with no site identity
+// (Search Readiness b10). Absolute metadata also prevents a second layout suffix.
 export const TITLE_MAX = 65;
-export function documentTitle(title: string): Metadata['title'] {
-  return `${title}${SITE_TITLE_SUFFIX}`.length <= TITLE_MAX ? title : { absolute: title };
+export function documentTitle(title: string, host: string = PARENT_HOST): { absolute: string } {
+  const name = siteHome(host).name;
+  if (title.toLowerCase().includes(name.toLowerCase())) return { absolute: title };
+  const suffix = ` | ${name}`;
+  return { absolute: `${clip(title, TITLE_MAX - suffix.length)}${suffix}` };
 }
 
 // Every page shares its host's 1200x630 /og.png (served per host by app/og.png/route.ts)
@@ -56,11 +53,11 @@ export function documentTitle(title: string): Metadata['title'] {
 export function seoMetadata(input: { title: string; description: string; host: string; path: string; type?: 'website' | 'article' }): Metadata {
   const url = canonicalUrl(input.host, input.path);
   return {
-    title: documentTitle(input.title),
+    title: documentTitle(input.title, input.host),
     description: input.description,
     alternates: { canonical: url },
     robots: { index: true, follow: true },
-    openGraph: { title: input.title, description: input.description, url, siteName: 'Dream Wedding Builder', type: input.type ?? 'website', images: ogImages(input.host, input.title) },
+    openGraph: { title: input.title, description: input.description, url, siteName: siteHome(input.host).name, type: input.type ?? 'website', images: ogImages(input.host, input.title) },
     twitter: { card: 'summary_large_image', title: input.title, description: input.description, images: [ogImageUrl(input.host)] }
   };
 }

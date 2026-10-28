@@ -5,7 +5,6 @@ import { AppShell } from '@/components/AppShell';
 import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
 import { siteDirectory } from '@/lib/site-directory';
 import { CF_BEACON_SRC, webAnalyticsToken } from '@/lib/web-analytics';
-import { SITE_TITLE_SUFFIX } from '@/lib/seo';
 import { ogImages, ogImageUrl, pageFrameNodes, resolveSiteHost, siteHome } from '@/lib/site-home';
 import { breadcrumbTrail, pageNameFor } from '@/lib/page-frame';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -21,9 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const origin = `https://${host}`;
   return {
   metadataBase: new URL('https://weddingchecklistpdf.com'),
-  // One suffix, shared with lib/seo.ts documentTitle(), which drops it when it would
-  // push a title past 70 characters.
-  title: { default: 'Dream Wedding Builder', template: `%s${SITE_TITLE_SUFFIX}` },
+  title: { default: siteHome(host).name, template: `%s | ${siteHome(host).name}` },
   description: 'Free wedding planning guides and paid execution tools for checklists, budgets, timelines, guest lists, and seating charts.',
   robots: { index: true, follow: true },
   // Impact (Zola affiliate programme) site-ownership check, owner-approved 9 Oct 2026.
@@ -33,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
     apple: [{ url: `${origin}/apple-touch-icon.png`, sizes: '180x180' }]
   },
   manifest: `${origin}/site.webmanifest`,
-  openGraph: { siteName: 'Dream Wedding Builder', type: 'website', images: ogImages(host, siteHome(host).name) },
+  openGraph: { siteName: siteHome(host).name, type: 'website', images: ogImages(host, siteHome(host).name) },
   twitter: { card: 'summary_large_image', images: [ogImageUrl(host)] }
   };
 }
