@@ -14,8 +14,8 @@
  * - data/seo/route_ownership.json: the canonical hosts this app serves.
  *
  * Outputs:
- * - public/assets/clarity-loader.js, referenced from app/layout.tsx as
- *   <script data-clarity-loader src="/assets/clarity-loader.js" defer>.
+ * - public/assets/clarity-loader.js, loaded by ConversionAnalytics only inside
+ *   public signup, idea-submission, and checkout forms (Search Readiness e9).
  *
  * Notes:
  * - This mirrors scripts/install_clarity.js in local-guides-generator, which is
@@ -79,7 +79,10 @@ if (missing.length || extra.length) {
   process.exit(1);
 }
 
-const loaderJs = `(function(w,d,m){var h=(w.location.hostname||"").toLowerCase().replace(/^www\\./,"");var id=m[h];if(!id)return;w.clarity=w.clarity||function(){(w.clarity.q=w.clarity.q||[]).push(arguments)};var s=d.createElement("script");s.async=1;s.src="https://www.clarity.ms/tag/"+id;var f=d.getElementsByTagName("script")[0];f.parentNode.insertBefore(s,f)})(window,document,${JSON.stringify(projects)})\n`;
+// A cached loader or a delayed SDK response must not start recording a guide
+// after a client-side navigation. Components stop the running SDK on unmount;
+// this guard covers the interval before the SDK has finished loading.
+const loaderJs = `(function(w,d,m){var h=(w.location.hostname||"").toLowerCase().replace(/^www\\./,"");var id=m[h];var selector='form[data-session-recording]';if(!id||!d.querySelector(selector))return;if(w.clarity){w.clarity('start');return}w.clarity=function(){(w.clarity.q=w.clarity.q||[]).push(arguments)};var s=d.createElement("script");s.async=1;s.src="https://www.clarity.ms/tag/"+id;s.onload=function(){if(!d.querySelector(selector))w.clarity('stop')};var f=d.getElementsByTagName("script")[0];f.parentNode.insertBefore(s,f)})(window,document,${JSON.stringify(projects)})\n`;
 
 const out = resolve(ROOT, cfg.public_root ?? 'public', 'assets/clarity-loader.js');
 mkdirSync(dirname(out), { recursive: true });

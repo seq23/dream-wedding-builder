@@ -6,8 +6,8 @@ import { supportEmail } from '@/lib/products';
 // Every statement below is checked against this repository rather than written
 // from a template. The previous version of this page was two sentences long and
 // described a build that no longer exists: it said plan data stays in the browser
-// and stopped there, while the running site also loads Microsoft Clarity on every
-// page, sends buyers to Stripe, stores order email addresses in D1, and mails
+// and stopped there, while the running site also loads Microsoft Clarity on conversion
+// forms, sends buyers to Stripe, stores order email addresses in D1, and mails
 // download links through Resend. None of that was disclosed. Sources, in order of
 // the sections below:
 //   localStorage keys        app/free-wedding-planner/page.tsx, app/pack/page.tsx,
@@ -24,7 +24,7 @@ import { supportEmail } from '@/lib/products';
 export const metadata = seoMetadata({
   title: 'Privacy',
   description:
-    'What this site stores and sends: your plan stays in your browser, Stripe takes payment, orders and downloads are recorded, and Clarity runs on every page.',
+    'How the wedding tools handle your plan, payments, order records, downloads and Clarity session recording on public signup and checkout forms.',
   host: PARENT_HOST,
   path: '/privacy'
 });
@@ -66,10 +66,11 @@ export default function Privacy() {
 
       <h2 className="mt-12 font-serif text-4xl">Analytics</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        Every page on all four domains loads Microsoft Clarity, a behavioural analytics service, from this site&rsquo;s own
-        origin. Each domain reports into its own Clarity project. Clarity records how pages are used — page views, clicks,
+        Public signup, idea-submission, and checkout forms on all four domains load Microsoft Clarity, a behavioural analytics
+        service, through this site&rsquo;s own loader. Reading guides, browsing informational hubs, and choosing an inspiration
+        photo do not load session recording. Recording stops when you leave a form page. Each domain reports into its own Clarity project. Clarity records how pages are used — page views, clicks,
         scrolling, and session replay — and that data is processed by Microsoft under Microsoft&rsquo;s terms, not held here.
-        It is used to see which pages work and which do not.
+        It is used to see where visitors get stuck while signing up, submitting an idea, or buying a tool.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70">
         Pages also load Cloudflare Web Analytics, which counts page views and load times without cookies and without
