@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "5f6f9466a4e195e817f5ec046db2a7f82c7b5155",
+  "generated_from_commit": "fce36bf0cabc3dc15e5f2254c25ca939814e3281",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
@@ -434,7 +434,7 @@
       "source": "data/products/product_catalog.json#products[id=checklist-pdf]"
     },
     "/products/operations-suite": {
-      "lastmod": "2026-07-30",
+      "lastmod": "2026-10-27",
       "source": "app/products/operations-suite/page.tsx"
     },
     "/products/seating-chart-maker": {
