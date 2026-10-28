@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import Link from 'next/link';
 import { BUILDER_ACCESS_KEY, CONSENT_TEXT, UNSUBSCRIBE_NOTE } from '@/lib/builder-signup';
+import { ConversionAnalytics } from '@/components/ConversionAnalytics';
 
 // The builder stays free, but opens after the visitor leaves an email. The builder
 // is still rendered underneath (inert) so the page keeps its content for search and
@@ -47,7 +48,8 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
           page's own h1 stays the document heading. */}
       <h2 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">Enter your email to open the builder.</h2>
       <p className="mt-4 leading-7 text-charcoal/70">The builder is free. Your plan stays in this browser; we keep only your email address.</p>
-      <form onSubmit={submit} className="mt-6 grid gap-4">
+      <form onSubmit={submit} className="mt-6 grid gap-4" data-session-recording>
+        <ConversionAnalytics />
         <label className="grid gap-2 text-sm font-bold">Email address
           <input data-testid="builder-email" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-2xl border border-charcoal/20 px-4 py-3 text-base font-normal" placeholder="you@example.com" />
         </label>
