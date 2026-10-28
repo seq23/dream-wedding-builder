@@ -14,7 +14,8 @@ import { describe, expect, it } from 'vitest';
 import ownership from '@/data/seo/route_ownership.json';
 import { BuilderEmailGate } from '@/components/BuilderEmailGate';
 import { siteHome } from '@/lib/site-home';
-import { hubBySlug } from '@/lib/seo';
+import { guideMetadata, guides, hubBySlug, hubMetadata, hubs, seoMetadata, TITLE_MAX } from '@/lib/seo';
+import { hostForProduct } from '@/lib/site-config';
 import { HOSTS } from './helpers/site-homes';
 import { metadata as rootHomeMetadata } from '@/app/page';
 
@@ -37,6 +38,33 @@ describe('brand capture: the homepage title states the site name (checklist f6)'
       expect(homepageTitle(host).toLowerCase()).toContain(name.toLowerCase());
     });
   }
+});
+
+describe('every page title names its owning site (checklist b10)', () => {
+  const expectBrand = (metadata: { title?: unknown; openGraph?: unknown }, host: string) => {
+    const title = titleText(metadata.title);
+    expect(title.toLowerCase()).toContain(siteHome(host).name.toLowerCase());
+    expect(title.length).toBeGreaterThanOrEqual(30);
+    expect(title.length).toBeLessThanOrEqual(TITLE_MAX);
+    for (const sibling of HOSTS.filter((candidate) => candidate !== host)) {
+      expect(title.toLowerCase()).not.toContain(siteHome(sibling).name.toLowerCase());
+    }
+    expect((metadata.openGraph as { siteName: string }).siteName).toBe(siteHome(host).name);
+  };
+
+  it('keeps the brand even when the topic cannot fit beside it in full', () => {
+    for (const host of HOSTS) {
+      expectBrand(seoMetadata({ title: 'A detailed wedding planning guide to owners, deadlines and handoffs', description: 'test', host, path: '/guides/test' }), host);
+    }
+  });
+
+  it('checks every guide through the metadata its route actually exports', () => {
+    for (const guide of guides) expectBrand(guideMetadata(guide.slug), hostForProduct(guide.product_id));
+  });
+
+  it('checks every hub through the metadata its route actually exports', () => {
+    for (const [slug, hub] of Object.entries(hubs)) expectBrand(hubMetadata(slug), hub.host);
+  });
 });
 
 describe('one H1 per page (checklist b3)', () => {

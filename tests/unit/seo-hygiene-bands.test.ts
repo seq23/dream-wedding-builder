@@ -14,14 +14,13 @@ import { plannerLandings as landings } from '@/data/planner-landings';
 import { products } from '@/lib/products';
 import {
   documentTitle, guideMetaDescription, guideMetadata, guides, hubs,
-  META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, SITE_TITLE_SUFFIX, TITLE_MAX
+  META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, TITLE_MAX
 } from '@/lib/seo';
 
 const TITLE_MIN = 30;
-/** What the <title> actually becomes: the suffix is kept only while it fits. */
+/** Absolute metadata already includes the owning site's name. */
 function rendered(title: string): string {
-  const result = documentTitle(title);
-  return typeof result === 'string' ? `${result}${SITE_TITLE_SUFFIX}` : title;
+  return documentTitle(title).absolute;
 }
 const inTitleBand = (title: string) => rendered(title).length >= TITLE_MIN && rendered(title).length <= TITLE_MAX;
 const inDescBand = (text: string) => text.length >= META_DESCRIPTION_MIN && text.length <= META_DESCRIPTION_MAX;

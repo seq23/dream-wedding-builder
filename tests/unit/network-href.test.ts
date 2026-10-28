@@ -5,7 +5,7 @@ import ownership from '@/data/seo/route_ownership.json';
 import registry from '@/data/authority/content_registry.json';
 import guideMeta from '@/data/seo/guide_meta_descriptions.json';
 import { CANONICAL_HOSTS, PARENT_HOST, canonicalHostForPath, hrefFrom } from '@/lib/site-config';
-import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, SITE_TITLE_SUFFIX, TITLE_MAX, documentTitle, guideMetaDescription } from '@/lib/seo';
+import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, TITLE_MAX, documentTitle, guideMetaDescription } from '@/lib/seo';
 import { shippingPages } from '@/lib/authority-registry';
 import { plannerHref } from '@/lib/planner-seed';
 
@@ -104,15 +104,15 @@ describe('every guide meta description is 110-160 characters and unique', () => 
   });
 });
 
-describe('rendered titles are 30-70 characters (Bing Site Scan "title too long")', () => {
-  const rendered = (title: string) => {
-    const value = documentTitle(title);
-    return typeof value === 'string' ? `${value}${SITE_TITLE_SUFFIX}` : (value as { absolute: string }).absolute;
-  };
+describe('rendered titles are 30-65 characters and keep the owning site name', () => {
+  const rendered = (title: string) => documentTitle(title).absolute;
 
-  it('keeps the suffix only when it fits', () => {
-    expect(rendered('Wedding Seating Chart for 150 Guests')).toBe('Wedding Seating Chart for 150 Guests | Dream Wedding Builder');
-    expect(rendered('Wedding Seating Chart Maker - Editable Wedding Planning Tool')).toBe('Wedding Seating Chart Maker - Editable Wedding Planning Tool');
+  it('preserves the owning brand on a long topic and avoids duplicating it', () => {
+    const host = 'weddingseatingchartmaker.com';
+    const long = documentTitle('Wedding Seating Chart for 150 Guests: Table Capacities and Meals', host).absolute;
+    expect(long).toContain('Wedding Seating Chart Maker');
+    expect(long.length).toBeLessThanOrEqual(TITLE_MAX);
+    expect(documentTitle('Wedding Seating Chart Maker - Editable Wedding Planning Tool', host).absolute).toBe('Wedding Seating Chart Maker - Editable Wedding Planning Tool');
   });
 
   it('every shipping guide title renders in range', () => {
