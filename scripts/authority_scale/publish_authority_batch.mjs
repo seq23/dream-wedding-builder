@@ -51,6 +51,9 @@ import path from 'node:path';
 import { findPlaceholders, isComplete, missingRequiredFields } from '../../lib/authority-complete.mjs';
 import { aboutnessTokens, composeGuide } from '../../lib/authority-compose.mjs';
 import { freezeDecision } from '../search_intelligence/publishing_freeze.mjs';
+import refreshDebtModule from '../cadence/refresh_debt.cjs';
+
+const { sitemapUrls, refreshDebt, cadenceToday } = refreshDebtModule;
 
 const root = process.cwd();
 const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), 'utf8'));
@@ -110,7 +113,15 @@ const changedThisWeek = livePages.filter((p) => String(p.updated_at || '') >= we
 const weeklyCap = Number(cadence.new_pages_per_week ?? Infinity);
 const dailyRemaining = Math.max(0, dailyCeiling - changedToday);
 const weeklyRemaining = Number.isFinite(weeklyCap) ? Math.max(0, weeklyCap - changedThisWeek) : Infinity;
-const budget = Math.min(dailyRemaining, weeklyRemaining);
+// Refresh debt. The same numbers cadence_gate.js judges, read BEFORE anything is
+// released (scripts/cadence/refresh_debt.cjs). When the share of pages past the
+// refresh window is above tolerance the library is already growing faster than it
+// is maintained, so the budget for new pages is zero until the oldest pages are
+// refreshed. Without this the publisher released on the weekly budget and the
+// gate then failed the run for it, every day, with nothing able to clear it.
+const debtPolicy = { refresh_window_days: 91, stale_tolerance_pct: 20, ...cadence };
+const debt = refreshDebt(sitemapUrls(root), debtPolicy, cadenceToday());
+const budget = debt.over_tolerance ? 0 : Math.min(dailyRemaining, weeklyRemaining);
 
 // ---------------------------------------------------------------------------
 // Similarity. The ceiling is the library's own measured maximum, not the build's
@@ -335,6 +346,13 @@ if (releasing.length) {
 // can read.
 function decideOutcome() {
   if (releasing.length) return { code: 'PUBLISHED', blocking: false, unblocked_by: null, detail: `published ${releasing.length} guide(s)` };
+  if (admitted.length && debt.over_tolerance) {
+    return {
+      code: 'HELD_REFRESH_DEBT', blocking: false,
+      unblocked_by: `refresh: substantively update the ${debt.refreshes_needed} oldest page(s) listed in reports/cadence/refresh-queue.json (oldest first) so the stale share falls to ${debtPolicy.stale_tolerance_pct}% or below`,
+      detail: `${admitted.length} seed(s) passed every check and are waiting. ${debt.stale} of ${debt.dated} sitemap pages (${debt.stale_pct.toFixed(0)}%) are older than ${debtPolicy.refresh_window_days} days, tolerance is ${debtPolicy.stale_tolerance_pct}%. New pages are held until the library is maintained.`,
+    };
+  }
   if (admitted.length && budget <= 0) {
     return {
       code: 'HELD_CADENCE_BUDGET_SPENT', blocking: false,
@@ -377,6 +395,7 @@ const summary = {
   seeds_frozen_unmeasured: held.filter((h) => h.reason === 'FROZEN_UNMEASURED').length,
   topics_awaiting_authoring: queue.length,
   budget_this_run: Number.isFinite(budget) ? budget : null,
+  refresh_debt: { stale: debt.stale, dated: debt.dated, stale_pct: Number(debt.stale_pct.toFixed(1)), over_tolerance: debt.over_tolerance, refreshes_needed: debt.refreshes_needed },
   daily_ceiling: dailyCeiling,
   weekly_cap: Number.isFinite(weeklyCap) ? weeklyCap : null,
   guides_added_or_refreshed_this_week: changedThisWeek,
@@ -401,6 +420,7 @@ write('artifacts/authority/publish-outcome.json', {
   outcome_codes: {
     PUBLISHED: 'guides were released this run',
     HELD_CADENCE_BUDGET_SPENT: 'seeds are ready and the measured weekly cadence is spent',
+    HELD_REFRESH_DEBT: 'seeds are ready but too much of the library is past its refresh window; refresh the oldest pages first',
     HELD_AWAITING_AUTHORING: 'the blocker is human writing: three sentences per topic',
     HELD_FOR_REWRITE: 'seeds exist but are too similar to guides that already ship',
     HELD_PUBLISHING_FREEZE: 'seeds are ready but their target query has no measured number yet (publishing freeze)',
@@ -433,7 +453,9 @@ if (releasing.length) {
 } else {
   // The important line. This is a success, and it says why, so nobody reads a
   // green run with 0 pages as a silent failure.
-  const why = admitted.length && budget <= 0
+  const why = admitted.length && debt.over_tolerance
+    ? outcome.detail
+    : admitted.length && budget <= 0
     ? `${admitted.length} seed(s) are ready but this week's cadence budget is spent: ${changedThisWeek} of ${weeklyCap} guides were added or refreshed in the last 7 days, by any author.`
     : seeds.length === 0
       ? 'data/authority/editorial_seeds.json holds no seeds.'
