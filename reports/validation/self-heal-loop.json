@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-29T10:25:03.715Z",
+  "generated_at": "2026-10-30T14:14:10.663Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "run_at": "2026-10-29T10:21:05.319Z",
+  "run_at": "2026-10-30T14:10:21.068Z",
   "outcome": "HELD_AWAITING_AUTHORING",
   "outcome_kind": "LEGITIMATE_STOP",
   "outcome_reason": "0 seed(s) are not marked ready; 29 backlog topic(s) have a cluster and a scaffold but no author.",
@@ -9,6 +9,7 @@
   "outcome_codes": {
     "PUBLISHED": "guides were released this run",
     "HELD_CADENCE_BUDGET_SPENT": "seeds are ready and the measured weekly cadence is spent",
+    "HELD_REFRESH_DEBT": "seeds are ready but too much of the library is past its refresh window; refresh the oldest pages first",
     "HELD_AWAITING_AUTHORING": "the blocker is human writing: three sentences per topic",
     "HELD_FOR_REWRITE": "seeds exist but are too similar to guides that already ship",
     "HELD_PUBLISHING_FREEZE": "seeds are ready but their target query has no measured number yet (publishing freeze)",
