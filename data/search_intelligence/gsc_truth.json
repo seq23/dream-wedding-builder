@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-09-30",
-        "end": "2026-10-27"
+        "start": "2026-10-01",
+        "end": "2026-10-28"
       },
-      "collected_at": "2026-10-29T11:45:15.131Z",
+      "collected_at": "2026-10-30T11:45:13.924Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -70,16 +70,16 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-09-30",
-        "end": "2026-10-27"
+        "start": "2026-10-01",
+        "end": "2026-10-28"
       },
-      "collected_at": "2026-10-29T11:45:15.784Z",
+      "collected_at": "2026-10-30T11:45:14.380Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 6,
+        "impressions": 4,
         "ctr": 0,
-        "position": 3
+        "position": 2.75
       },
       "queries": [],
       "pages": [
@@ -114,12 +114,6 @@
           "position": 10
         },
         {
-          "page": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
-          "clicks": 0,
-          "impressions": 2,
-          "position": 3.5
-        },
-        {
           "page": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
           "clicks": 0,
           "impressions": 1,
@@ -130,10 +124,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-09-30",
-        "end": "2026-10-27"
+        "start": "2026-10-01",
+        "end": "2026-10-28"
       },
-      "collected_at": "2026-10-29T11:45:16.272Z",
+      "collected_at": "2026-10-30T11:45:14.749Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -214,10 +208,10 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-09-30",
-        "end": "2026-10-27"
+        "start": "2026-10-01",
+        "end": "2026-10-28"
       },
-      "collected_at": "2026-10-29T11:45:16.769Z",
+      "collected_at": "2026-10-30T11:45:15.141Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -516,5 +510,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-29T11:45:16.771Z"
+  "updated_at": "2026-10-30T11:45:15.142Z"
 }
