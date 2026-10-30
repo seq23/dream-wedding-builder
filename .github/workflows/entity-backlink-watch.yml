@@ -1,0 +1,67 @@
+name: Entity Backlink Watch
+
+# Weekly: fetches every sameAs and profiles_pending URL in data/seo/entity.json
+# (scripts/entity/entity_backlink_watch.mjs). Self-heal: a dead profile (404/410)
+# leaves sameAs and a pending profile that now resolves is promoted, through a PR
+# that this job validates (validate:entity-graph) and merges, because a PR opened
+# with GITHUB_TOKEN triggers no CI of its own. The change reaches the live sites
+# on the next deploy (`land`). A profile that resolves without linking back to the
+# site is a NAMED STOP in the job summary, naming the exact profile field the
+# owner edits; the job exits red so the stop is seen. JS-rendered platforms are
+# recorded as unverifiable, never as a pass.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "27 14 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dream-wedding-builder-entity-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Fetch every profile and self-heal entity.json
+        id: watch
+        run: |
+          set +e
+          npm run --silent entity:watch
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - name: Open and merge the self-heal PR
+        if: steps.watch.outputs.code != '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- data/seo/entity.json; then echo "entity.json unchanged"; exit 0; fi
+          npm run --silent validate:entity-graph
+          branch="bot/entity-watch-$(date -u +%Y%m%d%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add data/seo/entity.json
+          git commit -m "entity watch: self-heal sameAs from the weekly profile check"
+          # The branch is created at the base commit through the API, then the
+          # commit goes up through push_back.sh (the repo's guarded push).
+          gh api "repos/${{ github.repository }}/git/refs" -f ref="refs/heads/$branch" -f sha="$(git rev-parse HEAD~1)" >/dev/null
+          scripts/ci/push_back.sh "$branch"
+          note=$(node -e "const r=require('./reports/entity/backlink_watch.json');console.log([...r.removed.map(x=>'- removed dead '+x.url+' from '+x.key),...r.promoted.map(x=>'- promoted '+x.url+' into '+x.key+'.sameAs')].join('\n'))")
+          gh pr create --base main --head "$branch" --title "entity watch: self-heal sameAs" --body "$(printf 'Weekly entity watch self-heal. validate:entity-graph passed on this change before the PR was opened.\n\n%s\n\nLive on the next deploy.' "$note")"
+          gh pr merge "$branch" --squash --delete-branch
+      - name: Named stop or unreachable profile
+        if: steps.watch.outputs.code != '0'
+        run: |
+          echo "Entity watch exited ${{ steps.watch.outputs.code }}: see the summary for the named stop (owner login) or the unreachable profile."
+          exit 1

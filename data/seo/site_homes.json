@@ -1,14 +1,6 @@
 {
   "_note": "One record per canonical host. Read by lib/site-home.ts (definition paragraph, homepage JSON-LD, speakable selector), scripts/seo/generate_site_icons.py (favicon, apple-touch-icon, manifest icons, og.png) and the seo-hygiene validators. Hosts must match data/seo/route_ownership.json.",
   "speakable_selector": "#site-definition",
-  "organization": {
-    "name": "Dream Wedding Builder",
-    "url": "https://weddingchecklistpdf.com/",
-    "sameAs": [
-      "https://www.pinterest.com/weddingchecklistpdf/"
-    ],
-    "_sameAs_note": "The publisher's own public profiles, which is what sameAs is for: an engine uses them to decide that the four domains and this profile are one entity. Only accounts this business actually controls and that answer 200 may be listed - the Pinterest business account that auto-publishes from each site's /pinfeed.xml. Asserted live by scripts/validate/live-check.mjs and shape-checked by tests/unit/seo-hygiene-jsonld.test.ts."
-  },
   "hosts": {
     "weddingchecklistpdf.com": {
       "name": "Wedding Checklist PDF",

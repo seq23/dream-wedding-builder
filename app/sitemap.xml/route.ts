@@ -26,8 +26,10 @@ export async function GET(request: Request): Promise<Response> {
   const product = products.find((item) => item.domain === host);
   if (!product) return new Response('Unknown canonical host', { status: 404 });
   const ownedRoutes = ownership.routes.filter((route) => route.host === host && route.indexable).map((route) => route.path);
-  const guideIndex = '/guides';
-  const urls = [...new Set([...ownedRoutes, guideIndex])].map((path) => ({ loc: `https://${host}${path === '/' ? '/' : path}`, lastmod: lastmodFor(path) }));
+  // Pages every host renders for itself (route_ownership.json shared_host_routes,
+  // less the files): the guide index and the editorial policy.
+  const perHostPages = ownership.shared_host_routes.filter((path) => !path.includes('.'));
+  const urls = [...new Set([...ownedRoutes, ...perHostPages])].map((path) => ({ loc: `https://${host}${path === '/' ? '/' : path}`, lastmod: lastmodFor(path) }));
   // Defensive inclusion: every hub and guide owner must appear even if the manifest is stale.
   for (const [slug, hub] of Object.entries(hubs.pages)) if (hub.host === host && !urls.some((item) => item.loc.endsWith(`/${slug}`))) urls.push({ loc: `https://${host}/${slug}`, lastmod: lastmodFor(`/${slug}`) });
   for (const page of pages.filter((item) => item.product_id === product.id && isShippingSlug(item.slug))) if (!urls.some((item) => item.loc.endsWith(`/guides/${page.slug}`))) urls.push({ loc: `https://${host}/guides/${page.slug}`, lastmod: lastmodFor(`/guides/${page.slug}`) });

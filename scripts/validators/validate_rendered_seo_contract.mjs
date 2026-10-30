@@ -45,6 +45,7 @@ import { spawn } from 'node:child_process';
 
 const ROOT = process.cwd();
 const ownership = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/route_ownership.json'), 'utf8'));
+const ENTITY = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/entity.json'), 'utf8'));
 const siteHomes = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/site_homes.json'), 'utf8')).hosts;
 // One list of hosts, read from the file that produces the sitemaps, so this gate
 // cannot drift from what is actually published.
@@ -210,6 +211,17 @@ try {
       else {
         const missing = ['name', 'url', 'logo', 'sameAs'].filter((key) => !org[key] || (Array.isArray(org[key]) && org[key].length === 0));
         if (missing.length) fail(`${where}: the first Organization lacks ${missing.join(', ')}`);
+      }
+      // The entity graph (data/seo/entity.json, authority audit 30 Oct 2026): the brand
+      // and this host's own site Organization are both on the page, each with exactly
+      // the sameAs entity.json gives it - so a site can never again ship a profile it
+      // borrowed from a sibling, and the built page cannot drift from the record.
+      for (const [label, record] of [['brand', ENTITY.brand], [`site ${host}`, ENTITY.sites[host]]]) {
+        const node = record && nodes.find((item) => item['@id'] === record['@id'] && [].concat(item['@type'] ?? []).includes('Organization') && item.name);
+        if (!node) { fail(`${where}: no ${label} Organization ${record?.['@id']} in JSON-LD`); continue; }
+        const got = JSON.stringify([].concat(node.sameAs ?? []));
+        if (got !== JSON.stringify(record.sameAs)) fail(`${where}: ${label} Organization sameAs is ${got}, entity.json says ${JSON.stringify(record.sameAs)}`);
+        for (const key of ['name', 'logo', 'description']) if (node[key] !== record[key]) fail(`${where}: ${label} Organization ${key} differs from entity.json`);
       }
       if (nodesOfType(nodes, /WebPage$|^(AboutPage|ContactPage|FAQPage|CollectionPage|ItemPage|ProfilePage|QAPage)$/).length === 0) fail(`${where}: no WebPage in JSON-LD`);
       const isHome = pathname === '/' || pathname === ownership.hosts[host]?.root_target;

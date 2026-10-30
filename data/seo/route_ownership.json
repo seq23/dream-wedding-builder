@@ -801,7 +801,8 @@
     "/guides",
     "/sitemap.xml",
     "/robots.txt",
-    "/llms.txt"
+    "/llms.txt",
+    "/editorial-policy"
   ],
   "runtime_routes": [
     "/api",

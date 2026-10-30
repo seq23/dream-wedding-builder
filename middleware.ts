@@ -13,7 +13,7 @@ const passthroughPrefixes = ['/api/', '/_next/', '/google'];
 // fails if a route segment is missing here or a dead one is left behind.
 export const ROUTE_SEGMENTS = [
   'about', 'admin', 'amazon', 'api', 'apple-touch-icon.png', 'backyard-wedding-planning',
-  'dashboard', 'disclaimer', 'favicon.ico', 'free-wedding-planner', 'guides',
+  'dashboard', 'disclaimer', 'editorial-policy', 'favicon.ico', 'free-wedding-planner', 'guides',
   'icon-192.png', 'icon-512.png', 'llms.txt', 'methodology', 'micro-wedding-planning',
   'og.png', 'order', 'pack', 'photos', 'pinfeed', 'pinfeed.xml',
   'printable-wedding-checklist', 'privacy', 'products', 'readiness-score', 'refund-policy',
@@ -138,7 +138,7 @@ export function middleware(request: NextRequest) {
     url.pathname = hostConfig[host].root_target;
     return NextResponse.redirect(url, 308);
   }
-  if (pathname === '/guides' || pathname === '/sitemap.xml' || pathname === '/robots.txt' || pathname === '/llms.txt') return withPathname(request);
+  if (pathname === '/guides' || pathname === '/editorial-policy' || pathname === '/sitemap.xml' || pathname === '/robots.txt' || pathname === '/llms.txt') return withPathname(request);
 
   const owner = canonicalHostForPath(pathname);
   if (owner && owner !== host) {
