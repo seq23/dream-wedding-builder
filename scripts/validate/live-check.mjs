@@ -39,6 +39,7 @@ const UA = 'Mozilla/5.0 (compatible; DreamWeddingBuilder-live-check/1.0; +https:
 const SITEMAP_SAMPLE = Number(process.env.LIVE_CHECK_SAMPLE ?? 8);
 
 const ownership = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/route_ownership.json'), 'utf8'));
+const ENTITY = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/entity.json'), 'utf8'));
 const allHosts = Object.keys(ownership.hosts);
 const hosts = (process.env.LIVE_CHECK_HOSTS ?? '').trim()
   ? process.env.LIVE_CHECK_HOSTS.split(/[\s,]+/).filter(Boolean)
@@ -117,6 +118,13 @@ async function checkHost(host) {
       return !value || (Array.isArray(value) && value.length === 0);
     });
     assert(host, missing.length === 0, `the homepage Organization lacks ${missing.join(', ')}`);
+  }
+  // The deployed entity graph matches data/seo/entity.json: the brand with its
+  // profiles, and this host's own Organization with exactly its own (none borrowed).
+  for (const record of [ENTITY.brand, ENTITY.sites[host]]) {
+    const node = nodes.find((item) => item['@id'] === record?.['@id'] && item.name);
+    assert(host, Boolean(node), `the homepage has no Organization ${record?.['@id']}`);
+    if (node) assert(host, JSON.stringify([].concat(node.sameAs ?? [])) === JSON.stringify(record.sameAs), `${record['@id']} sameAs is ${JSON.stringify(node.sameAs ?? [])}, entity.json says ${JSON.stringify(record.sameAs)}`);
   }
 
   // 5. A made-up path is a real 404, not a redirect and not a soft 200.

@@ -11,6 +11,7 @@
  * both and compares them.
  */
 import homes from '@/data/seo/site_homes.json';
+import entity from '@/data/seo/entity.json';
 import { SITE_ICON_FILES } from './site-icons.generated';
 import { canonicalUrl, CANONICAL_HOSTS, hostConfig, isCanonicalHost, PARENT_HOST, productForHost, type SiteHost } from './site-config';
 
@@ -21,7 +22,11 @@ export type SiteHome = {
 
 export const SPEAKABLE_SELECTOR: string = homes.speakable_selector;
 export const SITE_DEFINITION_ID = SPEAKABLE_SELECTOR.replace(/^#/, '');
-export const ORGANIZATION = homes.organization;
+/** The parent brand: the one Organization that owns the Pinterest profile (data/seo/entity.json). */
+export const ORGANIZATION = entity.brand;
+export type EntityRecord = { '@id': string; name: string; url: string; logo: string; description: string; sameAs: string[]; parentOrganization: string; profiles_pending: string[] };
+export const ENTITY_SITES = entity.sites as Record<string, EntityRecord>;
+export const SPRY_LABS = entity.spry_labs;
 export const OG_IMAGE_PATH = '/og.png';
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
@@ -65,27 +70,53 @@ export function ogImages(host: string, alt: string) {
 export type Breadcrumb = { name: string; canonical: string };
 
 const SCHEMA_CONTEXT = 'https://schema.org';
-export const ORGANIZATION_ID = `${ORGANIZATION.url}#organization`;
+export const ORGANIZATION_ID: string = ORGANIZATION['@id'];
 export const websiteId = (host: SiteHost): string => `${canonicalUrl(host, '/')}#website`;
 
 /**
- * The one Organization node. Every page emits this and nothing else emits an
- * Organization of its own, because an engine reads the first one it finds: four
- * templates each writing their own {name, url} publisher stub is how five of the
- * site's page kinds came to ship an Organization with no logo and no sameAs while
- * the homepage had both. Article and Product publishers reference it by @id.
+ * The entity graph, from data/seo/entity.json and nowhere else.
  *
- * sameAs is the publisher's own profiles (data/seo/site_homes.json): it is what
- * tells an engine that four domains and that profile are one entity. Only accounts
- * this business controls belong in it - scripts/validate/live-check.mjs fetches
- * them after every deploy.
+ * The parent brand, Dream Wedding Builder, is emitted first on every page of every
+ * host because an engine reads the first Organization it finds, and the brand is
+ * the node with the logo and the one real profile (the Pinterest business account).
+ * Before 30 Oct 2026 that brand node was the only Organization, so all four
+ * domains presented the checklist site's Pinterest as their own sameAs. Now each
+ * site is its own Organization (siteOrganizationNode) whose parentOrganization is
+ * the brand and whose sameAs lists only profiles that belong to that site - none
+ * yet, so none is claimed. The brand's parentOrganization is Spry Labs.
+ *
+ * Article and Product publishers reference the brand by @id; WebSite and WebPage
+ * reference the site they belong to. Guarded by validate:entity-graph (the data
+ * and these nodes) and scripts/validators/validate_rendered_seo_contract.mjs (the
+ * built pages); scripts/entity/entity_backlink_watch.mjs fetches every profile weekly.
  */
 export function organizationNode(): Record<string, unknown> {
   return {
     '@context': SCHEMA_CONTEXT, '@type': 'Organization', '@id': ORGANIZATION_ID,
-    name: ORGANIZATION.name, url: ORGANIZATION.url,
-    logo: canonicalUrl(PARENT_HOST, '/icon-512.png'),
-    sameAs: [...ORGANIZATION.sameAs]
+    name: ORGANIZATION.name, url: ORGANIZATION.url, logo: ORGANIZATION.logo,
+    description: ORGANIZATION.description,
+    sameAs: [...ORGANIZATION.sameAs],
+    parentOrganization: { '@type': 'Organization', '@id': SPRY_LABS['@id'], name: SPRY_LABS.name, url: SPRY_LABS.url },
+    subOrganization: CANONICAL_HOSTS.map((host) => ({ '@id': siteOrganizationId(host) }))
+  };
+}
+
+export function siteEntity(host: SiteHost): EntityRecord {
+  const record = ENTITY_SITES[host];
+  if (!record) throw new Error(`data/seo/entity.json has no site record for ${host}`);
+  return record;
+}
+
+export const siteOrganizationId = (host: SiteHost): string => siteEntity(host)['@id'];
+
+/** This host's own Organization. sameAs is emitted only when the site has a profile of its own. */
+export function siteOrganizationNode(host: SiteHost): Record<string, unknown> {
+  const site = siteEntity(host);
+  return {
+    '@context': SCHEMA_CONTEXT, '@type': 'Organization', '@id': site['@id'],
+    name: site.name, url: site.url, logo: site.logo, description: site.description,
+    ...(site.sameAs.length ? { sameAs: [...site.sameAs] } : {}),
+    parentOrganization: { '@id': site.parentOrganization }
   };
 }
 
@@ -95,7 +126,7 @@ export function webPageNode(input: { host: SiteHost; path: string; name: string;
     '@context': SCHEMA_CONTEXT, '@type': 'WebPage', '@id': `${pageUrl}#webpage`,
     url: pageUrl, name: input.name, description: input.description,
     isPartOf: { '@id': websiteId(input.host) }, inLanguage: 'en-US',
-    publisher: { '@id': ORGANIZATION_ID },
+    publisher: { '@id': siteOrganizationId(input.host) },
     primaryImageOfPage: { '@type': 'ImageObject', url: ogImageUrl(input.host), width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT }
   };
 }
@@ -125,7 +156,7 @@ export function breadcrumbListNode(items: Breadcrumb[]): Record<string, unknown>
  * scripts/validators/validate_rendered_seo_contract.mjs.
  */
 export function pageFrameNodes(input: { host: SiteHost; path: string; name: string; description: string; breadcrumbs: Breadcrumb[] }): Array<Record<string, unknown>> {
-  return [organizationNode(), webPageNode(input), breadcrumbListNode(input.breadcrumbs)];
+  return [organizationNode(), siteOrganizationNode(input.host), webPageNode(input), breadcrumbListNode(input.breadcrumbs)];
 }
 
 /**
@@ -163,8 +194,9 @@ export function homeSchemaNodes(input: {
   const siteId = websiteId(input.host);
   const ctx = SCHEMA_CONTEXT;
   return [
-    { '@context': ctx, '@type': 'WebSite', '@id': siteId, url: siteUrl, name: home.name, description: home.definition, inLanguage: 'en-US', publisher: { '@id': orgId } },
+    { '@context': ctx, '@type': 'WebSite', '@id': siteId, url: siteUrl, name: home.name, description: home.definition, inLanguage: 'en-US', publisher: { '@id': siteOrganizationId(input.host) } },
     organizationNode(),
+    siteOrganizationNode(input.host),
     { '@context': ctx, '@type': 'WebPage', '@id': `${pageUrl}#webpage`, url: pageUrl, name: input.headline, description: home.definition, isPartOf: { '@id': siteId }, inLanguage: 'en-US',
       primaryImageOfPage: { '@type': 'ImageObject', url: ogImageUrl(input.host), width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT },
       speakable: { '@type': 'SpeakableSpecification', cssSelector: [SPEAKABLE_SELECTOR] } },

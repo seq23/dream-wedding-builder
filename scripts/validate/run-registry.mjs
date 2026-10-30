@@ -55,7 +55,9 @@ const only = process.argv.includes('--hard-fail-only');
 // of the defect class: a check that exists and nothing invokes. Each declared entry
 // must name an npm script that exists and a workflow file that runs it.
 {
-  const declared = registry.post_deploy_checks || [];
+  // scheduled_checks (network watches, e.g. the weekly entity watch) are held to the
+  // same rule: an npm script that exists and a workflow that runs it.
+  const declared = [...(registry.post_deploy_checks || []), ...(registry.scheduled_checks || [])];
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
   const problems = [];
   for (const c of declared) {

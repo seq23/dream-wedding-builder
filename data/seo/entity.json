@@ -1,0 +1,62 @@
+{
+  "_note": "The entity graph for the four wedding sites, and the only place sameAs is written. lib/site-home.ts emits it as JSON-LD on every page of every host. One parent brand (Dream Wedding Builder) owns the one real profile, the Pinterest business account; each site is its own Organization whose parentOrganization is the brand, and the brand's parentOrganization is Spry Labs. A site's sameAs lists only profiles that resolve now and belong to that site; never its own host, never a profile borrowed from a sibling. A profile named but not yet claimed goes in profiles_pending and stays out of sameAs until scripts/entity/entity_backlink_watch.mjs sees it resolve and promotes it. Checked by validate:entity-graph (fast) and validate_rendered_seo_contract (built pages); watched weekly by .github/workflows/entity-backlink-watch.yml.",
+  "spry_labs": {
+    "@id": "https://billionairehighperformancecoach.com/spry-labs#organization",
+    "name": "Spry Labs",
+    "url": "https://billionairehighperformancecoach.com/spry-labs"
+  },
+  "brand": {
+    "@id": "https://weddingchecklistpdf.com/#organization",
+    "name": "Dream Wedding Builder",
+    "url": "https://weddingchecklistpdf.com/",
+    "logo": "https://weddingchecklistpdf.com/icon-512.png",
+    "description": "Dream Wedding Builder publishes wedding planning guides and editable planning files across four single-purpose sites: a checklist, a budget spreadsheet, a seating chart and a timeline.",
+    "sameAs": [
+      "https://www.pinterest.com/weddingchecklistpdf/"
+    ],
+    "parentOrganization": "https://billionairehighperformancecoach.com/spry-labs#organization",
+    "profiles_pending": []
+  },
+  "sites": {
+    "weddingchecklistpdf.com": {
+      "@id": "https://weddingchecklistpdf.com/#site",
+      "name": "Wedding Checklist PDF",
+      "url": "https://weddingchecklistpdf.com/",
+      "logo": "https://weddingchecklistpdf.com/icon-512.png",
+      "description": "Wedding Checklist PDF publishes wedding planning checklist guides and sells a $9 editable checklist with a 13-page printable packet.",
+      "sameAs": [],
+      "parentOrganization": "https://weddingchecklistpdf.com/#organization",
+      "profiles_pending": []
+    },
+    "weddingbudgetspreadsheet.com": {
+      "@id": "https://weddingbudgetspreadsheet.com/#site",
+      "name": "Wedding Budget Spreadsheet",
+      "url": "https://weddingbudgetspreadsheet.com/",
+      "logo": "https://weddingbudgetspreadsheet.com/icon-512.png",
+      "description": "Wedding Budget Spreadsheet publishes wedding budget guides and sells an editable wedding budget workbook.",
+      "sameAs": [],
+      "parentOrganization": "https://weddingchecklistpdf.com/#organization",
+      "profiles_pending": []
+    },
+    "weddingseatingchartmaker.com": {
+      "@id": "https://weddingseatingchartmaker.com/#site",
+      "name": "Wedding Seating Chart Maker",
+      "url": "https://weddingseatingchartmaker.com/",
+      "logo": "https://weddingseatingchartmaker.com/icon-512.png",
+      "description": "Wedding Seating Chart Maker publishes seating plan guides and sells an editable seating chart workbook and printable packet.",
+      "sameAs": [],
+      "parentOrganization": "https://weddingchecklistpdf.com/#organization",
+      "profiles_pending": []
+    },
+    "weddingtimelinetemplate.com": {
+      "@id": "https://weddingtimelinetemplate.com/#site",
+      "name": "Wedding Timeline Template",
+      "url": "https://weddingtimelinetemplate.com/",
+      "logo": "https://weddingtimelinetemplate.com/icon-512.png",
+      "description": "Wedding Timeline Template publishes wedding-day timeline guides and sells an editable timeline workbook.",
+      "sameAs": [],
+      "parentOrganization": "https://weddingchecklistpdf.com/#organization",
+      "profiles_pending": []
+    }
+  }
+}

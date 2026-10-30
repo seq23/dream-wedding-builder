@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 49,
+    "HARD_FAIL": 50,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -581,7 +581,26 @@
       "reason": "Pinterest daily drip (owner-approved 2026-10-16): data/pinterest/queue.json schema (pins_per_day = 1, 6-8 variants per launch page, >=20 dated, title<=100, description<=500, no price symbol, every number in the copy present in the page's own source record, no repeated headline per page, consecutive variants never share layout or palette); every image a committed 1000x1500 file whose declared length is its byte size; one pin a day from 2026-10-17 with no gaps and never the same page two days running (also at pins_per_day 2 and 3); /pinfeed.xml at fixed clocks shows exactly the launch six plus the variants due by that America/Chicago date, switching at local midnight, newest first, max 50; every link on-site with the pinfeed utm params and utm_content=<variant id>; refill triggers at 13 unreleased and not at 14, adds refill_batch distinct variants dated after the queue, and serves a newly joined page first.",
       "manual_repair": "node scripts/pinterest/pin_queue.mjs (add --seed N to add N variants per page now); copy lives in data/pinterest/angles.json and scripts/pinterest/pin_sources.mjs; commit data/pinterest + public/pinterest/drip.",
       "repair_evidence": "proved negatively on 2026-10-16: forcing two consecutive release dates onto one page in queue.json fails 'one pin a day ... never the same page two days running'; restored, it passes."
+    },
+    {
+      "id": "entity-graph",
+      "npmScript": "validate:entity-graph",
+      "command": "node scripts/validators/validate_entity_graph.mjs && vitest run tests/unit/entity-graph.test.ts tests/unit/entity-watch.test.ts",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Authority audit, 30 Oct 2026: all four sites emitted one Organization whose sameAs was the checklist site's Pinterest, so three domains claimed a profile that is not theirs, and nothing in the repo checked sameAs at all. data/seo/entity.json is now the only place sameAs is written (brand Dream Wedding Builder owns the Pinterest; each site is its own Organization under the brand; the brand sits under Spry Labs at billionairehighperformancecoach.com/spry-labs#organization). This gate fails on zero sites or zero profiles, on sites that are not route_ownership.json's hosts, on any sameAs that is not https, duplicated, on one of this repo's own hosts, also pending, or borrowed from another record, on a broken site -> brand -> Spry Labs chain, and when the JSON-LD lib/site-home.ts emits differs from entity.json on any host. It also unit-tests the weekly watch's dead/unreachable/unverifiable/link-back decisions and its self-heal with fixed fetch results. The built pages are checked by validate_rendered_seo_contract and the deployed ones by live-check.",
+      "manual_repair": "Edit data/seo/entity.json (never lib/site-home.ts): move a profile that is not yet claimed into profiles_pending, put a shared profile on the brand only, and keep the site -> brand -> Spry Labs chain."
     }
   ],
-  "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default."
+  "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default.",
+  "scheduled_checks": [
+    {
+      "id": "entity-backlink-watch",
+      "npmScript": "entity:watch",
+      "command": "node scripts/entity/entity_backlink_watch.mjs",
+      "workflow": ".github/workflows/entity-backlink-watch.yml",
+      "reason": "Fetches every sameAs and profiles_pending URL in data/seo/entity.json weekly. Network state cannot gate a merge, so it runs on a schedule: dead profiles (404/410) leave sameAs and pending profiles that now resolve are promoted, through a PR; a profile that resolves without linking back is a NAMED STOP naming the exact field the owner edits; JS-rendered platforms are recorded unverifiable, never passed. Its decisions are unit-tested inside validate:entity-graph."
+    }
+  ]
 }

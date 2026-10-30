@@ -204,6 +204,8 @@ for (const route of ownership.routes ?? []) {
 // precisely so a Node build script and the router can call the same function.
 const listedGuideDates = (registry.pages ?? []).filter(isComplete).map((page) => entries[`/guides/${page.slug}`]?.lastmod);
 record('/guides', newest(fileLastChanged('app/guides/page.tsx'), ...listedGuideDates), 'app/guides/page.tsx + newest listed guide');
+// The editorial policy renders on every host from one template (shared_host_routes).
+record('/editorial-policy', fileLastChanged('app/editorial-policy/page.tsx'), 'app/editorial-policy/page.tsx');
 
 const doc = {
   schema_version: '1.0',

@@ -29,8 +29,9 @@ describe('the Organization node', () => {
   it('lists only absolute https profiles in sameAs', () => {
     for (const profile of org.sameAs as string[]) expect(profile).toMatch(/^https:\/\/[^\s"]+$/);
   });
-  it('is the same entity everywhere, by @id', () => {
+  it('is the same entity everywhere, by @id, and sits under Spry Labs', () => {
     expect(org['@id']).toBe(`${org.url}#organization`);
+    expect((org.parentOrganization as Record<string, string>)['@id']).toBe('https://billionairehighperformancecoach.com/spry-labs#organization');
   });
 });
 
@@ -52,7 +53,10 @@ describe('the frame each page carries', () => {
       const path = '/guides';
       const name = pageNameFor(path)!;
       const nodes = pageFrameNodes({ host, path, name, description: 'x'.repeat(130), breadcrumbs: breadcrumbTrail(host, path, name) });
-      expect(nodes.map((node) => node['@type'])).toEqual(['Organization', 'WebPage', 'BreadcrumbList']);
+      expect(nodes.map((node) => node['@type'])).toEqual(['Organization', 'Organization', 'WebPage', 'BreadcrumbList']);
+      // The brand first (it carries the logo and the profiles), then this host's own site Organization.
+      expect(nodes[1]['@id']).toBe(`https://${host}/#site`);
+      expect((nodes[1].parentOrganization as Record<string, string>)['@id']).toBe(nodes[0]['@id']);
       const page = webPageNode({ host, path, name, description: 'x'.repeat(130) });
       expect(page['@id']).toBe(`${canonicalUrl(host, path)}#webpage`);
       expect(page.url).toBe(canonicalUrl(host, path));
