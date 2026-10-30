@@ -19,12 +19,17 @@
  *     ages past that threshold. The ceiling is therefore not a taste question:
  *     it is refresh capacity multiplied by the refresh window.
  *
- * Four blocking conditions, each with an exit code so a pipeline can act on it:
+ * Blocking conditions (exit 1):
  *
  *   1. new pages in the last 7 days above the weekly cap
- *   2. share of pages older than the refresh window above the tolerance
+ *   2. any new page published while the share of pages older than the refresh
+ *      window is above the tolerance (refresh debt governs publishing)
  *   3. URLs with no lastmod at all - a crawler gets no freshness signal
- *   4. library larger than refresh capacity can keep inside the window
+ *   4. no sitemap URLs found at all - nothing was measured
+ *
+ * Refresh debt with nothing new published is a named HOLD (exit 0): the publisher
+ * releases nothing, and the pages to refresh are in reports/cadence/refresh-queue.json.
+ * A library larger than refresh capacity can keep inside the window is reported.
  *
  * It also warns, without blocking, when a very high share of pages carry the
  * same recent lastmod. That is the signature of a date bump rather than a
@@ -36,6 +41,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const { sitemapUrls, refreshDebt, cadenceToday } = require('./cadence/refresh_debt.cjs');
 
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
@@ -60,42 +66,11 @@ function loadPolicy() {
   return { ...DEFAULT_POLICY, ...JSON.parse(fs.readFileSync(f, 'utf8')), _source: policyPath };
 }
 
-function sitemapUrls() {
-  const found = new Map();
-  const walk = (dir, depth = 0) => {
-    if (depth > 4) return;
-    let ents; try { ents = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
-    for (const e of ents) {
-      if (/^(node_modules|\.git|\.pages-output|coverage)$/.test(e.name)) continue;
-      const full = path.join(dir, e.name);
-      if (e.isDirectory()) walk(full, depth + 1);
-      // Match on content, not filename. This repo generates one sitemap per host
-      // as artifacts/sitemaps/<domain>.xml, which never matched a sitemap*.xml
-      // filename pattern, so the gate scanned zero URLs and reported CLEAR no
-      // matter how much was published - inert in exactly the way this gate's
-      // predecessor was. Any XML carrying a <urlset> is a sitemap.
-      else if (/\.xml$/i.test(e.name)) {
-        let xml;
-        try { xml = fs.readFileSync(full, 'utf8'); } catch { continue; }
-        if (!xml.includes('<urlset')) continue;
-        for (const m of xml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
-          const loc = (m[1].match(/<loc>(.*?)<\/loc>/) || [])[1];
-          if (!loc) continue;
-          const lm = (m[1].match(/<lastmod>(\d{4}-\d{2}-\d{2})/) || [])[1] || null;
-          const prev = found.get(loc);
-          if (prev === undefined || (lm && (!prev || lm > prev))) found.set(loc, lm);
-        }
-      }
-    }
-  };
-  walk(ROOT);
-  return found;
-}
-
 const policy = loadPolicy();
-const urls = sitemapUrls();
-const today = new Date(process.env.CADENCE_TODAY || new Date().toISOString().slice(0, 10));
+const urls = sitemapUrls(ROOT);
+const today = cadenceToday();
 const ageDays = (d) => Math.floor((today - new Date(d)) / 86400000);
+const debt = refreshDebt(urls, policy, today);
 
 // A page that changed is not a page that was published. Counting any recent
 // lastmod as a new page made a one-off structural edit across the library look
@@ -113,10 +88,10 @@ const newUrls = [...urls.keys()].filter((u) => !known.has(u));
 const dated = [...urls.entries()].filter(([, d]) => d);
 const undated = [...urls.entries()].filter(([, d]) => !d);
 const ages = dated.map(([, d]) => ageDays(d));
-const stale = ages.filter((a) => a > policy.refresh_window_days).length;
+const stale = debt.stale;
 const fresh30 = ages.filter((a) => a <= policy.high_value_window_days).length;
 const publishedThisWeek = ages.filter((a) => a <= 7).length;
-const stalePct = dated.length ? (100 * stale) / dated.length : 0;
+const stalePct = debt.stale_pct;
 const ceiling = policy.refresh_capacity_per_week * Math.floor(policy.refresh_window_days / 7);
 
 const blocking = [];
@@ -125,8 +100,32 @@ const warnings = [];
 if (ledgerExists && newUrls.length > policy.new_pages_per_week) {
   blocking.push(`weekly_cap: ${newUrls.length} URLs are new since the last run, cap is ${policy.new_pages_per_week} per week`);
 }
-if (stalePct > policy.stale_tolerance_pct) {
-  blocking.push(`refresh_debt: ${stale} of ${dated.length} pages (${stalePct.toFixed(0)}%) are older than ${policy.refresh_window_days} days, tolerance is ${policy.stale_tolerance_pct}%`);
+// A gate that examined nothing has proved nothing. Zero sitemap URLs is the
+// inert state this gate's predecessor sat in for weeks reporting CLEAR.
+if (urls.size === 0) {
+  blocking.push('no_sitemap_urls: no <urlset> sitemap with a <loc> was found under the repo root, so freshness was not measured at all');
+}
+// Refresh debt governs PUBLISHING. Publishing into a library that is already past
+// its refresh tolerance is the thing this gate exists to stop, so that blocks -
+// at any count, not only above the weekly cap. Debt with nothing new published is
+// a named HOLD: the publisher reads the same numbers (scripts/cadence/
+// refresh_debt.cjs) and releases nothing until the oldest pages are refreshed,
+// and the pages to refresh are written to reports/cadence/refresh-queue.json.
+// Exiting 1 on that state made both scheduled lanes permanently red on
+// 2026-10-30, a red that no automated step can clear because a refresh is
+// human-authored work in this repo.
+let hold = null;
+if (debt.over_tolerance) {
+  const what = `${stale} of ${dated.length} pages (${stalePct.toFixed(0)}%) are older than ${policy.refresh_window_days} days, tolerance is ${policy.stale_tolerance_pct}%`;
+  if (!ledgerExists) {
+    blocking.push(`refresh_debt: ${what}, and there is no URL ledger to prove nothing new was published into it`);
+  } else if (newUrls.length) {
+    blocking.push(`published_into_refresh_debt: ${newUrls.length} URL(s) are new since the last run while ${what}. Publishing must hold until ${debt.refreshes_needed} of the oldest pages are refreshed: ${newUrls.slice(0, 5).join(', ')}`);
+  } else {
+    hold = `REFRESH_DEBT: ${what}. Publishing is held (no new URLs this run). Unblocked by substantively refreshing the ${debt.refreshes_needed} oldest page(s) in reports/cadence/refresh-queue.json.`;
+  }
+} else if (debt.approaching) {
+  warnings.push(`refresh_debt_approaching: ${debt.projected_stale} of ${dated.length} pages (${debt.projected_stale_pct.toFixed(0)}%) will be older than ${policy.refresh_window_days} days within ${debt.lookahead_days} days, tolerance is ${policy.stale_tolerance_pct}%. Refresh the oldest pages now; the publisher holds once the line is crossed.`);
 }
 if (undated.length) {
   const msg = `no_freshness_signal: ${undated.length} sitemap URLs have no lastmod, so a crawler cannot tell when they changed`;
@@ -163,9 +162,12 @@ const report = {
   ledger_initialised: ledgerExists,
   maintainable_ceiling: ceiling,
   policy: { ...policy, _source: undefined },
+  refreshes_needed: debt.refreshes_needed,
+  projected_stale_pct: Number(debt.projected_stale_pct.toFixed(1)),
   blocking,
+  hold,
   warnings,
-  status: blocking.length ? 'BLOCKED' : 'CLEAR',
+  status: blocking.length ? 'BLOCKED' : hold ? 'HOLD' : 'CLEAR',
 };
 
 // Record the current URL set so the next run can tell new from refreshed. Written
@@ -177,10 +179,24 @@ fs.writeFileSync(ledgerPath, JSON.stringify({ generated_at: report_date(), urls:
 fs.mkdirSync(path.join(ROOT, 'reports/cadence'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports/cadence/cadence-gate.json'), JSON.stringify(report, null, 2) + '\n');
 
+// The refresh queue: every page past the window, oldest first, with the registry
+// entry that renders it where there is one. Written on every run so a CLEAR run
+// leaves an empty queue rather than a stale one.
+const guideSlug = (loc) => (loc.match(/\/guides\/([^/?#]+)$/) || [])[1] || null;
+fs.writeFileSync(path.join(ROOT, 'reports/cadence/refresh-queue.json'), JSON.stringify({
+  generated_at: report_date(),
+  refresh_window_days: policy.refresh_window_days,
+  stale: debt.stale,
+  refreshes_needed: debt.refreshes_needed,
+  note: 'A refresh is a substantive content change (the summary, recommendation or working_example sentences in data/authority/content_registry.json), never a date bump: lastmod comes from git history via scripts/seo/build_lastmod_ledger.mjs.',
+  queue: debt.stale_urls.map((e) => ({ ...e, registry_slug: guideSlug(e.loc) })),
+}, null, 2) + '\n');
+
 if (JSON_ONLY) console.log(JSON.stringify(report, null, 2));
 else {
   console.log(`CADENCE GATE ${report.status}: ${urls.size} urls; ${stale} past ${policy.refresh_window_days}d (${report.stale_pct}%); ${fresh30} fresh within ${policy.high_value_window_days}d; ceiling ${ceiling}`);
   for (const b of blocking) console.log(`  BLOCK  ${b}`);
+  if (hold && !blocking.length) console.log(`  NAMED STOP  ${hold}`);
   for (const w of warnings) console.log(`  WARN   ${w}`);
 }
 process.exit(blocking.length ? 1 : 0);
