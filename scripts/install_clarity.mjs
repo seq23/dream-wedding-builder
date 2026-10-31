@@ -14,8 +14,12 @@
  * - data/seo/route_ownership.json: the canonical hosts this app serves.
  *
  * Outputs:
- * - public/assets/clarity-loader.js, loaded by ConversionAnalytics only inside
- *   public signup, idea-submission, and checkout forms (Search Readiness e9).
+ * - public/assets/clarity-loader.js, rendered by ConversionAnalytics as a plain
+ *   server-side <script defer>, only inside public signup, idea-submission and
+ *   checkout forms (Search Readiness e9). It must be a real script element and
+ *   not next/script's `afterInteractive`, which injects the tag from the client
+ *   after hydration and left the served HTML carrying only a preload link on
+ *   every form and buy page (e6/i8, 31 Oct 2026).
  *
  * Notes:
  * - This mirrors scripts/install_clarity.js in local-guides-generator, which is
