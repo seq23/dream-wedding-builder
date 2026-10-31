@@ -18,8 +18,9 @@ function syncRecording() {
 // preload does not execute: it only warms the cache for a fetch that something
 // else has to ask for. Every form and buy page on all four hosts was in that
 // state (Search Readiness e6/i8, 31 Oct 2026 - /products/budget-spreadsheet,
-// /products/seating-chart-maker, /products/timeline-template and nine
-// weddingchecklistpdf.com pages each served <link rel=preload> and no script),
+// /products/seating-chart-maker, /products/timeline-template and eight
+// weddingchecklistpdf.com pages each served <link rel=preload> and no script -
+// 11 conversion pages in all, which is what the build-time gate now counts),
 // which is also why the first seconds of a session were never recorded even
 // when hydration did eventually inject it - and "visitors leave in 14 seconds"
 // is the whole reason the item exists. `defer` keeps the loader after parsing,
