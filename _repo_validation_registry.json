@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 51,
+    "HARD_FAIL": 52,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -602,6 +602,18 @@
       "reason": "Red main 31 Oct 2026 (Full Safe Autonomy run 41192193557): PR #50 added /editorial-policy to all four hosts without regenerating artifacts/sitemaps, so the PR-time cadence gate read stale sitemaps, saw no new URL and passed; the scheduled lane regenerated them and blocked published_into_refresh_debt with nothing able to clear it. The committed sitemaps must list exactly what scripts/authority/sitemap-paths.mjs (the one definition build-sitemaps.mjs also writes from) emits, so cadence:gate in CI sees every URL a PR adds. Fails on zero hosts or zero URLs per host.",
       "manual_repair": "Regenerate the sitemaps with the authority:sitemaps npm script and commit artifacts/sitemaps; then the cadence gate decides whether the new URL may ship (a new URL while refresh debt is over tolerance blocks until the oldest pages in reports/cadence/refresh-queue.json are refreshed).",
       "repair_evidence": "proved negatively on 2026-10-31: with the pre-fix sitemaps restored it fails naming the four missing /editorial-policy URLs; regenerated, it passes on 4 hosts / 133 URLs."
+    },
+    {
+      "id": "refresh-lane-wiring",
+      "npmScript": "validate:refresh-lane-wiring",
+      "command": "node scripts/validators/validate_refresh_lane_wiring.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "requires_build": false,
+      "reason": "PR #53 (c27e4ac, 31 Oct 2026) made cadence_gate.js hold new publishing on refresh debt and list the 43 pages to refresh in reports/cadence/refresh-queue.json, but nothing in scripts/, .github/ or package.json read that queue, so the hold could never clear without a person. This gate fails whenever the gate can hold publishing and no scheduled workflow runs the refresh lane (scripts/cadence/refresh_lane.mjs) after restore, before freeze, with the $0 router key, a scope clear after the freeze and a named outcome.",
+      "manual_repair": "wire `npm run cadence:refresh` (with OPENROUTER_API_KEY) into full-safe-autonomy.yml between authority:scale:restore and authority:scale:freeze, add authority:scale:clear-scope after the freeze, and keep the always() `npm run cadence:refresh -- --name-outcome` step",
+      "repair_evidence": "proved negatively on 2026-10-31: deleting the refresh step from full-safe-autonomy.yml turns this gate red; restoring it returns PASS"
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default.",
