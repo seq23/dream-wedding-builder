@@ -1,422 +1,422 @@
 {
-  "generated_at": "2026-10-30",
+  "generated_at": "2026-10-31",
   "refresh_window_days": 91,
   "stale": 69,
-  "refreshes_needed": 44,
+  "refreshes_needed": 43,
   "note": "A refresh is a substantive content change (the summary, recommendation or working_example sentences in data/authority/content_registry.json), never a date bump: lastmod comes from git history via scripts/seo/build_lastmod_ledger.mjs.",
   "queue": [
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/estimated-vs-actual-wedding-costs",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "estimated-vs-actual-wedding-costs"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "family-contributions-wedding-budget"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-10000",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-10000"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-20000",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-20000"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-30000"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-50000",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-50000"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-contingency",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-contingency"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-100-guests",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-for-100-guests"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-150-guests",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-for-150-guests"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-50-guests",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-for-50-guests"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-spreadsheet-categories",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-budget-spreadsheet-categories"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-deposit-schedule",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-deposit-schedule"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-gratuity-planner",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-gratuity-planner"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-hidden-costs-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-hidden-costs-checklist"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-monthly-cash-flow",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-monthly-cash-flow"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-vendor-payment-tracker",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-vendor-payment-tracker"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "1-month-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "12-month-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/18-month-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "18-month-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/3-month-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "3-month-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/6-month-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "6-month-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/9-month-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "9-month-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/backyard-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "backyard-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/courthouse-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "courthouse-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "destination-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/micro-wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "micro-wedding-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/post-wedding-return-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "post-wedding-return-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/rehearsal-dinner-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "rehearsal-dinner-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/wedding-day-emergency-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-day-emergency-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/wedding-final-payment-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-final-payment-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/wedding-planning-binder",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-planning-binder"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/wedding-vendor-booking-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-vendor-booking-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/wedding-vendor-list",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-vendor-list"
     },
     {
       "loc": "https://weddingchecklistpdf.com/guides/wedding-week-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-week-checklist"
     },
     {
       "loc": "https://weddingchecklistpdf.com/wedding-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": null
     },
     {
       "loc": "https://weddingchecklistpdf.com/wedding-planning-checklist",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": null
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/alphabetical-vs-table-order-seating-chart",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "alphabetical-vs-table-order-seating-chart"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/children-high-chairs-seating-chart",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "children-high-chairs-seating-chart"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/late-rsvp-seating-chart-changes",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "late-rsvp-seating-chart-changes"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/long-table-wedding-seating",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "long-table-wedding-seating"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/round-table-seating-plan",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "round-table-seating-plan"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/seat-divorced-parents-wedding",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "seat-divorced-parents-wedding"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/sweetheart-table-vs-head-table",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "sweetheart-table-vs-head-table"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-escort-card-data-export",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-escort-card-data-export"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-accessibility",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-seating-chart-accessibility"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-allergy-tracker",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-seating-chart-allergy-tracker"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-100-guests",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-seating-chart-for-100-guests"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-150-guests",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-seating-chart-for-150-guests"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-50-guests",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-seating-chart-for-50-guests"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-meal-tracker",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-seating-chart-meal-tracker"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-vendor-handoff",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-seating-chart-vendor-handoff"
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/wedding-table-capacity-guide",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-table-capacity-guide"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "backyard-wedding-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/brunch-wedding-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "brunch-wedding-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/church-ceremony-wedding-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "church-ceremony-wedding-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "destination-wedding-weekend-itinerary"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "evening-wedding-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/family-photo-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "family-photo-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/one-venue-wedding-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "one-venue-wedding-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "two-venue-wedding-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-day-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-party-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-photography-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-reception-order-of-events",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-reception-order-of-events"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-setup-breakdown-timeline",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-setup-breakdown-timeline"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-timeline-travel-buffer",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-timeline-travel-buffer"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-timeline-with-first-look",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-timeline-with-first-look"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-timeline-without-first-look",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-timeline-without-first-look"
     },
     {
       "loc": "https://weddingtimelinetemplate.com/guides/wedding-vendor-arrival-schedule",
       "lastmod": "2026-07-30",
-      "age_days": 92,
+      "age_days": 93,
       "registry_slug": "wedding-vendor-arrival-schedule"
     }
   ]
