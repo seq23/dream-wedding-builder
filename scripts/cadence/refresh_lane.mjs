@@ -163,9 +163,11 @@ export function factGuard(old, next) {
   for (const f of ['summary', 'recommendation']) if (next[f].trim() === String(old[f]).trim()) problems.push(`${f}: unchanged`);
 
   // Still about the same thing: the title's subject words must survive.
-  const subject = aboutnessTokens(old.title);
+  // Title words the old sentences carried must still be carried.
+  const was = aboutnessTokens(before);
+  const subject = new Set([...aboutnessTokens(old.title)].filter((w) => was.has(w) && !/^\d/.test(w)));
   const kept = aboutnessTokens(next.summary, next.recommendation, next.working_example);
-  const lost = [...subject].filter((w) => !kept.has(w) && !/^\d/.test(w));
+  const lost = [...subject].filter((w) => !kept.has(w));
   if (subject.size && lost.length > Math.floor(subject.size / 2)) problems.push(`drifted off the subject: ${lost.join(', ')} no longer appear`);
   return problems;
 }
