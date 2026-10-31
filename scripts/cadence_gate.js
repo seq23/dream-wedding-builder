@@ -113,7 +113,9 @@ if (urls.size === 0) {
 // and the pages to refresh are written to reports/cadence/refresh-queue.json.
 // Exiting 1 on that state made both scheduled lanes permanently red on
 // 2026-10-30, a red that no automated step can clear because a refresh is
-// human-authored work in this repo.
+// human-authored work in this repo. The refresh lane (scripts/cadence/
+// refresh_lane.mjs) now pays that debt down automatically; validate:refresh-lane-wiring
+// fails if this hold exists and nothing scheduled reads the queue.
 let hold = null;
 if (debt.over_tolerance) {
   const what = `${stale} of ${dated.length} pages (${stalePct.toFixed(0)}%) are older than ${policy.refresh_window_days} days, tolerance is ${policy.stale_tolerance_pct}%`;
@@ -183,13 +185,20 @@ fs.writeFileSync(path.join(ROOT, 'reports/cadence/cadence-gate.json'), JSON.stri
 // entry that renders it where there is one. Written on every run so a CLEAR run
 // leaves an empty queue rather than a stale one.
 const guideSlug = (loc) => (loc.match(/\/guides\/([^/?#]+)$/) || [])[1] || null;
+// What the refresh lane (scripts/cadence/refresh_lane.mjs, run by
+// full-safe-autonomy.yml) last did with each queued page - refreshed, rejected and
+// why, or out of its scope - so the queue says who is working it, not just what is old.
+let laneLedger = {};
+try { laneLedger = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/cadence/refresh_lane_ledger.json'), 'utf8')).pages || {}; } catch { laneLedger = {}; }
+const laneKey = (loc) => { try { return new URL(loc).pathname; } catch { return loc; } };
 fs.writeFileSync(path.join(ROOT, 'reports/cadence/refresh-queue.json'), JSON.stringify({
   generated_at: report_date(),
   refresh_window_days: policy.refresh_window_days,
   stale: debt.stale,
   refreshes_needed: debt.refreshes_needed,
   note: 'A refresh is a substantive content change (the summary, recommendation or working_example sentences in data/authority/content_registry.json), never a date bump: lastmod comes from git history via scripts/seo/build_lastmod_ledger.mjs.',
-  queue: debt.stale_urls.map((e) => ({ ...e, registry_slug: guideSlug(e.loc) })),
+  refreshed_by: 'scripts/cadence/refresh_lane.mjs (npm run cadence:refresh), daily in .github/workflows/full-safe-autonomy.yml',
+  queue: debt.stale_urls.map((e) => ({ ...e, registry_slug: guideSlug(e.loc), ...(laneLedger[laneKey(e.loc)] ? { refresh_lane: laneLedger[laneKey(e.loc)] } : {}) })),
 }, null, 2) + '\n');
 
 if (JSON_ONLY) console.log(JSON.stringify(report, null, 2));

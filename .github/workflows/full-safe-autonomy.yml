@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   authority:
-    timeout-minutes: 8  # ~3x median 2.4m over 8 green runs; fault detector, not a budget
+    timeout-minutes: 13  # ~3x median 2.4m over 8 green runs plus the refresh lane's 4m model budget; fault detector, not a budget
     if: ${{ vars.CONTENT_RELEASE_ENABLED == 'true' && vars.CONTENT_EMERGENCY_STOP != 'true' }}
     runs-on: ubuntu-latest
     steps:
@@ -55,6 +55,21 @@ jobs:
       # That is how a deleted skeleton comes back, so the registry is checked here,
       # before publish gets a chance to add more.
       - run: npm run validate:authority-registry
+      # Pay down refresh debt. cadence_gate.js holds new publishing while too many
+      # guides are past the 91-day window and lists them in
+      # reports/cadence/refresh-queue.json; until this step nothing read that queue,
+      # so the hold could never clear. The lane substantively rewrites the oldest
+      # guides' three authored sentences through the $0 router, under fact guards
+      # (no new figures, names, citations), and records what it could not refresh.
+      # It runs after restore (which would revert it) and authorises its routes
+      # through the freeze via data/release/active_mutation_scope.json; the scope is
+      # cleared after the freeze below. lastmod moves only because content changed:
+      # build_lastmod_ledger.mjs derives it from the content fingerprint.
+      # validate:refresh-lane-wiring fails if this step goes missing.
+      - name: Refresh the oldest guides past the window
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: npm run cadence:refresh
       # Publish composes guides from the authored seeds in
       # data/authority/editorial_seeds.json. Three outcomes, and only one is red:
       # it published something, it had nothing ready and says so, or the seed file
@@ -163,6 +178,7 @@ jobs:
         run: node scripts/selfheal/name_heal_outcome.mjs
       - run: npm run validate:structural
       - run: npm run authority:scale:freeze
+      - run: npm run authority:scale:clear-scope
       - run: npm run authority:scale:validate
       # The cadence policy is enforced against the publisher, not only against CI.
       # data/cadence/policy.json carries numbers measured by
@@ -268,10 +284,18 @@ jobs:
           # rebase conflict is red - as PUSH_REBASE_CONFLICT, never resolved by
           # force.
           scripts/ci/push_back.sh "$GITHUB_REF_NAME"
+      # The refresh lane's outcome is named, after the push so a stall cannot
+      # discard the day's work: REFRESHED, QUEUE_EMPTY, MODEL_UNAVAILABLE or
+      # NONE_PASSED_GUARDS. Red only when the lane has STALLED - pages past the
+      # window and nothing refreshed on three run days in a row.
+      - name: Name the refresh lane outcome
+        if: always()
+        run: npm run cadence:refresh -- --name-outcome
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: authority-release-evidence
           path: |
             artifacts/authority/
+            artifacts/cadence/
             artifacts/sitemaps/

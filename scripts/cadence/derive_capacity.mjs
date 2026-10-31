@@ -144,7 +144,14 @@ const firstContentDate = series.length ? series[0].date : firstCommitDate;
 // blocks on it: refresh_debt counts pages whose lastmod is past refresh_window_days.
 // A proxy that duplicates a direct measurement, and is non-deterministic besides, is
 // the worse of the two instruments.
-const lastContentDate = series.length ? series[series.length - 1].date : firstContentDate;
+// ...and an authoring event is a commit that changed the NUMBER of renderable guides.
+// The refresh lane (scripts/cadence/refresh_lane.mjs) commits substantive rewrites of
+// existing guides to the registry most days. Counting those as authoring events
+// would stretch the window without adding a guide, so measured throughput - and with
+// it new_pages_per_week - would fall every day the library was kept fresh: a ratchet
+// where maintaining the library throttled it. Still a pure function of history.
+const lastAuthoringDate = (s) => { let d = s[0].date; for (let i = 1; i < s.length; i++) if (s[i].renderable !== s[i - 1].renderable) d = s[i].date; return d; };
+const lastContentDate = series.length ? lastAuthoringDate(series) : firstContentDate;
 const observedDays = (new Date(lastContentDate) - new Date(firstContentDate)) / 86400000;
 const weeksSinceRepoStart = Math.max(1, (new Date(lastContentDate) - new Date(firstCommitDate)) / (86400000 * 7));
 const weeks = Math.max(1, observedDays / 7);
