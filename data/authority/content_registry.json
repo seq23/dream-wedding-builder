@@ -2472,11 +2472,11 @@
       "title": "Tracking Family Contributions to a Wedding",
       "cluster": "Wedding budget",
       "product_id": "budget-spreadsheet",
-      "summary": "Family contributions should be tracked by pledged, received, restricted, allocated, spent, and remaining amounts.",
-      "answer": "Family contributions should be tracked by pledged, received, restricted, allocated, spent, and remaining amounts. Document the contribution and decision expectations, avoid counting unreceived money as cash, map restricted gifts to categories, record reimbursements, and review changes transparently.",
+      "summary": "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts.",
+      "answer": "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts. Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
       "steps": [
         "Define the exact outcome for tracking family contributions to a wedding and name the person responsible for the final version.",
-        "Document the contribution and decision expectations, avoid counting unreceived money as cash, map restricted gifts to categories, record reimbursements, and review changes transparently.",
+        "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -2492,18 +2492,18 @@
         {
           "heading": "Set the financial boundary for Tracking Family Contributions to a Wedding",
           "paragraphs": [
-            "Family contributions should be tracked by pledged, received, restricted, allocated, spent, and remaining amounts.",
+            "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "Document the contribution and decision expectations, avoid counting unreceived money as cash, map restricted gifts to categories, record reimbursements, and review changes transparently.",
-            "Example: a $5,000 attire contribution should not silently cover catering unless the contributor agrees."
+            "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
+            "Example: a $5,000 attire contribution should not be applied to catering unless the contributor explicitly agrees."
           ],
           "bullets": [
-            "Document the contribution and decision expectations, avoid counting unreceived money as cash, map restricted gifts to categories, record reimbursements, and review changes transparently.",
+            "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -2520,7 +2520,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: a $5,000 attire contribution should not silently cover catering unless the contributor agrees."
+          "body": "Example: a $5,000 attire contribution should not be applied to catering unless the contributor explicitly agrees."
         },
         {
           "title": "Control check",
@@ -2530,11 +2530,11 @@
       "faqs": [
         {
           "question": "What is the most important part of tracking family contributions to a wedding?",
-          "answer": "Family contributions should be tracked by pledged, received, restricted, allocated, spent, and remaining amounts."
+          "answer": "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts."
         },
         {
           "question": "How should I use this wedding budget guide?",
-          "answer": "Document the contribution and decision expectations, avoid counting unreceived money as cash, map restricted gifts to categories, record reimbursements, and review changes transparently. Replace every illustrative assumption with your verified wedding details."
+          "answer": "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -2542,7 +2542,7 @@
         }
       ],
       "semantic_key": "budget-spreadsheet:family-contributions-wedding-budget",
-      "updated_at": "2026-07-30",
+      "updated_at": "2026-10-31",
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "wedding-monthly-cash-flow",

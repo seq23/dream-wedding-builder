@@ -1,27 +1,34 @@
 {
   "generated_at": "2026-10-31",
   "refresh_window_days": 91,
-  "stale": 69,
-  "refreshes_needed": 43,
+  "stale": 68,
+  "refreshes_needed": 42,
   "note": "A refresh is a substantive content change (the summary, recommendation or working_example sentences in data/authority/content_registry.json), never a date bump: lastmod comes from git history via scripts/seo/build_lastmod_ledger.mjs.",
+  "refreshed_by": "scripts/cadence/refresh_lane.mjs (npm run cadence:refresh), daily in .github/workflows/full-safe-autonomy.yml",
   "queue": [
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/estimated-vs-actual-wedding-costs",
       "lastmod": "2026-07-30",
       "age_days": 93,
-      "registry_slug": "estimated-vs-actual-wedding-costs"
-    },
-    {
-      "loc": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
-      "lastmod": "2026-07-30",
-      "age_days": 93,
-      "registry_slug": "family-contributions-wedding-budget"
+      "registry_slug": "estimated-vs-actual-wedding-costs",
+      "refresh_lane": {
+        "status": "REJECTED",
+        "reason": "model reply was not the JSON object asked for",
+        "retry_after_days": 7,
+        "at": "2026-10-31"
+      }
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-10000",
       "lastmod": "2026-07-30",
       "age_days": 93,
-      "registry_slug": "wedding-budget-10000"
+      "registry_slug": "wedding-budget-10000",
+      "refresh_lane": {
+        "status": "REJECTED",
+        "reason": "model reply was not the JSON object asked for",
+        "retry_after_days": 7,
+        "at": "2026-10-31"
+      }
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-20000",
@@ -213,13 +220,23 @@
       "loc": "https://weddingchecklistpdf.com/wedding-checklist",
       "lastmod": "2026-07-30",
       "age_days": 93,
-      "registry_slug": null
+      "registry_slug": null,
+      "refresh_lane": {
+        "status": "NOT_A_REGISTRY_GUIDE",
+        "reason": "hub or product page; its content is not three authored sentences in the registry, so this lane cannot refresh it honestly. It ages with its hub source file.",
+        "at": "2026-10-31"
+      }
     },
     {
       "loc": "https://weddingchecklistpdf.com/wedding-planning-checklist",
       "lastmod": "2026-07-30",
       "age_days": 93,
-      "registry_slug": null
+      "registry_slug": null,
+      "refresh_lane": {
+        "status": "NOT_A_REGISTRY_GUIDE",
+        "reason": "hub or product page; its content is not three authored sentences in the registry, so this lane cannot refresh it honestly. It ages with its hub source file.",
+        "at": "2026-10-31"
+      }
     },
     {
       "loc": "https://weddingseatingchartmaker.com/guides/alphabetical-vs-table-order-seating-chart",

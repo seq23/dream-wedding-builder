@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "c27e4ac65fd2bf02b6a2b9eec3d9c40796eac15a",
+  "generated_from_commit": "32ae8abec947f7361d955c62b1ea6bd65b2d658c",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
@@ -50,7 +50,7 @@
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
-      "lastmod": "2026-09-12",
+      "lastmod": "2026-10-31",
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/1-month-wedding-checklist": {
@@ -142,8 +142,8 @@
       "source": "data/authority/content_registry.json#pages[slug=evening-wedding-timeline]"
     },
     "/guides/family-contributions-wedding-budget": {
-      "lastmod": "2026-07-30",
-      "source": "data/authority/content_registry.json#pages[slug=family-contributions-wedding-budget]"
+      "lastmod": "2026-10-31",
+      "source": "data/authority/content_registry.json#pages[slug=family-contributions-wedding-budget] (uncommitted at generation; pinned to run date)"
     },
     "/guides/family-photo-timeline": {
       "lastmod": "2026-07-30",

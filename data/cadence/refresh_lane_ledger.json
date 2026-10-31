@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "pages": {
+    "/wedding-checklist": {
+      "status": "NOT_A_REGISTRY_GUIDE",
+      "reason": "hub or product page; its content is not three authored sentences in the registry, so this lane cannot refresh it honestly. It ages with its hub source file.",
+      "at": "2026-10-31"
+    },
+    "/wedding-planning-checklist": {
+      "status": "NOT_A_REGISTRY_GUIDE",
+      "reason": "hub or product page; its content is not three authored sentences in the registry, so this lane cannot refresh it honestly. It ages with its hub source file.",
+      "at": "2026-10-31"
+    },
+    "/guides/estimated-vs-actual-wedding-costs": {
+      "status": "REJECTED",
+      "reason": "model reply was not the JSON object asked for",
+      "retry_after_days": 7,
+      "at": "2026-10-31"
+    },
+    "/guides/family-contributions-wedding-budget": {
+      "status": "REFRESHED",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "change_note": "Clarified ordered actions and tightened wording.",
+      "links_repaired": [],
+      "at": "2026-10-31"
+    },
+    "/guides/wedding-budget-10000": {
+      "status": "REJECTED",
+      "reason": "model reply was not the JSON object asked for",
+      "retry_after_days": 7,
+      "at": "2026-10-31"
+    }
+  },
+  "runs": [
+    {
+      "at": "2026-10-31",
+      "outcome": "REFRESHED",
+      "refreshed": 1,
+      "queued": 69
+    }
+  ],
+  "updated_at": "2026-10-31"
+}
