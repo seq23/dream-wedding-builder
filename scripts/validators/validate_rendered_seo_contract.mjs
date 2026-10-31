@@ -33,9 +33,19 @@
  *      sameAs; a WebPage; WebSite on the homepage and BreadcrumbList on inner pages;
  *      no FAQ question and no Offer price in JSON-LD that the visible page does not
  *      carry; and at least one priced Offer per host (Search Readiness c1/c2/c3/c5)
+ *   6. session recording, in the SERVED HTML: a page carrying a conversion form
+ *      (form[data-session-recording]) runs the Clarity loader as an ENABLED
+ *      <script>, and a page carrying no such form never references it at all
+ *      (Search Readiness e6/i8 and e9). Added 31 Oct 2026: ConversionAnalytics
+ *      loaded the tag through next/script `afterInteractive`, which injects it
+ *      from the client after hydration, so every form and buy page on all four
+ *      hosts served a <link rel="preload"> and no script. A preload does not
+ *      execute, so Clarity recorded nothing an HTML reader could see and nothing
+ *      at all during the first seconds - which is exactly the window the item
+ *      exists to measure. The unit test pins the component; this pins the build.
  *
  * Rule 0: it counts what it examined and fails on zero pages, zero network links,
- * or no build. A run that crawled nothing has not passed.
+ * zero conversion pages, or no build. A run that crawled nothing has not passed.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -163,6 +173,27 @@ function visibleText(html) {
 
 let pagesExamined = 0;
 let schemaChecks = 0;
+let conversionPages = 0;
+
+/*
+ * The Search Readiness auditor's `loadsClarity` rule, byte for byte in intent
+ * (boss-os src/shared/boss/searchReadiness/audit.mjs): only an ENABLED <script>
+ * element loads a recorder. A <link rel="preload"> warms the cache and runs
+ * nothing, and markup inside a comment, <template> or <noscript> is inert.
+ */
+const CLARITY_SRC = /clarity\.ms|clarity\.js|\/clarity[-.]/i;
+function loadsClarity(html) {
+  const active = String(html ?? '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<(template|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi, '');
+  return [...active.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)].some((match) => {
+    const attrs = match[1];
+    const type = /\btype\s*=\s*"([^"]*)"/i.exec(attrs)?.[1] ?? '';
+    if (type && !/^(?:module|(?:text|application)\/(?:java|ecma)script)$/i.test(type.trim())) return false;
+    const src = /\bsrc\s*=\s*"([^"]*)"/i.exec(attrs)?.[1] ?? '';
+    return src ? CLARITY_SRC.test(src) : CLARITY_SRC.test(match[2]);
+  });
+}
 const pricedOffers = new Map(); // host -> the page that carried one
 const byTitle = new Map();
 const byDesc = new Map();
@@ -195,6 +226,19 @@ try {
       if (metaContent(html, 'property', 'og:site_name') !== siteName) fail(`${where}: og:site_name does not name ${siteName}`);
       if (desc === null) fail(`${where}: no meta description`);
       else if (desc.length < DESC_MIN || desc.length > DESC_MAX) fail(`${where}: description is ${desc.length} chars (want ${DESC_MIN}-${DESC_MAX}): "${desc}"`);
+
+      // Rule 6: session recording in the served HTML (e6/i8 and e9).
+      const hasConversionForm = /<form\b[^>]*data-session-recording/.test(html);
+      const runsClarity = loadsClarity(html);
+      if (hasConversionForm) {
+        conversionPages += 1;
+        if (!runsClarity) {
+          const preloadOnly = /<link\b[^>]*clarity-loader/i.test(html);
+          fail(`${where}: a conversion form and no executable Clarity script${preloadOnly ? ' - only a <link rel="preload">, which does not execute' : ''}`);
+        }
+      } else if (runsClarity) {
+        fail(`${where}: runs the Clarity loader with no conversion form on the page (e9)`);
+      }
 
       // The structured-data frame, on every page in the sitemap. Search Readiness
       // items c1 (a complete Organization), c2 (WebPage everywhere, BreadcrumbList
@@ -299,6 +343,9 @@ try {
 
 if (pagesExamined === 0) fail('examined 0 pages across all hosts - a run that crawled nothing has not passed');
 if (schemaChecks === 0) fail('read JSON-LD on 0 pages - the structured-data rules examined nothing');
+// A build that renders no conversion form has not exercised rule 6 - and could not,
+// because a checkout form is how these sites earn. Zero is a broken crawl, not a pass.
+if (conversionPages === 0) fail('found 0 pages with a conversion form - the session-recording rule examined nothing');
 // Search Readiness item c3: a brand site needs one priced Offer a result can carry.
 // Each host sells one product and prints its price on its own homepage.
 for (const host of HOSTS) if (!pricedOffers.has(host)) fail(`${host}: no page carries a priced Offer whose price is on the page`);
