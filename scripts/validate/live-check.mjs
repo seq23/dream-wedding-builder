@@ -23,9 +23,28 @@
  *   6. measured URLs do not redirect: a sample of this host's own sitemap URLs
  *      must answer 200 on the first hop
  *   7. the IndexNow key file (public/indexnow-key.txt) answers with the key
+ *   8. session recording is live: this host's own checkout page carries its
+ *      conversion form AND an ENABLED <script> for the Clarity loader, and the
+ *      loader the edge serves carries THIS host's Clarity project id
+ *      (Search Readiness e6/i8)
  *
- * Rule 0: it counts every assertion it made and fails on zero hosts or zero
- * assertions. A run that checked nothing has not passed.
+ * Rule 0: it counts every assertion it made and fails on zero hosts, zero
+ * assertions or zero conversion pages. A run that checked nothing has not passed.
+ *
+ * Rule 8 was added on 31 October 2026, and the gap it closes is worth naming.
+ * PR #51 fixed the loader at source - ConversionAnalytics had shipped
+ * next/script `afterInteractive`, so the served HTML carried a
+ * <link rel="preload"> and nothing that executes - and `validate:rendered-seo`
+ * gained a build-time gate for it. Both were green. The Cloudflare Workers
+ * Builds deploy of that commit then failed, so every conversion page on all
+ * four hosts went on serving 8 preloads and 0 scripts, and the Search Readiness
+ * audit went on failing e6 and i8 on three of them with the fix sitting in
+ * `main`. A build-time gate cannot see that: it reads the build, and the whole
+ * point of this file is that the edge can serve something the build never
+ * contained. The checkout page is read from `product_id` in
+ * route_ownership.json rather than sampled out of the sitemap, because a sample
+ * is how weddingbudgetspreadsheet.com passed e6 in the same week its only
+ * conversion page was broken.
  *
  * Local use: `node scripts/validate/live-check.mjs`, or
  * `LIVE_CHECK_HOSTS=weddingchecklistpdf.com node scripts/validate/live-check.mjs`
@@ -47,9 +66,38 @@ const hosts = (process.env.LIVE_CHECK_HOSTS ?? '').trim()
 const indexNowKey = fs.existsSync(path.join(ROOT, 'public/indexnow-key.txt'))
   ? fs.readFileSync(path.join(ROOT, 'public/indexnow-key.txt'), 'utf8').trim()
   : null;
+// Per-host Clarity project ids, the same file scripts/install_clarity.mjs generates
+// the loader from. One Worker serves all four hosts, so the id the edge hands this
+// host is the assertion that matters: a loader built from the wrong file would file
+// every domain's sessions under one project and still answer 200.
+const clarityProjects = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/clarity_projects.json'), 'utf8')).projects ?? {};
 
 const failures = [];
 let assertions = 0;
+let conversionPages = 0;
+
+/**
+ * The Search Readiness auditor's own rule (boss-os
+ * src/shared/boss/searchReadiness/audit.mjs, mirrored in
+ * scripts/validators/validate_rendered_seo_contract.mjs): only an ENABLED
+ * <script> loads a recorder. A <link rel="preload"> warms the cache and runs
+ * nothing, and markup inside a comment, <template> or <noscript> is inert. The
+ * bare string "/assets/clarity-loader.js" is what passed for five weeks while
+ * only a preload shipped, so it is never the thing to test for.
+ */
+const CLARITY_SRC = /clarity\.ms|clarity\.js|\/clarity[-.]/i;
+function loadsClarity(html) {
+  const active = String(html ?? '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<(template|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi, '');
+  return [...active.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)].some((match) => {
+    const attrs = match[1];
+    const type = /\btype\s*=\s*"([^"]*)"/i.exec(attrs)?.[1] ?? '';
+    if (type && !/^(?:module|(?:text|application)\/(?:java|ecma)script)$/i.test(type.trim())) return false;
+    const src = /\bsrc\s*=\s*"([^"]*)"/i.exec(attrs)?.[1] ?? '';
+    return src ? CLARITY_SRC.test(src) : CLARITY_SRC.test(match[2]);
+  });
+}
 const fail = (host, message) => { failures.push(`${host}: ${message}`); };
 const assert = (host, condition, message) => { assertions += 1; if (!condition) fail(host, message); };
 
@@ -157,6 +205,33 @@ async function checkHost(host) {
   } else {
     fail(host, 'public/indexnow-key.txt is missing, so the key file cannot be proved live');
   }
+
+  // 8. Session recording, live (e6/i8). The checkout page is declared, not sampled.
+  const productId = ownership.hosts[host]?.product_id;
+  if (!productId) {
+    fail(host, 'route_ownership.json declares no product_id, so this host has no checkout page to prove session recording on');
+  } else {
+    const checkoutUrl = `${origin}/products/${productId}`;
+    const checkout = await fetchOnce(checkoutUrl, { redirect: 'follow' });
+    assert(host, checkout.status === 200, `the checkout page ${checkoutUrl} answered ${checkout.status ?? checkout.error}`);
+    if (checkout.status === 200) {
+      // No conversion form means the declared page is the wrong page, not that
+      // there is nothing to check. Either way nothing is silently skipped.
+      const hasForm = /<form\b[^>]*data-session-recording/.test(checkout.body);
+      assert(host, hasForm, `${checkoutUrl} carries no conversion form, so route_ownership.json points session recording at the wrong page`);
+      if (hasForm) {
+        conversionPages += 1;
+        const preloadOnly = !loadsClarity(checkout.body) && /<link\b[^>]*clarity-loader/i.test(checkout.body);
+        assert(host, loadsClarity(checkout.body), `${checkoutUrl} serves a conversion form and no executable Clarity script${preloadOnly ? ' - only a <link rel="preload">, which executes nothing' : ''}`);
+      }
+      // The loader itself, from the edge, with this host's own project id.
+      const loader = await fetchOnce(`${origin}/assets/clarity-loader.js`);
+      assert(host, loader.status === 200 && !/<html/i.test(loader.body.slice(0, 200)), `/assets/clarity-loader.js answered ${loader.status ?? loader.error}${/<html/i.test(loader.body.slice(0, 200)) ? ' (HTML)' : ''}`);
+      const projectId = clarityProjects[host];
+      if (!projectId) fail(host, 'data/clarity_projects.json has no Clarity project id for this host');
+      else assert(host, loader.body.includes(projectId), `the loader the edge serves does not carry this host's Clarity project id (${projectId})`);
+    }
+  }
 }
 
 if (hosts.length === 0) {
@@ -180,7 +255,13 @@ if (assertions === 0) {
   console.error('live check: zero assertions ran. A run that checked nothing has not passed.');
   process.exit(1);
 }
-console.log(`live check: ${hosts.length} host(s), ${assertions} assertions`);
+// Rule 0 for rule 8: a run that reached no conversion page proved nothing about
+// session recording, however many other assertions passed.
+if (conversionPages === 0) {
+  console.error('live check: reached 0 conversion pages. The session-recording rule examined nothing, so this run has not passed.');
+  process.exit(1);
+}
+console.log(`live check: ${hosts.length} host(s), ${assertions} assertions, ${conversionPages} conversion page(s)`);
 if (failures.length) {
   for (const message of failures) console.error(`  FAIL ${message}`);
   console.error(`live check: FAIL (${failures.length} problem(s))`);
