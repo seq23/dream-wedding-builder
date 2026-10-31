@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-10-01",
-        "end": "2026-10-28"
+        "start": "2026-10-02",
+        "end": "2026-10-29"
       },
-      "collected_at": "2026-10-30T11:45:13.924Z",
+      "collected_at": "2026-10-31T11:45:08.779Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -70,10 +70,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-10-01",
-        "end": "2026-10-28"
+        "start": "2026-10-02",
+        "end": "2026-10-29"
       },
-      "collected_at": "2026-10-30T11:45:14.380Z",
+      "collected_at": "2026-10-31T11:45:09.217Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -124,10 +124,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-10-01",
-        "end": "2026-10-28"
+        "start": "2026-10-02",
+        "end": "2026-10-29"
       },
-      "collected_at": "2026-10-30T11:45:14.749Z",
+      "collected_at": "2026-10-31T11:45:09.752Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -208,16 +208,16 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-10-01",
-        "end": "2026-10-28"
+        "start": "2026-10-02",
+        "end": "2026-10-29"
       },
-      "collected_at": "2026-10-30T11:45:15.141Z",
+      "collected_at": "2026-10-31T11:45:10.139Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 86,
+        "impressions": 85,
         "ctr": 0,
-        "position": 48.23255813953488
+        "position": 47.811764705882354
       },
       "queries": [
         {
@@ -238,8 +238,8 @@
           "query": "printable wedding checklist",
           "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
           "clicks": 0,
-          "impressions": 4,
-          "position": 69.25
+          "impressions": 3,
+          "position": 70
         },
         {
           "query": "wedding planning checklist pdf",
@@ -254,6 +254,13 @@
           "clicks": 0,
           "impressions": 2,
           "position": 94.5
+        },
+        {
+          "query": "elopement checklist printable",
+          "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 62
         },
         {
           "query": "free wedding planner online",
@@ -275,13 +282,6 @@
           "clicks": 0,
           "impressions": 1,
           "position": 78
-        },
-        {
-          "query": "printable wedding checklists",
-          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 79
         },
         {
           "query": "printable wedding planning checklist",
@@ -376,8 +376,8 @@
         {
           "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
           "clicks": 0,
-          "impressions": 13,
-          "position": 53.3
+          "impressions": 11,
+          "position": 49.7
         },
         {
           "page": "https://weddingchecklistpdf.com/refund-policy",
@@ -418,8 +418,8 @@
         {
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
-          "impressions": 4,
-          "position": 42.5
+          "impressions": 5,
+          "position": 46.4
         },
         {
           "page": "https://weddingchecklistpdf.com/photos",
@@ -510,5 +510,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-10-30T11:45:15.142Z"
+  "updated_at": "2026-10-31T11:45:10.140Z"
 }
