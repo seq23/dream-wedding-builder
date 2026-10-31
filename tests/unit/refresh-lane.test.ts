@@ -131,3 +131,15 @@ describe('refresh lane run', () => {
     expect(receipt.refreshed).toEqual([]);
   });
 });
+
+describe('refresh lane reply parsing', () => {
+  const obj = { summary: 'a', recommendation: 'b', working_example: 'Example: c' };
+  it('finds the object behind prose, fences and braces in a reasoning block', () => {
+    expect(lane.parseReply(`<think>use {braces} here</think>Sure:\n\`\`\`json\n${JSON.stringify(obj)}\n\`\`\``)).toMatchObject(obj);
+    expect(lane.parseReply(`Plan {draft}: then ${JSON.stringify(obj)} done {x}`)).toMatchObject(obj);
+  });
+  it('returns null when no object carries the three sentences', () => {
+    expect(lane.parseReply('{"summary": "only one"}')).toBeNull();
+    expect(lane.parseReply('no json at all')).toBeNull();
+  });
+});

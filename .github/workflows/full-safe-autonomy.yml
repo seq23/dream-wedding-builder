@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   authority:
-    timeout-minutes: 13  # ~3x median 2.4m over 8 green runs plus the refresh lane's 4m model budget; fault detector, not a budget
+    timeout-minutes: 16  # ~3x median 2.4m over 8 green runs plus the refresh lane's 7m model budget (run 41236802294: 6.4m total); fault detector, not a budget
     if: ${{ vars.CONTENT_RELEASE_ENABLED == 'true' && vars.CONTENT_EMERGENCY_STOP != 'true' }}
     runs-on: ubuntu-latest
     steps:
