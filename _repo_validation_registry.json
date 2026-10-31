@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 50,
+    "HARD_FAIL": 51,
     "STRONG_WARNING": 4,
     "SOFT_WARNING": 2
   },
@@ -591,6 +591,17 @@
       "composite": false,
       "reason": "Authority audit, 30 Oct 2026: all four sites emitted one Organization whose sameAs was the checklist site's Pinterest, so three domains claimed a profile that is not theirs, and nothing in the repo checked sameAs at all. data/seo/entity.json is now the only place sameAs is written (brand Dream Wedding Builder owns the Pinterest; each site is its own Organization under the brand; the brand sits under Spry Labs at billionairehighperformancecoach.com/spry-labs#organization). This gate fails on zero sites or zero profiles, on sites that are not route_ownership.json's hosts, on any sameAs that is not https, duplicated, on one of this repo's own hosts, also pending, or borrowed from another record, on a broken site -> brand -> Spry Labs chain, and when the JSON-LD lib/site-home.ts emits differs from entity.json on any host. It also unit-tests the weekly watch's dead/unreachable/unverifiable/link-back decisions and its self-heal with fixed fetch results. The built pages are checked by validate_rendered_seo_contract and the deployed ones by live-check.",
       "manual_repair": "Edit data/seo/entity.json (never lib/site-home.ts): move a profile that is not yet claimed into profiles_pending, put a shared profile on the brand only, and keep the site -> brand -> Spry Labs chain."
+    },
+    {
+      "id": "sitemap-currency",
+      "npmScript": "validate:sitemap-currency",
+      "command": "node scripts/validators/validate_sitemap_currency.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Red main 31 Oct 2026 (Full Safe Autonomy run 41192193557): PR #50 added /editorial-policy to all four hosts without regenerating artifacts/sitemaps, so the PR-time cadence gate read stale sitemaps, saw no new URL and passed; the scheduled lane regenerated them and blocked published_into_refresh_debt with nothing able to clear it. The committed sitemaps must list exactly what scripts/authority/sitemap-paths.mjs (the one definition build-sitemaps.mjs also writes from) emits, so cadence:gate in CI sees every URL a PR adds. Fails on zero hosts or zero URLs per host.",
+      "manual_repair": "Regenerate the sitemaps with the authority:sitemaps npm script and commit artifacts/sitemaps; then the cadence gate decides whether the new URL may ship (a new URL while refresh debt is over tolerance blocks until the oldest pages in reports/cadence/refresh-queue.json are refreshed).",
+      "repair_evidence": "proved negatively on 2026-10-31: with the pre-fix sitemaps restored it fails naming the four missing /editorial-policy URLs; regenerated, it passes on 4 hosts / 133 URLs."
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default.",

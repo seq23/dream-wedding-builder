@@ -89,6 +89,7 @@
     "validate:demand-repoint": "node scripts/search_intelligence/validate_demand_repoint.mjs",
     "validate:disclaimers": "node scripts/validate-disclaimers.mjs",
     "validate:downloads": "node scripts/validate-downloads.mjs",
+    "validate:sitemap-currency": "node scripts/validators/validate_sitemap_currency.mjs",
     "validate:entity-graph": "node scripts/validators/validate_entity_graph.mjs && vitest run tests/unit/entity-graph.test.ts tests/unit/entity-watch.test.ts",
     "validate:env": "node scripts/validate-env.mjs",
     "validate:fulfillment-path": "node scripts/validate-fulfillment-path.mjs",
