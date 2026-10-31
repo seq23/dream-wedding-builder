@@ -1,8 +1,8 @@
 {
   "generated_at": "2026-10-31",
   "refresh_window_days": 91,
-  "stale": 68,
-  "refreshes_needed": 42,
+  "stale": 65,
+  "refreshes_needed": 39,
   "note": "A refresh is a substantive content change (the summary, recommendation or working_example sentences in data/authority/content_registry.json), never a date bump: lastmod comes from git history via scripts/seo/build_lastmod_ledger.mjs.",
   "refreshed_by": "scripts/cadence/refresh_lane.mjs (npm run cadence:refresh), daily in .github/workflows/full-safe-autonomy.yml",
   "queue": [
@@ -29,24 +29,6 @@
         "retry_after_days": 7,
         "at": "2026-10-31"
       }
-    },
-    {
-      "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-20000",
-      "lastmod": "2026-07-30",
-      "age_days": 93,
-      "registry_slug": "wedding-budget-20000"
-    },
-    {
-      "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
-      "lastmod": "2026-07-30",
-      "age_days": 93,
-      "registry_slug": "wedding-budget-30000"
-    },
-    {
-      "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-50000",
-      "lastmod": "2026-07-30",
-      "age_days": 93,
-      "registry_slug": "wedding-budget-50000"
     },
     {
       "loc": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-contingency",
