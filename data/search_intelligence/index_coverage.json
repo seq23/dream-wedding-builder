@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "truth_source": "google_search_console_url_inspection",
-  "collected_at": "2026-10-31T19:31:17.364Z",
+  "collected_at": "2026-10-31T19:41:06.304Z",
   "truth_boundary": "URL Inspection reports Google's index state per URL at inspected_at. It is not a ranking or traffic measure; impressions live in gsc_truth.json.",
   "quota": {
     "daily_limit_per_property": 2000,
@@ -19,15 +19,14 @@
       "summary": {
         "by_coverage_state": {
           "Crawled - currently not indexed": 1,
-          "Discovered - currently not indexed": 1,
-          "Submitted and indexed": 21,
-          "URL is unknown to Google": 2
+          "Discovered - currently not indexed": 3,
+          "Submitted and indexed": 21
         },
         "buckets": {
           "indexed": 21,
           "crawled_not_indexed": 1,
-          "discovered_not_indexed": 1,
-          "unknown_to_google": 2,
+          "discovered_not_indexed": 3,
+          "unknown_to_google": 0,
           "other": 0,
           "not_inspected": 0
         }
@@ -36,14 +35,14 @@
         {
           "url": "https://weddingseatingchartmaker.com/editorial-policy",
           "verdict": "NEUTRAL",
-          "coverageState": "URL is unknown to Google",
+          "coverageState": "Discovered - currently not indexed",
           "lastCrawlTime": null,
           "indexingState": "INDEXING_STATE_UNSPECIFIED",
           "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:24.152Z"
+          "inspected_at": "2026-10-31T19:41:12.805Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides",
@@ -55,7 +54,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides",
           "userCanonical": "https://weddingseatingchartmaker.com/guides",
-          "inspected_at": "2026-10-31T19:31:24.214Z"
+          "inspected_at": "2026-10-31T19:41:13.024Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/alphabetical-vs-table-order-seating-chart",
@@ -67,7 +66,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/alphabetical-vs-table-order-seating-chart",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:30.245Z"
+          "inspected_at": "2026-10-31T19:41:18.960Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/children-high-chairs-seating-chart",
@@ -79,7 +78,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/children-high-chairs-seating-chart",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/children-high-chairs-seating-chart",
-          "inspected_at": "2026-10-31T19:31:24.249Z"
+          "inspected_at": "2026-10-31T19:41:13.441Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/late-rsvp-seating-chart-changes",
@@ -91,7 +90,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/late-rsvp-seating-chart-changes",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/late-rsvp-seating-chart-changes",
-          "inspected_at": "2026-10-31T19:31:24.111Z"
+          "inspected_at": "2026-10-31T19:41:13.198Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/long-table-wedding-seating",
@@ -103,7 +102,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/long-table-wedding-seating",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/long-table-wedding-seating",
-          "inspected_at": "2026-10-31T19:31:24.376Z"
+          "inspected_at": "2026-10-31T19:41:12.960Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/round-table-seating-plan",
@@ -115,7 +114,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/round-table-seating-plan",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/round-table-seating-plan",
-          "inspected_at": "2026-10-31T19:31:23.877Z"
+          "inspected_at": "2026-10-31T19:41:13.002Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/seat-divorced-parents-wedding",
@@ -127,7 +126,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/seat-divorced-parents-wedding",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/seat-divorced-parents-wedding",
-          "inspected_at": "2026-10-31T19:31:26.927Z"
+          "inspected_at": "2026-10-31T19:41:12.802Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/sweetheart-table-vs-head-table",
@@ -139,7 +138,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/sweetheart-table-vs-head-table",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:24.017Z"
+          "inspected_at": "2026-10-31T19:41:13.193Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-escort-card-data-export",
@@ -151,7 +150,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:30.655Z"
+          "inspected_at": "2026-10-31T19:41:19.593Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
@@ -163,7 +162,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
-          "inspected_at": "2026-10-31T19:31:30.398Z"
+          "inspected_at": "2026-10-31T19:41:19.179Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-meal-count-dietary-tracking",
@@ -175,7 +174,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-meal-count-dietary-tracking",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-meal-count-dietary-tracking",
-          "inspected_at": "2026-10-31T19:31:30.796Z"
+          "inspected_at": "2026-10-31T19:41:19.774Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-rsvp-tracking-system",
@@ -187,7 +186,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-rsvp-tracking-system",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-rsvp-tracking-system",
-          "inspected_at": "2026-10-31T19:31:30.524Z"
+          "inspected_at": "2026-10-31T19:41:19.638Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-accessibility",
@@ -199,7 +198,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-accessibility",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-accessibility",
-          "inspected_at": "2026-10-31T19:31:33.329Z"
+          "inspected_at": "2026-10-31T19:41:19.799Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-allergy-tracker",
@@ -211,19 +210,19 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-allergy-tracker",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-allergy-tracker",
-          "inspected_at": "2026-10-31T19:31:30.662Z"
+          "inspected_at": "2026-10-31T19:41:19.460Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-100-guests",
           "verdict": "NEUTRAL",
-          "coverageState": "URL is unknown to Google",
+          "coverageState": "Discovered - currently not indexed",
           "lastCrawlTime": null,
           "indexingState": "INDEXING_STATE_UNSPECIFIED",
           "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:36.609Z"
+          "inspected_at": "2026-10-31T19:41:25.500Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-150-guests",
@@ -235,7 +234,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-150-guests",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-150-guests",
-          "inspected_at": "2026-10-31T19:31:31.179Z"
+          "inspected_at": "2026-10-31T19:41:19.657Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-50-guests",
@@ -247,7 +246,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-for-50-guests",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:37.289Z"
+          "inspected_at": "2026-10-31T19:41:26.147Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-meal-tracker",
@@ -259,7 +258,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-meal-tracker",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-meal-tracker",
-          "inspected_at": "2026-10-31T19:31:42.920Z"
+          "inspected_at": "2026-10-31T19:41:32.378Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-template",
@@ -271,7 +270,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-template",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-template",
-          "inspected_at": "2026-10-31T19:31:37.372Z"
+          "inspected_at": "2026-10-31T19:41:26.494Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-vendor-handoff",
@@ -283,7 +282,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-vendor-handoff",
           "userCanonical": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-vendor-handoff",
-          "inspected_at": "2026-10-31T19:31:37.035Z"
+          "inspected_at": "2026-10-31T19:41:25.955Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/guides/wedding-table-capacity-guide",
@@ -295,7 +294,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/guides/wedding-table-capacity-guide",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:39.866Z"
+          "inspected_at": "2026-10-31T19:41:25.997Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/products/seating-chart-maker",
@@ -307,7 +306,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/products/seating-chart-maker",
           "userCanonical": "https://weddingseatingchartmaker.com/products/seating-chart-maker",
-          "inspected_at": "2026-10-31T19:31:37.511Z"
+          "inspected_at": "2026-10-31T19:41:26.158Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/wedding-guest-list-template",
@@ -319,7 +318,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/wedding-guest-list-template",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:36.549Z"
+          "inspected_at": "2026-10-31T19:41:25.425Z"
         },
         {
           "url": "https://weddingseatingchartmaker.com/wedding-seating-chart",
@@ -331,7 +330,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingseatingchartmaker.com/wedding-seating-chart",
           "userCanonical": "https://weddingseatingchartmaker.com/wedding-seating-chart",
-          "inspected_at": "2026-10-31T19:31:36.892Z"
+          "inspected_at": "2026-10-31T19:41:25.909Z"
         }
       ]
     },
@@ -344,13 +343,13 @@
       "errors_this_run": [],
       "summary": {
         "by_coverage_state": {
-          "Crawled - currently not indexed": 7,
-          "Submitted and indexed": 17,
+          "Crawled - currently not indexed": 8,
+          "Submitted and indexed": 16,
           "URL is unknown to Google": 1
         },
         "buckets": {
-          "indexed": 17,
-          "crawled_not_indexed": 7,
+          "indexed": 16,
+          "crawled_not_indexed": 8,
           "discovered_not_indexed": 0,
           "unknown_to_google": 1,
           "other": 0,
@@ -368,7 +367,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:49.716Z"
+          "inspected_at": "2026-10-31T19:41:38.963Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides",
@@ -380,7 +379,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides",
-          "inspected_at": "2026-10-31T19:31:49.396Z"
+          "inspected_at": "2026-10-31T19:41:38.932Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/diy-wedding-cost-tradeoffs",
@@ -392,7 +391,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/diy-wedding-cost-tradeoffs",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/diy-wedding-cost-tradeoffs",
-          "inspected_at": "2026-10-31T19:31:49.636Z"
+          "inspected_at": "2026-10-31T19:41:38.934Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/estimated-vs-actual-wedding-costs",
@@ -404,7 +403,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/estimated-vs-actual-wedding-costs",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/estimated-vs-actual-wedding-costs",
-          "inspected_at": "2026-10-31T19:31:56.139Z"
+          "inspected_at": "2026-10-31T19:41:45.427Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
@@ -416,7 +415,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
-          "inspected_at": "2026-10-31T19:31:49.670Z"
+          "inspected_at": "2026-10-31T19:41:38.726Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-10000",
@@ -428,7 +427,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-10000",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-10000",
-          "inspected_at": "2026-10-31T19:32:02.098Z"
+          "inspected_at": "2026-10-31T19:41:51.698Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-20000",
@@ -440,7 +439,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-20000",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-20000",
-          "inspected_at": "2026-10-31T19:31:49.667Z"
+          "inspected_at": "2026-10-31T19:41:38.835Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
@@ -452,7 +451,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
-          "inspected_at": "2026-10-31T19:31:56.037Z"
+          "inspected_at": "2026-10-31T19:41:45.605Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-50000",
@@ -464,7 +463,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-50000",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:49.722Z"
+          "inspected_at": "2026-10-31T19:41:39.038Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-calculator",
@@ -476,7 +475,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-calculator",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-calculator",
-          "inspected_at": "2026-10-31T19:32:02.533Z"
+          "inspected_at": "2026-10-31T19:41:51.843Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-contingency",
@@ -488,7 +487,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-contingency",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:56.154Z"
+          "inspected_at": "2026-10-31T19:41:45.165Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-100-guests",
@@ -500,7 +499,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-100-guests",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:31:55.940Z"
+          "inspected_at": "2026-10-31T19:41:45.443Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-150-guests",
@@ -512,19 +511,19 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-150-guests",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-150-guests",
-          "inspected_at": "2026-10-31T19:31:55.819Z"
+          "inspected_at": "2026-10-31T19:41:45.354Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-50-guests",
-          "verdict": "PASS",
-          "coverageState": "Submitted and indexed",
-          "lastCrawlTime": "2026-10-21T16:58:50Z",
+          "verdict": "NEUTRAL",
+          "coverageState": "Crawled - currently not indexed",
+          "lastCrawlTime": "2026-10-31T17:01:34Z",
           "indexingState": "INDEXING_ALLOWED",
           "robotsTxtState": "ALLOWED",
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-50-guests",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-for-50-guests",
-          "inspected_at": "2026-10-31T19:31:49.578Z"
+          "inspected_at": "2026-10-31T19:41:38.933Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-spreadsheet-categories",
@@ -536,7 +535,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-spreadsheet-categories",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-spreadsheet-categories",
-          "inspected_at": "2026-10-31T19:31:55.973Z"
+          "inspected_at": "2026-10-31T19:41:45.310Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
@@ -548,7 +547,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
-          "inspected_at": "2026-10-31T19:31:56.066Z"
+          "inspected_at": "2026-10-31T19:41:45.388Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-deposit-schedule",
@@ -560,7 +559,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-deposit-schedule",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-deposit-schedule",
-          "inspected_at": "2026-10-31T19:32:02.413Z"
+          "inspected_at": "2026-10-31T19:41:52.030Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-gratuity-planner",
@@ -572,7 +571,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-gratuity-planner",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-gratuity-planner",
-          "inspected_at": "2026-10-31T19:32:08.211Z"
+          "inspected_at": "2026-10-31T19:41:58.290Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-hidden-costs-checklist",
@@ -584,7 +583,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-hidden-costs-checklist",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-hidden-costs-checklist",
-          "inspected_at": "2026-10-31T19:32:02.471Z"
+          "inspected_at": "2026-10-31T19:41:51.659Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-monthly-cash-flow",
@@ -596,7 +595,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-monthly-cash-flow",
           "userCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-monthly-cash-flow",
-          "inspected_at": "2026-10-31T19:32:02.517Z"
+          "inspected_at": "2026-10-31T19:41:51.933Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-vendor-payment-tracker",
@@ -608,7 +607,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/guides/wedding-vendor-payment-tracker",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:02.373Z"
+          "inspected_at": "2026-10-31T19:41:51.785Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/products/budget-spreadsheet",
@@ -620,7 +619,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/products/budget-spreadsheet",
           "userCanonical": "https://weddingbudgetspreadsheet.com/products/budget-spreadsheet",
-          "inspected_at": "2026-10-31T19:31:49.519Z"
+          "inspected_at": "2026-10-31T19:41:38.943Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet",
@@ -632,7 +631,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet",
           "userCanonical": "https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet",
-          "inspected_at": "2026-10-31T19:31:55.948Z"
+          "inspected_at": "2026-10-31T19:41:45.461Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/wedding-budget-tradeoffs",
@@ -644,7 +643,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/wedding-budget-tradeoffs",
           "userCanonical": "https://weddingbudgetspreadsheet.com/wedding-budget-tradeoffs",
-          "inspected_at": "2026-10-31T19:32:02.630Z"
+          "inspected_at": "2026-10-31T19:41:51.970Z"
         },
         {
           "url": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
@@ -656,7 +655,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
           "userCanonical": "https://weddingbudgetspreadsheet.com/wedding-cost-per-guest",
-          "inspected_at": "2026-10-31T19:32:01.976Z"
+          "inspected_at": "2026-10-31T19:41:51.727Z"
         }
       ]
     },
@@ -670,15 +669,14 @@
       "summary": {
         "by_coverage_state": {
           "Crawled - currently not indexed": 1,
-          "Discovered - currently not indexed": 5,
-          "Submitted and indexed": 20,
-          "URL is unknown to Google": 1
+          "Discovered - currently not indexed": 6,
+          "Submitted and indexed": 20
         },
         "buckets": {
           "indexed": 20,
           "crawled_not_indexed": 1,
-          "discovered_not_indexed": 5,
-          "unknown_to_google": 1,
+          "discovered_not_indexed": 6,
+          "unknown_to_google": 0,
           "other": 0,
           "not_inspected": 0
         }
@@ -694,7 +692,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/editorial-policy",
           "userCanonical": "https://weddingtimelinetemplate.com/editorial-policy",
-          "inspected_at": "2026-10-31T19:32:14.571Z"
+          "inspected_at": "2026-10-31T19:42:04.898Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides",
@@ -706,7 +704,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides",
           "userCanonical": "https://weddingtimelinetemplate.com/guides",
-          "inspected_at": "2026-10-31T19:32:21.301Z"
+          "inspected_at": "2026-10-31T19:42:11.542Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
@@ -718,7 +716,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
-          "inspected_at": "2026-10-31T19:32:14.772Z"
+          "inspected_at": "2026-10-31T19:42:05.028Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/brunch-wedding-timeline",
@@ -730,7 +728,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/brunch-wedding-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/brunch-wedding-timeline",
-          "inspected_at": "2026-10-31T19:32:14.640Z"
+          "inspected_at": "2026-10-31T19:42:04.892Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/church-ceremony-wedding-timeline",
@@ -742,7 +740,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/church-ceremony-wedding-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/church-ceremony-wedding-timeline",
-          "inspected_at": "2026-10-31T19:32:14.722Z"
+          "inspected_at": "2026-10-31T19:42:04.967Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
@@ -754,7 +752,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
-          "inspected_at": "2026-10-31T19:32:14.802Z"
+          "inspected_at": "2026-10-31T19:42:04.878Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
@@ -766,7 +764,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
-          "inspected_at": "2026-10-31T19:32:20.779Z"
+          "inspected_at": "2026-10-31T19:42:11.324Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/family-photo-timeline",
@@ -778,7 +776,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/family-photo-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/family-photo-timeline",
-          "inspected_at": "2026-10-31T19:32:14.706Z"
+          "inspected_at": "2026-10-31T19:42:04.977Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/one-venue-wedding-timeline",
@@ -790,7 +788,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:14.675Z"
+          "inspected_at": "2026-10-31T19:42:05.043Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
@@ -802,7 +800,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
-          "inspected_at": "2026-10-31T19:32:21.111Z"
+          "inspected_at": "2026-10-31T19:42:11.527Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-day-logistics-timeline",
@@ -814,7 +812,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:27.442Z"
+          "inspected_at": "2026-10-31T19:42:17.729Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
@@ -826,7 +824,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:21.103Z"
+          "inspected_at": "2026-10-31T19:42:11.340Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline-template",
@@ -838,19 +836,19 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline-template",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline-template",
-          "inspected_at": "2026-10-31T19:32:27.061Z"
+          "inspected_at": "2026-10-31T19:42:17.498Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-music-cue-sheet",
           "verdict": "NEUTRAL",
-          "coverageState": "URL is unknown to Google",
+          "coverageState": "Discovered - currently not indexed",
           "lastCrawlTime": null,
           "indexingState": "INDEXING_STATE_UNSPECIFIED",
           "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:20.993Z"
+          "inspected_at": "2026-10-31T19:42:11.041Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
@@ -862,7 +860,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
-          "inspected_at": "2026-10-31T19:32:21.285Z"
+          "inspected_at": "2026-10-31T19:42:11.469Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
@@ -874,7 +872,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
-          "inspected_at": "2026-10-31T19:32:27.516Z"
+          "inspected_at": "2026-10-31T19:42:17.756Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-reception-flow-timeline",
@@ -886,7 +884,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:21.140Z"
+          "inspected_at": "2026-10-31T19:42:11.407Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-reception-order-of-events",
@@ -898,7 +896,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-reception-order-of-events",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/wedding-reception-order-of-events",
-          "inspected_at": "2026-10-31T19:32:27.967Z"
+          "inspected_at": "2026-10-31T19:42:17.735Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-rehearsal-timeline",
@@ -910,7 +908,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:27.367Z"
+          "inspected_at": "2026-10-31T19:42:17.722Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-setup-breakdown-timeline",
@@ -922,7 +920,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-setup-breakdown-timeline",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:33.580Z"
+          "inspected_at": "2026-10-31T19:42:23.718Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-timeline-travel-buffer",
@@ -934,7 +932,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-timeline-travel-buffer",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/wedding-timeline-travel-buffer",
-          "inspected_at": "2026-10-31T19:32:21.075Z"
+          "inspected_at": "2026-10-31T19:42:11.357Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-timeline-with-first-look",
@@ -946,7 +944,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-timeline-with-first-look",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/wedding-timeline-with-first-look",
-          "inspected_at": "2026-10-31T19:32:14.886Z"
+          "inspected_at": "2026-10-31T19:42:05.198Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-timeline-without-first-look",
@@ -958,7 +956,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/guides/wedding-timeline-without-first-look",
           "userCanonical": "https://weddingtimelinetemplate.com/guides/wedding-timeline-without-first-look",
-          "inspected_at": "2026-10-31T19:32:27.663Z"
+          "inspected_at": "2026-10-31T19:42:17.887Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/guides/wedding-vendor-arrival-schedule",
@@ -970,7 +968,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:27.307Z"
+          "inspected_at": "2026-10-31T19:42:17.492Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/products/timeline-template",
@@ -982,7 +980,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/products/timeline-template",
           "userCanonical": "https://weddingtimelinetemplate.com/products/timeline-template",
-          "inspected_at": "2026-10-31T19:32:27.498Z"
+          "inspected_at": "2026-10-31T19:42:18.009Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/wedding-timeline-template",
@@ -994,7 +992,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "userCanonical": "https://weddingtimelinetemplate.com/wedding-timeline-template",
-          "inspected_at": "2026-10-31T19:32:33.459Z"
+          "inspected_at": "2026-10-31T19:42:24.414Z"
         },
         {
           "url": "https://weddingtimelinetemplate.com/what-to-do-6-months-before-the-wedding",
@@ -1006,7 +1004,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingtimelinetemplate.com/what-to-do-6-months-before-the-wedding",
           "userCanonical": "https://weddingtimelinetemplate.com/what-to-do-6-months-before-the-wedding",
-          "inspected_at": "2026-10-31T19:32:33.647Z"
+          "inspected_at": "2026-10-31T19:42:24.079Z"
         }
       ]
     },
@@ -1020,15 +1018,15 @@
       "summary": {
         "by_coverage_state": {
           "Crawled - currently not indexed": 8,
-          "Discovered - currently not indexed": 8,
+          "Discovered - currently not indexed": 9,
           "Submitted and indexed": 35,
-          "URL is unknown to Google": 5
+          "URL is unknown to Google": 4
         },
         "buckets": {
           "indexed": 35,
           "crawled_not_indexed": 8,
-          "discovered_not_indexed": 8,
-          "unknown_to_google": 5,
+          "discovered_not_indexed": 9,
+          "unknown_to_google": 4,
           "other": 0,
           "not_inspected": 0
         }
@@ -1044,7 +1042,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/",
           "userCanonical": "https://weddingchecklistpdf.com/",
-          "inspected_at": "2026-10-31T19:32:46.617Z"
+          "inspected_at": "2026-10-31T19:42:36.867Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/about",
@@ -1056,7 +1054,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:40.447Z"
+          "inspected_at": "2026-10-31T19:42:30.958Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/amazon/wedding-budget-line-by-line",
@@ -1068,7 +1066,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:50.224Z"
+          "inspected_at": "2026-10-31T19:42:37.622Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
@@ -1080,7 +1078,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
           "userCanonical": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
-          "inspected_at": "2026-10-31T19:32:43.422Z"
+          "inspected_at": "2026-10-31T19:42:31.154Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/amazon/wedding-guest-list-problem",
@@ -1092,7 +1090,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:46.684Z"
+          "inspected_at": "2026-10-31T19:42:37.194Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/amazon/wedding-seating-chart",
@@ -1104,7 +1102,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/amazon/wedding-seating-chart",
           "userCanonical": "https://weddingchecklistpdf.com/amazon/wedding-seating-chart",
-          "inspected_at": "2026-10-31T19:32:46.880Z"
+          "inspected_at": "2026-10-31T19:42:37.235Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/amazon/wedding-vendor-questions",
@@ -1116,7 +1114,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:53.001Z"
+          "inspected_at": "2026-10-31T19:42:43.335Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
@@ -1128,7 +1126,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/backyard-wedding-planning",
           "userCanonical": "https://weddingchecklistpdf.com/backyard-wedding-planning",
-          "inspected_at": "2026-10-31T19:32:46.666Z"
+          "inspected_at": "2026-10-31T19:42:37.314Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/disclaimer",
@@ -1140,19 +1138,19 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/disclaimer",
           "userCanonical": "https://weddingchecklistpdf.com/disclaimer",
-          "inspected_at": "2026-10-31T19:32:46.903Z"
+          "inspected_at": "2026-10-31T19:42:37.411Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/editorial-policy",
           "verdict": "NEUTRAL",
-          "coverageState": "URL is unknown to Google",
+          "coverageState": "Discovered - currently not indexed",
           "lastCrawlTime": null,
           "indexingState": "INDEXING_STATE_UNSPECIFIED",
           "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:40.451Z"
+          "inspected_at": "2026-10-31T19:42:30.934Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/free-wedding-planner",
@@ -1164,7 +1162,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/free-wedding-planner",
           "userCanonical": "https://weddingchecklistpdf.com/free-wedding-planner",
-          "inspected_at": "2026-10-31T19:32:59.349Z"
+          "inspected_at": "2026-10-31T19:42:49.491Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides",
@@ -1176,7 +1174,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides",
           "userCanonical": "https://weddingchecklistpdf.com/guides",
-          "inspected_at": "2026-10-31T19:33:05.630Z"
+          "inspected_at": "2026-10-31T19:42:55.850Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
@@ -1188,7 +1186,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:53.021Z"
+          "inspected_at": "2026-10-31T19:42:43.362Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
@@ -1200,7 +1198,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:53.167Z"
+          "inspected_at": "2026-10-31T19:42:43.795Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/18-month-wedding-checklist",
@@ -1212,7 +1210,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/18-month-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/18-month-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:53.260Z"
+          "inspected_at": "2026-10-31T19:42:43.502Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/3-month-wedding-checklist",
@@ -1224,7 +1222,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/3-month-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/3-month-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:59.562Z"
+          "inspected_at": "2026-10-31T19:42:49.747Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/6-month-wedding-checklist",
@@ -1236,7 +1234,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/6-month-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/6-month-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:56.616Z"
+          "inspected_at": "2026-10-31T19:42:44.040Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/9-month-wedding-checklist",
@@ -1248,7 +1246,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/9-month-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/9-month-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:52.988Z"
+          "inspected_at": "2026-10-31T19:42:43.224Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/accessible-wedding-planning-checklist",
@@ -1260,7 +1258,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/accessible-wedding-planning-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/accessible-wedding-planning-checklist",
-          "inspected_at": "2026-10-31T19:32:59.361Z"
+          "inspected_at": "2026-10-31T19:42:49.714Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/backyard-wedding-checklist",
@@ -1272,7 +1270,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/backyard-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/backyard-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:59.336Z"
+          "inspected_at": "2026-10-31T19:42:49.756Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/bridal-shower-checklist",
@@ -1284,7 +1282,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/bridal-shower-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/bridal-shower-checklist",
-          "inspected_at": "2026-10-31T19:32:46.982Z"
+          "inspected_at": "2026-10-31T19:42:37.331Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/courthouse-wedding-checklist",
@@ -1296,7 +1294,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/courthouse-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/courthouse-wedding-checklist",
-          "inspected_at": "2026-10-31T19:33:06.171Z"
+          "inspected_at": "2026-10-31T19:42:56.394Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
@@ -1308,7 +1306,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
-          "inspected_at": "2026-10-31T19:32:59.621Z"
+          "inspected_at": "2026-10-31T19:42:49.973Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
@@ -1320,7 +1318,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:59.796Z"
+          "inspected_at": "2026-10-31T19:42:50.203Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
@@ -1332,7 +1330,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
-          "inspected_at": "2026-10-31T19:32:59.696Z"
+          "inspected_at": "2026-10-31T19:42:50.018Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/micro-wedding-checklist",
@@ -1344,7 +1342,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/micro-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/micro-wedding-checklist",
-          "inspected_at": "2026-10-31T19:32:53.034Z"
+          "inspected_at": "2026-10-31T19:42:43.570Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/post-wedding-return-checklist",
@@ -1356,7 +1354,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/post-wedding-return-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/post-wedding-return-checklist",
-          "inspected_at": "2026-10-31T19:33:06.374Z"
+          "inspected_at": "2026-10-31T19:42:56.660Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/rehearsal-dinner-checklist",
@@ -1368,19 +1366,19 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/rehearsal-dinner-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/rehearsal-dinner-checklist",
-          "inspected_at": "2026-10-31T19:33:15.761Z"
+          "inspected_at": "2026-10-31T19:43:03.204Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/rehearsal-dinner-timeline",
           "verdict": "NEUTRAL",
-          "coverageState": "URL is unknown to Google",
+          "coverageState": "Discovered - currently not indexed",
           "lastCrawlTime": null,
           "indexingState": "INDEXING_STATE_UNSPECIFIED",
           "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:33:05.932Z"
+          "inspected_at": "2026-10-31T19:42:56.017Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-attire-lead-time-checklist",
@@ -1392,7 +1390,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/wedding-attire-lead-time-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/wedding-attire-lead-time-checklist",
-          "inspected_at": "2026-10-31T19:33:03.008Z"
+          "inspected_at": "2026-10-31T19:42:50.338Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-day-emergency-checklist",
@@ -1404,7 +1402,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/wedding-day-emergency-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/wedding-day-emergency-checklist",
-          "inspected_at": "2026-10-31T19:33:05.994Z"
+          "inspected_at": "2026-10-31T19:42:56.374Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-emergency-kit",
@@ -1416,7 +1414,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/wedding-emergency-kit",
           "userCanonical": "https://weddingchecklistpdf.com/guides/wedding-emergency-kit",
-          "inspected_at": "2026-10-31T19:32:40.380Z"
+          "inspected_at": "2026-10-31T19:42:30.957Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-final-payment-checklist",
@@ -1428,7 +1426,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/wedding-final-payment-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/wedding-final-payment-checklist",
-          "inspected_at": "2026-10-31T19:33:05.788Z"
+          "inspected_at": "2026-10-31T19:42:56.347Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-planning-binder",
@@ -1440,7 +1438,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/wedding-planning-binder",
           "userCanonical": "https://weddingchecklistpdf.com/guides/wedding-planning-binder",
-          "inspected_at": "2026-10-31T19:33:05.988Z"
+          "inspected_at": "2026-10-31T19:42:56.167Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
@@ -1452,7 +1450,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:46.640Z"
+          "inspected_at": "2026-10-31T19:42:37.366Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-rain-plan-checklist",
@@ -1464,7 +1462,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:33:12.158Z"
+          "inspected_at": "2026-10-31T19:43:02.518Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-vendor-booking-checklist",
@@ -1476,7 +1474,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:33:09.382Z"
+          "inspected_at": "2026-10-31T19:42:56.846Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-vendor-list",
@@ -1488,19 +1486,19 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/wedding-vendor-list",
           "userCanonical": "https://weddingchecklistpdf.com/guides/wedding-vendor-list",
-          "inspected_at": "2026-10-31T19:33:12.747Z"
+          "inspected_at": "2026-10-31T19:43:03.046Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-venue-selection-checklist",
           "verdict": "NEUTRAL",
-          "coverageState": "Discovered - currently not indexed",
+          "coverageState": "URL is unknown to Google",
           "lastCrawlTime": null,
           "indexingState": "INDEXING_STATE_UNSPECIFIED",
           "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:33:12.290Z"
+          "inspected_at": "2026-10-31T19:43:02.766Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-week-checklist",
@@ -1512,7 +1510,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/guides/wedding-week-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/guides/wedding-week-checklist",
-          "inspected_at": "2026-10-31T19:33:12.191Z"
+          "inspected_at": "2026-10-31T19:43:02.986Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/methodology",
@@ -1524,7 +1522,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/methodology",
           "userCanonical": "https://weddingchecklistpdf.com/methodology",
-          "inspected_at": "2026-10-31T19:33:11.825Z"
+          "inspected_at": "2026-10-31T19:43:02.715Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/micro-wedding-planning",
@@ -1536,7 +1534,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:33:12.528Z"
+          "inspected_at": "2026-10-31T19:43:02.599Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/photos",
@@ -1548,7 +1546,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/photos",
           "userCanonical": "https://weddingchecklistpdf.com/photos",
-          "inspected_at": "2026-10-31T19:33:12.139Z"
+          "inspected_at": "2026-10-31T19:43:02.190Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/printable-wedding-checklist",
@@ -1560,7 +1558,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/printable-wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/printable-wedding-checklist",
-          "inspected_at": "2026-10-31T19:33:18.504Z"
+          "inspected_at": "2026-10-31T19:43:09.156Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/privacy",
@@ -1572,7 +1570,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/privacy",
           "userCanonical": "https://weddingchecklistpdf.com/privacy",
-          "inspected_at": "2026-10-31T19:32:53.570Z"
+          "inspected_at": "2026-10-31T19:42:43.640Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/products/checklist-pdf",
@@ -1584,7 +1582,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/products/checklist-pdf",
           "userCanonical": "https://weddingchecklistpdf.com/products/checklist-pdf",
-          "inspected_at": "2026-10-31T19:33:18.048Z"
+          "inspected_at": "2026-10-31T19:43:09.059Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/products/operations-suite",
@@ -1596,7 +1594,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/products/operations-suite",
           "userCanonical": "https://weddingchecklistpdf.com/products/operations-suite",
-          "inspected_at": "2026-10-31T19:32:40.328Z"
+          "inspected_at": "2026-10-31T19:42:31.478Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/readiness-score",
@@ -1608,7 +1606,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/readiness-score",
           "userCanonical": "https://weddingchecklistpdf.com/readiness-score",
-          "inspected_at": "2026-10-31T19:33:18.366Z"
+          "inspected_at": "2026-10-31T19:43:08.859Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/refund-policy",
@@ -1620,7 +1618,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/refund-policy",
           "userCanonical": "https://weddingchecklistpdf.com/refund-policy",
-          "inspected_at": "2026-10-31T19:33:18.338Z"
+          "inspected_at": "2026-10-31T19:43:09.036Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/shop",
@@ -1632,7 +1630,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:40.475Z"
+          "inspected_at": "2026-10-31T19:42:30.862Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/terms",
@@ -1644,7 +1642,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/terms",
           "userCanonical": "https://weddingchecklistpdf.com/terms",
-          "inspected_at": "2026-10-31T19:33:18.888Z"
+          "inspected_at": "2026-10-31T19:43:09.240Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/trends",
@@ -1656,7 +1654,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/trends",
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:33:18.326Z"
+          "inspected_at": "2026-10-31T19:43:08.890Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/wedding-checklist",
@@ -1668,7 +1666,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/wedding-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/wedding-checklist",
-          "inspected_at": "2026-10-31T19:33:18.673Z"
+          "inspected_at": "2026-10-31T19:43:09.738Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/wedding-checklist-pdf",
@@ -1680,7 +1678,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/wedding-checklist-pdf",
           "userCanonical": "https://weddingchecklistpdf.com/wedding-checklist-pdf",
-          "inspected_at": "2026-10-31T19:32:40.501Z"
+          "inspected_at": "2026-10-31T19:42:30.733Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/wedding-planning-checklist",
@@ -1692,7 +1690,7 @@
           "pageFetchState": "SUCCESSFUL",
           "googleCanonical": "https://weddingchecklistpdf.com/wedding-planning-checklist",
           "userCanonical": "https://weddingchecklistpdf.com/wedding-planning-checklist",
-          "inspected_at": "2026-10-31T19:33:21.954Z"
+          "inspected_at": "2026-10-31T19:43:09.649Z"
         },
         {
           "url": "https://weddingchecklistpdf.com/wedding-planning-reality-check",
@@ -1704,7 +1702,7 @@
           "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
           "googleCanonical": null,
           "userCanonical": null,
-          "inspected_at": "2026-10-31T19:32:40.225Z"
+          "inspected_at": "2026-10-31T19:42:30.980Z"
         }
       ]
     }
