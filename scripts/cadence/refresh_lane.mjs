@@ -74,7 +74,9 @@ export const DRAIN_DAYS = 14;
 export const MAX_PER_RUN = 4;
 export const COOL_OFF_DAYS = 7;
 export const STALL_RUN_DAYS = 3;
-const DEFAULT_BUDGET_MS = 240000;
+// Measured on run 41236802294: a free-model reply takes 30-55s, so 4 minutes bought
+// three attempts and one refresh. Seven minutes buys the per-run target.
+const DEFAULT_BUDGET_MS = 420000;
 
 /** Pages to refresh this run: enough to clear the needed count in DRAIN_DAYS. */
 export function perRun(refreshesNeeded, queued) {
@@ -263,11 +265,19 @@ export function buildMessages(page, target, rules, feedback) {
 }
 
 export function parseReply(content) {
-  const text = String(content || '').replace(/```(?:json)?/g, '');
-  const start = text.indexOf('{');
-  const end = text.lastIndexOf('}');
-  if (start < 0 || end <= start) return null;
-  try { return JSON.parse(text.slice(start, end + 1)); } catch { return null; }
+  // Free models wrap the object in prose, code fences or a <think> block, and those
+  // often carry braces of their own. Try every opening brace, newest first, and take
+  // the last object that carries the three sentences. Run 41236802294 rejected 2 of
+  // 3 replies when this took the span from the first "{" to the last "}".
+  const text = String(content || '').replace(/<think>[\s\S]*?<\/think>/gi, '').replace(/```(?:json)?/g, '');
+  const want = (o) => o && typeof o === 'object' && SENT_FIELDS.every((f) => typeof o[f] === 'string');
+  for (let start = text.lastIndexOf('{'); start >= 0; start = text.lastIndexOf('{', start - 1)) {
+    for (let end = text.indexOf('}', start); end > start; end = text.indexOf('}', end + 1)) {
+      try { const o = JSON.parse(text.slice(start, end + 1)); if (want(o)) return o; } catch { /* keep scanning */ }
+    }
+    if (start === 0) break;
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------------------
@@ -334,10 +344,10 @@ export async function runLane({ root = process.cwd(), fetchImpl = globalThis.fet
     let accepted = null;
     let lastProblems = [];
     for (let attempt = 0; attempt < 2 && !accepted; attempt++) {
-      const res = await routeChat({ messages: buildMessages(page, target, rules, feedback), purpose: `refresh-lane:${c.slug}`, apiKey, fetchImpl, maxTokens: 900, temperature: 0.4 });
+      const res = await routeChat({ messages: buildMessages(page, target, rules, feedback), purpose: `refresh-lane:${c.slug}`, apiKey, fetchImpl, maxTokens: 2000, temperature: 0.4 });
       if (res.status !== 'OK') { stop = { outcome: 'MODEL_UNAVAILABLE', stop: res.stop, reason: res.reason }; break; }
       const next = parseReply(res.content);
-      if (!next) { lastProblems = ['model reply was not the JSON object asked for']; feedback = lastProblems; continue; }
+      if (!next) { lastProblems = [`model reply was not the JSON object asked for (${res.model}: ${JSON.stringify(String(res.content).slice(0, 120))})`]; feedback = ['reply with the JSON object only, no other text']; continue; }
       const problems = factGuard({ ...old, title: page.title }, next);
       if (!problems.length) {
         let applied;
