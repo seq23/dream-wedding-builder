@@ -351,7 +351,7 @@ if (conversionPages === 0) fail('found 0 pages with a conversion form - the sess
 for (const host of HOSTS) if (!pricedOffers.has(host)) fail(`${host}: no page carries a priced Offer whose price is on the page`);
 if (linkSources.size === 0) fail('found 0 network links on any page - the link check examined nothing');
 
-console.log(`rendered seo contract: hosts=${HOSTS.length} pages=${pagesExamined} titles=${byTitle.size} descriptions=${byDesc.size} network_links=${linkSources.size} schema_pages=${schemaChecks} priced_offers=${pricedOffers.size}`);
+console.log(`rendered seo contract: hosts=${HOSTS.length} pages=${pagesExamined} titles=${byTitle.size} descriptions=${byDesc.size} network_links=${linkSources.size} schema_pages=${schemaChecks} priced_offers=${pricedOffers.size} conversion_pages=${conversionPages}`);
 if (failures.length) {
   for (const message of failures) console.error(`  FAIL ${message}`);
   console.error(`rendered seo contract: FAIL (${failures.length} problem(s))`);
