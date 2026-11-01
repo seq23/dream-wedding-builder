@@ -24,6 +24,7 @@ on:
 permissions:
   contents: write
   actions: write
+  models: read  # GitHub Models free lane (engine v1.1)
 
 concurrency:
   group: dream-wedding-search-loop
@@ -42,4 +43,5 @@ jobs:
       GSC_SITE_URL: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
       BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
