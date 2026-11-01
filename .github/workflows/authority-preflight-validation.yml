@@ -2,7 +2,8 @@ name: Authority Preflight Validation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 9 * * *'
+    - cron: '17 4 * * *'  # America/Chicago, all year
+      timezone: America/Chicago
 permissions: { contents: read }
 concurrency: { group: dwb-authority-preflight, cancel-in-progress: false }
 # Intentional read-only preflight. This does not publish. The publishing lane is full-safe-autonomy.yml one hour later.

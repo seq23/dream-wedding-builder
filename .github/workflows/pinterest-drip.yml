@@ -4,7 +4,7 @@ name: Pinterest drip (weekly refill + metrics)
 # by release_date at request time on the Worker, so one new pin reaches /pinfeed.xml
 # each day in America/Chicago without a deploy.
 #
-# This weekly run (Monday 06:30 CT) keeps that queue stocked:
+# This weekly run (Saturday 06:40 CT, the Spry Labs weekly-upkeep window) keeps that queue stocked:
 #   1. scripts/pinterest/pin_queue.mjs: new /products/* and /guides/* pages join; when
 #      fewer than 14 variants are unreleased it plans, renders and dates the next
 #      batch ($0: template copy from the page's own data, sharp images from the
@@ -16,7 +16,8 @@ name: Pinterest drip (weekly refill + metrics)
 # none of which feeds any page's lastmod or a sitemap. Workers Builds deploys the push.
 on:
   schedule:
-    - cron: '30 11 * * 1'
+    - cron: '40 6 * * 6'  # America/Chicago, all year
+      timezone: America/Chicago
   workflow_dispatch:
 
 permissions: { contents: write }
