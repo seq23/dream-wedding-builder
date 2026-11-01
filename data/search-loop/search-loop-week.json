@@ -2,7 +2,7 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W44",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-01T14:16:53.584Z",
+  "generated_at": "2026-11-01T16:23:29.908Z",
   "state": "slow",
   "published": 0,
   "indexed": 0,
@@ -14,12 +14,9 @@
   "undone": 0,
   "merged": 0,
   "notes": [
-    "FIND bing_webmaster: not read: BING_WEBMASTER_API_KEY is not set",
-    "FIND relevance_screen: not read: none of 5 free model(s) answered (nemotron-3.5-lightning:free:empty, gemma-4-31b-it:free:http_429, gemma-4-31b-it:free:http_429, gemma-4-26b-a4b-it:free:http_429, gemma-4-26b-a4b-it:free:http_429, nemotron-3-ultra-550b-a55b:free:empty, dots-3-note-preview:free:empty) (lexical floor only)",
-    "NAMED NOTE [FREE_MODEL_RATE_LIMITED] the free model route is rate-limited or exhausted (none of 5 free model(s) answered (nemotron-3.5-lightning:free:empty, gemma-4-31b-it:free:http_429, gemma-4-31b-it:free:http_429, gemma-4-26b-a4b-it:free:empty, nemotron-3-ultra-550b-a55b:free:empty, dots-3-note-preview:free:empty)); this run dropped itself to slow for today",
+    "NAMED NOTE [FREE_MODEL_RATE_LIMITED] the free model route is rate-limited or exhausted (every free lane is out — gemini: not read: GEMINI_API_KEY is not passed; openrouter:nvidia/nemotron-3-ultra-550b-a55b:free: timed out after 60s (skipped this run); openrouter:dots-studio/dots-3-note-preview:free: timed out after 60s (skipped this run); openrouter:xingchen-agi/xing4.0-29b-a4b:free: timed out after 60s (skipped this run); openrouter:nvidia/nemotron-3.5-super-vl:free: timed out after 1s (skipped this run) (openrouter:gemma-4-26b-a4b-it:free:http_429, openrouter:nemotron-3-ultra-550b-a55b:free:timeout, openrouter:dots-3-note-preview:free:timeout, openrouter:xing4.0-29b-a4b:free:timeout, openrouter:nemotron-3.5-super-vl:free:timeout, all::call budget 240s used)); this run dropped itself to slow for today",
     "BUILD stopped early: the free model route failed twice in a row",
-    "BUILD published 0 of quota 3: 0 draft(s) failed the gate and were dropped; 1 got no answer from the free model and stay queued",
-    "pace: held at 10/day: indexing not read (no pages old enough to measure)"
+    "BUILD published 0 of quota 3: 0 draft(s) failed the gate and were dropped; 1 got no answer from the free model and stay queued"
   ],
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/41315390911"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/41326077234"
 }

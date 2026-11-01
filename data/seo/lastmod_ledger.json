@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "7cae4ee27d87a9819057417fda3b5718962fddd6",
+  "generated_from_commit": "d06f77873e59baac6eefef3dd413bc5e7164ae06",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
@@ -426,7 +426,7 @@
       "source": "data/seo/hub_pages.json#pages.printable-wedding-checklist"
     },
     "/privacy": {
-      "lastmod": "2026-10-28",
+      "lastmod": "2026-11-01",
       "source": "app/privacy/page.tsx"
     },
     "/products/budget-spreadsheet": {
