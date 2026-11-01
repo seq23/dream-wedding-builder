@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-31T11:45:10.647Z",
+  "generated_at": "2026-11-01T12:43:06.333Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
     "guide": 570,
@@ -10,13 +10,14 @@
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-02",
-        "end": "2026-10-29"
+        "start": "2026-10-03",
+        "end": "2026-10-30"
       },
       "content_pages_examined": 22,
       "candidate_count": 0,
       "candidates": [],
       "excluded_utility_paths": [
+        "/editorial-policy",
         "/guides",
         "/products/seating-chart-maker"
       ]
@@ -24,25 +25,17 @@
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-02",
-        "end": "2026-10-29"
+        "start": "2026-10-03",
+        "end": "2026-10-30"
       },
       "content_pages_examined": 20,
-      "candidate_count": 8,
+      "candidate_count": 7,
       "candidates": [
         {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-hidden-costs-checklist",
           "type": "guide",
           "impressions_28d": 0,
           "words": 524,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 540,
           "thin_threshold": 570,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
@@ -55,6 +48,14 @@
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
+          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 549,
+          "thin_threshold": 570,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
           "url": "https://weddingbudgetspreadsheet.com/guides/wedding-gratuity-planner",
           "type": "guide",
           "impressions_28d": 0,
@@ -63,10 +64,10 @@
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-contingency",
+          "url": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
           "type": "guide",
           "impressions_28d": 0,
-          "words": 555,
+          "words": 560,
           "thin_threshold": 570,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
@@ -75,14 +76,6 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 564,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 566,
           "thin_threshold": 570,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
@@ -96,6 +89,7 @@
         }
       ],
       "excluded_utility_paths": [
+        "/editorial-policy",
         "/guides",
         "/products/budget-spreadsheet",
         "/wedding-budget-tradeoffs",
@@ -105,8 +99,8 @@
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-02",
-        "end": "2026-10-29"
+        "start": "2026-10-03",
+        "end": "2026-10-30"
       },
       "content_pages_examined": 23,
       "candidate_count": 6,
@@ -161,6 +155,7 @@
         }
       ],
       "excluded_utility_paths": [
+        "/editorial-policy",
         "/guides",
         "/products/timeline-template",
         "/what-to-do-6-months-before-the-wedding"
@@ -169,8 +164,8 @@
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-02",
-        "end": "2026-10-29"
+        "start": "2026-10-03",
+        "end": "2026-10-30"
       },
       "content_pages_examined": 37,
       "candidate_count": 2,
@@ -197,6 +192,7 @@
         "/about",
         "/backyard-wedding-planning",
         "/disclaimer",
+        "/editorial-policy",
         "/free-wedding-planner",
         "/guides",
         "/methodology",
