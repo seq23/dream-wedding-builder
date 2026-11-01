@@ -120,7 +120,7 @@ describe('pin queue schema', () => {
 
 describe('release schedule', () => {
   it('1 pin a day from 17 Oct 2026, pins_per_day from 1 Nov, no gaps, never the same page two days running', () => {
-    expect(scheduleViolations(queue.variants, queue.config.pins_per_day)).toEqual([]);
+    expect(scheduleViolations(queue.variants, queue.config.pins_per_day).filter((p) => !p.startsWith(`${boards.SPLIT_FROM}: ${boards.BOARDS.length} pins`))).toEqual([]);
     const days = [...new Set(dated.map((v) => v.release_date))].sort();
     expect(days[0]).toBe('2026-10-17');
     for (let i = 1; i < days.length; i += 1) expect(days[i], 'gap in the schedule').toBe(addDays(days[i - 1], 1));
@@ -128,6 +128,8 @@ describe('release schedule', () => {
     for (const day of days) {
       const n = dated.filter((v) => v.release_date === day).length;
       if (day < PACE_SINCE) expect(n, day).toBe(1);
+      // The board-split day carries one pin per board: Pinterest refuses to connect a feed with no items.
+      else if (day === boards.SPLIT_FROM) expect(n, day).toBeLessThanOrEqual(boards.BOARDS.length);
       else if (day !== last) expect(n, day).toBe(queue.config.pins_per_day);
       else expect(n, day).toBeLessThanOrEqual(queue.config.pins_per_day);
     }
@@ -236,7 +238,7 @@ describe('auto-refill', () => {
     scheduleVariants(q.variants, { pinsPerDay: q.config.pins_per_day, firstDay: addDays(lastDay, -12) });
     // The last dated day of the queue may be part-filled; the refill tops it up first.
     expect(planned.every((v) => v.release_date && v.release_date >= lastDay)).toBe(true);
-    expect(scheduleViolations(q.variants, q.config.pins_per_day)).toEqual([]);
+    expect(scheduleViolations(q.variants, q.config.pins_per_day).filter((p) => !p.startsWith(`${boards.SPLIT_FROM}: ${boards.BOARDS.length} pins`))).toEqual([]);
   });
 
   it('a page that joins later gets its pins before the old pages get more', () => {
@@ -275,7 +277,7 @@ describe('topic boards: one feed per board, every pin in exactly one', () => {
   });
 
   it('every topic board has a pin on the split day, so its feed is not empty when connected', () => {
-    for (const board of boards.BOARDS.slice(1, 3)) {
+    for (const board of boards.BOARDS.slice(1)) {
       expect(parseFeed(buildPinfeed(new Date(`${boards.SPLIT_FROM}T18:00:00Z`), board)).items.length, board.slug).toBeGreaterThan(0);
     }
   });
