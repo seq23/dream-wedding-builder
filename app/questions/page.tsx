@@ -5,6 +5,7 @@ import { canonicalUrl, PARENT_HOST } from '@/lib/site-config';
 import { ORGANIZATION } from '@/lib/site-home';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
+import { SampleSignup } from '@/components/SampleSignup';
 import searchLoopConfig from '@/search-loop.config.json';
 import searchLoopLedger from '@/data/search-loop/pages.json';
 import { searchLoopPages } from '@/lib/search-loop-pages.mjs';
@@ -39,6 +40,7 @@ export default function Questions() {
     {pages.length > 0
       ? <ul className="grid gap-3 md:grid-cols-2">{pages.map((page) => <li key={page.route}><a href={page.route} className="block rounded-[1.25rem] border border-charcoal/10 bg-white p-5 font-bold first-letter:uppercase">{page.query} →</a></li>)}</ul>
       : <p className="rounded-[1.25rem] border border-charcoal/10 bg-white p-5 text-charcoal/70">The first answers are being written. Until then, the <Link href="/guides" className="underline underline-offset-4">planning guides</Link> cover the same ground in depth.</p>}
+    <SampleSignup/>
     <section className="rounded-[1.75rem] bg-charcoal p-7 text-linen md:p-10">
       <h2 className="font-serif text-4xl">Plan it from one checklist</h2>
       <p className="mt-4 max-w-3xl text-linen/75">The Wedding Checklist PDF puts every task, from the engagement to the day after, in order with the timing it needs.</p>

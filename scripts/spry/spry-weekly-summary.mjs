@@ -38,7 +38,9 @@ const searchFresh = (h, now) => h?.complete === true && h.totals?.clicks != null
 /** Sales line from `{ paid }` or `{ error }`. */
 export function salesLine(sales) {
   if (!sales || sales.error) return notRead('Sales', sales?.error ?? 'nothing was asked');
-  return { read: true, line: `Sales: ${plural(sales.paid, 'paid order')} this week.` };
+  // The money line (Growth playbook build order 1): count AND revenue, never a buyer's name.
+  const money = sales.cents == null ? '' : ` ($${(Number(sales.cents) / 100).toFixed(2)})`;
+  return { read: true, line: `Sales: ${plural(sales.paid, 'paid order')} this week${money}.` };
 }
 
 /** Search line from gsc_truth.json, summed over the sites whose window is complete and fresh. */
@@ -113,11 +115,12 @@ async function readSales(now) {
   try {
     const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/d1/database/${DB_ID}/query`, {
       method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sql: "SELECT COUNT(*) AS n FROM orders WHERE status = 'PAID' AND created_at >= ?", params: [since] }),
+      body: JSON.stringify({ sql: "SELECT COUNT(*) AS n, COALESCE(SUM(amount_total), 0) AS cents FROM orders WHERE status = 'PAID' AND created_at >= ?", params: [since] }),
     });
     const body = await res.json().catch(() => ({}));
     if (!res.ok || !body.success) return { error: `the database answered ${res.status}` };
-    return { paid: Number(body.result?.[0]?.results?.[0]?.n ?? 0) };
+    const row = body.result?.[0]?.results?.[0] ?? {};
+    return { paid: Number(row.n ?? 0), cents: Number(row.cents ?? 0) };
   } catch (e) {
     return { error: `the database could not be reached (${String(e?.message ?? e).slice(0, 80)})` };
   }
@@ -137,6 +140,7 @@ export function selfCheck() {
   if (full.schema !== SCHEMA || JSON.stringify(full.notes) !== JSON.stringify(want) || full.sites.some((s) => s.state !== 'fine')) throw new Error(`self-check: lines are wrong: ${JSON.stringify(full.notes)}`);
   const part = buildSummary({ now, sales: { error: 'the Cloudflare credentials are not set for this run' }, gsc: { hosts: { 'a.example': host(5, 9, '2026-10-01T00:00:00Z') } }, pin: { status: 'NAMED_STOP', reason: 'D1 unreadable.' }, pages: { refresh: { runs: [] } } });
   if (!part.notes.every((l, i) => i === 3 || l.includes('not read')) || part.notes.some((l) => /\b0 (paid|click|visit)/.test(l)) || part.sites[0].state !== 'watch') throw new Error(`self-check: an unread number became a zero or vanished: ${JSON.stringify(part.notes)}`);
+  if (salesLine({ paid: 2, cents: 4800 }).line !== 'Sales: 2 paid orders this week ($48.00).') throw new Error('self-check: the money line lost its revenue');
   let refused = false;
   try { buildSummary({ now, sales: { error: 'x' }, gsc: null, pin: null, pages: {} }); } catch { refused = true; }
   if (!refused) throw new Error('self-check: a summary with nothing read was handed on (rule 0)');

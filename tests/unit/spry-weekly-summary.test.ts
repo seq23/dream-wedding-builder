@@ -19,6 +19,7 @@ describe('Spry Labs weekly hand-off (Dream Wedding)', () => {
 
   it('never turns an unread number into a zero (rule 0)', () => {
     expect(salesLine({ error: 'the Cloudflare credentials are not set for this run' }).line).toBe('Sales: not read: the Cloudflare credentials are not set for this run.');
+    expect(salesLine({ paid: 1, cents: 900 }).line).toBe('Sales: 1 paid order this week ($9.00).');
     expect(searchLine({ hosts: { 'a.example': host(4, 9, '2026-10-01T00:00:00Z') } }, now).line).toMatch(/^Search: not read: /);
     expect(pinterestLine({ status: 'NAMED_STOP', reason: 'D1 unreadable.' }, now).line).toBe('Pinterest: not read: D1 unreadable.');
     expect(pinterestLine({ status: 'MEASURED', generated_at: '2026-10-10T00:00:00Z', total: 0 }, now).line).toMatch(/^Pinterest: not read: the newest measurement is from Oct/);
