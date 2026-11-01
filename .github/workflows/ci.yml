@@ -8,13 +8,14 @@ name: CI - Build and Validate
 # and 3f5cf9c - and no CI run exists for any of them; the last CI run on main was
 # from the previous day's human push. Everything those lanes write to main was
 # therefore unverified by this gate until the next person happened to push.
-# 12:40 UTC is after the daily publishing lane (10:17) and the search
-# intelligence lane (11:41) have finished committing.
+# 07:40 CT is after the daily publishing lane (05:17 CT) and the search
+# intelligence lane (06:41 CT) have finished committing.
 on:
   push:
   pull_request:
   schedule:
-    - cron: '40 12 * * *'
+    - cron: '40 7 * * *'  # America/Chicago, all year
+      timezone: America/Chicago
   workflow_dispatch:
 permissions: { contents: read }
 jobs:

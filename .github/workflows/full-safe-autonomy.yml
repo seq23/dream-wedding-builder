@@ -2,7 +2,8 @@ name: Full Safe Autonomy
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 10 * * *'
+    - cron: '17 5 * * *'  # America/Chicago, all year
+      timezone: America/Chicago
 permissions:
   contents: write
 concurrency:
