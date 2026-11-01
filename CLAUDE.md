@@ -4,6 +4,10 @@ Repo authority order is in `AGENTS.md`; read that first. This file carries the r
 an agent must not have to discover, and every one of them is read by something that
 fails when it is broken.
 
+## Company brain
+
+Read `~/Brains/spry.md` before any work (business facts, priorities, voice, settled decisions). New business facts go to the brain via Boss OS, not into this repo or memory. Repo how-tos stay in `docs/`.
+
 ## Cost: nothing paid
 
 **Nothing paid.** Every model, search and enrichment call in this repository goes
