@@ -9,11 +9,11 @@ schedule); see the notes below for what moved.
 |---|---|---|---|
 | Authority Preflight Validation | `authority-preflight-validation.yml` | every day 04:17 CT | `17 4 * * *` |
 | CI - Build and Validate | `ci.yml` | every day 07:40 CT | `40 7 * * *` |
-| Entity Backlink Watch | `entity-backlink-watch.yml` | Fri 07:00 CT | `0 7 * * 5` |
+| Entity Backlink Watch | `entity-backlink-watch.yml` | Thu 07:40 CT | `40 7 * * 4` |
 | Full Safe Autonomy | `full-safe-autonomy.yml` | every day 05:17 CT | `17 5 * * *` |
 | Pinterest drip (weekly refill + metrics) | `pinterest-drip.yml` | Sat 06:40 CT | `40 6 * * 6` |
 | Search Intelligence - Observe Diagnose Repair Retest | `search-intelligence.yml` | every day 06:41 CT | `41 6 * * *` |
-| Bounded Self-Healing | `self-heal.yml` | Wed 11:18 CT | `18 11 * * 3` |
+| Bounded Self-Healing | `self-heal.yml` | Wed 10:10 CT | `10 10 * * 3` |
 
 ## Weekly windows
 
@@ -24,5 +24,6 @@ schedule); see the notes below for what moved.
 
 ## Moved on 1 Nov 2026
 - Pinterest drip (weekly refill + metrics): Monday → Saturday 06:40 CT (upkeep window).
-- Entity Backlink Watch: Monday → Friday 07:00 CT (backlink watches are spread Thursday/Friday).
+- Entity Backlink Watch: Monday → Thursday 07:40 CT (four backlink watches on Thursday, 20 minutes apart).
 - The Worker's hourly delivery retry (`wrangler.jsonc`, `0 * * * *` UTC) is unchanged.
+- Bounded Self-Healing joins the Wednesday 10:00–10:30 CT self-healing sweep (p-n-p 10:00, Dream Wedding 10:10, backlink network 10:20, WPP 10:30).

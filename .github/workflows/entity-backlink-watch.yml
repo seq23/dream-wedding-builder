@@ -13,7 +13,7 @@ name: Entity Backlink Watch
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 7 * * 5"  # America/Chicago, all year
+    - cron: "40 7 * * 4"  # America/Chicago, all year
       timezone: America/Chicago
 
 permissions:
