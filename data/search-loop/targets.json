@@ -1,0 +1,1873 @@
+{
+  "schema": "search-loop-targets-v1",
+  "site": "weddingchecklistpdf.com",
+  "week": "2026-W44",
+  "generated_at": "2026-11-01T14:16:53.584Z",
+  "sources": {
+    "search_console": "ok: 20 rows",
+    "bing_webmaster": "not read: BING_WEBMASTER_API_KEY is not set",
+    "suggestqueries.google.com": "ok",
+    "api.bing.com": "ok",
+    "relevance_screen": "not read: none of 5 free model(s) answered (nemotron-3.5-lightning:free:empty, gemma-4-31b-it:free:http_429, gemma-4-31b-it:free:http_429, gemma-4-26b-a4b-it:free:http_429, gemma-4-26b-a4b-it:free:http_429, nemotron-3-ultra-550b-a55b:free:empty, dots-3-note-preview:free:empty) (lexical floor only)"
+  },
+  "targets": [
+    {
+      "query": "how to plan for a wedding checklist",
+      "variants": [
+        "how to plan a wedding checklist"
+      ],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 45,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner template",
+      "variants": [
+        "wedding planner free template",
+        "wedding planner template free",
+        "best free wedding planner template"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner pdf",
+      "variants": [
+        "best free wedding planner pdf",
+        "wedding planner free pdf"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner printable",
+      "variants": [
+        "free printable wedding planner",
+        "printable free wedding planner",
+        "free printable wedding planners",
+        "wedding planner free printable"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner app",
+      "variants": [
+        "what is the best free wedding planner app",
+        "what is the best free wedding planning app",
+        "free wedding planning apps",
+        "best free wedding planner app",
+        "wedding planner free app",
+        "wedding planner app free"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner spreadsheet",
+      "variants": [
+        "best free wedding planner spreadsheet"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner book",
+      "variants": [
+        "best free wedding planner book"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner website",
+      "variants": [
+        "what is the best free wedding planning website",
+        "best free wedding planner website",
+        "wedding planner website free"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner excel",
+      "variants": [
+        "wedding planner free excel"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free online wedding planner",
+      "variants": [
+        "online wedding planner free",
+        "best free wedding planner online",
+        "wedding planner free online",
+        "wedding planner online free",
+        "wedding planning online free",
+        "the wedding planner online free"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist free",
+      "variants": [
+        "free printable wedding checklist",
+        "wedding checklist printable free"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist pdf",
+      "variants": [
+        "wedding checklist printable pdf"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist for bride",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist free pdf",
+      "variants": [
+        "free printable wedding checklist pdf",
+        "wedding checklist free printable pdf"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "tips to planning a wedding checklist",
+      "variants": [
+        "checklist for planning a wedding",
+        "planning a wedding checklist",
+        "checklist of wedding planning",
+        "wedding planning checklist tips"
+      ],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner checklist pdf",
+      "variants": [
+        "wedding planning checklist pdf",
+        "simple wedding planning checklist pdf",
+        "pdf wedding planning checklist",
+        "best wedding planner checklist pdf"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planning checklist pdf",
+      "variants": [
+        "wedding planning checklist free pdf",
+        "best free wedding planning checklist pdf"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free online course",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 40,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner",
+      "variants": [
+        "wedding planner free",
+        "wedding planner for free",
+        "best wedding planning for free",
+        "best free wedding planner guide",
+        "best free wedding planner",
+        "free simple wedding planner",
+        "wedding planner guide free",
+        "what is the wedding planner on for free",
+        "is planning wedding free",
+        "are wedding planners free",
+        "best wedding planner free"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how much does full wedding planning cost",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how to become a wedding planner for free",
+      "variants": [],
+      "signals": {
+        "words": 8,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "is there a free wedding planner app",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "is it necessary to hire a wedding planner",
+      "variants": [],
+      "signals": {
+        "words": 8,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "can you plan a wedding without a wedding planner",
+      "variants": [],
+      "signals": {
+        "words": 9,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how to survive wedding planning",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how to watch wedding planner for free",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how to become a freelance wedding planner",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how to become a wedding event planner",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "is folia wedding planner free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "is joy wedding planner free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "is zola wedding planning free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "is the knot wedding planner free",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how to be the best wedding planner",
+      "variants": [
+        "what is wedding planning"
+      ],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist",
+      "variants": [
+        "wedding checklist printable",
+        "printable wedding guide checklist",
+        "wedding to do checklist printable",
+        "simple wedding checklist printable"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "how to plan a wedding checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "what do you need to consider when planning a wedding",
+      "variants": [],
+      "signals": {
+        "words": 10,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "are wedding planners in demand",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "does hobby lobby have wedding planners",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "which wedding planning site is best",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "elopement checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 30,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner printables pdf",
+      "variants": [
+        "best free wedding planner printables pdf"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner template google sheets",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planning sites",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "how to plan wedding free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "can help with wedding planning",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free movie",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "is a wedding planner worth it",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "how to make a wedding planner",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist uk",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist template",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist australia",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist pdf south africa",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner checklist pdf philippines",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner checklist pdf malaysia",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "event planning checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding coordinator checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning guide pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "planning your own wedding checklist",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "free printable wedding planning checklist and timeline",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner certification online free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner course online free pdf",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner game online free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner book online free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding table planner online free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner how to become one",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "websites for wedding planning",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "elopement checklist printable free",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "elopement checklist printable pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding elopement checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "wedding checklist for elopement",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "how to plan a elope wedding",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "how to plan an elopement wedding",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 25,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner templates",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner checklist",
+      "variants": [
+        "wedding planner free checklist",
+        "planning a wedding checklist free",
+        "wedding planning checklist free"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner excel template",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner software uk",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner software with checklist",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner software app",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding table planner",
+      "variants": [
+        "wedding table planner free"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "promote free wedding planner",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding services planner",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner software reviews",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free budget",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free digital wedding planner",
+      "variants": [
+        "digital wedding planner free"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "best free wedding planning advice",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner download",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "downloadable wedding planner free",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner to do list free",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "make online wedding planner",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free trial",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free ebook",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free quote",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free contract",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free software",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free guide aurora co",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free guide aurora il",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free guide aurora springs",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free guide aurora wedding",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner free guide aurora colorado",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist planner",
+      "variants": [
+        "printable wedding planning checklist",
+        "printable wedding planner checklist",
+        "planning a wedding checklist printable"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding checklist the knot",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding photo checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding checklist to do",
+      "variants": [
+        "checklist for a wedding"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "best wedding checklist printable every detail",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "things to do wedding checklist",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist help",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist advisable",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding to do checklist template",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "things to plan for a wedding checklist",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "complete wedding checklist printable free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding checklist free printable word",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "basic wedding checklist free printable",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "detailed wedding checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding list checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "detailed wedding checklist free and printable",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "quick wedding checklist free printable",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free printable wedding checklist template",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding planning checklist free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding checklist everything you need",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "diy wedding checklist free printable",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding list checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding day checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist advisor pdf",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "indian wedding planning checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "gujarati wedding planning checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "printable wedding planning checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist advised",
+      "variants": [
+        "wedding planning checklist advises"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist advice",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist advisor tips",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "basic wedding planning checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning detailed checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist book",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "complete checklist for wedding planning",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planning checklist online",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free online wedding planner template",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner courses online free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "watch wedding planner online free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "free wedding planner software online",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "best online wedding planner",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "online wedding website planner",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "safety plan for elopement template",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "planning an elopement wedding",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "elopement safety plan for school template",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 20,
+      "kind": "new"
+    },
+    {
+      "query": "wedding planner freelance",
+      "variants": [],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 15,
+      "kind": "new"
+    },
+    {
+      "query": "printable bridal checklist",
+      "variants": [],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "score": 15,
+      "kind": "new"
+    }
+  ],
+  "strengthen": []
+}
