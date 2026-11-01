@@ -50,6 +50,27 @@
       "change_note": "Sharpened action order in recommendation and hedged example language.",
       "links_repaired": [],
       "at": "2026-10-31"
+    },
+    "/guides/wedding-budget-contingency": {
+      "status": "REFRESHED",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "change_note": "Sharpened actions, kept all figures, made summary answer query directly",
+      "links_repaired": [],
+      "at": "2026-11-01"
+    },
+    "/guides/wedding-budget-for-100-guests": {
+      "status": "REFRESHED",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "change_note": "Softened scaling claims, added unknowns, sharpened action order, kept all original numbers.",
+      "links_repaired": [],
+      "at": "2026-11-01"
+    },
+    "/guides/wedding-budget-for-150-guests": {
+      "status": "REFRESHED",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "change_note": "Softened 'needs' to 'benefits from', sharpened action order, added hedge to example.",
+      "links_repaired": [],
+      "at": "2026-11-01"
     }
   },
   "runs": [
@@ -64,7 +85,13 @@
       "outcome": "REFRESHED",
       "refreshed": 3,
       "queued": 68
+    },
+    {
+      "at": "2026-11-01",
+      "outcome": "REFRESHED",
+      "refreshed": 3,
+      "queued": 65
     }
   ],
-  "updated_at": "2026-10-31"
+  "updated_at": "2026-11-01"
 }

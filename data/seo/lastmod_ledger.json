@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "e7dae09149b5c9e1e8d72969b79e198f3d2c3ee4",
+  "generated_from_commit": "4df0c193a1dfd35885cdc5bd816c03940e39a69b",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
@@ -50,7 +50,7 @@
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
-      "lastmod": "2026-10-31",
+      "lastmod": "2026-11-01",
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/1-month-wedding-checklist": {
@@ -203,31 +203,31 @@
     },
     "/guides/wedding-budget-20000": {
       "lastmod": "2026-10-31",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-20000] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-20000]"
     },
     "/guides/wedding-budget-30000": {
       "lastmod": "2026-10-31",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-30000] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-30000]"
     },
     "/guides/wedding-budget-50000": {
       "lastmod": "2026-10-31",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-50000] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-50000]"
     },
     "/guides/wedding-budget-calculator": {
       "lastmod": "2026-08-27",
       "source": "data/authority/content_registry.json#pages[slug=wedding-budget-calculator]"
     },
     "/guides/wedding-budget-contingency": {
-      "lastmod": "2026-07-30",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-contingency]"
+      "lastmod": "2026-11-01",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-contingency] (uncommitted at generation; pinned to run date)"
     },
     "/guides/wedding-budget-for-100-guests": {
-      "lastmod": "2026-07-30",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-100-guests]"
+      "lastmod": "2026-11-01",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-100-guests] (uncommitted at generation; pinned to run date)"
     },
     "/guides/wedding-budget-for-150-guests": {
-      "lastmod": "2026-07-30",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-150-guests]"
+      "lastmod": "2026-11-01",
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-150-guests] (uncommitted at generation; pinned to run date)"
     },
     "/guides/wedding-budget-for-50-guests": {
       "lastmod": "2026-07-30",

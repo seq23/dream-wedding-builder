@@ -1537,11 +1537,11 @@
       "title": "Wedding Budget for 100 Guests",
       "cluster": "Wedding budget",
       "product_id": "budget-spreadsheet",
-      "summary": "At 100 guests, food, beverage, rentals, stationery, transportation, and staffing can scale with count while photography and attire may remain relatively fixed.",
-      "answer": "At 100 guests, food, beverage, rentals, stationery, transportation, and staffing can scale with count while photography and attire may remain relatively fixed. Separate fixed and variable costs, model at least two guest-count scenarios, record all service charges and taxes, and tie final count deadlines to the payment schedule.",
+      "summary": "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary.",
+      "answer": "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary. First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
       "steps": [
         "Define the exact outcome for wedding budget for 100 guests and name the person responsible for the final version.",
-        "Separate fixed and variable costs, model at least two guest-count scenarios, record all service charges and taxes, and tie final count deadlines to the payment schedule.",
+        "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -1557,18 +1557,18 @@
         {
           "heading": "Set the financial boundary for Wedding Budget for 100 Guests",
           "paragraphs": [
-            "At 100 guests, food, beverage, rentals, stationery, transportation, and staffing can scale with count while photography and attire may remain relatively fixed.",
+            "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "Separate fixed and variable costs, model at least two guest-count scenarios, record all service charges and taxes, and tie final count deadlines to the payment schedule.",
+            "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
             "Example: compare 90, 100, and 110 guests using the same contracted per-guest assumptions to see the marginal cash impact."
           ],
           "bullets": [
-            "Separate fixed and variable costs, model at least two guest-count scenarios, record all service charges and taxes, and tie final count deadlines to the payment schedule.",
+            "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -1595,11 +1595,11 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding budget for 100 guests?",
-          "answer": "At 100 guests, food, beverage, rentals, stationery, transportation, and staffing can scale with count while photography and attire may remain relatively fixed."
+          "answer": "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary."
         },
         {
           "question": "How should I use this wedding budget guide?",
-          "answer": "Separate fixed and variable costs, model at least two guest-count scenarios, record all service charges and taxes, and tie final count deadlines to the payment schedule. Replace every illustrative assumption with your verified wedding details."
+          "answer": "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -1607,7 +1607,7 @@
         }
       ],
       "semantic_key": "budget-spreadsheet:wedding-budget-for-100-guests",
-      "updated_at": "2026-07-30",
+      "updated_at": "2026-11-01",
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "wedding-budget-for-150-guests",
@@ -1622,11 +1622,11 @@
       "title": "Wedding Budget for 150 Guests",
       "cluster": "Wedding budget",
       "product_id": "budget-spreadsheet",
-      "summary": "A 150-guest budget needs explicit guest-variable modeling and stronger contingency because small per-person changes multiply quickly.",
-      "answer": "A 150-guest budget needs explicit guest-variable modeling and stronger contingency because small per-person changes multiply quickly. Record per-person and fixed charges separately, confirm minimums and staffing, model count ranges, review transportation and rental quantities, and freeze the final count with the venue and caterer.",
+      "summary": "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly.",
+      "answer": "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly. Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
       "steps": [
         "Define the exact outcome for wedding budget for 150 guests and name the person responsible for the final version.",
-        "Record per-person and fixed charges separately, confirm minimums and staffing, model count ranges, review transportation and rental quantities, and freeze the final count with the venue and caterer.",
+        "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -1642,18 +1642,18 @@
         {
           "heading": "Set the financial boundary for Wedding Budget for 150 Guests",
           "paragraphs": [
-            "A 150-guest budget needs explicit guest-variable modeling and stronger contingency because small per-person changes multiply quickly.",
+            "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "Record per-person and fixed charges separately, confirm minimums and staffing, model count ranges, review transportation and rental quantities, and freeze the final count with the venue and caterer.",
-            "Example: a $10 per-person change equals $1,500 at 150 guests before any related tax or service charge."
+            "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
+            "Example: a $10 per-person change could equal $1,500 at 150 guests before any related tax or service charge."
           ],
           "bullets": [
-            "Record per-person and fixed charges separately, confirm minimums and staffing, model count ranges, review transportation and rental quantities, and freeze the final count with the venue and caterer.",
+            "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -1670,7 +1670,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: a $10 per-person change equals $1,500 at 150 guests before any related tax or service charge."
+          "body": "Example: a $10 per-person change could equal $1,500 at 150 guests before any related tax or service charge."
         },
         {
           "title": "Control check",
@@ -1680,11 +1680,11 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding budget for 150 guests?",
-          "answer": "A 150-guest budget needs explicit guest-variable modeling and stronger contingency because small per-person changes multiply quickly."
+          "answer": "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly."
         },
         {
           "question": "How should I use this wedding budget guide?",
-          "answer": "Record per-person and fixed charges separately, confirm minimums and staffing, model count ranges, review transportation and rental quantities, and freeze the final count with the venue and caterer. Replace every illustrative assumption with your verified wedding details."
+          "answer": "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -1692,7 +1692,7 @@
         }
       ],
       "semantic_key": "budget-spreadsheet:wedding-budget-for-150-guests",
-      "updated_at": "2026-07-30",
+      "updated_at": "2026-11-01",
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "wedding-budget-10000",
@@ -2387,11 +2387,11 @@
       "title": "Wedding Budget Contingency Planning",
       "cluster": "Wedding budget",
       "product_id": "budget-spreadsheet",
-      "summary": "Contingency is reserved money for approved unknowns, not a category to spend early because it exists.",
-      "answer": "Contingency is reserved money for approved unknowns, not a category to spend early because it exists. Choose a reserve, keep it separate, define approval authority, record every draw and reason, restore it after credits, and protect a final-week balance.",
+      "summary": "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early.",
+      "answer": "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early. Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
       "steps": [
         "Define the exact outcome for wedding budget contingency planning and name the person responsible for the final version.",
-        "Choose a reserve, keep it separate, define approval authority, record every draw and reason, restore it after credits, and protect a final-week balance.",
+        "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -2407,18 +2407,18 @@
         {
           "heading": "Set the financial boundary for Wedding Budget Contingency Planning",
           "paragraphs": [
-            "Contingency is reserved money for approved unknowns, not a category to spend early because it exists.",
+            "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "Choose a reserve, keep it separate, define approval authority, record every draw and reason, restore it after credits, and protect a final-week balance.",
-            "Example: a 5% reserve on $30,000 is $1,500; spending $400 leaves $1,100 and should be visible immediately."
+            "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
+            "Example: a 5% reserve on $30,000 yields $1,500; a $400 draw leaves $1,100 and should be tracked immediately."
           ],
           "bullets": [
-            "Choose a reserve, keep it separate, define approval authority, record every draw and reason, restore it after credits, and protect a final-week balance.",
+            "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -2435,7 +2435,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: a 5% reserve on $30,000 is $1,500; spending $400 leaves $1,100 and should be visible immediately."
+          "body": "Example: a 5% reserve on $30,000 yields $1,500; a $400 draw leaves $1,100 and should be tracked immediately."
         },
         {
           "title": "Control check",
@@ -2445,11 +2445,11 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding budget contingency planning?",
-          "answer": "Contingency is reserved money for approved unknowns, not a category to spend early because it exists."
+          "answer": "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early."
         },
         {
           "question": "How should I use this wedding budget guide?",
-          "answer": "Choose a reserve, keep it separate, define approval authority, record every draw and reason, restore it after credits, and protect a final-week balance. Replace every illustrative assumption with your verified wedding details."
+          "answer": "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -2457,7 +2457,7 @@
         }
       ],
       "semantic_key": "budget-spreadsheet:wedding-budget-contingency",
-      "updated_at": "2026-07-30",
+      "updated_at": "2026-11-01",
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "family-contributions-wedding-budget",
