@@ -1,0 +1,47 @@
+name: Spry Labs weekly summary
+
+# Dream Wedding's section of the ONE "Spry Labs weekly" email (owner, 1 Nov 2026).
+# Wednesdays 07:53 CT, staggered after the other side businesses (07:03-07:48).
+# scripts/spry/spry-weekly-summary.mjs reads what this repo already records (paid
+# orders from D1, Search Console clicks per site, Pinterest visits, guides published
+# and pages refreshed) and writes spry-weekly-summary.json, uploaded as the artifact
+# `spry-weekly-summary`. Boss OS reads it at 08:15 CT and words it. A number that
+# cannot be read is a "not read: reason" line, never a zero; nothing read at all is
+# a NAMED STOP. No email, no commit, no deploy from here.
+on:
+  schedule:
+    - cron: '53 7 * * 3'  # Wednesdays 07:53 CT
+      timezone: America/Chicago
+  workflow_dispatch:
+
+permissions: { contents: read }
+
+concurrency:
+  group: spry-weekly-summary
+  cancel-in-progress: false
+
+jobs:
+  summary:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0  # the guide registry as it stood a week ago comes from git history
+      - uses: actions/setup-node@v7
+        with: { node-version: '20' }
+      - name: Self-check the summary before trusting it
+        run: node scripts/spry/spry-weekly-summary.mjs --self-check
+      - name: Write the week for Boss OS
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/spry/spry-weekly-summary.mjs spry-weekly-summary.json
+      - name: Upload the summary for Boss OS
+        uses: actions/upload-artifact@v4
+        with:
+          name: spry-weekly-summary
+          path: spry-weekly-summary.json
+          if-no-files-found: error
+          retention-days: 30
