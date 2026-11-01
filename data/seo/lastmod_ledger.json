@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "4df0c193a1dfd35885cdc5bd816c03940e39a69b",
+  "generated_from_commit": "e06cfedb846a80da5add0007529d8694ec26c7bc",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
@@ -219,15 +219,15 @@
     },
     "/guides/wedding-budget-contingency": {
       "lastmod": "2026-11-01",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-contingency] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-contingency]"
     },
     "/guides/wedding-budget-for-100-guests": {
       "lastmod": "2026-11-01",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-100-guests] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-100-guests]"
     },
     "/guides/wedding-budget-for-150-guests": {
       "lastmod": "2026-11-01",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-150-guests] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-150-guests]"
     },
     "/guides/wedding-budget-for-50-guests": {
       "lastmod": "2026-07-30",
@@ -448,6 +448,10 @@
     "/products/timeline-template": {
       "lastmod": "2026-10-25",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
+    },
+    "/questions": {
+      "lastmod": "2026-11-01",
+      "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {
       "lastmod": "2026-10-25",

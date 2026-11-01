@@ -39,6 +39,7 @@ const NAV_LABELS: Record<string, string> = {
   '/refund-policy': 'Refund policy',
   '/amazon': 'For book readers',
   '/about': 'About Dream Wedding Builder',
+  '/questions': 'Wedding planning questions',
   '/editorial-policy': 'Editorial policy'
 };
 

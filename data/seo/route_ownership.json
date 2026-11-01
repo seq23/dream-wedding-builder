@@ -701,6 +701,12 @@
       "indexable": true
     },
     {
+      "path": "/questions",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
       "path": "/wedding-cost-per-guest",
       "host": "weddingbudgetspreadsheet.com",
       "type": "landing",

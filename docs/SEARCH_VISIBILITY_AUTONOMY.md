@@ -40,3 +40,29 @@ Search Intelligence remains a separate bounded lane, but it shares the same expl
 ## Scheduled zero/low-cost path
 
 The scheduled GitHub workflow uses the already-supported GSC service-account secret when configured. If GSC is absent it preserves prior evidence and reports `UNCONFIGURED`; technical diagnosis/retest/validation still run.
+
+## Shared search engine (/questions/), from 1 Nov 2026
+
+Owner ruling 1 Nov 2026: the shared engine `seq23/search-loop` (pinned `@v1`) runs here daily
+(`.github/workflows/search-loop.yml`, 06:11 CT). One config, `search-loop.config.json`, covers all
+four domains: pages are static files `public/questions/<slug>.html`, canonical on
+weddingchecklistpdf.com at `/questions/<slug>`, and may link to any of the four hosts. Every page
+ends in the one action, the Wedding Checklist PDF checkout (`/products/checklist-pdf#look-inside`).
+Pace starts at 10/day (+5/week while most are indexed, cap 30); no approval step; no health gate.
+
+- **Linked, never orphaned:** the `/questions` hub (`app/questions/page.tsx`) lists every live page
+  from the engine's ledger `data/search-loop/pages.json`, and is linked from every page's footer;
+  the served `/sitemap.xml` and `artifacts/sitemaps/*.xml` carry the pages with their own dates
+  (`lib/search-loop-pages.mjs` is the one reader); the engine submits IndexNow itself.
+- **Own lane, own governor:** URLs under `/questions` are outside the cadence gate's freshness rule
+  (`scripts/cadence/refresh_debt.cjs`) and outside this loop's coverage, repair and consolidation
+  (`scripts/search_intelligence/lib.mjs` `sitemapUrlsFor`). Without that, the engine's first
+  publish day would block the gate (`weekly_cap`, `published_into_refresh_debt`) and turn the
+  daily CI red, and its fresh dates would dilute the guide library's stale share so the guide
+  publisher resumed before the refresh lane had paid the debt down. The engine checks its own pages
+  at 2/4/8 weeks and merges at 90 days with no impressions (a 301 in `public/_redirects`); the
+  refresh lane keeps refreshing the oldest guides. The two never edit each other's pages.
+- **The 11 Oct "frozen until Search Console has a number" rule is off** for this site
+  (`data/search_intelligence/config.json` `publishing_freeze.enabled: false`).
+- **Throttle all sites at once:** `gh variable set SEARCH_LOOP_MODE --body slow -R seq23/search-loop`
+  (`normal | slow | off`). Weekly report: the `search-loop-week` artifact on each run.

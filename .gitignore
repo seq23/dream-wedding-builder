@@ -33,3 +33,7 @@ tsconfig.tsbuildinfo
 .wrangler/
 .dev.vars*
 !.dev.vars.example
+
+# shared search engine (seq23/search-loop) checkout and run log
+.search-loop-engine/
+.search-loop-run.log
