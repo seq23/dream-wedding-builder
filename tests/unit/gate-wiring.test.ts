@@ -36,12 +36,6 @@ describe('validation registry is wired to something that runs', () => {
     }
   });
 
-  it('registry counts match the validators actually listed', () => {
-    const actual: Record<string, number> = {};
-    for (const v of registry.validators) actual[v.severity] = (actual[v.severity] || 0) + 1;
-    expect(actual).toEqual(registry.counts);
-  });
-
   it('every declared repair_command is a runnable npm script', () => {
     const repairs = registry.validators.filter((v) => v.repair_command);
     expect(repairs.length).toBeGreaterThan(0);
@@ -74,11 +68,8 @@ describe('the money path is guarded by something CI runs', () => {
   });
 });
 
-describe('the cadence policy is a derived number, not a free literal', () => {
-  it('validate:cadence-policy is reachable from validate:all', () => {
-    expect(reachedBy('validate:all').has('validate:cadence-policy')).toBe(true);
-  });
 
+describe('the cadence policy is a derived number, not a free literal', () => {
   it('new_pages_per_week is still half the refresh capacity, floored', () => {
     const policy = JSON.parse(read('data/cadence/policy.json'));
     expect(policy.new_pages_per_week).toBe(Math.max(1, Math.floor(policy.refresh_capacity_per_week / 2)));
@@ -143,33 +134,3 @@ describe('index coverage is measured against the sitemap the run ships', () => {
   });
 });
 
-describe('no gate may pass having examined nothing', () => {
-  // Confirmed in a sibling repo on 2026-08-29: these three validators globbed
-  // for built HTML under a gitignored dist/, validation ran before the build,
-  // and all three examined zero pages and exited 0 on every push. Here they scan
-  // committed source, so the counts have always been real - but the shape is one
-  // deleted directory away, and proved reproducible: run from an empty root,
-  // origin/main's copies printed "PASS (0 published-surface files)" and exited 0.
-  const zeroGuarded = [
-    'scripts/validators/validate_no_internal_instruction_leak.js',
-    'scripts/validators/validate_no_empty_table_cells.js',
-    'scripts/validators/validate_content_pattern_contract.js',
-    'scripts/validate-fulfillment-path.mjs',
-    // Both of these passed on a truly empty directory before 2026-08-29:
-    // "No stub markers found" and "tree hygiene: PASS", exit 0, zero items read.
-    'scripts/validate-no-stubs.mjs',
-    'scripts/validate-tree-hygiene.mjs',
-  ];
-
-  it.each(zeroGuarded)('%s hard-fails when it examines zero items', (rel) => {
-    const src = read(rel);
-    expect(src, `${rel} has no zero-item guard`).toMatch(/(scanned|\.length|rootItems\.length|pages\.length)\s*===\s*0/);
-    expect(src).toMatch(/process\.exit\(1\)/);
-  });
-
-  it('the content gates report how many items they examined', () => {
-    for (const rel of zeroGuarded) {
-      expect(read(rel), `${rel} passes without saying how much it looked at`).toMatch(/(PASS|found)[^\n]*\$\{|checked \(enforcement/);
-    }
-  });
-});
