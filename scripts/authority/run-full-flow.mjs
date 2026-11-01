@@ -30,9 +30,8 @@ const links = admitted.flatMap((page) => {
 // authority:scale:publish appends candidate skeletons to the registry: a row with
 // a source_opportunity_id, a generated summary/answer/steps, and no sections,
 // faqs, examples or hub_route until someone authors them. They are not defects and
-// they never reach a reader - app/guides/[slug]/page.tsx and
-// scripts/validators/validate_content_pattern_contract.js both filter on exactly
-// this predicate, so an unauthored row builds no route and is measured by nothing.
+// they never reach a reader - app/guides/[slug]/page.tsx filters on exactly this
+// predicate, so an unauthored row builds no route and is measured by nothing.
 const isAuthored = (page) => Array.isArray(page.sections) && Array.isArray(page.faqs)
   && Array.isArray(page.related_slugs) && Array.isArray(page.examples) && Boolean(page.hub_route);
 // Reasons that mean the registry is genuinely broken rather than merely unauthored:

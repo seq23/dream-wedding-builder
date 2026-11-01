@@ -65,8 +65,6 @@ export function seoMetadata(input: { title: string; description: string; host: s
 // Source text for the recommendation_summary block, taken from fields each record
 // already carries. Nothing is generated here: a record with no prescriptive text
 // returns an empty string and the block is skipped rather than filled.
-// scripts/validators/validate_content_pattern_contract.js mirrors these rules so
-// the measured coverage matches what the templates actually render.
 
 // Hub records state their recommendation in direct_answer ("Start with...",
 // "Run the plan through...", "Use one guest record per person..."). The hub
