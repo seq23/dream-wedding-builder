@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
   // the search query, and nothing has ranked on it yet, so the rename is free.
   // next.config redirects resolve before middleware, so this fires before the
   // host-ownership rules ever see the path.
+  // Pages from the shared search engine (search-loop.config.json, output html-file)
+  // are static files at public/questions/<slug>.html served at /questions/<slug>.
+  // In production Cloudflare's static assets answer that path before the Worker;
+  // this rewrite gives `next start` (the rendered-SEO and link crawlers) the same URL.
+  async rewrites() {
+    return { beforeFiles: [], afterFiles: [], fallback: [{ source: '/questions/:slug', destination: '/questions/:slug.html' }] };
+  },
   async redirects() {
     return [
       { source: '/build', destination: '/free-wedding-planner', permanent: true },

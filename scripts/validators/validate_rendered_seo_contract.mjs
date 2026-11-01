@@ -159,6 +159,22 @@ function jsonLdNodes(html) {
   }
   return nodes;
 }
+
+// The nodes a page states about itself: each JSON-LD block's root, or the members
+// of its @graph. Nested property values (an Article's author) are not included.
+function pageNodes(html) {
+  const out = [];
+  for (const match of html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
+    let parsed;
+    try { parsed = JSON.parse(match[1].replace(/\\u003c/g, '<')); } catch { continue; }
+    for (const root of [].concat(parsed)) {
+      if (!root || typeof root !== 'object') continue;
+      if (Array.isArray(root['@graph'])) out.push(...root['@graph'].filter((node) => node && typeof node === 'object'));
+      else out.push(root);
+    }
+  }
+  return out;
+}
 const typesOf = (node) => [].concat(node['@type'] ?? []);
 const nodesOfType = (nodes, re) => nodes.filter((node) => typesOf(node).some((type) => re.test(String(type))));
 function visibleText(html) {
@@ -250,7 +266,14 @@ try {
       const text = visibleText(html);
       schemaChecks += 1;
       if (nodes.some((node) => node.__malformed)) fail(`${where}: a JSON-LD block does not parse`);
-      const org = nodesOfType(nodes, /^(Organization|Corporation|NewsMediaOrganization|ProfessionalService|LocalBusiness)$/)[0];
+      // The page's own Organization is the first one stated as a node of the page
+      // (top level, or a member of @graph), not one nested as a property value: an
+      // Article's author or publisher Organization (the shared search engine's
+      // /questions/ pages, search-loop.config.json) names who wrote it, and the
+      // page's complete Organization frame follows it. A page with no top-level
+      // Organization is still judged on the first nested one.
+      const ORG_TYPES = /^(Organization|Corporation|NewsMediaOrganization|ProfessionalService|LocalBusiness)$/;
+      const org = nodesOfType(pageNodes(html), ORG_TYPES)[0] ?? nodesOfType(nodes, ORG_TYPES)[0];
       if (!org) fail(`${where}: no Organization in JSON-LD`);
       else {
         const missing = ['name', 'url', 'logo', 'sameAs'].filter((key) => !org[key] || (Array.isArray(org[key]) && org[key].length === 0));

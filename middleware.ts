@@ -16,7 +16,7 @@ export const ROUTE_SEGMENTS = [
   'dashboard', 'disclaimer', 'editorial-policy', 'favicon.ico', 'free-wedding-planner', 'guides',
   'icon-192.png', 'icon-512.png', 'llms.txt', 'methodology', 'micro-wedding-planning',
   'og.png', 'order', 'pack', 'photos', 'pinfeed', 'pinfeed.xml',
-  'printable-wedding-checklist', 'privacy', 'products', 'readiness-score', 'refund-policy',
+  'printable-wedding-checklist', 'privacy', 'products', 'questions', 'readiness-score', 'refund-policy',
   'robots.txt', 'shop', 'site.webmanifest', 'sitemap.xml', 'terms', 'trends',
   'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
   'wedding-checklist-pdf', 'wedding-cost-per-guest', 'wedding-guest-list-template',

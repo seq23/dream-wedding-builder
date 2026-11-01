@@ -113,3 +113,36 @@ describe('refresh_debt.cjs is the one implementation both readers use', () => {
     expect(gate).not.toMatch(/function sitemapUrls\(/);
   });
 });
+
+// Owner ruling 1 Nov 2026: the shared search engine (search-loop.config.json) publishes
+// its /questions/ pages straight away at its own pace. Before this, its first publish
+// day would have turned the daily CI red (weekly_cap and published_into_refresh_debt)
+// and its fresh dates would have diluted the guide library's stale share.
+describe('cadence gate: engine-owned URLs are outside the freshness rule', () => {
+  const engine = Array.from({ length: 12 }, (_, i) => ({ loc: `https://example.com/questions/probe-${i}`, lastmod: '2026-10-30' }));
+  const withEngine = (dir: string) => {
+    fs.writeFileSync(path.join(dir, 'search-loop.config.json'), JSON.stringify({ base_url: 'https://example.com', output: { url_prefix: '/questions/' } }));
+    return dir;
+  };
+
+  it('a day of engine pages published into refresh debt is still a HOLD, and the stale share is the guides alone', () => {
+    const r = run(withEngine(fixture([...library, ...engine, { loc: 'https://example.com/questions', lastmod: '2026-10-30' }], locs)), '2026-10-30');
+    expect(r.status).toBe(0);
+    expect(r.report.status).toBe('HOLD');
+    expect(r.report.urls).toBe(10);
+    expect(r.report.new_since_last_run).toBe(0);
+    expect(r.report.stale_pct).toBe(60);
+  });
+
+  it('without the engine config the same sitemap blocks, so the exclusion is what lets the engine publish', () => {
+    const r = run(fixture([...library, ...engine], locs), '2026-10-30');
+    expect(r.status).toBe(1);
+    expect(r.report.blocking.join(' ')).toMatch(/published_into_refresh_debt/);
+  });
+
+  it('a new guide published into debt still blocks with the engine adopted', () => {
+    const r = run(withEngine(fixture([...library, ...engine, { loc: 'https://example.com/guides/brand-new', lastmod: '2026-10-30' }], locs)), '2026-10-30');
+    expect(r.status).toBe(1);
+    expect(r.report.blocking.join(' ')).toMatch(/published_into_refresh_debt: 1 URL/);
+  });
+});

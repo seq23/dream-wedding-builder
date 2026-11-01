@@ -1,0 +1,22 @@
+/* Styles for the static pages the shared search engine writes to public/questions/
+   (search-loop.config.json template.stylesheets). Same palette as tailwind.config.ts. */
+:root { --ivory: #F8F2EA; --linen: #FFFDF9; --charcoal: #27231F; --champagne: #D7B98E; --rose: #CFA7A1; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ivory); color: var(--charcoal); font: 17px/1.7 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: underline; text-decoration-color: rgba(39,35,31,.25); text-underline-offset: 4px; }
+.site-header { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; max-width: 960px; margin: 0 auto; padding: 1.25rem; }
+.site-header .brand { font-family: Georgia, "Times New Roman", serif; font-size: 1.4rem; text-decoration: none; }
+.site-header nav { display: flex; gap: 1.25rem; font-size: .95rem; }
+main { max-width: 760px; margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+.search-loop-page { background: var(--linen); border-radius: 1.5rem; padding: 2rem 1.5rem; box-shadow: 0 20px 60px -30px rgba(39,35,31,.25); }
+.breadcrumb { font-size: .875rem; color: rgba(39,35,31,.6); }
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.2; font-weight: 400; }
+h1 { font-size: 2.5rem; margin: .75rem 0 1rem; }
+h2 { font-size: 1.75rem; margin-top: 2.25rem; }
+h3 { font-size: 1.2rem; margin-top: 1.5rem; }
+.direct-answer { font-size: 1.15rem; background: var(--ivory); border-left: 4px solid var(--champagne); padding: 1rem 1.25rem; border-radius: .75rem; }
+.page-dates { font-size: .875rem; color: rgba(39,35,31,.6); }
+.site-action { margin-top: 2.5rem; }
+.button { display: inline-block; background: var(--charcoal); color: var(--linen); text-decoration: none; font-weight: 700; padding: 1rem 1.5rem; border-radius: 1rem; }
+.site-footer { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 3rem; font-size: .875rem; color: rgba(39,35,31,.7); }
+@media (min-width: 768px) { .search-loop-page { padding: 3rem; } h1 { font-size: 3rem; } }

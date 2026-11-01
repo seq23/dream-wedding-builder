@@ -1,0 +1,45 @@
+name: Search Loop
+
+# The shared search growth engine (seq23/search-loop @v1), owner ruling 1 Nov 2026:
+# find easy wedding-planning searches weekly, publish one gated page per search
+# daily as public/questions/<slug>.html (served at weddingchecklistpdf.com/questions/<slug>),
+# check every page at 2/4/8 weeks and 90 days, strengthen / undo / merge, and
+# upload the weekly report artifact "search-loop-week". One config covers all four
+# wedding domains (search-loop.config.json). New pages publish straight away and are
+# outside the cadence gate's freshness rule (scripts/cadence/refresh_debt.cjs);
+# the refresh lane in full-safe-autonomy.yml keeps working the old guides.
+# Global throttle: gh variable set SEARCH_LOOP_MODE --body slow -R seq23/search-loop
+on:
+  schedule:
+    - cron: "11 6 * * *"  # America/Chicago, all year
+      timezone: America/Chicago
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "auto | find | build | check"
+        required: false
+        default: auto
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: dream-wedding-search-loop
+  cancel-in-progress: false
+
+jobs:
+  search-loop:
+    uses: seq23/search-loop/.github/workflows/search-loop.yml@v1
+    with:
+      engine_ref: v1
+      stage: ${{ inputs.stage || 'auto' }}
+      commit_command: bash .github/scripts/search_loop_commit.sh
+    secrets:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+      GSC_SITE_URL: ${{ secrets.GSC_SITE_URL_CHECKLIST }}
+      BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}

@@ -5,6 +5,9 @@ import ownership from '@/data/seo/route_ownership.json';
 import { lastmodFor } from '@/lib/lastmod';
 import { isPublishablePath, isShippingSlug } from '@/lib/authority-registry';
 import { apexHost, isCanonicalHost } from '@/lib/site-config';
+import searchLoopConfig from '@/search-loop.config.json';
+import searchLoopLedger from '@/data/search-loop/pages.json';
+import { searchLoopHost, searchLoopPages } from '@/lib/search-loop-pages.mjs';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,6 +36,9 @@ export async function GET(request: Request): Promise<Response> {
   // Defensive inclusion: every hub and guide owner must appear even if the manifest is stale.
   for (const [slug, hub] of Object.entries(hubs.pages)) if (hub.host === host && !urls.some((item) => item.loc.endsWith(`/${slug}`))) urls.push({ loc: `https://${host}/${slug}`, lastmod: lastmodFor(`/${slug}`) });
   for (const page of pages.filter((item) => item.product_id === product.id && isShippingSlug(item.slug))) if (!urls.some((item) => item.loc.endsWith(`/guides/${page.slug}`))) urls.push({ loc: `https://${host}/guides/${page.slug}`, lastmod: lastmodFor(`/guides/${page.slug}`) });
+  // Pages the shared search engine published (search-loop.config.json), on its host,
+  // dated from the engine's own ledger.
+  if (searchLoopHost(searchLoopConfig) === host) for (const page of searchLoopPages(searchLoopConfig, searchLoopLedger)) if (!urls.some((item) => item.loc === `https://${host}${page.route}`)) urls.push({ loc: `https://${host}${page.route}`, lastmod: page.lastmod });
   // Final gate. Every branch above has its own reason to add a URL; this is the one
   // place that decides whether the URL is allowed to ship, so a new branch cannot
   // reintroduce a 404 without going through it.

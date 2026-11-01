@@ -25,6 +25,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { isComplete } from '../../lib/authority-complete.mjs';
+import { searchLoopEntries } from '../authority/sitemap-paths.mjs';
 
 const root = process.cwd();
 const REGISTRY = 'data/authority/content_registry.json';
@@ -185,6 +186,13 @@ for (const product of catalog.products ?? []) {
   const staticRoute = `app/products/${product.id}/page.tsx`;
   if (fs.existsSync(path.join(root, staticRoute))) { record(`/products/${product.id}`, fileLastChanged(staticRoute), staticRoute); continue; }
   record(`/products/${product.id}`, lastChanged(CATALOG, (doc) => (doc.products ?? []).find((item) => item.id === product.id)), `${CATALOG}#products[id=${product.id}]`);
+}
+
+// The /questions hub lists the shared search engine's live pages (search-loop.config.json),
+// so it is as fresh as the newest of them or its own template, whichever changed last.
+// The engine pages themselves are dated from the engine's ledger by the sitemap builders.
+if (fs.existsSync(path.join(root, 'app/questions/page.tsx'))) {
+  record('/questions', newest(fileLastChanged('app/questions/page.tsx'), ...searchLoopEntries(root).pages.map((page) => page.lastmod)), 'app/questions/page.tsx + newest live search-loop page');
 }
 
 // Everything else route_ownership.json publishes, backed by its own source file.

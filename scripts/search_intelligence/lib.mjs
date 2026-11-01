@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { isSearchLoopPath } from '../../lib/search-loop-pages.mjs';
 export const root=process.cwd();
 export const read=(p,fallback=null)=>{const f=path.join(root,p);if(!fs.existsSync(f)){if(fallback!==null)return fallback;throw new Error(`missing ${p}`)}return JSON.parse(fs.readFileSync(f,'utf8'));};
 export const write=(p,v)=>{const f=path.join(root,p);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,JSON.stringify(v,null,2)+'\n');};
@@ -76,4 +77,11 @@ export async function gscToken(sa,scope='https://www.googleapis.com/auth/webmast
 // Canonical page key: scheme and www dropped, so http://www.x.com/a and
 // https://x.com/a are one page (GSC reports both forms).
 export const pageKey=u=>{try{const x=new URL(u);return `${x.hostname.replace(/^www\./,'')}${x.pathname.replace(/\/$/,'')||'/'}`}catch{return ''}};
-export const sitemapUrlsFor=host=>{const f=path.join(root,'artifacts/sitemaps',`${host}.xml`);if(!fs.existsSync(f))return [];return [...fs.readFileSync(f,'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1])};
+// The guide library's sitemap URLs. Pages under the shared search engine's prefix
+// (search-loop.config.json) are left out: the engine inspects, strengthens and
+// merges its own pages (owner ruling 1 Nov 2026), so this loop neither spends URL
+// Inspection quota on them, nor repairs or consolidates them, nor goes stale the
+// day the engine publishes.
+const engineConfig=(()=>{try{return JSON.parse(fs.readFileSync(path.join(root,'search-loop.config.json'),'utf8'))}catch{return null}})();
+export const isEngineUrl=u=>!!engineConfig&&isSearchLoopPath(engineConfig,u);
+export const sitemapUrlsFor=host=>{const f=path.join(root,'artifacts/sitemaps',`${host}.xml`);if(!fs.existsSync(f))return [];return [...fs.readFileSync(f,'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]).filter(u=>!isEngineUrl(u))};

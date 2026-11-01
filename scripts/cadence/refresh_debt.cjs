@@ -24,8 +24,30 @@ const DAY = 86400000;
 // artifacts/sitemaps/<domain>.xml, which never matched a sitemap*.xml filename
 // pattern, so the gate once scanned zero URLs and reported CLEAR no matter how
 // much was published. Any XML carrying a <urlset> is a sitemap.
+// The shared search engine (seq23/search-loop, search-loop.config.json) owns every
+// URL under its output.url_prefix. Owner ruling 1 Nov 2026: its pages publish
+// straight away at the engine's own pace and are kept or merged by the engine's
+// own 2/4/8-week and 90-day checks. They are therefore outside this freshness
+// rule in both directions: they never count as "new pages published into refresh
+// debt" (which would block the engine), and their fresh dates never dilute the
+// stale share of the guide library (which would let the release lane resume
+// before the refresh lane has paid the guides' debt down).
+function engineOwnedPrefix(root) {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(path.join(root, 'search-loop.config.json'), 'utf8'));
+    return cfg?.output?.url_prefix || null;
+  } catch { return null; }
+}
+
 function sitemapUrls(root) {
   const found = new Map();
+  const enginePrefix = engineOwnedPrefix(root);
+  const engineOwned = (loc) => {
+    if (!enginePrefix) return false;
+    let pathname = loc;
+    try { pathname = new URL(loc).pathname; } catch { /* a bare path */ }
+    return pathname.startsWith(enginePrefix) || pathname === enginePrefix.replace(/\/$/, '');
+  };
   const walk = (dir, depth = 0) => {
     if (depth > 4) return;
     let ents; try { ents = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
@@ -39,7 +61,7 @@ function sitemapUrls(root) {
         if (!xml.includes('<urlset')) continue;
         for (const m of xml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
           const loc = (m[1].match(/<loc>(.*?)<\/loc>/) || [])[1];
-          if (!loc) continue;
+          if (!loc || engineOwned(loc)) continue;
           const lm = (m[1].match(/<lastmod>(\d{4}-\d{2}-\d{2})/) || [])[1] || null;
           const prev = found.get(loc);
           if (prev === undefined || (lm && (!prev || lm > prev))) found.set(loc, lm);
