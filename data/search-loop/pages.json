@@ -1,5 +1,78 @@
 {
   "schema": "search-loop-pages-v1",
-  "pages": [],
+  "pages": [
+    {
+      "slug": "how-to-plan-for-a-wedding-checklist",
+      "query": "how to plan for a wedding checklist",
+      "score": 45,
+      "signals": {
+        "words": 7,
+        "question": true,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/how-to-plan-for-a-wedding-checklist.html",
+      "route": "/questions/how-to-plan-for-a-wedding-checklist",
+      "url": "https://weddingchecklistpdf.com/questions/how-to-plan-for-a-wedding-checklist",
+      "published_at": "2026-11-01",
+      "status": "live",
+      "hash": "a3f104e7af52adaf54527312502400d418cecc3fb25b71ad12e5594f10cfaf21",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Marriage_license"
+      ],
+      "linked_from": [],
+      "checks": {}
+    },
+    {
+      "slug": "free-wedding-planner-template",
+      "query": "free wedding planner template",
+      "score": 40,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/free-wedding-planner-template.html",
+      "route": "/questions/free-wedding-planner-template",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-template",
+      "published_at": "2026-11-01",
+      "status": "live",
+      "hash": "cb1c2d07c605cadadf31b6bb0ce3f7fa1172423cea210311d710be3cb0a0563e",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Wedding"
+      ],
+      "linked_from": [],
+      "checks": {}
+    },
+    {
+      "slug": "free-wedding-planner-pdf",
+      "query": "free wedding planner pdf",
+      "score": 40,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/free-wedding-planner-pdf.html",
+      "route": "/questions/free-wedding-planner-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "published_at": "2026-11-01",
+      "status": "live",
+      "hash": "27e451e120eca584553c5cc7d23255dfe917c2e5bfc15453c78e05bab12ac040",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Wedding"
+      ],
+      "linked_from": [],
+      "checks": {}
+    }
+  ],
   "dropped": []
 }

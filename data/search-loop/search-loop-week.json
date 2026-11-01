@@ -2,10 +2,10 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W44",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-01T16:23:29.908Z",
+  "generated_at": "2026-11-01T16:38:02.884Z",
   "state": "slow",
-  "published": 0,
-  "indexed": 0,
+  "published": 3,
+  "indexed": "not read: no page old enough to inspect yet (14 days)",
   "pace": 3,
   "ai_visitors": "not read: Cloudflare analytics refused the query: Actor 'com.cloudflare.api.token.077013719844239707cc44efd660875d' does not have permission 'com.cloudflare.api.account.z",
   "ai_bot_hits": "not read: Cloudflare analytics refused the query: Actor 'com.cloudflare.api.token.077013719844239707cc44efd660875d' does not have permission 'com.cloudflare.api.account.z",
@@ -14,9 +14,9 @@
   "undone": 0,
   "merged": 0,
   "notes": [
-    "NAMED NOTE [FREE_MODEL_RATE_LIMITED] the free model route is rate-limited or exhausted (every free lane is out — gemini: not read: GEMINI_API_KEY is not passed; openrouter:nvidia/nemotron-3-ultra-550b-a55b:free: timed out after 60s (skipped this run); openrouter:dots-studio/dots-3-note-preview:free: timed out after 60s (skipped this run); openrouter:xingchen-agi/xing4.0-29b-a4b:free: timed out after 60s (skipped this run); openrouter:nvidia/nemotron-3.5-super-vl:free: timed out after 1s (skipped this run) (openrouter:gemma-4-26b-a4b-it:free:http_429, openrouter:nemotron-3-ultra-550b-a55b:free:timeout, openrouter:dots-3-note-preview:free:timeout, openrouter:xing4.0-29b-a4b:free:timeout, openrouter:nemotron-3.5-super-vl:free:timeout, all::call budget 240s used)); this run dropped itself to slow for today",
-    "BUILD stopped early: the free model route failed twice in a row",
-    "BUILD published 0 of quota 3: 0 draft(s) failed the gate and were dropped; 1 got no answer from the free model and stay queued"
+    "NAMED NOTE [FREE_MODEL_RATE_LIMITED] the free model route is rate-limited or exhausted (every free lane is out — workers: engine share of Workers AI used today (525.6090908050537/600 neurons; account 196.26767646235885/9000); gemini:gemini-2.5-flash: free daily quota used (skipped this run); openrouter:nvidia/nemotron-3.5-lightning:free: timed out after 60s (skipped this run); openrouter:nvidia/nemotron-3-ultra-550b-a55b:free: timed out after 60s (skipped this run); openrouter:dots-studio/dots-3-note-preview:free: timed out after 60s (skipped this run); openrouter:xingchen-agi/xing4.0-29b-a4b:free: timed out after 60s (skipped this run) (openrouter:nemotron-3.5-super-vl:free:empty, all::backoff 10s, gemini:gemini-2.5-flash-lite:http_404, openrouter:gemma-4-31b-it:free:http_429, openrouter:gemma-4-26b-a4b-it:free:http_429, openrouter:nemotron-3.5-super-vl:free:empty)); this run dropped itself to slow for today",
+    "CHECK runs weekly in mode=slow; last ran 2026-11-01",
+    "IndexNow: 3 new page(s) not live yet; submitted when they answer 200"
   ],
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/41326077234"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/41327319616"
 }
