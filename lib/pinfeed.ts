@@ -1,6 +1,8 @@
 import pinImages from '@/data/pinterest/pin_images.json';
 import pinQueue from '@/data/pinterest/queue.json';
+import boardsConfig from '@/data/pinterest/boards.json';
 import { lastmodFor } from '@/lib/lastmod';
+import { pinBoards, pinDescription, pinTitle, type PinBoard } from '@/lib/pinboards.mjs';
 import { chicagoDate, dueVariants, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
 
 // Pinterest RSS feed for weddingchecklistpdf.com (owner-approved 16 Oct 2026).
@@ -16,6 +18,12 @@ import { chicagoDate, dueVariants, type PinQueue, type PinVariant } from '@/lib/
 // request time on the Worker, so Pinterest sees config.pins_per_day new pin(s) a day
 // with no deploy. Variant links add utm_content=<variant id>. Guarded by
 // tests/unit/pinqueue.test.ts.
+//
+// Topic boards (owner-approved 1 Nov 2026): Pinterest maps one feed to one board, so
+// every board in data/pinterest/boards.json has its own feed (/pinfeed.xml is the
+// first board's) and every pin is in exactly one of them (lib/pinboards.mjs inFeed).
+// Search-loop question pages (/questions/*) join as pins too: the drip job renders
+// their image and lists them in queue.json `questions`, dated the day they publish.
 export const PINFEED_HOST = 'weddingchecklistpdf.com';
 export const PINFEED_PATH = '/pinfeed.xml';
 export const PINFEED_UTM = { utm_source: 'pinterest', utm_medium: 'organic', utm_campaign: 'pinfeed' } as const;
@@ -34,6 +42,7 @@ export const pinItems: PinItem[] = [
 ];
 
 export const queue = pinQueue as PinQueue;
+export const boards = pinBoards(boardsConfig);
 
 export function pinLink(path: string, utmContent?: string): string {
   const url = new URL(`https://${PINFEED_HOST}${path}`);
@@ -67,22 +76,25 @@ function itemXml(entry: FeedEntry): string {
   ].join('\n');
 }
 
-/** Drip variants due at `now` (America/Chicago date), newest first. */
-export function releasedVariants(now: Date = new Date()): PinVariant[] {
-  return dueVariants(queue.variants, chicagoDate(now), queue.config.max_feed_items);
+/** Drip variants and question pins due at `now` (America/Chicago date) for one board's feed, newest first. */
+export function releasedVariants(now: Date = new Date(), board: PinBoard = boards.MAIN_BOARD): PinVariant[] {
+  const all = [...queue.variants, ...(queue.questions ?? [])];
+  const mine = all.filter((v) => boards.inFeed(board, boards.boardFor(v.path, v.title), v.release_date));
+  return dueVariants(mine, chicagoDate(now), queue.config.max_feed_items);
 }
 
-export function buildPinfeed(now: Date = new Date()): string {
-  const drip: FeedEntry[] = releasedVariants(now).filter((v) => v.image).map((v) => ({
-    title: v.title,
+export function buildPinfeed(now: Date = new Date(), board: PinBoard = boards.MAIN_BOARD): string {
+  const drip: FeedEntry[] = releasedVariants(now, board).filter((v) => v.image).map((v) => ({
+    title: pinTitle(v.title, board),
     link: pinLink(v.path, v.id),
     guid: `https://${PINFEED_HOST}/pin/${v.id}`,
-    description: v.description,
+    description: pinDescription(v.description, v.path),
     // 06:00 America/Chicago on the release day (11:00 UTC covers CST and CDT).
     pubDate: new Date(`${v.release_date}T11:00:00Z`).toUTCString(),
     image: { ...v.image!, url: `https://${PINFEED_HOST}${v.image!.path}` }
   }));
-  const launch: FeedEntry[] = pinItems.map((item) => ({
+  // The launch six were all published to the first board before the split.
+  const launch: FeedEntry[] = board.slug !== boards.MAIN_BOARD.slug ? [] : pinItems.map((item) => ({
     title: item.title,
     link: pinLink(item.path),
     guid: `https://${PINFEED_HOST}${item.path}`,
@@ -96,9 +108,9 @@ export function buildPinfeed(now: Date = new Date()): string {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">',
     '  <channel>',
-    '    <title>Wedding Checklist PDF</title>',
+    `    <title>${esc(board.slug === boards.MAIN_BOARD.slug ? 'Wedding Checklist PDF' : `Wedding Checklist PDF: ${board.name}`)}</title>`,
     `    <link>https://${PINFEED_HOST}/</link>`,
-    `    <atom:link href="https://${PINFEED_HOST}${PINFEED_PATH}" rel="self" type="application/rss+xml"/>`,
+    `    <atom:link href="https://${PINFEED_HOST}${board.feed}" rel="self" type="application/rss+xml"/>`,
     '    <description>Printable wedding checklists and planning templates from weddingchecklistpdf.com.</description>',
     '    <language>en-us</language>',
     ...items,

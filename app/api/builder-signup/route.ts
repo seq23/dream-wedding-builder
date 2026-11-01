@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runtimeEnv } from '@/lib/cloudflare-runtime';
 import { normalizeEmail, storeBuilderSignup } from '@/lib/builder-signup';
+import { PIN_COOKIE, recordPinterestConversion, signupRef } from '@/lib/pinterest-conversions';
 
 // Stores the email the free planning builder asks for. Consent must be explicit;
 // a missing database is a 503, never a silent success.
@@ -16,5 +17,6 @@ export async function POST(req: NextRequest) {
   if (!db) return NextResponse.json({ ok: false, error: 'Signup storage is unavailable. Please try again shortly.' }, { status: 503 });
   const host = (req.headers.get('x-forwarded-host') ?? req.headers.get('host') ?? '').slice(0, 120);
   await storeBuilderSignup(db, { email, source: String(body.source ?? 'free-wedding-planner').slice(0, 80), host });
+  await recordPinterestConversion(db as never, { kind: 'signup', pinRef: req.cookies.get(PIN_COOKIE)?.value, ref: await signupRef(email) });
   return NextResponse.json({ ok: true });
 }

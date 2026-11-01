@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { aliasRedirectTarget, apexHost, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
 import { PATHNAME_HEADER } from '@/lib/pathname-header';
+import { PIN_COOKIE, PIN_COOKIE_MAX_AGE, pinRefFromUrl } from '@/lib/pinterest-conversions';
 
 // Search Console verification files must be served verbatim at each domain root.
 // The matcher catches everything outside _next, so without a passthrough the
@@ -79,7 +80,16 @@ function trailingSlash(request: NextRequest, pathname: string) {
   return NextResponse.rewrite(url);
 }
 
+// A visit from a pin (utm_source=pinterest) remembers which pin in a first-party
+// cookie, so a later checkout or signup can be credited to it (lib/pinterest-conversions.ts).
 export function middleware(request: NextRequest) {
+  const response = route(request);
+  const pin = pinRefFromUrl(request.nextUrl);
+  if (pin) response.cookies.set(PIN_COOKIE, pin, { maxAge: PIN_COOKIE_MAX_AGE, path: '/', sameSite: 'lax', secure: true, httpOnly: true });
+  return response;
+}
+
+function route(request: NextRequest) {
   const rawHost = request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? '';
   const originalHost = rawHost.split(',')[0].trim().toLowerCase().split(':')[0];
   const host = apexHost(originalHost);

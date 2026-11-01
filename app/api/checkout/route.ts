@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { productBySku } from '@/lib/products';
 import { buildCheckoutContract, isCheckoutContractFailure } from '@/lib/checkout-contract';
+import { cleanPinRef, PIN_COOKIE } from '@/lib/pinterest-conversions';
 
 export async function POST(request: NextRequest) {
   const contentType = request.headers.get('content-type') || '';
@@ -18,6 +19,9 @@ export async function POST(request: NextRequest) {
   if (isCheckoutContractFailure(contract)) {
     return NextResponse.json({ error: contract.error }, { status: contract.status });
   }
+  // The pin this buyer arrived from, if any, rides to the paid webhook in metadata.
+  const pinRef = cleanPinRef(request.cookies.get(PIN_COOKIE)?.value);
+  if (pinRef) contract.params.set('metadata[pin_ref]', pinRef);
 
   const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
     method: 'POST',

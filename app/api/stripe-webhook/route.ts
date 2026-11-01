@@ -4,6 +4,7 @@ import { runtimeEnv } from '@/lib/cloudflare-runtime';
 import { createDownloadToken, releaseKeyForSku, safeEmail, verifyStripeSignature, type StripeSession } from '@/lib/fulfillment';
 import { productBySku } from '@/lib/products';
 import { sendDeliveryEmail } from '@/lib/delivery-email';
+import { recordPinterestConversion } from '@/lib/pinterest-conversions';
 
 export const dynamic = 'force-dynamic';
 
@@ -68,6 +69,7 @@ export async function POST(req: NextRequest) {
     const token = createDownloadToken(savedEntitlement!.id, Date.now() + 24 * 60 * 60 * 1000, signingSecret);
     const base = process.env.APP_BASE_URL || env.APP_BASE_URL || req.nextUrl.origin;
     await sendDeliveryEmail(env, savedOrder!.id, email, product.name, `${base}/api/download/${token}`);
+    await recordPinterestConversion(env.DB as never, { kind: 'sale', pinRef: session.metadata?.pin_ref, ref: savedOrder!.id });
     await env.DB.prepare('UPDATE stripe_events SET processed_at=CURRENT_TIMESTAMP, processing_error=NULL WHERE event_id=?').bind(event.id).run();
     return NextResponse.json({ received: true });
   } catch (error) {

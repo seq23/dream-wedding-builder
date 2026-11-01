@@ -30,7 +30,11 @@ export type PinQueueConfig = {
   layouts: string[];
   palettes: string[];
 };
-export type PinQueue = { config: PinQueueConfig; known_pages: string[]; pages: PinQueuePage[]; variants: PinVariant[] };
+export type PinPace = { since: string; review_after_days: number; fallback: { pins_per_day: number; layouts: string[] }; fell_back_at: string | null; paused_at?: string | null; log: Array<{ at: string; change: string; why: string }> };
+export type PinQueue = { config: PinQueueConfig & { pace?: PinPace }; known_pages: string[]; pages: PinQueuePage[]; variants: PinVariant[]; questions?: PinVariant[] };
+export type PaceDecision = { action: 'keep' | 'fallback' | 'pause'; reason: string };
+export declare function decidePace(config: PinQueueConfig & { pace?: PinPace }, history: Array<{ generated_at?: string; status?: string; total?: number | null }> | null, today: string): PaceDecision;
+export declare function applyFallback<T extends PinQueueConfig & { pace?: PinPace }>(config: T, today: string, reason: string): T;
 
 export declare const PIN_TIMEZONE: string;
 export declare function chicagoDate(now?: Date): string;
@@ -41,3 +45,4 @@ export declare function unreleasedCount(variants: Array<{ release_date: string |
 export declare function needsRefill(queue: { config: { refill_threshold: number }; variants: Array<{ release_date: string | null }> }, today: string): boolean;
 export declare function scheduleVariants<T extends { path: string; seq: number; id: string; release_date: string | null }>(variants: T[], options: { pinsPerDay: number; firstDay: string }): T[];
 export declare function planRefill(queue: PinQueue, pages: Array<{ path: string; art: string[]; angles: PinAngle[] }>, count: number): PinVariant[];
+export declare function applyPause<T extends PinQueueConfig & { pace?: PinPace }>(config: T, variants: Array<{ release_date: string | null }>, today: string, reason: string): T;

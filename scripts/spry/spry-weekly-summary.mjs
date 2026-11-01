@@ -10,7 +10,8 @@
  *   1. Sales: paid orders in the last 7 days (D1 `orders`, written by the Stripe webhook).
  *   2. Search: Google Search Console clicks and impressions per site,
  *      data/search_intelligence/gsc_truth.json (the rolling 28-day window, per host).
- *   3. Pinterest: visits from pins, reports/pinterest/metrics.json (Saturday's pinterest-drip run).
+ *   3. Pinterest: new pins, visits from pins, and sales/signups by pin visitors,
+ *      reports/pinterest/metrics.json (Saturday's pinterest-drip run).
  *   4. Pages: guides new in data/authority/content_registry.json against 7 days ago (git history),
  *      and pages the refresh lane refreshed (data/cadence/refresh_lane_ledger.json).
  *
@@ -66,7 +67,11 @@ export function pinterestLine(pin, now) {
   const at = Date.parse(pin.generated_at ?? '');
   if (Number.isNaN(at) || now - at > STALE_PINTEREST_DAYS * DAY) return notRead('Pinterest', `the newest measurement is from ${Number.isNaN(at) ? 'an unknown day' : day(at)}`);
   if (pin.total == null) return notRead('Pinterest', 'the measurement holds no total');
-  return { read: true, line: `Pinterest (week to ${day(at)}): ${plural(Number(pin.total), 'visit')} from pins.` };
+  const parts = [];
+  if (pin.pins_released != null) parts.push(`${plural(Number(pin.pins_released), 'new pin')}`);
+  parts.push(`${plural(Number(pin.total), 'visit')} from pins`);
+  if (pin.sales != null && pin.signups != null) parts.push(`${plural(Number(pin.sales), 'sale')} and ${plural(Number(pin.signups), 'signup')} from pin visitors`);
+  return { read: true, line: `Pinterest (week to ${day(at)}): ${parts.join(', ')}.` };
 }
 
 /** Pages line from the guide count now vs 7 days ago, and the refresh lane's runs. */
@@ -133,10 +138,10 @@ export function selfCheck() {
   const full = buildSummary({
     now, sales: { paid: 1 },
     gsc: { hosts: { 'a.example': host(1, 6), 'b.example': host(0, 4) } },
-    pin: { status: 'MEASURED', generated_at: '2026-10-31T11:00:00Z', total: 2 },
+    pin: { status: 'MEASURED', generated_at: '2026-10-31T11:00:00Z', total: 2, pins_released: 21, sales: 1, signups: 0 },
     pages: { guidesNow: 91, guidesBefore: 89, refresh: { runs: [{ at: '2026-11-01', refreshed: 3 }, { at: '2026-10-20', refreshed: 9 }] } },
   });
-  const want = ['Sales: 1 paid order this week.', 'Search (Google, 28 days to Nov 1): 1 click, shown in results 10 times, across 2 sites.', 'Pinterest (week to Oct 31): 2 visits from pins.', 'Pages this week: 2 new guides published; 3 pages refreshed.'];
+  const want = ['Sales: 1 paid order this week.', 'Search (Google, 28 days to Nov 1): 1 click, shown in results 10 times, across 2 sites.', 'Pinterest (week to Oct 31): 21 new pins, 2 visits from pins, 1 sale and 0 signups from pin visitors.', 'Pages this week: 2 new guides published; 3 pages refreshed.'];
   if (full.schema !== SCHEMA || JSON.stringify(full.notes) !== JSON.stringify(want) || full.sites.some((s) => s.state !== 'fine')) throw new Error(`self-check: lines are wrong: ${JSON.stringify(full.notes)}`);
   const part = buildSummary({ now, sales: { error: 'the Cloudflare credentials are not set for this run' }, gsc: { hosts: { 'a.example': host(5, 9, '2026-10-01T00:00:00Z') } }, pin: { status: 'NAMED_STOP', reason: 'D1 unreadable.' }, pages: { refresh: { runs: [] } } });
   if (!part.notes.every((l, i) => i === 3 || l.includes('not read')) || part.notes.some((l) => /\b0 (paid|click|visit)/.test(l)) || part.sites[0].state !== 'watch') throw new Error(`self-check: an unread number became a zero or vanished: ${JSON.stringify(part.notes)}`);

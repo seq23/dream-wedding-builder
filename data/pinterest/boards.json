@@ -1,0 +1,39 @@
+{
+  "_comment": "Pinterest topic boards for weddingchecklistpdf.com (owner-approved 1 Nov 2026). Pinterest auto-publish maps ONE RSS feed to ONE board, so each board has its own feed (lib/pinboards.mjs, lib/pinfeed.ts). A pin's board comes from its page path (paths, regexes) or, for a /questions/ page, from words in the question; anything unmatched goes to the first board. split_from: pins released before this day were all published to the first board's feed and stay there; the other feeds carry only pins released on or after it, so no pin is published twice. keywords: real Pinterest searches read from Pinterest's own search suggestions on 1 Nov 2026; a pin title that names none of its board's keywords is led with the first one.",
+  "split_from": "2026-11-01",
+  "keywords_read": "2026-11-01 Pinterest search typeahead",
+  "boards": [
+    {
+      "slug": "printable-wedding-checklists",
+      "name": "Printable Wedding Checklists",
+      "feed": "/pinfeed.xml",
+      "keywords": ["wedding checklist", "wedding planning checklist", "wedding checklist printable", "wedding checklist timeline", "wedding planning timeline"],
+      "paths": ["^/products/", "^/printable-wedding-checklist$", "^/wedding-(planning-)?checklist", "^/guides/\\d+-month-wedding-checklist$", "^/guides/wedding-planning-(timeline|binder)$", "^/guides/accessible-wedding-planning-checklist$", "^/guides/bridal-shower-checklist$"],
+      "words": []
+    },
+    {
+      "slug": "small-weddings",
+      "name": "Elopement, Courthouse & Micro Wedding Planning",
+      "feed": "/pinfeed/small-weddings.xml",
+      "keywords": ["micro wedding planning checklist", "courthouse wedding", "elopement", "backyard wedding", "destination wedding", "micro wedding"],
+      "paths": ["elopement", "courthouse", "micro-wedding", "backyard-wedding", "destination-wedding"],
+      "words": ["elope", "elopement", "courthouse", "micro", "backyard", "destination", "small wedding", "city hall", "intimate"]
+    },
+    {
+      "slug": "wedding-day",
+      "name": "Wedding Day Timeline & Day-Of Checklists",
+      "feed": "/pinfeed/wedding-day.xml",
+      "keywords": ["wedding timeline day of", "wedding day timeline", "wedding timeline checklist", "wedding week checklist", "rehearsal dinner"],
+      "paths": ["wedding-week", "day-of", "wedding-day", "emergency-kit", "rehearsal-dinner", "rain-plan", "post-wedding"],
+      "words": ["day of", "day-of", "wedding day", "wedding week", "rehearsal", "emergency", "rain", "ceremony", "reception timeline", "after the wedding"]
+    },
+    {
+      "slug": "vendors-budget",
+      "name": "Wedding Vendors, Venue & Budget Checklists",
+      "feed": "/pinfeed/vendors-budget.xml",
+      "keywords": ["wedding budget checklist", "wedding vendor checklist", "wedding venue checklist", "wedding budget planning", "wedding budget list"],
+      "paths": ["vendor", "final-payment", "venue", "attire"],
+      "words": ["vendor", "venue", "budget", "cost", "deposit", "pay", "photographer", "caterer", "florist", "dj", "dress", "attire", "contract"]
+    }
+  ]
+}
