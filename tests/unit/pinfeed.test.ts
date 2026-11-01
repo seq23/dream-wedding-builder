@@ -77,3 +77,21 @@ describe('Pinterest feed /pinfeed.xml', () => {
     }
   });
 });
+
+describe('Pinterest topic board feeds /pinfeed/<board>.xml', () => {
+  it('every board after the first answers its own feed on this host only; unknown boards 404', async () => {
+    const { GET } = await import('@/app/pinfeed/[board]/route');
+    const { boards } = await import('@/lib/pinfeed');
+    const call = (segment: string, host = HOST) => GET(new Request(`https://${host}/pinfeed/${segment}`, { headers: { host } }), { params: Promise.resolve({ board: segment }) });
+    for (const board of boards.BOARDS.slice(1)) {
+      const segment = board.feed.replace('/pinfeed/', '');
+      const res = await call(segment);
+      expect(res.status, board.slug).toBe(200);
+      expect(res.headers.get('content-type')).toMatch(/^application\/rss\+xml/);
+      expect(await res.text()).toContain(`href="https://${HOST}${board.feed}"`);
+      for (const host of Object.keys(ownership.hosts).filter((h) => h !== HOST)) expect((await call(segment, host)).status).toBe(404);
+    }
+    expect((await call('nope.xml')).status).toBe(404);
+    expect((await call(`${boards.MAIN_BOARD.slug}.xml`)).status).toBe(404);
+  });
+});

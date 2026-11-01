@@ -1,12 +1,12 @@
 {
   "_comment": "Pinterest daily drip queue (owner-approved 16 Oct 2026). config.pins_per_day is THE release rate. The feed (lib/pinfeed.ts) shows the 6 launch items plus every variant whose release_date <= today in America/Chicago, newest config.max_feed_items, filtered at request time on the Worker - no deploy per day. Written by scripts/pinterest/pin_queue.mjs (weekly: .github/workflows/pinterest-drip.yml); guarded by tests/unit/pinqueue.test.ts.",
   "config": {
-    "pins_per_day": 1,
+    "pins_per_day": 3,
     "timezone": "America/Chicago",
     "launch_date": "2026-10-16",
     "drip_start": "2026-10-17",
-    "refill_threshold": 14,
-    "refill_batch": 21,
+    "refill_threshold": 42,
+    "refill_batch": 42,
     "max_feed_items": 50,
     "layouts": [
       "panel-top",
@@ -22,7 +22,27 @@
       "slate",
       "terracotta",
       "ink"
-    ]
+    ],
+    "pace": {
+      "since": "2026-11-01",
+      "review_after_days": 28,
+      "fallback": {
+        "pins_per_day": 3,
+        "layouts": [
+          "panel-top",
+          "stripe"
+        ]
+      },
+      "fell_back_at": null,
+      "log": [
+        {
+          "at": "2026-11-01",
+          "change": "pins_per_day 1 -> 3, four topic boards, question pages pinned",
+          "why": "1 a day on one board gave 26 impressions, 0 clicks, 0 saves in 30 days (Pinterest analytics, 1 Nov 2026); Pinterest distributes fresh pins, a month of 1 a day showed too little reach to measure, and 3 a day stays far under the 200-a-day auto-publish cap. Stop rule unchanged from the Growth playbook: 0 clicks at 4 weeks -> new format, 8 weeks -> pause"
+        }
+      ],
+      "paused_at": null
+    }
   },
   "known_pages": [
     "/guides/1-month-wedding-checklist",
@@ -116,6 +136,256 @@
         "product-images/checklist-pdf-sample-2.png"
       ],
       "joined": "2026-10-16"
+    },
+    {
+      "path": "/guides/1-month-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/12-month-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/18-month-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/3-month-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/6-month-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/9-month-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/accessible-wedding-planning-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/backyard-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/bridal-shower-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/day-of-coordinator-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/micro-wedding-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/post-wedding-return-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/rehearsal-dinner-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/rehearsal-dinner-timeline",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-attire-lead-time-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-day-emergency-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-emergency-kit",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-final-payment-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-planning-binder",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-planning-timeline",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-rain-plan-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-vendor-booking-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-vendor-list",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-venue-selection-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
+    },
+    {
+      "path": "/guides/wedding-week-checklist",
+      "art": [
+        "product-images/checklist-pdf.png",
+        "product-images/checklist-pdf-sample-1.png",
+        "product-images/merch/checklist-pdf-card.png",
+        "product-images/checklist-pdf-sample-2.png"
+      ],
+      "joined": "2026-11-01"
     }
   ],
   "variants": [
@@ -404,7 +674,7 @@
       "layout": "band",
       "palette": "terracotta",
       "art": "product-images/merch/checklist-pdf-card.png",
-      "release_date": "2026-11-03",
+      "release_date": "2026-11-02",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-03.jpg",
         "type": "image/jpeg",
@@ -509,7 +779,7 @@
       "layout": "panel-top",
       "palette": "ink",
       "art": "product-images/checklist-pdf-sample-1.png",
-      "release_date": "2026-11-08",
+      "release_date": "2026-11-04",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-04.jpg",
         "type": "image/jpeg",
@@ -530,7 +800,7 @@
       "layout": "panel-bottom",
       "palette": "ink",
       "art": "product-images/merch/budget-spreadsheet-card.png",
-      "release_date": "2026-11-09",
+      "release_date": "2026-11-04",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-04.jpg",
         "type": "image/jpeg",
@@ -551,7 +821,7 @@
       "layout": "framed",
       "palette": "ink",
       "art": "product-images/merch/checklist-pdf-card.png",
-      "release_date": "2026-11-07",
+      "release_date": "2026-11-03",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-04.jpg",
         "type": "image/jpeg",
@@ -572,7 +842,7 @@
       "layout": "band",
       "palette": "blush",
       "art": "product-images/checklist-pdf-sample-1.png",
-      "release_date": "2026-11-06",
+      "release_date": "2026-11-03",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-04.jpg",
         "type": "image/jpeg",
@@ -593,7 +863,7 @@
       "layout": "framed",
       "palette": "slate",
       "art": "product-images/checklist-pdf.png",
-      "release_date": "2026-11-04",
+      "release_date": "2026-11-01",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-04.jpg",
         "type": "image/jpeg",
@@ -614,7 +884,7 @@
       "layout": "band",
       "palette": "slate",
       "art": "product-images/checklist-pdf-sample-1.png",
-      "release_date": "2026-11-05",
+      "release_date": "2026-11-02",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-04.jpg",
         "type": "image/jpeg",
@@ -635,7 +905,7 @@
       "layout": "framed",
       "palette": "cream",
       "art": "product-images/merch/checklist-pdf-card.png",
-      "release_date": "2026-11-14",
+      "release_date": "2026-11-06",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-05.jpg",
         "type": "image/jpeg",
@@ -656,7 +926,7 @@
       "layout": "stripe",
       "palette": "cream",
       "art": "product-images/operations-suite.png",
-      "release_date": "2026-11-15",
+      "release_date": "2026-11-06",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-05.jpg",
         "type": "image/jpeg",
@@ -677,7 +947,7 @@
       "layout": "band",
       "palette": "cream",
       "art": "product-images/checklist-pdf-sample-2.png",
-      "release_date": "2026-11-13",
+      "release_date": "2026-11-05",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-05.jpg",
         "type": "image/jpeg",
@@ -698,7 +968,7 @@
       "layout": "panel-bottom",
       "palette": "sage",
       "art": "product-images/merch/checklist-pdf-card.png",
-      "release_date": "2026-11-12",
+      "release_date": "2026-11-05",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-05.jpg",
         "type": "image/jpeg",
@@ -719,7 +989,7 @@
       "layout": "band",
       "palette": "terracotta",
       "art": "product-images/checklist-pdf-sample-1.png",
-      "release_date": "2026-11-10",
+      "release_date": "2026-11-03",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-05.jpg",
         "type": "image/jpeg",
@@ -740,7 +1010,7 @@
       "layout": "panel-bottom",
       "palette": "terracotta",
       "art": "product-images/merch/checklist-pdf-card.png",
-      "release_date": "2026-11-11",
+      "release_date": "2026-11-04",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-05.jpg",
         "type": "image/jpeg",
@@ -761,7 +1031,7 @@
       "layout": "band",
       "palette": "blush",
       "art": "product-images/checklist-pdf-sample-2.png",
-      "release_date": "2026-11-20",
+      "release_date": "2026-11-13",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-06.jpg",
         "type": "image/jpeg",
@@ -782,7 +1052,7 @@
       "layout": "panel-top",
       "palette": "blush",
       "art": "product-images/merch/operations-suite-hero.png",
-      "release_date": "2026-11-21",
+      "release_date": "2026-11-13",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-06.jpg",
         "type": "image/jpeg",
@@ -803,7 +1073,7 @@
       "layout": "panel-bottom",
       "palette": "blush",
       "art": "product-images/checklist-pdf.png",
-      "release_date": "2026-11-19",
+      "release_date": "2026-11-12",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-06.jpg",
         "type": "image/jpeg",
@@ -824,7 +1094,7 @@
       "layout": "stripe",
       "palette": "slate",
       "art": "product-images/checklist-pdf-sample-2.png",
-      "release_date": "2026-11-18",
+      "release_date": "2026-11-09",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-06.jpg",
         "type": "image/jpeg",
@@ -845,7 +1115,7 @@
       "layout": "panel-bottom",
       "palette": "ink",
       "art": "product-images/merch/checklist-pdf-card.png",
-      "release_date": "2026-11-16",
+      "release_date": "2026-11-08",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-06.jpg",
         "type": "image/jpeg",
@@ -866,7 +1136,7 @@
       "layout": "stripe",
       "palette": "ink",
       "art": "product-images/checklist-pdf-sample-2.png",
-      "release_date": "2026-11-17",
+      "release_date": "2026-11-09",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-06.jpg",
         "type": "image/jpeg",
@@ -887,7 +1157,7 @@
       "layout": "panel-bottom",
       "palette": "sage",
       "art": "product-images/checklist-pdf.png",
-      "release_date": "2026-11-26",
+      "release_date": "2026-11-23",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-07.jpg",
         "type": "image/jpeg",
@@ -908,7 +1178,7 @@
       "layout": "framed",
       "palette": "sage",
       "art": "product-images/merch/checklist-pdf-card.png",
-      "release_date": "2026-11-27",
+      "release_date": "2026-11-23",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-07.jpg",
         "type": "image/jpeg",
@@ -929,7 +1199,7 @@
       "layout": "stripe",
       "palette": "sage",
       "art": "product-images/checklist-pdf-sample-1.png",
-      "release_date": "2026-11-25",
+      "release_date": "2026-11-23",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-07.jpg",
         "type": "image/jpeg",
@@ -950,7 +1220,7 @@
       "layout": "panel-top",
       "palette": "terracotta",
       "art": "product-images/checklist-pdf.png",
-      "release_date": "2026-11-24",
+      "release_date": "2026-11-17",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-07.jpg",
         "type": "image/jpeg",
@@ -971,7 +1241,7 @@
       "layout": "stripe",
       "palette": "cream",
       "art": "product-images/checklist-pdf-sample-2.png",
-      "release_date": "2026-11-22",
+      "release_date": "2026-11-16",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-07.jpg",
         "type": "image/jpeg",
@@ -992,7 +1262,7 @@
       "layout": "panel-top",
       "palette": "cream",
       "art": "product-images/checklist-pdf.png",
-      "release_date": "2026-11-23",
+      "release_date": "2026-11-17",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-07.jpg",
         "type": "image/jpeg",
@@ -1000,6 +1270,889 @@
         "height": 1500,
         "length": 128343
       }
+    },
+    {
+      "id": "guides-1-month-wedding-checklist-01",
+      "seq": 43,
+      "path": "/guides/1-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "One-Month Wedding\nChecklist",
+      "subline": "One month out · Reconcile contracts",
+      "title": "One-Month Wedding Checklist: One month out · Reconcile contracts",
+      "description": "One month out, stop designing and start verifying: reconcile contracts, final guest and meal counts, seating, balances, transport, and role timelines.",
+      "layout": "band",
+      "palette": "sage",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-05",
+      "image": {
+        "path": "/pinterest/drip/guides-1-month-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 128291
+      }
+    },
+    {
+      "id": "guides-12-month-wedding-checklist-01",
+      "seq": 44,
+      "path": "/guides/12-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "12-Month Wedding\nChecklist",
+      "subline": "Final quarter shifts to reconciliation",
+      "title": "12-Month Wedding Checklist: Final quarter shifts to reconciliation",
+      "description": "A 12-month wedding plan by quarter: secure the venue and scarce vendors first, build guest and design systems mid-year, then reconcile at the end.",
+      "layout": "band",
+      "palette": "cream",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-06",
+      "image": {
+        "path": "/pinterest/drip/guides-12-month-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 126913
+      }
+    },
+    {
+      "id": "guides-18-month-wedding-checklist-01",
+      "seq": 45,
+      "path": "/guides/18-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "18-Month Wedding\nChecklist",
+      "subline": "Research location constraints",
+      "title": "18-Month Wedding Checklist: Research location constraints",
+      "description": "With 18 months, compare venues and priority vendors without manufacturing urgency, then book the scarce ones and schedule design and guest work later.",
+      "layout": "panel-bottom",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-07",
+      "image": {
+        "path": "/pinterest/drip/guides-18-month-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 125947
+      }
+    },
+    {
+      "id": "guides-3-month-wedding-checklist-01",
+      "seq": 46,
+      "path": "/guides/3-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "3-Month Wedding\nChecklist",
+      "subline": "Secure the legal · Venue · Vendor",
+      "title": "3-Month Wedding Checklist: Secure the legal · Venue · Vendor",
+      "description": "A three-month wedding checklist is a critical path: secure the legal, venue, vendor, guest, and payment essentials, then cut anything that is decoration.",
+      "layout": "stripe",
+      "palette": "cream",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-07",
+      "image": {
+        "path": "/pinterest/drip/guides-3-month-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 122334
+      }
+    },
+    {
+      "id": "guides-6-month-wedding-checklist-01",
+      "seq": 47,
+      "path": "/guides/6-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "6-Month Wedding\nChecklist",
+      "subline": "Legal and venue requirements",
+      "title": "6-Month Wedding Checklist: Legal and venue requirements",
+      "description": "A six-month wedding plan must prioritize availability, legal and venue requirements, guest travel, and contract deadlines over traditional planning sequence.",
+      "layout": "band",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-07",
+      "image": {
+        "path": "/pinterest/drip/guides-6-month-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 81028
+      }
+    },
+    {
+      "id": "guides-9-month-wedding-checklist-01",
+      "seq": 48,
+      "path": "/guides/9-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "9-Month Wedding\nChecklist",
+      "subline": "Confirm venue · Ceremony · Catering",
+      "title": "9-Month Wedding Checklist: Confirm venue · Ceremony · Catering",
+      "description": "Nine months is enough for a full plan when decisions are made in dependency order and shopping or inspiration does not delay booking.",
+      "layout": "panel-top",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-08",
+      "image": {
+        "path": "/pinterest/drip/guides-9-month-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 124150
+      }
+    },
+    {
+      "id": "guides-accessible-wedding-planning-checklist-01",
+      "seq": 49,
+      "path": "/guides/accessible-wedding-planning-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Accessible Wedding\nPlanning Checklist",
+      "subline": "Seating · Sightlines · Sound",
+      "title": "Accessible Wedding Planning Checklist: Seating · Sightlines · Sound",
+      "description": "Plan accessibility early: routes, seating, sightlines, sound, and dietary needs constrain venue and layout decisions that lock long before the day.",
+      "layout": "framed",
+      "palette": "terracotta",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-15",
+      "image": {
+        "path": "/pinterest/drip/guides-accessible-wedding-planning-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 104974
+      }
+    },
+    {
+      "id": "guides-backyard-wedding-checklist-01",
+      "seq": 50,
+      "path": "/guides/backyard-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Backyard Wedding\nChecklist",
+      "subline": "Confirm occupancy · Parking",
+      "title": "Backyard Wedding Checklist: Confirm occupancy · Parking",
+      "description": "A backyard wedding is a temporary event site: plan power, restrooms, parking, weather shelter, permits, insurance, and cleanup before any decor.",
+      "layout": "framed",
+      "palette": "sage",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-08",
+      "image": {
+        "path": "/pinterest/drip/guides-backyard-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 79416
+      }
+    },
+    {
+      "id": "guides-bridal-shower-checklist-01",
+      "seq": 51,
+      "path": "/guides/bridal-shower-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Bridal Shower\nChecklist",
+      "subline": "Name the host",
+      "title": "Bridal Shower Checklist: Name the host",
+      "description": "A bridal shower is somebody else's hosted event, so settle who decides and who pays first, then the guest list, the date, and the party itself.",
+      "layout": "framed",
+      "palette": "sage",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-16",
+      "image": {
+        "path": "/pinterest/drip/guides-bridal-shower-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 92390
+      }
+    },
+    {
+      "id": "guides-day-of-coordinator-checklist-01",
+      "seq": 52,
+      "path": "/guides/day-of-coordinator-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Day-of Wedding\nCoordinator\nChecklist",
+      "subline": "Give them the frozen timeline",
+      "title": "Day-of Wedding Coordinator Checklist: Give them the frozen timeline",
+      "description": "A day-of coordinator can only run what they were handed: the timeline, vendor sheet, contracts, payments, and a list of decisions they may make alone.",
+      "layout": "stripe",
+      "palette": "terracotta",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-01",
+      "image": {
+        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 127852
+      }
+    },
+    {
+      "id": "guides-micro-wedding-checklist-01",
+      "seq": 53,
+      "path": "/guides/micro-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Micro-Wedding\nChecklist",
+      "subline": "Micro-wedding reduces guest volume",
+      "title": "Micro-Wedding Checklist: Micro-wedding reduces guest volume",
+      "description": "A micro-wedding reduces guest volume, not the need for clear ceremony, hospitality, payment, and handoff decisions.",
+      "layout": "framed",
+      "palette": "cream",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-09",
+      "image": {
+        "path": "/pinterest/drip/guides-micro-wedding-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 97600
+      }
+    },
+    {
+      "id": "guides-post-wedding-return-checklist-01",
+      "seq": 54,
+      "path": "/guides/post-wedding-return-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Post-Wedding\nReturns and\nClosing Checklist",
+      "subline": "Borrowed items · Attire · Gifts",
+      "title": "Post-Wedding Returns and Closing Checklist: Borrowed items · Attire · Gifts",
+      "description": "Close out the wedding: return rentals and borrowed items, settle vendor balances and gratuities, secure gifts and documents, and log any damages.",
+      "layout": "stripe",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf-sample-2.png",
+      "release_date": "2026-11-10",
+      "image": {
+        "path": "/pinterest/drip/guides-post-wedding-return-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 86905
+      }
+    },
+    {
+      "id": "guides-rehearsal-dinner-checklist-01",
+      "seq": 55,
+      "path": "/guides/rehearsal-dinner-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Rehearsal Dinner\nChecklist",
+      "subline": "Budget · Timing · Dietary needs",
+      "title": "Rehearsal Dinner Checklist: Budget · Timing · Dietary needs",
+      "description": "The rehearsal dinner should be planned as a separate hosted event with its own guest list, budget, timing, dietary needs, speeches, and transportation.",
+      "layout": "framed",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-10",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 78136
+      }
+    },
+    {
+      "id": "guides-rehearsal-dinner-timeline-01",
+      "seq": 56,
+      "path": "/guides/rehearsal-dinner-timeline",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Rehearsal Dinner\nTimeline",
+      "subline": "Name who closes the evening",
+      "title": "Rehearsal Dinner Timeline: Name who closes the evening",
+      "description": "A rehearsal dinner timeline should be anchored to the moment the ceremony rehearsal actually ends, because that is the variable everything else inherits.",
+      "layout": "band",
+      "palette": "cream",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-19",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 124680
+      }
+    },
+    {
+      "id": "guides-wedding-attire-lead-time-checklist-01",
+      "seq": 57,
+      "path": "/guides/wedding-attire-lead-time-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Attire\nLead Time\nChecklist",
+      "subline": "Alteration schedule · Plan transport",
+      "title": "Wedding Attire Lead Time Checklist: Alteration schedule · Plan transport",
+      "description": "Wedding attire runs on suppliers' calendars: get order and alteration lead times in writing, then time the final fitting so the fit still holds.",
+      "layout": "stripe",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-19",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-attire-lead-time-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 126767
+      }
+    },
+    {
+      "id": "guides-wedding-day-emergency-checklist-01",
+      "seq": 58,
+      "path": "/guides/wedding-day-emergency-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding-Day\nEmergency\nChecklist",
+      "subline": "Decision authority · Contacts · Supplies",
+      "title": "Wedding-Day Emergency Checklist: Decision authority · Contacts · Supplies",
+      "description": "An emergency plan should identify likely disruptions, decision authority, contacts, supplies, and the threshold for calling a professional or emergency service.",
+      "layout": "panel-top",
+      "palette": "sage",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-10",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-day-emergency-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 131709
+      }
+    },
+    {
+      "id": "guides-wedding-emergency-kit-01",
+      "seq": 59,
+      "path": "/guides/wedding-emergency-kit",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Emergency\nKit List",
+      "subline": "Body · Paper · Power",
+      "title": "Wedding Emergency Kit List: Body · Paper · Power",
+      "description": "Pack a wedding emergency kit by failure mode (garment, body, paper, power, weather) in two bags, one for getting ready and one for the venue.",
+      "layout": "framed",
+      "palette": "terracotta",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-20",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-emergency-kit-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 78325
+      }
+    },
+    {
+      "id": "guides-wedding-final-payment-checklist-01",
+      "seq": 60,
+      "path": "/guides/wedding-final-payment-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding\nFinal-Payment\nChecklist",
+      "subline": "Confirm final scope and count",
+      "title": "Wedding Final-Payment Checklist: Confirm final scope and count",
+      "description": "Final payments require a reconciliation against signed agreements and approved changes, not a blind transfer of the invoice total.",
+      "layout": "framed",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-11",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-final-payment-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 82023
+      }
+    },
+    {
+      "id": "guides-wedding-planning-binder-01",
+      "seq": 61,
+      "path": "/guides/wedding-planning-binder",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Planning\nBinder",
+      "subline": "Payment · Guest",
+      "title": "Wedding Planning Binder: Payment · Guest",
+      "description": "Set up a wedding planning binder that separates live decisions from inspiration, with a tab for every contract, payment, guest record, and handoff.",
+      "layout": "band",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-11",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-binder-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 76802
+      }
+    },
+    {
+      "id": "guides-wedding-planning-timeline-01",
+      "seq": 62,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Planning\nTimeline",
+      "subline": "Lock the date · Venue · Guest ceiling",
+      "title": "Wedding Planning Timeline: Lock the date · Venue · Guest ceiling",
+      "description": "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable.",
+      "layout": "stripe",
+      "palette": "terracotta",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-11",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 122524
+      }
+    },
+    {
+      "id": "guides-wedding-rain-plan-checklist-01",
+      "seq": 63,
+      "path": "/guides/wedding-rain-plan-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Rain Plan\nChecklist",
+      "subline": "Backup space · Decision-maker",
+      "title": "Wedding Rain Plan Checklist: Backup space · Decision-maker",
+      "description": "A rain plan is only real when the trigger, the backup space, the decision-maker, and the decision deadline have all been settled before the day itself.",
+      "layout": "framed",
+      "palette": "cream",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-21",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-rain-plan-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 98204
+      }
+    },
+    {
+      "id": "guides-wedding-vendor-booking-checklist-01",
+      "seq": 64,
+      "path": "/guides/wedding-vendor-booking-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Vendor\nBooking Checklist",
+      "subline": "Price · Payment schedule · Deliverables",
+      "title": "Wedding Vendor Booking Checklist: Price · Payment schedule · Deliverables",
+      "description": "Vendor booking is complete only when scope, price, payment schedule, deliverables, access, cancellation terms, and a responsible contact are recorded.",
+      "layout": "band",
+      "palette": "cream",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-12",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-vendor-booking-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 131627
+      }
+    },
+    {
+      "id": "guides-wedding-vendor-list-01",
+      "seq": 65,
+      "path": "/guides/wedding-vendor-list",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Vendor\nList",
+      "subline": "Candidate or selected vendor",
+      "title": "Wedding Vendor List: Candidate or selected vendor",
+      "description": "Build a wedding vendor list with category, status, contact, scope, contract, payment dates, and handoff owner, then turn it into a day-of directory.",
+      "layout": "band",
+      "palette": "terracotta",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-12",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-vendor-list-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 123127
+      }
+    },
+    {
+      "id": "guides-wedding-venue-selection-checklist-01",
+      "seq": 66,
+      "path": "/guides/wedding-venue-selection-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Venue\nSelection\nChecklist",
+      "subline": "Capacity · Access · Curfew",
+      "title": "Wedding Venue Selection Checklist: Capacity · Access · Curfew",
+      "description": "Choose a wedding venue by its constraints before its look: seated capacity, access, curfew, vendor rules, and what the weather fallback holds.",
+      "layout": "framed",
+      "palette": "cream",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-22",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-venue-selection-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 101263
+      }
+    },
+    {
+      "id": "guides-wedding-week-checklist-01",
+      "seq": 67,
+      "path": "/guides/wedding-week-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding-Week\nChecklist",
+      "subline": "Confirm handoffs",
+      "title": "Wedding-Week Checklist: Confirm handoffs",
+      "description": "The wedding-week checklist should protect the final version, confirm handoffs, and prevent new ideas from displacing required operations.",
+      "layout": "framed",
+      "palette": "sage",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-22",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-week-checklist-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 93972
+      }
+    },
+    {
+      "id": "guides-1-month-wedding-checklist-02",
+      "seq": 68,
+      "path": "/guides/1-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "One-Month Wedding\nChecklist",
+      "subline": "Final guest and meal counts",
+      "title": "One-Month Wedding Checklist: Final guest and meal counts",
+      "description": "One month out, stop designing and start verifying: reconcile contracts, final guest and meal counts, seating, balances, transport, and role timelines.",
+      "layout": "panel-bottom",
+      "palette": "slate",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-13",
+      "image": {
+        "path": "/pinterest/drip/guides-1-month-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 80794
+      }
+    },
+    {
+      "id": "guides-12-month-wedding-checklist-02",
+      "seq": 69,
+      "path": "/guides/12-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "12-Month Wedding\nChecklist",
+      "subline": "Lock scope · Book critical vendors",
+      "title": "12-Month Wedding Checklist: Lock scope · Book critical vendors",
+      "description": "A 12-month wedding plan by quarter: secure the venue and scarce vendors first, build guest and design systems mid-year, then reconcile at the end.",
+      "layout": "panel-bottom",
+      "palette": "blush",
+      "art": "product-images/checklist-pdf-sample-2.png",
+      "release_date": "2026-11-14",
+      "image": {
+        "path": "/pinterest/drip/guides-12-month-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 75449
+      }
+    },
+    {
+      "id": "guides-18-month-wedding-checklist-02",
+      "seq": 70,
+      "path": "/guides/18-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "18-Month Wedding\nChecklist",
+      "subline": "Book the venue and scarce vendors",
+      "title": "18-Month Wedding Checklist: Book the venue and scarce vendors",
+      "description": "With 18 months, compare venues and priority vendors without manufacturing urgency, then book the scarce ones and schedule design and guest work later.",
+      "layout": "stripe",
+      "palette": "blush",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-14",
+      "image": {
+        "path": "/pinterest/drip/guides-18-month-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 83202
+      }
+    },
+    {
+      "id": "guides-3-month-wedding-checklist-02",
+      "seq": 71,
+      "path": "/guides/3-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "3-Month Wedding\nChecklist",
+      "subline": "Guest · Payment · Timeline essentials",
+      "title": "3-Month Wedding Checklist: Guest · Payment · Timeline essentials",
+      "description": "A three-month wedding checklist is a critical path: secure the legal, venue, vendor, guest, and payment essentials, then cut anything that is decoration.",
+      "layout": "panel-top",
+      "palette": "blush",
+      "art": "product-images/checklist-pdf-sample-2.png",
+      "release_date": "2026-11-14",
+      "image": {
+        "path": "/pinterest/drip/guides-3-month-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 76043
+      }
+    },
+    {
+      "id": "guides-6-month-wedding-checklist-02",
+      "seq": 72,
+      "path": "/guides/6-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "6-Month Wedding\nChecklist",
+      "subline": "Guest travel",
+      "title": "6-Month Wedding Checklist: Guest travel",
+      "description": "A six-month wedding plan must prioritize availability, legal and venue requirements, guest travel, and contract deadlines over traditional planning sequence.",
+      "layout": "panel-bottom",
+      "palette": "blush",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-15",
+      "image": {
+        "path": "/pinterest/drip/guides-6-month-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 121173
+      }
+    },
+    {
+      "id": "guides-9-month-wedding-checklist-02",
+      "seq": 73,
+      "path": "/guides/9-month-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "9-Month Wedding\nChecklist",
+      "subline": "Photography · Attire lead times",
+      "title": "9-Month Wedding Checklist: Photography · Attire lead times",
+      "description": "Nine months is enough for a full plan when decisions are made in dependency order and shopping or inspiration does not delay booking.",
+      "layout": "framed",
+      "palette": "blush",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-15",
+      "image": {
+        "path": "/pinterest/drip/guides-9-month-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 78609
+      }
+    },
+    {
+      "id": "guides-backyard-wedding-checklist-02",
+      "seq": 74,
+      "path": "/guides/backyard-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Backyard Wedding\nChecklist",
+      "subline": "Weather shelter · Power · Lighting",
+      "title": "Backyard Wedding Checklist: Weather shelter · Power · Lighting",
+      "description": "A backyard wedding is a temporary event site: plan power, restrooms, parking, weather shelter, permits, insurance, and cleanup before any decor.",
+      "layout": "band",
+      "palette": "slate",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-16",
+      "image": {
+        "path": "/pinterest/drip/guides-backyard-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 128518
+      }
+    },
+    {
+      "id": "guides-day-of-coordinator-checklist-02",
+      "seq": 75,
+      "path": "/guides/day-of-coordinator-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Day-of Wedding\nCoordinator\nChecklist",
+      "subline": "Vendor contact sheet · Signed contracts",
+      "title": "Day-of Wedding Coordinator Checklist: Vendor contact sheet · Signed contracts",
+      "description": "A day-of coordinator can only run what they were handed: the timeline, vendor sheet, contracts, payments, and a list of decisions they may make alone.",
+      "layout": "panel-top",
+      "palette": "ink",
+      "art": "product-images/checklist-pdf-sample-2.png",
+      "release_date": "2026-11-17",
+      "image": {
+        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 88683
+      }
+    },
+    {
+      "id": "guides-micro-wedding-checklist-02",
+      "seq": 76,
+      "path": "/guides/micro-wedding-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Micro-Wedding\nChecklist",
+      "subline": "Hospitality · Payment",
+      "title": "Micro-Wedding Checklist: Hospitality · Payment",
+      "description": "A micro-wedding reduces guest volume, not the need for clear ceremony, hospitality, payment, and handoff decisions.",
+      "layout": "band",
+      "palette": "blush",
+      "art": "product-images/checklist-pdf-sample-2.png",
+      "release_date": "2026-11-18",
+      "image": {
+        "path": "/pinterest/drip/guides-micro-wedding-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 77255
+      }
+    },
+    {
+      "id": "guides-post-wedding-return-checklist-02",
+      "seq": 77,
+      "path": "/guides/post-wedding-return-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Post-Wedding\nReturns and\nClosing Checklist",
+      "subline": "Vendor balances · Gratuities · Documents",
+      "title": "Post-Wedding Returns and Closing Checklist: Vendor balances · Gratuities · Documents",
+      "description": "Close out the wedding: return rentals and borrowed items, settle vendor balances and gratuities, secure gifts and documents, and log any damages.",
+      "layout": "panel-top",
+      "palette": "blush",
+      "art": "product-images/checklist-pdf.png",
+      "release_date": "2026-11-18",
+      "image": {
+        "path": "/pinterest/drip/guides-post-wedding-return-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 135581
+      }
+    },
+    {
+      "id": "guides-rehearsal-dinner-checklist-02",
+      "seq": 78,
+      "path": "/guides/rehearsal-dinner-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Rehearsal Dinner\nChecklist",
+      "subline": "Speeches · Transportation",
+      "title": "Rehearsal Dinner Checklist: Speeches · Transportation",
+      "description": "The rehearsal dinner should be planned as a separate hosted event with its own guest list, budget, timing, dietary needs, speeches, and transportation.",
+      "layout": "band",
+      "palette": "blush",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-18",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 124264
+      }
+    },
+    {
+      "id": "guides-wedding-day-emergency-checklist-02",
+      "seq": 79,
+      "path": "/guides/wedding-day-emergency-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding-Day\nEmergency\nChecklist",
+      "subline": "Prepare contacts",
+      "title": "Wedding-Day Emergency Checklist: Prepare contacts",
+      "description": "An emergency plan should identify likely disruptions, decision authority, contacts, supplies, and the threshold for calling a professional or emergency service.",
+      "layout": "framed",
+      "palette": "slate",
+      "art": "product-images/checklist-pdf-sample-2.png",
+      "release_date": "2026-11-19",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-day-emergency-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 78473
+      }
+    },
+    {
+      "id": "guides-wedding-final-payment-checklist-02",
+      "seq": 80,
+      "path": "/guides/wedding-final-payment-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding\nFinal-Payment\nChecklist",
+      "subline": "Verify payment method and due date",
+      "title": "Wedding Final-Payment Checklist: Verify payment method and due date",
+      "description": "Final payments require a reconciliation against signed agreements and approved changes, not a blind transfer of the invoice total.",
+      "layout": "band",
+      "palette": "blush",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-20",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-final-payment-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 133392
+      }
+    },
+    {
+      "id": "guides-wedding-planning-binder-02",
+      "seq": 81,
+      "path": "/guides/wedding-planning-binder",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Planning\nBinder",
+      "subline": "Handoff record a clear home",
+      "title": "Wedding Planning Binder: Handoff record a clear home",
+      "description": "Set up a wedding planning binder that separates live decisions from inspiration, with a tab for every contract, payment, guest record, and handoff.",
+      "layout": "panel-bottom",
+      "palette": "blush",
+      "art": "product-images/merch/checklist-pdf-card.png",
+      "release_date": "2026-11-20",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-binder-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 122542
+      }
+    },
+    {
+      "id": "guides-wedding-planning-timeline-02",
+      "seq": 82,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Planning\nTimeline",
+      "subline": "Money ceiling first",
+      "title": "Wedding Planning Timeline: Money ceiling first",
+      "description": "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable.",
+      "layout": "panel-top",
+      "palette": "ink",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-21",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 79927
+      }
+    },
+    {
+      "id": "guides-wedding-vendor-booking-checklist-02",
+      "seq": 83,
+      "path": "/guides/wedding-vendor-booking-checklist",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Vendor\nBooking Checklist",
+      "subline": "Access · Cancellation terms",
+      "title": "Wedding Vendor Booking Checklist: Access · Cancellation terms",
+      "description": "Vendor booking is complete only when scope, price, payment schedule, deliverables, access, cancellation terms, and a responsible contact are recorded.",
+      "layout": "panel-bottom",
+      "palette": "blush",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-21",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-vendor-booking-checklist-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 82344
+      }
+    },
+    {
+      "id": "guides-wedding-vendor-list-02",
+      "seq": 84,
+      "path": "/guides/wedding-vendor-list",
+      "eyebrow": "FREE GUIDE",
+      "headline": "Wedding Vendor\nList",
+      "subline": "Contact · Status · Scope",
+      "title": "Wedding Vendor List: Contact · Status · Scope",
+      "description": "Build a wedding vendor list with category, status, contact, scope, contract, payment dates, and handoff owner, then turn it into a day-of directory.",
+      "layout": "panel-bottom",
+      "palette": "ink",
+      "art": "product-images/checklist-pdf-sample-1.png",
+      "release_date": "2026-11-22",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-vendor-list-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 77039
+      }
     }
-  ]
+  ],
+  "questions": []
 }

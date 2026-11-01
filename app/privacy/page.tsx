@@ -76,6 +76,11 @@ export default function Privacy() {
         Pages also load Cloudflare Web Analytics, which counts page views and load times without cookies and without
         tracking individual visitors across sites.
       </p>
+      <p className="mt-4 leading-7 text-charcoal/70">
+        If you arrive from one of our Pinterest pins, a first-party cookie notes which pin (for 30 days) so we can count
+        how many purchases and planner signups our pins lead to. It holds only the pin&rsquo;s name, never your email,
+        and is not shared with Pinterest or anyone else.
+      </p>
 
       <h2 className="mt-12 font-serif text-4xl">Buying a product</h2>
       <p className="mt-4 leading-7 text-charcoal/70">

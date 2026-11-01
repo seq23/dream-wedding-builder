@@ -60,15 +60,11 @@ export function pageSource(pagePath) {
   const guideSlug = pagePath.match(/^\/guides\/([a-z0-9-]+)$/)?.[1];
   const guide = guideSlug && registry.find((p) => p.slug === guideSlug);
   if (guide) {
-    const facts = String(guide.answer ?? '')
-      .split(/(?<=\.)\s+/)
-      .flatMap((sentence) => sentence.replace(/\.$/, '').split(/,\s*(?:and\s+)?/))
-      .map((s) => s.trim().replace(/^(and|or)\s+/i, ''))
-      .map((s) => s.charAt(0).toUpperCase() + s.slice(1));
+    const facts = guideFacts(guide.answer);
     return {
       kind: 'guide',
       productId: guide.product_id ?? 'checklist-pdf',
-      name: guide.title,
+      name: String(guide.title).split(':')[0].trim(),
       eyebrow: 'FREE GUIDE',
       facts,
       summary: metaDescriptions[guideSlug] ?? guide.summary,
@@ -88,6 +84,31 @@ export function pageSource(pagePath) {
     };
   }
   return null;
+}
+
+const ARTICLE = /^(the|a|an)\s+/i;
+const OPENERS = new Set(['because', 'not', 'which', 'that', 'so', 'but', 'when', 'if', 'this', 'it', 'only', 'then', 'while', 'as', 'or', 'and', 'to', 'for', 'with', 'is', 'are', 'than', 'whether', 'who', 'where', 'how']);
+const DANGLING = new Set(['the', 'a', 'an', 'when', 'and', 'or', 'to', 'of', 'for', 'with', 'is', 'are', 'only', 'that', 'than', 'by', 'in', 'on', 'at', 'from', 'whether']);
+
+/**
+ * Pin-sized facts from a guide's answer: a whole short sentence, or a short list item
+ * (six words at most, leading article dropped) from a longer one. A clause cut out of a sentence ("Because
+ * the order window", "Not the need for clear ceremony") never reaches a pin.
+ */
+export function guideFacts(answer) {
+  const out = [];
+  for (const raw of String(answer ?? '').split(/(?<=\.)\s+/)) {
+    const sentence = raw.trim().replace(/\.$/, '');
+    if (!sentence) continue;
+    if (sentence.length <= 44) { out.push(sentence); continue; }
+    for (const part of sentence.split(/,\s*(?:and\s+|or\s+)?|;\s*|:\s*/)) {
+      const words = part.trim().replace(ARTICLE, '').split(/\s+/).filter(Boolean);
+      if (!words.length || words.length > 6) continue;
+      if (OPENERS.has(words[0].toLowerCase()) || DANGLING.has(words.at(-1).toLowerCase())) continue;
+      out.push(words.join(' '));
+    }
+  }
+  return out.map((s) => s.charAt(0).toUpperCase() + s.slice(1));
 }
 
 /** The product's own committed art, most distinctive first. */
@@ -150,4 +171,51 @@ export function groupFacts(facts) {
 export function anglesFor(pagePath) {
   const handWritten = readJson('data/pinterest/angles.json')[pagePath] ?? [];
   return [...handWritten, ...derivedAngles(pagePath)];
+}
+
+/** Wrap a question into at most four lines, widening the line before ever cutting a word. */
+export function wrapQuestion(text) {
+  for (const width of [20, 24, 28, 32]) {
+    const lines = [];
+    for (const word of text.split(/\s+/)) {
+      const last = lines[lines.length - 1];
+      if (last && `${last} ${word}`.length <= width) lines[lines.length - 1] = `${last} ${word}`;
+      else lines.push(word);
+    }
+    if (lines.length <= 4 && lines.every((l) => l.length <= width)) return lines.join('\n');
+  }
+  return null;
+}
+
+const decode = (s) => s.replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+/**
+ * A search-loop question page as a pin: the question itself (a real search, from Search
+ * Console) is the headline and title; the page's own meta description is the pin
+ * description. Null when the page file is missing or the question cannot be printed whole.
+ */
+export function questionPin(page, slConfig, id) {
+  const file = path.join(ROOT, slConfig.output.dir, `${page.route.slice(slConfig.output.url_prefix.length).replace(/\/$/, '')}.html`);
+  if (!fs.existsSync(file)) return null;
+  const html = fs.readFileSync(file, 'utf8');
+  const meta = decode(html.match(/<meta\s+name="description"\s+content="([^"]*)"/i)?.[1] ?? '').trim();
+  const q = page.query.trim().replace(/\?*$/, '');
+  const question = `${q.charAt(0).toUpperCase()}${q.slice(1)}${/^(how|what|when|where|why|who|which|can|do|does|is|are|should|will)\b/i.test(q) ? '?' : ''}`;
+  const headline = wrapQuestion(question);
+  if (!headline || !meta) return null;
+  const n = [...id].reduce((sum, c) => sum + c.charCodeAt(0), 0);
+  const art = artFor('checklist-pdf');
+  return {
+    id,
+    seq: 0,
+    path: page.route,
+    eyebrow: 'WEDDING PLANNING Q&A',
+    headline,
+    subline: 'The short answer + next steps',
+    title: clip(question, 100),
+    description: clip(meta, 440),
+    layout: 'stripe',
+    palette: ['cream', 'blush', 'sage', 'slate', 'terracotta'][n % 5],
+    art: art[n % art.length]
+  };
 }

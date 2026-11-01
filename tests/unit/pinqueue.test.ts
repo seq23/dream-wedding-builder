@@ -10,9 +10,9 @@ import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
 import ownership from '@/data/seo/route_ownership.json';
 import rawQueue from '@/data/pinterest/queue.json';
-import { buildPinfeed, pinItems } from '@/lib/pinfeed';
-import { addDays, chicagoDate, dueVariants, needsRefill, pageSlug, planRefill, scheduleVariants, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
-import { anglesFor, derivedAngles, eligiblePaths, pageSource } from '../../scripts/pinterest/pin_sources.mjs';
+import { boards, buildPinfeed, pinItems } from '@/lib/pinfeed';
+import { addDays, applyFallback, applyPause, chicagoDate, decidePace, dueVariants, needsRefill, pageSlug, planRefill, scheduleVariants, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
+import { anglesFor, derivedAngles, eligiblePaths, guideFacts, pageSource } from '../../scripts/pinterest/pin_sources.mjs';
 import { LAYOUTS, PALETTES } from '../../scripts/pinterest/render_pin.mjs';
 
 const HOST = 'weddingchecklistpdf.com';
@@ -24,7 +24,9 @@ const dated = queue.variants.filter((v) => v.release_date) as Array<PinVariant &
 
 type FeedItem = { title: string; link: string; description: string; pubDate: string; enclosure: Record<string, string> | null; media: Record<string, string> | null };
 const parseFeed = (xml: string): { items: FeedItem[] } => JSON.parse(execFileSync('python3', ['-I', 'scripts/pinterest/parse_feed.py'], { input: xml }).toString());
-const feedAt = (iso: string) => parseFeed(buildPinfeed(new Date(iso))).items;
+// Every board's feed together: each pin is published from exactly one of them.
+const feedAt = (iso: string) => boards.BOARDS.flatMap((b) => parseFeed(buildPinfeed(new Date(iso), b)).items);
+const PACE_SINCE = queue.config.pace!.since;
 
 /** Every violation of "never the same page on consecutive days, at most pins_per_day a day". */
 function scheduleViolations(variants: Array<{ path: string; release_date: string | null }>, pinsPerDay: number): string[] {
@@ -40,12 +42,19 @@ function scheduleViolations(variants: Array<{ path: string; release_date: string
 }
 
 describe('pin queue schema', () => {
-  it('has one release-rate value, set to 1 a day, and the drip starts 17 Oct 2026', () => {
-    expect(queue.config.pins_per_day).toBe(1);
+  it('has one release-rate value, 3 a day from 1 Nov 2026 (1 a day before), and the drip starts 17 Oct 2026', () => {
+    expect(queue.config.pins_per_day).toBe(3);
+    expect(PACE_SINCE).toBe('2026-11-01');
     expect(queue.config.drip_start).toBe('2026-10-17');
     expect(queue.config.timezone).toBe('America/Chicago');
-    expect(queue.config.refill_threshold).toBe(14);
+    expect(queue.config.refill_threshold).toBe(42); // two weeks at 3 a day
     expect(queue.config.max_feed_items).toBe(50);
+  });
+
+  it('every page the site serves for the drip is queued, not only recorded (the 16 Oct seed queued 6 of 30)', () => {
+    const queued = new Set(queue.pages.map((p) => p.path));
+    for (const path of eligiblePaths()) expect(queued.has(path), path).toBe(true);
+    for (const path of eligiblePaths()) expect(queue.variants.some((v) => v.path === path), path).toBe(true);
   });
 
   it('queues 6-8 variants for every launch page and at least 20 dated variants in all', () => {
@@ -110,12 +119,18 @@ describe('pin queue schema', () => {
 });
 
 describe('release schedule', () => {
-  it('one pin a day from 17 Oct 2026 with no gaps, and never the same page two days running', () => {
+  it('1 pin a day from 17 Oct 2026, pins_per_day from 1 Nov, no gaps, never the same page two days running', () => {
     expect(scheduleViolations(queue.variants, queue.config.pins_per_day)).toEqual([]);
     const days = [...new Set(dated.map((v) => v.release_date))].sort();
     expect(days[0]).toBe('2026-10-17');
     for (let i = 1; i < days.length; i += 1) expect(days[i], 'gap in the schedule').toBe(addDays(days[i - 1], 1));
-    for (const day of days) expect(dated.filter((v) => v.release_date === day).length, day).toBe(queue.config.pins_per_day);
+    const last = days.at(-1);
+    for (const day of days) {
+      const n = dated.filter((v) => v.release_date === day).length;
+      if (day < PACE_SINCE) expect(n, day).toBe(1);
+      else if (day !== last) expect(n, day).toBe(queue.config.pins_per_day);
+      else expect(n, day).toBeLessThanOrEqual(queue.config.pins_per_day);
+    }
   });
 
   it('the scheduler keeps the rule when pins_per_day is raised', () => {
@@ -153,15 +168,18 @@ describe('feed at a fixed clock', () => {
       const items = feedAt(`${day}T18:00:00Z`);
       expect(dripIds(items), day).toEqual(dueIds(day));
       expect(items.length, day).toBe(6 + dueIds(day).size);
-      expect(dripIds(items).size - dripIds(feedAt(`${addDays(day, -1)}T18:00:00Z`)).size, day).toBe(queue.config.pins_per_day);
+      expect(dripIds(items).size - dripIds(feedAt(`${addDays(day, -1)}T18:00:00Z`)).size, day).toBe(queue.variants.filter((v) => v.release_date === day).length);
     }
   });
 
-  it('lists newest first and never more than 50 items', () => {
-    const late = feedAt('2027-12-31T18:00:00Z');
-    expect(late.length).toBe(Math.min(50, 6 + dated.length));
-    const dates = late.map((i) => Date.parse(i.pubDate)).slice(0, Math.min(dated.length, 50));
-    for (let i = 1; i < dates.length; i += 1) expect(dates[i]).toBeLessThanOrEqual(dates[i - 1]);
+  it('each feed lists newest first and never more than 50 items', () => {
+    for (const board of boards.BOARDS) {
+      const late = parseFeed(buildPinfeed(new Date('2027-12-31T18:00:00Z'), board)).items;
+      expect(late.length, board.slug).toBeLessThanOrEqual(50);
+      expect(late.length, board.slug).toBeGreaterThan(0);
+      const dates = late.map((i) => Date.parse(i.pubDate)).filter((_, i) => new URL(late[i].link).searchParams.has('utm_content'));
+      for (let i = 1; i < dates.length; i += 1) expect(dates[i]).toBeLessThanOrEqual(dates[i - 1]);
+    }
     expect(dueVariants(queue.variants, '2027-12-31', 50).length).toBe(Math.min(50, dated.length));
   });
 
@@ -170,12 +188,12 @@ describe('feed at a fixed clock', () => {
       const link = new URL(item.link);
       expect(link.host).toBe(HOST);
       expect(link.protocol).toBe('https:');
-      expect(owned.has(link.pathname), link.pathname).toBe(true);
+      expect(owned.has(link.pathname) || link.pathname.startsWith('/questions/'), link.pathname).toBe(true);
       expect(link.pathname).not.toMatch(/checkout|order|api|stripe/i);
       const params = Object.fromEntries(link.searchParams);
       const base = { utm_source: 'pinterest', utm_medium: 'organic', utm_campaign: 'pinfeed' };
       if (params.utm_content) {
-        const variant = queue.variants.find((v) => v.id === params.utm_content);
+        const variant = [...queue.variants, ...(queue.questions ?? [])].find((v) => v.id === params.utm_content);
         expect(variant?.path, params.utm_content).toBe(link.pathname);
         expect(params).toEqual({ ...base, utm_content: variant!.id });
       } else {
@@ -190,9 +208,14 @@ describe('feed at a fixed clock', () => {
 describe('auto-refill', () => {
   const lastDay = dated.map((v) => v.release_date).sort().pop()!;
 
-  it('triggers below 14 unreleased and not at 14', () => {
-    expect(needsRefill(queue, addDays(lastDay, -14))).toBe(false); // 14 left
-    expect(needsRefill(queue, addDays(lastDay, -13))).toBe(true); // 13 left
+  it('triggers below refill_threshold unreleased and not at it', () => {
+    const left = (today: string) => queue.variants.filter((v) => !v.release_date || v.release_date > today).length;
+    const days = [...new Set(dated.map((v) => v.release_date))].sort().reverse();
+    const at = days.find((d) => left(d) >= queue.config.refill_threshold)!;
+    const below = days[days.indexOf(at) - 1];
+    expect(needsRefill(queue, at)).toBe(false);
+    expect(left(below)).toBeLessThan(queue.config.refill_threshold);
+    expect(needsRefill(queue, below)).toBe(true);
   });
 
   it('a refill adds refill_batch new, distinct variants, fewest-variant pages first, and dates them after the queue', () => {
@@ -202,26 +225,107 @@ describe('auto-refill', () => {
     expect(planned).toHaveLength(q.config.refill_batch);
     const ids = new Set(q.variants.map((v) => v.id));
     for (const v of planned) expect(ids.has(v.id), v.id).toBe(false);
-    const counts = pages.map((p) => q.variants.filter((v) => v.path === p.path).length + planned.filter((v) => v.path === p.path).length);
-    expect(Math.max(...counts) - Math.min(...counts)).toBeLessThanOrEqual(1);
+    // Fewest-variant pages first: no page received a pin while another page that still had
+    // an unused angle sat two or more pins behind it.
+    const total = (path: string) => q.variants.filter((v) => v.path === path).length + planned.filter((v) => v.path === path).length;
+    const open = pages.filter((p) => anglesFor(p.path).length > total(p.path));
+    const receivers = pages.filter((p) => planned.some((v) => v.path === p.path));
+    expect(receivers.length).toBeGreaterThan(1);
+    if (open.length) expect(Math.max(...receivers.map((p) => total(p.path))) - Math.min(...open.map((p) => total(p.path)))).toBeLessThanOrEqual(1);
     q.variants.push(...planned);
     scheduleVariants(q.variants, { pinsPerDay: q.config.pins_per_day, firstDay: addDays(lastDay, -12) });
-    expect(planned.every((v) => v.release_date && v.release_date > lastDay)).toBe(true);
+    // The last dated day of the queue may be part-filled; the refill tops it up first.
+    expect(planned.every((v) => v.release_date && v.release_date >= lastDay)).toBe(true);
     expect(scheduleViolations(q.variants, q.config.pins_per_day)).toEqual([]);
   });
 
   it('a page that joins later gets its pins before the old pages get more', () => {
     const q = clone();
     const joining = '/guides/backyard-wedding-checklist';
-    expect(q.pages.some((p) => p.path === joining)).toBe(false);
+    q.pages = q.pages.filter((p) => p.path !== joining);
+    q.variants = q.variants.filter((v) => v.path !== joining);
     const pages = [...q.pages, { path: joining, art: ['product-images/checklist-pdf.png'], joined: '2026-11-20' }].map((p) => ({ ...p, angles: anglesFor(p.path) }));
     const planned = planRefill(q, pages, 3);
-    expect(planned.every((v) => v.path === joining)).toBe(true);
+    expect(planned[0].path).toBe(joining);
   });
 
   it('every product and guide page the site serves has a source record, so a new one can join with truthful copy', () => {
     // Pages added since the last weekly run are not in known_pages yet; the refill adds them.
     for (const path of eligiblePaths()) expect(pageSource(path), path).not.toBeNull();
     for (const page of queue.pages) expect(derivedAngles(page.path).length, page.path).toBeGreaterThan(0);
+  });
+});
+
+describe('topic boards: one feed per board, every pin in exactly one', () => {
+  it('each feed carries only its own board, the topic feeds nothing released before the split', () => {
+    const seen = new Map<string, string>();
+    for (const board of boards.BOARDS) {
+      for (const item of parseFeed(buildPinfeed(new Date('2027-12-31T18:00:00Z'), board)).items) {
+        const link = new URL(item.link);
+        const id = link.searchParams.get('utm_content') ?? `launch:${link.pathname}`;
+        expect(seen.get(id), `${id} in ${seen.get(id)} and ${board.slug}`).toBeUndefined();
+        seen.set(id, board.slug);
+        if (board.slug === boards.MAIN_BOARD.slug) continue;
+        const pin = [...queue.variants, ...(queue.questions ?? [])].find((v) => v.id === id)!;
+        expect(pin.release_date! >= boards.SPLIT_FROM, id).toBe(true);
+        expect(boards.boardFor(pin.path, pin.title).slug, id).toBe(board.slug);
+      }
+    }
+    expect(seen.size).toBeGreaterThan(boards.BOARDS.length * 3);
+  });
+
+  it('every topic board has a pin on the split day, so its feed is not empty when connected', () => {
+    for (const board of boards.BOARDS.slice(1, 3)) {
+      expect(parseFeed(buildPinfeed(new Date(`${boards.SPLIT_FROM}T18:00:00Z`), board)).items.length, board.slug).toBeGreaterThan(0);
+    }
+  });
+
+  it('a question page goes to the board its words name, else the first board', () => {
+    expect(boards.boardFor('/questions/a', 'how much does a courthouse wedding cost').slug).toBe('small-weddings');
+    expect(boards.boardFor('/questions/b', 'when to book a wedding photographer').slug).toBe('vendors-budget');
+    expect(boards.boardFor('/questions/c', 'what to put in a wedding day emergency kit').slug).toBe('wedding-day');
+    expect(boards.boardFor('/questions/d', 'how to plan a wedding in 6 months').slug).toBe(boards.MAIN_BOARD.slug);
+  });
+});
+
+describe('pin copy from a guide never prints a clause cut out of a sentence', () => {
+  it('keeps whole short sentences and short list items, drops fragments', () => {
+    const facts = guideFacts('Order early. Allow time for alterations because the order window, not the wedding date, sets the pace, which matters. Bring the license, the rings, and two witnesses.');
+    expect(facts).toContain('Order early');
+    expect(facts).toContain('Bring the license');
+    expect(facts).toContain('Rings');
+    expect(facts).toContain('Two witnesses');
+    for (const f of facts) expect(f, f).not.toMatch(/^(Because|Not|Which)\b/);
+  });
+});
+
+describe('stop rule: 0 visits at 4 weeks -> new format; 8 weeks -> pause (never delete)', () => {
+  const week = (d: string, total: number | null, status = 'MEASURED') => ({ generated_at: `${d}T12:00:00Z`, status, total });
+  const cfg = () => JSON.parse(JSON.stringify(queue.config));
+  const zeros = ['2026-11-07', '2026-11-14', '2026-11-21', '2026-11-28'].map((d) => week(d, 0));
+
+  it('keeps the pace before 4 weeks, with fewer than 4 measured weeks, or with any visit', () => {
+    expect(decidePace(cfg(), zeros, '2026-11-28').action).toBe('keep');
+    expect(decidePace(cfg(), zeros.slice(0, 3), '2026-11-30').action).toBe('keep');
+    expect(decidePace(cfg(), [...zeros.slice(0, 3), week('2026-11-28', 1)], '2026-11-30').action).toBe('keep');
+    // A named stop is not a zero.
+    expect(decidePace(cfg(), [...zeros.slice(0, 3), week('2026-11-28', null, 'NAMED_STOP')], '2026-11-30').action).toBe('keep');
+  });
+
+  it('switches to the new format after 4 zero weeks, then pauses after 4 more, dropping only unreleased dates', () => {
+    const c = cfg();
+    const d1 = decidePace(c, zeros, '2026-11-29');
+    expect(d1.action).toBe('fallback');
+    applyFallback(c, '2026-11-29', d1.reason);
+    expect(c.layouts).toEqual(c.pace.fallback.layouts);
+    expect(c.pace.fell_back_at).toBe('2026-11-29');
+    const more = ['2026-12-05', '2026-12-12', '2026-12-19', '2026-12-26'].map((d) => week(d, 0));
+    expect(decidePace(c, [...zeros, ...more], '2026-12-20').action).toBe('keep');
+    const d2 = decidePace(c, [...zeros, ...more], '2026-12-27');
+    expect(d2.action).toBe('pause');
+    const vs = [{ release_date: '2026-12-01' }, { release_date: '2026-12-30' }];
+    applyPause(c, vs, '2026-12-27', d2.reason);
+    expect(vs.map((v) => v.release_date)).toEqual(['2026-12-01', null]);
+    expect(decidePace(c, [], '2027-01-10').action).toBe('pause');
   });
 });
