@@ -14,6 +14,7 @@ schedule); see the notes below for what moved.
 | Pinterest drip (weekly refill + metrics) | `pinterest-drip.yml` | Sat 06:40 CT | `40 6 * * 6` |
 | Search Intelligence - Observe Diagnose Repair Retest | `search-intelligence.yml` | every day 06:41 CT | `41 6 * * *` |
 | Bounded Self-Healing | `self-heal.yml` | Wed 10:10 CT | `10 10 * * 3` |
+| Spry Labs weekly summary | `spry-weekly-summary.yml` | Wed 07:53 CT | `53 7 * * 3` |
 
 ## Weekly windows
 
@@ -27,3 +28,5 @@ schedule); see the notes below for what moved.
 - Entity Backlink Watch: Monday → Thursday 07:40 CT (four backlink watches on Thursday, 20 minutes apart).
 - The Worker's hourly delivery retry (`wrangler.jsonc`, `0 * * * *` UTC) is unchanged.
 - Bounded Self-Healing joins the Wednesday 10:00–10:30 CT self-healing sweep (p-n-p 10:00, Dream Wedding 10:10, backlink network 10:20, WPP 10:30).
+- Spry Labs weekly summary joined Wednesday 07:53 CT (after the other side businesses, 07:03–07:48): it hands
+  Dream Wedding's week to the 08:15 "Spry Labs weekly" email from Boss OS. No email from this repo.
