@@ -10,8 +10,6 @@ name: Search Loop
 # the refresh lane in full-safe-autonomy.yml keeps working the old guides.
 # Global throttle: gh variable set SEARCH_LOOP_MODE --body slow -R seq23/search-loop
 on:
-  push:
-    branches: [feat/search-loop-engine]  # PROOF RUN ONLY - removed before merge
   schedule:
     - cron: "11 6 * * *"  # America/Chicago, all year
       timezone: America/Chicago
