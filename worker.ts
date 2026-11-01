@@ -7,6 +7,7 @@ import handler from './.open-next/worker.js';
 import { runDeliveryRetry, type RetryEnv } from './lib/delivery-retry';
 import { recordPinterestVisit } from './lib/pinterest-visits';
 import { alertOwnerIfFailed, type AlertEnv } from './lib/delivery-alert';
+import { runNurture, type NurtureEnv } from './lib/nurture';
 
 export default {
   // Pinterest-referred page views (utm_source=pinterest) are counted per pin variant
@@ -16,6 +17,11 @@ export default {
     return handler.fetch(request, env, ctx);
   },
   async scheduled(_controller: unknown, env: RetryEnv & AlertEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
+    // Free-sample follow-ups and the one review ask (lib/nurture.ts); due emails only.
+    ctx.waitUntil(runNurture(env as unknown as NurtureEnv).then(
+      (run) => console.log(JSON.stringify({ event: 'NURTURE_RUN', ...run })),
+      (error) => console.error(JSON.stringify({ event: 'NURTURE_RUN_FAILED', error: error instanceof Error ? error.message : String(error) }))
+    ));
     ctx.waitUntil(
       runDeliveryRetry(env).then(
         (run) => {

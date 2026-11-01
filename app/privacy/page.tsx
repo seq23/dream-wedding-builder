@@ -56,6 +56,12 @@ export default function Privacy() {
         also write to <a className="underline underline-offset-4" href={`mailto:${supportEmail}`}>{supportEmail}</a> to have
         the address removed.
       </p>
+      <p className="mt-4 leading-7 text-charcoal/70">
+        The free checklist sample works the same way: the address you type is stored with the wording you agreed to, the
+        sample is emailed through Resend, and up to four short emails follow, at most one every three days, stopping when you
+        buy or unsubscribe. After a purchase we send one email asking whether the files helped; we only ever show a reply
+        with your permission. Opt-outs are stored as a one-way hash of the address so we never email it again.
+      </p>
 
       <h2 className="mt-12 font-serif text-4xl">Inspiration photos are not uploaded</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
