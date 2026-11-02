@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: '22'
           cache: npm
       # --autostash because the rebase runs on a tree the repair steps may have
       # already dirtied. Without it this exits 128 with "cannot pull with rebase:
