@@ -8947,6 +8947,692 @@
       },
       "clicks": 0,
       "impressions": 1
+    },
+    {
+      "observation_id": "1b618d7c0ea69a4d88ac",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/guides/wedding-seating-chart-accessibility",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 4
+    },
+    {
+      "observation_id": "1026446c3a7211cdd50a",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/wedding-seating-chart",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 4
+    },
+    {
+      "observation_id": "df4cee149d78808f6fd9",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/guides",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "fb06c572ccd0f5a4084c",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/guides/wedding-rsvp-tracking-system",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "fa79759ca586e4f9c1a3",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/products/seating-chart-maker",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "71fb9ea763c9ab00898a",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/wedding-guest-list-template",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "05b38f31e3ade8d2a89a",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/guides/long-table-wedding-seating",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "622bd49543de55ff0cdf",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingseatingchartmaker.com",
+      "page": "https://weddingseatingchartmaker.com/guides/wedding-meal-count-dietary-tracking",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "b3f2b14af9414f6d7fb1",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingbudgetspreadsheet.com",
+      "page": "https://weddingbudgetspreadsheet.com/photos",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 6
+    },
+    {
+      "observation_id": "1a2756d20a1c5fdef02a",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingbudgetspreadsheet.com",
+      "page": "https://weddingbudgetspreadsheet.com/guides",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 6
+    },
+    {
+      "observation_id": "57eb965e68b727270999",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingbudgetspreadsheet.com",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 6
+    },
+    {
+      "observation_id": "5e47e7baa3f3340d5c15",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingbudgetspreadsheet.com",
+      "page": "https://weddingbudgetspreadsheet.com/wedding-budget-tradeoffs",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 6
+    },
+    {
+      "observation_id": "3159d2bc259c3a28a6cc",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingbudgetspreadsheet.com",
+      "page": "https://weddingbudgetspreadsheet.com/terms",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 5
+    },
+    {
+      "observation_id": "20c9da3b2621cda32f5d",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingbudgetspreadsheet.com",
+      "page": "https://weddingbudgetspreadsheet.com/products/budget-spreadsheet",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "b957b3cb3bf2f96bedcb",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 1,
+      "impressions": 5
+    },
+    {
+      "observation_id": "5957421e433d6d826ee1",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 4
+    },
+    {
+      "observation_id": "0332a273d38923c7dcbb",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "135fc4b9f8e0d1574286",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "5e8156516daed0bba4cc",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/brunch-wedding-timeline",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "9a7b956e3fec1105ef29",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "b31907cef7d4d9199528",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "d4e205aef697a7763673",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "942aa5a78298f9a8a82b",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "4ea4ed63d73a145ba116",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/products/timeline-template",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "2b4dd72248ab8d56b399",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingtimelinetemplate.com",
+      "page": "https://weddingtimelinetemplate.com/guides/wedding-timeline-travel-buffer",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "9f9e6e5c9716cb85bc47",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 25
+    },
+    {
+      "observation_id": "70374c75d368f1e8e516",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 15
+    },
+    {
+      "observation_id": "8681b24dc8611ca71498",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/privacy",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 14
+    },
+    {
+      "observation_id": "e316e314cb807637fc8e",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/disclaimer",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 10
+    },
+    {
+      "observation_id": "1ceb65f0b3600492a2ef",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 10
+    },
+    {
+      "observation_id": "8138786eebaee9bccd60",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/refund-policy",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 10
+    },
+    {
+      "observation_id": "286701b7c0ede06166bc",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/methodology",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 7
+    },
+    {
+      "observation_id": "0f520b278177c7f941fa",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 7
+    },
+    {
+      "observation_id": "b2403f43709dbb1586d7",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/terms",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 5
+    },
+    {
+      "observation_id": "0623523ada1b07a48bc5",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 4
+    },
+    {
+      "observation_id": "d57a2cb2a1d537281227",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "6dc03f3a06fd28a0b953",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/readiness-score",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "cf6d5851c29c6952f722",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/wedding-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 3
+    },
+    {
+      "observation_id": "59ee40c070ac139efe77",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides/18-month-wedding-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 2
+    },
+    {
+      "observation_id": "165138ecb01ab02c6fc8",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides/courthouse-wedding-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 2
+    },
+    {
+      "observation_id": "b7c61a2bd644f526583e",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 2
+    },
+    {
+      "observation_id": "fb71cc7181bb458900e9",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "3c7ba4f63da084b8c38a",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides/3-month-wedding-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "ced7e339e7fedc8d8d35",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides/post-wedding-return-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "76eed53142295c3f7cda",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/guides/wedding-emergency-kit",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "7670b4178dd4a77d0302",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/photos",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "422c09ffc42a791554ae",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/products/operations-suite",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "7a3542a6a98896fc70ca",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/wedding-checklist-pdf",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
+    },
+    {
+      "observation_id": "a2f0f06c5ae08f6d0101",
+      "observed_at": "2026-11-02T12:42:25.128Z",
+      "provider": "google_search_console",
+      "dimension": "page",
+      "host": "weddingchecklistpdf.com",
+      "page": "https://weddingchecklistpdf.com/wedding-planning-checklist",
+      "period": {
+        "start": "2026-10-04",
+        "end": "2026-10-31"
+      },
+      "clicks": 0,
+      "impressions": 1
     }
   ]
 }
