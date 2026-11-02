@@ -1367,11 +1367,11 @@
       "title": "Wedding Budget Spreadsheet Categories",
       "cluster": "Wedding budget",
       "product_id": "budget-spreadsheet",
-      "summary": "Budget categories should reflect how contracts and payments actually arrive, while remaining simple enough to review as a whole.",
-      "answer": "Budget categories should reflect how contracts and payments actually arrive, while remaining simple enough to review as a whole. Use major categories for venue, food and beverage, photography, attire, flowers/decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes/fees, and contingency; add subcategories only when they improve control.",
+      "summary": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance.",
+      "answer": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance. First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
       "steps": [
         "Define the exact outcome for wedding budget spreadsheet categories and name the person responsible for the final version.",
-        "Use major categories for venue, food and beverage, photography, attire, flowers/decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes/fees, and contingency; add subcategories only when they improve control.",
+        "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -1387,18 +1387,18 @@
         {
           "heading": "Set the financial boundary for Wedding Budget Spreadsheet Categories",
           "paragraphs": [
-            "Budget categories should reflect how contracts and payments actually arrive, while remaining simple enough to review as a whole.",
+            "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "Use major categories for venue, food and beverage, photography, attire, flowers/decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes/fees, and contingency; add subcategories only when they improve control.",
-            "Example: keep taxes, service charges, delivery, and gratuities visible rather than burying them inside vendor notes."
+            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
+            "Example: keeping each tax, service charge, delivery fee, and gratuity on its own line makes the total self-evident."
           ],
           "bullets": [
-            "Use major categories for venue, food and beverage, photography, attire, flowers/decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes/fees, and contingency; add subcategories only when they improve control.",
+            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -1415,7 +1415,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: keep taxes, service charges, delivery, and gratuities visible rather than burying them inside vendor notes."
+          "body": "Example: keeping each tax, service charge, delivery fee, and gratuity on its own line makes the total self-evident."
         },
         {
           "title": "Control check",
@@ -1425,11 +1425,11 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding budget spreadsheet categories?",
-          "answer": "Budget categories should reflect how contracts and payments actually arrive, while remaining simple enough to review as a whole."
+          "answer": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance."
         },
         {
           "question": "How should I use this wedding budget guide?",
-          "answer": "Use major categories for venue, food and beverage, photography, attire, flowers/decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes/fees, and contingency; add subcategories only when they improve control. Replace every illustrative assumption with your verified wedding details."
+          "answer": "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -1437,7 +1437,7 @@
         }
       ],
       "semantic_key": "budget-spreadsheet:wedding-budget-spreadsheet-categories",
-      "updated_at": "2026-07-30",
+      "updated_at": "2026-11-02",
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "wedding-budget-for-50-guests",
@@ -1452,11 +1452,11 @@
       "title": "Wedding Budget for 50 Guests",
       "cluster": "Wedding budget",
       "product_id": "budget-spreadsheet",
-      "summary": "A 50-guest budget should be built from the total ceiling and priorities, not a universal per-person price.",
-      "answer": "A 50-guest budget should be built from the total ceiling and priorities, not a universal per-person price. Set a total, protect the top three priorities, gather venue and food quotes for 50, model fixed versus guest-variable costs, and retain contingency.",
+      "summary": "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost.",
+      "answer": "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost. Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
       "steps": [
         "Define the exact outcome for wedding budget for 50 guests and name the person responsible for the final version.",
-        "Set a total, protect the top three priorities, gather venue and food quotes for 50, model fixed versus guest-variable costs, and retain contingency.",
+        "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -1472,18 +1472,18 @@
         {
           "heading": "Set the financial boundary for Wedding Budget for 50 Guests",
           "paragraphs": [
-            "A 50-guest budget should be built from the total ceiling and priorities, not a universal per-person price.",
+            "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "Set a total, protect the top three priorities, gather venue and food quotes for 50, model fixed versus guest-variable costs, and retain contingency.",
-            "Example: a $20,000 plan can allocate $10,000 to venue/food, $3,000 photography, $2,000 attire, $2,000 decor, $1,000 entertainment, $1,000 stationery/transport, and $1,000 contingency as an illustration, then replace every line with real quotes."
+            "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
+            "Example: with a $20,000 ceiling, a possible split is $10,000 for venue and food, $3,000 for photography, $2,000 each for attire and decor, $1,000 each for entertainment, stationery and transport, and $1,000 contingency, all illustrative until replaced by actual quotes."
           ],
           "bullets": [
-            "Set a total, protect the top three priorities, gather venue and food quotes for 50, model fixed versus guest-variable costs, and retain contingency.",
+            "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -1500,7 +1500,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: a $20,000 plan can allocate $10,000 to venue/food, $3,000 photography, $2,000 attire, $2,000 decor, $1,000 entertainment, $1,000 stationery/transport, and $1,000 contingency as an illustration, then replace every line with real quotes."
+          "body": "Example: with a $20,000 ceiling, a possible split is $10,000 for venue and food, $3,000 for photography, $2,000 each for attire and decor, $1,000 each for entertainment, stationery and transport, and $1,000 contingency, all illustrative until replaced by actual quotes."
         },
         {
           "title": "Control check",
@@ -1510,11 +1510,11 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding budget for 50 guests?",
-          "answer": "A 50-guest budget should be built from the total ceiling and priorities, not a universal per-person price."
+          "answer": "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost."
         },
         {
           "question": "How should I use this wedding budget guide?",
-          "answer": "Set a total, protect the top three priorities, gather venue and food quotes for 50, model fixed versus guest-variable costs, and retain contingency. Replace every illustrative assumption with your verified wedding details."
+          "answer": "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -1522,7 +1522,7 @@
         }
       ],
       "semantic_key": "budget-spreadsheet:wedding-budget-for-50-guests",
-      "updated_at": "2026-07-30",
+      "updated_at": "2026-11-02",
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "wedding-budget-for-100-guests",
@@ -2217,11 +2217,11 @@
       "title": "Wedding Deposit Schedule",
       "cluster": "Wedding budget",
       "product_id": "budget-spreadsheet",
-      "summary": "A deposit schedule converts signed contracts into a cash calendar so multiple commitments do not collide unexpectedly.",
-      "answer": "A deposit schedule converts signed contracts into a cash calendar so multiple commitments do not collide unexpectedly. Extract every due date and amount, identify refundable status, group by month, compare with contributor timing, and set reminders before—not on—the contractual deadline.",
+      "summary": "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash.",
+      "answer": "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash. List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
       "steps": [
         "Define the exact outcome for wedding deposit schedule and name the person responsible for the final version.",
-        "Extract every due date and amount, identify refundable status, group by month, compare with contributor timing, and set reminders before—not on—the contractual deadline.",
+        "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -2237,18 +2237,18 @@
         {
           "heading": "Set the financial boundary for Wedding Deposit Schedule",
           "paragraphs": [
-            "A deposit schedule converts signed contracts into a cash calendar so multiple commitments do not collide unexpectedly.",
+            "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "Extract every due date and amount, identify refundable status, group by month, compare with contributor timing, and set reminders before—not on—the contractual deadline.",
-            "Example: distinguish booking deposit, progress installment, final balance, damage deposit, and post-event refund."
+            "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
+            "Example: a booking deposit and a progress installment show on one calendar so their overlap is clear before either deadline passes."
           ],
           "bullets": [
-            "Extract every due date and amount, identify refundable status, group by month, compare with contributor timing, and set reminders before—not on—the contractual deadline.",
+            "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -2265,7 +2265,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: distinguish booking deposit, progress installment, final balance, damage deposit, and post-event refund."
+          "body": "Example: a booking deposit and a progress installment show on one calendar so their overlap is clear before either deadline passes."
         },
         {
           "title": "Control check",
@@ -2275,11 +2275,11 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding deposit schedule?",
-          "answer": "A deposit schedule converts signed contracts into a cash calendar so multiple commitments do not collide unexpectedly."
+          "answer": "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash."
         },
         {
           "question": "How should I use this wedding budget guide?",
-          "answer": "Extract every due date and amount, identify refundable status, group by month, compare with contributor timing, and set reminders before—not on—the contractual deadline. Replace every illustrative assumption with your verified wedding details."
+          "answer": "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -2287,7 +2287,7 @@
         }
       ],
       "semantic_key": "budget-spreadsheet:wedding-deposit-schedule",
-      "updated_at": "2026-07-30",
+      "updated_at": "2026-11-02",
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "wedding-gratuity-planner",

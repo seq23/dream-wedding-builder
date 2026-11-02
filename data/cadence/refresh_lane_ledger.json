@@ -71,6 +71,27 @@
       "change_note": "Softened 'needs' to 'benefits from', sharpened action order, added hedge to example.",
       "links_repaired": [],
       "at": "2026-11-01"
+    },
+    "/guides/wedding-budget-for-50-guests": {
+      "status": "REFRESHED",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "change_note": "Sharpened language, made actions more concrete, and hedged the example more explicitly.",
+      "links_repaired": [],
+      "at": "2026-11-02"
+    },
+    "/guides/wedding-budget-spreadsheet-categories": {
+      "status": "REFRESHED",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "change_note": "Sharpened summary to answer query directly, ordered recommendation as steps, made example a hedged illustration.",
+      "links_repaired": [],
+      "at": "2026-11-02"
+    },
+    "/guides/wedding-deposit-schedule": {
+      "status": "REFRESHED",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "change_note": "Summary answers query directly; recommendation sharpens action order; example uses hedged illustration.",
+      "links_repaired": [],
+      "at": "2026-11-02"
     }
   },
   "runs": [
@@ -91,7 +112,13 @@
       "outcome": "REFRESHED",
       "refreshed": 3,
       "queued": 65
+    },
+    {
+      "at": "2026-11-02",
+      "outcome": "REFRESHED",
+      "refreshed": 3,
+      "queued": 62
     }
   ],
-  "updated_at": "2026-11-01"
+  "updated_at": "2026-11-02"
 }
