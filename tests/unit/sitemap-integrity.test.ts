@@ -7,6 +7,8 @@ import hubs from '@/data/seo/hub_pages.json';
 import catalog from '@/data/products/product_catalog.json';
 import { isShippingSlug, shippingPages } from '@/lib/authority-registry';
 import { CANONICAL_HOSTS } from '@/lib/site-config';
+import searchLoopConfig from '@/search-loop.config.json';
+import { searchLoopPrefix } from '@/lib/search-loop-pages.mjs';
 
 const repoRoot = path.resolve(__dirname, '../..');
 const productIds = new Set(catalog.products.map((product) => product.id));
@@ -25,6 +27,14 @@ async function locsFor(host: string): Promise<string[]> {
  * exactly the condition that produced the eight live 404s.
  */
 function resolves(pathname: string): boolean {
+  // Search-engine pages are static files public/<prefix><slug>.html: Cloudflare's
+  // static assets answer /questions/<slug> in production and the next.config
+  // fallback rewrite does the same under `next start`. They render iff the file exists.
+  const prefix = searchLoopPrefix(searchLoopConfig);
+  if (pathname.startsWith(prefix)) {
+    const slug = pathname.slice(prefix.length);
+    return /^[a-z0-9-]+$/.test(slug) && fs.existsSync(path.join(repoRoot, 'public', prefix, `${slug}.html`));
+  }
   const guide = pathname.match(/^\/guides\/([^/]+)$/);
   if (guide) return isShippingSlug(guide[1]);
   if (pathname === '/guides') return true;
@@ -52,6 +62,15 @@ describe('sitemap publishes only URLs that render', () => {
       }
     }
     expect(broken).toEqual([]);
+  });
+
+  it('resolves a search-loop question page only when its static file exists', () => {
+    const prefix = searchLoopPrefix(searchLoopConfig);
+    const onDisk = fs.readdirSync(path.join(repoRoot, 'public', prefix)).filter((file) => file.endsWith('.html'));
+    expect(onDisk.length).toBeGreaterThan(0);
+    for (const file of onDisk) expect(resolves(`${prefix}${file.replace(/\.html$/, '')}`)).toBe(true);
+    expect(resolves(`${prefix}no-such-question-page`)).toBe(false);
+    expect(resolves(`${prefix}../package`)).toBe(false);
   });
 
   it('publishes every renderable guide on its owning host', async () => {
