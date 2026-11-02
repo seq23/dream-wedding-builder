@@ -1,12 +1,18 @@
 {
   "schema": "search-loop-discovery-v1",
   "site": "weddingchecklistpdf.com",
-  "week": "2026-W44",
-  "generated_at": "2026-11-01T14:16:53.584Z",
+  "week": "2026-W45",
+  "generated_at": "2026-11-02T12:22:37.701Z",
   "paid_calls": 0,
   "cost_usd": 0,
   "hosts": {
     "searchconsole.googleapis.com": {
+      "calls": 1,
+      "ok": 1,
+      "failed": 0,
+      "cost_usd": 0
+    },
+    "ssl.bing.com": {
       "calls": 1,
       "ok": 1,
       "failed": 0,
@@ -26,19 +32,19 @@
     }
   },
   "sources": {
-    "search_console": "ok: 20 rows",
-    "bing_webmaster": "not read: BING_WEBMASTER_API_KEY is not set",
+    "search_console": "ok: 19 rows",
+    "bing_webmaster": "ok: 0 rows",
     "suggestqueries.google.com": "ok",
     "api.bing.com": "ok",
-    "relevance_screen": "not read: none of 5 free model(s) answered (nemotron-3.5-lightning:free:empty, gemma-4-31b-it:free:http_429, gemma-4-31b-it:free:http_429, gemma-4-26b-a4b-it:free:http_429, gemma-4-26b-a4b-it:free:http_429, nemotron-3-ultra-550b-a55b:free:empty, dots-3-note-preview:free:empty) (lexical floor only)"
+    "relevance_screen": "ok: kept 62 of 141 (free model)"
   },
   "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)",
   "notes": [
     "autocomplete stopped at its budget of 80 calls"
   ],
   "counts": {
-    "candidates": 145,
-    "targets": 145,
+    "candidates": 144,
+    "targets": 62,
     "strengthen_candidates": 0,
     "dropped_shared_audience": 0
   }
