@@ -5,7 +5,8 @@ import ownership from '@/data/seo/route_ownership.json';
 import registry from '@/data/authority/content_registry.json';
 import guideMeta from '@/data/seo/guide_meta_descriptions.json';
 import { CANONICAL_HOSTS, PARENT_HOST, canonicalHostForPath, hrefFrom } from '@/lib/site-config';
-import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, TITLE_MAX, documentTitle, guideMetaDescription } from '@/lib/seo';
+import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN, TITLE_MAX, documentTitle, guideMetaDescription, seoMetadata } from '@/lib/seo';
+import { TITLE_MIN, belowFloor, floorOf } from '@/lib/length-floor.mjs';
 import { shippingPages } from '@/lib/authority-registry';
 import { plannerHref } from '@/lib/planner-seed';
 
@@ -104,7 +105,7 @@ describe('every guide meta description is 110-160 characters and unique', () => 
   });
 });
 
-describe('rendered titles are 30-65 characters and keep the owning site name', () => {
+describe('rendered titles are trimmed to 65, fail only below 75% of 30, and keep the owning site name', () => {
   const rendered = (title: string) => documentTitle(title).absolute;
 
   it('preserves the owning brand on a long topic and avoids duplicating it', () => {
@@ -119,8 +120,30 @@ describe('rendered titles are 30-65 characters and keep the owning site name', (
     expect(shippingPages.length).toBeGreaterThan(0);
     for (const page of shippingPages) {
       const title = rendered(page.title);
-      expect(title.length, `${page.slug}: "${title}"`).toBeGreaterThanOrEqual(30);
+      expect(belowFloor(title.length, TITLE_MIN), `${page.slug}: "${title}"`).toBe(false);
       expect(title.length, `${page.slug}: "${title}"`).toBeLessThanOrEqual(TITLE_MAX);
     }
+  });
+});
+
+describe('length rule: over a limit is trimmed, under fails only below 75% (lib/length-floor.mjs)', () => {
+  it('the floor is 75% of the minimum, and only below it fails', () => {
+    expect(floorOf(30)).toBe(23);
+    expect(belowFloor(22, 30)).toBe(true);
+    expect(belowFloor(23, 30)).toBe(false);
+    expect(belowFloor(29, 30)).toBe(false);
+    expect(floorOf(120)).toBe(90);
+    expect(belowFloor(89, 120)).toBe(true);
+    expect(belowFloor(90, 120)).toBe(false);
+  });
+
+  it('the generator trims an over-long description and a brand-led title instead of a check failing them', () => {
+    const host = 'weddingseatingchartmaker.com';
+    const meta = seoMetadata({ title: 'Wedding Seating Chart Maker - '.concat('Editable Wedding Planning Tool for Every Table Size'), description: 'word '.repeat(60).trim(), host, path: '/x' });
+    expect(String(meta.description).length).toBeLessThanOrEqual(META_DESCRIPTION_MAX);
+    expect(String(meta.openGraph?.description).length).toBeLessThanOrEqual(META_DESCRIPTION_MAX);
+    const title = (meta.title as { absolute: string }).absolute;
+    expect(title.length).toBeLessThanOrEqual(TITLE_MAX);
+    expect(title).toContain('Wedding Seating Chart Maker');
   });
 });

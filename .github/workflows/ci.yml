@@ -52,8 +52,10 @@ jobs:
       # rendering, the only remedy is re-uploading five books.
       - name: Amazon landing paths (strict, post-build)
         run: REQUIRE_BUILD_OUTPUT=1 npm run validate:amazon-paths
-      - name: Cadence gate
+      - name: Cadence gate (merge)
         # Blocks publishing faster than the library can be kept inside the
-        # 91-day window where pages stay citable. Warnings are reported
-        # without failing the run.
-        run: npm run cadence:gate
+        # 91-day window where pages stay citable. Refresh debt is a note here:
+        # it is enforced in the publish/refresh lane (full-safe-autonomy.yml)
+        # and by the publisher, not on a merge, which cannot pay it down
+        # (run 41057861308, 30 Oct 2026).
+        run: npm run cadence:gate:merge

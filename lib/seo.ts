@@ -5,6 +5,7 @@ import guideMetaJson from '@/data/seo/guide_meta_descriptions.json';
 import strengtheningJson from '@/data/seo/guide_strengthening.json';
 import { canonicalUrl, hostForProduct, PARENT_HOST } from '@/lib/site-config';
 import { ogImages, ogImageUrl, siteHome } from '@/lib/site-home';
+import { DESC_MAX, DESC_MIN, TITLE_MAX as TITLE_BAND_MAX } from '@/lib/length-floor.mjs';
 
 export type HubSection = { heading: string; paragraphs: string[]; bullets?: string[] };
 
@@ -40,10 +41,15 @@ export function guideBySlug(slug: string): GuidePage | undefined { return guides
 // Keep the owning site's name even when the topic needs shortening. Dropping the
 // old parent-brand suffix on long titles left those pages with no site identity
 // (Search Readiness b10). Absolute metadata also prevents a second layout suffix.
-export const TITLE_MAX = 65;
+// Over-length is trimmed here, at the generator, never failed by a check.
+export const TITLE_MAX = TITLE_BAND_MAX;
 export function documentTitle(title: string, host: string = PARENT_HOST): { absolute: string } {
   const name = siteHome(host).name;
-  if (title.toLowerCase().includes(name.toLowerCase())) return { absolute: title };
+  if (title.toLowerCase().includes(name.toLowerCase())) {
+    // Already names its site: trim to fit only when the trimmed title still does.
+    const trimmed = clip(title, TITLE_MAX);
+    return { absolute: trimmed.toLowerCase().includes(name.toLowerCase()) ? trimmed : title };
+  }
   const suffix = ` | ${name}`;
   return { absolute: `${clip(title, TITLE_MAX - suffix.length)}${suffix}` };
 }
@@ -52,13 +58,14 @@ export function documentTitle(title: string, host: string = PARENT_HOST): { abso
 // with explicit dimensions, so all four sites present the same card shape.
 export function seoMetadata(input: { title: string; description: string; host: string; path: string; type?: 'website' | 'article' }): Metadata {
   const url = canonicalUrl(input.host, input.path);
+  const description = clip(input.description, META_DESCRIPTION_MAX);
   return {
     title: documentTitle(input.title, input.host),
-    description: input.description,
+    description,
     alternates: { canonical: url },
     robots: { index: true, follow: true },
-    openGraph: { title: input.title, description: input.description, url, siteName: siteHome(input.host).name, type: input.type ?? 'website', images: ogImages(input.host, input.title) },
-    twitter: { card: 'summary_large_image', title: input.title, description: input.description, images: [ogImageUrl(input.host)] }
+    openGraph: { title: input.title, description, url, siteName: siteHome(input.host).name, type: input.type ?? 'website', images: ogImages(input.host, input.title) },
+    twitter: { card: 'summary_large_image', title: input.title, description, images: [ogImageUrl(input.host)] }
   };
 }
 
@@ -106,8 +113,8 @@ export function hubMetadata(slug: string): Metadata { const hub = hubBySlug(slug
 // 120, not 110: the Search Readiness band (item b2), tightened 2026-10-25. Eleven
 // guide descriptions generated from a short summary sat at 110-119; raising the floor
 // makes the generator extend them with the guide's own recommendation instead.
-export const META_DESCRIPTION_MIN = 120;
-export const META_DESCRIPTION_MAX = 160;
+export const META_DESCRIPTION_MIN = DESC_MIN;
+export const META_DESCRIPTION_MAX = DESC_MAX;
 const guideMetaDescriptions = guideMetaJson.descriptions as Record<string, string>;
 function clip(text: string, max: number): string {
   if (text.length <= max) return text;

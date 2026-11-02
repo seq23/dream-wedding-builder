@@ -128,11 +128,13 @@ if(!evidenceSrc.pageHistory.length)fail(`${PAGE_HISTORY}: zero page rows; collec
  if(resolveSelectionEvidence({host:'example.com',slug:'alpha',query:'alpha checklist',id:'fixture-nope'},src))fail('selection evidence self-test: a fabricated id resolved');
  if(resolveSelectionEvidence({host:'example.com',slug:'gamma',query:'gamma list',id:'fixture-p'},src))fail('selection evidence self-test: another guide\'s row resolved');}
 const lapsed=[];
+const titleNotes=[];
 for(const [slug,g] of entries){
   const p=reg.pages.find(x=>x.slug===slug); if(!p){fail(`strengthened guide ${slug} is not in the registry`);continue}
   const host=hostFor(p.product_id);
   if(!g.title.toLowerCase().startsWith(g.h1.toLowerCase()))fail(`${slug}: title "${g.title}" does not lead with its H1`);
-  if(g.title.length>60)fail(`${slug}: title ${g.title.length} chars (>60 is cut in results)`);
+  // Over-length is never a failure (owner ruling 2 Nov 2026): documentTitle() in lib/seo.ts trims the rendered title. Noted only.
+  if(g.title.length>60)titleNotes.push(`${slug} (${g.title.length} chars)`);
   if(!norm(g.target_query).startsWith(norm(g.h1)))fail(`${slug}: H1 "${g.h1}" is not aligned to target query "${g.target_query}"`);
   if(!/^an? /i.test(g.definition)||!norm(g.definition).includes(norm(g.h1)))fail(`${slug}: definition must open by defining "${g.h1}"`);
   if((g.faqs||[]).length<3)fail(`${slug}: needs at least 3 FAQs`);
@@ -161,4 +163,4 @@ else{const q=norm(st.money_page.target_query);
 
 if(errors.length){console.error('DEMAND REPOINT VALIDATION FAIL');for(const e of errors)console.error(`- ${e}`);process.exit(1)}
 const b=hosts.map(h=>`${h.replace(/^wedding|\.com$/g,'')} ${cov.hosts[h].summary?.buckets?.indexed??'?'}/${cov.hosts[h].sitemap_url_count??'?'} indexed`).join(', ');
-console.log(`demand repoint validation: PASS (${coverageUrls} URLs inspected - ${b}; ${targetCount} measured targets; ${hosts.reduce((s,h)=>s+(cons.hosts[h].candidate_count||0),0)} consolidation candidates; freeze ${fz.enabled?'ON':'off'}; ${entries.length} strengthened guides, ${entries.length-lapsed.length} measured now${lapsed.length?`; MEASUREMENT_LAPSED: ${lapsed.join(', ')}`:''})`);
+console.log(`demand repoint validation: PASS (${coverageUrls} URLs inspected - ${b}; ${targetCount} measured targets; ${hosts.reduce((s,h)=>s+(cons.hosts[h].candidate_count||0),0)} consolidation candidates; freeze ${fz.enabled?'ON':'off'}; ${entries.length} strengthened guides, ${entries.length-lapsed.length} measured now${lapsed.length?`; MEASUREMENT_LAPSED: ${lapsed.join(', ')}`:''}${titleNotes.length?`; NOTE titles over 60, trimmed at render: ${titleNotes.join(', ')}`:''})`);
