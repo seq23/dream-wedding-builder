@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "78bd0484de6be1c59379a6e760e0b423d8968d91",
+  "generated_from_commit": "15cd1730f2de55016f5f24dd554c45eede0ec875",
   "shipping_guide_count": 89,
   "paths": {
     "/": {
@@ -231,11 +231,11 @@
     },
     "/guides/wedding-budget-for-50-guests": {
       "lastmod": "2026-11-02",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-50-guests] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-for-50-guests]"
     },
     "/guides/wedding-budget-spreadsheet-categories": {
       "lastmod": "2026-11-02",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-spreadsheet-categories] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-budget-spreadsheet-categories]"
     },
     "/guides/wedding-budget-template": {
       "lastmod": "2026-08-27",
@@ -259,7 +259,7 @@
     },
     "/guides/wedding-deposit-schedule": {
       "lastmod": "2026-11-02",
-      "source": "data/authority/content_registry.json#pages[slug=wedding-deposit-schedule] (uncommitted at generation; pinned to run date)"
+      "source": "data/authority/content_registry.json#pages[slug=wedding-deposit-schedule]"
     },
     "/guides/wedding-emergency-kit": {
       "lastmod": "2026-08-27",
@@ -450,7 +450,7 @@
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/questions": {
-      "lastmod": "2026-11-01",
+      "lastmod": "2026-11-02",
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {
