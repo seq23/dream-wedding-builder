@@ -18,10 +18,11 @@
  * What it asserts, per canonical host, by booting `next start` and fetching every
  * sitemap URL with that host's Host header:
  *
- *   1. every sitemap URL responds 200 with a <title> of 30-65 characters and a meta
- *      description of 120-160 (the Search Readiness bands, items b1/b2, tightened
- *      from 30-70/110-160 on 2026-10-25 after the audit found 14 titles and 13
- *      descriptions that the older bands passed)
+ *   1. every sitemap URL responds 200 with a <title> and a meta description. The
+ *      Search Readiness bands (b1/b2: titles 30-65, descriptions 120-160) are
+ *      generator targets, not gates (owner ruling 2 Nov 2026): lib/seo.ts trims
+ *      anything over, so over-length here is a NOTE; under-length fails only below
+ *      75% of the minimum (lib/length-floor.mjs)
  *   2. no two self-canonical sitemap URLs, across all four hosts, share a title or
  *      a description
  *   3. every href on those pages that points at a network host (the four canonical
@@ -52,6 +53,7 @@ import path from 'node:path';
 import net from 'node:net';
 import { createRequire } from 'node:module';
 import { spawn } from 'node:child_process';
+import { DESC_MAX, DESC_MIN, TITLE_MAX, TITLE_MIN, belowFloor, floorOf } from '../../lib/length-floor.mjs';
 
 const ROOT = process.cwd();
 const ownership = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/route_ownership.json'), 'utf8'));
@@ -63,15 +65,11 @@ const HOSTS = Object.keys(ownership.hosts);
 const ALIASES = Object.keys(ownership.alias_hosts ?? {});
 const NETWORK = new Set([...HOSTS, ...HOSTS.map((h) => `www.${h}`), ...ALIASES, ...ALIASES.map((h) => `www.${h}`)]);
 
-// The Search Readiness bands (items b1/b2), tightened from 30-70 / 110-160 on
-// 2026-10-25. 65 is where a title stops being truncated in a desktop result; a
-// description under 120 leaves the snippet half empty and lets the engine write the
-// rest off the page. The audit found 14 titles and 13 descriptions outside these
-// bands that the old bands passed.
-const TITLE_MIN = 30;
-const TITLE_MAX = 65;
-const DESC_MIN = 120;
-const DESC_MAX = 160;
+// The Search Readiness bands (items b1/b2) live in lib/length-floor.mjs, shared with
+// the generator in lib/seo.ts that trims to them. Over the maximum is a note (the
+// generator owns it); under the minimum fails only below 75% of it.
+const notes = [];
+const note = (message) => notes.push(message);
 
 const failures = [];
 const fail = (message) => failures.push(message);
@@ -232,7 +230,8 @@ try {
       const title = decode(html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? '');
       const desc = metaContent(html, 'name', 'description');
       const canonical = html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]*)"/i)?.[1] ?? null;
-      if (title.length < TITLE_MIN || title.length > TITLE_MAX) fail(`${where}: title is ${title.length} chars (want ${TITLE_MIN}-${TITLE_MAX}): "${title}"`);
+      if (belowFloor(title.length, TITLE_MIN)) fail(`${where}: title is ${title.length} chars, below ${floorOf(TITLE_MIN)} (75% of ${TITLE_MIN}): "${title}"`);
+      else if (title.length < TITLE_MIN || title.length > TITLE_MAX) note(`${where}: title is ${title.length} chars (target ${TITLE_MIN}-${TITLE_MAX})`);
       // b10: shortening a title must never discard its owning site identity.
       const siteName = siteHomes[host].name;
       if (!title.toLowerCase().includes(siteName.toLowerCase())) fail(`${where}: title does not name ${siteName}: "${title}"`);
@@ -241,7 +240,8 @@ try {
       }
       if (metaContent(html, 'property', 'og:site_name') !== siteName) fail(`${where}: og:site_name does not name ${siteName}`);
       if (desc === null) fail(`${where}: no meta description`);
-      else if (desc.length < DESC_MIN || desc.length > DESC_MAX) fail(`${where}: description is ${desc.length} chars (want ${DESC_MIN}-${DESC_MAX}): "${desc}"`);
+      else if (belowFloor(desc.length, DESC_MIN)) fail(`${where}: description is ${desc.length} chars, below ${floorOf(DESC_MIN)} (75% of ${DESC_MIN}): "${desc}"`);
+      else if (desc.length < DESC_MIN || desc.length > DESC_MAX) note(`${where}: description is ${desc.length} chars (target ${DESC_MIN}-${DESC_MAX})`);
 
       // Rule 6: session recording in the served HTML (e6/i8 and e9).
       const hasConversionForm = /<form\b[^>]*data-session-recording/.test(html);
@@ -375,6 +375,7 @@ for (const host of HOSTS) if (!pricedOffers.has(host)) fail(`${host}: no page ca
 if (linkSources.size === 0) fail('found 0 network links on any page - the link check examined nothing');
 
 console.log(`rendered seo contract: hosts=${HOSTS.length} pages=${pagesExamined} titles=${byTitle.size} descriptions=${byDesc.size} network_links=${linkSources.size} schema_pages=${schemaChecks} priced_offers=${pricedOffers.size} conversion_pages=${conversionPages}`);
+for (const message of notes) console.log(`  NOTE ${message}`);
 if (failures.length) {
   for (const message of failures) console.error(`  FAIL ${message}`);
   console.error(`rendered seo contract: FAIL (${failures.length} problem(s))`);

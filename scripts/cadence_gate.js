@@ -36,7 +36,15 @@
  * substantive refresh, and it is worth seeing rather than being rewarded by the
  * freshness rules above.
  *
- * Usage: node cadence_gate.js [--json] [--policy path]
+ * --merge-gate (the CI merge gate, .github/workflows/ci.yml): refresh debt is
+ * enforced only where publishing happens - the publish/refresh lane
+ * (full-safe-autonomy.yml runs this without the flag) and the publisher itself
+ * (HELD_REFRESH_DEBT in publish_authority_batch.mjs). A merge cannot pay the debt
+ * down and does not publish on its own, so there refresh debt is a NOTE: CI run
+ * 41057861308 (30 Oct 2026) went red on 53% stale pages against a 20% tolerance.
+ * Every other blocking condition still blocks in the merge gate.
+ *
+ * Usage: node cadence_gate.js [--json] [--policy path] [--merge-gate]
  */
 'use strict';
 const fs = require('fs');
@@ -46,6 +54,7 @@ const { sitemapUrls, refreshDebt, cadenceToday } = require('./cadence/refresh_de
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
 const JSON_ONLY = args.includes('--json');
+const MERGE_GATE = args.includes('--merge-gate');
 const policyPath = (() => {
   const i = args.indexOf('--policy');
   return i >= 0 ? args[i + 1] : 'data/cadence/policy.json';
@@ -119,7 +128,9 @@ if (urls.size === 0) {
 let hold = null;
 if (debt.over_tolerance) {
   const what = `${stale} of ${dated.length} pages (${stalePct.toFixed(0)}%) are older than ${policy.refresh_window_days} days, tolerance is ${policy.stale_tolerance_pct}%`;
-  if (!ledgerExists) {
+  if (MERGE_GATE) {
+    warnings.push(`refresh_debt (enforced in the publish lane, not the merge gate): ${what}. ${debt.refreshes_needed} oldest page(s) queued in reports/cadence/refresh-queue.json for scripts/cadence/refresh_lane.mjs.`);
+  } else if (!ledgerExists) {
     blocking.push(`refresh_debt: ${what}, and there is no URL ledger to prove nothing new was published into it`);
   } else if (newUrls.length) {
     blocking.push(`published_into_refresh_debt: ${newUrls.length} URL(s) are new since the last run while ${what}. Publishing must hold until ${debt.refreshes_needed} of the oldest pages are refreshed: ${newUrls.slice(0, 5).join(', ')}`);
@@ -153,6 +164,7 @@ function report_date() { return today.toISOString().slice(0, 10); }
 const report = {
   generated_at: today.toISOString().slice(0, 10),
   policy_source: policy._source,
+  lane: MERGE_GATE ? 'merge_gate' : 'publish',
   urls: urls.size,
   dated: dated.length,
   undated: undated.length,

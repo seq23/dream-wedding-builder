@@ -30,8 +30,8 @@ function fixture(pages: { loc: string; lastmod: string }[], known: string[] | nu
   if (known) fs.writeFileSync(path.join(dir, 'data/cadence/known_urls.json'), JSON.stringify({ urls: known }));
   return dir;
 }
-const run = (dir: string, today: string) => {
-  const r = spawnSync(process.execPath, [GATE], { cwd: dir, env: { ...process.env, CADENCE_TODAY: today }, encoding: 'utf8' });
+const run = (dir: string, today: string, flags: string[] = []) => {
+  const r = spawnSync(process.execPath, [GATE, ...flags], { cwd: dir, env: { ...process.env, CADENCE_TODAY: today }, encoding: 'utf8' });
   const report = JSON.parse(fs.readFileSync(path.join(dir, 'reports/cadence/cadence-gate.json'), 'utf8'));
   const queue = JSON.parse(fs.readFileSync(path.join(dir, 'reports/cadence/refresh-queue.json'), 'utf8'));
   return { status: r.status, out: r.stdout, report, queue };
@@ -86,6 +86,39 @@ describe('cadence gate: refresh debt governs publishing', () => {
     expect(r.report.urls).toBe(0);
     expect(r.status).toBe(1);
     expect(r.report.blocking.join(' ')).toMatch(/no_sitemap_urls/);
+  });
+});
+
+describe('cadence gate: refresh debt is enforced in the publish lane, a note in the merge gate', () => {
+  it('in the merge gate, debt with no ledger and a new URL is a note, exit 0', () => {
+    const extra = [...library, { loc: 'https://example.com/guides/brand-new', lastmod: '2026-10-30' }];
+    for (const [pages, known] of [[library, null], [extra, locs]] as const) {
+      const r = run(fixture([...pages], known ? [...known] : null), '2026-10-30', ['--merge-gate']);
+      expect(r.status).toBe(0);
+      expect(r.report.lane).toBe('merge_gate');
+      expect(r.report.blocking).toEqual([]);
+      expect(r.report.warnings.join(' ')).toMatch(/refresh_debt \(enforced in the publish lane, not the merge gate\): 6 of 1[01] pages/);
+      expect(r.queue.queue.length).toBe(6);
+    }
+  });
+
+  it('in the merge gate, every other blocking condition still blocks', () => {
+    expect(run(fixture([], []), '2026-10-30', ['--merge-gate']).status).toBe(1);
+    const burst = [...library, ...Array.from({ length: 5 }, (_, i) => ({ loc: `https://example.com/guides/burst-${i}`, lastmod: '2026-10-20' }))];
+    const r = run(fixture(burst, locs), '2026-10-20', ['--merge-gate']);
+    expect(r.status).toBe(1);
+    expect(r.report.blocking.join(' ')).toMatch(/^weekly_cap: 5 URLs/);
+  });
+
+  it('CI runs the merge-gate mode; the publish lane runs the enforcing gate', () => {
+    const ci = fs.readFileSync(path.join(ROOT, '.github/workflows/ci.yml'), 'utf8');
+    const lane = fs.readFileSync(path.join(ROOT, '.github/workflows/full-safe-autonomy.yml'), 'utf8');
+    const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+    expect(pkg.scripts['cadence:gate:merge']).toBe('node scripts/cadence_gate.js --merge-gate');
+    expect(pkg.scripts['cadence:gate']).toBe('node scripts/cadence_gate.js');
+    expect(ci).toMatch(/run: npm run cadence:gate:merge\b/);
+    expect(ci).not.toMatch(/run: npm run cadence:gate\s*$/m);
+    expect(lane).toMatch(/run: npm run cadence:gate\s*$/m);
   });
 });
 

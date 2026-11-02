@@ -25,6 +25,7 @@
     "build": "node scripts/install_clarity.mjs && NODE_OPTIONS=--max-old-space-size=3072 next build --no-lint",
     "cadence:derive": "node scripts/cadence/derive_capacity.mjs",
     "cadence:gate": "node scripts/cadence_gate.js",
+    "cadence:gate:merge": "node scripts/cadence_gate.js --merge-gate",
     "cadence:headroom": "node scripts/cadence/publish_headroom.mjs",
     "cadence:refresh": "node scripts/cadence/refresh_lane.mjs",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
