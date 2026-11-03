@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 49,
+    "HARD_FAIL": 51,
     "STRONG_WARNING": 3,
     "SOFT_WARNING": 2
   },
@@ -578,6 +578,28 @@
       "reason": "PR #53 (c27e4ac, 31 Oct 2026) made cadence_gate.js hold new publishing on refresh debt and list the 43 pages to refresh in reports/cadence/refresh-queue.json, but nothing in scripts/, .github/ or package.json read that queue, so the hold could never clear without a person. This gate fails whenever the gate can hold publishing and no scheduled workflow runs the refresh lane (scripts/cadence/refresh_lane.mjs) after restore, before freeze, with the $0 router key, a scope clear after the freeze and a named outcome.",
       "manual_repair": "wire `npm run cadence:refresh` (with OPENROUTER_API_KEY) into full-safe-autonomy.yml between authority:scale:restore and authority:scale:freeze, add authority:scale:clear-scope after the freeze, and keep the always() `npm run cadence:refresh -- --name-outcome` step",
       "repair_evidence": "proved negatively on 2026-10-31: deleting the refresh step from full-safe-autonomy.yml turns this gate red; restoring it returns PASS"
+    },
+    {
+      "id": "question-entity",
+      "npmScript": "validate:question-entity",
+      "command": "node scripts/validators/validate_question_entity.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "Search Readiness item c1 reads a page's FIRST Organization in JSON-LD and needs name, url, logo and sameAs on it. The shared search engine (seq23/search-loop src/render.mjs) builds the Article's author and publisher from search-loop.config.json's publisher block, which carries only a name and a url, and that inline thin Organization sits in the page graph ahead of the header's complete entity graph - so the thin copy is the one an engine reads. On 2026-11-03 two question pages were flagged \"Organization lacks logo, sameAs\" while data/seo/entity.json had held both all along. scripts/seo/normalize_question_entity.mjs points author/publisher at the brand record instead of copying it, and runs inside .github/scripts/search_loop_commit.sh so tomorrow's engine page is corrected before it is committed; this validator is what keeps that true across engine versions. Its traversal deliberately mirrors boss-os src/shared/boss/searchReadiness/audit.mjs (jsonLd + deepNodes + organization_node), because a validator that walked the graph differently could pass while the checklist the owner reads still failed.",
+      "composite": false,
+      "repair_command": "npm run seo:normalize-question-entity",
+      "repair_evidence": "proved negatively on 2026-11-03: restoring one page to its pre-fix inline publisher turns this gate red with \"lacks logo, sameAs\" - the exact wording of the Search Readiness brief - and running the repair command returns PASS"
+    },
+    {
+      "id": "search-loop-ai-measured",
+      "npmScript": "validate:search-loop-ai-measured",
+      "command": "node scripts/validators/validate_search_loop_ai_measured.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "Search Readiness item f11 needs a NUMBER for AI-referral visits and AI-bot reads in the newest search-loop-week report; half the loop's purpose (AEO/GEO) is otherwise unmeasured. On 2026-11-03 both fields had read \"not read: Cloudflare analytics refused the query ... does not have permission\" because SEARCH_LOOP_CF_USAGE_TOKEN was scoped to account analytics for the Workers AI usage read but not to Zone:Read + Zone Analytics, which the engine's src/analytics.mjs needs for the bot and referral queries. The refusal was committed inside the report every day and nothing in this repository said so. The severity split follows her rule that a stop the next scheduled run retries is a note, not a red main: a reason naming a token, a permission or a missing variable never clears itself and hard-fails, any other refusal is a NAMED NOTE at exit 0.",
+      "composite": false,
+      "manual_repair": "give SEARCH_LOOP_CF_USAGE_TOKEN Zone:Read + Zone Analytics:Read AND Account Analytics:Read (the engine uses the one CLOUDFLARE_API_TOKEN for both the zone bot/referral queries and the Workers AI usage read); the Boss OS vault already holds such a token as CLOUDFLARE_ANALYTICS_READ_TOKEN, then re-run the Search Loop workflow with stage=check so a fresh report is committed",
+      "repair_evidence": "proved both ways on 2026-11-03: the 12:21Z report (permission refusal) turns this gate red, the 15:10Z report after the token was repointed returns PASS with ai_visitors=0 and ai_bot_hits=79, and a transient \"socket hang up\" reason prints a NAMED NOTE at exit 0"
     }
   ],
   "repair_contract": "Two fields, and the difference is load-bearing. `repair_command` is EXECUTED verbatim by scripts/selfheal/heal_until_clean.mjs on failure, so it must be a real command: an npm script that exists in package.json, or a node script whose file exists. `manual_repair` is prose for a human and is never executed - it is printed by the loop and named in the job summary. Putting prose in repair_command is what broke the daily authority lane: the loop shelled out \"add the route's label to lib/site-directory.ts (or a hub/landing record) ...\", bash died on the unbalanced quote in \"route's\" with exit 2, and the loop burned all three attempts calling that a failed repair instead of reporting NO_REPAIR_AVAILABLE with the instruction a human could act on. Eight of thirteen repair_commands were prose. scripts/validators/validate_repair_contract.mjs now enforces this split. A validator may declare repair_command only when that command fixes the same defect this validator detects; pairing a repair with a validator it does not actually fix would turn the self-heal loop into a way of making failures disappear, so an unpaired validator is the correct and honest default.",

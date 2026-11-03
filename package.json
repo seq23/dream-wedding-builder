@@ -127,7 +127,7 @@
     "validate:seo-jsonld": "vitest run tests/unit/seo-hygiene-jsonld.test.ts",
     "validate:seo-lighthouse": "vitest run tests/unit/seo-hygiene-lighthouse.test.ts",
     "validate:seo-og": "vitest run tests/unit/seo-hygiene-og.test.ts",
-    "validate:structural": "npm run validate:profile-purity && npm run validate:identity-domains && npm run validate:tree-hygiene && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo && npm run validate:search-intelligence && npm run validate:zero-paid-llm && npm run validate:demand-repoint && npm run validate:cadence-policy && npm run validate:cadence-determinism && npm run validate:refresh-lane-wiring && npm run validate:planner-reachability && npm run validate:planner-persistent-entry && npm run validate:planner-seed-contract && npm run validate:readiness-rubric && npm run validate:product-reachability && npm run validate:methodology-contrast && npm run validate:worker-entrypoint && npm run validate:repair-contract && npm run validate:selfheal-contract && npm run validate:workflow-shell-quoting && npm run validate:workflow-push-back",
+    "validate:structural": "npm run validate:profile-purity && npm run validate:identity-domains && npm run validate:tree-hygiene && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:composition-spec && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo && npm run validate:search-intelligence && npm run validate:zero-paid-llm && npm run validate:demand-repoint && npm run validate:cadence-policy && npm run validate:cadence-determinism && npm run validate:refresh-lane-wiring && npm run validate:planner-reachability && npm run validate:planner-persistent-entry && npm run validate:planner-seed-contract && npm run validate:readiness-rubric && npm run validate:product-reachability && npm run validate:methodology-contrast && npm run validate:worker-entrypoint && npm run validate:repair-contract && npm run validate:selfheal-contract && npm run validate:workflow-shell-quoting && npm run validate:workflow-push-back && npm run validate:question-entity && npm run validate:search-loop-ai-measured",
     "validate:tree-hygiene": "node scripts/validate-tree-hygiene.mjs",
     "validate:worker-entrypoint": "node scripts/validate-worker-entrypoint.mjs",
     "validate:workflow-push-back": "node scripts/validators/validate_workflow_push_back.mjs",
@@ -135,7 +135,10 @@
     "validate:zero-paid-llm": "node scripts/llm/validate_zero_paid_llm.mjs",
     "vault:check": "node scripts/vault/vault.mjs check",
     "vault:exec": "node scripts/vault/vault.mjs exec",
-    "vault:init": "node scripts/vault/vault.mjs init"
+    "vault:init": "node scripts/vault/vault.mjs init",
+    "validate:question-entity": "node scripts/validators/validate_question_entity.mjs",
+    "validate:search-loop-ai-measured": "node scripts/validators/validate_search_loop_ai_measured.mjs",
+    "seo:normalize-question-entity": "node scripts/seo/normalize_question_entity.mjs"
   },
   "dependencies": {
     "next": "15.5.18",

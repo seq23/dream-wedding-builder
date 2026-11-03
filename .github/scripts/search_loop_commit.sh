@@ -7,9 +7,16 @@
 # the pages, the sitemaps and any redirect, and pushes with a bounded rebase
 # retry. IndexNow is submitted by the engine itself.
 set -euo pipefail
+# The engine inlines a thin Organization (name + url only) as each Article's
+# author and publisher, ahead of the header's complete entity graph, so the
+# first Organization an engine reads on the page has no logo and no sameAs
+# (Search Readiness c1, flagged 2026-11-03). Point them at the one brand record
+# before anything else reads the pages, and gate it.
+node scripts/seo/normalize_question_entity.mjs
 node scripts/seo/build_lastmod_ledger.mjs > /dev/null
 node scripts/authority/build-sitemaps.mjs
 node scripts/validators/validate_sitemap_currency.mjs
+node scripts/validators/validate_question_entity.mjs
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 git add -A data/search-loop public/questions artifacts/sitemaps data/seo/lastmod_ledger.json
