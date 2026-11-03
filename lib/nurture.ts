@@ -29,6 +29,12 @@ export const REVIEW_ASK_AFTER_DAYS = 5;
 export const REVIEW_ASK_SINCE = '2026-11-01 00:00:00';
 const DAY = 86_400_000;
 const MAX_PER_RUN = 50;
+// The global ceiling: at most this many marketing emails (sample, follow-ups, review asks) in
+// any rolling 24 hours, whoever asks. The Resend team is shared with The Industry Guides, and a
+// flood of typed-in strangers' addresses must never turn this site into a mailer. Over the
+// ceiling nothing is sent and nothing is lost: the sign-up stays stored and the hourly run sends
+// it when there is room. Paid-order delivery emails (lib/delivery-email.ts) are not counted.
+export const NURTURE_DAILY_SEND_CEILING = 60;
 
 export const NURTURE_DDL = [
   BUILDER_SIGNUPS_DDL,
@@ -158,10 +164,19 @@ const sqlTime = (ms: number) => new Date(ms).toISOString().replace('T', ' ').sli
 const parseSql = (v: unknown) => Date.parse(`${String(v).replace(' ', 'T')}Z`);
 
 /** Sends one email and records it. A row already present means it was sent: nothing is sent twice. */
-async function sendOnce(env: NurtureEnv, email: string, hash: string, step: Step, fetchImpl: typeof fetch): Promise<'SENT' | 'ALREADY' | 'FAILED'> {
+async function sendOnce(env: NurtureEnv, email: string, hash: string, step: Step, fetchImpl: typeof fetch): Promise<'SENT' | 'ALREADY' | 'FAILED' | 'CEILING'> {
   const db = env.DB!;
-  const claim = await db.prepare('INSERT OR IGNORE INTO email_sends (email_hash, kind) VALUES (?, ?)').bind(hash, step.kind).run() as { meta?: { changes?: number } };
-  if (claim?.meta?.changes === 0) return 'ALREADY';
+  // One statement claims the step AND checks the daily ceiling, so two requests cannot both pass it.
+  const claim = await db.prepare(
+    `INSERT OR IGNORE INTO email_sends (email_hash, kind) SELECT ?, ?
+     WHERE (SELECT COUNT(*) FROM email_sends WHERE sent_at > datetime('now', '-1 day')) < ?`
+  ).bind(hash, step.kind, NURTURE_DAILY_SEND_CEILING).run() as { meta?: { changes?: number } };
+  if (claim?.meta?.changes === 0) {
+    const already = await db.prepare('SELECT 1 FROM email_sends WHERE email_hash = ? AND kind = ?').bind(hash, step.kind).first();
+    if (already) return 'ALREADY';
+    console.error(JSON.stringify({ event: 'NURTURE_DAILY_CEILING', ceiling: NURTURE_DAILY_SEND_CEILING }));
+    return 'CEILING';
+  }
   const unsubscribe = await unsubscribeUrl(env.DOWNLOAD_SIGNING_SECRET!, hash);
   const { html, text } = renderEmail(step, unsubscribe);
   const res = await fetchImpl('https://api.resend.com/emails', {
@@ -232,7 +247,10 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
     const e = byHash.get(hash) ?? { kinds: new Set<string>(), last: null };
     if (r.source !== SAMPLE_SOURCE && !e.kinds.has('seq0')) continue;
     const step = dueStep(e.kinds, e.last, now);
-    if (step && (await sendOnce(env, email, hash, step, fetchImpl)) === 'SENT') { sent++; e.kinds.add(step.kind); e.last = now; byHash.set(hash, e); }
+    if (!step) continue;
+    const outcome = await sendOnce(env, email, hash, step, fetchImpl);
+    if (outcome === 'CEILING') return { stop: null, sent, review_asks: 0, ceiling: true };
+    if (outcome === 'SENT') { sent++; e.kinds.add(step.kind); e.last = now; byHash.set(hash, e); }
   }
 
   let reviewAsks = 0;
@@ -243,9 +261,11 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
     const e = byHash.get(hash);
     if (optouts.has(hash) || e?.kinds.has('review_ask')) continue;
     if (e?.last != null && now - e.last < DAYS_BETWEEN * DAY) continue; // one email per 3 days, review ask included
-    if ((await sendOnce(env, email, hash, REVIEW_ASK, fetchImpl)) === 'SENT') reviewAsks++;
+    const outcome = await sendOnce(env, email, hash, REVIEW_ASK, fetchImpl);
+    if (outcome === 'CEILING') return { stop: null, sent, review_asks: reviewAsks, ceiling: true };
+    if (outcome === 'SENT') reviewAsks++;
   }
-  return { stop: null, sent, review_asks: reviewAsks };
+  return { stop: null, sent, review_asks: reviewAsks, ceiling: false };
 }
 
 /** Unsubscribe: record the opt-out by hash and mark any matching sign-up. */

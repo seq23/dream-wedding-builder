@@ -14,7 +14,7 @@ function fakeDb() {
     prepare(sql: string) {
       const entry = { sql, binds: [] as unknown[] };
       calls.push(entry);
-      return { bind: (...values: unknown[]) => { entry.binds = values; return { run: async () => ({}) }; }, run: async () => ({}) };
+      return { bind: (...values: unknown[]) => { entry.binds = values; return { run: async () => ({ meta: { changes: 1 } }), first: async () => null }; }, run: async () => ({ meta: { changes: 1 } }) };
     }
   };
 }
@@ -35,7 +35,7 @@ describe('builder signup', () => {
     expect(res.status).toBe(200);
     const insert = db.calls.find((c) => c.sql.startsWith('INSERT INTO builder_signups'));
     expect(insert?.binds).toEqual(['ana@example.com', CONSENT_TEXT, 'free-wedding-planner', 'weddingchecklistpdf.com']);
-    expect(db.calls[0].sql).toContain('CREATE TABLE IF NOT EXISTS builder_signups');
+    expect(db.calls.findIndex((c) => c.sql.includes('CREATE TABLE IF NOT EXISTS builder_signups'))).toBeLessThan(db.calls.findIndex((c) => c.sql.startsWith('INSERT INTO builder_signups')));
   });
 
   it('refuses without consent and stores nothing', async () => {
