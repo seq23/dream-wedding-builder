@@ -49,7 +49,11 @@
       ],
       "linked_from": [],
       "checks": {},
-      "indexnow_at": "2026-11-02"
+      "indexnow_at": "2026-11-02",
+      "extra_queries": [
+        "free wedding planner excel template",
+        "wedding to do checklist template"
+      ]
     },
     {
       "slug": "free-wedding-planner-pdf",
@@ -74,7 +78,18 @@
       ],
       "linked_from": [],
       "checks": {},
-      "indexnow_at": "2026-11-02"
+      "indexnow_at": "2026-11-02",
+      "extra_queries": [
+        "free wedding planner templates",
+        "free wedding planner checklist",
+        "free wedding table planner",
+        "wedding planner free budget",
+        "free digital wedding planner",
+        "free wedding planner download",
+        "downloadable wedding planner free",
+        "wedding planner to do list free",
+        "printable wedding planning checklist free"
+      ]
     },
     {
       "slug": "printable-wedding-checklist-free",
@@ -112,7 +127,16 @@
           "after_hash": "ba89ec4c3f43311eead314c75ca613ded8384b6295dd53e16ca0eab08a7bb130"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "extra_queries": [
+        "wedding checklist free printable word",
+        "basic wedding checklist free printable",
+        "detailed wedding checklist free and printable",
+        "quick wedding checklist free printable",
+        "free printable wedding checklist template",
+        "free wedding list checklist printable"
+      ],
+      "indexnow_at": "2026-11-03"
     },
     {
       "slug": "printable-wedding-checklist-for-bride",
@@ -149,7 +173,8 @@
           "after_hash": "9b527213f7ee54a9509c322b1e40751a650676fb85e1a161b5fc22fbaf877143"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-03"
     },
     {
       "slug": "tips-to-planning-a-wedding-checklist",
@@ -187,7 +212,8 @@
           "after_hash": "f0a52db4396b1cc450fcad7cda6463fc7cb5620d6db3b01730a309f2d965ec98"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-03"
     },
     {
       "slug": "free-wedding-planning-checklist-pdf",
@@ -225,7 +251,8 @@
           "after_hash": "cd0ee4d3d25a245e47f0d91e1bb60c23fc00235ce896580e454fba8717d83ea4"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-03"
     },
     {
       "slug": "how-to-plan-a-wedding-checklist-pdf",
@@ -262,7 +289,8 @@
           "after_hash": "2cd9c824af30e9b94028b8539f7d35df23f4c96416efd90c1566ed6d0b95fd73"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-03"
     },
     {
       "slug": "printable-wedding-checklist-template",
@@ -299,7 +327,8 @@
           "after_hash": "eba27db020e6e1b41aa939a6271ac27d551c288ab0c27c0b6ea8893f1e0e030d"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-03"
     },
     {
       "slug": "planning-your-own-wedding-checklist",
@@ -336,7 +365,8 @@
           "after_hash": "210445e64c3dc9d80d8abf054e949329ab5820185fb4f39c3e0506b6c5a24a26"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-03"
     },
     {
       "slug": "elopement-checklist-printable-pdf",
@@ -367,7 +397,396 @@
           "after_hash": "ce058216f3ec493d1536412561e04b9e3eb27311441d4b3126c2c45ff338ecf1"
         }
       ],
+      "checks": {},
+      "indexnow_at": "2026-11-03"
+    },
+    {
+      "slug": "wedding-checklist-for-elopement",
+      "query": "wedding checklist for elopement",
+      "score": 25,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/wedding-checklist-for-elopement.html",
+      "route": "/questions/wedding-checklist-for-elopement",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-checklist-for-elopement",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "a6dfc682ebaca0ac005de2d4a247f30a190ee7ea94d330626df6d2b352e15e24",
+      "model": "free-route",
+      "facts": [
+        "https://www.nps.gov/aboutus/index.htm",
+        "https://www.usa.gov/marriage-certificate"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/elopement-checklist-printable-pdf.html",
+          "route": "/public/questions/elopement-checklist-printable-pdf",
+          "before_hash": "4ca176d3208e0a51e21667b773cc405e031e5b1833a4f37829778ac66a7ab8c6",
+          "after_hash": "6f94c1c2ba7d853b6c9f5c79db268337755cf23dc5d768d5227c7bfd62a8ed48"
+        },
+        {
+          "rel": "public/questions/free-wedding-planning-checklist-pdf.html",
+          "route": "/public/questions/free-wedding-planning-checklist-pdf",
+          "before_hash": "100d0acaec564a48055ef75682db8b94a06ea020ac05968343b0cb068ad2cef3",
+          "after_hash": "607d583f66fca75f8cd2934fa81135a6eff072f94f61f3af13f657273a49f4a8"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 39 words (aim 40-60): \"Can we still have a small group of guests at our e\"",
+        "b5 FAQ answer is 37 words (aim 40-60): \"Do we need to hire an official coordinator for an \"",
+        "b5 FAQ answer is 35 words (aim 40-60): \"What if bad weather ruins our outdoor elopement pl\""
+      ]
+    },
+    {
+      "slug": "how-to-plan-a-elope-wedding",
+      "query": "how to plan a elope wedding",
+      "score": 25,
+      "signals": {
+        "words": 6,
+        "question": true,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/how-to-plan-a-elope-wedding.html",
+      "route": "/questions/how-to-plan-a-elope-wedding",
+      "url": "https://weddingchecklistpdf.com/questions/how-to-plan-a-elope-wedding",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "62ef088ac762f4983d07088c5f49bc6e4c3560d75798dc64be381fbd11aaeeea",
+      "model": "free-route",
+      "facts": [
+        "https://www.usa.gov/marriage-certificate",
+        "https://www.nps.gov/aboutus/index.htm"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/how-to-plan-a-wedding-checklist-pdf.html",
+          "route": "/public/questions/how-to-plan-a-wedding-checklist-pdf",
+          "before_hash": "82dfdfe1114d47146ec2dd79b0b222c2b6b12a74dd85858c4f8ca7c40cee547c",
+          "after_hash": "74d03a621b65db291395849e131e729f434bb318ffba641ee5a890264163a598"
+        },
+        {
+          "rel": "public/questions/how-to-plan-for-a-wedding-checklist.html",
+          "route": "/public/questions/how-to-plan-for-a-wedding-checklist",
+          "before_hash": "f4720a0a555e2c93bc3c26713ee67b18d93b370a137d45f4bd3f5005fe29e844",
+          "after_hash": "7c900a910bd2dcd307d5e124275dd83b4592b6fa5bb9c391ec05d3f8fd2e791f"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 34 words (aim 40-60): \"Can we wear traditional wedding attire for an elop\"",
+        "b5 FAQ answer is 37 words (aim 40-60): \"How far in advance should we plan an elopement?\""
+      ],
+      "extra_queries": [
+        "how to plan an elopement wedding"
+      ]
+    },
+    {
+      "slug": "wedding-checklist-to-do",
+      "query": "wedding checklist to do",
+      "score": 20,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/wedding-checklist-to-do.html",
+      "route": "/questions/wedding-checklist-to-do",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-checklist-to-do",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "6bcb30c992fe960163faa74c76182bf90c74e610a51824a26151268b3fb13246",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Project_management"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/free-wedding-planning-checklist-pdf.html",
+          "route": "/public/questions/free-wedding-planning-checklist-pdf",
+          "before_hash": "607d583f66fca75f8cd2934fa81135a6eff072f94f61f3af13f657273a49f4a8",
+          "after_hash": "8844220de95fc9793ad632972f4d132bdb8b32788555123afefd6e0ee16d4e27"
+        },
+        {
+          "rel": "public/questions/how-to-plan-a-wedding-checklist-pdf.html",
+          "route": "/public/questions/how-to-plan-a-wedding-checklist-pdf",
+          "before_hash": "74d03a621b65db291395849e131e729f434bb318ffba641ee5a890264163a598",
+          "after_hash": "d2e41a6878c661b4f6f2f57ae4d688fd1065933f5a16ffd355baf6f615c80af5"
+        }
+      ],
       "checks": {}
+    },
+    {
+      "slug": "best-wedding-checklist-printable-every-detail",
+      "query": "best wedding checklist printable every detail",
+      "score": 20,
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/best-wedding-checklist-printable-every-detail.html",
+      "route": "/questions/best-wedding-checklist-printable-every-detail",
+      "url": "https://weddingchecklistpdf.com/questions/best-wedding-checklist-printable-every-detail",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "142965fe05c848c71654faf40ce43280e180c0d48f3a533196d99b81918c5ac7",
+      "model": "free-route",
+      "facts": [
+        "https://www.usa.gov/marriage-certificate",
+        "https://en.wikipedia.org/wiki/Wedding_invitation"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/printable-wedding-checklist-for-bride.html",
+          "route": "/public/questions/printable-wedding-checklist-for-bride",
+          "before_hash": "57696ad6596798ee4b9aa6a0d661fa2c0a9333dadf4f3c1d5b8c177cb397f020",
+          "after_hash": "26e6c524d22d559999e759431a407c9d4d98ac8b1ee576f28d140324536170b0"
+        },
+        {
+          "rel": "public/questions/printable-wedding-checklist-template.html",
+          "route": "/public/questions/printable-wedding-checklist-template",
+          "before_hash": "960b459a01e87bb7ac6c822ddb47df4dbf308cffee5f8879f4065593ab52ceaf",
+          "after_hash": "18bd8ea1a90f25df27bb5ba8a5a7244c071407e190be8105eb92289aaa5e9001"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 36 words (aim 40-60): \"What should be done first on a wedding checklist?\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"How far in advance should wedding invitations be s\"",
+        "b5 FAQ answer is 33 words (aim 40-60): \"Do I need a seating chart for a buffet dinner?\"",
+        "b5 FAQ answer is 31 words (aim 40-60): \"What items belong in a wedding day emergency kit?\""
+      ],
+      "extra_queries": [
+        "detailed wedding checklist printable"
+      ]
+    },
+    {
+      "slug": "wedding-planning-checklist-help",
+      "query": "wedding planning checklist help",
+      "score": 20,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/wedding-planning-checklist-help.html",
+      "route": "/questions/wedding-planning-checklist-help",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-planning-checklist-help",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "b593980cf2fab52b8ce547c962e0a134d12844eff4295fcf6cdfd90fd0eabd4b",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Gregorian_calendar"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/free-wedding-planning-checklist-pdf.html",
+          "route": "/public/questions/free-wedding-planning-checklist-pdf",
+          "before_hash": "8844220de95fc9793ad632972f4d132bdb8b32788555123afefd6e0ee16d4e27",
+          "after_hash": "f2724aaab1ec384d10ea7485c4f20b59afcc7dbff9a236200d756091fcb7f8b8"
+        },
+        {
+          "rel": "public/questions/planning-your-own-wedding-checklist.html",
+          "route": "/public/questions/planning-your-own-wedding-checklist",
+          "before_hash": "b3c90e5aa3a7f613016630f9aed32b8d835bc7162a5a2628eec9635e18a2d8f4",
+          "after_hash": "83a1b7e246e88a015c1ea6e8d3fb559fdc962f72be4f98aea24ca8d821214940"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 36 words (aim 40-60): \"How do I handle family opinions that clash with my\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"Do I really need a professional wedding planner?\""
+      ]
+    },
+    {
+      "slug": "things-to-plan-for-a-wedding-checklist",
+      "query": "things to plan for a wedding checklist",
+      "score": 20,
+      "signals": {
+        "words": 7,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/things-to-plan-for-a-wedding-checklist.html",
+      "route": "/questions/things-to-plan-for-a-wedding-checklist",
+      "url": "https://weddingchecklistpdf.com/questions/things-to-plan-for-a-wedding-checklist",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "0d9abb5a9040d038d86b5e0c653ad683cb8fb9a58f35391801e56bab82ad404c",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Marriage"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/how-to-plan-a-wedding-checklist-pdf.html",
+          "route": "/public/questions/how-to-plan-a-wedding-checklist-pdf",
+          "before_hash": "d2e41a6878c661b4f6f2f57ae4d688fd1065933f5a16ffd355baf6f615c80af5",
+          "after_hash": "1d878e2f999796ee4654d20eacd51d9005c4106692290c32da2875b8fc6c19f6"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 39 words (aim 40-60): \"Can I plan my entire wedding without hiring a prof\""
+      ]
+    },
+    {
+      "slug": "wedding-checklist-everything-you-need",
+      "query": "wedding checklist everything you need",
+      "score": 20,
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/wedding-checklist-everything-you-need.html",
+      "route": "/questions/wedding-checklist-everything-you-need",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-checklist-everything-you-need",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "d5d4333603c8654515b5846e824b6e90c110ec4ffa48a3d78b6a67f540f8e0b2",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Wedding_ring"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/free-wedding-planning-checklist-pdf.html",
+          "route": "/public/questions/free-wedding-planning-checklist-pdf",
+          "before_hash": "f2724aaab1ec384d10ea7485c4f20b59afcc7dbff9a236200d756091fcb7f8b8",
+          "after_hash": "7bc3fe2356719654c3e734a58802dbe9720631b1ff20aa6552a6da1d5565ec67"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 35 words (aim 40-60): \"Do I need to hire a wedding planner to use a check\"",
+        "b5 FAQ answer is 39 words (aim 40-60): \"How do I handle last-minute RSVPs and seating chan\""
+      ]
+    },
+    {
+      "slug": "wedding-planning-checklist-advice",
+      "query": "wedding planning checklist advice",
+      "score": 20,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/wedding-planning-checklist-advice.html",
+      "route": "/questions/wedding-planning-checklist-advice",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-planning-checklist-advice",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "06632cad59b01a56c9c3ed4dfe64e2c3faaca827191023946bbe8b4c47ebe3a4",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Marriage_license",
+        "https://www.consumerfinance.gov/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/free-wedding-planning-checklist-pdf.html",
+          "route": "/public/questions/free-wedding-planning-checklist-pdf",
+          "before_hash": "7bc3fe2356719654c3e734a58802dbe9720631b1ff20aa6552a6da1d5565ec67",
+          "after_hash": "64e89c7dcb022d31f26f6ff48235a3a9e31e5d31e670d63507c9bfb2a4729205"
+        },
+        {
+          "rel": "public/questions/planning-your-own-wedding-checklist.html",
+          "route": "/public/questions/planning-your-own-wedding-checklist",
+          "before_hash": "83a1b7e246e88a015c1ea6e8d3fb559fdc962f72be4f98aea24ca8d821214940",
+          "after_hash": "12098256a9291c33ca7e6c6c06243db44a78d2f79d3f6e768f8c4b96c8e0115b"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b4 direct answer under the H1 is 39 words (aim 40-60)",
+        "b5 FAQ answer is 37 words (aim 40-60): \"How do I manage family opinions while using a chec\""
+      ]
+    },
+    {
+      "slug": "basic-wedding-planning-checklist",
+      "query": "basic wedding planning checklist",
+      "score": 20,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/basic-wedding-planning-checklist.html",
+      "route": "/questions/basic-wedding-planning-checklist",
+      "url": "https://weddingchecklistpdf.com/questions/basic-wedding-planning-checklist",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "765cb1ab329384253902b578b4efaf42b8eaa5713fdcffd849ad3ece6be2d6f7",
+      "model": "free-route",
+      "facts": [
+        "https://www.usa.gov/marriage-certificate"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/free-wedding-planning-checklist-pdf.html",
+          "route": "/public/questions/free-wedding-planning-checklist-pdf",
+          "before_hash": "64e89c7dcb022d31f26f6ff48235a3a9e31e5d31e670d63507c9bfb2a4729205",
+          "after_hash": "8955add4673e03598a81abd7e2843b25bf13390f2952fb6775941f7dfb293787"
+        },
+        {
+          "rel": "public/questions/planning-your-own-wedding-checklist.html",
+          "route": "/public/questions/planning-your-own-wedding-checklist",
+          "before_hash": "12098256a9291c33ca7e6c6c06243db44a78d2f79d3f6e768f8c4b96c8e0115b",
+          "after_hash": "8ad700a1ff4004fbdd5ee90fd0a2e214c5891188e4d7bfbe4519e645a75db0af"
+        }
+      ],
+      "checks": {}
+    },
+    {
+      "slug": "wedding-planning-detailed-checklist",
+      "query": "wedding planning detailed checklist",
+      "score": 20,
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/wedding-planning-detailed-checklist.html",
+      "route": "/questions/wedding-planning-detailed-checklist",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-planning-detailed-checklist",
+      "published_at": "2026-11-03",
+      "status": "live",
+      "hash": "e116d1275fb9abd8db2df8b50606cc6990ed2759cc47ee3599dbb5cb18b711d4",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Marriage_license",
+        "https://www.usa.gov/passport"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/planning-your-own-wedding-checklist.html",
+          "route": "/public/questions/planning-your-own-wedding-checklist",
+          "before_hash": "8ad700a1ff4004fbdd5ee90fd0a2e214c5891188e4d7bfbe4519e645a75db0af",
+          "after_hash": "4a1bf0cade063bf5e93f2db21b3ad57267bf01883466d08536be3c31cc328007"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 37 words (aim 40-60): \"What should be done in the final month?\"",
+        "b5 FAQ answer is 35 words (aim 40-60): \"Do I really need a wedding planner?\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"When should I mail out my wedding invitations?\""
+      ]
     }
   ],
   "dropped": [
@@ -498,6 +917,259 @@
       "reason": [
         "the answer was not the JSON object asked for, with every key filled"
       ]
+    },
+    {
+      "query": "things to do wedding checklist",
+      "at": "2026-11-03",
+      "reason": [
+        "facts: needs at least one fact whose source URL answered 200"
+      ]
+    },
+    {
+      "query": "printable wedding list checklist",
+      "at": "2026-11-03",
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"Can I customize a printable wedding list checklist\""
+      ]
+    },
+    {
+      "query": "printable wedding day checklist",
+      "at": "2026-11-03",
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"What should I include in a wedding day emergency k\""
+      ]
+    }
+  ],
+  "redirected": [
+    {
+      "query": "how to plan an elopement wedding",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/how-to-plan-a-elope-wedding",
+      "route": "/questions/how-to-plan-a-elope-wedding",
+      "kind": "engine",
+      "matched_by": "same wording",
+      "matched_text": "How to plan an elopement wedding",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner templates",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner checklist",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "same wording",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner excel template",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-template",
+      "route": "/questions/free-wedding-planner-template",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.75 >= 0.6)",
+      "matched_text": "free wedding planner template",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding table planner",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "wedding planner free budget",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "free digital wedding planner",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner download",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "downloadable wedding planner free",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "wedding planner to do list free",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "printable wedding checklist planner",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/public/questions/elopement-checklist-printable-pdf",
+      "route": "/public/questions/elopement-checklist-printable-pdf",
+      "kind": "page",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "Your Elopement Checklist Printable PDF for Planning",
+      "stage": "search"
+    },
+    {
+      "query": "wedding to do checklist template",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-template",
+      "route": "/questions/free-wedding-planner-template",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner template",
+      "stage": "draft"
+    },
+    {
+      "query": "complete wedding checklist printable free",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/public/questions/printable-wedding-checklist-free",
+      "route": "/public/questions/printable-wedding-checklist-free",
+      "kind": "page",
+      "matched_by": "high token overlap (0.75 >= 0.6)",
+      "matched_text": "Printable Wedding Checklist Free: Your Complete DIY Guide",
+      "stage": "search"
+    },
+    {
+      "query": "wedding checklist free printable word",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
+      "route": "/questions/printable-wedding-checklist-free",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "printable wedding checklist free",
+      "stage": "search"
+    },
+    {
+      "query": "basic wedding checklist free printable",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
+      "route": "/questions/printable-wedding-checklist-free",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "printable wedding checklist free",
+      "stage": "search"
+    },
+    {
+      "query": "detailed wedding checklist printable",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/best-wedding-checklist-printable-every-detail",
+      "route": "/questions/best-wedding-checklist-printable-every-detail",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "best wedding checklist printable every detail",
+      "stage": "search"
+    },
+    {
+      "query": "detailed wedding checklist free and printable",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
+      "route": "/questions/printable-wedding-checklist-free",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "printable wedding checklist free",
+      "stage": "search"
+    },
+    {
+      "query": "quick wedding checklist free printable",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
+      "route": "/questions/printable-wedding-checklist-free",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "printable wedding checklist free",
+      "stage": "search"
+    },
+    {
+      "query": "free printable wedding checklist template",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
+      "route": "/questions/printable-wedding-checklist-free",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "printable wedding checklist free",
+      "stage": "search"
+    },
+    {
+      "query": "printable wedding planning checklist free",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
+      "route": "/questions/free-wedding-planner-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner pdf",
+      "stage": "search"
+    },
+    {
+      "query": "diy wedding checklist free printable",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/public/questions/printable-wedding-checklist-free",
+      "route": "/public/questions/printable-wedding-checklist-free",
+      "kind": "page",
+      "matched_by": "high token overlap (0.75 >= 0.6)",
+      "matched_text": "Printable Wedding Checklist Free: Your Complete DIY Guide",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding list checklist printable",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
+      "route": "/questions/printable-wedding-checklist-free",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "printable wedding checklist free",
+      "stage": "search"
+    },
+    {
+      "query": "printable wedding planning checklist pdf",
+      "at": "2026-11-03",
+      "url": "https://weddingchecklistpdf.com/public/questions/elopement-checklist-printable-pdf",
+      "route": "/public/questions/elopement-checklist-printable-pdf",
+      "kind": "page",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "Your Elopement Checklist Printable PDF for Planning",
+      "stage": "search"
     }
   ]
 }
