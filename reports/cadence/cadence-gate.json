@@ -1,13 +1,14 @@
 {
-  "generated_at": "2026-11-02",
+  "generated_at": "2026-11-03",
   "policy_source": "data/cadence/policy.json",
-  "urls": 133,
-  "dated": 133,
+  "lane": "merge_gate",
+  "urls": 117,
+  "dated": 117,
   "undated": 0,
-  "stale_over_window": 59,
-  "stale_pct": 44.4,
-  "fresh_within_30d": 29,
-  "lastmod_within_7d": 21,
+  "stale_over_window": 53,
+  "stale_pct": 45.3,
+  "fresh_within_30d": 26,
+  "lastmod_within_7d": 17,
   "new_since_last_run": 0,
   "ledger_initialised": true,
   "maintainable_ceiling": 117,
@@ -30,12 +31,12 @@
       "note": "Average over the observed authoring window - first registry commit to last registry commit - floored. The best single interval is a bulk authoring event and is deliberately not used. The window closes at the last authoring event rather than at today so the figure is a function of committed history and not of the clock; see window_close_choice in reports/cadence/capacity-derivation.json."
     }
   },
-  "refreshes_needed": 33,
-  "projected_stale_pct": 44.4,
+  "refreshes_needed": 30,
+  "projected_stale_pct": 45.3,
   "blocking": [],
-  "hold": "REFRESH_DEBT: 59 of 133 pages (44%) are older than 91 days, tolerance is 20%. Publishing is held (no new URLs this run). Unblocked by substantively refreshing the 33 oldest page(s) in reports/cadence/refresh-queue.json.",
+  "hold": null,
   "warnings": [
-    "library_over_ceiling: 133 pages against a ceiling of 117 (9 substantive refreshes per week held inside 91 days). 16 pages cannot be kept current at this capacity."
+    "refresh_debt (enforced in the publish lane, not the merge gate): 53 of 117 pages (45%) are older than 91 days, tolerance is 20%. 30 oldest page(s) queued in reports/cadence/refresh-queue.json for scripts/cadence/refresh_lane.mjs."
   ],
-  "status": "HOLD"
+  "status": "CLEAR"
 }

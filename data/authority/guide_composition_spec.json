@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "derived_at": "2026-08-27",
+  "derived_at": "2026-11-02",
   "derived_from": "data/authority/content_registry.json",
   "derived_by": "scripts/authority_scale/derive_composition_spec.mjs",
   "note": "Read back out of the guides that render, never hand-written. Every field here is invariant across every shipping guide in its cluster; everything not here is authored per guide. The derivation is proved by recomposing all shipping guides from three sentences each and comparing to the committed bytes.",
@@ -14,8 +14,8 @@
     "steps_3_to_6": "lib/authority-compose.mjs UNIVERSAL_STEPS - identical across all shipping guides in every cluster",
     "faq2_question": "What should be verified before the final version?"
   },
-  "shipping_guides_analysed": 79,
-  "round_trip_verified": 69,
+  "shipping_guides_analysed": 73,
+  "round_trip_verified": 63,
   "bespoke_guides": 10,
   "bespoke_slugs": [
     "wedding-planning-timeline",
@@ -62,7 +62,7 @@
         "Tracking the final total without tracking the month cash is actually due.",
         "Marking a payment complete without a receipt, cleared record, or dispute note."
       ],
-      "scaffold_guides": 16,
+      "scaffold_guides": 1,
       "bespoke_guides": 2,
       "example_slug": "wedding-budget-spreadsheet-categories"
     },
@@ -82,7 +82,7 @@
         "Treating a preference, quote, or verbal promise as a confirmed booking or requirement.",
         "Continuing to add scope during the final handoff period instead of reconciling the plan."
       ],
-      "scaffold_guides": 18,
+      "scaffold_guides": 23,
       "bespoke_guides": 5,
       "example_slug": "18-month-wedding-checklist"
     },
@@ -102,7 +102,7 @@
         "Separating meal, allergy, accessibility, child, or RSVP data from the guest record.",
         "Sending conflicting exports after late changes instead of issuing one new version."
       ],
-      "scaffold_guides": 18,
+      "scaffold_guides": 19,
       "bespoke_guides": 1,
       "example_slug": "wedding-seating-chart-for-50-guests"
     },
@@ -122,7 +122,7 @@
         "Assuming access, parking, load-in, photography, or service timing without vendor confirmation.",
         "Allowing several edited versions to circulate without one dated final schedule."
       ],
-      "scaffold_guides": 17,
+      "scaffold_guides": 20,
       "bespoke_guides": 2,
       "example_slug": "wedding-timeline-with-first-look"
     }

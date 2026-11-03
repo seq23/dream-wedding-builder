@@ -1,0 +1,116 @@
+{
+  "wedding-budget-spreadsheet": {
+    "definition": "A wedding budget spreadsheet is a working record of expected costs, signed commitments, payments and remaining balances. It connects each expense to its category, payer and due date so couples can compare their plan with current agreements and see when cash is needed before making another booking.",
+    "faqs": [
+      {
+        "question": "How should I organize wedding budget categories?",
+        "answer": "Group costs by the agreement you will pay, then use subcategories where they clarify a decision. Keep venue, catering, attire, photography, decor, entertainment, transport and stationery separate. Put taxes, delivery and service charges beside the relevant quote so they remain visible when you compare vendors."
+      },
+      {
+        "question": "How do I track deposits and family contributions?",
+        "answer": "Record a deposit once as a payment against the full contract, with its date and receipt. Track a promised family contribution separately from funds already received. Compare money available in each due month with the payments scheduled for that month before treating a contribution as spendable cash."
+      },
+      {
+        "question": "What should I check before using a budget template?",
+        "answer": "Check whether formulas include newly added rows, whether paid amounts reduce balances correctly and whether dates survive import into your spreadsheet application. Keep the original estimate alongside the signed amount. Replace sample values with your own quotes and save a copy before changing formulas or categories."
+      }
+    ],
+    "published": "2026-07-30",
+    "updated": "2026-11-02"
+  },
+  "wedding-cost-per-guest": {
+    "definition": "Wedding cost per guest is the total cost within a stated scope divided by the number of guests in that scope. It is a comparison measure, rather than a vendor quote: fixed costs stay in the total while food, drinks and other attendance-dependent costs can change with the final headcount.",
+    "faqs": [
+      {
+        "question": "Does removing guests reduce every wedding cost?",
+        "answer": "Removing guests only reduces costs that change with attendance, subject to the terms of each agreement. Catering, drinks and favors may change, while photography or venue hire may stay fixed. Ask about minimum spends and count deadlines before assuming a smaller guest list releases money for another category."
+      },
+      {
+        "question": "Which guest count should I use in the calculation?",
+        "answer": "Use the count that matches the cost you are comparing and label it clearly. For catering, check whether the quote includes children, vendors or staff meals. For an overall planning comparison, use your expected attendance and record when that estimate was made so later comparisons use consistent assumptions."
+      },
+      {
+        "question": "Is there a correct national cost per guest?",
+        "answer": "There is no single figure that can replace quotes for your date, location and requirements. A national average combines weddings with different scopes. Use your own fixed commitments and variable quotes, state what is included, and compare scenarios using the same categories rather than treating an average as a spending target."
+      }
+    ],
+    "published": "2026-09-02",
+    "updated": "2026-11-02"
+  },
+  "wedding-budget-tradeoffs": {
+    "definition": "A wedding budget tradeoff is a deliberate exchange between competing uses of a fixed spending limit. It identifies what the couple protects, what can change and which costs actually move, then checks the revised plan against vendor commitments, guest needs and payment deadlines before the couple agrees to spend more.",
+    "faqs": [
+      {
+        "question": "How do we choose what to cut first?",
+        "answer": "Start with items neither partner considers essential and check whether changing them releases money under the current contracts. Compare the saving with the work or inconvenience it adds. Record one agreed change at a time and update related costs before deciding whether the plan now fits your ceiling."
+      },
+      {
+        "question": "Is a DIY wedding option always cheaper?",
+        "answer": "A DIY option can move costs into supplies, rentals, transport, setup time and cleanup instead of removing them. Price those requirements alongside the vendor alternative and name who will do the work. Check venue restrictions and delivery windows before committing to an option that depends on unpaid help."
+      },
+      {
+        "question": "How much contingency should we reserve?",
+        "answer": "Choose a reserve from the uncertainties still present in your own plan rather than treating a percentage as a guarantee. List unresolved delivery, alterations, weather and headcount costs. Keep the reserve separate from signed commitments and reduce it only when the underlying uncertainty is resolved or the expense is recorded."
+      }
+    ],
+    "published": "2026-09-02",
+    "updated": "2026-11-02"
+  },
+  "wedding-budget-template": {
+    "definition": "A wedding budget template is a reusable layout for organizing spending before and after vendors are booked. It provides places for category targets, written quotes, contracted amounts, payments, balances and due dates, while leaving the actual figures to the couple\u2019s own agreements rather than assuming a standard wedding price.",
+    "faqs": [
+      {
+        "question": "Can I use the same template in Excel and Google Sheets?",
+        "answer": "You can import an XLSX file into Google Sheets, but inspect formulas, dates, formatting and validation after import. Test a copy with a known payment and compare the balance manually. Keep the original file so an import change does not become your only record of an agreement or payment."
+      },
+      {
+        "question": "Which budget columns should stay separate?",
+        "answer": "Keep the original estimate, current commitment, paid amount and remaining balance in separate columns. A revised quote should not erase the original target, and a deposit should not appear as an additional expense. Add a due date, payer and evidence link so each amount can be checked against its source."
+      },
+      {
+        "question": "Should I start with preset wedding prices?",
+        "answer": "Use preset values only as clearly marked illustrations of how the file works. Replace them with local quotes for your date, guest count and requirements before making decisions. A template organizes information; it cannot establish a fair vendor price or confirm what is included in a contract."
+      }
+    ],
+    "published": "2026-08-27",
+    "updated": "2026-11-02"
+  },
+  "wedding-budget-calculator": {
+    "definition": "A wedding budget calculator is a set of formulas that compares a spending ceiling with planned costs, signed commitments and payments. It can show remaining capacity and balances, but its result depends on complete inputs, consistent categories and verified quotes rather than automatically knowing what a particular wedding will cost.",
+    "faqs": [
+      {
+        "question": "How do I calculate the unpaid wedding balance?",
+        "answer": "Subtract verified payments from the current agreed total for each vendor, then add the unpaid balances. Keep a disputed amount visible rather than silently deleting it. Check the result against the vendor statement and update the agreement total when a change order is accepted, so the subtraction uses current commitments."
+      },
+      {
+        "question": "Why does my calculator show money left when bills are due?",
+        "answer": "A total budget balance does not tell you when money is available. Separate funds received from contributions promised, then group unpaid invoices by due month. A plan can fit the overall ceiling while still needing money earlier than expected; review that timing before approving another deposit or booking."
+      },
+      {
+        "question": "How do I test a wedding budget formula?",
+        "answer": "Use a copy of the sheet and enter a simple example you can calculate by hand. Confirm that a payment reduces the balance once, that a new expense row enters the total and that blank inputs do not hide missing quotes. Restore real figures only after those checks behave as expected."
+      }
+    ],
+    "published": "2026-08-27",
+    "updated": "2026-11-02"
+  },
+  "wedding-budget-spreadsheet-categories": {
+    "definition": "Wedding budget spreadsheet categories are groups of related expenses used to compare a spending plan with quotes and payments. They help couples spot omitted charges, assign each vendor to a clear place and preserve useful detail without counting the same expense in both a main category and a subcategory.",
+    "faqs": [
+      {
+        "question": "Which wedding budget categories should I start with?",
+        "answer": "Start with the services your wedding actually needs: venue, food and drinks, photography, attire, flowers, entertainment, stationery and transport. Add separate lines for charges omitted from a headline quote. Remove unused categories rather than assigning money to services you do not plan to book, and keep a place for unresolved expenses."
+      },
+      {
+        "question": "Where should taxes and service charges go?",
+        "answer": "Place each charge alongside the vendor or category that creates it, using the written quote or agreement as the source. Separate a required service charge from a discretionary gratuity. Ask what each amount covers and whether tax applies before comparing totals; a category name alone does not establish what a vendor includes."
+      },
+      {
+        "question": "Should a deposit have its own expense category?",
+        "answer": "Treat a deposit as a payment against its vendor agreement rather than as a separate new expense. Keep the full agreed amount in the expense category and record each payment in the payment ledger. Reconcile the remaining balance with the vendor statement so the deposit reduces the amount still owed exactly once."
+      }
+    ],
+    "published": "2026-07-10",
+    "updated": "2026-11-02"
+  }
+}

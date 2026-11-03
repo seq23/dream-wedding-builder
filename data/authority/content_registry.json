@@ -602,8 +602,8 @@
       "title": "Wedding Seating Chart Meal-Choice Tracking",
       "cluster": "Wedding seating chart",
       "product_id": "seating-chart-maker",
-      "summary": "Meal tracking belongs at the guest level and must reconcile with the caterer’s final categories.",
-      "answer": "Meal tracking belongs at the guest level and must reconcile with the caterer’s final categories. Record one meal code per confirmed guest, separate children and vendor meals, flag unknowns, count by table and overall, and freeze the version sent to catering.",
+      "summary": "Meal tracking belongs at the guest level and must reconcile with the caterer\u2019s final categories.",
+      "answer": "Meal tracking belongs at the guest level and must reconcile with the caterer\u2019s final categories. Record one meal code per confirmed guest, separate children and vendor meals, flag unknowns, count by table and overall, and freeze the version sent to catering.",
       "steps": [
         "Define the exact outcome for wedding seating chart meal-choice tracking and name the person responsible for the final version.",
         "Record one meal code per confirmed guest, separate children and vendor meals, flag unknowns, count by table and overall, and freeze the version sent to catering.",
@@ -622,7 +622,7 @@
         {
           "heading": "Build the guest data for Wedding Seating Chart Meal-Choice Tracking",
           "paragraphs": [
-            "Meal tracking belongs at the guest level and must reconcile with the caterer’s final categories.",
+            "Meal tracking belongs at the guest level and must reconcile with the caterer\u2019s final categories.",
             "Use one row per person with stable display and sort names, household or social group, RSVP, meal, allergy, accessibility, child/high-chair, table, and unresolved-status fields as applicable."
           ]
         },
@@ -660,7 +660,7 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding seating chart meal-choice tracking?",
-          "answer": "Meal tracking belongs at the guest level and must reconcile with the caterer’s final categories."
+          "answer": "Meal tracking belongs at the guest level and must reconcile with the caterer\u2019s final categories."
         },
         {
           "question": "How should I use this wedding seating chart guide?",
@@ -687,11 +687,11 @@
       "title": "Wedding Seating Chart Allergy Tracking",
       "cluster": "Wedding seating chart",
       "product_id": "seating-chart-maker",
-      "summary": "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer’s process.",
-      "answer": "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer’s process. Capture the guest’s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
+      "summary": "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer\u2019s process.",
+      "answer": "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer\u2019s process. Capture the guest\u2019s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
       "steps": [
         "Define the exact outcome for wedding seating chart allergy tracking and name the person responsible for the final version.",
-        "Capture the guest’s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
+        "Capture the guest\u2019s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -707,18 +707,18 @@
         {
           "heading": "Build the guest data for Wedding Seating Chart Allergy Tracking",
           "paragraphs": [
-            "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer’s process.",
+            "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer\u2019s process.",
             "Use one row per person with stable display and sort names, household or social group, RSVP, meal, allergy, accessibility, child/high-chair, table, and unresolved-status fields as applicable."
           ]
         },
         {
           "heading": "Place, count, and reconcile",
           "paragraphs": [
-            "Capture the guest’s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
-            "Example: do not shorten a specific guest statement into an assumption; send the exact operational note through the caterer’s approved channel."
+            "Capture the guest\u2019s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
+            "Example: do not shorten a specific guest statement into an assumption; send the exact operational note through the caterer\u2019s approved channel."
           ],
           "bullets": [
-            "Capture the guest’s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
+            "Capture the guest\u2019s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -735,7 +735,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: do not shorten a specific guest statement into an assumption; send the exact operational note through the caterer’s approved channel."
+          "body": "Example: do not shorten a specific guest statement into an assumption; send the exact operational note through the caterer\u2019s approved channel."
         },
         {
           "title": "Control check",
@@ -745,11 +745,11 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding seating chart allergy tracking?",
-          "answer": "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer’s process."
+          "answer": "Allergy information should be recorded accurately, shared only with people who need it, and confirmed through the caterer\u2019s process."
         },
         {
           "question": "How should I use this wedding seating chart guide?",
-          "answer": "Capture the guest’s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure. Replace every illustrative assumption with your verified wedding details."
+          "answer": "Capture the guest\u2019s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -1363,1366 +1363,6 @@
       "hub_route": "/wedding-seating-chart"
     },
     {
-      "slug": "wedding-budget-spreadsheet-categories",
-      "title": "Wedding Budget Spreadsheet Categories",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance.",
-      "answer": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance. First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
-      "steps": [
-        "Define the exact outcome for wedding budget spreadsheet categories and name the person responsible for the final version.",
-        "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Budget Spreadsheet Categories",
-          "paragraphs": [
-            "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
-            "Example: keeping each tax, service charge, delivery fee, and gratuity on its own line makes the total self-evident."
-          ],
-          "bullets": [
-            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: keeping each tax, service charge, delivery fee, and gratuity on its own line makes the total self-evident."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding budget spreadsheet categories reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding budget spreadsheet categories?",
-          "answer": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-spreadsheet-categories",
-      "updated_at": "2026-11-02",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-for-50-guests",
-        "estimated-vs-actual-wedding-costs",
-        "wedding-budget-for-100-guests",
-        "wedding-monthly-cash-flow"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-for-50-guests",
-      "title": "Wedding Budget for 50 Guests",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost.",
-      "answer": "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost. Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
-      "steps": [
-        "Define the exact outcome for wedding budget for 50 guests and name the person responsible for the final version.",
-        "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Budget for 50 Guests",
-          "paragraphs": [
-            "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
-            "Example: with a $20,000 ceiling, a possible split is $10,000 for venue and food, $3,000 for photography, $2,000 each for attire and decor, $1,000 each for entertainment, stationery and transport, and $1,000 contingency, all illustrative until replaced by actual quotes."
-          ],
-          "bullets": [
-            "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: with a $20,000 ceiling, a possible split is $10,000 for venue and food, $3,000 for photography, $2,000 each for attire and decor, $1,000 each for entertainment, stationery and transport, and $1,000 contingency, all illustrative until replaced by actual quotes."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding budget for 50 guests reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding budget for 50 guests?",
-          "answer": "A 50-guest wedding budget starts from a total ceiling and your priorities, not a fixed per-person cost."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Set your total ceiling, lock in the top three priorities, collect venue and catering quotes for 50 guests, separate fixed costs from guest-variable costs, and hold a contingency reserve. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-for-50-guests",
-      "updated_at": "2026-11-02",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-for-100-guests",
-        "wedding-budget-spreadsheet-categories",
-        "wedding-budget-for-150-guests",
-        "estimated-vs-actual-wedding-costs"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-for-100-guests",
-      "title": "Wedding Budget for 100 Guests",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary.",
-      "answer": "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary. First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
-      "steps": [
-        "Define the exact outcome for wedding budget for 100 guests and name the person responsible for the final version.",
-        "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Budget for 100 Guests",
-          "paragraphs": [
-            "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
-            "Example: compare 90, 100, and 110 guests using the same contracted per-guest assumptions to see the marginal cash impact."
-          ],
-          "bullets": [
-            "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: compare 90, 100, and 110 guests using the same contracted per-guest assumptions to see the marginal cash impact."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding budget for 100 guests reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding budget for 100 guests?",
-          "answer": "A wedding budget for 100 guests typically sees food, beverage, rentals, stationery, transportation, and staffing scale with headcount while photography and attire costs tend to stay fixed, though exact per-guest rates and vendor minimums vary."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "First separate fixed and variable costs, then model at least two guest-count scenarios such as 90 and 110, next record all service charges and taxes, and finally tie final count deadlines to the payment schedule. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-for-100-guests",
-      "updated_at": "2026-11-01",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-for-150-guests",
-        "wedding-budget-for-50-guests",
-        "wedding-budget-10000",
-        "wedding-budget-spreadsheet-categories"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-for-150-guests",
-      "title": "Wedding Budget for 150 Guests",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly.",
-      "answer": "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly. Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
-      "steps": [
-        "Define the exact outcome for wedding budget for 150 guests and name the person responsible for the final version.",
-        "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Budget for 150 Guests",
-          "paragraphs": [
-            "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
-            "Example: a $10 per-person change could equal $1,500 at 150 guests before any related tax or service charge."
-          ],
-          "bullets": [
-            "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: a $10 per-person change could equal $1,500 at 150 guests before any related tax or service charge."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding budget for 150 guests reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding budget for 150 guests?",
-          "answer": "A 150-guest budget benefits from explicit guest-variable modeling and a larger contingency because small per-person changes multiply quickly."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Separate per-person and fixed charges, confirm minimums and staffing, model a range of guest counts, review transportation and rental quantities, then lock the final count with the venue and caterer. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-for-150-guests",
-      "updated_at": "2026-11-01",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-10000",
-        "wedding-budget-for-100-guests",
-        "wedding-budget-20000",
-        "wedding-budget-for-50-guests"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-10000",
-      "title": "How to Plan a $10,000 Wedding Budget",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A $10,000 wedding requires a clear scope, a small number of protected priorities, and active control of fixed costs.",
-      "answer": "A $10,000 wedding requires a clear scope, a small number of protected priorities, and active control of fixed costs. Choose the guest count and format that fit the ceiling, favor venues or packages that reduce rentals and staffing, cap each category before booking, and keep contingency.",
-      "steps": [
-        "Define the exact outcome for how to plan a $10,000 wedding budget and name the person responsible for the final version.",
-        "Choose the guest count and format that fit the ceiling, favor venues or packages that reduce rentals and staffing, cap each category before booking, and keep contingency.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for How to Plan a $10,000 Wedding Budget",
-          "paragraphs": [
-            "A $10,000 wedding requires a clear scope, a small number of protected priorities, and active control of fixed costs.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Choose the guest count and format that fit the ceiling, favor venues or packages that reduce rentals and staffing, cap each category before booking, and keep contingency.",
-            "Example: an illustrative split might reserve 50% for venue/food, 15% photography, 10% attire, 8% music, 7% decor, 5% stationery/transport, and 5% contingency; real quotes decide whether it works."
-          ],
-          "bullets": [
-            "Choose the guest count and format that fit the ceiling, favor venues or packages that reduce rentals and staffing, cap each category before booking, and keep contingency.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: an illustrative split might reserve 50% for venue/food, 15% photography, 10% attire, 8% music, 7% decor, 5% stationery/transport, and 5% contingency; real quotes decide whether it works."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by how to plan a $10,000 wedding budget reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of how to plan a $10,000 wedding budget?",
-          "answer": "A $10,000 wedding requires a clear scope, a small number of protected priorities, and active control of fixed costs."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Choose the guest count and format that fit the ceiling, favor venues or packages that reduce rentals and staffing, cap each category before booking, and keep contingency. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-10000",
-      "updated_at": "2026-07-30",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-20000",
-        "wedding-budget-for-150-guests",
-        "wedding-budget-30000",
-        "wedding-budget-for-100-guests"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-20000",
-      "title": "How to Plan a $20,000 Wedding Budget",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A $20,000 wedding budget may support more vendor depth but still requires category caps and contract-level tracking.",
-      "answer": "A $20,000 wedding budget may support more vendor depth but still requires category caps and contract-level tracking. First, set priority percentages; then compare inclusive versus blank-space venue costs; next, record taxes and service charges; then track cash by month; finally, require a tradeoff for any category expansion.",
-      "steps": [
-        "Define the exact outcome for how to plan a $20,000 wedding budget and name the person responsible for the final version.",
-        "First, set priority percentages; then compare inclusive versus blank-space venue costs; next, record taxes and service charges; then track cash by month; finally, require a tradeoff for any category expansion.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for How to Plan a $20,000 Wedding Budget",
-          "paragraphs": [
-            "A $20,000 wedding budget may support more vendor depth but still requires category caps and contract-level tracking.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "First, set priority percentages; then compare inclusive versus blank-space venue costs; next, record taxes and service charges; then track cash by month; finally, require a tradeoff for any category expansion.",
-            "Example: if $1,500 moves to photography, the same amount must come from another category rather than increasing the total."
-          ],
-          "bullets": [
-            "First, set priority percentages; then compare inclusive versus blank-space venue costs; next, record taxes and service charges; then track cash by month; finally, require a tradeoff for any category expansion.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: if $1,500 moves to photography, the same amount must come from another category rather than increasing the total."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by how to plan a $20,000 wedding budget reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of how to plan a $20,000 wedding budget?",
-          "answer": "A $20,000 wedding budget may support more vendor depth but still requires category caps and contract-level tracking."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "First, set priority percentages; then compare inclusive versus blank-space venue costs; next, record taxes and service charges; then track cash by month; finally, require a tradeoff for any category expansion. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-20000",
-      "updated_at": "2026-10-31",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-30000",
-        "wedding-budget-10000",
-        "wedding-budget-50000",
-        "wedding-budget-for-150-guests"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-30000",
-      "title": "How to Plan a $30,000 Wedding Budget",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A $30,000 wedding budget offers meaningful choice but may overrun through scope additions, guest growth, upgrades, and hidden fees.",
-      "answer": "A $30,000 wedding budget offers meaningful choice but may overrun through scope additions, guest growth, upgrades, and hidden fees. Build a baseline, protect priorities, separate upgrade options, require signed change control, and review estimate-versus-contract variance.",
-      "steps": [
-        "Define the exact outcome for how to plan a $30,000 wedding budget and name the person responsible for the final version.",
-        "Build a baseline, protect priorities, separate upgrade options, require signed change control, and review estimate-versus-contract variance.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for How to Plan a $30,000 Wedding Budget",
-          "paragraphs": [
-            "A $30,000 wedding budget offers meaningful choice but may overrun through scope additions, guest growth, upgrades, and hidden fees.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Build a baseline, protect priorities, separate upgrade options, require signed change control, and review estimate-versus-contract variance.",
-            "Example: if core expenses approach the $30,000 limit, little remains for contingency or optional upgrades."
-          ],
-          "bullets": [
-            "Build a baseline, protect priorities, separate upgrade options, require signed change control, and review estimate-versus-contract variance.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: if core expenses approach the $30,000 limit, little remains for contingency or optional upgrades."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by how to plan a $30,000 wedding budget reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of how to plan a $30,000 wedding budget?",
-          "answer": "A $30,000 wedding budget offers meaningful choice but may overrun through scope additions, guest growth, upgrades, and hidden fees."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Build a baseline, protect priorities, separate upgrade options, require signed change control, and review estimate-versus-contract variance. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-30000",
-      "updated_at": "2026-10-31",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-50000",
-        "wedding-budget-20000",
-        "wedding-hidden-costs-checklist",
-        "wedding-budget-10000"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-50000",
-      "title": "How to Plan a $50,000 Wedding Budget",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A $50,000 wedding budget requires the same disciplined tracking as a smaller one because complex vendors and production often generate larger change orders.",
-      "answer": "A $50,000 wedding budget requires the same disciplined tracking as a smaller one because complex vendors and production often generate larger change orders. First separate the base plan from upgrades, then track contributor restrictions, model cash flow, review insurance and production requirements, and finally record every approved change in the ledger.",
-      "steps": [
-        "Define the exact outcome for how to plan a $50,000 wedding budget and name the person responsible for the final version.",
-        "First separate the base plan from upgrades, then track contributor restrictions, model cash flow, review insurance and production requirements, and finally record every approved change in the ledger.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for How to Plan a $50,000 Wedding Budget",
-          "paragraphs": [
-            "A $50,000 wedding budget requires the same disciplined tracking as a smaller one because complex vendors and production often generate larger change orders.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "First separate the base plan from upgrades, then track contributor restrictions, model cash flow, review insurance and production requirements, and finally record every approved change in the ledger.",
-            "Example: a larger production deposit may create a cash-flow gap months before the final total appears over budget."
-          ],
-          "bullets": [
-            "First separate the base plan from upgrades, then track contributor restrictions, model cash flow, review insurance and production requirements, and finally record every approved change in the ledger.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: a larger production deposit may create a cash-flow gap months before the final total appears over budget."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by how to plan a $50,000 wedding budget reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of how to plan a $50,000 wedding budget?",
-          "answer": "A $50,000 wedding budget requires the same disciplined tracking as a smaller one because complex vendors and production often generate larger change orders."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "First separate the base plan from upgrades, then track contributor restrictions, model cash flow, review insurance and production requirements, and finally record every approved change in the ledger. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-50000",
-      "updated_at": "2026-10-31",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-hidden-costs-checklist",
-        "wedding-budget-30000",
-        "wedding-vendor-payment-tracker",
-        "wedding-budget-20000"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-hidden-costs-checklist",
-      "title": "Wedding Hidden Costs Checklist",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "Hidden wedding costs are usually unmodeled contract terms or operational needs, not mysterious surprises.",
-      "answer": "Hidden wedding costs are usually unmodeled contract terms or operational needs, not mysterious surprises. Review taxes, service charges, gratuities, delivery, setup, teardown, overtime, power, permits, insurance, alterations, postage, rentals, damage deposits, transportation, lodging, and returns.",
-      "steps": [
-        "Define the exact outcome for wedding hidden costs checklist and name the person responsible for the final version.",
-        "Review taxes, service charges, gratuities, delivery, setup, teardown, overtime, power, permits, insurance, alterations, postage, rentals, damage deposits, transportation, lodging, and returns.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Hidden Costs Checklist",
-          "paragraphs": [
-            "Hidden wedding costs are usually unmodeled contract terms or operational needs, not mysterious surprises.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Review taxes, service charges, gratuities, delivery, setup, teardown, overtime, power, permits, insurance, alterations, postage, rentals, damage deposits, transportation, lodging, and returns.",
-            "Example: compare a venue package only after adding required rentals, staffing, security, cleaning, and service charges."
-          ],
-          "bullets": [
-            "Review taxes, service charges, gratuities, delivery, setup, teardown, overtime, power, permits, insurance, alterations, postage, rentals, damage deposits, transportation, lodging, and returns.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: compare a venue package only after adding required rentals, staffing, security, cleaning, and service charges."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding hidden costs checklist reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding hidden costs checklist?",
-          "answer": "Hidden wedding costs are usually unmodeled contract terms or operational needs, not mysterious surprises."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Review taxes, service charges, gratuities, delivery, setup, teardown, overtime, power, permits, insurance, alterations, postage, rentals, damage deposits, transportation, lodging, and returns. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-hidden-costs-checklist",
-      "updated_at": "2026-07-30",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-vendor-payment-tracker",
-        "wedding-budget-50000",
-        "wedding-deposit-schedule",
-        "wedding-budget-30000"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-vendor-payment-tracker",
-      "title": "Wedding Vendor Payment Tracker",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A payment tracker should show what is owed, why, when, how, and whether proof of payment exists.",
-      "answer": "A payment tracker should show what is owed, why, when, how, and whether proof of payment exists. Record vendor, contract total, deposit, installments, final balance, due dates, method, payer, receipt link, and dispute status; review it against contracts monthly and weekly near the wedding.",
-      "steps": [
-        "Define the exact outcome for wedding vendor payment tracker and name the person responsible for the final version.",
-        "Record vendor, contract total, deposit, installments, final balance, due dates, method, payer, receipt link, and dispute status; review it against contracts monthly and weekly near the wedding.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Vendor Payment Tracker",
-          "paragraphs": [
-            "A payment tracker should show what is owed, why, when, how, and whether proof of payment exists.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Record vendor, contract total, deposit, installments, final balance, due dates, method, payer, receipt link, and dispute status; review it against contracts monthly and weekly near the wedding.",
-            "Example: do not mark a line paid until the receipt or cleared transaction is attached."
-          ],
-          "bullets": [
-            "Record vendor, contract total, deposit, installments, final balance, due dates, method, payer, receipt link, and dispute status; review it against contracts monthly and weekly near the wedding.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: do not mark a line paid until the receipt or cleared transaction is attached."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding vendor payment tracker reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding vendor payment tracker?",
-          "answer": "A payment tracker should show what is owed, why, when, how, and whether proof of payment exists."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Record vendor, contract total, deposit, installments, final balance, due dates, method, payer, receipt link, and dispute status; review it against contracts monthly and weekly near the wedding. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-vendor-payment-tracker",
-      "updated_at": "2026-07-30",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-deposit-schedule",
-        "wedding-hidden-costs-checklist",
-        "wedding-gratuity-planner",
-        "wedding-budget-50000"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-deposit-schedule",
-      "title": "Wedding Deposit Schedule",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash.",
-      "answer": "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash. List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
-      "steps": [
-        "Define the exact outcome for wedding deposit schedule and name the person responsible for the final version.",
-        "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Deposit Schedule",
-          "paragraphs": [
-            "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
-            "Example: a booking deposit and a progress installment show on one calendar so their overlap is clear before either deadline passes."
-          ],
-          "bullets": [
-            "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: a booking deposit and a progress installment show on one calendar so their overlap is clear before either deadline passes."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding deposit schedule reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding deposit schedule?",
-          "answer": "A wedding deposit schedule maps each contract's due dates and amounts into a single calendar so overlapping payments are visible before they clash."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "List every due date and amount from each contract, mark which deposits are refundable, sort them by month, align with when contributors can pay, and set alerts ahead of each deadline. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-deposit-schedule",
-      "updated_at": "2026-11-02",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-gratuity-planner",
-        "wedding-vendor-payment-tracker",
-        "wedding-budget-contingency",
-        "wedding-hidden-costs-checklist"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-gratuity-planner",
-      "title": "Wedding Gratuity Planner",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "Gratuity planning should distinguish required service charges, contract-included gratuity, optional tips, and noncash thank-you plans.",
-      "answer": "Gratuity planning should distinguish required service charges, contract-included gratuity, optional tips, and noncash thank-you plans. Review every contract, ask what charges mean, decide a policy, calculate and label envelopes or payments, assign a distribution owner, and preserve receipts when relevant.",
-      "steps": [
-        "Define the exact outcome for wedding gratuity planner and name the person responsible for the final version.",
-        "Review every contract, ask what charges mean, decide a policy, calculate and label envelopes or payments, assign a distribution owner, and preserve receipts when relevant.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Gratuity Planner",
-          "paragraphs": [
-            "Gratuity planning should distinguish required service charges, contract-included gratuity, optional tips, and noncash thank-you plans.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Review every contract, ask what charges mean, decide a policy, calculate and label envelopes or payments, assign a distribution owner, and preserve receipts when relevant.",
-            "Example: a service charge is not automatically a gratuity; verify the contract and vendor explanation."
-          ],
-          "bullets": [
-            "Review every contract, ask what charges mean, decide a policy, calculate and label envelopes or payments, assign a distribution owner, and preserve receipts when relevant.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: a service charge is not automatically a gratuity; verify the contract and vendor explanation."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding gratuity planner reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding gratuity planner?",
-          "answer": "Gratuity planning should distinguish required service charges, contract-included gratuity, optional tips, and noncash thank-you plans."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Review every contract, ask what charges mean, decide a policy, calculate and label envelopes or payments, assign a distribution owner, and preserve receipts when relevant. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-gratuity-planner",
-      "updated_at": "2026-07-30",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-contingency",
-        "wedding-deposit-schedule",
-        "family-contributions-wedding-budget",
-        "wedding-vendor-payment-tracker"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-budget-contingency",
-      "title": "Wedding Budget Contingency Planning",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early.",
-      "answer": "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early. Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
-      "steps": [
-        "Define the exact outcome for wedding budget contingency planning and name the person responsible for the final version.",
-        "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Budget Contingency Planning",
-          "paragraphs": [
-            "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
-            "Example: a 5% reserve on $30,000 yields $1,500; a $400 draw leaves $1,100 and should be tracked immediately."
-          ],
-          "bullets": [
-            "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: a 5% reserve on $30,000 yields $1,500; a $400 draw leaves $1,100 and should be tracked immediately."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding budget contingency planning reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding budget contingency planning?",
-          "answer": "Contingency planning sets aside reserved money for approved unknowns rather than treating it as a category to spend early."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Set a reserve percentage, hold it in a separate account, assign approval authority, log each withdrawal with its reason, replenish after any credits, and preserve a balance for the final week. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-budget-contingency",
-      "updated_at": "2026-11-01",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "family-contributions-wedding-budget",
-        "wedding-gratuity-planner",
-        "wedding-monthly-cash-flow",
-        "wedding-deposit-schedule"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "family-contributions-wedding-budget",
-      "title": "Tracking Family Contributions to a Wedding",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts.",
-      "answer": "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts. Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
-      "steps": [
-        "Define the exact outcome for tracking family contributions to a wedding and name the person responsible for the final version.",
-        "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Tracking Family Contributions to a Wedding",
-          "paragraphs": [
-            "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
-            "Example: a $5,000 attire contribution should not be applied to catering unless the contributor explicitly agrees."
-          ],
-          "bullets": [
-            "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: a $5,000 attire contribution should not be applied to catering unless the contributor explicitly agrees."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by tracking family contributions to a wedding reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of tracking family contributions to a wedding?",
-          "answer": "Track family contributions by recording pledged, received, restricted, allocated, spent, and remaining amounts."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Document each contribution and its decision expectations, then avoid counting unreceived money as cash, then map restricted gifts to categories, then record reimbursements, then review changes transparently. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:family-contributions-wedding-budget",
-      "updated_at": "2026-10-31",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-monthly-cash-flow",
-        "wedding-budget-contingency",
-        "estimated-vs-actual-wedding-costs",
-        "wedding-gratuity-planner"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "wedding-monthly-cash-flow",
-      "title": "Wedding Monthly Cash-Flow Planning",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "Monthly cash-flow planning shows when money is needed, not just whether the final total fits.",
-      "answer": "Monthly cash-flow planning shows when money is needed, not just whether the final total fits. Map every deposit and balance to a month, add contributor receipt timing, include recurring savings, identify peak months, and renegotiate scope before a cash shortfall.",
-      "steps": [
-        "Define the exact outcome for wedding monthly cash-flow planning and name the person responsible for the final version.",
-        "Map every deposit and balance to a month, add contributor receipt timing, include recurring savings, identify peak months, and renegotiate scope before a cash shortfall.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Wedding Monthly Cash-Flow Planning",
-          "paragraphs": [
-            "Monthly cash-flow planning shows when money is needed, not just whether the final total fits.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Map every deposit and balance to a month, add contributor receipt timing, include recurring savings, identify peak months, and renegotiate scope before a cash shortfall.",
-            "Example: three $4,000 final balances in the same month require $12,000 cash even if the overall plan remains within budget."
-          ],
-          "bullets": [
-            "Map every deposit and balance to a month, add contributor receipt timing, include recurring savings, identify peak months, and renegotiate scope before a cash shortfall.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: three $4,000 final balances in the same month require $12,000 cash even if the overall plan remains within budget."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding monthly cash-flow planning reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of wedding monthly cash-flow planning?",
-          "answer": "Monthly cash-flow planning shows when money is needed, not just whether the final total fits."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Map every deposit and balance to a month, add contributor receipt timing, include recurring savings, identify peak months, and renegotiate scope before a cash shortfall. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:wedding-monthly-cash-flow",
-      "updated_at": "2026-07-30",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "estimated-vs-actual-wedding-costs",
-        "family-contributions-wedding-budget",
-        "wedding-budget-spreadsheet-categories",
-        "wedding-budget-contingency"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
-      "slug": "estimated-vs-actual-wedding-costs",
-      "title": "Estimated vs. Actual Wedding Costs",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "Estimated, quoted, contracted, paid, and final actual amounts are different states and should not overwrite one another.",
-      "answer": "Estimated, quoted, contracted, paid, and final actual amounts are different states and should not overwrite one another. Preserve the original estimate, record quotes, promote the signed amount to contracted, capture approved changes, reconcile paid amounts, and close with the final actual total.",
-      "steps": [
-        "Define the exact outcome for estimated vs. actual wedding costs and name the person responsible for the final version.",
-        "Preserve the original estimate, record quotes, promote the signed amount to contracted, capture approved changes, reconcile paid amounts, and close with the final actual total.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for Estimated vs. Actual Wedding Costs",
-          "paragraphs": [
-            "Estimated, quoted, contracted, paid, and final actual amounts are different states and should not overwrite one another.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Preserve the original estimate, record quotes, promote the signed amount to contracted, capture approved changes, reconcile paid amounts, and close with the final actual total.",
-            "Example: the variance between a $2,500 estimate and a $3,100 contract is a planning signal, while the variance between contract and final actual may reflect approved changes."
-          ],
-          "bullets": [
-            "Preserve the original estimate, record quotes, promote the signed amount to contracted, capture approved changes, reconcile paid amounts, and close with the final actual total.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: the variance between a $2,500 estimate and a $3,100 contract is a planning signal, while the variance between contract and final actual may reflect approved changes."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by estimated vs. actual wedding costs reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of estimated vs. actual wedding costs?",
-          "answer": "Estimated, quoted, contracted, paid, and final actual amounts are different states and should not overwrite one another."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Preserve the original estimate, record quotes, promote the signed amount to contracted, capture approved changes, reconcile paid amounts, and close with the final actual total. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:estimated-vs-actual-wedding-costs",
-      "updated_at": "2026-07-30",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-spreadsheet-categories",
-        "wedding-monthly-cash-flow",
-        "wedding-budget-for-50-guests",
-        "family-contributions-wedding-budget"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
       "slug": "wedding-timeline-with-first-look",
       "title": "Wedding Timeline With a First Look",
       "cluster": "Wedding timeline",
@@ -3010,7 +1650,7 @@
           "heading": "Sequence people, places, and dependencies",
           "paragraphs": [
             "Confirm route and realistic travel time, add loading and parking buffers, stagger departures, decide who moves decor or personal items, and issue location-specific contact details.",
-            "Example: calculate from “ceremony ends” to “guest seated at reception,” not just map driving time."
+            "Example: calculate from \u201cceremony ends\u201d to \u201cguest seated at reception,\u201d not just map driving time."
           ],
           "bullets": [
             "Confirm route and realistic travel time, add loading and parking buffers, stagger departures, decide who moves decor or personal items, and issue location-specific contact details.",
@@ -3030,7 +1670,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: calculate from “ceremony ends” to “guest seated at reception,” not just map driving time."
+          "body": "Example: calculate from \u201cceremony ends\u201d to \u201cguest seated at reception,\u201d not just map driving time."
         },
         {
           "title": "Control check",
@@ -3067,8 +1707,8 @@
       "title": "Church Ceremony Wedding Timeline",
       "cluster": "Wedding timeline",
       "product_id": "timeline-template",
-      "summary": "A church ceremony timeline must follow the congregation or officiant’s access, rehearsal, music, photography, processional, and departure rules.",
-      "answer": "A church ceremony timeline must follow the congregation or officiant’s access, rehearsal, music, photography, processional, and departure rules. Confirm requirements directly, schedule arrival and staging, coordinate musicians and readers, define photography boundaries, and protect travel to the reception.",
+      "summary": "A church ceremony timeline must follow the congregation or officiant\u2019s access, rehearsal, music, photography, processional, and departure rules.",
+      "answer": "A church ceremony timeline must follow the congregation or officiant\u2019s access, rehearsal, music, photography, processional, and departure rules. Confirm requirements directly, schedule arrival and staging, coordinate musicians and readers, define photography boundaries, and protect travel to the reception.",
       "steps": [
         "Define the exact outcome for church ceremony wedding timeline and name the person responsible for the final version.",
         "Confirm requirements directly, schedule arrival and staging, coordinate musicians and readers, define photography boundaries, and protect travel to the reception.",
@@ -3087,7 +1727,7 @@
         {
           "heading": "Anchor Church Ceremony Wedding Timeline to fixed facts",
           "paragraphs": [
-            "A church ceremony timeline must follow the congregation or officiant’s access, rehearsal, music, photography, processional, and departure rules.",
+            "A church ceremony timeline must follow the congregation or officiant\u2019s access, rehearsal, music, photography, processional, and departure rules.",
             "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors."
           ]
         },
@@ -3125,7 +1765,7 @@
       "faqs": [
         {
           "question": "What is the most important part of church ceremony wedding timeline?",
-          "answer": "A church ceremony timeline must follow the congregation or officiant’s access, rehearsal, music, photography, processional, and departure rules."
+          "answer": "A church ceremony timeline must follow the congregation or officiant\u2019s access, rehearsal, music, photography, processional, and departure rules."
         },
         {
           "question": "How should I use this wedding timeline guide?",
@@ -3180,7 +1820,7 @@
           "heading": "Sequence people, places, and dependencies",
           "paragraphs": [
             "Schedule rentals and tenting, electrical and catering setup, restroom servicing, parking, neighbor/noise controls, guest arrival, event operations, cleanup, and returns.",
-            "Example: the host’s getting-ready time should not overlap with unmanaged vendor arrivals at the home."
+            "Example: the host\u2019s getting-ready time should not overlap with unmanaged vendor arrivals at the home."
           ],
           "bullets": [
             "Schedule rentals and tenting, electrical and catering setup, restroom servicing, parking, neighbor/noise controls, guest arrival, event operations, cleanup, and returns.",
@@ -3200,7 +1840,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: the host’s getting-ready time should not overlap with unmanaged vendor arrivals at the home."
+          "body": "Example: the host\u2019s getting-ready time should not overlap with unmanaged vendor arrivals at the home."
         },
         {
           "title": "Control check",
@@ -3435,7 +2075,7 @@
           "heading": "Sequence people, places, and dependencies",
           "paragraphs": [
             "Create a must-have list, group family combinations efficiently, assign wranglers, confirm locations and travel, coordinate first look or cocktail-hour portraits, and reserve detail time.",
-            "Example: list people by exact name and relationship rather than “bride’s family.”"
+            "Example: list people by exact name and relationship rather than \u201cbride\u2019s family.\u201d"
           ],
           "bullets": [
             "Create a must-have list, group family combinations efficiently, assign wranglers, confirm locations and travel, coordinate first look or cocktail-hour portraits, and reserve detail time.",
@@ -3455,7 +2095,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: list people by exact name and relationship rather than “bride’s family.”"
+          "body": "Example: list people by exact name and relationship rather than \u201cbride\u2019s family.\u201d"
         },
         {
           "title": "Control check",
@@ -3662,8 +2302,8 @@
       "title": "Wedding Reception Order of Events",
       "cluster": "Wedding timeline",
       "product_id": "timeline-template",
-      "summary": "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue’s hard end time.",
-      "answer": "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue’s hard end time. Choose the essential moments, confirm service timing, limit and brief speakers, place dances intentionally, schedule cake or dessert, define last call and exit, and leave recovery buffer.",
+      "summary": "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue\u2019s hard end time.",
+      "answer": "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue\u2019s hard end time. Choose the essential moments, confirm service timing, limit and brief speakers, place dances intentionally, schedule cake or dessert, define last call and exit, and leave recovery buffer.",
       "steps": [
         "Define the exact outcome for wedding reception order of events and name the person responsible for the final version.",
         "Choose the essential moments, confirm service timing, limit and brief speakers, place dances intentionally, schedule cake or dessert, define last call and exit, and leave recovery buffer.",
@@ -3682,7 +2322,7 @@
         {
           "heading": "Anchor Wedding Reception Order of Events to fixed facts",
           "paragraphs": [
-            "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue’s hard end time.",
+            "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue\u2019s hard end time.",
             "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors."
           ]
         },
@@ -3720,7 +2360,7 @@
       "faqs": [
         {
           "question": "What is the most important part of wedding reception order of events?",
-          "answer": "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue’s hard end time."
+          "answer": "The reception order should support meal service, speeches, special dances, entertainment energy, photography, and the venue\u2019s hard end time."
         },
         {
           "question": "How should I use this wedding timeline guide?",
@@ -3748,10 +2388,10 @@
       "cluster": "Wedding timeline",
       "product_id": "timeline-template",
       "summary": "The wedding party needs a concise role-specific timeline with arrival, attire, transport, photos, ceremony staging, reception duties, and end-of-night responsibilities.",
-      "answer": "The wedding party needs a concise role-specific timeline with arrival, attire, transport, photos, ceremony staging, reception duties, and end-of-night responsibilities. Issue only relevant lines, name locations and contacts, include what to bring, set “ready” versus “arrive” times, and identify the person handling changes.",
+      "answer": "The wedding party needs a concise role-specific timeline with arrival, attire, transport, photos, ceremony staging, reception duties, and end-of-night responsibilities. Issue only relevant lines, name locations and contacts, include what to bring, set \u201cready\u201d versus \u201carrive\u201d times, and identify the person handling changes.",
       "steps": [
         "Define the exact outcome for wedding-party timeline and name the person responsible for the final version.",
-        "Issue only relevant lines, name locations and contacts, include what to bring, set “ready” versus “arrive” times, and identify the person handling changes.",
+        "Issue only relevant lines, name locations and contacts, include what to bring, set \u201cready\u201d versus \u201carrive\u201d times, and identify the person handling changes.",
         "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
         "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
         "Review the working version with the people who must act on it, then document corrections.",
@@ -3774,11 +2414,11 @@
         {
           "heading": "Sequence people, places, and dependencies",
           "paragraphs": [
-            "Issue only relevant lines, name locations and contacts, include what to bring, set “ready” versus “arrive” times, and identify the person handling changes.",
-            "Example: “ready at 2:00” means dressed and available, not entering the building at 2:00."
+            "Issue only relevant lines, name locations and contacts, include what to bring, set \u201cready\u201d versus \u201carrive\u201d times, and identify the person handling changes.",
+            "Example: \u201cready at 2:00\u201d means dressed and available, not entering the building at 2:00."
           ],
           "bullets": [
-            "Issue only relevant lines, name locations and contacts, include what to bring, set “ready” versus “arrive” times, and identify the person handling changes.",
+            "Issue only relevant lines, name locations and contacts, include what to bring, set \u201cready\u201d versus \u201carrive\u201d times, and identify the person handling changes.",
             "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
             "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
             "Review the working version with the people who must act on it, then document corrections."
@@ -3795,7 +2435,7 @@
       "examples": [
         {
           "title": "Working example",
-          "body": "Example: “ready at 2:00” means dressed and available, not entering the building at 2:00."
+          "body": "Example: \u201cready at 2:00\u201d means dressed and available, not entering the building at 2:00."
         },
         {
           "title": "Control check",
@@ -3809,7 +2449,7 @@
         },
         {
           "question": "How should I use this wedding timeline guide?",
-          "answer": "Issue only relevant lines, name locations and contacts, include what to bring, set “ready” versus “arrive” times, and identify the person handling changes. Replace every illustrative assumption with your verified wedding details."
+          "answer": "Issue only relevant lines, name locations and contacts, include what to bring, set \u201cready\u201d versus \u201carrive\u201d times, and identify the person handling changes. Replace every illustrative assumption with your verified wedding details."
         },
         {
           "question": "What should be verified before the final version?",
@@ -4002,8 +2642,8 @@
       "title": "Adding Travel Buffers to a Wedding Timeline",
       "cluster": "Wedding timeline",
       "product_id": "timeline-template",
-      "summary": "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping—not only map drive time.",
-      "answer": "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping—not only map drive time. Measure door-to-door movement, identify vehicle and passenger owners, add venue access and parking, include contingency routes, and decide what happens if the schedule slips.",
+      "summary": "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping\u2014not only map drive time.",
+      "answer": "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping\u2014not only map drive time. Measure door-to-door movement, identify vehicle and passenger owners, add venue access and parking, include contingency routes, and decide what happens if the schedule slips.",
       "steps": [
         "Define the exact outcome for adding travel buffers to a wedding timeline and name the person responsible for the final version.",
         "Measure door-to-door movement, identify vehicle and passenger owners, add venue access and parking, include contingency routes, and decide what happens if the schedule slips.",
@@ -4022,7 +2662,7 @@
         {
           "heading": "Anchor Adding Travel Buffers to a Wedding Timeline to fixed facts",
           "paragraphs": [
-            "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping—not only map drive time.",
+            "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping\u2014not only map drive time.",
             "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors."
           ]
         },
@@ -4060,7 +2700,7 @@
       "faqs": [
         {
           "question": "What is the most important part of adding travel buffers to a wedding timeline?",
-          "answer": "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping—not only map drive time."
+          "answer": "Travel buffers should include loading, elevators, parking, traffic, navigation, and regrouping\u2014not only map drive time."
         },
         {
           "question": "How should I use this wedding timeline guide?",
@@ -5745,13 +4385,13 @@
         {
           "heading": "Sequence bookings by scarcity, not by importance",
           "paragraphs": [
-            "After the four blockers, book in order of how hard the supplier is to replace. A photographer covering a single date, an officiant, and a caterer with a limited crew are all single-instance suppliers: if they are gone, the date is what has to change. Rentals, stationery, and most décor can be re-sourced late without damage.",
+            "After the four blockers, book in order of how hard the supplier is to replace. A photographer covering a single date, an officiant, and a caterer with a limited crew are all single-instance suppliers: if they are gone, the date is what has to change. Rentals, stationery, and most d\u00e9cor can be re-sourced late without damage.",
             "This ordering also protects your deposits. Money committed to a replaceable supplier before an irreplaceable one is money placed at risk for no reason, because the irreplaceable booking is the one that can still force a change to the whole plan."
           ],
           "bullets": [
             "Irreplaceable on the date: officiant, photographer, primary catering, venue-mandated suppliers.",
             "Hard to replace inside eight weeks: band or DJ, cake, transport with capacity requirements.",
-            "Re-sourceable late: rentals, stationery reprints, favours, most décor."
+            "Re-sourceable late: rentals, stationery reprints, favours, most d\u00e9cor."
           ]
         },
         {
@@ -5938,7 +4578,7 @@
         {
           "heading": "Separate fixed costs from per-guest costs before dividing",
           "paragraphs": [
-            "Venue hire, photography, attire, officiant, stationery design, and most décor cost the same whether sixty or a hundred and twenty people attend. Catering, bar, rentals, favours, and stationery printing scale directly with the count.",
+            "Venue hire, photography, attire, officiant, stationery design, and most d\u00e9cor cost the same whether sixty or a hundred and twenty people attend. Catering, bar, rentals, favours, and stationery printing scale directly with the count.",
             "Dividing the whole budget by the guest count mixes the two and produces a per-guest allowance that is too generous, which is why the catering quote so often arrives looking affordable and the total does not. Subtract the fixed block first, then divide."
           ],
           "bullets": [
@@ -5995,10 +4635,9 @@
       "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
       "related_slugs": [
         "wedding-budget-template",
-        "wedding-budget-for-100-guests",
-        "wedding-hidden-costs-checklist",
-        "estimated-vs-actual-wedding-costs",
-        "wedding-budget-contingency"
+        "wedding-budget-spreadsheet-categories",
+        "wedding-final-payment-checklist",
+        "wedding-vendor-booking-checklist"
       ],
       "hub_route": "/wedding-budget-spreadsheet"
     },
@@ -6197,9 +4836,8 @@
       "related_slugs": [
         "wedding-budget-calculator",
         "wedding-budget-spreadsheet-categories",
-        "wedding-vendor-payment-tracker",
-        "wedding-deposit-schedule",
-        "wedding-monthly-cash-flow"
+        "wedding-final-payment-checklist",
+        "wedding-vendor-booking-checklist"
       ],
       "hub_route": "/wedding-budget-spreadsheet"
     },
@@ -6523,7 +5161,7 @@
         "Handing over a timeline that is still changing, so the coordinator runs a version nobody else received.",
         "Giving contact details without arrival times or load-in locations, which turns the coordinator into a switchboard.",
         "Leaving decision authority unstated, so every small question escalates to the couple during the parts of the day they should not be reachable.",
-        "Forgetting the close-out, so gifts, décor, hired items, and personal belongings are collected by nobody in particular."
+        "Forgetting the close-out, so gifts, d\u00e9cor, hired items, and personal belongings are collected by nobody in particular."
       ],
       "sections": [
         {
@@ -7554,91 +6192,6 @@
       "hub_route": "/wedding-checklist"
     },
     {
-      "slug": "diy-wedding-cost-tradeoffs",
-      "title": "DIY Wedding Cost Tradeoffs",
-      "cluster": "Wedding budget",
-      "product_id": "budget-spreadsheet",
-      "summary": "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials.",
-      "answer": "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials. Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
-      "steps": [
-        "Define the exact outcome for diy wedding cost tradeoffs and name the person responsible for the final version.",
-        "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
-        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-        "Review the working version with the people who must act on it, then document corrections.",
-        "Freeze and date the final version; route every later change through one owner."
-      ],
-      "mistakes": [
-        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
-        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
-        "Tracking the final total without tracking the month cash is actually due.",
-        "Marking a payment complete without a receipt, cleared record, or dispute note."
-      ],
-      "sections": [
-        {
-          "heading": "Set the financial boundary for DIY Wedding Cost Tradeoffs",
-          "paragraphs": [
-            "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials.",
-            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
-          ]
-        },
-        {
-          "heading": "Model the decision before committing",
-          "paragraphs": [
-            "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
-            "Example: a centrepiece whose materials cost less than a florist's quote can still cost more once build hours, storage, and day-of setup labour are counted; the comparison only means something against a real written quote."
-          ],
-          "bullets": [
-            "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
-          ]
-        },
-        {
-          "heading": "Reconcile contracts and cash",
-          "paragraphs": [
-            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
-            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-          ]
-        }
-      ],
-      "examples": [
-        {
-          "title": "Working example",
-          "body": "Example: a centrepiece whose materials cost less than a florist's quote can still cost more once build hours, storage, and day-of setup labour are counted; the comparison only means something against a real written quote."
-        },
-        {
-          "title": "Control check",
-          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by diy wedding cost tradeoffs reconcile in one source of truth."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the most important part of diy wedding cost tradeoffs?",
-          "answer": "DIY moves cost out of invoices and into hours, storage, and transport, so the saving is only real once labour and logistics are priced beside the materials."
-        },
-        {
-          "question": "How should I use this wedding budget guide?",
-          "answer": "Price materials, build hours, storage, transport, setup, and teardown together, decide who is actually doing the work on the day itself, and keep a fallback for anything that has to be finished before it can be installed. Replace every illustrative assumption with your verified wedding details."
-        },
-        {
-          "question": "What should be verified before the final version?",
-          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
-        }
-      ],
-      "semantic_key": "budget-spreadsheet:diy-wedding-cost-tradeoffs",
-      "updated_at": "2026-09-12",
-      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
-      "related_slugs": [
-        "wedding-budget-calculator",
-        "wedding-hidden-costs-checklist",
-        "wedding-budget-30000",
-        "wedding-budget-for-50-guests"
-      ],
-      "hub_route": "/wedding-budget-spreadsheet"
-    },
-    {
       "slug": "wedding-attire-lead-time-checklist",
       "title": "Wedding Attire Lead Time Checklist",
       "cluster": "Wedding checklist",
@@ -7722,6 +6275,91 @@
         "18-month-wedding-checklist"
       ],
       "hub_route": "/wedding-checklist"
+    },
+    {
+      "slug": "wedding-budget-spreadsheet-categories",
+      "title": "Wedding Budget Spreadsheet Categories",
+      "cluster": "Wedding budget",
+      "product_id": "budget-spreadsheet",
+      "summary": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance.",
+      "answer": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance. First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
+      "steps": [
+        "Define the exact outcome for wedding budget spreadsheet categories and name the person responsible for the final version.",
+        "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
+        "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+        "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+        "Review the working version with the people who must act on it, then document corrections.",
+        "Freeze and date the final version; route every later change through one owner."
+      ],
+      "mistakes": [
+        "Replacing the original estimate instead of preserving estimate-to-contract variance.",
+        "Comparing headline prices while omitting taxes, fees, delivery, overtime, or required rentals.",
+        "Tracking the final total without tracking the month cash is actually due.",
+        "Marking a payment complete without a receipt, cleared record, or dispute note."
+      ],
+      "sections": [
+        {
+          "heading": "Set the financial boundary for Wedding Budget Spreadsheet Categories",
+          "paragraphs": [
+            "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance.",
+            "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
+          ]
+        },
+        {
+          "heading": "Model the decision before committing",
+          "paragraphs": [
+            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
+            "Example: keeping each tax, service charge, delivery fee, and gratuity on its own line makes the total self-evident."
+          ],
+          "bullets": [
+            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
+            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
+            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
+            "Review the working version with the people who must act on it, then document corrections."
+          ]
+        },
+        {
+          "heading": "Reconcile contracts and cash",
+          "paragraphs": [
+            "Attach a controlling quote, contract, invoice, receipt, or note to every material amount. Review upcoming cash requirements and any variance after every scope change.",
+            "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "title": "Working example",
+          "body": "Example: keeping each tax, service charge, delivery fee, and gratuity on its own line makes the total self-evident."
+        },
+        {
+          "title": "Control check",
+          "body": "Before finalizing, confirm that the people, totals, dates, capacities, payments, or dependencies affected by wedding budget spreadsheet categories reconcile in one source of truth."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the most important part of wedding budget spreadsheet categories?",
+          "answer": "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance."
+        },
+        {
+          "question": "How should I use this wedding budget guide?",
+          "answer": "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control. Replace every illustrative assumption with your verified wedding details."
+        },
+        {
+          "question": "What should be verified before the final version?",
+          "answer": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records."
+        }
+      ],
+      "semantic_key": "budget-spreadsheet:wedding-budget-spreadsheet-categories",
+      "updated_at": "2026-11-02",
+      "verification_boundary": "Replace illustrations with written quotes, signed contracts, invoices, tax or service-charge terms, and verified payment records.",
+      "related_slugs": [
+        "wedding-budget-calculator",
+        "wedding-budget-template",
+        "wedding-final-payment-checklist",
+        "wedding-vendor-booking-checklist"
+      ],
+      "hub_route": "/wedding-budget-spreadsheet"
     }
   ],
   "generated_at": "2026-09-12"

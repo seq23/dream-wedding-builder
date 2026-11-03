@@ -61,7 +61,11 @@ const modal = (group, fn) => {
 };
 
 const clusters = {};
-for (const [cluster, group] of [...byCluster.entries()].sort()) {
+for (const [cluster, population] of [...byCluster.entries()].sort()) {
+  // Derive a scaffold from its known population. Bespoke pages must not outvote
+  // it after consolidation and produce a modal shape that no page ever used.
+  const scaffold = population.filter((p) => !existingSpec?.bespoke_slugs?.includes(p.slug));
+  const group = scaffold.length ? scaffold : population;
   clusters[cluster] = {
     product_id: modal(group, (p) => p.product_id),
     hub_route: modal(group, (p) => p.hub_route),

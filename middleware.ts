@@ -1,3 +1,4 @@
+import budgetRescue from '@/data/seo/budget_rescue.json';
 import { NextRequest, NextResponse } from 'next/server';
 import { aliasRedirectTarget, apexHost, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
 import { PATHNAME_HEADER } from '@/lib/pathname-header';
@@ -94,6 +95,18 @@ function route(request: NextRequest) {
   const originalHost = rawHost.split(',')[0].trim().toLowerCase().split(':')[0];
   const host = apexHost(originalHost);
   const pathname = request.nextUrl.pathname;
+
+  // Resolve retired routes before host ownership and slash normalization: one 301
+  // from any canonical sibling straight to the kept budget hub, preserving attribution.
+  const retired = (budgetRescue.redirects as Record<string, string>)[pathname.replace(/\/+$/, '')];
+  if (retired && (isCanonicalHost(host) || isPreviewHost(originalHost))) {
+    const url = new URL(request.url);
+    url.protocol = 'https:';
+    url.host = budgetRescue.host;
+    url.port = '';
+    url.pathname = retired;
+    return NextResponse.redirect(url, 301);
+  }
 
   if (isPreviewHost(originalHost)) return withPathname(request);
 

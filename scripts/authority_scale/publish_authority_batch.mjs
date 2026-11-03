@@ -1,3 +1,4 @@
+import budgetRescue from '../../data/seo/budget_rescue.json' with { type: 'json' };
 #!/usr/bin/env node
 // Publish the guides that are ready. Draft the ones that are not. Never invent one.
 //
@@ -166,6 +167,10 @@ const held = [];
 const admitted = [];
 
 for (const seed of seeds) {
+  if (Object.hasOwn(budgetRescue.redirects, `/guides/${seed.slug}`) || (seed.product_id === 'budget-spreadsheet' || seed.cluster === 'Wedding budget') && !budgetRescue.kept_guides.includes(seed.slug)) {
+    skipped.push({ slug: seed.slug, reason: 'CONSOLIDATED', detail: 'Budget topic belongs in a kept hub; expand that page instead.' });
+    continue;
+  }
   const where = `editorial_seeds.json seed "${seed.slug || '(no slug)'}"`;
 
   // A malformed seed is a broken data file, not an empty queue. It fails the run.
