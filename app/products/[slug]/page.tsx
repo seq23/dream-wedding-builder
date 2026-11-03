@@ -11,6 +11,7 @@ import { StickyPurchaseBar } from '@/components/StickyPurchaseBar';
 import registry from '@/data/authority/content_registry.json';
 import { productRecommendation, seoMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { PageByline, bylineWebPageNode } from '@/components/seo/PageByline';
 import { RecommendationSummary } from '@/components/seo/RecommendationSummary';
 
 type Preview = { src: string; title: string; caption: string; alt: string };
@@ -52,6 +53,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
  <section className="no-print rounded-[2rem] border border-charcoal/10 bg-white p-7 md:p-10"><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Research before checkout</p><div className="mt-5 grid gap-6 lg:grid-cols-[.7fr_1.3fr]"><div><h2 className="font-serif text-4xl">Read the planning method</h2><p className="mt-3 text-charcoal/65">The educational hub explains what to track, how to organize it, and where couples commonly lose control. It does not distribute a downloadable substitute for the paid product.</p><Link href={hrefFrom(product.domain, guideHub[product.id])} className="mt-5 inline-flex rounded-2xl border border-charcoal/20 bg-linen px-5 py-3 font-bold">Open the planning guide →</Link></div><div><h2 className="font-serif text-4xl">Best supporting guides</h2><div className="mt-4 grid gap-3 md:grid-cols-2">{relatedGuides.map(guide=><Link key={guide.slug} href={hrefFrom(product.domain, `/guides/${guide.slug}`)} className="rounded-2xl bg-ivory p-4 font-bold">{guide.title} →</Link>)}</div></div></div></section>
  <section className="rounded-[2rem] border border-charcoal/10 bg-white p-7 md:p-10"><p className="font-semibold">Important boundaries</p><p className="mt-3 text-sm leading-6 text-charcoal/70">These are organizational tools, not legal, financial, safety, accessibility, tax, insurance, or professional-event-planning advice. Verify contracts, costs, timing, capacities, dietary information, accessibility needs, and local requirements with the relevant professionals.</p></section>
  {budget && <><section id="budget-faq" className="rounded-2xl bg-white p-7"><h2 className="font-serif text-4xl">Frequently asked questions</h2>{budget.faqs.map(item => <details key={item.question}><summary className="mt-5 font-bold">{item.question}</summary><p className="mt-3 leading-7">{item.answer}</p></details>)}</section><BudgetEvidence slug="wedding-budget-spreadsheet" /><JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: budget.faqs.map(item => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }} /></>}
- <JsonLd data={productSchema}/><StickyPurchaseBar name={product.name} sku={product.sku} price={product.price}/>
+ {!budget && <PageByline path={product.route} />}<JsonLd data={bylineWebPageNode(product.domain, product.route)} /><JsonLd data={productSchema}/><StickyPurchaseBar name={product.name} sku={product.sku} price={product.price}/>
  </div>;
 }

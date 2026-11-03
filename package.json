@@ -140,7 +140,8 @@
     "validate:search-loop-ai-measured": "node scripts/validators/validate_search_loop_ai_measured.mjs",
     "seo:normalize-question-entity": "node scripts/seo/normalize_question_entity.mjs",
     "validate:question-links": "node scripts/validators/validate_question_links.mjs",
-    "seo:normalize-question-routes": "node scripts/seo/normalize_question_routes.mjs"
+    "seo:normalize-question-routes": "node scripts/seo/normalize_question_routes.mjs",
+    "validate:page-byline-author": "vitest run tests/unit/page-byline.test.tsx"
   },
   "dependencies": {
     "next": "15.5.18",

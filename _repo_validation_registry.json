@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 52,
+    "HARD_FAIL": 53,
     "STRONG_WARNING": 3,
     "SOFT_WARNING": 2
   },
@@ -450,6 +450,17 @@
       "reason": "Two Search Readiness Checklist failures, 26 Oct 2026. f6: weddingseatingchartmaker.com declared its WebSite name as \"Wedding Seating Chart Maker\" while its homepage title said \"Wedding Seating Chart Planner\", so the site never stated its own brand in the title. b3: /free-wedding-planner shipped two <h1> elements because BuilderEmailGate drew its own over a page that keeps rendering its own (aria-hidden and inert hide the covered page from assistive tech, not from a crawler). Requires every canonical host's homepage title - following the root redirect, as the checker reads it - to contain siteHome(host).name, and requires the rendered gate plus the page it covers to carry exactly one h1.",
       "manual_repair": "give the host's homepage title in data/seo/hub_pages.json (or app/page.tsx metadata) the site name from data/seo/site_homes.json, then rebuild the atlas with `npm run authority:atlas`; and keep every heading drawn OVER a page at h2 or lower, so the covered page's own h1 stays the only one.",
       "repair_evidence": "proved negatively on 2026-10-26: restoring the \"Wedding Seating Chart Planner\" title and the gate's <h1> (the original defects) fails it (3 tests, exit 1); restored, 10 tests pass."
+    },
+    {
+      "id": "page-byline-author",
+      "npmScript": "validate:page-byline-author",
+      "command": "vitest run tests/unit/page-byline.test.tsx",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "composite": false,
+      "reason": "Search Readiness q1 failures, 3 Nov 2026: weddingbudgetspreadsheet.com /guides failed b3 and c6 and weddingbudgetspreadsheet.com and weddingseatingchartmaker.com product pages failed c6. c6 passes only when a name in the page's JSON-LD `author` also appears in the page's visible text; the guides index carried neither a byline nor an author node, and the product pages printed \"By Dream Wedding Builder\" while declaring no author in their structured data, so the name a reader saw was never the name an engine read. Renders the real guides index for every canonical host and requires the declared author name to appear in the visible text, one h1, and an H2 that matches the checklist's own question shape.",
+      "manual_repair": "render <PageByline path={...}/> and emit bylineWebPageNode(host, path) from components/seo/PageByline.tsx on the template, so the visible byline and the JSON-LD author state one name; keep at least one H2 on an index page phrased as a question.",
+      "repair_evidence": "proved negatively on 2026-11-03: removing <PageByline/> from app/guides/page.tsx (the original defect) fails it on all four hosts (4 tests, exit 1); restored, 11 tests pass."
     },
     {
       "id": "seo-definition",
