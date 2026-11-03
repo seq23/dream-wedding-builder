@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import pageRescue from '../../data/seo/page_rescue.json' with { type: 'json' };
 // Pinterest daily drip: keep data/pinterest/queue.json stocked and dated.
 //
 //   node scripts/pinterest/pin_queue.mjs                 weekly run: join new pages, refill if low, date
@@ -81,7 +82,7 @@ queue.variants = queue.variants.filter((v) => (v.release_date && v.release_date 
 if (queue.variants.length !== before) log.push(`DROPPED ${before - queue.variants.length} unreleased variant(s) for pages no longer served`);
 
 // 2. Refill.
-const pages = queue.pages.filter((p) => owned.has(p.path)).map((p) => ({ ...p, angles: anglesFor(p.path) }));
+const pages = queue.pages.filter((p) => owned.has(p.path) && !Object.hasOwn(pageRescue.redirects, p.path)).map((p) => ({ ...p, angles: anglesFor(p.path) }));
 const paused = pace.action === 'pause';
 const due = !paused && (seed > 0 || needsRefill(queue, today) || pages.some((p) => !queue.variants.some((v) => v.path === p.path)));
 const count = seed > 0 ? seed * pages.length : queue.config.refill_batch;

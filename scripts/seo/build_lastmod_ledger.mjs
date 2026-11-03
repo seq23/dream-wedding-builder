@@ -206,6 +206,14 @@ for (const route of ownership.routes ?? []) {
   record(route.path, fileLastChanged(routeFile(route.path)), routeFile(route.path));
 }
 
+// Authored definitions, subject-specific sections and evidence are visible content.
+// Date each changed entry independently rather than restamping an entire template.
+const editorialFile = 'data/seo/editorial_page_shape.json';
+for (const slug of Object.keys(readJson(editorialFile))) {
+  const pathname = registry.pages.some(page => page.slug === slug) ? `/guides/${slug}` : `/${slug}`;
+  record(pathname, newest(entries[pathname]?.lastmod, lastChanged(editorialFile, doc => doc[slug]) || runAt), `${editorialFile}#${slug}`);
+}
+
 // The authored budget overlay changes definitions and FAQs without rewriting the
 // frozen guide. Fingerprint each record, so a change dates only its own page.
 const budgetShapeFile = 'data/seo/budget_page_shape.json';

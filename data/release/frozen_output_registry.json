@@ -5,260 +5,25 @@
   "mutation_scope": "data/release/active_mutation_scope.json",
   "runtime_boundary": "guide content only; application/runtime/user/commerce state excluded",
   "records": {
-    "/guides/wedding-seating-chart-for-50-guests": {
-      "slug": "wedding-seating-chart-for-50-guests",
-      "sha256": "0d65c396a08f42902c54a7145f1ca2a5f3ddc157a2cbc376851e8ddc46331c54",
-      "blob": "data/release/frozen_accepted_outputs/0d65c396a08f42902c54a7145f1ca2a5f3ddc157a2cbc376851e8ddc46331c54.json.gz"
-    },
-    "/guides/wedding-seating-chart-for-100-guests": {
-      "slug": "wedding-seating-chart-for-100-guests",
-      "sha256": "741b76360ec83934776e86b250cf40cdd42d3c62e29a40a005d0e6a2a3920e5b",
-      "blob": "data/release/frozen_accepted_outputs/741b76360ec83934776e86b250cf40cdd42d3c62e29a40a005d0e6a2a3920e5b.json.gz"
-    },
-    "/guides/wedding-seating-chart-for-150-guests": {
-      "slug": "wedding-seating-chart-for-150-guests",
-      "sha256": "7ad29bb248afbbb92bd16497369bb7460f9fdb517f935197288058b9cdc7a5a5",
-      "blob": "data/release/frozen_accepted_outputs/7ad29bb248afbbb92bd16497369bb7460f9fdb517f935197288058b9cdc7a5a5.json.gz"
-    },
-    "/guides/round-table-seating-plan": {
-      "slug": "round-table-seating-plan",
-      "sha256": "e841fe84b7b4d5bb59e3e11ca1c1485733a0de84d912934d787adb927d43dcfa",
-      "blob": "data/release/frozen_accepted_outputs/e841fe84b7b4d5bb59e3e11ca1c1485733a0de84d912934d787adb927d43dcfa.json.gz"
-    },
-    "/guides/long-table-wedding-seating": {
-      "slug": "long-table-wedding-seating",
-      "sha256": "32e6c9d4e3ad99292cc8bb3cbbcf8587da7855344388b329754d5bfa42fb3044",
-      "blob": "data/release/frozen_accepted_outputs/32e6c9d4e3ad99292cc8bb3cbbcf8587da7855344388b329754d5bfa42fb3044.json.gz"
-    },
-    "/guides/sweetheart-table-vs-head-table": {
-      "slug": "sweetheart-table-vs-head-table",
-      "sha256": "446f02f02f55cdf5fb9add8ba91e683ff68b08252c749682b0c90c6dfd0c558a",
-      "blob": "data/release/frozen_accepted_outputs/446f02f02f55cdf5fb9add8ba91e683ff68b08252c749682b0c90c6dfd0c558a.json.gz"
-    },
-    "/guides/seat-divorced-parents-wedding": {
-      "slug": "seat-divorced-parents-wedding",
-      "sha256": "979550334d54c1993a6a44c9a3464058804dbef869257df75bf4841502cacd3a",
-      "blob": "data/release/frozen_accepted_outputs/979550334d54c1993a6a44c9a3464058804dbef869257df75bf4841502cacd3a.json.gz"
-    },
-    "/guides/wedding-seating-chart-meal-tracker": {
-      "slug": "wedding-seating-chart-meal-tracker",
-      "sha256": "d97682e5b1df8df6bf3bcefce6b88caea54e265e15d48b14a00e5ab674d48b44",
-      "blob": "data/release/frozen_accepted_outputs/d97682e5b1df8df6bf3bcefce6b88caea54e265e15d48b14a00e5ab674d48b44.json.gz"
-    },
-    "/guides/wedding-seating-chart-allergy-tracker": {
-      "slug": "wedding-seating-chart-allergy-tracker",
-      "sha256": "9fb9d7f566801712f7d791874be7d5bd1a3ca92c5d8f3eef5f5a0b8830a0df47",
-      "blob": "data/release/frozen_accepted_outputs/9fb9d7f566801712f7d791874be7d5bd1a3ca92c5d8f3eef5f5a0b8830a0df47.json.gz"
-    },
     "/guides/wedding-seating-chart-accessibility": {
       "slug": "wedding-seating-chart-accessibility",
       "sha256": "3e2acbfc79d6cfcf922fff455657be466ba6c920c899d57e339d00fb654a6115",
       "blob": "data/release/frozen_accepted_outputs/3e2acbfc79d6cfcf922fff455657be466ba6c920c899d57e339d00fb654a6115.json.gz"
-    },
-    "/guides/wedding-seating-chart-vendor-handoff": {
-      "slug": "wedding-seating-chart-vendor-handoff",
-      "sha256": "2250dcdb261a6c06962fa5445cf2f0ed76fe7679f83f71c65b91b7b7f84c5fc0",
-      "blob": "data/release/frozen_accepted_outputs/2250dcdb261a6c06962fa5445cf2f0ed76fe7679f83f71c65b91b7b7f84c5fc0.json.gz"
-    },
-    "/guides/alphabetical-vs-table-order-seating-chart": {
-      "slug": "alphabetical-vs-table-order-seating-chart",
-      "sha256": "ab5ca8f8bb2b87aa8895aded384a47b8950c36555b27924e3704486a96f1b985",
-      "blob": "data/release/frozen_accepted_outputs/ab5ca8f8bb2b87aa8895aded384a47b8950c36555b27924e3704486a96f1b985.json.gz"
-    },
-    "/guides/wedding-table-capacity-guide": {
-      "slug": "wedding-table-capacity-guide",
-      "sha256": "61470c1710622c13614a8dd576d05ce2a99d335dd4b716a9fd67b9f36b9fbe7d",
-      "blob": "data/release/frozen_accepted_outputs/61470c1710622c13614a8dd576d05ce2a99d335dd4b716a9fd67b9f36b9fbe7d.json.gz"
-    },
-    "/guides/late-rsvp-seating-chart-changes": {
-      "slug": "late-rsvp-seating-chart-changes",
-      "sha256": "739ffd39f5d3e6175a57fe869f2438f72e76f2f5e0b18be46fd2af5d6b4ec9d7",
-      "blob": "data/release/frozen_accepted_outputs/739ffd39f5d3e6175a57fe869f2438f72e76f2f5e0b18be46fd2af5d6b4ec9d7.json.gz"
-    },
-    "/guides/children-high-chairs-seating-chart": {
-      "slug": "children-high-chairs-seating-chart",
-      "sha256": "3166fca8bfc556e7e0824025fc67c74502a24ac24b9010f332c9a2e8ad016a45",
-      "blob": "data/release/frozen_accepted_outputs/3166fca8bfc556e7e0824025fc67c74502a24ac24b9010f332c9a2e8ad016a45.json.gz"
-    },
-    "/guides/wedding-escort-card-data-export": {
-      "slug": "wedding-escort-card-data-export",
-      "sha256": "7a80b38e0d00d190ebd61cf39e0b8206d0b88b7e3f7fc3f94e606bd6b709a545",
-      "blob": "data/release/frozen_accepted_outputs/7a80b38e0d00d190ebd61cf39e0b8206d0b88b7e3f7fc3f94e606bd6b709a545.json.gz"
-    },
-    "/guides/wedding-timeline-with-first-look": {
-      "slug": "wedding-timeline-with-first-look",
-      "sha256": "133e453dcd311b25361b9b3eba8b9e4370ad2a796e3622e6ff3f21e6ad8054c4",
-      "blob": "data/release/frozen_accepted_outputs/133e453dcd311b25361b9b3eba8b9e4370ad2a796e3622e6ff3f21e6ad8054c4.json.gz"
-    },
-    "/guides/wedding-timeline-without-first-look": {
-      "slug": "wedding-timeline-without-first-look",
-      "sha256": "6b607a35be77d8bea583e1ab9a0d85479a44d170d0c180d5344ec4c689cfa11a",
-      "blob": "data/release/frozen_accepted_outputs/6b607a35be77d8bea583e1ab9a0d85479a44d170d0c180d5344ec4c689cfa11a.json.gz"
-    },
-    "/guides/one-venue-wedding-timeline": {
-      "slug": "one-venue-wedding-timeline",
-      "sha256": "3e867984ce906808c434f56d2a62686a760a72ee1efbc6043ce87ff6f1d2aec1",
-      "blob": "data/release/frozen_accepted_outputs/3e867984ce906808c434f56d2a62686a760a72ee1efbc6043ce87ff6f1d2aec1.json.gz"
-    },
-    "/guides/two-venue-wedding-timeline": {
-      "slug": "two-venue-wedding-timeline",
-      "sha256": "12dc818318321f7a90da3f60cc99babd8f0902d5cfadc8fe4b54bb94658649fa",
-      "blob": "data/release/frozen_accepted_outputs/12dc818318321f7a90da3f60cc99babd8f0902d5cfadc8fe4b54bb94658649fa.json.gz"
-    },
-    "/guides/church-ceremony-wedding-timeline": {
-      "slug": "church-ceremony-wedding-timeline",
-      "sha256": "cfd9239970854a16473f62c19a12d568b57e0a4e7967a799fac2872582735e6f",
-      "blob": "data/release/frozen_accepted_outputs/cfd9239970854a16473f62c19a12d568b57e0a4e7967a799fac2872582735e6f.json.gz"
-    },
-    "/guides/backyard-wedding-timeline": {
-      "slug": "backyard-wedding-timeline",
-      "sha256": "900cf2ea7fa2e822012ee23ecda4ed70e6bbd54d094c15e3966455a7d322e458",
-      "blob": "data/release/frozen_accepted_outputs/900cf2ea7fa2e822012ee23ecda4ed70e6bbd54d094c15e3966455a7d322e458.json.gz"
-    },
-    "/guides/brunch-wedding-timeline": {
-      "slug": "brunch-wedding-timeline",
-      "sha256": "fdeee5cf0e9ebe54049e2f1e19ecb081d7e9c6efd9c0ebd38b49b66134386393",
-      "blob": "data/release/frozen_accepted_outputs/fdeee5cf0e9ebe54049e2f1e19ecb081d7e9c6efd9c0ebd38b49b66134386393.json.gz"
-    },
-    "/guides/evening-wedding-timeline": {
-      "slug": "evening-wedding-timeline",
-      "sha256": "26c39011e830efe16e557b5227c9b51751b353eeab2ee9a201bca90a1606edf9",
-      "blob": "data/release/frozen_accepted_outputs/26c39011e830efe16e557b5227c9b51751b353eeab2ee9a201bca90a1606edf9.json.gz"
-    },
-    "/guides/wedding-photography-timeline": {
-      "slug": "wedding-photography-timeline",
-      "sha256": "5cdff7e89f3fd5402446b05732a86643639f08a7706c0c6e765bbc02e0e48eb5",
-      "blob": "data/release/frozen_accepted_outputs/5cdff7e89f3fd5402446b05732a86643639f08a7706c0c6e765bbc02e0e48eb5.json.gz"
-    },
-    "/guides/wedding-vendor-arrival-schedule": {
-      "slug": "wedding-vendor-arrival-schedule",
-      "sha256": "c9822140797291235d6c988230b3ed26aa228dbccf8fafb42050a00ea591cc08",
-      "blob": "data/release/frozen_accepted_outputs/c9822140797291235d6c988230b3ed26aa228dbccf8fafb42050a00ea591cc08.json.gz"
-    },
-    "/guides/wedding-setup-breakdown-timeline": {
-      "slug": "wedding-setup-breakdown-timeline",
-      "sha256": "ec1c888f8db1423cbdb16097b9654e75a846b37094d7435901acd02ff3d61a56",
-      "blob": "data/release/frozen_accepted_outputs/ec1c888f8db1423cbdb16097b9654e75a846b37094d7435901acd02ff3d61a56.json.gz"
-    },
-    "/guides/wedding-reception-order-of-events": {
-      "slug": "wedding-reception-order-of-events",
-      "sha256": "bba6e4158ee543d6aba555540ac3573c2b0b0b3b6ce9b8fd509e37905e90f750",
-      "blob": "data/release/frozen_accepted_outputs/bba6e4158ee543d6aba555540ac3573c2b0b0b3b6ce9b8fd509e37905e90f750.json.gz"
-    },
-    "/guides/wedding-party-timeline": {
-      "slug": "wedding-party-timeline",
-      "sha256": "fdc51c2144b6f3a300147d3b0e2108eb3f7ea611c2a29e7bbb478100d941b4ea",
-      "blob": "data/release/frozen_accepted_outputs/fdc51c2144b6f3a300147d3b0e2108eb3f7ea611c2a29e7bbb478100d941b4ea.json.gz"
-    },
-    "/guides/family-photo-timeline": {
-      "slug": "family-photo-timeline",
-      "sha256": "de09e1a24e295033d9999f4daa3a05156fc146f085ca144f5cea1ffb86a6100e",
-      "blob": "data/release/frozen_accepted_outputs/de09e1a24e295033d9999f4daa3a05156fc146f085ca144f5cea1ffb86a6100e.json.gz"
-    },
-    "/guides/destination-wedding-weekend-itinerary": {
-      "slug": "destination-wedding-weekend-itinerary",
-      "sha256": "543fc76a24a40c048ee3586f62a1349122f285c281a62287524d247d5959be55",
-      "blob": "data/release/frozen_accepted_outputs/543fc76a24a40c048ee3586f62a1349122f285c281a62287524d247d5959be55.json.gz"
-    },
-    "/guides/wedding-timeline-travel-buffer": {
-      "slug": "wedding-timeline-travel-buffer",
-      "sha256": "5f353405e72416ab3a1d536c3c3e0753b36e953f3832acc9c3ba5d2fe0fb1366",
-      "blob": "data/release/frozen_accepted_outputs/5f353405e72416ab3a1d536c3c3e0753b36e953f3832acc9c3ba5d2fe0fb1366.json.gz"
-    },
-    "/guides/18-month-wedding-checklist": {
-      "slug": "18-month-wedding-checklist",
-      "sha256": "3e9bb0b95be9810c2607330fbf4ed8fc698ad0913d1427ca4820005c6c91710e",
-      "blob": "data/release/frozen_accepted_outputs/3e9bb0b95be9810c2607330fbf4ed8fc698ad0913d1427ca4820005c6c91710e.json.gz"
-    },
-    "/guides/12-month-wedding-checklist": {
-      "slug": "12-month-wedding-checklist",
-      "sha256": "9ca3a9a5ea110c2e51ace8a97d9ea7feeaf2c22c1ef2c59167d46838d75d54e8",
-      "blob": "data/release/frozen_accepted_outputs/9ca3a9a5ea110c2e51ace8a97d9ea7feeaf2c22c1ef2c59167d46838d75d54e8.json.gz"
-    },
-    "/guides/9-month-wedding-checklist": {
-      "slug": "9-month-wedding-checklist",
-      "sha256": "3be82d935335439fc683ed9cb374f37017bedd86451ace7453a1667922f20082",
-      "blob": "data/release/frozen_accepted_outputs/3be82d935335439fc683ed9cb374f37017bedd86451ace7453a1667922f20082.json.gz"
-    },
-    "/guides/6-month-wedding-checklist": {
-      "slug": "6-month-wedding-checklist",
-      "sha256": "af6d2f3bcd653da700092d9dfb4520f4daab5c13526acdbf96bd41968383d3b7",
-      "blob": "data/release/frozen_accepted_outputs/af6d2f3bcd653da700092d9dfb4520f4daab5c13526acdbf96bd41968383d3b7.json.gz"
-    },
-    "/guides/3-month-wedding-checklist": {
-      "slug": "3-month-wedding-checklist",
-      "sha256": "62253d7bda905733e581167af5c68c6946be63d47b0fdece7a768b409df9acb7",
-      "blob": "data/release/frozen_accepted_outputs/62253d7bda905733e581167af5c68c6946be63d47b0fdece7a768b409df9acb7.json.gz"
-    },
-    "/guides/1-month-wedding-checklist": {
-      "slug": "1-month-wedding-checklist",
-      "sha256": "9c0706052b6380c04a1bcd56afa1b0d85643c50b39c01fa0b79fc3ab4530928a",
-      "blob": "data/release/frozen_accepted_outputs/9c0706052b6380c04a1bcd56afa1b0d85643c50b39c01fa0b79fc3ab4530928a.json.gz"
-    },
-    "/guides/wedding-week-checklist": {
-      "slug": "wedding-week-checklist",
-      "sha256": "9aaffa5d34ac02d054be1e8c91dff3d5662c5eea4eb19829ebe833a1e22cd2e0",
-      "blob": "data/release/frozen_accepted_outputs/9aaffa5d34ac02d054be1e8c91dff3d5662c5eea4eb19829ebe833a1e22cd2e0.json.gz"
     },
     "/guides/destination-wedding-checklist": {
       "slug": "destination-wedding-checklist",
       "sha256": "ede440df1ac72a2ae63da62dbf007b90185ba4922767c05f89dce12b85589d37",
       "blob": "data/release/frozen_accepted_outputs/ede440df1ac72a2ae63da62dbf007b90185ba4922767c05f89dce12b85589d37.json.gz"
     },
-    "/guides/backyard-wedding-checklist": {
-      "slug": "backyard-wedding-checklist",
-      "sha256": "bddc1792f38b49c342ab3987ad31fdc20fc06c8b66ead8de40ef35714827d3fe",
-      "blob": "data/release/frozen_accepted_outputs/bddc1792f38b49c342ab3987ad31fdc20fc06c8b66ead8de40ef35714827d3fe.json.gz"
-    },
-    "/guides/micro-wedding-checklist": {
-      "slug": "micro-wedding-checklist",
-      "sha256": "f57adeefa27e08a13c852fd6a7c2e6a77f49236354420d6c0e717744248da904",
-      "blob": "data/release/frozen_accepted_outputs/f57adeefa27e08a13c852fd6a7c2e6a77f49236354420d6c0e717744248da904.json.gz"
-    },
     "/guides/courthouse-wedding-checklist": {
       "slug": "courthouse-wedding-checklist",
       "sha256": "7d0dbc1ba60db7a8f44c313fe4eb7f60d3018772224a314bf31979fe1cbf6979",
       "blob": "data/release/frozen_accepted_outputs/7d0dbc1ba60db7a8f44c313fe4eb7f60d3018772224a314bf31979fe1cbf6979.json.gz"
     },
-    "/guides/wedding-vendor-booking-checklist": {
-      "slug": "wedding-vendor-booking-checklist",
-      "sha256": "4f693c82e150c28abc04c9d8c40c204c58149d6bcfbb7c3773ac6b9e117290fb",
-      "blob": "data/release/frozen_accepted_outputs/4f693c82e150c28abc04c9d8c40c204c58149d6bcfbb7c3773ac6b9e117290fb.json.gz"
-    },
-    "/guides/wedding-final-payment-checklist": {
-      "slug": "wedding-final-payment-checklist",
-      "sha256": "2e8530fab2cab98fe2fde95264c34b488f11b3363257d94a22223e66877a4715",
-      "blob": "data/release/frozen_accepted_outputs/2e8530fab2cab98fe2fde95264c34b488f11b3363257d94a22223e66877a4715.json.gz"
-    },
-    "/guides/wedding-day-emergency-checklist": {
-      "slug": "wedding-day-emergency-checklist",
-      "sha256": "66c0bf78ecbd85d2351466f0db136691dc2e26e5d8864e31cca1a23b0ce6118c",
-      "blob": "data/release/frozen_accepted_outputs/66c0bf78ecbd85d2351466f0db136691dc2e26e5d8864e31cca1a23b0ce6118c.json.gz"
-    },
-    "/guides/rehearsal-dinner-checklist": {
-      "slug": "rehearsal-dinner-checklist",
-      "sha256": "6d34a5365501802e2e3ccf369bf5dff1a4fa8961a4f2ba73ecff25ccea83eeea",
-      "blob": "data/release/frozen_accepted_outputs/6d34a5365501802e2e3ccf369bf5dff1a4fa8961a4f2ba73ecff25ccea83eeea.json.gz"
-    },
-    "/guides/post-wedding-return-checklist": {
-      "slug": "post-wedding-return-checklist",
-      "sha256": "8496775ebce3ec9f6a1425c20f307d9de88ba232b77125874aa774678084e5f4",
-      "blob": "data/release/frozen_accepted_outputs/8496775ebce3ec9f6a1425c20f307d9de88ba232b77125874aa774678084e5f4.json.gz"
-    },
     "/guides/wedding-day-timeline": {
       "slug": "wedding-day-timeline",
       "sha256": "baa7345a0046ab55168d6187a47c5ada4c1141fe43a230514da10374c261e56d",
       "blob": "data/release/frozen_accepted_outputs/baa7345a0046ab55168d6187a47c5ada4c1141fe43a230514da10374c261e56d.json.gz"
-    },
-    "/guides/wedding-planning-binder": {
-      "slug": "wedding-planning-binder",
-      "sha256": "5a69a602916c253a98ef2858699cdda218970c27a3c61f66d968565b51a53134",
-      "blob": "data/release/frozen_accepted_outputs/5a69a602916c253a98ef2858699cdda218970c27a3c61f66d968565b51a53134.json.gz"
-    },
-    "/guides/wedding-vendor-list": {
-      "slug": "wedding-vendor-list",
-      "sha256": "67cf879ccdd889e3b3ed37c10f502e1de40b72bc30af27bc4429aebe9454b292",
-      "blob": "data/release/frozen_accepted_outputs/67cf879ccdd889e3b3ed37c10f502e1de40b72bc30af27bc4429aebe9454b292.json.gz"
     },
     "/guides/wedding-planning-timeline": {
       "slug": "wedding-planning-timeline",
@@ -310,60 +75,10 @@
       "sha256": "d8bdb392a56df388f58cc363858a50f5b6778bee869c88160abadd8a8518488e",
       "blob": "data/release/frozen_accepted_outputs/d8bdb392a56df388f58cc363858a50f5b6778bee869c88160abadd8a8518488e.json.gz"
     },
-    "/guides/wedding-guest-list-headcount-control": {
-      "slug": "wedding-guest-list-headcount-control",
-      "sha256": "bff2cc642b93d6e2c090e0f397f395ec05e861c081198506549d0c2309fde825",
-      "blob": "data/release/frozen_accepted_outputs/bff2cc642b93d6e2c090e0f397f395ec05e861c081198506549d0c2309fde825.json.gz"
-    },
-    "/guides/wedding-rsvp-tracking-system": {
-      "slug": "wedding-rsvp-tracking-system",
-      "sha256": "393631c3aff29f844154e20af0cbee5196a43b6c771a992e04ecfc720c9fab54",
-      "blob": "data/release/frozen_accepted_outputs/393631c3aff29f844154e20af0cbee5196a43b6c771a992e04ecfc720c9fab54.json.gz"
-    },
-    "/guides/wedding-meal-count-dietary-tracking": {
-      "slug": "wedding-meal-count-dietary-tracking",
-      "sha256": "c0077099c66ad0ac2845fe5825d1fad4a8469f9ca32ff0687ccdaa23139a26d9",
-      "blob": "data/release/frozen_accepted_outputs/c0077099c66ad0ac2845fe5825d1fad4a8469f9ca32ff0687ccdaa23139a26d9.json.gz"
-    },
-    "/guides/wedding-day-logistics-timeline": {
-      "slug": "wedding-day-logistics-timeline",
-      "sha256": "807419e7896c43f76f7068bd716e5c6127dd8f46a85a259499ba3c8cee37e397",
-      "blob": "data/release/frozen_accepted_outputs/807419e7896c43f76f7068bd716e5c6127dd8f46a85a259499ba3c8cee37e397.json.gz"
-    },
-    "/guides/wedding-reception-flow-timeline": {
-      "slug": "wedding-reception-flow-timeline",
-      "sha256": "fbdfc75272539e0a9c185b335ded39aed4191e68c58c433f981bbc45ee727ef6",
-      "blob": "data/release/frozen_accepted_outputs/fbdfc75272539e0a9c185b335ded39aed4191e68c58c433f981bbc45ee727ef6.json.gz"
-    },
-    "/guides/wedding-music-cue-sheet": {
-      "slug": "wedding-music-cue-sheet",
-      "sha256": "78ec1d576e917dabd898489a0b4a064f2ae3477ccab35cdd239e1e5ce2ee6f7e",
-      "blob": "data/release/frozen_accepted_outputs/78ec1d576e917dabd898489a0b4a064f2ae3477ccab35cdd239e1e5ce2ee6f7e.json.gz"
-    },
-    "/guides/wedding-venue-selection-checklist": {
-      "slug": "wedding-venue-selection-checklist",
-      "sha256": "41dbccc0c48071c5fb4c3b274b9122905b075c0c9e68d463e6bf975ca456384e",
-      "blob": "data/release/frozen_accepted_outputs/41dbccc0c48071c5fb4c3b274b9122905b075c0c9e68d463e6bf975ca456384e.json.gz"
-    },
-    "/guides/accessible-wedding-planning-checklist": {
-      "slug": "accessible-wedding-planning-checklist",
-      "sha256": "24c3398a307a6fbc1b6d698f063b96014cf52904b571f90547af54db5135aad6",
-      "blob": "data/release/frozen_accepted_outputs/24c3398a307a6fbc1b6d698f063b96014cf52904b571f90547af54db5135aad6.json.gz"
-    },
     "/guides/elopement-planning-checklist": {
       "slug": "elopement-planning-checklist",
       "sha256": "2af2a43170bb1a13580d6b2cafda8b7e6f54e84813982d32099b0fa61a0e9b4e",
       "blob": "data/release/frozen_accepted_outputs/2af2a43170bb1a13580d6b2cafda8b7e6f54e84813982d32099b0fa61a0e9b4e.json.gz"
-    },
-    "/guides/wedding-rain-plan-checklist": {
-      "slug": "wedding-rain-plan-checklist",
-      "sha256": "e72d8e92ad02fe62bc2a98b0bd689fc12291c5479e07960a3201a5c4f394c3cb",
-      "blob": "data/release/frozen_accepted_outputs/e72d8e92ad02fe62bc2a98b0bd689fc12291c5479e07960a3201a5c4f394c3cb.json.gz"
-    },
-    "/guides/wedding-attire-lead-time-checklist": {
-      "slug": "wedding-attire-lead-time-checklist",
-      "sha256": "3f612f579e7d708d6c0b5f0ab6faabe48545932ba816a2973db329de2394c524",
-      "blob": "data/release/frozen_accepted_outputs/3f612f579e7d708d6c0b5f0ab6faabe48545932ba816a2973db329de2394c524.json.gz"
     },
     "/guides/wedding-budget-spreadsheet-categories": {
       "slug": "wedding-budget-spreadsheet-categories",

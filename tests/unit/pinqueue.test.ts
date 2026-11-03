@@ -1,3 +1,5 @@
+import rescue from '@/data/seo/page_rescue.json';
+import { hrefFrom } from '@/lib/site-config';
 // Guard: the Pinterest daily drip (owner-approved 16 Oct 2026). data/pinterest/queue.json
 // holds dated pin variants; lib/pinfeed.ts shows the six launch items plus every
 // variant due by today in America/Chicago, decided at request time on the Worker.
@@ -18,14 +20,19 @@ import { LAYOUTS, PALETTES } from '../../scripts/pinterest/render_pin.mjs';
 const HOST = 'weddingchecklistpdf.com';
 const queue = rawQueue as PinQueue;
 const clone = (): PinQueue => JSON.parse(JSON.stringify(rawQueue));
-const owned = new Set(ownership.routes.filter((r) => r.host === HOST).map((r) => r.path));
+const owned = new Set([...ownership.routes.filter(r => r.host === HOST).map(r => r.path), ...Object.keys(rescue.redirects).filter(path => ownership.routes.some(r => r.host === HOST && r.path === rescue.redirects[path as keyof typeof rescue.redirects]))]);
 const launchPaths = pinItems.map((i) => i.path);
 const dated = queue.variants.filter((v) => v.release_date) as Array<PinVariant & { release_date: string }>;
 
 type FeedItem = { title: string; link: string; description: string; pubDate: string; enclosure: Record<string, string> | null; media: Record<string, string> | null };
 const parseFeed = (xml: string): { items: FeedItem[] } => JSON.parse(execFileSync('python3', ['-I', 'scripts/pinterest/parse_feed.py'], { input: xml }).toString());
 // Every board's feed together: each pin is published from exactly one of them.
-const feedAt = (iso: string) => boards.BOARDS.flatMap((b) => parseFeed(buildPinfeed(new Date(iso), b)).items);
+const feedAt = (iso: string): FeedItem[] => {
+  const feeds = boards.BOARDS.map(b => buildPinfeed(new Date(iso), b));
+  const parsed = JSON.parse(execFileSync('python3', ['-I', 'scripts/pinterest/parse_feed.py', '--batch'], { input: JSON.stringify(feeds) }).toString()) as Array<{ items: FeedItem[] }>;
+  expect(parsed.length).toBe(boards.BOARDS.length);
+  return parsed.flatMap(feed => feed.items);
+};
 const PACE_SINCE = queue.config.pace!.since;
 
 /** Every violation of "never the same page on consecutive days, at most pins_per_day a day". */
@@ -196,7 +203,7 @@ describe('feed at a fixed clock', () => {
       const base = { utm_source: 'pinterest', utm_medium: 'organic', utm_campaign: 'pinfeed' };
       if (params.utm_content) {
         const variant = [...queue.variants, ...(queue.questions ?? [])].find((v) => v.id === params.utm_content);
-        expect(variant?.path, params.utm_content).toBe(link.pathname);
+        expect(variant, params.utm_content).toBeTruthy(); expect(new URL(hrefFrom(HOST, variant!.path), `https://${HOST}`).pathname).toBe(link.pathname);
         expect(params).toEqual({ ...base, utm_content: variant!.id });
       } else {
         expect(launchPaths).toContain(link.pathname);
@@ -243,7 +250,7 @@ describe('auto-refill', () => {
 
   it('a page that joins later gets its pins before the old pages get more', () => {
     const q = clone();
-    const joining = '/guides/backyard-wedding-checklist';
+    const joining = '/guides/elopement-planning-checklist';
     q.pages = q.pages.filter((p) => p.path !== joining);
     q.variants = q.variants.filter((v) => v.path !== joining);
     const pages = [...q.pages, { path: joining, art: ['product-images/checklist-pdf.png'], joined: '2026-11-20' }].map((p) => ({ ...p, angles: anglesFor(p.path) }));

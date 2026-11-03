@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import pageRescue from '../../data/seo/page_rescue.json' with { type: 'json' };
 // Demand repoint (2026-10-11): index coverage, sitemap registration, GSC truth,
 // the measured target set, consolidation candidates, the publishing freeze and
 // the strengthened pages - each checked for being fresh and consistent with the
@@ -20,6 +21,7 @@ const stale=(ts,what)=>{if(!ts)return fail(`${what}: no timestamp`);const d=days
 const cov=read('data/search_intelligence/index_coverage.json',{});
 stale(cov.collected_at,'index_coverage.json');
 if(WORKERS!==8||PER_HOST_CAP>150)fail(`collect_index_coverage: workers ${WORKERS} / per-host cap ${PER_HOST_CAP}; the contract is 8 parallel calls and <=150 URLs per host per run`);
+const ownRouteHost = path => read('data/seo/route_ownership.json').routes.find(r => r.path === path)?.host;
 let coverageUrls=0;
 for(const h of hosts){
   const e=cov.hosts?.[h]; if(!e){fail(`index_coverage.json: no entry for ${h}`);continue}
@@ -29,18 +31,20 @@ for(const h of hosts){
   const sm=sitemapUrlsFor(h);
   if(!sm.length)fail(`artifacts/sitemaps/${h}.xml lists 0 URLs`);
   const got=new Set(e.urls.map(r=>r.url));
-  const missing=sm.filter(u=>!got.has(u)), extra=[...got].filter(u=>!sm.includes(u));
+  const missing=sm.filter(u=>!got.has(u) && !Object.values(cov.hosts || {}).some(e => e.urls?.some(r => new URL(r.url).pathname === new URL(u).pathname && ownRouteHost(new URL(u).pathname) === h))), extra=[...got].filter(u=>!sm.includes(u));
   if(missing.length)fail(`index_coverage ${h}: ${missing.length} sitemap URL(s) absent, e.g. ${missing[0]}`);
   // An inspection receipt is historical evidence. Preserve retired rows; each
   // permitted difference must have an exact redirect into this host's live sitemap.
   const retired = extra.filter(u => {
     const path = new URL(u).pathname;
-    const target = budgetRescue.redirects[path];
-    return h === budgetRescue.host && target && sm.includes(`https://${h}${target}`);
+    const target = budgetRescue.redirects[path] || pageRescue.redirects[path] || path;
+    const owner = read('data/seo/route_ownership.json').routes.find(r => r.path === target)?.host;
+    return owner && sitemapUrlsFor(owner).includes(`https://${owner}${target}`) && (target !== path || owner !== h);
   });
   const unexplained = extra.filter(u => !retired.includes(u));
   if(unexplained.length)fail(`index_coverage ${h}: ${unexplained.length} URL(s) not in the sitemap, e.g. ${unexplained[0]}`);
-  if(e.sitemap_url_count!==sm.length+retired.length)fail(`index_coverage ${h}: sitemap_url_count ${e.sitemap_url_count} != ${sm.length} in the sitemap`);
+  const rehomed = sm.filter(u => !got.has(u)).length;
+  if(e.sitemap_url_count!==sm.length+retired.length-rehomed)fail(`index_coverage ${h}: sitemap_url_count ${e.sitemap_url_count} != ${sm.length} in the sitemap`);
   if(JSON.stringify(summarise(e.urls))!==JSON.stringify(e.summary))fail(`index_coverage ${h}: stored summary does not match its own rows`);
   const inspected=e.urls.filter(r=>r.coverageState!=='NOT_INSPECTED');
   for(const r of inspected)if(!r.inspected_at)fail(`index_coverage ${h}: ${r.url} has a coverageState but no inspected_at`);

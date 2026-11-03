@@ -23,9 +23,10 @@ for (const page of content.pages) {
   if (!Object.values(hubs).some((hub) => `/${Object.entries(hubs).find(([, value]) => value === hub)?.[0]}` === page.hub_route)) reasons.push('unknown_hub_route');
   (reasons.length ? rejected : admitted).push({ ...page, reasons });
 }
+const retired = { ...read('data/seo/budget_rescue.json').redirects, ...read('data/seo/page_rescue.json').redirects };
 const links = admitted.flatMap((page) => {
   const product = catalog.products.find((item) => item.id === page.product_id);
-  return [{ from: `/guides/${page.slug}`, to: page.hub_route, anchor: `Start with the ${page.cluster.toLowerCase()} hub`, relationship: 'upward' }, { from: `/guides/${page.slug}`, to: product?.route, anchor: product?.name, relationship: 'conversion' }, ...page.related_slugs.map((slug) => ({ from: `/guides/${page.slug}`, to: `/guides/${slug}`, anchor: admitted.find((item) => item.slug === slug)?.title ?? slug, relationship: 'related' }))];
+  return [{ from: `/guides/${page.slug}`, to: page.hub_route, anchor: `Start with the ${page.cluster.toLowerCase()} hub`, relationship: 'upward' }, { from: `/guides/${page.slug}`, to: product?.route, anchor: product?.name, relationship: 'conversion' }, ...page.related_slugs.map((slug) => ({ from: `/guides/${page.slug}`, to: retired[`/guides/${slug}`] ?? `/guides/${slug}`, anchor: admitted.find((item) => item.slug === slug)?.title ?? slug, relationship: 'related' }))];
 });
 // authority:scale:publish appends candidate skeletons to the registry: a row with
 // a source_opportunity_id, a generated summary/answer/steps, and no sections,
