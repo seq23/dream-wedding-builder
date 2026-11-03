@@ -1,0 +1,146 @@
+{
+  "checked_at": "2026-11-03T19:24:30.821557+00:00",
+  "note": "Production baseline, curl follows redirects; PR not deployed.",
+  "checks": [
+    {
+      "host": "weddingchecklistpdf.com",
+      "path": "/guides/12-month-wedding-checklist",
+      "result": "200 https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "canonical": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "error": null
+    },
+    {
+      "host": "weddingseatingchartmaker.com",
+      "path": "/guides/12-month-wedding-checklist",
+      "result": "200 https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "canonical": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "error": null
+    },
+    {
+      "host": "weddingtimelinetemplate.com",
+      "path": "/guides/12-month-wedding-checklist",
+      "result": "200 https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "canonical": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "error": null
+    },
+    {
+      "host": "weddingbudgetspreadsheet.com",
+      "path": "/guides/12-month-wedding-checklist",
+      "result": "200 https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "canonical": "https://weddingchecklistpdf.com/guides/12-month-wedding-checklist",
+      "error": null
+    },
+    {
+      "host": "weddingchecklistpdf.com",
+      "path": "/guides/wedding-day-timeline",
+      "result": "200 https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "canonical": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "error": null
+    },
+    {
+      "host": "weddingseatingchartmaker.com",
+      "path": "/guides/wedding-day-timeline",
+      "result": "200 https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "canonical": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "error": null
+    },
+    {
+      "host": "weddingtimelinetemplate.com",
+      "path": "/guides/wedding-day-timeline",
+      "result": "200 https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "canonical": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "error": null
+    },
+    {
+      "host": "weddingbudgetspreadsheet.com",
+      "path": "/guides/wedding-day-timeline",
+      "result": "200 https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "canonical": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+      "error": null
+    },
+    {
+      "host": "weddingchecklistpdf.com",
+      "path": "/guides/wedding-budget-template",
+      "result": "200 https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "canonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "error": null
+    },
+    {
+      "host": "weddingseatingchartmaker.com",
+      "path": "/guides/wedding-budget-template",
+      "result": "200 https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "canonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "error": null
+    },
+    {
+      "host": "weddingtimelinetemplate.com",
+      "path": "/guides/wedding-budget-template",
+      "result": "200 https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "canonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "error": null
+    },
+    {
+      "host": "weddingbudgetspreadsheet.com",
+      "path": "/guides/wedding-budget-template",
+      "result": "200 https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "canonical": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-template",
+      "error": null
+    },
+    {
+      "host": "weddingchecklistpdf.com",
+      "path": "/guides/wedding-guest-list-headcount-control",
+      "result": "200 https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "canonical": "https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "error": null
+    },
+    {
+      "host": "weddingseatingchartmaker.com",
+      "path": "/guides/wedding-guest-list-headcount-control",
+      "result": "200 https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "canonical": "https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "error": null
+    },
+    {
+      "host": "weddingtimelinetemplate.com",
+      "path": "/guides/wedding-guest-list-headcount-control",
+      "result": "200 https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "canonical": "https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "error": null
+    },
+    {
+      "host": "weddingbudgetspreadsheet.com",
+      "path": "/guides/wedding-guest-list-headcount-control",
+      "result": "200 https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "canonical": "https://weddingseatingchartmaker.com/guides/wedding-guest-list-headcount-control",
+      "error": null
+    },
+    {
+      "host": "weddingchecklistpdf.com",
+      "path": "/questions",
+      "result": "200 https://weddingchecklistpdf.com/questions",
+      "canonical": "https://weddingchecklistpdf.com/questions",
+      "error": null
+    },
+    {
+      "host": "weddingseatingchartmaker.com",
+      "path": "/questions",
+      "result": "200 https://weddingchecklistpdf.com/questions",
+      "canonical": "https://weddingchecklistpdf.com/questions",
+      "error": null
+    },
+    {
+      "host": "weddingtimelinetemplate.com",
+      "path": "/questions",
+      "result": "200 https://weddingchecklistpdf.com/questions",
+      "canonical": "https://weddingchecklistpdf.com/questions",
+      "error": null
+    },
+    {
+      "host": "weddingbudgetspreadsheet.com",
+      "path": "/questions",
+      "result": "200 https://weddingchecklistpdf.com/questions",
+      "canonical": "https://weddingchecklistpdf.com/questions",
+      "error": null
+    }
+  ]
+}
