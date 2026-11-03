@@ -1,3 +1,4 @@
+import { hrefFrom } from '@/lib/site-config';
 import pinImages from '@/data/pinterest/pin_images.json';
 import pinQueue from '@/data/pinterest/queue.json';
 import boardsConfig from '@/data/pinterest/boards.json';
@@ -45,7 +46,7 @@ export const queue = pinQueue as PinQueue;
 export const boards = pinBoards(boardsConfig);
 
 export function pinLink(path: string, utmContent?: string): string {
-  const url = new URL(`https://${PINFEED_HOST}${path}`);
+  const url = new URL(hrefFrom(PINFEED_HOST, path), `https://${PINFEED_HOST}`);
   for (const [key, value] of Object.entries(PINFEED_UTM)) url.searchParams.set(key, value);
   if (utmContent) url.searchParams.set('utm_content', utmContent);
   return url.toString();

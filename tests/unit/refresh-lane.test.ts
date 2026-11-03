@@ -70,6 +70,8 @@ describe('refresh lane run', () => {
       fs.copyFileSync(path.join(ROOT, rel), path.join(dir, rel));
     }
     fs.cpSync(path.join(ROOT, 'artifacts/sitemaps'), path.join(dir, 'artifacts/sitemaps'), { recursive: true });
+    // A stale-queue fixture must stay stale when production pages are refreshed.
+    for (const file of fs.readdirSync(path.join(dir, 'artifacts/sitemaps'))) { const target = path.join(dir, 'artifacts/sitemaps', file); fs.writeFileSync(target, fs.readFileSync(target, 'utf8').replace(/<lastmod>[^<]+<\/lastmod>/g, '<lastmod>2026-07-30</lastmod>')); }
     return dir;
   }
   // A stand-in for the $0 model: rewrites the sentences it was sent, either

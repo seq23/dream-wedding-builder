@@ -42,7 +42,7 @@ describe('middleware route segments', () => {
 // `next start`; pinned here so it cannot come back silently.
 describe('a trailing slash on a real route', () => {
   const ask = (path: string) => middleware(new NextRequest(`https://weddingchecklistpdf.com${path}`, { headers: { host: 'weddingchecklistpdf.com' } }));
-  for (const path of ['/about/', '/guides/', '/guides/wedding-week-checklist/', '/products/checklist-pdf/']) {
+  for (const path of ['/about/', '/guides/', '/guides/elopement-planning-checklist/', '/products/checklist-pdf/']) {
     it(`${path} redirects once, to the same path without it`, () => {
       const response = ask(path);
       expect(response.status).toBe(308);

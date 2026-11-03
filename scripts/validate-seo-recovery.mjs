@@ -10,6 +10,7 @@ const previewManifest = read('data/products/product_preview_manifest.json');
 const catalog = read('data/products/product_catalog.json');
 const products = catalog.products.filter((product) => product.domain);
 const links = read('data/authority/internal_link_registry.json').links;
+const retirements = { ...read('data/seo/budget_rescue.json').redirects, ...read('data/seo/page_rescue.json').redirects };
 
 const norm = (value) => String(value ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
 const tokens = (value) => new Set(norm(value).split(' ').filter((token) => token.length > 2));
@@ -63,7 +64,9 @@ const shippingPages = registry.pages.filter((p) => !rejectedSlugs.has(p.slug));
 // publishing lane could never add a page without failing validation - in a repo
 // whose entire purpose is publishing pages. The property worth protecting is that
 // guides are never silently lost, which a floor gives us.
-const MINIMUM_SHIPPING_GUIDES = 67;
+const kept = read('data/seo/page_rescue.json').kept_guides;
+const MINIMUM_SHIPPING_GUIDES = kept.length;
+if (!MINIMUM_SHIPPING_GUIDES || kept.some((slug) => !shippingPages.some((p) => p.slug === slug))) errors.push('Kept guide inventory missing or empty');
 if (shippingPages.length < MINIMUM_SHIPPING_GUIDES) errors.push(`guide count regressed below floor: expected at least ${MINIMUM_SHIPPING_GUIDES}, found ${shippingPages.length}`);
 
 const slugSeen = new Set(), titleSeen = new Set(), semanticSeen = new Set();
@@ -108,7 +111,7 @@ for (const page of shippingPages) {
   // Guarded: an unguarded iterate here crashed the whole validator with a
   // TypeError before any collected error could be printed, so a data problem
   // surfaced as a stack trace instead of an actionable message.
-  for (const related of (Array.isArray(page.related_slugs) ? page.related_slugs : [])) if (!slugSeen.has(related)) errors.push(`missing related guide ${related} from ${page.slug}`);
+  for (const related of (Array.isArray(page.related_slugs) ? page.related_slugs : [])) if (!slugSeen.has(related)) { const target = retirements[`/guides/${related}`]; if (!target || target in retirements || !ownership.routes.some(r => r.path === target && r.indexable)) errors.push(`missing related guide or final consolidation destination ${related} from ${page.slug}`); }
   if (!links.some((link) => link.from === `/guides/${page.slug}` && link.to === page.hub_route)) errors.push(`missing upward link registry: ${page.slug}`);
 }
 

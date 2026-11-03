@@ -84,62 +84,8 @@
     },
     {
       "path": "/wedding-guest-list-template",
-      "host": "weddingseatingchartmaker.com",
+      "host": "weddingchecklistpdf.com",
       "type": "hub",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-seating-chart-for-50-guests",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-seating-chart-for-100-guests",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-seating-chart-for-150-guests",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/round-table-seating-plan",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/long-table-wedding-seating",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/sweetheart-table-vs-head-table",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/seat-divorced-parents-wedding",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-seating-chart-meal-tracker",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-seating-chart-allergy-tracker",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
       "indexable": true
     },
     {
@@ -149,193 +95,7 @@
       "indexable": true
     },
     {
-      "path": "/guides/wedding-seating-chart-vendor-handoff",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/alphabetical-vs-table-order-seating-chart",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-table-capacity-guide",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/late-rsvp-seating-chart-changes",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/children-high-chairs-seating-chart",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-escort-card-data-export",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-timeline-with-first-look",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-timeline-without-first-look",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/one-venue-wedding-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/two-venue-wedding-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/church-ceremony-wedding-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/backyard-wedding-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/brunch-wedding-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/evening-wedding-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-photography-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-vendor-arrival-schedule",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-setup-breakdown-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-reception-order-of-events",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-party-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/family-photo-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/destination-wedding-weekend-itinerary",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-timeline-travel-buffer",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/18-month-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/12-month-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/9-month-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/6-month-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/3-month-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/1-month-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-week-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
       "path": "/guides/destination-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/backyard-wedding-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/micro-wedding-checklist",
       "host": "weddingchecklistpdf.com",
       "type": "guide",
       "indexable": true
@@ -347,50 +107,8 @@
       "indexable": true
     },
     {
-      "path": "/guides/wedding-vendor-booking-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-final-payment-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-day-emergency-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/rehearsal-dinner-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/post-wedding-return-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
       "path": "/guides/wedding-day-timeline",
       "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-planning-binder",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-vendor-list",
-      "host": "weddingchecklistpdf.com",
       "type": "guide",
       "indexable": true
     },
@@ -545,18 +263,6 @@
       "indexable": true
     },
     {
-      "path": "/guides/wedding-guest-list-headcount-control",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-rsvp-tracking-system",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
       "path": "/amazon/wedding-day-timeline",
       "host": "weddingchecklistpdf.com",
       "type": "hub",
@@ -624,7 +330,7 @@
     },
     {
       "path": "/what-to-do-6-months-before-the-wedding",
-      "host": "weddingtimelinetemplate.com",
+      "host": "weddingchecklistpdf.com",
       "type": "landing",
       "indexable": true
     },
@@ -647,55 +353,7 @@
       "indexable": true
     },
     {
-      "path": "/guides/wedding-meal-count-dietary-tracking",
-      "host": "weddingseatingchartmaker.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-day-logistics-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-reception-flow-timeline",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-music-cue-sheet",
-      "host": "weddingtimelinetemplate.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-venue-selection-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/accessible-wedding-planning-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
       "path": "/guides/elopement-planning-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-rain-plan-checklist",
-      "host": "weddingchecklistpdf.com",
-      "type": "guide",
-      "indexable": true
-    },
-    {
-      "path": "/guides/wedding-attire-lead-time-checklist",
       "host": "weddingchecklistpdf.com",
       "type": "guide",
       "indexable": true

@@ -16,7 +16,7 @@
       "route": "/questions/how-to-plan-for-a-wedding-checklist",
       "url": "https://weddingchecklistpdf.com/questions/how-to-plan-for-a-wedding-checklist",
       "published_at": "2026-11-01",
-      "status": "live",
+      "status": "merged",
       "hash": "a3f104e7af52adaf54527312502400d418cecc3fb25b71ad12e5594f10cfaf21",
       "model": "free-route",
       "facts": [
@@ -24,7 +24,9 @@
       ],
       "linked_from": [],
       "checks": {},
-      "indexnow_at": "2026-11-02"
+      "indexnow_at": "2026-11-02",
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "free-wedding-planner-template",
@@ -41,7 +43,7 @@
       "route": "/questions/free-wedding-planner-template",
       "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-template",
       "published_at": "2026-11-01",
-      "status": "live",
+      "status": "merged",
       "hash": "cb1c2d07c605cadadf31b6bb0ce3f7fa1172423cea210311d710be3cb0a0563e",
       "model": "free-route",
       "facts": [
@@ -49,7 +51,9 @@
       ],
       "linked_from": [],
       "checks": {},
-      "indexnow_at": "2026-11-02"
+      "indexnow_at": "2026-11-02",
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/free-wedding-planner"
     },
     {
       "slug": "free-wedding-planner-pdf",
@@ -66,7 +70,7 @@
       "route": "/questions/free-wedding-planner-pdf",
       "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
       "published_at": "2026-11-01",
-      "status": "live",
+      "status": "merged",
       "hash": "27e451e120eca584553c5cc7d23255dfe917c2e5bfc15453c78e05bab12ac040",
       "model": "free-route",
       "facts": [
@@ -74,7 +78,9 @@
       ],
       "linked_from": [],
       "checks": {},
-      "indexnow_at": "2026-11-02"
+      "indexnow_at": "2026-11-02",
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/free-wedding-planner"
     },
     {
       "slug": "printable-wedding-checklist-free",
@@ -91,7 +97,7 @@
       "route": "/questions/printable-wedding-checklist-free",
       "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "ac73678e6b07146fdc7bfc446cd571d39cf0d104109b3d0e1485fef01b03b980",
       "model": "free-route",
       "facts": [
@@ -112,7 +118,9 @@
           "after_hash": "ba89ec4c3f43311eead314c75ca613ded8384b6295dd53e16ca0eab08a7bb130"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "printable-wedding-checklist-for-bride",
@@ -129,7 +137,7 @@
       "route": "/questions/printable-wedding-checklist-for-bride",
       "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-for-bride",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "57696ad6596798ee4b9aa6a0d661fa2c0a9333dadf4f3c1d5b8c177cb397f020",
       "model": "free-route",
       "facts": [
@@ -149,7 +157,9 @@
           "after_hash": "9b527213f7ee54a9509c322b1e40751a650676fb85e1a161b5fc22fbaf877143"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "tips-to-planning-a-wedding-checklist",
@@ -166,7 +176,7 @@
       "route": "/questions/tips-to-planning-a-wedding-checklist",
       "url": "https://weddingchecklistpdf.com/questions/tips-to-planning-a-wedding-checklist",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "39f5a1e2c8b5f0266e21c4633fc024600d6105e264b88333836d1bfb8d193077",
       "model": "free-route",
       "facts": [
@@ -187,7 +197,9 @@
           "after_hash": "f0a52db4396b1cc450fcad7cda6463fc7cb5620d6db3b01730a309f2d965ec98"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "free-wedding-planning-checklist-pdf",
@@ -204,7 +216,7 @@
       "route": "/questions/free-wedding-planning-checklist-pdf",
       "url": "https://weddingchecklistpdf.com/questions/free-wedding-planning-checklist-pdf",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "100d0acaec564a48055ef75682db8b94a06ea020ac05968343b0cb068ad2cef3",
       "model": "free-route",
       "facts": [
@@ -225,7 +237,9 @@
           "after_hash": "cd0ee4d3d25a245e47f0d91e1bb60c23fc00235ce896580e454fba8717d83ea4"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "how-to-plan-a-wedding-checklist-pdf",
@@ -241,7 +255,7 @@
       "route": "/questions/how-to-plan-a-wedding-checklist-pdf",
       "url": "https://weddingchecklistpdf.com/questions/how-to-plan-a-wedding-checklist-pdf",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "82dfdfe1114d47146ec2dd79b0b222c2b6b12a74dd85858c4f8ca7c40cee547c",
       "model": "free-route",
       "facts": [
@@ -262,7 +276,9 @@
           "after_hash": "2cd9c824af30e9b94028b8539f7d35df23f4c96416efd90c1566ed6d0b95fd73"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "printable-wedding-checklist-template",
@@ -278,7 +294,7 @@
       "route": "/questions/printable-wedding-checklist-template",
       "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-template",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "960b459a01e87bb7ac6c822ddb47df4dbf308cffee5f8879f4065593ab52ceaf",
       "model": "free-route",
       "facts": [
@@ -299,7 +315,9 @@
           "after_hash": "eba27db020e6e1b41aa939a6271ac27d551c288ab0c27c0b6ea8893f1e0e030d"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "planning-your-own-wedding-checklist",
@@ -315,7 +333,7 @@
       "route": "/questions/planning-your-own-wedding-checklist",
       "url": "https://weddingchecklistpdf.com/questions/planning-your-own-wedding-checklist",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "b3c90e5aa3a7f613016630f9aed32b8d835bc7162a5a2628eec9635e18a2d8f4",
       "model": "free-route",
       "facts": [
@@ -336,7 +354,9 @@
           "after_hash": "210445e64c3dc9d80d8abf054e949329ab5820185fb4f39c3e0506b6c5a24a26"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "elopement-checklist-printable-pdf",
@@ -352,7 +372,7 @@
       "route": "/questions/elopement-checklist-printable-pdf",
       "url": "https://weddingchecklistpdf.com/questions/elopement-checklist-printable-pdf",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "4ca176d3208e0a51e21667b773cc405e031e5b1833a4f37829778ac66a7ab8c6",
       "model": "free-route",
       "facts": [
@@ -367,7 +387,9 @@
           "after_hash": "ce058216f3ec493d1536412561e04b9e3eb27311441d4b3126c2c45ff338ecf1"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "merged_at": "2026-11-03",
+      "merged_into": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
     }
   ],
   "dropped": [

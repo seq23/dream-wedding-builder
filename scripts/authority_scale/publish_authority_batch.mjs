@@ -1,5 +1,6 @@
-import budgetRescue from '../../data/seo/budget_rescue.json' with { type: 'json' };
 #!/usr/bin/env node
+import pageRescue from '../../data/seo/page_rescue.json' with { type: 'json' };
+import budgetRescue from '../../data/seo/budget_rescue.json' with { type: 'json' };
 // Publish the guides that are ready. Draft the ones that are not. Never invent one.
 //
 // History this replaces
@@ -167,6 +168,10 @@ const held = [];
 const admitted = [];
 
 for (const seed of seeds) {
+  if (!pageRescue.kept_guides.includes(seed.slug)) {
+    skipped.push({ slug: seed.slug, reason: 'CONSOLIDATED', detail: 'Expand the owning guide; new routes require a distinct editorial kept-ledger decision.' });
+    continue;
+  }
   if (Object.hasOwn(budgetRescue.redirects, `/guides/${seed.slug}`) || (seed.product_id === 'budget-spreadsheet' || seed.cluster === 'Wedding budget') && !budgetRescue.kept_guides.includes(seed.slug)) {
     skipped.push({ slug: seed.slug, reason: 'CONSOLIDATED', detail: 'Budget topic belongs in a kept hub; expand that page instead.' });
     continue;

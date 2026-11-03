@@ -19,7 +19,7 @@ let cache;
 function sources() {
   if (cache) return cache;
   const catalog = readJson('data/products/product_catalog.json').products;
-  const registry = readJson('data/authority/content_registry.json').pages;
+  const registry = [...readJson('data/authority/content_registry.json').pages, ...readJson('data/pinterest/retired_guide_sources.json').pages];
   const metaDescriptions = readJson('data/seo/guide_meta_descriptions.json');
   const hubs = {};
   (function walk(node) {

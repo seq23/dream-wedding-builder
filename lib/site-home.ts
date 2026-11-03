@@ -116,7 +116,7 @@ export function siteOrganizationNode(host: SiteHost): Record<string, unknown> {
     '@context': SCHEMA_CONTEXT, '@type': 'Organization', '@id': site['@id'],
     name: site.name, url: site.url, logo: site.logo, description: site.description,
     ...(site.sameAs.length ? { sameAs: [...site.sameAs] } : {}),
-    parentOrganization: { '@id': site.parentOrganization }
+    parentOrganization: { '@id': site.parentOrganization, name: ORGANIZATION.name, url: ORGANIZATION.url }
   };
 }
 
