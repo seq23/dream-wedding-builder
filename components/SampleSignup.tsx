@@ -1,9 +1,25 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { UNSUBSCRIBE_NOTE } from '@/lib/builder-signup';
 import { ConversionAnalytics } from '@/components/ConversionAnalytics';
+import { TURNSTILE_SITE_KEY } from '@/lib/turnstile';
+
+type TurnstileApi = { render(el: HTMLElement, opts: Record<string, unknown>): string; reset(id?: string): void };
+const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+
+// Loads the Cloudflare person-check once per page and resolves with its API.
+function loadTurnstile(): Promise<TurnstileApi> {
+  const w = window as unknown as { turnstile?: TurnstileApi };
+  if (w.turnstile) return Promise.resolve(w.turnstile);
+  return new Promise((resolve, reject) => {
+    let tag = document.querySelector<HTMLScriptElement>(`script[src="${TURNSTILE_SRC}"]`);
+    if (!tag) { tag = document.createElement('script'); tag.src = TURNSTILE_SRC; tag.async = true; document.head.appendChild(tag); }
+    tag.addEventListener('load', () => (w.turnstile ? resolve(w.turnstile) : reject(new Error('turnstile missing'))));
+    tag.addEventListener('error', () => reject(new Error('turnstile blocked')));
+  });
+}
 
 const SAMPLE_PDF = '/samples/wedding-checklist-sample.pdf';
 const SAMPLE_CONSENT = 'Email me the free sample, then a few short planning emails about the Dream Wedding Builder tools (one every few days at most). I can unsubscribe at any time.';
@@ -18,16 +34,31 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
+  const [token, setToken] = useState('');
+  const widget = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<string | undefined>(undefined);
+  const api = useRef<TurnstileApi | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadTurnstile().then((t) => {
+      if (cancelled || !widget.current || widgetId.current) return;
+      api.current = t;
+      widgetId.current = t.render(widget.current, { sitekey: TURNSTILE_SITE_KEY, callback: (v: string) => setToken(v), 'expired-callback': () => setToken(''), 'error-callback': () => setToken('') });
+    }).catch(() => { if (!cancelled) setError('The security check could not load. Please allow challenges.cloudflare.com or try another browser.'); });
+    return () => { cancelled = true; };
+  }, []);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     setError('');
     if (!consent) { setError('Please tick the box so we can email the sample.'); return; }
+    if (!token) { setError('Please complete the check above the button.'); return; }
     setBusy(true);
     try {
-      const res = await fetch('/api/sample', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true }) });
+      const res = await fetch('/api/sample', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, turnstileToken: token }) });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
-      if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); return; }
+      if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); setToken(''); api.current?.reset(widgetId.current); return; }
       setDone(true);
     } catch {
       setError('Could not reach the server. Please try again.');
@@ -51,6 +82,7 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
         <input data-testid="sample-consent" type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-4 w-4" />
         <span>{SAMPLE_CONSENT}</span>
       </label>
+      <div ref={widget} data-testid="sample-turnstile" className="min-h-[65px]" />
       {error ? <p role="alert" className="text-sm font-semibold text-red-700">{error}</p> : null}
       <button data-testid="sample-submit" disabled={busy} className="min-h-12 rounded-2xl bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-60" type="submit">{busy ? 'Sending…' : 'Email me the free sample →'}</button>
       <p className="text-xs leading-5 text-charcoal/55">{UNSUBSCRIBE_NOTE} See the <Link className="underline" href={privacyHref}>privacy page</Link>.</p>
