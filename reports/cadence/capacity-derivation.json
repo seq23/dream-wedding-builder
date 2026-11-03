@@ -1,24 +1,24 @@
 {
-  "derived_at": "2026-09-12",
+  "derived_at": "2026-11-02",
   "derived_by": "scripts/cadence/derive_capacity.mjs",
   "measured_from": "data/authority/content_registry.json",
   "predicate": "lib/authority-complete.mjs isComplete() - a record the router 404s was never capacity",
   "first_commit": "2026-05-24",
   "first_content_commit": "2026-07-10",
-  "last_content_commit": "2026-09-12",
-  "authoring_weeks": 9.1,
-  "repo_age_weeks": 15.9,
-  "renderable_guides_now": 89,
-  "sustained_throughput_per_week": 9.73,
-  "throughput_if_measured_from_repo_start": 5.61,
-  "throughput_if_measured_to_today": 5.42,
+  "last_content_commit": "2026-11-02",
+  "authoring_weeks": 16.4,
+  "repo_age_weeks": 23.1,
+  "renderable_guides_now": 73,
+  "sustained_throughput_per_week": 4.44,
+  "throughput_if_measured_from_repo_start": 3.15,
+  "throughput_if_measured_to_today": 4.41,
   "window_choice": "Measured from the first commit that created content, not from the first commit in the repo. The registry did not exist for the first weeks of this repo and no guide could have been written in them, so including them measures setup time as authoring time and understates capacity by roughly half.",
   "window_close_choice": "The window closes at the last commit that changed the registry, not at today. Closing it at today divides a cumulative stock by a denominator that grows with the clock, so the rate falls every idle day and floor() drops it a whole unit on an arbitrary calendar date - which is what turned three green scheduled runs red on 2026-09-04 with no commit behind them. Anchored to the last authoring event the figure is a pure function of committed history: the same tree derives the same numbers whenever it is measured. throughput_if_measured_to_today is reported to show the difference and is not used.",
   "best_single_interval_per_week": 78.17,
   "why_not_the_burst": "The best interval is a one-off bulk authoring event. Building a schedule on it guarantees the schedule is missed, which is how a cadence turns into a quota.",
-  "authoring_events_observed": 7,
-  "refresh_capacity_per_week": 9,
-  "new_pages_per_week": 4,
+  "authoring_events_observed": 8,
+  "refresh_capacity_per_week": 4,
+  "new_pages_per_week": 2,
   "series": [
     {
       "sha": "159ca45cfe1da88a45b9f129e77e82c779340a0f",
@@ -99,6 +99,11 @@
       "sha": "3479b00921e47b13ca82fa24db5449c2828797f6",
       "date": "2026-11-02",
       "renderable": 89
+    },
+    {
+      "sha": "d9295a8fae183d6637b8892baee9da1c6b991e55",
+      "date": "2026-11-02",
+      "renderable": 73
     }
   ]
 }
