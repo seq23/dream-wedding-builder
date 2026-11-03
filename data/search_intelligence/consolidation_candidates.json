@@ -1,17 +1,17 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-02T12:42:25.350Z",
+  "generated_at": "2026-11-03T12:42:37.145Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
-    "guide": 570,
-    "hub": 365
+    "guide": 578,
+    "hub": 373
   },
   "hosts": {
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-04",
-        "end": "2026-10-31"
+        "start": "2026-10-05",
+        "end": "2026-11-01"
       },
       "content_pages_examined": 22,
       "candidate_count": 0,
@@ -25,69 +25,12 @@
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-04",
-        "end": "2026-10-31"
+        "start": "2026-10-05",
+        "end": "2026-11-01"
       },
-      "content_pages_examined": 20,
-      "candidate_count": 7,
-      "candidates": [
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-hidden-costs-checklist",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 524,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-deposit-schedule",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 548,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-budget-30000",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 549,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-gratuity-planner",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 550,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/family-contributions-wedding-budget",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 560,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-vendor-payment-tracker",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 564,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingbudgetspreadsheet.com/guides/wedding-monthly-cash-flow",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 568,
-          "thin_threshold": 570,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        }
-      ],
+      "content_pages_examined": 4,
+      "candidate_count": 0,
+      "candidates": [],
       "excluded_utility_paths": [
         "/editorial-policy",
         "/guides",
@@ -99,8 +42,8 @@
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-04",
-        "end": "2026-10-31"
+        "start": "2026-10-05",
+        "end": "2026-11-01"
       },
       "content_pages_examined": 23,
       "candidate_count": 6,
@@ -110,7 +53,7 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 529,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
@@ -118,7 +61,7 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 532,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
@@ -126,7 +69,7 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 535,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
@@ -134,7 +77,7 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 540,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
@@ -142,7 +85,7 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 540,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
@@ -150,7 +93,7 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 554,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         }
       ],
@@ -164,18 +107,18 @@
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-04",
-        "end": "2026-10-31"
+        "start": "2026-10-05",
+        "end": "2026-11-01"
       },
       "content_pages_examined": 37,
-      "candidate_count": 2,
+      "candidate_count": 3,
       "candidates": [
         {
           "url": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
           "type": "guide",
           "impressions_28d": 0,
           "words": 538,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {
@@ -183,7 +126,15 @@
           "type": "guide",
           "impressions_28d": 0,
           "words": 557,
-          "thin_threshold": 570,
+          "thin_threshold": 578,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingchecklistpdf.com/guides/wedding-week-checklist",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 574,
+          "thin_threshold": 578,
           "action": "REVIEW_FOR_CONSOLIDATION"
         }
       ],
