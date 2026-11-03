@@ -1,0 +1,28 @@
+{
+  "host": "weddingbudgetspreadsheet.com",
+  "reviewed_at": "2026-11-02",
+  "kept_guides": [
+    "wedding-budget-calculator",
+    "wedding-budget-template",
+    "wedding-budget-spreadsheet-categories"
+  ],
+  "redirects": {
+    "/guides/wedding-budget-for-50-guests": "/wedding-cost-per-guest",
+    "/guides/wedding-budget-for-100-guests": "/wedding-cost-per-guest",
+    "/guides/wedding-budget-for-150-guests": "/wedding-cost-per-guest",
+    "/guides/wedding-budget-10000": "/wedding-budget-tradeoffs",
+    "/guides/wedding-budget-20000": "/wedding-budget-tradeoffs",
+    "/guides/wedding-budget-30000": "/wedding-budget-tradeoffs",
+    "/guides/wedding-budget-50000": "/wedding-budget-tradeoffs",
+    "/guides/wedding-hidden-costs-checklist": "/wedding-budget-spreadsheet",
+    "/guides/wedding-vendor-payment-tracker": "/wedding-budget-spreadsheet",
+    "/guides/wedding-deposit-schedule": "/wedding-budget-spreadsheet",
+    "/guides/wedding-gratuity-planner": "/wedding-budget-spreadsheet",
+    "/guides/wedding-budget-contingency": "/wedding-budget-tradeoffs",
+    "/guides/family-contributions-wedding-budget": "/wedding-budget-spreadsheet",
+    "/guides/wedding-monthly-cash-flow": "/wedding-budget-spreadsheet",
+    "/guides/estimated-vs-actual-wedding-costs": "/wedding-budget-spreadsheet",
+    "/guides/diy-wedding-cost-tradeoffs": "/wedding-budget-tradeoffs"
+  },
+  "reason": "Consolidate repeated category, guest-count and budget-amount scaffolds into working budget hubs. Keep the strengthened template (historical GSC impressions) and calculator (distinct formula workflow)."
+}

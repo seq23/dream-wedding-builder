@@ -4,6 +4,7 @@
 // the strengthened pages - each checked for being fresh and consistent with the
 // data it was derived from, never for prose. Hard-fails on zero items.
 import fs from 'node:fs';
+import budgetRescue from '../../data/seo/budget_rescue.json' with { type: 'json' };
 import {read,norm,pageKey,sitemapUrlsFor,GSC_HOST_ENV,daysBetween,now} from './lib.mjs';
 import {summarise,WORKERS,PER_HOST_CAP,staleSitemaps} from './collect_index_coverage.mjs';
 import {measurementsFor,gscWindows,volumeRows,resolveSelectionEvidence,appendPageHistory,PAGE_HISTORY} from './measured_demand.mjs';
@@ -30,8 +31,16 @@ for(const h of hosts){
   const got=new Set(e.urls.map(r=>r.url));
   const missing=sm.filter(u=>!got.has(u)), extra=[...got].filter(u=>!sm.includes(u));
   if(missing.length)fail(`index_coverage ${h}: ${missing.length} sitemap URL(s) absent, e.g. ${missing[0]}`);
-  if(extra.length)fail(`index_coverage ${h}: ${extra.length} URL(s) not in the sitemap, e.g. ${extra[0]}`);
-  if(e.sitemap_url_count!==sm.length)fail(`index_coverage ${h}: sitemap_url_count ${e.sitemap_url_count} != ${sm.length} in the sitemap`);
+  // An inspection receipt is historical evidence. Preserve retired rows; each
+  // permitted difference must have an exact redirect into this host's live sitemap.
+  const retired = extra.filter(u => {
+    const path = new URL(u).pathname;
+    const target = budgetRescue.redirects[path];
+    return h === budgetRescue.host && target && sm.includes(`https://${h}${target}`);
+  });
+  const unexplained = extra.filter(u => !retired.includes(u));
+  if(unexplained.length)fail(`index_coverage ${h}: ${unexplained.length} URL(s) not in the sitemap, e.g. ${unexplained[0]}`);
+  if(e.sitemap_url_count!==sm.length+retired.length)fail(`index_coverage ${h}: sitemap_url_count ${e.sitemap_url_count} != ${sm.length} in the sitemap`);
   if(JSON.stringify(summarise(e.urls))!==JSON.stringify(e.summary))fail(`index_coverage ${h}: stored summary does not match its own rows`);
   const inspected=e.urls.filter(r=>r.coverageState!=='NOT_INSPECTED');
   for(const r of inspected)if(!r.inspected_at)fail(`index_coverage ${h}: ${r.url} has a coverageState but no inspected_at`);

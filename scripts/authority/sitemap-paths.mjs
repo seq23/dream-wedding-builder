@@ -1,3 +1,4 @@
+import rescue from '../../data/seo/budget_rescue.json' with { type: 'json' };
 import fs from 'node:fs';
 import { searchLoopHost, searchLoopPages } from '../../lib/search-loop-pages.mjs';
 // The one definition of which paths each host's sitemap lists. build-sitemaps.mjs
@@ -8,7 +9,7 @@ export function sitemapPathsByHost(root = '.') {
   const out = {};
   for (const host of Object.keys(ownership.hosts)) {
     const perHostPages = ownership.shared_host_routes.filter((path) => !path.includes('.'));
-    out[host] = [...new Set([...perHostPages, ...ownership.routes.filter((route) => route.host === host && route.indexable).map((route) => route.path)])].sort();
+    out[host] = [...new Set([...perHostPages, ...ownership.routes.filter((route) => route.host === host && route.indexable && !Object.hasOwn(rescue.redirects, route.path)).map((route) => route.path)])].sort();
   }
   // Pages the shared search engine published (search-loop.config.json, its ledger
   // data/search-loop/pages.json), on the host its base_url names.

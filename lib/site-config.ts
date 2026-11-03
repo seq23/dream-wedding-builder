@@ -1,3 +1,4 @@
+import budgetRescue from '@/data/seo/budget_rescue.json';
 import ownership from '@/data/seo/route_ownership.json';
 import registry from '@/data/authority/content_registry.json';
 import { shippingPages } from '@/lib/authority-registry';
@@ -104,6 +105,8 @@ export function canonicalHostForPath(pathname: string): SiteHost | null {
 export function hrefFrom(fromHost: string, path: string): string {
   if (!path.startsWith('/') || path.startsWith('//')) return path;
   const pathname = path.split(/[?#]/)[0];
+  const retired = (budgetRescue.redirects as Record<string, string>)[pathname];
+  if (retired) return hrefFrom(fromHost, retired + path.slice(pathname.length));
   const current = isCanonicalHost(fromHost) ? fromHost : PARENT_HOST;
   // '/' on a product host redirects to that host's hub, so link the hub itself -
   // the destination a reader already reached, without the hop.

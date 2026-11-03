@@ -206,6 +206,17 @@ for (const route of ownership.routes ?? []) {
   record(route.path, fileLastChanged(routeFile(route.path)), routeFile(route.path));
 }
 
+// The authored budget overlay changes definitions and FAQs without rewriting the
+// frozen guide. Fingerprint each record, so a change dates only its own page.
+const budgetShapeFile = 'data/seo/budget_page_shape.json';
+const budgetShapes = readJson(budgetShapeFile);
+for (const slug of Object.keys(budgetShapes)) {
+  const pathname = (registry.pages ?? []).some((page) => page.slug === slug) ? `/guides/${slug}` : `/${slug}`;
+  const overlayDate = lastChanged(budgetShapeFile, (doc) => doc[slug]) || runAt;
+  record(pathname, newest(entries[pathname]?.lastmod, overlayDate), `${budgetShapeFile}#${slug}`);
+  if (slug === 'wedding-budget-spreadsheet') record('/products/budget-spreadsheet', newest(entries['/products/budget-spreadsheet']?.lastmod, overlayDate), `${budgetShapeFile}#${slug} + product record`);
+}
+
 // The guide index renders the shipping set, so it is as fresh as the newest guide
 // it actually lists - not the newest skeleton sitting unlisted in the registry.
 // isComplete() is imported, not mirrored: lib/authority-complete.mjs is plain ESM

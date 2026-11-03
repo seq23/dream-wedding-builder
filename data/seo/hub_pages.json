@@ -218,7 +218,7 @@
       "title": "Wedding Checklist PDF: What Is Inside the Paid Download",
       "description": "See real, watermarked previews of the paid Wedding Checklist PDF and workbook: the 104-row checklist, wedding-week handoff, and final-payment tracker.",
       "host": "weddingchecklistpdf.com",
-      "eyebrow": "Real paid-product preview — no downloadable template",
+      "eyebrow": "Real paid-product preview \u2014 no downloadable template",
       "h1": "Wedding checklist PDF: look inside the paid download",
       "intro": "This page shows what the paid Wedding Checklist PDF actually contains before checkout. The previews come from the canonical paid PDF and XLSX files and are flattened so the editable product itself is not given away.",
       "direct_answer": "The paid package contains a 13-page printable PDF, an editable three-sheet XLSX workbook, and a starter import CSV. Its working views cover the master checklist, wedding week, final payments, planning profile, and critical path.",
@@ -250,7 +250,7 @@
           ]
         },
         {
-          "heading": "What the preview proves — and what it does not",
+          "heading": "What the preview proves \u2014 and what it does not",
           "paragraphs": [
             "The preview images show the actual structure, fields, page titles, and working views in the paid files. They are watermarked and flattened. They do not provide an editable copy, full-resolution pages, or the complete product."
           ],
@@ -439,7 +439,7 @@
       "direct_answer": "A useful wedding budget spreadsheet must separate estimates, contracts, payments, remaining balances, due dates, hidden costs, and cash timing. The paid product preview below shows those actual working views without exposing the editable file.",
       "sections": [
         {
-          "heading": "Build the budget around commitments",
+          "heading": "How should I track quotes and signed commitments?",
           "paragraphs": [
             "Start with a total ceiling and category targets, but switch to contracted amounts as agreements are signed. Never overwrite the estimate; the variance between estimate and contract is useful planning evidence."
           ],
@@ -452,7 +452,7 @@
           ]
         },
         {
-          "heading": "Track cash timing, not just totals",
+          "heading": "How do I track deposits and monthly cash needs?",
           "paragraphs": [
             "A wedding can be under budget overall and still create a cash crunch when several deposits or final payments land in the same month. Group balances by due month and keep a separate line for taxes, service fees, gratuities, delivery, alterations, and returns."
           ],
@@ -465,7 +465,7 @@
           ]
         },
         {
-          "heading": "Reconcile after every contract change",
+          "heading": "What changes when a vendor agreement changes?",
           "paragraphs": [
             "When scope, guest count, hours, quantities, or delivery terms change, update the contract amount, payment schedule, and related categories together. A budget that is not connected to current agreements is only a memory aid."
           ],
@@ -527,9 +527,9 @@
         }
       ],
       "related": [
+        "/guides/wedding-budget-calculator",
+        "/guides/wedding-budget-template",
         "/guides/wedding-budget-spreadsheet-categories",
-        "/guides/wedding-monthly-cash-flow",
-        "/guides/wedding-vendor-payment-tracker",
         "/products/budget-spreadsheet"
       ],
       "product_id": "budget-spreadsheet",

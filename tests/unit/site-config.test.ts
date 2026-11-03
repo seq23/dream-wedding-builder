@@ -1,3 +1,4 @@
+import rescue from '@/data/seo/budget_rescue.json';
 import { describe, expect, it } from 'vitest';
 import { aliasRedirectTarget, apexHost, CANONICAL_HOSTS, canonicalHostForPath, guidesForHost, hostConfig, isCanonicalHost } from '@/lib/site-config';
 
@@ -7,8 +8,11 @@ describe('canonical host ownership', () => {
   it('owns the budget hub on the budget host', () => expect(canonicalHostForPath('/wedding-budget-spreadsheet')).toBe('weddingbudgetspreadsheet.com'));
   it('owns broad timeline guide on the timeline host', () => expect(canonicalHostForPath('/guides/wedding-day-timeline')).toBe('weddingtimelinetemplate.com'));
   it('defines satellite root redirects', () => expect(hostConfig['weddingseatingchartmaker.com'].root_target).toBe('/wedding-seating-chart'));
-  it('keeps at least 16 authority guides per canonical host', () => {
-    for (const host of CANONICAL_HOSTS) expect(guidesForHost(host).length).toBeGreaterThanOrEqual(16);
+  it('keeps the exact consolidated budget inventory and the other hosts complete', () => {
+    for (const host of CANONICAL_HOSTS) {
+      if (host === rescue.host) expect(guidesForHost(host).map((page) => page.slug).sort()).toEqual([...rescue.kept_guides].sort());
+      else expect(guidesForHost(host).length).toBeGreaterThanOrEqual(16);
+    }
   });
 });
 

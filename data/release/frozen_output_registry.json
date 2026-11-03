@@ -85,86 +85,6 @@
       "sha256": "7a80b38e0d00d190ebd61cf39e0b8206d0b88b7e3f7fc3f94e606bd6b709a545",
       "blob": "data/release/frozen_accepted_outputs/7a80b38e0d00d190ebd61cf39e0b8206d0b88b7e3f7fc3f94e606bd6b709a545.json.gz"
     },
-    "/guides/wedding-budget-spreadsheet-categories": {
-      "slug": "wedding-budget-spreadsheet-categories",
-      "sha256": "ffdf82b57b4d4747cd50130f56e1f8e56c0c65febdf6aabb8c3439b1ff503185",
-      "blob": "data/release/frozen_accepted_outputs/ffdf82b57b4d4747cd50130f56e1f8e56c0c65febdf6aabb8c3439b1ff503185.json.gz"
-    },
-    "/guides/wedding-budget-for-50-guests": {
-      "slug": "wedding-budget-for-50-guests",
-      "sha256": "d71595a8babcc2b70c0f9a70df5f7aa28b8ea89664db7bf188b6e54e2890cc87",
-      "blob": "data/release/frozen_accepted_outputs/d71595a8babcc2b70c0f9a70df5f7aa28b8ea89664db7bf188b6e54e2890cc87.json.gz"
-    },
-    "/guides/wedding-budget-for-100-guests": {
-      "slug": "wedding-budget-for-100-guests",
-      "sha256": "42391946e1a8b3984d666e0ec1c57e4528e67dbf4f798c39e2a1ea564e99037d",
-      "blob": "data/release/frozen_accepted_outputs/42391946e1a8b3984d666e0ec1c57e4528e67dbf4f798c39e2a1ea564e99037d.json.gz"
-    },
-    "/guides/wedding-budget-for-150-guests": {
-      "slug": "wedding-budget-for-150-guests",
-      "sha256": "1f460bbe4e820b2653e04d60b076fa65196a471a0066c5f1dedae9b85fcfcc97",
-      "blob": "data/release/frozen_accepted_outputs/1f460bbe4e820b2653e04d60b076fa65196a471a0066c5f1dedae9b85fcfcc97.json.gz"
-    },
-    "/guides/wedding-budget-10000": {
-      "slug": "wedding-budget-10000",
-      "sha256": "e78fac344843502dd93d1b245f008488610a872fd2dcfa707c039818725337ad",
-      "blob": "data/release/frozen_accepted_outputs/e78fac344843502dd93d1b245f008488610a872fd2dcfa707c039818725337ad.json.gz"
-    },
-    "/guides/wedding-budget-20000": {
-      "slug": "wedding-budget-20000",
-      "sha256": "f1d1a14db9dc1f7d527830dee206fcff7247171432a2bf118f712e7bf52c3c7a",
-      "blob": "data/release/frozen_accepted_outputs/f1d1a14db9dc1f7d527830dee206fcff7247171432a2bf118f712e7bf52c3c7a.json.gz"
-    },
-    "/guides/wedding-budget-30000": {
-      "slug": "wedding-budget-30000",
-      "sha256": "1ed9e91fae9ff2c0d20db3e898db561101ad81f2a21fe96e11ef831da5658490",
-      "blob": "data/release/frozen_accepted_outputs/1ed9e91fae9ff2c0d20db3e898db561101ad81f2a21fe96e11ef831da5658490.json.gz"
-    },
-    "/guides/wedding-budget-50000": {
-      "slug": "wedding-budget-50000",
-      "sha256": "17f56374781ab46038feb171391a389374b665016192df7adc6d798f52ac73b5",
-      "blob": "data/release/frozen_accepted_outputs/17f56374781ab46038feb171391a389374b665016192df7adc6d798f52ac73b5.json.gz"
-    },
-    "/guides/wedding-hidden-costs-checklist": {
-      "slug": "wedding-hidden-costs-checklist",
-      "sha256": "314e1d7ef6a32125dd229e15620512ec7121ef68daa13210379948124f68115a",
-      "blob": "data/release/frozen_accepted_outputs/314e1d7ef6a32125dd229e15620512ec7121ef68daa13210379948124f68115a.json.gz"
-    },
-    "/guides/wedding-vendor-payment-tracker": {
-      "slug": "wedding-vendor-payment-tracker",
-      "sha256": "6f05264c379ef952ddb7c89e3f1ad4c9b8a26575dcb0f3c16f6133c842ec46b9",
-      "blob": "data/release/frozen_accepted_outputs/6f05264c379ef952ddb7c89e3f1ad4c9b8a26575dcb0f3c16f6133c842ec46b9.json.gz"
-    },
-    "/guides/wedding-deposit-schedule": {
-      "slug": "wedding-deposit-schedule",
-      "sha256": "6360b83d8e9c2f708df90ff95f8cc4ac3fbcc49cbc3fe3fe9811dae1609c7166",
-      "blob": "data/release/frozen_accepted_outputs/6360b83d8e9c2f708df90ff95f8cc4ac3fbcc49cbc3fe3fe9811dae1609c7166.json.gz"
-    },
-    "/guides/wedding-gratuity-planner": {
-      "slug": "wedding-gratuity-planner",
-      "sha256": "da1b995e76b491f75c7c734a5529445c4d8111544db47707715b5e9e58ae2686",
-      "blob": "data/release/frozen_accepted_outputs/da1b995e76b491f75c7c734a5529445c4d8111544db47707715b5e9e58ae2686.json.gz"
-    },
-    "/guides/wedding-budget-contingency": {
-      "slug": "wedding-budget-contingency",
-      "sha256": "0bba7ce3cfb5b9e12d86b378d40105cc22afcb7305c253400621db1866503756",
-      "blob": "data/release/frozen_accepted_outputs/0bba7ce3cfb5b9e12d86b378d40105cc22afcb7305c253400621db1866503756.json.gz"
-    },
-    "/guides/family-contributions-wedding-budget": {
-      "slug": "family-contributions-wedding-budget",
-      "sha256": "6954ffe98cd935152a18030074a3ee0343a395db44d0896900ab55b7c56939a6",
-      "blob": "data/release/frozen_accepted_outputs/6954ffe98cd935152a18030074a3ee0343a395db44d0896900ab55b7c56939a6.json.gz"
-    },
-    "/guides/wedding-monthly-cash-flow": {
-      "slug": "wedding-monthly-cash-flow",
-      "sha256": "1df0c7778439a6a264f2c7ee29ea78a5f9a99eb25f53c8e3aaad8ff3f721b854",
-      "blob": "data/release/frozen_accepted_outputs/1df0c7778439a6a264f2c7ee29ea78a5f9a99eb25f53c8e3aaad8ff3f721b854.json.gz"
-    },
-    "/guides/estimated-vs-actual-wedding-costs": {
-      "slug": "estimated-vs-actual-wedding-costs",
-      "sha256": "0c695634cad554ff68f3f3eb9d4bb87098394141253e148c47f425fe5dfb960b",
-      "blob": "data/release/frozen_accepted_outputs/0c695634cad554ff68f3f3eb9d4bb87098394141253e148c47f425fe5dfb960b.json.gz"
-    },
     "/guides/wedding-timeline-with-first-look": {
       "slug": "wedding-timeline-with-first-look",
       "sha256": "133e453dcd311b25361b9b3eba8b9e4370ad2a796e3622e6ff3f21e6ad8054c4",
@@ -352,8 +272,8 @@
     },
     "/guides/wedding-budget-calculator": {
       "slug": "wedding-budget-calculator",
-      "sha256": "7fdfcd5d8268ca512a8d0e076103651e9b58bc93706c2e1d714205c5f74ce49c",
-      "blob": "data/release/frozen_accepted_outputs/7fdfcd5d8268ca512a8d0e076103651e9b58bc93706c2e1d714205c5f74ce49c.json.gz"
+      "sha256": "cf3e7a945124813b2331971f0b1bc0834ecc8d7bd61facc8142231af0bef4d94",
+      "blob": "data/release/frozen_accepted_outputs/cf3e7a945124813b2331971f0b1bc0834ecc8d7bd61facc8142231af0bef4d94.json.gz"
     },
     "/guides/wedding-day-timeline-template": {
       "slug": "wedding-day-timeline-template",
@@ -362,8 +282,8 @@
     },
     "/guides/wedding-budget-template": {
       "slug": "wedding-budget-template",
-      "sha256": "aa170bb5bcfc3ccfbc0f6e3d8c011da8acd8babbeb4897d5cbbefec51a93a49a",
-      "blob": "data/release/frozen_accepted_outputs/aa170bb5bcfc3ccfbc0f6e3d8c011da8acd8babbeb4897d5cbbefec51a93a49a.json.gz"
+      "sha256": "e8f750018ef1bd9077ef1fcbab2217a1e10793292f819b82b3e4d53613f3b01f",
+      "blob": "data/release/frozen_accepted_outputs/e8f750018ef1bd9077ef1fcbab2217a1e10793292f819b82b3e4d53613f3b01f.json.gz"
     },
     "/guides/wedding-rehearsal-timeline": {
       "slug": "wedding-rehearsal-timeline",
@@ -440,15 +360,15 @@
       "sha256": "e72d8e92ad02fe62bc2a98b0bd689fc12291c5479e07960a3201a5c4f394c3cb",
       "blob": "data/release/frozen_accepted_outputs/e72d8e92ad02fe62bc2a98b0bd689fc12291c5479e07960a3201a5c4f394c3cb.json.gz"
     },
-    "/guides/diy-wedding-cost-tradeoffs": {
-      "slug": "diy-wedding-cost-tradeoffs",
-      "sha256": "822a4030907b6419777a67cfcecc8e41ce6af9b8b3820f9fbb0dbba4aa820ecf",
-      "blob": "data/release/frozen_accepted_outputs/822a4030907b6419777a67cfcecc8e41ce6af9b8b3820f9fbb0dbba4aa820ecf.json.gz"
-    },
     "/guides/wedding-attire-lead-time-checklist": {
       "slug": "wedding-attire-lead-time-checklist",
       "sha256": "3f612f579e7d708d6c0b5f0ab6faabe48545932ba816a2973db329de2394c524",
       "blob": "data/release/frozen_accepted_outputs/3f612f579e7d708d6c0b5f0ab6faabe48545932ba816a2973db329de2394c524.json.gz"
+    },
+    "/guides/wedding-budget-spreadsheet-categories": {
+      "slug": "wedding-budget-spreadsheet-categories",
+      "sha256": "175c8b412233ea176cb020f1b4e4c9f67eedc17c87c2d16e8cbcbeaf99039870",
+      "blob": "data/release/frozen_accepted_outputs/175c8b412233ea176cb020f1b4e4c9f67eedc17c87c2d16e8cbcbeaf99039870.json.gz"
     }
   }
 }

@@ -13,8 +13,6 @@
     "wedding checklist",
     "wedding planning checklist",
     "printable wedding checklist",
-    "wedding budget breakdown",
-    "wedding budget spreadsheet",
     "wedding day timeline",
     "wedding timeline template",
     "wedding seating chart",
@@ -31,7 +29,10 @@
       "etsy",
       "pdf free",
       "the knot login",
-      "zola login"
+      "zola login",
+      "wedding budget",
+      "wedding cost",
+      "wedding spreadsheet"
     ]
   },
   "action": {
@@ -89,7 +90,7 @@
       "height": 630
     },
     "header_html": "<header class=\"site-header\"><script type=\"application/ld+json\" data-entity=\"data/seo/entity.json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://weddingchecklistpdf.com/#organization\",\"name\":\"Dream Wedding Builder\",\"url\":\"https://weddingchecklistpdf.com/\",\"logo\":\"https://weddingchecklistpdf.com/icon-512.png\",\"description\":\"Dream Wedding Builder publishes wedding planning guides and editable planning files across four single-purpose sites: a checklist, a budget spreadsheet, a seating chart and a timeline.\",\"sameAs\":[\"https://www.pinterest.com/weddingchecklistpdf/\"]},{\"@type\":\"Organization\",\"@id\":\"https://weddingchecklistpdf.com/#site\",\"name\":\"Wedding Checklist PDF\",\"url\":\"https://weddingchecklistpdf.com/\",\"logo\":\"https://weddingchecklistpdf.com/icon-512.png\",\"description\":\"Wedding Checklist PDF publishes wedding planning checklist guides and sells a $9 editable checklist with a 13-page printable packet.\",\"parentOrganization\":{\"@id\":\"https://weddingchecklistpdf.com/#organization\"}}]}</script><a class=\"brand\" href=\"https://weddingchecklistpdf.com/\">Wedding Checklist PDF</a><nav aria-label=\"Primary\"><a href=\"https://weddingchecklistpdf.com/questions\">Planning questions</a><a href=\"https://weddingchecklistpdf.com/guides\">Guides</a><a href=\"https://weddingchecklistpdf.com/shop\">Shop</a></nav></header>",
-    "footer_html": "<footer class=\"site-footer\"><p>Dream Wedding Builder, a Spry Labs company. Planning guidance only; every wedding, venue and contract differs.</p><p><a href=\"https://weddingchecklistpdf.com/questions\">All planning questions</a> · <a href=\"https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet\">Budget spreadsheet</a> · <a href=\"https://weddingtimelinetemplate.com/wedding-timeline-template\">Timeline template</a> · <a href=\"https://weddingseatingchartmaker.com/wedding-seating-chart\">Seating chart maker</a></p></footer>"
+    "footer_html": "<footer class=\"site-footer\"><p>Dream Wedding Builder, a Spry Labs company. Planning guidance only; every wedding, venue and contract differs.</p><p><a href=\"https://weddingchecklistpdf.com/questions\">All planning questions</a> \u00b7 <a href=\"https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet\">Budget spreadsheet</a> \u00b7 <a href=\"https://weddingtimelinetemplate.com/wedding-timeline-template\">Timeline template</a> \u00b7 <a href=\"https://weddingseatingchartmaker.com/wedding-seating-chart\">Seating chart maker</a></p></footer>"
   },
   "related": {
     "max_pages_per_new_page": 2,
