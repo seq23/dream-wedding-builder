@@ -75,6 +75,16 @@ describe('consolidated question inventory retains a nonzero guard', () => {
   it('checks a direct destination for every retired question', () => {
     expect(questionRetirementInventory(fixture())).toEqual({ count: 1, targets: ['/guides/kept'] });
   });
+  it('permits guarded new publishing while preserving every retired redirect', () => {
+    const active = { ...fixture(), config: { mode: 'slow', cap: { max_per_day: 1 }, distinct: { sitemap_files: ['artifacts/sitemaps/weddingchecklistpdf.com.xml'] } } };
+    expect(questionRetirementInventory(active).count).toBe(1);
+    const unbounded = { ...active, config: { ...active.config, cap: { max_per_day: 30 } } };
+    expect(() => questionRetirementInventory(unbounded)).toThrow(/bounded daily cap/);
+    const blind = { ...active, config: { ...active.config, distinct: { sitemap_files: [] } } };
+    expect(() => questionRetirementInventory(blind)).toThrow(/sitemap intents/);
+    active.rescue.redirects = {} as typeof active.rescue.redirects;
+    expect(() => questionRetirementInventory(active)).toThrow(/inventory differ/);
+  });
   it('rejects zero inventory, missing destinations, redirect chains and incomplete publishers', () => {
     const empty = fixture(); empty.ledger.pages = [];
     expect(() => questionRetirementInventory(empty)).toThrow(/Zero/);
