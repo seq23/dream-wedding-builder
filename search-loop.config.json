@@ -45,12 +45,7 @@
     "https://weddingtimelinetemplate.com",
     "https://weddingseatingchartmaker.com"
   ],
-  "mode": "off",
-  "pace": {
-    "start_per_day": 10,
-    "step_per_week": 5,
-    "cap": 30
-  },
+  "mode": "slow",
   "menu_pages_need_approval": false,
   "health_gate": "none",
   "protected_paths": [
@@ -116,5 +111,20 @@
   },
   "shares_audience_with": [],
   "ledger_dir": "data/search-loop",
-  "mode_reason": "2026-11-03 owner ruling: strengthen distinct retained pages; generated checklist/planner variants consolidated into their owning pages. Re-enable only after a distinct-intent editorial plan."
+  "mode_reason": "2026-11-04 f2 repair: resume in slow mode, at most one distinct new question per day within the outcome-gated live-page cap. Existing sitemap intents become strengthen briefs; retained consolidated routes stay authoritative. The cap grows only with measured Google impressions.",
+  "cap": {
+    "max_live_pages": null,
+    "start_pages": 20,
+    "min_pages": 10,
+    "grow_share": 0.1,
+    "max_per_day": 1
+  },
+  "distinct": {
+    "jaccard": 0.6,
+    "containment_min_words": 3,
+    "same_answer": 0.5,
+    "sitemap_files": [
+      "artifacts/sitemaps/weddingchecklistpdf.com.xml"
+    ]
+  }
 }
