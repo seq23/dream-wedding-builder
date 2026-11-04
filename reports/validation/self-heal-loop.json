@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-02T13:53:10.029Z",
+  "generated_at": "2026-11-04T16:20:22.494Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -11,7 +11,9 @@
     "cadence-policy-currency": "npm run cadence:derive -- --write",
     "proof-readiness": "npm run authority:flow",
     "query-atlas": "npm run atlas:build",
-    "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair"
+    "seo": "npm run authority:flow && npm run search:diagnose && npm run search:repair",
+    "question-entity": "npm run seo:normalize-question-entity",
+    "question-links": "npm run seo:normalize-question-routes"
   },
   "manual_repairs": {
     "cadence-determinism": "close the measurement window in scripts/cadence/derive_capacity.mjs on a commit date rather than on new Date(), or move the `cadence:derive -- --write` step in the named workflow ahead of the step that spends the budget. Re-running or re-deriving does not fix this class: --write only moves the next calendar boundary a few days out.",
@@ -32,6 +34,7 @@
     "seo-og": "route the page's metadata through seoMetadata() or ogImages()/ogImageUrl() from lib/site-home.ts.",
     "seo-jsonld": "emit the homepage nodes through homeSchemaNodes() in lib/site-home.ts from whichever template renders the host's homepage.",
     "search-readiness-brand-h1": "give the host's homepage title in data/seo/hub_pages.json (or app/page.tsx metadata) the site name from data/seo/site_homes.json, then rebuild the atlas with `npm run authority:atlas`; and keep every heading drawn OVER a page at h2 or lower, so the covered page's own h1 stays the only one.",
+    "page-byline-author": "render <PageByline path={...}/> and emit bylineWebPageNode(host, path) from components/seo/PageByline.tsx on the template, so the visible byline and the JSON-LD author state one name; keep at least one H2 on an index page phrased as a question.",
     "seo-definition": "edit the definition in data/seo/site_homes.json (40-60 words, starting with the site name + ' is ') or restore <SiteDefinition/> directly after the H1.",
     "seo-clarity": "fix data/clarity_projects.json and run node scripts/install_clarity.mjs to regenerate public/assets/clarity-loader.js.",
     "seo-indexnow": "restore public/<key>.txt matching public/indexnow-key.txt, or the step order in .github/workflows/indexnow-after-deploy.yml.",
@@ -41,7 +44,8 @@
     "pinqueue": "node scripts/pinterest/pin_queue.mjs (add --seed N to add N variants per page now); copy lives in data/pinterest/angles.json and scripts/pinterest/pin_sources.mjs; commit data/pinterest + public/pinterest/drip.",
     "entity-graph": "Edit data/seo/entity.json (never lib/site-home.ts): move a profile that is not yet claimed into profiles_pending, put a shared profile on the brand only, and keep the site -> brand -> Spry Labs chain.",
     "sitemap-currency": "Regenerate the sitemaps with the authority:sitemaps npm script and commit artifacts/sitemaps; then the cadence gate decides whether the new URL may ship (a new URL while refresh debt is over tolerance blocks until the oldest pages in reports/cadence/refresh-queue.json are refreshed).",
-    "refresh-lane-wiring": "wire `npm run cadence:refresh` (with OPENROUTER_API_KEY) into full-safe-autonomy.yml between authority:scale:restore and authority:scale:freeze, add authority:scale:clear-scope after the freeze, and keep the always() `npm run cadence:refresh -- --name-outcome` step"
+    "refresh-lane-wiring": "wire `npm run cadence:refresh` (with OPENROUTER_API_KEY) into full-safe-autonomy.yml between authority:scale:restore and authority:scale:freeze, add authority:scale:clear-scope after the freeze, and keep the always() `npm run cadence:refresh -- --name-outcome` step",
+    "search-loop-ai-measured": "give SEARCH_LOOP_CF_USAGE_TOKEN Zone:Read + Zone Analytics:Read AND Account Analytics:Read (the engine uses the one CLOUDFLARE_API_TOKEN for both the zone bot/referral queries and the Workers AI usage read); the Boss OS vault already holds such a token as CLOUDFLARE_ANALYTICS_READ_TOKEN, then re-run the Search Loop workflow with stage=check so a fresh report is committed"
   },
   "status": "CLEAN",
   "safe_to_push": true,
