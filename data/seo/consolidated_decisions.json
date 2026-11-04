@@ -1,0 +1,244 @@
+{
+  "/guides/wedding-seating-chart-template": [
+    {
+      "situation": "Wedding Seating Chart for 50 Guests",
+      "action": "Build from confirmed RSVPs, test several capacity patterns, keep social groups intact where practical, and leave a visible place for unresolved guests instead of overfilling tables."
+    },
+    {
+      "situation": "Wedding Seating Chart for 100 Guests",
+      "action": "Create stable guest records, set approved capacities, group households and social circles, place special needs first, then compare assigned guests with the confirmed total."
+    },
+    {
+      "situation": "Wedding Seating Chart for 150 Guests",
+      "action": "Use table IDs, guest IDs or stable names, household/group fields, capacity checks, meal and accessibility fields, change control, and two export views before printing."
+    },
+    {
+      "situation": "How to Plan Wedding Seating With Round Tables",
+      "action": "Confirm available table sizes, choose a comfortable capacity, place accessibility and family constraints, test sight lines, and give the venue a table-by-table count."
+    },
+    {
+      "situation": "How to Plan Long-Table Wedding Seating",
+      "action": "Map each seat or segment, identify accessible approaches, keep partners and households coherent, avoid isolating end seats, and verify service clearance."
+    },
+    {
+      "situation": "Sweetheart Table vs. Head Table",
+      "action": "Compare footprint, who would be separated from partners, sight lines, service, speeches, and whether the couple wants private time or group energy."
+    },
+    {
+      "situation": "How to Seat Divorced Parents at a Wedding",
+      "action": "Ask privately about constraints, avoid surprise proximity, give each household social support, coordinate ceremony and reception placements, and keep the plan confidential."
+    },
+    {
+      "situation": "Wedding Seating Chart Meal-Choice Tracking",
+      "action": "Record one meal code per confirmed guest, separate children and vendor meals, flag unknowns, count by table and overall, and freeze the version sent to catering."
+    },
+    {
+      "situation": "Wedding Seating Chart Allergy Tracking",
+      "action": "Capture the guest\u2019s wording, distinguish allergy from preference when the guest does so, flag unresolved details, attach the final note to the correct table and meal, and protect unnecessary disclosure."
+    },
+    {
+      "situation": "Wedding Seating Chart Vendor Handoff",
+      "action": "Reconcile counts, export alphabetical and table-order views, attach meal and special-needs summaries, identify unassigned changes, name the contact for corrections, and record delivery."
+    },
+    {
+      "situation": "Alphabetical vs. Table-Order Seating Charts",
+      "action": "Keep stable display names, sort carefully, generate both exports, proofread special characters and households, and ensure both views use the same table IDs."
+    },
+    {
+      "situation": "Wedding Table Capacity Guide",
+      "action": "Collect approved table options, record maximum and comfortable capacity, test floor-plan fit, include high chairs or mobility devices, and prevent assignments above the chosen capacity."
+    },
+    {
+      "situation": "Children and High Chairs in the Seating Chart",
+      "action": "Track each child separately, confirm the seating equipment required, ask the venue how it affects table capacity, keep caregivers nearby, and include child meals in the caterer handoff."
+    },
+    {
+      "situation": "Preparing Escort-Card Data From Your Seating Plan",
+      "action": "Freeze display names, table labels, household conventions, meal markers if used, sort order, and version; proofread the export before printing."
+    }
+  ],
+  "/wedding-guest-list-template": [
+    {
+      "situation": "Managing Late RSVP Seating Changes",
+      "action": "Log the request, confirm whether counts can still change, update the guest record, assess table and meal impact, regenerate all affected exports, and issue a new version number."
+    },
+    {
+      "situation": "Wedding Guest List and Headcount Control",
+      "action": "Fix the capacity ceiling first, build the list at household level with a priority tier on every name, track declines before releasing held seats, and keep one person-level record so headcount, meals, and seating all read from the same source."
+    },
+    {
+      "situation": "Wedding RSVP Tracking System",
+      "action": "Send from a cleaned household list, hold one row per invited person, capture meal, allergy, and accessibility answers on that same row, set one deadline with a named follow-up owner, and reconcile household totals against person-level responses before closing the count."
+    },
+    {
+      "situation": "Wedding Meal Counts and Dietary Tracking",
+      "action": "Keep meal choice, allergy, and dietary restriction on the guest row instead of a separate list, reconcile selections against confirmed attendance before the caterer's count deadline, and reissue one dated breakdown each time a change lands."
+    }
+  ],
+  "/guides/wedding-day-timeline-template": [
+    {
+      "situation": "Wedding Timeline With a First Look",
+      "action": "Confirm photography priorities, work backward from the first-look time, schedule hair/makeup and dressing completion, add travel and reveal buffers, then preserve a pre-ceremony reset."
+    },
+    {
+      "situation": "Wedding Timeline Without a First Look",
+      "action": "Complete individual and separate-group photos before the ceremony, pre-list family combinations, stage people immediately after the ceremony, and confirm how guests are hosted during portraits."
+    },
+    {
+      "situation": "One-Venue Wedding Timeline",
+      "action": "Confirm access windows, separate preparation spaces, ceremony-to-cocktail movement, photography locations, room flip, vendor meals, and breakdown."
+    },
+    {
+      "situation": "Two-Venue Wedding Timeline",
+      "action": "Confirm route and realistic travel time, add loading and parking buffers, stagger departures, decide who moves decor or personal items, and issue location-specific contact details."
+    },
+    {
+      "situation": "Church Ceremony Wedding Timeline",
+      "action": "Confirm requirements directly, schedule arrival and staging, coordinate musicians and readers, define photography boundaries, and protect travel to the reception."
+    },
+    {
+      "situation": "Backyard Wedding Timeline",
+      "action": "Schedule rentals and tenting, electrical and catering setup, restroom servicing, parking, neighbor/noise controls, guest arrival, event operations, cleanup, and returns."
+    },
+    {
+      "situation": "Brunch Wedding Timeline",
+      "action": "Work backward from ceremony and meal service, confirm venue access, protect sleep and transport, simplify preparation where needed, and schedule breakdown earlier than an evening event."
+    },
+    {
+      "situation": "Evening Wedding Timeline",
+      "action": "Anchor sunset or photo priorities, ceremony, dinner, entertainment, last call, transport, and hard exit; then work backward for setup and readiness."
+    },
+    {
+      "situation": "Wedding Photography Timeline",
+      "action": "Create a must-have list, group family combinations efficiently, assign wranglers, confirm locations and travel, coordinate first look or cocktail-hour portraits, and reserve detail time."
+    },
+    {
+      "situation": "Wedding Vendor Arrival Schedule",
+      "action": "Record vendor, arrival window, entrance, parking/loading, contact, setup area, prerequisite, completion deadline, and breakdown time."
+    },
+    {
+      "situation": "Wedding Setup and Breakdown Timeline",
+      "action": "Sequence rentals, tables, linens, decor, lighting, catering, entertainment, signage, personal items, trash, loading, and next-day returns."
+    },
+    {
+      "situation": "Wedding Reception Order of Events",
+      "action": "Choose the essential moments, confirm service timing, limit and brief speakers, place dances intentionally, schedule cake or dessert, define last call and exit, and leave recovery buffer."
+    },
+    {
+      "situation": "Wedding-Party Timeline",
+      "action": "Issue only relevant lines, name locations and contacts, include what to bring, set \u201cready\u201d versus \u201carrive\u201d times, and identify the person handling changes."
+    },
+    {
+      "situation": "Family Photo Timeline",
+      "action": "Build a priority list, use exact names, order combinations to release elderly guests and children early, confirm mobility needs, and choose a weather backup."
+    },
+    {
+      "situation": "Destination Wedding Weekend Itinerary",
+      "action": "Separate travel guidance, welcome event, optional activities, rehearsal, ceremony day, transport, farewell event, emergency contacts, and local verification notes."
+    },
+    {
+      "situation": "Adding Travel Buffers to a Wedding Timeline",
+      "action": "Measure door-to-door movement, identify vehicle and passenger owners, add venue access and parking, include contingency routes, and decide what happens if the schedule slips."
+    },
+    {
+      "situation": "Wedding Day Logistics Timeline",
+      "action": "Anchor the schedule to the fixed times first, work backward through travel, load-in, and setup, put a named owner on every handoff, and state the buffer between transitions rather than leaving it implied."
+    },
+    {
+      "situation": "Wedding Reception Flow Timeline",
+      "action": "Sequence arrival, seating, service, speeches, and entertainment so that no two compete for the room, check each block against the caterer's own service timing, and name the person who cues every transition."
+    },
+    {
+      "situation": "Wedding Music and Cue Sheet",
+      "action": "List every cue in event order with the moment it starts and stops, name one owner per cue, confirm in writing what sound equipment the venue actually supplies, and keep an offline copy of every required track."
+    }
+  ],
+  "/guides/wedding-planning-timeline": [
+    {
+      "situation": "18-Month Wedding Checklist",
+      "action": "Choose the date window and guest range, research location constraints, book the venue and scarce vendors, then schedule design and guest work later so early decisions do not sprawl."
+    },
+    {
+      "situation": "12-Month Wedding Checklist",
+      "action": "Lock scope, book critical vendors, issue save-the-dates when appropriate, build the budget and guest source of truth, then freeze counts and handoffs in the final month."
+    },
+    {
+      "situation": "9-Month Wedding Checklist",
+      "action": "Confirm venue, ceremony, catering, photography, attire lead times, guest communications, and transportation early; compress low-dependency design choices into later sprints."
+    },
+    {
+      "situation": "6-Month Wedding Checklist",
+      "action": "Book what is still available, reduce optional complexity, issue guest communications quickly, choose attire with achievable lead times, and review payments every week."
+    },
+    {
+      "situation": "3-Month Wedding Checklist",
+      "action": "Confirm the ceremony path, venue access, food, photography, attire, invitations, final-count deadlines, and one coordination owner before adding decorative scope."
+    },
+    {
+      "situation": "One-Month Wedding Checklist",
+      "action": "Reconcile contracts, final guest and meal counts, seating, balances, transportation, setup, legal documents, emergency contacts, and role-specific timelines."
+    },
+    {
+      "situation": "Wedding-Week Checklist",
+      "action": "Verify payments and receipts, pack documents and personal items, confirm arrivals and contacts, distribute timelines, rehearse the ceremony, and assign returns and cleanup."
+    }
+  ],
+  "/wedding-planning-checklist": [
+    {
+      "situation": "Backyard Wedding Checklist",
+      "action": "Confirm occupancy, parking, weather shelter, power, lighting, restrooms, waste, food safety, accessibility, noise, insurance, setup, and property restoration with the responsible professionals."
+    },
+    {
+      "situation": "Micro-Wedding Checklist",
+      "action": "Define who is included, how remote or excluded loved ones are handled, venue and meal format, photography priorities, legal requirements, and whether any later celebration is planned."
+    },
+    {
+      "situation": "Wedding Vendor Booking Checklist",
+      "action": "Compare proposals on the same scope, ask operational questions, review the agreement, capture every due date, and update the timeline and budget after signing."
+    },
+    {
+      "situation": "Wedding Final-Payment Checklist",
+      "action": "Confirm final scope and count, match invoices to contracts and change orders, verify payment method and due date, record gratuity separately, save receipts, and identify unresolved disputes."
+    },
+    {
+      "situation": "Post-Wedding Returns and Closing Checklist",
+      "action": "Assign return owners and deadlines, inventory items before transport, preserve receipts, secure gifts and documents, back up photos, and record unresolved charges or damages."
+    },
+    {
+      "situation": "Wedding Planning Binder: Tabs, Files, and Workflow",
+      "action": "Use tabs for scope, contacts, venue, vendors, guests, budget, design, attire, timeline, legal documents, and final handoff; mirror the same structure digitally and archive superseded versions."
+    },
+    {
+      "situation": "Wedding Vendor List: Categories, Status, and Contacts",
+      "action": "Start with required categories, mark not-needed categories explicitly, compare candidates on the same scope, and convert the list into an operations directory once vendors are booked."
+    },
+    {
+      "situation": "Wedding Venue Selection Checklist",
+      "action": "Confirm the seated capacity with the intended layout, the accessibility and load-in routes, the curfew and noise limits, any exclusive-vendor requirement, and what the weather fallback actually seats, all in writing, before comparing venues on anything else."
+    },
+    {
+      "situation": "Accessible Wedding Planning Checklist",
+      "action": "Ask about access needs at invitation time, walk the whole route from parking to seat to restroom yourself, confirm exactly what the venue's accessibility description covers, and record every need against the guest it belongs to."
+    },
+    {
+      "situation": "Wedding Rain Plan Checklist",
+      "action": "Write down the specific condition that triggers the move, confirm what the backup space seats under the same layout, name who makes the call and by when, and check what the change costs in vendor and rental terms."
+    },
+    {
+      "situation": "Wedding Attire Lead Time Checklist",
+      "action": "Get the order and alteration lead times in writing from each supplier, schedule the final fitting close enough to the date that the fit still holds, and plan transport, steaming, and emergency repair before the week of the wedding."
+    }
+  ],
+  "/guides/wedding-emergency-kit": [
+    {
+      "situation": "Wedding-Day Emergency Checklist",
+      "action": "Prepare contacts, weather and transportation contingencies, medication and personal-item backups, repair supplies, food and hydration, and a clear escalation owner."
+    }
+  ],
+  "/guides/rehearsal-dinner-timeline": [
+    {
+      "situation": "Rehearsal Dinner Checklist",
+      "action": "Confirm hosts and decision rights, venue and menu, invitees, rehearsal-to-dinner travel, seating, remarks, payments, and who closes the event."
+    }
+  ]
+}

@@ -66,11 +66,15 @@ describe('sitemap publishes only URLs that render', () => {
 
   it('resolves a search-loop question page only when its static file exists', () => {
     const prefix = searchLoopPrefix(searchLoopConfig);
+    const fixture = path.join(repoRoot, 'public', prefix, 'sitemap-fixture-question.html');
+    fs.writeFileSync(fixture, '<!doctype html><title>Fixture</title>');
+    try {
     const onDisk = fs.readdirSync(path.join(repoRoot, 'public', prefix)).filter((file) => file.endsWith('.html'));
     expect(onDisk.length).toBeGreaterThan(0);
     for (const file of onDisk) expect(resolves(`${prefix}${file.replace(/\.html$/, '')}`)).toBe(true);
     expect(resolves(`${prefix}no-such-question-page`)).toBe(false);
     expect(resolves(`${prefix}../package`)).toBe(false);
+    } finally { fs.unlinkSync(fixture); }
   });
 
   it('publishes every renderable guide on its owning host', async () => {

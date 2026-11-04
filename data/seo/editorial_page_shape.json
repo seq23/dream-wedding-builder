@@ -1,0 +1,302 @@
+{
+  "wedding-seating-chart-accessibility": {
+    "definition": "Wedding seating chart accessibility planning is the process of matching table positions and circulation routes to the access needs guests choose to share. It connects the guest record to entrances, restrooms and service paths, with accommodations confirmed by the guest and venue before a seating diagram is issued.",
+    "published": "2026-07-10",
+    "updated": "2026-11-03",
+    "fields": [
+      "Guest-approved access note",
+      "Entrance and restroom route",
+      "Table position",
+      "Venue contact",
+      "Confirmation status"
+    ],
+    "sections": [
+      {
+        "heading": "How should I ask about access needs?",
+        "paragraphs": [
+          "Ask the guest what arrangement would help them participate, rather than guessing from a diagnosis or mobility device. Offer a private way to reply and record only the practical detail needed for seating. A guest may prefer an aisle position, an unobstructed approach or a quieter location; none should be assumed. Confirm what may be shared with the venue and keep medical history out of the printed chart. If the guest has not replied, mark the arrangement as awaiting confirmation instead of describing an untested position as accessible."
+        ]
+      },
+      {
+        "heading": "How do I check a table position against the room?",
+        "paragraphs": [
+          "Trace the journey from the arrival point to the assigned place and then to the facilities the guest expects to use. Ask the venue to review the actual layout with chairs occupied and service underway. A route that looks open on an empty diagram can be blocked by pulled-out chairs, a queue or stored equipment. Record the agreed route and the venue contact responsible for keeping it usable. Do not publish a universal aisle width or capacity here: the venue must confirm the applicable requirements and the guest must be able to review the proposed arrangement."
+        ]
+      },
+      {
+        "heading": "What belongs in the final seating handoff?",
+        "paragraphs": [
+          "Give the setup team the table identifier, agreed position and practical setup instruction. Give the guest a clear arrival contact if they want one. Keep private notes separate from escort cards and guest-facing displays. Ask the venue to confirm that the final layout still matches the arrangement after any late table move. When a guest changes attendance, remove unnecessary personal notes from the working copies. An accessibility request is a coordination task, not permission to circulate personal information to every supplier."
+        ]
+      }
+    ]
+  },
+  "destination-wedding-checklist": {
+    "definition": "A destination wedding checklist is a task list that connects ceremony arrangements with travel, lodging and guest communication. It records which documents, local contacts, transport plans and permissions need confirmation before bookings depend on them. Couples should distinguish the legal ceremony from any symbolic celebration when checking requirements in another location.",
+    "published": "2026-07-10",
+    "updated": "2026-11-03",
+    "fields": [
+      "Ceremony location",
+      "Document or permission",
+      "Travel dependency",
+      "Local contact",
+      "Confirmation deadline"
+    ],
+    "sections": [
+      {
+        "heading": "Which ceremony decision should come before travel?",
+        "paragraphs": [
+          "Decide whether the ceremony at the destination will create the legal marriage or celebrate a marriage completed elsewhere. That choice changes which official documents need checking and who can confirm them. Ask the relevant authority directly before relying on a package description. Save the answer with the ceremony location and date so a later venue change triggers another check. Do not treat a resort coordinator’s general checklist as proof of legal requirements in every jurisdiction."
+        ]
+      },
+      {
+        "heading": "How should I connect bookings and guest communication?",
+        "paragraphs": [
+          "Separate the couple’s confirmed arrangements from options guests must book themselves. Record the lodging contact, arrival instructions, transport pickup points and the person who can answer changes locally. Tell guests which events require a response and where the latest information lives. A room block does not by itself confirm a guest’s reservation or travel. Keep unconfirmed bookings visible in the plan, and avoid circulating passport details or personal travel records in a shared wedding worksheet."
+        ]
+      },
+      {
+        "heading": "What should travel with the couple?",
+        "paragraphs": [
+          "Make an item-by-item plan for documents, attire and anything essential to the ceremony. Check carrier and destination restrictions directly before packing or shipping, and keep a record of who holds each item. Ask the receiving contact when deliveries can be accepted and where they will be stored. If weather changes the ceremony location, confirm which suppliers and guests need new directions. The useful backup plan names a decision owner and communication method; it does not assume every outdoor booking can simply move indoors."
+        ]
+      }
+    ]
+  },
+  "courthouse-wedding-checklist": {
+    "definition": "A courthouse wedding checklist is a preparation list for a civil ceremony at a courthouse or registry office. It records the appointment, identification, licence and witness requirements confirmed by that office, alongside arrival arrangements and any celebration afterwards. Requirements belong to the ceremony location and must be checked directly with its issuing authority.",
+    "published": "2026-07-10",
+    "updated": "2026-11-03",
+    "fields": [
+      "Issuing office",
+      "Appointment confirmation",
+      "Required document",
+      "Witness confirmation",
+      "Arrival instruction"
+    ],
+    "sections": [
+      {
+        "heading": "Which office should confirm the paperwork?",
+        "paragraphs": [
+          "Start with the office responsible for the ceremony location and distinguish applying for a licence from booking a ceremony. Ask which identification and documents apply to your situation, whether an appointment is needed and how witnesses are handled. Record the official instructions and the date you received them. Requirements can differ between jurisdictions, so a friend’s ceremony or a vendor checklist should prompt a question rather than settle it. Keep sensitive documents outside a shared planning sheet."
+        ]
+      },
+      {
+        "heading": "How should I prepare for arrival?",
+        "paragraphs": [
+          "Confirm the building entrance, security arrangements and where participants should wait. Ask about permitted belongings, photography and any guest restrictions before inviting people to attend. Give witnesses the confirmed arrival instructions and a way to reach the person coordinating the group. Keep ceremony and licence appointment confirmations easy to find. If someone needs an access arrangement, discuss it directly with the office in advance instead of assuming that an available appointment resolves every practical need."
+        ]
+      },
+      {
+        "heading": "What happens after the civil ceremony?",
+        "paragraphs": [
+          "Ask the responsible office how the marriage record is completed and how to request evidence of the recorded marriage when needed. Separate that administrative follow-up from any meal, photographs or announcements. Tell invited guests where the celebration starts and whether they need to arrange transport. Record who takes home documents and personal belongings. A small ceremony still benefits from a named owner for these tasks, especially when the couple and guests leave the building in different groups."
+        ]
+      }
+    ]
+  },
+  "wedding-day-timeline": {
+    "definition": "A wedding day timeline is an ordered schedule connecting venue access, preparation, ceremony, reception and breakdown. It identifies where people need to be, who owns each handoff and which activities depend on earlier work finishing. Its times come from the couple and suppliers, with travel and setup recorded rather than silently assumed.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [
+      "Activity",
+      "Location",
+      "Start and finish",
+      "Responsible contact",
+      "Preceding dependency"
+    ],
+    "sections": [
+      {
+        "heading": "Which times should anchor the schedule?",
+        "paragraphs": [
+          "Begin with the venue access and exit windows, ceremony time and supplier commitments that are already confirmed. Record the source beside each fixed time. Work backward to preparation and forward through the reception, distinguishing a supplier’s arrival from the moment their setup must be ready. An empty interval is not automatically available: it may contain travel, unloading or a room change. Ask the person doing the work what must finish first before fitting another activity into that interval."
+        ]
+      },
+      {
+        "heading": "How should travel and photographs fit?",
+        "paragraphs": [
+          "List each location change as an activity with a responsible contact and a destination. Ask the transport provider and photographer to review their own dependencies, including who must be present before portraits can start. Use their confirmed estimates rather than a generic duration copied from another wedding. If the ceremony moves, check every later supplier release and venue deadline. Show discretionary activities separately so the coordinator can shorten or omit an agreed item without guessing which contractual commitment can move."
+        ]
+      },
+      {
+        "heading": "Who needs the full master schedule?",
+        "paragraphs": [
+          "Keep a master for the person coordinating dependencies, then give each participant the portion they need to act on. A family member needs a meeting point and photo cue; a supplier needs access, setup, service and release instructions. Name the person who can approve a change and record how replacements will be distributed. At the end of the event, include item collection and venue clearance. The final handoff should make it clear who remains responsible after the couple departs."
+        ]
+      }
+    ]
+  },
+  "wedding-planning-timeline": {
+    "definition": "A wedding planning timeline is a sequence of decisions and deadlines leading up to the wedding. It connects date, venue, headcount and spending decisions to the bookings they enable, then turns supplier deadlines into assigned tasks. It helps couples see what is blocked before they commit to the next arrangement.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-seating-chart-template": {
+    "definition": "A wedding seating chart template is a guest record and table assignment structure used to prepare a reception layout. Each guest has a row connecting their RSVP, household, table and relevant service needs. The same records can support escort cards and catering handoffs without maintaining competing lists of names and meals.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-day-timeline-template": {
+    "definition": "A wedding day timeline template is an editable schedule with fields for activity, start, finish, location and owner. It turns ceremony and venue constraints into instructions that other people can follow. Its role-specific views show each supplier their own arrivals, dependencies and releases while preserving a single master schedule.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-rehearsal-timeline": {
+    "definition": "A wedding rehearsal timeline is the order for practising ceremony positions, movement and handoffs before the wedding. It identifies who cues each entrance, where participants wait and how readings or rings move between people. Its purpose is to resolve uncertainty in the ceremony itself before participants leave for the rehearsal dinner.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "bridal-shower-checklist": {
+    "definition": "A bridal shower checklist is a hosted-event plan covering decision authority, spending, invitations, food, activities and gift records. It distinguishes the host’s responsibilities from the couple’s preferences and connects the guest list to wedding invitations. The checklist ends with a clear record for returning borrowed items and acknowledging gifts.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-emergency-kit": {
+    "definition": "A wedding emergency kit is a portable collection of supplies for small disruptions such as a loose fastening, missing paper or uncharged device. It pairs useful items with a named carrier and an accessible storage place. It supports ordinary fixes and does not replace professional help for medical, safety or venue problems.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "day-of-coordinator-checklist": {
+    "definition": "A day-of coordinator checklist is a handover record for the person running agreed wedding arrangements. It combines the schedule, supplier contacts, setup instructions and close-out responsibilities with the decisions that person may make. It makes authority explicit so the coordinator can resolve routine questions without repeatedly interrupting the couple.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "rehearsal-dinner-timeline": {
+    "definition": "A rehearsal dinner timeline is a service and speaking schedule anchored to the end of the ceremony rehearsal. It connects actual travel time, guest arrival, kitchen service, toasts and departure. It gives the host a way to adjust the dinner when the rehearsal changes without leaving the restaurant or speakers guessing.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "elopement-planning-checklist": {
+    "definition": "An elopement planning checklist is a record of the ceremony requirements and travel arrangements for a wedding with a small or absent guest group. It separates official marriage requirements from optional celebrations, tracks permissions for the chosen location, and gives each unresolved document, booking or travel dependency an owner and a deadline.",
+    "published": "2026-08-27",
+    "updated": "2026-11-03",
+    "fields": [
+      "Ceremony jurisdiction",
+      "Licence confirmation",
+      "Officiant confirmation",
+      "Location permission",
+      "Travel dependency"
+    ],
+    "sections": [
+      {
+        "heading": "What should I verify before choosing the location?",
+        "paragraphs": [
+          "Identify the jurisdiction where the marriage will take place and ask its authority about the process that applies to you. Confirm the officiant’s role, witness arrangements and document requirements before treating the date as settled. A scenic location may also have its own permission process. Keep legal confirmation separate from the photographer’s or venue’s availability. If the ceremony is symbolic, record where the legal marriage will happen so the two plans are not accidentally treated as interchangeable."
+        ]
+      },
+      {
+        "heading": "How do I plan a ceremony on public land?",
+        "paragraphs": [
+          "Find the land manager for the exact site rather than assuming a nearby attraction has the same rules. Ask about permission, permitted locations and conditions affecting equipment, group access or photography. Save the approval and instructions with the ceremony plan. The National Park Service pages linked below illustrate why location-specific checking matters; they do not establish the rule for every park. Avoid booking nonrefundable travel around an application that has not been approved."
+        ]
+      },
+      {
+        "heading": "How should we handle a changed ceremony plan?",
+        "paragraphs": [
+          "Write down which change would trigger a different location or date, who makes that decision and how the officiant, witnesses and photographer will hear it. Check whether permissions and documents remain valid for the changed arrangement. Give participants the latest meeting point and a contact rather than relying on an old itinerary. Decide separately when and how family will be told. An elopement reduces the guest logistics; it does not remove the need to coordinate the people who make the ceremony possible."
+        ]
+      }
+    ]
+  },
+  "wedding-checklist": {
+    "definition": "A wedding checklist is an ordered record of planning tasks, decisions and confirmations. It connects each action to an owner and a deadline, so the couple can see what is ready and what is blocked. A useful checklist follows actual venue and supplier requirements rather than assuming every wedding follows the same calendar.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-planning-checklist": {
+    "definition": "A wedding planning checklist is a master task list covering the decisions that connect a ceremony and reception. It brings bookings, guest communication, documents and final handoffs into a single review. Each entry should explain the next action, the person responsible and the confirmation needed before the task can be closed.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-checklist-pdf": {
+    "definition": "A wedding checklist PDF is a printable planning document for reviewing tasks away from an editable worksheet. It gives the couple and helpers a stable copy of the current plan. The printable view should identify its version and direct changes back to the master record so handwritten updates do not become competing plans.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "printable-wedding-checklist": {
+    "definition": "A printable wedding checklist is a paper-ready view of the tasks and confirmations that remain before a wedding. It helps couples review progress together, mark unresolved details and assign follow-up actions. Its value comes from clear ownership and real deadlines, with changes transferred back to the working plan after each review.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-timeline-template": {
+    "definition": "Wedding Timeline Template is a free timeline guide and a $12 editable workbook for building the wedding-day schedule. It holds a master timeline with owners, locations, dependencies and buffers, vendor arrival and breakdown times, and printable views for the couple, wedding party, photographer and family, so everyone works from one schedule.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-seating-chart": {
+    "definition": "Wedding Seating Chart Maker is a free seating guide and a $19 editable workbook for building a venue-ready seating plan. It tracks confirmed guests, households, table capacities, meals, allergies, accessibility needs and children, reconciles RSVPs against tables, and prints the sheets the venue, caterer and escort-card table need on the day.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "wedding-guest-list-template": {
+    "definition": "A wedding guest list template is a structured record of invitees, households, invitation status and replies. It separates the people count from the invitation count and keeps names connected to the details needed for communication. A confirmed guest record can later feed a seating plan without turning a provisional invitation into a promised seat.",
+    "published": "2026-07-30",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "amazon/wedding-day-timeline": {
+    "definition": "A wedding day timeline is a coordinated schedule of arrivals, ceremony cues, reception events and closing tasks. This book companion connects the sequence to the people responsible for each handoff. Build around confirmed venue access and supplier instructions, then share a dated version that explains who resolves changes during the event.",
+    "published": "2026-08-29",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "amazon/wedding-vendor-questions": {
+    "definition": "Wedding vendor questions are a preparation list for checking what a supplier offers, what the agreement covers and who handles changes. This book companion helps turn answers into decisions and written confirmations. Use the questions alongside the actual proposal and contract, with unresolved details assigned to the person who can clarify them.",
+    "published": "2026-08-29",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "amazon/wedding-seating-chart": {
+    "definition": "A wedding seating chart is a guest placement record that connects confirmed attendance to tables and the venue layout. This book companion helps you reconcile names, capacities and practical seating requests before preparing displays or escort cards. Keep the working guest record connected to each revision so late replies reach the setup team.",
+    "published": "2026-08-29",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "amazon/wedding-budget-line-by-line": {
+    "definition": "A line-by-line wedding budget is a record of planned expenses, quoted amounts, commitments and payments for each booking or purchase. This book companion helps distinguish an estimate from a confirmed obligation. Read each supplier agreement for its actual inclusions and payment terms before using the workbook to compare options or update the remaining balance.",
+    "published": "2026-08-29",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  },
+  "amazon/wedding-guest-list-problem": {
+    "definition": "A wedding guest list is a working record of people, households, invitations and attendance replies. This book companion focuses on resolving disagreements and uncertain counts before those assumptions reach catering or seating plans. Separate a proposed invitation from confirmed attendance and record who can approve additions, clarify a reply or communicate a change.",
+    "published": "2026-08-29",
+    "updated": "2026-11-03",
+    "fields": [],
+    "sections": []
+  }
+}

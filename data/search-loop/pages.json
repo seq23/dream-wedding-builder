@@ -16,7 +16,7 @@
       "route": "/questions/how-to-plan-for-a-wedding-checklist",
       "url": "https://weddingchecklistpdf.com/questions/how-to-plan-for-a-wedding-checklist",
       "published_at": "2026-11-01",
-      "status": "live",
+      "status": "merged",
       "hash": "a3f104e7af52adaf54527312502400d418cecc3fb25b71ad12e5594f10cfaf21",
       "model": "free-route",
       "facts": [
@@ -24,7 +24,9 @@
       ],
       "linked_from": [],
       "checks": {},
-      "indexnow_at": "2026-11-02"
+      "indexnow_at": "2026-11-02",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "free-wedding-planner-template",
@@ -41,7 +43,7 @@
       "route": "/questions/free-wedding-planner-template",
       "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-template",
       "published_at": "2026-11-01",
-      "status": "live",
+      "status": "merged",
       "hash": "cb1c2d07c605cadadf31b6bb0ce3f7fa1172423cea210311d710be3cb0a0563e",
       "model": "free-route",
       "facts": [
@@ -53,7 +55,9 @@
       "extra_queries": [
         "free wedding planner excel template",
         "wedding to do checklist template"
-      ]
+      ],
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/free-wedding-planner"
     },
     {
       "slug": "free-wedding-planner-pdf",
@@ -70,7 +74,7 @@
       "route": "/questions/free-wedding-planner-pdf",
       "url": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
       "published_at": "2026-11-01",
-      "status": "live",
+      "status": "merged",
       "hash": "27e451e120eca584553c5cc7d23255dfe917c2e5bfc15453c78e05bab12ac040",
       "model": "free-route",
       "facts": [
@@ -89,7 +93,9 @@
         "downloadable wedding planner free",
         "wedding planner to do list free",
         "printable wedding planning checklist free"
-      ]
+      ],
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/free-wedding-planner"
     },
     {
       "slug": "printable-wedding-checklist-free",
@@ -106,7 +112,7 @@
       "route": "/questions/printable-wedding-checklist-free",
       "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "ac73678e6b07146fdc7bfc446cd571d39cf0d104109b3d0e1485fef01b03b980",
       "model": "free-route",
       "facts": [
@@ -136,7 +142,9 @@
         "free printable wedding checklist template",
         "free wedding list checklist printable"
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "printable-wedding-checklist-for-bride",
@@ -153,7 +161,7 @@
       "route": "/questions/printable-wedding-checklist-for-bride",
       "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-for-bride",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "57696ad6596798ee4b9aa6a0d661fa2c0a9333dadf4f3c1d5b8c177cb397f020",
       "model": "free-route",
       "facts": [
@@ -174,7 +182,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "tips-to-planning-a-wedding-checklist",
@@ -191,7 +201,7 @@
       "route": "/questions/tips-to-planning-a-wedding-checklist",
       "url": "https://weddingchecklistpdf.com/questions/tips-to-planning-a-wedding-checklist",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "39f5a1e2c8b5f0266e21c4633fc024600d6105e264b88333836d1bfb8d193077",
       "model": "free-route",
       "facts": [
@@ -213,7 +223,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "free-wedding-planning-checklist-pdf",
@@ -230,7 +242,7 @@
       "route": "/questions/free-wedding-planning-checklist-pdf",
       "url": "https://weddingchecklistpdf.com/questions/free-wedding-planning-checklist-pdf",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "100d0acaec564a48055ef75682db8b94a06ea020ac05968343b0cb068ad2cef3",
       "model": "free-route",
       "facts": [
@@ -252,7 +264,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "how-to-plan-a-wedding-checklist-pdf",
@@ -268,7 +282,7 @@
       "route": "/questions/how-to-plan-a-wedding-checklist-pdf",
       "url": "https://weddingchecklistpdf.com/questions/how-to-plan-a-wedding-checklist-pdf",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "82dfdfe1114d47146ec2dd79b0b222c2b6b12a74dd85858c4f8ca7c40cee547c",
       "model": "free-route",
       "facts": [
@@ -290,7 +304,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "printable-wedding-checklist-template",
@@ -306,7 +322,7 @@
       "route": "/questions/printable-wedding-checklist-template",
       "url": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-template",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "960b459a01e87bb7ac6c822ddb47df4dbf308cffee5f8879f4065593ab52ceaf",
       "model": "free-route",
       "facts": [
@@ -328,7 +344,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/printable-wedding-checklist"
     },
     {
       "slug": "planning-your-own-wedding-checklist",
@@ -344,7 +362,7 @@
       "route": "/questions/planning-your-own-wedding-checklist",
       "url": "https://weddingchecklistpdf.com/questions/planning-your-own-wedding-checklist",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "b3c90e5aa3a7f613016630f9aed32b8d835bc7162a5a2628eec9635e18a2d8f4",
       "model": "free-route",
       "facts": [
@@ -366,7 +384,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "elopement-checklist-printable-pdf",
@@ -382,7 +402,7 @@
       "route": "/questions/elopement-checklist-printable-pdf",
       "url": "https://weddingchecklistpdf.com/questions/elopement-checklist-printable-pdf",
       "published_at": "2026-11-02",
-      "status": "live",
+      "status": "merged",
       "hash": "4ca176d3208e0a51e21667b773cc405e031e5b1833a4f37829778ac66a7ab8c6",
       "model": "free-route",
       "facts": [
@@ -398,7 +418,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
     },
     {
       "slug": "wedding-checklist-for-elopement",
@@ -414,7 +436,7 @@
       "route": "/questions/wedding-checklist-for-elopement",
       "url": "https://weddingchecklistpdf.com/questions/wedding-checklist-for-elopement",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "a6dfc682ebaca0ac005de2d4a247f30a190ee7ea94d330626df6d2b352e15e24",
       "model": "free-route",
       "facts": [
@@ -441,7 +463,9 @@
         "b5 FAQ answer is 37 words (aim 40-60): \"Do we need to hire an official coordinator for an \"",
         "b5 FAQ answer is 35 words (aim 40-60): \"What if bad weather ruins our outdoor elopement pl\""
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
     },
     {
       "slug": "how-to-plan-a-elope-wedding",
@@ -457,7 +481,7 @@
       "route": "/questions/how-to-plan-a-elope-wedding",
       "url": "https://weddingchecklistpdf.com/questions/how-to-plan-a-elope-wedding",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "62ef088ac762f4983d07088c5f49bc6e4c3560d75798dc64be381fbd11aaeeea",
       "model": "free-route",
       "facts": [
@@ -486,7 +510,9 @@
       "extra_queries": [
         "how to plan an elopement wedding"
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
     },
     {
       "slug": "wedding-checklist-to-do",
@@ -502,7 +528,7 @@
       "route": "/questions/wedding-checklist-to-do",
       "url": "https://weddingchecklistpdf.com/questions/wedding-checklist-to-do",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "6bcb30c992fe960163faa74c76182bf90c74e610a51824a26151268b3fb13246",
       "model": "free-route",
       "facts": [
@@ -523,7 +549,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "best-wedding-checklist-printable-every-detail",
@@ -539,7 +567,7 @@
       "route": "/questions/best-wedding-checklist-printable-every-detail",
       "url": "https://weddingchecklistpdf.com/questions/best-wedding-checklist-printable-every-detail",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "142965fe05c848c71654faf40ce43280e180c0d48f3a533196d99b81918c5ac7",
       "model": "free-route",
       "facts": [
@@ -570,7 +598,9 @@
       "extra_queries": [
         "detailed wedding checklist printable"
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "wedding-planning-checklist-help",
@@ -586,7 +616,7 @@
       "route": "/questions/wedding-planning-checklist-help",
       "url": "https://weddingchecklistpdf.com/questions/wedding-planning-checklist-help",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "b593980cf2fab52b8ce547c962e0a134d12844eff4295fcf6cdfd90fd0eabd4b",
       "model": "free-route",
       "facts": [
@@ -611,7 +641,9 @@
         "b5 FAQ answer is 36 words (aim 40-60): \"How do I handle family opinions that clash with my\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"Do I really need a professional wedding planner?\""
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "things-to-plan-for-a-wedding-checklist",
@@ -627,7 +659,7 @@
       "route": "/questions/things-to-plan-for-a-wedding-checklist",
       "url": "https://weddingchecklistpdf.com/questions/things-to-plan-for-a-wedding-checklist",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "0d9abb5a9040d038d86b5e0c653ad683cb8fb9a58f35391801e56bab82ad404c",
       "model": "free-route",
       "facts": [
@@ -645,7 +677,9 @@
       "gate_notes": [
         "b5 FAQ answer is 39 words (aim 40-60): \"Can I plan my entire wedding without hiring a prof\""
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "wedding-checklist-everything-you-need",
@@ -661,7 +695,7 @@
       "route": "/questions/wedding-checklist-everything-you-need",
       "url": "https://weddingchecklistpdf.com/questions/wedding-checklist-everything-you-need",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "d5d4333603c8654515b5846e824b6e90c110ec4ffa48a3d78b6a67f540f8e0b2",
       "model": "free-route",
       "facts": [
@@ -680,7 +714,9 @@
         "b5 FAQ answer is 35 words (aim 40-60): \"Do I need to hire a wedding planner to use a check\"",
         "b5 FAQ answer is 39 words (aim 40-60): \"How do I handle last-minute RSVPs and seating chan\""
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "wedding-planning-checklist-advice",
@@ -696,7 +732,7 @@
       "route": "/questions/wedding-planning-checklist-advice",
       "url": "https://weddingchecklistpdf.com/questions/wedding-planning-checklist-advice",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "06632cad59b01a56c9c3ed4dfe64e2c3faaca827191023946bbe8b4c47ebe3a4",
       "model": "free-route",
       "facts": [
@@ -722,7 +758,9 @@
         "b4 direct answer under the H1 is 39 words (aim 40-60)",
         "b5 FAQ answer is 37 words (aim 40-60): \"How do I manage family opinions while using a chec\""
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "basic-wedding-planning-checklist",
@@ -738,7 +776,7 @@
       "route": "/questions/basic-wedding-planning-checklist",
       "url": "https://weddingchecklistpdf.com/questions/basic-wedding-planning-checklist",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "765cb1ab329384253902b578b4efaf42b8eaa5713fdcffd849ad3ece6be2d6f7",
       "model": "free-route",
       "facts": [
@@ -759,7 +797,9 @@
         }
       ],
       "checks": {},
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     },
     {
       "slug": "wedding-planning-detailed-checklist",
@@ -775,7 +815,7 @@
       "route": "/questions/wedding-planning-detailed-checklist",
       "url": "https://weddingchecklistpdf.com/questions/wedding-planning-detailed-checklist",
       "published_at": "2026-11-03",
-      "status": "live",
+      "status": "merged",
       "hash": "e116d1275fb9abd8db2df8b50606cc6990ed2759cc47ee3599dbb5cb18b711d4",
       "model": "free-route",
       "facts": [
@@ -796,7 +836,9 @@
         "b5 FAQ answer is 35 words (aim 40-60): \"Do I really need a wedding planner?\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"When should I mail out my wedding invitations?\""
       ],
-      "indexnow_at": "2026-11-03"
+      "indexnow_at": "2026-11-03",
+      "merged_at": "2026-11-04",
+      "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
     }
   ],
   "dropped": [

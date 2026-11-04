@@ -45,7 +45,7 @@
     "https://weddingtimelinetemplate.com",
     "https://weddingseatingchartmaker.com"
   ],
-  "mode": "normal",
+  "mode": "off",
   "pace": {
     "start_per_day": 10,
     "step_per_week": 5,
@@ -115,5 +115,6 @@
     "source": "none"
   },
   "shares_audience_with": [],
-  "ledger_dir": "data/search-loop"
+  "ledger_dir": "data/search-loop",
+  "mode_reason": "2026-11-03 owner ruling: strengthen distinct retained pages; generated checklist/planner variants consolidated into their owning pages. Re-enable only after a distinct-intent editorial plan."
 }

@@ -15,6 +15,7 @@
 // Runs in .github/scripts/search_loop_commit.sh, so tomorrow's engine page is
 // corrected before it is committed, and is guarded by
 // scripts/validators/validate_question_links.mjs.
+import { readQuestionRetirements } from '../../lib/question-retirements.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -36,15 +37,16 @@ if (`/${servedFrom}/` !== prefix) {
 }
 
 const dir = path.join(root, outDir);
-if (!fs.existsSync(dir)) {
-  console.error(`[normalize:question-routes] FAIL: ${dir} does not exist; the engine's output directory moved`);
-  process.exit(1);
-}
-const pages = fs.readdirSync(dir).filter((f) => f.endsWith('.html')).sort();
-// Rule 0: a run that looked at nothing must not exit 0.
+const pages = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.html')).sort() : [];
 if (pages.length === 0) {
-  console.error(`[normalize:question-routes] FAIL: zero pages in ${dir}; nothing was normalized`);
-  process.exit(1);
+  try {
+    const inventory = readQuestionRetirements(root);
+    console.log(`[normalize_question_routes] OK: ${inventory.count} retired questions resolve directly to ${inventory.targets.length} kept main-site destinations; publisher entity complete`);
+  } catch (error) {
+    console.error(`[normalize_question_routes] FAIL: ${error.message}`);
+    process.exit(1);
+  }
+  process.exit(0);
 }
 
 // href="/public/questions/..." and href="https://host/public/questions/..."

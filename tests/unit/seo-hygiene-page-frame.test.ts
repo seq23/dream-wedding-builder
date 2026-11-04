@@ -11,6 +11,7 @@
 // guarded is the thing that made the old arrangement fail: a route whose name
 // nothing in this repo knows, which would frame the page as the site itself.
 import { describe, expect, it } from 'vitest';
+import rescue from '@/data/seo/page_rescue.json';
 import ownership from '@/data/seo/route_ownership.json';
 import { breadcrumbTrail, pageNameFor } from '@/lib/page-frame';
 import { canonicalUrl, PARENT_HOST, productForHost, type SiteHost } from '@/lib/site-config';
@@ -36,7 +37,7 @@ describe('the Organization node', () => {
 });
 
 describe('every indexable route has a name and a trail', () => {
-  it('has routes to check', () => { expect(indexableRoutes.length).toBeGreaterThan(100); });
+  it('has routes to check', () => { const kept = Object.values(rescue.kept_paths_by_host).flat().filter(path => !ownership.shared_host_routes.includes(path) && !path.startsWith('/questions/')); expect(kept.length).toBeGreaterThan(0); expect(indexableRoutes.map(r => r.path).sort()).toEqual(kept.sort()); });
   for (const route of [...indexableRoutes, ...sharedRoutes.map((path) => ({ path, host: PARENT_HOST }))]) {
     it(`${route.path} is named by a record in this repo`, () => {
       // '/' is the site itself; every other route must be named by a hub record, a

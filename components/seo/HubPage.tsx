@@ -1,3 +1,5 @@
+import { ConsolidatedDecisions } from './ConsolidatedDecisions';
+import { editorialShape, editorialArticleFields, EditorialEvidence } from './EditorialEvidence';
 import { budgetShape, budgetArticleFields, BudgetEvidence } from './BudgetEvidence';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,12 +7,9 @@ import { Breadcrumbs } from './Breadcrumbs';
 import { JsonLd } from './JsonLd';
 import { RelatedLinks } from './RelatedLinks';
 import { canonicalUrl, hrefFrom, isCanonicalHost } from '@/lib/site-config';
-import { hubRecommendation, type HubPage as HubPageData } from '@/lib/seo';
-import { RecommendationSummary } from './RecommendationSummary';
+import { type HubPage as HubPageData } from '@/lib/seo';
 import { productById } from '@/lib/products';
 import { dateModifiedFor } from '@/lib/lastmod';
-import { AffiliatePicks } from '@/components/AffiliatePicks';
-import { placementForGuide } from '@/lib/affiliates';
 import { homeSchemaNodes, isHomePath, ORGANIZATION_ID } from '@/lib/site-home';
 import { SiteDefinition } from './SiteDefinition';
 import { PrintButton } from '@/components/PrintButton';
@@ -20,6 +19,7 @@ type Preview = { src: string; title: string; caption: string; alt: string };
 
 export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
   const shape = budgetShape(slug);
+  const editorial = editorialShape(slug);
   if (shape) page = { ...page, faqs: shape.faqs };
   const canonical = canonicalUrl(page.host, `/${slug}`);
   const product = productById(page.product_id);
@@ -40,23 +40,23 @@ export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
   // The publisher is referenced by @id, never restated: a second {name, url} stub is
   // a second entity to an engine, and it is the one it reads first. lib/site-home.ts
   // owns the node that has the logo and the sameAs profiles.
-  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, mainEntityOfPage: canonical, publisher: { '@id': ORGANIZATION_ID }, ...dateModifiedFor(`/${slug}`), ...budgetArticleFields(slug) };
+  const article = { '@context': 'https://schema.org', '@type': 'Article', headline: page.title, description: page.description, mainEntityOfPage: canonical, publisher: { '@id': ORGANIZATION_ID }, ...dateModifiedFor(`/${slug}`), ...editorialArticleFields(slug), ...budgetArticleFields(slug) };
   // The hub a host's `/` redirects to is that host's homepage. It carries the same
   // node set as weddingchecklistpdf.com's own homepage (lib/site-home.ts).
   const isHome = isHomePath(page.host, `/${slug}`);
   const crumbs = [{ name: 'Dream Wedding Builder', href: 'https://weddingchecklistpdf.com/', canonical: 'https://weddingchecklistpdf.com/' }, { name: page.h1, href: `/${slug}`, canonical }];
-  const homeNodes = isCanonicalHost(page.host) && isHome ? homeSchemaNodes({ host: page.host, path: `/${slug}`, headline: page.title, description: page.description, faqs: page.faqs, steps: page.sections.flatMap((section) => section.bullets ?? []), breadcrumbs: crumbs, ...dateModifiedFor(`/${slug}`), ...budgetArticleFields(slug) }) : null;
+  const homeNodes = isCanonicalHost(page.host) && isHome ? homeSchemaNodes({ host: page.host, path: `/${slug}`, headline: page.title, description: page.description, faqs: page.faqs, steps: page.sections.flatMap((section) => section.bullets ?? []), breadcrumbs: crumbs, ...dateModifiedFor(`/${slug}`), ...editorialArticleFields(slug), ...budgetArticleFields(slug) }) : null;
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: page.faqs.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
     <Breadcrumbs items={crumbs} jsonLd={!isHome} />
-    <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.eyebrow}</p><h1 className="mt-4 font-serif text-5xl leading-[1.02] md:text-7xl">{page.h1}</h1>{isHome && <SiteDefinition host={page.host} />}{shape && !isHome && <p className="definition mt-6 text-lg leading-8">{shape.definition}</p>}<p className="mt-6 max-w-4xl text-lg leading-8 text-charcoal/70">{page.intro}</p><div className="no-print mt-7 flex flex-wrap gap-3">{product && !shape && <Link href={hrefFrom(page.host, `${product.route}#look-inside`)} className="rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Look inside {product.name} →</Link>}{page.printable && <PrintButton />}</div></header>
-    {shape && <section><h2 className="font-serif text-4xl">Quick answer</h2><p>{page.direct_answer}</p><p>What this guide is best for: tracking commitments, balances and payment dates in one file.</p></section>}
-    {!shape && <RecommendationSummary statement={hubRecommendation(page)} product={bundleOffer ? bundleOffer.bundle : (product ?? null)} productHref={bundleOffer ? hrefFrom(page.host, bundleOffer.offer.href) : product ? hrefFrom(page.host, product.route) : undefined} />}
+    <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.eyebrow}</p><h1 className="mt-4 font-serif text-5xl leading-[1.02] md:text-7xl">{page.h1}</h1>{isHome && <SiteDefinition host={page.host} />}{!isHome && <p className="definition mt-6 text-lg leading-8">{shape?.definition ?? editorial?.definition}</p>}<div className="no-print mt-7 flex flex-wrap gap-3">{product && !shape && isHome && <Link href={hrefFrom(page.host, `${product.route}#look-inside`)} className="rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Look inside {product.name} →</Link>}{page.printable && <PrintButton />}</div></header>
+    <section><h2 className="font-serif text-4xl">Quick answer</h2><p>{page.direct_answer}</p></section>
     <nav aria-label="On this page" className="no-print rounded-[1.5rem] border border-charcoal/10 bg-linen p-6"><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">On this page</p><ol className="mt-3 grid gap-2 md:grid-cols-2">{page.sections.map((section, index) => <li key={section.heading}><a className="font-semibold underline decoration-charcoal/20 underline-offset-4" href={`#section-${index + 1}`}>{section.heading}</a></li>)}</ol></nav>
-    {page.sections.map((section, index) => <section id={`section-${index + 1}`} key={section.heading} className="scroll-mt-28 rounded-[1.75rem] bg-white p-7 md:p-9"><h2 className="font-serif text-4xl md:text-5xl">{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-7 text-charcoal/70">{paragraph}</p>)}{section.bullets && <ul className="mt-5 grid gap-3 md:grid-cols-2">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4">✓ {item}</li>)}</ul>}</section>)}
+    {page.sections.map((section, index) => <section id={`section-${index + 1}`} key={section.heading} className="scroll-mt-28 rounded-[1.75rem] bg-white p-7 md:p-9"><h2 className="font-serif text-4xl md:text-5xl">{section.heading.endsWith("?") ? section.heading : `How do I use ${section.heading.toLowerCase()}?`}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-7 text-charcoal/70">{paragraph}</p>)}{section.bullets && <ul className="mt-5 grid gap-3 md:grid-cols-2">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4">✓ {item}</li>)}</ul>}</section>)}
     <section className="overflow-x-auto rounded-[1.75rem] bg-white p-7 md:p-9"><h2 className="font-serif text-4xl">{shape ? "Which fields should my spreadsheet contain?" : "Working view"}</h2><table className="mt-6 min-w-full border-collapse text-left text-sm"><thead><tr>{page.table.headers.map((header) => <th key={header} className="border-b border-charcoal/20 bg-linen p-3">{header}</th>)}</tr></thead><tbody>{page.table.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={cellIndex} className="border-b border-charcoal/10 p-3 align-top">{cell || ' '}</td>)}</tr>)}</tbody></table></section>
-    {product && !shape && previews.length > 0 && <section className="no-print rounded-[2rem] bg-charcoal p-7 text-linen md:p-10"><p className="text-xs font-bold uppercase tracking-[.22em] text-linen/55">Look inside the paid files</p><div className="mt-4 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"><div><h2 className="font-serif text-5xl">Real previews from {product.name}</h2><p className="mt-4 max-w-3xl text-linen/75">These are flattened, watermarked images generated from the canonical paid PDF and XLSX release. They show the real structure without exposing an editable template.</p></div><Link href={hrefFrom(page.host, `${product.route}#look-inside`)} className="inline-flex shrink-0 rounded-2xl bg-linen px-6 py-4 font-bold text-charcoal">See every preview — ${product.price}</Link></div><div className="mt-7 grid gap-4 md:grid-cols-3">{previews.slice(0,3).map(preview=><figure key={preview.src} className="overflow-hidden rounded-2xl bg-white text-charcoal"><div className="relative aspect-[40/27]"><Image src={preview.src} alt={preview.alt} fill sizes="(max-width:768px) 100vw, 33vw" className="object-contain"/></div><figcaption className="p-4"><strong>{preview.title}</strong><p className="mt-2 text-xs leading-5 text-charcoal/60">{preview.caption}</p></figcaption></figure>)}</div></section>}
-    <section id={shape ? "budget-faq" : undefined}><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Questions couples ask</p><h2 className="mt-3 font-serif text-5xl">Frequently asked questions</h2><div className="mt-6 grid gap-4">{page.faqs.map((item) => <details key={item.question} className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-3 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
+    {product && !shape && isHome && previews.length > 0 && <section className="no-print rounded-[2rem] bg-charcoal p-7 text-linen md:p-10"><p className="text-xs font-bold uppercase tracking-[.22em] text-linen/55">Look inside the paid files</p><div className="mt-4 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"><div><h2 className="font-serif text-5xl">Real previews from {product.name}</h2><p className="mt-4 max-w-3xl text-linen/75">These are flattened, watermarked images generated from the canonical paid PDF and XLSX release. They show the real structure without exposing an editable template.</p></div><Link href={hrefFrom(page.host, `${product.route}#look-inside`)} className="inline-flex shrink-0 rounded-2xl bg-linen px-6 py-4 font-bold text-charcoal">See every preview — ${product.price}</Link></div><div className="mt-7 grid gap-4 md:grid-cols-3">{previews.slice(0,3).map(preview=><figure key={preview.src} className="overflow-hidden rounded-2xl bg-white text-charcoal"><div className="relative aspect-[40/27]"><Image src={preview.src} alt={preview.alt} fill sizes="(max-width:768px) 100vw, 33vw" className="object-contain"/></div><figcaption className="p-4"><strong>{preview.title}</strong><p className="mt-2 text-xs leading-5 text-charcoal/60">{preview.caption}</p></figcaption></figure>)}</div></section>}
+    <ConsolidatedDecisions path={`/${slug}`} />
+    <section id={shape ? "budget-faq" : "guide-faq"}><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Questions couples ask</p><h2 className="mt-3 font-serif text-5xl">Frequently asked questions</h2><div className="mt-6 grid gap-4">{page.faqs.map((item) => <details key={item.question} className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-3 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
     {bundleOffer && <section id="bundle-offer" data-content-block="cta_callout" className="no-print scroll-mt-28 rounded-[2rem] bg-charcoal p-7 text-linen md:p-10">
       <p className="text-xs font-bold uppercase tracking-[.22em] text-linen/55">{bundleOffer.offer.eyebrow}</p>
       <h2 className="mt-3 font-serif text-5xl">{bundleOffer.offer.heading}</h2>
@@ -67,10 +67,10 @@ export function HubPage({ slug, page }: { slug: string; page: HubPageData }) {
       <p className="mt-4 text-sm text-linen/65">One-time purchase. <Link href={hrefFrom(page.host, bundleOffer.offer.href)} className="font-bold underline underline-offset-4">See everything in {bundleOffer.bundle.name}</Link> before you decide.</p>
     </section>}
     {!bundleOffer && product && <section className="no-print rounded-[2rem] border border-charcoal/10 bg-white p-7 md:p-10"><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Continue with the working system</p><h2 className="mt-3 font-serif text-5xl">{product.name}</h2><p className="mt-4 max-w-3xl text-charcoal/70">This educational guide explains the method. The product page shows the actual paid-file previews, exact file inventory, and checkout path.</p><Link href={hrefFrom(page.host, `${product.route}?page_kind=hub&slug=${slug}`)} className="mt-6 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Review {product.name} — ${product.price}</Link></section>}
-    <AffiliatePicks placement={placementForGuide(slug)} />
+
     <RelatedLinks links={page.related} fromHost={page.host} />
     <footer className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">Educational planning guidance only. Verify venue rules, contracts, prices, timing, capacities, accessibility and dietary information, legal requirements, and vendor instructions with the appropriate source.</footer>
-    {shape && <BudgetEvidence slug={slug} />}
-    <JsonLd data={homeNodes?.map((node) => shape && node['@type'] === 'Article' ? { ...node, ...budgetArticleFields(slug) } : node) ?? [article, faq, ...(howTo ? [howTo] : [])]} />
+    {shape ? <BudgetEvidence slug={slug} /> : <EditorialEvidence slug={slug} />}
+    <JsonLd data={homeNodes?.map((node) => node['@type'] === 'Article' ? { ...node, ...editorialArticleFields(slug), ...budgetArticleFields(slug) } : node) ?? [article, faq, ...(howTo ? [howTo] : [])]} />
   </article>;
 }
