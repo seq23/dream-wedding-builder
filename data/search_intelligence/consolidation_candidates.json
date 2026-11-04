@@ -1,19 +1,19 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-03T12:42:37.145Z",
+  "generated_at": "2026-11-04T12:43:13.498Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
-    "guide": 578,
+    "guide": 645,
     "hub": 373
   },
   "hosts": {
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-05",
-        "end": "2026-11-01"
+        "start": "2026-10-06",
+        "end": "2026-11-02"
       },
-      "content_pages_examined": 22,
+      "content_pages_examined": 3,
       "candidate_count": 0,
       "candidates": [],
       "excluded_utility_paths": [
@@ -25,8 +25,8 @@
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-05",
-        "end": "2026-11-01"
+        "start": "2026-10-06",
+        "end": "2026-11-02"
       },
       "content_pages_examined": 4,
       "candidate_count": 0,
@@ -42,99 +42,33 @@
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-05",
-        "end": "2026-11-01"
+        "start": "2026-10-06",
+        "end": "2026-11-02"
       },
-      "content_pages_examined": 23,
-      "candidate_count": 6,
-      "candidates": [
-        {
-          "url": "https://weddingtimelinetemplate.com/guides/wedding-setup-breakdown-timeline",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 529,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingtimelinetemplate.com/guides/wedding-vendor-arrival-schedule",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 532,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingtimelinetemplate.com/guides/destination-wedding-weekend-itinerary",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 535,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingtimelinetemplate.com/guides/church-ceremony-wedding-timeline",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 540,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingtimelinetemplate.com/guides/one-venue-wedding-timeline",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 540,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingtimelinetemplate.com/guides/family-photo-timeline",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 554,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        }
-      ],
+      "content_pages_examined": 4,
+      "candidate_count": 0,
+      "candidates": [],
       "excluded_utility_paths": [
         "/editorial-policy",
         "/guides",
-        "/products/timeline-template",
-        "/what-to-do-6-months-before-the-wedding"
+        "/products/timeline-template"
       ]
     },
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-05",
-        "end": "2026-11-01"
+        "start": "2026-10-06",
+        "end": "2026-11-02"
       },
-      "content_pages_examined": 37,
-      "candidate_count": 3,
+      "content_pages_examined": 18,
+      "candidate_count": 1,
       "candidates": [
         {
-          "url": "https://weddingchecklistpdf.com/guides/1-month-wedding-checklist",
-          "type": "guide",
+          "url": "https://weddingchecklistpdf.com/wedding-guest-list-template",
+          "type": "hub",
           "impressions_28d": 0,
-          "words": 538,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingchecklistpdf.com/guides/backyard-wedding-checklist",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 557,
-          "thin_threshold": 578,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingchecklistpdf.com/guides/wedding-week-checklist",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 574,
-          "thin_threshold": 578,
+          "words": 363,
+          "thin_threshold": 373,
           "action": "REVIEW_FOR_CONSOLIDATION"
         }
       ],
@@ -157,7 +91,8 @@
         "/shop",
         "/terms",
         "/trends",
-        "/wedding-planning-reality-check"
+        "/wedding-planning-reality-check",
+        "/what-to-do-6-months-before-the-wedding"
       ]
     }
   }

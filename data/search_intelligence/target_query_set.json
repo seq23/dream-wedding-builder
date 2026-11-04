@@ -1,20 +1,20 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-03T12:42:36.936Z",
+  "generated_at": "2026-11-04T12:43:13.371Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-05",
-          "end": "2026-11-01"
+          "start": "2026-10-06",
+          "end": "2026-11-02"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 7,
+          "impressions": 6,
           "ctr": 0,
-          "position": 9.714285714285714
+          "position": 9.833333333333334
         }
       },
       "target_count": 3,
@@ -244,8 +244,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-05",
-          "end": "2026-11-01"
+          "start": "2026-10-06",
+          "end": "2026-11-02"
         },
         "totals": {
           "clicks": 0,
@@ -453,14 +453,14 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-05",
-          "end": "2026-11-01"
+          "start": "2026-10-06",
+          "end": "2026-11-02"
         },
         "totals": {
           "clicks": 1,
-          "impressions": 6,
-          "ctr": 0.16666666666666666,
-          "position": 16.333333333333336
+          "impressions": 7,
+          "ctr": 0.14285714285714285,
+          "position": 21.285714285714285
         }
       },
       "target_count": 4,
@@ -474,8 +474,8 @@
           "query": "wedding timeline template",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 1,
-          "position": 93,
+          "number": 2,
+          "position": 72,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
@@ -484,12 +484,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 1,
+              "number": 2,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
-              "position": 93,
+              "position": 72,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -723,14 +723,14 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-05",
-          "end": "2026-11-01"
+          "start": "2026-10-06",
+          "end": "2026-11-02"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 82,
+          "impressions": 81,
           "ctr": 0,
-          "position": 52.829268292682926
+          "position": 53.48148148148148
         }
       },
       "target_count": 19,
@@ -756,8 +756,8 @@
               "metric": "impressions_28d",
               "number": 15,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 72.4,
               "pages": [
@@ -782,8 +782,8 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 73.8,
               "pages": [
@@ -810,8 +810,8 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 97.2,
               "pages": [
@@ -826,8 +826,8 @@
           "query": "printable wedding checklist",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 3,
-          "position": 70,
+          "number": 2,
+          "position": 73,
           "pages": [
             "https://weddingchecklistpdf.com/printable-wedding-checklist"
           ],
@@ -836,12 +836,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 3,
+              "number": 2,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
-              "position": 70,
+              "position": 73,
               "pages": [
                 "https://weddingchecklistpdf.com/printable-wedding-checklist"
               ]
@@ -851,6 +851,32 @@
               "metric": "monthly_search_volume",
               "number": 480,
               "file": "data/authority_scale/query_atlas.json"
+            }
+          ]
+        },
+        {
+          "query": "wedding planner checklist pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 86.5,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-06",
+                "end": "2026-11-02"
+              },
+              "position": 86.5,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides"
+              ]
             }
           ]
         },
@@ -870,8 +896,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 94.5,
               "pages": [
@@ -896,8 +922,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 69,
               "pages": [
@@ -922,8 +948,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 62,
               "pages": [
@@ -948,8 +974,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 91,
               "pages": [
@@ -974,8 +1000,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 59,
               "pages": [
@@ -1000,8 +1026,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 78,
               "pages": [
@@ -1026,8 +1052,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 74,
               "pages": [
@@ -1052,8 +1078,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 89,
               "pages": [
@@ -1078,8 +1104,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 96,
               "pages": [
@@ -1110,8 +1136,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 61,
               "pages": [
@@ -1136,36 +1162,10 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 96,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding planner checklist pdf",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 99,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
-              },
-              "position": 99,
               "pages": [
                 "https://weddingchecklistpdf.com/guides"
               ]
@@ -1188,8 +1188,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 74,
               "pages": [
@@ -1214,8 +1214,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-05",
-                "end": "2026-11-01"
+                "start": "2026-10-06",
+                "end": "2026-11-02"
               },
               "position": 93,
               "pages": [
