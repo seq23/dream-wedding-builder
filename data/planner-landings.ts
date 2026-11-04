@@ -149,7 +149,7 @@ export const plannerLandings: PlannerLanding[] = [
   },
   {
     slug: 'what-to-do-6-months-before-the-wedding',
-    host: 'weddingtimelinetemplate.com',
+    host: 'weddingchecklistpdf.com',
     productId: 'timeline-template',
     title: 'What to do 6 months before the wedding (and at 12, 9, 3, and 1)',
     h1: 'What to do 6 months before the wedding',

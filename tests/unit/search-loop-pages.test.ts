@@ -1,3 +1,4 @@
+import { questionRetirementInventory } from '@/lib/question-retirements.mjs';
 import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -60,5 +61,30 @@ describe('search-loop config carries the entity frame', () => {
       expect(node.sameAs ?? []).toEqual(record.sameAs);
     }
     expect(cfg.site_name).toBe(entity.sites[host].name);
+  });
+});
+
+describe('consolidated question inventory retains a nonzero guard', () => {
+  const fixture = () => ({
+    config: { mode: 'off' },
+    ledger: { pages: [{ route: '/questions/old', status: 'merged', merged_into: 'https://weddingchecklistpdf.com/guides/kept' }] },
+    rescue: { main_host: 'weddingchecklistpdf.com', redirects: { '/questions/old': '/guides/kept' } },
+    ownership: { routes: [{ path: '/guides/kept', host: 'weddingchecklistpdf.com', indexable: true }] },
+    entity: { brand: { name: 'Dream Wedding Builder', url: 'https://weddingchecklistpdf.com/', logo: '/logo.png', sameAs: ['https://example.com/profile'] } }
+  });
+  it('checks a direct destination for every retired question', () => {
+    expect(questionRetirementInventory(fixture())).toEqual({ count: 1, targets: ['/guides/kept'] });
+  });
+  it('rejects zero inventory, missing destinations, redirect chains and incomplete publishers', () => {
+    const empty = fixture(); empty.ledger.pages = [];
+    expect(() => questionRetirementInventory(empty)).toThrow(/Zero/);
+    const missing = fixture(); missing.ownership.routes = [];
+    expect(() => questionRetirementInventory(missing)).toThrow(/destination/);
+    const chain = fixture(); Object.assign(chain.rescue.redirects, { '/guides/kept': '/another' });
+    expect(() => questionRetirementInventory(chain)).toThrow(/destination/);
+    const entity = fixture(); entity.entity.brand.sameAs = [];
+    expect(() => questionRetirementInventory(entity)).toThrow(/publisher/);
+    const active = fixture(); active.config.mode = 'publish';
+    expect(() => questionRetirementInventory(active)).toThrow(/publishing/);
   });
 });

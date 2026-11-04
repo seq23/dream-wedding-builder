@@ -1,3 +1,4 @@
+import pageRescue from '@/data/seo/page_rescue.json';
 import budgetRescue from '@/data/seo/budget_rescue.json';
 import ownership from '@/data/seo/route_ownership.json';
 import registry from '@/data/authority/content_registry.json';
@@ -78,6 +79,7 @@ export function canonicalUrl(host: string, path = '/'): string {
 }
 
 export function canonicalHostForPath(pathname: string): SiteHost | null {
+  if (pathname === '/questions' || pathname.startsWith('/questions/')) return PARENT_HOST;
   const exact = routeOwners.get(pathname);
   if (exact) return exact;
   const guideMatch = pathname.match(/^\/guides\/([^/]+)\/?$/);
@@ -105,7 +107,7 @@ export function canonicalHostForPath(pathname: string): SiteHost | null {
 export function hrefFrom(fromHost: string, path: string): string {
   if (!path.startsWith('/') || path.startsWith('//')) return path;
   const pathname = path.split(/[?#]/)[0];
-  const retired = (budgetRescue.redirects as Record<string, string>)[pathname];
+  const retired = ({ ...budgetRescue.redirects, ...pageRescue.redirects } as Record<string, string>)[pathname];
   if (retired) return hrefFrom(fromHost, retired + path.slice(pathname.length));
   const current = isCanonicalHost(fromHost) ? fromHost : PARENT_HOST;
   // '/' on a product host redirects to that host's hub, so link the hub itself -
@@ -121,7 +123,7 @@ export function hrefFrom(fromHost: string, path: string): string {
 // defect the sitemap had, on an internal-link surface instead of an external one.
 export function guidesForHost(host: string) {
   const resolved = isCanonicalHost(host) ? host : PARENT_HOST;
-  return shippingPages.filter((page) => productHosts.get(page.product_id) === resolved);
+  return shippingPages.filter((page) => canonicalHostForPath(`/guides/${page.slug}`) === resolved);
 }
 
 export function productForHost(host: string) {

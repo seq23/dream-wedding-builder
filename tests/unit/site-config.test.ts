@@ -1,3 +1,4 @@
+import pageRescue from '@/data/seo/page_rescue.json';
 import rescue from '@/data/seo/budget_rescue.json';
 import { describe, expect, it } from 'vitest';
 import { aliasRedirectTarget, apexHost, CANONICAL_HOSTS, canonicalHostForPath, guidesForHost, hostConfig, isCanonicalHost } from '@/lib/site-config';
@@ -11,7 +12,7 @@ describe('canonical host ownership', () => {
   it('keeps the exact consolidated budget inventory and the other hosts complete', () => {
     for (const host of CANONICAL_HOSTS) {
       if (host === rescue.host) expect(guidesForHost(host).map((page) => page.slug).sort()).toEqual([...rescue.kept_guides].sort());
-      else expect(guidesForHost(host).length).toBeGreaterThanOrEqual(16);
+      else { const expected = pageRescue.kept_paths_by_host[host].filter(path => path.startsWith('/guides/')).map(path => path.slice('/guides/'.length)); expect(expected.length).toBeGreaterThan(0); expect(guidesForHost(host).map(page => page.slug).sort()).toEqual(expected.sort()); }
     }
   });
 });

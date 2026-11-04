@@ -17,6 +17,7 @@
 //
 // scripts/seo/normalize_question_routes.mjs is the repair, and runs in
 // .github/scripts/search_loop_commit.sh before the commit.
+import { readQuestionRetirements } from '../../lib/question-retirements.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -29,15 +30,16 @@ if (!outDir || !prefix) {
   process.exit(1);
 }
 const dir = path.join(root, outDir);
-if (!fs.existsSync(dir)) {
-  console.error(`[validate:question-links] FAIL: ${dir} does not exist; nothing was checked`);
-  process.exit(1);
-}
-const pages = fs.readdirSync(dir).filter((f) => f.endsWith('.html')).sort();
-// Rule 0: zero pages is a failure, not a quiet pass.
+const pages = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.html')).sort() : [];
 if (pages.length === 0) {
-  console.error(`[validate:question-links] FAIL: zero pages in ${dir}; nothing was checked`);
-  process.exit(1);
+  try {
+    const inventory = readQuestionRetirements(root);
+    console.log(`[validate_question_links] OK: ${inventory.count} retired questions resolve directly to ${inventory.targets.length} kept main-site destinations; publisher entity complete`);
+  } catch (error) {
+    console.error(`[validate_question_links] FAIL: ${error.message}`);
+    process.exit(1);
+  }
+  process.exit(0);
 }
 const slugs = new Set(pages.map((f) => f.replace(/\.html$/, '')));
 const hosts = new Set((cfg.allowed_link_targets || []).map((u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } }).filter(Boolean));

@@ -1,3 +1,4 @@
+import pageRescue from '@/data/seo/page_rescue.json';
 import budgetRescue from '@/data/seo/budget_rescue.json';
 import { NextRequest, NextResponse } from 'next/server';
 import { aliasRedirectTarget, apexHost, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
@@ -98,11 +99,12 @@ function route(request: NextRequest) {
 
   // Resolve retired routes before host ownership and slash normalization: one 301
   // from any canonical sibling straight to the kept budget hub, preserving attribution.
-  const retired = (budgetRescue.redirects as Record<string, string>)[pathname.replace(/\/+$/, '')];
-  if (retired && (isCanonicalHost(host) || isPreviewHost(originalHost))) {
+  const normalized = pathname.replace(/\/+$/, '');
+  const retired = ({ ...budgetRescue.redirects, ...pageRescue.redirects } as Record<string, string>)[normalized];
+  if (retired && (isCanonicalHost(host) || aliasRedirectTarget(originalHost) || isPreviewHost(originalHost))) {
     const url = new URL(request.url);
     url.protocol = 'https:';
-    url.host = budgetRescue.host;
+    url.host = canonicalHostForPath(retired) ?? pageRescue.main_host;
     url.port = '';
     url.pathname = retired;
     return NextResponse.redirect(url, 301);
@@ -168,7 +170,7 @@ function route(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.protocol = 'https:';
     url.host = owner;
-    return NextResponse.redirect(url, 308);
+    return NextResponse.redirect(url, 301);
   }
 
   return withPathname(request);
