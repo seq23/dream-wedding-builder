@@ -2,13 +2,13 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W45",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-03T15:10:55.599Z",
-  "state": "running",
+  "generated_at": "2026-11-05T12:22:28.738Z",
+  "state": "slow",
   "published": 21,
   "indexed": "not read: no page old enough to inspect yet (14 days)",
-  "pace": 10,
+  "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 79,
+  "ai_bot_hits": 134,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
@@ -152,15 +152,26 @@
       "strengthen": "https://weddingchecklistpdf.com/public/questions/elopement-checklist-printable-pdf",
       "matched_by": "high token overlap (0.67 >= 0.6)",
       "at": "2026-11-03"
+    },
+    {
+      "query": "planning an elopement wedding",
+      "strengthen": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
+      "matched_by": "same wording",
+      "at": "2026-11-05"
     }
   ],
   "cap": {
     "max_live_pages": 22,
-    "live": 21,
-    "room": 1,
+    "live": 0,
+    "room": 22,
     "why": "up from 20 to 22: Google impressions 82 in the last 28 days beat 55 in the 28 before"
   },
-  "notes": [],
+  "notes": [
+    "site config lowers the mode to slow",
+    "BUILD distinct gate: 1 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
+    "BUILD published 0 of quota 1: 3 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued",
+    "CHECK runs weekly in mode=slow; last ran 2026-11-03"
+  ],
   "lanes": {
     "ratio": {
       "can_be_one": 2,
@@ -187,5 +198,5 @@
     "weight_changes": [],
     "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/41661153407"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/42026556232"
 }

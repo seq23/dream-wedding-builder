@@ -990,6 +990,30 @@
       "reason": [
         "b5 FAQ answer is 29 words (aim 40-60): \"What should I include in a wedding day emergency k\""
       ]
+    },
+    {
+      "query": "complete checklist for wedding planning",
+      "at": "2026-11-05",
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "wedding planning checklist online",
+      "at": "2026-11-05",
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"When should I start using a checklist?\"",
+        "b5 FAQ answer is 29 words (aim 40-60): \"What if I have to change my plans?\"",
+        "b5 FAQ answer is 28 words (aim 40-60): \"Is it possible to plan a wedding without a planner\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "printable bridal checklist",
+      "at": "2026-11-05",
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
     }
   ],
   "redirected": [
@@ -1221,6 +1245,16 @@
       "kind": "page",
       "matched_by": "high token overlap (0.67 >= 0.6)",
       "matched_text": "Your Elopement Checklist Printable PDF for Planning",
+      "stage": "search"
+    },
+    {
+      "query": "planning an elopement wedding",
+      "at": "2026-11-05",
+      "url": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
+      "route": "/guides/elopement-planning-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "elopement planning checklist",
       "stage": "search"
     }
   ]

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "99376054526fb091db562e8d42ec293762865133",
+  "generated_from_commit": "bfaac4fc6782ab6b4572c499f01dc34aa9a48905",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -50,7 +50,7 @@
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-05",
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/bridal-shower-checklist": {
@@ -170,7 +170,7 @@
       "source": "app/refund-policy/page.tsx"
     },
     "/shop": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-11-05",
       "source": "app/shop/page.tsx"
     },
     "/shop/compare": {
