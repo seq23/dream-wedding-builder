@@ -8,6 +8,8 @@ import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
 import ownership from '@/data/seo/route_ownership.json';
 import { queue } from '@/lib/pinfeed';
+import pageRescue from '@/data/seo/page_rescue.json';
+import budgetRescue from '@/data/seo/budget_rescue.json';
 
 const HOST = 'weddingchecklistpdf.com';
 const TOKEN = '0fcfdee391238788157a7120c048a945';
@@ -62,7 +64,11 @@ describe('Pinterest feed /pinfeed.xml', () => {
       const params = Object.fromEntries(link.searchParams);
       const base = { utm_source: 'pinterest', utm_medium: 'organic', utm_campaign: 'pinfeed' };
       if ('utm_content' in params) {
-        expect(queue.variants.find((v) => v.id === params.utm_content)?.path, params.utm_content).toBe(link.pathname);
+        const variant = [...queue.variants, ...(queue.questions ?? [])].find((v) => v.id === params.utm_content);
+        expect(variant, params.utm_content).toBeDefined();
+        // Retired pages point straight at the kept hub; the pin id stays stable.
+        const redirects: Record<string, string> = { ...budgetRescue.redirects, ...pageRescue.redirects };
+        expect(redirects[variant!.path] ?? variant!.path, params.utm_content).toBe(link.pathname);
         expect(params).toEqual({ ...base, utm_content: params.utm_content });
       } else expect(params).toEqual(base);
       const enc = item.enclosure!;
