@@ -49,6 +49,9 @@ const allowedRootDirs = new Set([
   '.github',
   '.ops',
   'app',
+  // The Dream Wedding phone app (docs/APP_PLAN.md): its own package, excluded from the
+  // site's tsconfig, built only by .github/workflows/mobile-preview.yml.
+  'apps',
   'artifacts',
   'components',
   'data',

@@ -1,0 +1,38 @@
+{
+  "name": "dream-wedding-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start --offline",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.unit.ts",
+    "check": "npm run typecheck && npm test",
+    "icons": "node scripts/make-icons.mjs",
+    "bundle": "expo export --platform ios --platform android"
+  },
+  "dependencies": {
+    "@expo-google-fonts/dm-mono": "^0.4.2",
+    "@expo-google-fonts/instrument-sans": "^0.4.2",
+    "@expo-google-fonts/instrument-serif": "^0.4.1",
+    "expo": "58.0.22",
+    "expo-constants": "~58.0.14",
+    "expo-dev-client": "~58.0.18",
+    "expo-font": "~58.0.11",
+    "expo-router": "~58.0.29",
+    "expo-splash-screen": "~58.0.13",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-safe-area-context": "~5.10.1",
+    "react-native-screens": "~4.30.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "~19.3.0",
+    "tsx": "^4.21.0",
+    "typescript": "~6.0.3"
+  }
+}
