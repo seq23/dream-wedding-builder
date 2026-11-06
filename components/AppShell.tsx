@@ -1,8 +1,9 @@
 'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, type ReactNode } from 'react';
 import { PlannerCtaProvider } from '@/components/PlannerCta';
-import { PLANNER_ABSOLUTE } from '@/lib/planner-seed';
+import { PLANNER_ABSOLUTE, PLANNER_ROUTE } from '@/lib/planner-seed';
 import type { DirectoryLink } from '@/lib/site-directory';
 
 const products = [
@@ -21,6 +22,9 @@ const siteLinks: Record<string, { label: string; hub: string; product: string }>
 
 export function AppShell({ children, siteHost, directory = [] }: { children: ReactNode; siteHost: string; directory?: DirectoryLink[] }) {
   const [open, setOpen] = useState(false);
+  // On the planner itself the banner's "Open the free wedding planner" pointed at the
+  // page the couple was already on (hostile review, 6 Nov 2026).
+  const onPlanner = (usePathname() ?? '') === PLANNER_ROUTE;
   const site = siteLinks[siteHost] ?? siteLinks['weddingchecklistpdf.com'];
   // Grouped in render order; lib/site-directory.ts already sorted by group.
   const directoryGroups = directory.reduce<{ group: string; links: DirectoryLink[] }[]>((groups, link) => {
@@ -36,7 +40,7 @@ export function AppShell({ children, siteHost, directory = [] }: { children: Rea
         the thing a search visitor can actually use on arrival. "Look inside the
         files" is still one click away in the nav, the footer, and on every product
         page, where it answers a question the reader has by then actually asked. */}
-    <div data-testid="planner-banner" className="no-print bg-rose/20 px-4 py-2.5 text-center text-xs font-semibold text-charcoal">Free with your email. Your plan stays in your browser. <a href={PLANNER_ABSOLUTE} className="ml-1 font-bold underline underline-offset-4">Open the free wedding planner →</a></div>
+    {onPlanner ? null : <div data-testid="planner-banner" className="no-print bg-rose/20 px-4 py-2.5 text-center text-xs font-semibold text-charcoal">Free with your email. Your plan stays in your browser. <a href={PLANNER_ABSOLUTE} className="ml-1 font-bold underline underline-offset-4">Open the free wedding planner →</a></div>}
     <header className="no-print sticky top-0 z-50 border-b border-charcoal/10 bg-ivory/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-4 md:px-6">
         <Link href={currentHome} className="shrink-0 font-serif text-xl leading-none tracking-[.08em] md:text-2xl"><span className="block">DREAM WEDDING</span><span className="mt-1 block text-sm tracking-[.24em]">BUILDER</span></Link>

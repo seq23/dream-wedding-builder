@@ -5,6 +5,13 @@
 :root { color-scheme: light; }
 html { scroll-behavior: smooth; }
 body { @apply bg-ivory text-charcoal antialiased; }
+/* A long unbroken heading word at 36px ("Photo/Description-to-Scope") widened the
+   whole planner grid past 390px and the page scrolled sideways (hostile review,
+   6 Nov 2026). Headings may wrap anywhere rather than push the layout. */
+h1, h2, h3, h4 { overflow-wrap: anywhere; }
+/* Same review: a select with a long option and a file input kept their intrinsic
+   width (339px) and pushed the planner past the phone screen. */
+select, input[type="file"] { max-width: 100%; }
 button, a { -webkit-tap-highlight-color: transparent; }
 ::selection { @apply bg-champagne/40; }
 @media (max-width: 640px) {

@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, Badge } from '@/components/Card';
 import { trends } from '@/data/trends';
+import { loadSavedPlan, loadSavedScope, type SavedScope } from '@/lib/saved-plan';
+import { DatedPlanView } from '@/components/DatedPlanView';
 import { emptyPlan, plannerLanguage, planningConstraintSummary, protectedPriorities, riskChecklist, selectedVenues, selectedVendors, venueMatchSummary, type WeddingPlan } from '@/data/planning';
 
-interface SavedScope { category?: string; description?: string; scopeTitle?: string; tableCount?: string; }
 
 export default function DashboardPage() {
   const [plan, setPlan] = useState<WeddingPlan>(emptyPlan);
@@ -14,10 +15,8 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const load = () => {
-      const saved = localStorage.getItem('dwb-plan');
-      if (saved) setPlan({ ...emptyPlan, ...JSON.parse(saved) });
-      const savedScope = localStorage.getItem('dwb-scope');
-      if (savedScope) setScope(JSON.parse(savedScope));
+      setPlan(loadSavedPlan(localStorage));
+      setScope(loadSavedScope(localStorage));
     };
     load();
     window.addEventListener('dwb-updated', load);
@@ -37,6 +36,8 @@ export default function DashboardPage() {
       <p className="mt-3 max-w-3xl text-charcoal/70">This page reflects saved constraints, Recommendation Studio output, selected venue strategy, selected vendor focus, photo/scope work, trends, and risks. No account required for v1.</p>
       <div className="mt-4 flex flex-wrap gap-3"><Link className="rounded-full bg-charcoal px-5 py-3 font-bold text-linen" href="/free-wedding-planner#step-0">Edit Constraint Profile</Link><Link className="rounded-full border border-charcoal/20 bg-white px-5 py-3 font-bold" href="/free-wedding-planner#step-1">Ask Recommendation Studio</Link></div>
     </section>
+
+    <Card data-testid="dashboard-dated-plan"><h2 className="font-serif text-3xl">Your dated plan</h2><div className="mt-3"><DatedPlanView weddingDate={plan.weddingDate} compact /></div><Link className="mt-3 inline-block font-bold underline underline-offset-4" href="/free-wedding-planner#your-date">Change the date ›</Link></Card>
 
     <Card data-testid="dashboard-state"><h2 className="font-serif text-3xl">Canonical plan state</h2><p className="mt-3 leading-7">{plannerLanguage(plan)}</p><div className="mt-4 grid gap-3 md:grid-cols-3"><p><strong>Constraint mode</strong><br />{plan.constraintMode || 'Not selected'}</p><p><strong>Location</strong><br />{plan.locations || 'Location not selected'}</p><p><strong>Guest count</strong><br />{plan.guestCount ? `${plan.guestCount} guests` : 'Guest count unknown'}</p><p><strong>Budget</strong><br />{plan.budgetTarget || 'Unknown'}</p><p><strong>Full buyout</strong><br />{plan.fullBuyout || 'Unknown'}</p><p><strong>Outside catering</strong><br />{plan.outsideCatering || 'Unknown'}</p></div></Card>
 
