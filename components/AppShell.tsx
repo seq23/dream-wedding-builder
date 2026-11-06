@@ -13,6 +13,16 @@ const products = [
   { label: 'Wedding Checklist PDF — $9', href: 'https://weddingchecklistpdf.com/products/checklist-pdf' },
   { label: 'All Four Wedding Tools — $39', href: 'https://weddingchecklistpdf.com/shop' }
 ];
+// Each domain's banner opens the Builder at the step that matches what the reader
+// came to that domain for (her ask, 6 Nov 2026: "link them to the right pages").
+// The link is always to the Builder's one canonical URL on weddingchecklistpdf.com.
+export const builderStepLinks: Record<string, { label: string; href: string }> = {
+  'weddingchecklistpdf.com': { label: 'Get your dated wedding plan →', href: `${PLANNER_ABSOLUTE}#your-date` },
+  'weddingbudgetspreadsheet.com': { label: 'Pressure-test your budget in the planner →', href: `${PLANNER_ABSOLUTE}?focus=Budget+%2B+Tradeoffs#step-3` },
+  'weddingtimelinetemplate.com': { label: 'Get your dated wedding timeline →', href: `${PLANNER_ABSOLUTE}#your-date` },
+  'weddingseatingchartmaker.com': { label: 'Start with your guest count in the planner →', href: `${PLANNER_ABSOLUTE}#step-0` }
+};
+
 const siteLinks: Record<string, { label: string; hub: string; product: string }> = {
   'weddingchecklistpdf.com': { label: 'Wedding Checklist', hub: '/wedding-checklist', product: '/products/checklist-pdf#look-inside' },
   'weddingbudgetspreadsheet.com': { label: 'Wedding Budget', hub: '/wedding-budget-spreadsheet', product: '/products/budget-spreadsheet#look-inside' },
@@ -40,7 +50,7 @@ export function AppShell({ children, siteHost, directory = [] }: { children: Rea
         the thing a search visitor can actually use on arrival. "Look inside the
         files" is still one click away in the nav, the footer, and on every product
         page, where it answers a question the reader has by then actually asked. */}
-    {onPlanner ? null : <div data-testid="planner-banner" className="no-print bg-rose/20 px-4 py-2.5 text-center text-xs font-semibold text-charcoal">Free with your email. Your plan stays in your browser. <a href={PLANNER_ABSOLUTE} className="ml-1 font-bold underline underline-offset-4">Open the free wedding planner →</a></div>}
+    {onPlanner ? null : <div data-testid="planner-banner" className="no-print bg-rose/20 px-4 py-2.5 text-center text-xs font-semibold text-charcoal">Free with your email. Your plan stays in your browser. <a href={(builderStepLinks[siteHost] ?? builderStepLinks['weddingchecklistpdf.com']).href} data-testid="planner-banner-link" className="ml-1 font-bold underline underline-offset-4">{(builderStepLinks[siteHost] ?? builderStepLinks['weddingchecklistpdf.com']).label}</a></div>}
     <header className="no-print sticky top-0 z-50 border-b border-charcoal/10 bg-ivory/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 py-4 md:px-6">
         <Link href={currentHome} className="shrink-0 font-serif text-xl leading-none tracking-[.08em] md:text-2xl"><span className="block">DREAM WEDDING</span><span className="mt-1 block text-sm tracking-[.24em]">BUILDER</span></Link>

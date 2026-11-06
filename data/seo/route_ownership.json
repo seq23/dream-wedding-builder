@@ -411,5 +411,20 @@
     "/order",
     "/dashboard",
     "/pack"
-  ]
+  ],
+  "builder_hosts": {
+    "_why": "Domains bought for the free Builder (6 Nov 2026). Each answers with one 301 to the Builder on weddingchecklistpdf.com, so the Builder keeps ONE canonical URL and couples keep the plan saved in their browser (localStorage is per domain: moving the Builder's home would strand every saved plan). The query string is kept so seeded links still seed. Paths other than / go to the same path on the parent host.",
+    "weddingplannerfree.com": {
+      "target": "/free-wedding-planner",
+      "fragment": ""
+    },
+    "weddingplanningtimeline.com": {
+      "target": "/free-wedding-planner",
+      "fragment": "your-date"
+    },
+    "aiweddingplannerfree.com": {
+      "target": "/free-wedding-planner",
+      "fragment": "ai-draft"
+    }
+  }
 }

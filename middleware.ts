@@ -1,7 +1,7 @@
 import pageRescue from '@/data/seo/page_rescue.json';
 import budgetRescue from '@/data/seo/budget_rescue.json';
 import { NextRequest, NextResponse } from 'next/server';
-import { aliasRedirectTarget, apexHost, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
+import { aliasRedirectTarget, apexHost, builderRedirectUrl, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
 import { PATHNAME_HEADER } from '@/lib/pathname-header';
 import { PIN_COOKIE, PIN_COOKIE_MAX_AGE, pinRefFromUrl } from '@/lib/pinterest-conversions';
 
@@ -119,6 +119,12 @@ function route(request: NextRequest) {
   // any of those would turn it into a second indexable copy of the site. The
   // path and query are preserved so a reader lands on the exact page the book
   // sent them to and the canonical URL is the one that gets recorded.
+  // Builder domains (weddingplannerfree.com and friends) never render: one 301 to
+  // the Builder's canonical URL. Before the passthroughs, so robots.txt and the
+  // sitemap 301 too and the domain can never become a second indexable copy.
+  const builderTarget = builderRedirectUrl(originalHost, pathname, request.nextUrl.search);
+  if (builderTarget) return NextResponse.redirect(builderTarget, 301);
+
   const aliasTarget = aliasRedirectTarget(originalHost);
   if (aliasTarget) {
     const url = request.nextUrl.clone();
