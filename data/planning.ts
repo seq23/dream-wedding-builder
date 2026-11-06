@@ -91,6 +91,15 @@ export interface WeddingPlan {
   selectedVendorCategories: string[];
   generatedAt: string;
   inspirationScopeNotes: string;
+  /** Set when the AI draft step filled the plan; shown as an "AI-drafted" label everywhere. */
+  aiDraft: AiDraftRecord | null;
+}
+
+export interface AiDraftRecord {
+  at: string;
+  description: string;
+  fields: string[];
+  notes: string[];
 }
 
 export interface PlannerRecommendation {
@@ -167,7 +176,8 @@ export const emptyPlan: WeddingPlan = {
   selectedVenueIds: [],
   selectedVendorCategories: [],
   generatedAt: '',
-  inspirationScopeNotes: ''
+  inspirationScopeNotes: '',
+  aiDraft: null
 };
 
 export const planningStages = [

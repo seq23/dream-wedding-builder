@@ -23,7 +23,7 @@ export function isCanonicalHost(host: string): host is SiteHost {
 }
 
 export function isPreviewHost(host: string): boolean {
-  return !host || host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.pages.dev') || /^127\./.test(host);
+  return !host || host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.pages.dev') || host.endsWith('.workers.dev') || /^127\./.test(host);
 }
 
 // Alias hosts are domains the Worker answers on but never publishes from.

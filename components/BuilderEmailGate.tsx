@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import Link from 'next/link';
-import { BUILDER_ACCESS_KEY, CONSENT_TEXT, UNSUBSCRIBE_NOTE } from '@/lib/builder-signup';
+import { BUILDER_ACCESS_KEY, BUILDER_EMAIL_KEY, CONSENT_TEXT, UNSUBSCRIBE_NOTE } from '@/lib/builder-signup';
 import { ConversionAnalytics } from '@/components/ConversionAnalytics';
 
 // The builder stays free, but opens after the visitor leaves an email. The builder
@@ -28,7 +28,7 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
       const res = await fetch('/api/builder-signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, source: 'free-wedding-planner' }) });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); return; }
-      try { localStorage.setItem(BUILDER_ACCESS_KEY, new Date().toISOString()); } catch { /* still unlock this visit */ }
+      try { localStorage.setItem(BUILDER_ACCESS_KEY, new Date().toISOString()); localStorage.setItem(BUILDER_EMAIL_KEY, email.trim().toLowerCase()); } catch { /* still unlock this visit */ }
       setUnlocked(true);
       // A link to a step (#your-date, #step-3) arrived behind the gate; once the
       // planner opens, take the couple to the step they came for, not the top.

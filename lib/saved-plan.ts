@@ -22,9 +22,17 @@ export function normalizePlan(raw: unknown): WeddingPlan {
     if (Array.isArray(fallback)) plan[key] = Array.isArray(value) ? value.filter(item => typeof item === 'string') : fallback;
     else if (typeof fallback === 'string') plan[key] = typeof value === 'string' ? value : typeof value === 'number' && Number.isFinite(value) ? String(value) : fallback;
     else if (key === 'recommendationResult') plan[key] = isRecommendation(value) ? value : null;
+    else if (key === 'aiDraft') plan[key] = isAiDraft(value) ? value : null;
     else plan[key] = value;
   }
   return plan as unknown as WeddingPlan;
+}
+
+function isAiDraft(value: unknown): boolean {
+  if (!value || typeof value !== 'object') return false;
+  const r = value as Record<string, unknown>;
+  const strings = (v: unknown) => Array.isArray(v) && v.every(item => typeof item === 'string');
+  return typeof r.at === 'string' && typeof r.description === 'string' && strings(r.fields) && strings(r.notes);
 }
 
 function isRecommendation(value: unknown): boolean {

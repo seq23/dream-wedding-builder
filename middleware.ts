@@ -110,7 +110,14 @@ function route(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
-  if (isPreviewHost(originalHost)) return withPathname(request);
+  // Preview hosts (Workers Builds branch previews on *.workers.dev, Pages, local)
+  // render the branch but are never indexed: they would be a second copy of the
+  // site, and a preview can carry a feature that is not live yet.
+  if (isPreviewHost(originalHost)) {
+    const res = withPathname(request);
+    if (originalHost && !/^(localhost|127\.)/.test(originalHost)) res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return res;
+  }
 
   // Alias hosts redirect before anything else, including the passthroughs below.
   // weddingpdfchecklist.com is printed inside five published Kindle EPUBs and is

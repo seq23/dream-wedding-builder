@@ -17,15 +17,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-export const CONFIG_PATH = path.join(ROOT, 'config', 'llm_routing.json');
+// Resolved lazily: the Builder's AI draft route imports routeChat inside the
+// Worker bundle, where there is no file system and import.meta.url is not a
+// file URL. It passes the config in; only CLI and scripts read the file.
+export function configPath() {
+  return path.join(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..'), 'config', 'llm_routing.json');
+}
 export const OPENROUTER_BASE = 'https://openrouter.ai/api/v1';
 
 export class PaidCostError extends Error {
   constructor(message, detail) { super(message); this.code = 'PAID_COST_REPORTED'; this.detail = detail; }
 }
 
-export function readConfig(file = CONFIG_PATH) {
+export function readConfig(file = configPath()) {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
