@@ -30,6 +30,7 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
       if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); return; }
       try { localStorage.setItem(BUILDER_ACCESS_KEY, new Date().toISOString()); localStorage.setItem(BUILDER_EMAIL_KEY, email.trim().toLowerCase()); } catch { /* still unlock this visit */ }
       setUnlocked(true);
+      window.dispatchEvent(new Event('dwb-builder-unlocked'));
       // A link to a step (#your-date, #step-3) arrived behind the gate; once the
       // planner opens, take the couple to the step they came for, not the top.
       const target = window.location.hash.slice(1);

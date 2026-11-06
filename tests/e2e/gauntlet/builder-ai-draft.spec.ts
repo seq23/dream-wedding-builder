@@ -49,3 +49,14 @@ test('switched off: no AI card at all', async ({ page }) => {
   await expect(page.getByTestId('wedding-date')).toBeVisible();
   await expect(page.getByTestId('ai-draft-card')).toHaveCount(0);
 });
+
+test('arriving at #ai-draft through the email gate: the card is on screen and already knows the email', async ({ page }) => {
+  await page.route('**/api/builder-signup', route => route.fulfill({ json: { ok: true } }));
+  await page.route('**/api/ai-draft', route => route.fulfill({ json: { enabled: true, maxLength: 400 } }));
+  await page.goto('/free-wedding-planner#ai-draft');
+  await page.getByTestId('builder-email').fill('couple@example.com');
+  await page.getByTestId('builder-consent').check();
+  await page.getByTestId('builder-email-submit').click();
+  await expect(page.getByTestId('ai-draft-card')).toBeInViewport();
+  await expect(page.getByTestId('ai-email')).toHaveCount(0);
+});
