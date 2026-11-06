@@ -27,4 +27,5 @@ out=$(curl -fsS -X POST "$url" -H "X-API-KEY: $APPETIZE_API_TOKEN" -F "file=@$zi
 key=$(jq -r '.publicKey // empty' <<<"$out")
 [ -n "$key" ] || { echo "NAMED STOP [APPETIZE_UPLOAD_FAILED] no publicKey in the reply" >&2; exit 1; }
 summary "**Appetize ($platform):** uploaded. Open the app in a browser: https://appetize.io/app/$key (this link stays the same on every run)."
-[ -n "${APPETIZE_PUBLIC_KEY:-}" ] || var=APPETIZE_DREAM_WEDDING_PUBLIC_KEY; [ "$platform" = ios ] || var=APPETIZE_DREAM_WEDDING_ANDROID_KEY; summary "To pin it, set repo variable $var=$key."
+var=APPETIZE_DREAM_WEDDING_PUBLIC_KEY; [ "$platform" = ios ] || var=APPETIZE_DREAM_WEDDING_ANDROID_KEY
+[ -n "${APPETIZE_PUBLIC_KEY:-}" ] || summary "To pin it, set repo variable $var=$key."
