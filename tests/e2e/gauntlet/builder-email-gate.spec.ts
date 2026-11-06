@@ -30,3 +30,13 @@ test('homepage leads with the $9 checklist and its checkout form', async ({ page
   await expect(cta.getByRole('button')).toContainText('$9');
   await expect(page.getByTestId('bundle')).toContainText('Bought separately');
 });
+
+test('a link to a Builder step lands on that step once the email is given', async ({ page }) => {
+  await page.route('**/api/builder-signup', route => route.fulfill({ json: { ok: true } }));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/free-wedding-planner#your-date');
+  await page.getByTestId('builder-email').fill('couple@example.com');
+  await page.getByTestId('builder-consent').check();
+  await page.getByTestId('builder-email-submit').click();
+  await expect(page.getByTestId('wedding-date')).toBeInViewport();
+});
