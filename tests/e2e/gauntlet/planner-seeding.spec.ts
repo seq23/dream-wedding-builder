@@ -3,6 +3,7 @@ import { unlockBuilder } from './unlock-builder';
 import { plannerLandings } from '../../../data/planner-landings';
 import { plannerHref } from '../../../lib/planner-seed';
 import { PARENT_HOST, hrefFrom } from '../../../lib/site-config';
+import budgetPageShape from '../../../data/seo/budget_page_shape.json';
 
 test.beforeEach(async ({ page }) => { await unlockBuilder(page); });
 
@@ -19,8 +20,14 @@ test('every landing page opens the planner with its own constraint entered', asy
   // under test, so the click below still lands on the planner this build ships.
   await page.route(`https://${PARENT_HOST}/**`, async (route) => {
     const url = new URL(route.request().url());
-    const response = await route.fetch({ url: new URL(`${url.pathname}${url.search}`, baseURL).toString() });
-    await route.fulfill({ response });
+    // A prefetch the page abandons when the click navigates is disposed mid-flight;
+    // that request no longer matters, so it is dropped rather than failing the test.
+    try {
+      const response = await route.fetch({ url: new URL(`${url.pathname}${url.search}`, baseURL).toString() });
+      await route.fulfill({ response });
+    } catch (err) {
+      if (!/disposed|closed|Target page/.test(String(err))) throw err;
+    }
   });
 
   for (const landing of plannerLandings) {
@@ -32,7 +39,11 @@ test('every landing page opens the planner with its own constraint entered', asy
     const href = await link.getAttribute('href');
     expect(href, `${landing.slug} planner link has no seed`).toContain('?');
     // Exactly the final URL: relative on the planner's own host, absolute elsewhere.
-    expect(href, `${landing.slug} planner link is not the final URL`).toBe(hrefFrom(landing.host, plannerHref(landing.seed)));
+    // Budget-shaped landings (data/seo/budget_page_shape.json) also carry the
+    // page_kind/slug attribution every conversion link on those pages carries.
+    const finalUrl = hrefFrom(landing.host, plannerHref(landing.seed));
+    const attributed = Object.prototype.hasOwnProperty.call(budgetPageShape, landing.slug);
+    expect(href, `${landing.slug} planner link is not the final URL`).toBe(attributed ? `${finalUrl}&page_kind=landing&slug=${landing.slug}` : finalUrl);
 
     await page.evaluate(() => window.localStorage.clear());
     await link.click();

@@ -213,10 +213,14 @@ test('commercial hub and paid product pages are complete and clear', async ({ pa
 });
 
 test('authority pages render substantive content and route to owned product', async ({ page }) => {
-  await page.goto('/guides/wedding-budget-for-100-guests');
-  // exact: the guide's own section headings quote the title, so a loose match is a
-  // strict-mode violation rather than a real assertion.
-  await expect(page.getByRole('heading', { name: 'Wedding Budget for 100 Guests', exact: true })).toBeVisible();
-  await expect(page.getByText('The practical method')).toBeVisible();
-  await expect(page.getByRole('link', { name: /Review Wedding Budget Spreadsheet/ })).toBeVisible();
+  // /guides/wedding-budget-for-100-guests was folded into this page (301 in
+  // data/seo/budget_rescue.json, 6 Nov 2026): the old guide must land here, and this
+  // page must answer and route to the owned product.
+  const res = await page.request.get('/guides/wedding-budget-for-100-guests', { maxRedirects: 0 });
+  expect(res.status()).toBe(301);
+  expect(res.headers()['location']).toMatch(/\/wedding-cost-per-guest$/);
+  await page.goto('/wedding-cost-per-guest');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('What a wedding costs per guest');
+  await expect(page.getByRole('heading', { name: 'Quick answer' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Review Wedding Budget Spreadsheet/ }).first()).toBeVisible();
 });

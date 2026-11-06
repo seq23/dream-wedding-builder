@@ -18,8 +18,8 @@ function fakeD1() {
   return { raw, prepare: (sql: string) => ({ ...stmt(sql), bind: (...v: unknown[]) => stmt(sql, v) }) } as any;
 }
 
-const state: { db: any; turnstileSecret?: string } = { db: undefined };
-vi.mock('@/lib/cloudflare-runtime', () => ({ runtimeEnv: async () => ({ DB: state.db, TURNSTILE_SECRET_KEY: state.turnstileSecret }) }));
+const state: { db: any; turnstileSecret?: string; resendKey?: string } = { db: undefined };
+vi.mock('@/lib/cloudflare-runtime', () => ({ runtimeEnv: async () => ({ DB: state.db, TURNSTILE_SECRET_KEY: state.turnstileSecret, RESEND_API_KEY: state.resendKey, DOWNLOAD_SIGNING_SECRET: state.resendKey ? 's' : undefined }) }));
 vi.mock('next/headers', () => ({ cookies: async () => ({ set() {}, get() { return undefined; } }) }));
 
 import { POST as samplePOST } from '@/app/api/sample/route';
@@ -34,9 +34,11 @@ const post = (path: string, body: unknown, ip: string) => new NextRequest(`https
 
 // Fake Cloudflare siteverify: only the token 'solved' passes. Any other URL is refused (no email can go out).
 const verifyCalls: string[] = [];
+const resendTo: string[] = [];
 beforeEach(() => {
-  state.db = fakeD1(); state.turnstileSecret = 'turnstile-test-secret'; verifyCalls.length = 0;
-  vi.stubGlobal('fetch', async (url: string, init: { body: URLSearchParams }) => {
+  state.db = fakeD1(); state.turnstileSecret = 'turnstile-test-secret'; state.resendKey = undefined; verifyCalls.length = 0; resendTo.length = 0;
+  vi.stubGlobal('fetch', async (url: string, init: { body: any }) => {
+    if (url === 'https://api.resend.com/emails' && state.resendKey) { resendTo.push(...JSON.parse(String(init.body)).to); return new Response(JSON.stringify({ id: `m${resendTo.length}` }), { status: 200 }); }
     if (url !== 'https://challenges.cloudflare.com/turnstile/v0/siteverify') throw new Error(`no network in this test: ${url}`);
     verifyCalls.push(init.body.get('response') ?? '');
     return new Response(JSON.stringify({ success: init.body.get('response') === 'solved' && init.body.get('secret') === 'turnstile-test-secret' }));
@@ -53,6 +55,22 @@ describe('public forms are limited per IP', () => {
     expect((await samplePOST(post('/api/sample', { email: 'b@example.com', consent: true, turnstileToken: 'solved' }, '198.51.100.2'))).status).toBe(200);
     // The IP itself is never stored, only its hash.
     expect(JSON.stringify(state.db.raw.prepare('SELECT * FROM rate_events').all())).not.toContain('203.0.113.7');
+  });
+
+  it('sample: one address gets the sample at most once, even from a new IP the same day', async () => {
+    state.resendKey = 'test-resend-key';
+    const first = await samplePOST(post('/api/sample', { email: 'victim@example.com', consent: true, turnstileToken: 'solved' }, '203.0.113.20'));
+    expect(first.status).toBe(200);
+    const again = await samplePOST(post('/api/sample', { email: 'Victim@Example.com', consent: true, turnstileToken: 'solved' }, '198.51.100.20'));
+    expect(again.status).toBe(200);
+    expect(resendTo).toEqual(['victim@example.com']);
+  });
+
+  it('sample: a filled honeypot stores and sends nothing', async () => {
+    state.resendKey = 'test-resend-key';
+    expect((await samplePOST(post('/api/sample', { email: 'bot@example.com', consent: true, turnstileToken: 'solved', company: 'Acme' }, '203.0.113.21'))).status).toBe(200);
+    expect(resendTo).toEqual([]);
+    expect(state.db.raw.prepare(`SELECT COUNT(*) AS n FROM sqlite_master WHERE name = 'builder_signups'`).get().n === 0 || state.db.raw.prepare(`SELECT COUNT(*) AS n FROM builder_signups`).get().n === 0).toBe(true);
   });
 
   it('builder sign-up: 10 an hour from one IP, then 429', async () => {
