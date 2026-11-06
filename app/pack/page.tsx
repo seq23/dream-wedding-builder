@@ -9,18 +9,18 @@ import { chooseScope } from '@/data/inspiration';
 import { range } from '@/lib/format';
 import { budgetModes, budgetReality, designDirection, emptyPlan, estimateRange, hiddenFeeChecklist, plannerBucketsForPacket, plannerLanguage, planningConstraintSummary, protectedPriorities, riskChecklist, selectedVenues, selectedVendors, vendorCategories, venueExamples, visionTranslatorOutput, type WeddingPlan } from '@/data/planning';
 import Link from 'next/link';
+import { loadSavedPlan, loadSavedScope, type SavedScope } from '@/lib/saved-plan';
+import { DatedPlanView } from '@/components/DatedPlanView';
+import { plainDate } from '@/lib/dated-plan';
 
-interface SavedScope { category?: string; description?: string; scopeTitle?: string; tableCount?: string; }
 
 export default function PackPage() {
   const [plan, setPlan] = useState<WeddingPlan>(emptyPlan);
   const [scope, setScope] = useState<SavedScope>({});
 
   useEffect(() => {
-    const saved = localStorage.getItem('dwb-plan');
-    if (saved) setPlan({ ...emptyPlan, ...JSON.parse(saved) });
-    const savedScope = localStorage.getItem('dwb-scope');
-    if (savedScope) setScope(JSON.parse(savedScope));
+    setPlan(loadSavedPlan(localStorage));
+    setScope(loadSavedScope(localStorage));
   }, []);
 
   const estimate = estimateRange(plan);
@@ -37,7 +37,9 @@ export default function PackPage() {
   return <div className="space-y-6">
     <section className="no-print flex items-start justify-between gap-4"><div><Badge>Printable Planner Packet</Badge><h1 className="mt-4 font-serif text-5xl">Dream Wedding Working Brief</h1><p className="mt-3 max-w-3xl text-charcoal/70">Planner-ready packet with constraint profile, Recommendation Studio output, venue/lodging strategy, budget tradeoffs, design direction, photo/description scope, vendor questions, risk checks, and verification caveats.</p></div><PrintButton /></section>
 
-    <Card className="print-card"><h2 className="font-serif text-4xl">Planning Reality Check / Constraint Profile</h2><p className="mt-3 rounded-2xl bg-ivory p-4 text-sm font-semibold">{planningConstraintSummary(plan)}</p><div className="mt-4 grid gap-3 md:grid-cols-3"><p><strong>Mode:</strong><br />{plan.constraintMode || 'Not selected'}</p><p><strong>Location:</strong><br />{plan.locations || 'Not selected yet'}</p><p><strong>Guest count:</strong><br />{plan.guestCount || 'Unknown'}</p><p><strong>Season/date:</strong><br />{plan.season || 'Unknown'}</p><p><strong>Full buyout:</strong><br />{plan.fullBuyout || 'Unknown'}</p><p><strong>Onsite sleeping:</strong><br />{plan.onsiteSleepCount || plan.onsiteLodging || 'Unknown'}</p><p><strong>Outside catering:</strong><br />{plan.outsideCatering || 'Unknown'}</p><p><strong>Vendor freedom:</strong><br />{plan.vendorFreedom || 'Unknown'}</p><p><strong>Estimated total:</strong><br />{displayEstimate}</p></div><p className="mt-4 rounded-2xl bg-ivory p-4 text-sm"><strong>Fixed:</strong> {plan.fixedItems || 'Not captured yet'}<br /><strong>Flexible:</strong> {plan.flexibleItems || 'Not captured yet'}<br /><strong>Unknown:</strong> {plan.unknownItems || 'Not captured yet'}</p></Card>
+    <Card className="print-card"><h2 className="font-serif text-4xl">Planning Reality Check / Constraint Profile</h2><p className="mt-3 rounded-2xl bg-ivory p-4 text-sm font-semibold">{planningConstraintSummary(plan)}</p><div className="mt-4 grid gap-3 md:grid-cols-3"><p><strong>Mode:</strong><br />{plan.constraintMode || 'Not selected'}</p><p><strong>Location:</strong><br />{plan.locations || 'Not selected yet'}</p><p><strong>Guest count:</strong><br />{plan.guestCount || 'Unknown'}</p><p><strong>Wedding date:</strong><br />{plan.weddingDate ? plainDate(plan.weddingDate) : 'Not entered yet'}</p><p><strong>Season:</strong><br />{plan.season || 'Unknown'}</p><p><strong>Full buyout:</strong><br />{plan.fullBuyout || 'Unknown'}</p><p><strong>Onsite sleeping:</strong><br />{plan.onsiteSleepCount || plan.onsiteLodging || 'Unknown'}</p><p><strong>Outside catering:</strong><br />{plan.outsideCatering || 'Unknown'}</p><p><strong>Vendor freedom:</strong><br />{plan.vendorFreedom || 'Unknown'}</p><p><strong>Estimated total:</strong><br />{displayEstimate}</p></div><p className="mt-4 rounded-2xl bg-ivory p-4 text-sm"><strong>Fixed:</strong> {plan.fixedItems || 'Not captured yet'}<br /><strong>Flexible:</strong> {plan.flexibleItems || 'Not captured yet'}<br /><strong>Unknown:</strong> {plan.unknownItems || 'Not captured yet'}</p></Card>
+
+    <Card className="print-card" data-testid="pack-dated-plan"><h2 className="font-serif text-4xl">Your dated plan</h2><div className="mt-3"><DatedPlanView weddingDate={plan.weddingDate} /></div></Card>
 
     <Card className="print-card"><h2 className="font-serif text-4xl">Recommendation Studio</h2>{recommendation ? <div className="mt-4 grid gap-4"><p><strong>Question:</strong> {plan.recommendationQuestion}</p><p className="rounded-2xl bg-ivory p-4"><strong>Planner read:</strong> {recommendation.plannerRead}</p><div className="grid gap-4 md:grid-cols-2"><div><strong>Best-fit directions</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{recommendation.bestFitDirections.map(item => <li key={item}>{item}</li>)}</ul></div><div><strong>Constraint conflicts</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{recommendation.constraintConflicts.map(item => <li key={item}>{item}</li>)}</ul></div><div><strong>Budget implications</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{recommendation.budgetImplications.map(item => <li key={item}>{item}</li>)}</ul></div><div><strong>Vendor questions / next decisions</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{[...recommendation.vendorQuestions, ...recommendation.nextDecisionChecklist].map(item => <li key={item}>{item}</li>)}</ul></div></div><p className="rounded-2xl bg-ivory p-4 text-sm"><strong>Confidence:</strong> {recommendation.confidence}. Recommendation Studio uses saved constraints + seeded planner heuristics, not live venue or vendor data.</p></div> : <p className="mt-3 rounded-2xl bg-ivory p-4">No Recommendation Studio output saved yet.</p>}</Card>
 

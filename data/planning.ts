@@ -34,6 +34,8 @@ export interface WeddingPlan {
   destinationLocal: string;
   travelTolerance: string;
   guestCount: string;
+  /** The wedding date, yyyy-mm-dd, or '' until the couple enters it. */
+  weddingDate: string;
   season: string;
   venueTypes: string[];
   fullBuyout: string;
@@ -110,6 +112,7 @@ export const emptyPlan: WeddingPlan = {
   destinationLocal: '',
   travelTolerance: '',
   guestCount: '',
+  weddingDate: '',
   season: '',
   venueTypes: [],
   fullBuyout: '',
