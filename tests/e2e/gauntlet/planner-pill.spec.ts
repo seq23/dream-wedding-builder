@@ -11,10 +11,15 @@ test.beforeEach(async ({ page }) => { await unlockBuilder(page); });
 // does not persist is worse than no dismiss - it teaches the reader the control
 // is fake.
 
-const GUIDE = '/guides/1-month-wedding-checklist';
+// A page that declares its own planner seed. Until 6 Nov 2026 this was a guide,
+// /guides/1-month-wedding-checklist, which now 301s (data/seo/page_rescue.json) to
+// the live host, so the spec was testing production rather than this build. Guides
+// and the budget-shaped landings no longer declare a seed; /methodology does.
+const GUIDE = '/methodology';
+const OTHER_PAGE = '/readiness-score';
 
 test('the always-on planner banner is on every page type', async ({ page }) => {
-  for (const path of ['/', '/guides', GUIDE, '/wedding-cost-per-guest', '/methodology', '/readiness-score', '/trends']) {
+  for (const path of ['/', '/guides', '/guides/wedding-planning-timeline', '/wedding-cost-per-guest', GUIDE, OTHER_PAGE, '/trends']) {
     await page.goto(path);
     await expect(page.getByTestId('planner-banner'), `${path} has no persistent planner entry`).toBeVisible();
     await expect(page.getByTestId('planner-banner').getByRole('link')).toHaveAttribute('href', /free-wedding-planner/);
@@ -47,7 +52,7 @@ test('dismissing the pill suppresses it on the next page load', async ({ page })
   expect(stored, 'the dismissal was never written to storage').toBe('1');
 
   // A fresh load of a different page must still respect it.
-  await page.goto('/wedding-cost-per-guest');
+  await page.goto(OTHER_PAGE);
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await expect(page.getByTestId('planner-pill'), 'a dismissed pill came back on the next page').toHaveCount(0);
   // The always-on entry is unaffected: dismissing the pill is not opting out of
