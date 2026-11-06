@@ -34,7 +34,10 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
       // A link to a step (#your-date, #step-3) arrived behind the gate; once the
       // planner opens, take the couple to the step they came for, not the top.
       const target = window.location.hash.slice(1);
-      if (target) requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView({ block: 'start' }));
+      // Again once web fonts have swapped in: the headings above change height when
+      // they do, which would leave the couple short of the step.
+      const go = () => document.getElementById(target)?.scrollIntoView({ block: 'start' });
+      if (target) { requestAnimationFrame(go); document.fonts?.ready.then(() => requestAnimationFrame(go)).catch(() => {}); }
     } catch {
       setError('Could not reach the server. Please try again.');
     } finally {

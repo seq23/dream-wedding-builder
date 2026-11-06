@@ -320,7 +320,7 @@ function BuildPage() {
       </Card>
     </StepFold>
 
-    <StepFold id="step-1" header={<div className="pt-2"><Badge>Step 1</Badge><h2 className="mt-3 font-serif text-3xl">Recommendation Studio.</h2><p className="mt-2 text-sm text-charcoal/65">Ask the veteran planner brain anything. It uses your constraints if they exist, or helps discover them if they do not.</p></div>}>
+    <StepFold id="step-1" defaultOpen header={<div className="pt-2"><Badge>Step 1</Badge><h2 className="mt-3 font-serif text-3xl">Recommendation Studio.</h2><p className="mt-2 text-sm text-charcoal/65">Ask the veteran planner brain anything. It uses your constraints if they exist, or helps discover them if they do not.</p></div>}>
       <Card data-testid="recommendation-studio">
         <h3 className="font-serif text-4xl">Stumped? Ask Recommendation Studio.</h3>
         <p className="mt-3 text-charcoal/70">Try: “Italy, full buyout, sleeps 70–80, outside catering required,” or “I want pink, orange, and yellow flowers for a beach wedding.”</p>

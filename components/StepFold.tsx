@@ -19,7 +19,12 @@ export function StepFold({ id, header, children, defaultOpen = false, className 
       const el = document.getElementById(target);
       if (section && el && (el === section || section.contains(el))) {
         setOpen(true);
-        requestAnimationFrame(() => el.scrollIntoView({ block: 'start' }));
+        const go = () => el.scrollIntoView({ block: 'start' });
+        requestAnimationFrame(go);
+        // Web fonts swapping in change the height of everything above.
+        document.fonts?.ready.then(() => requestAnimationFrame(go)).catch(() => {});
+        // And once the first render settles: a seeded link adds a notice above the steps.
+        window.setTimeout(go, 400);
       }
     };
     // A second tap on the same #step link fires no hashchange, so clicks are read too.
@@ -35,12 +40,14 @@ export function StepFold({ id, header, children, defaultOpen = false, className 
     return () => { window.removeEventListener('hashchange', fromHash); document.removeEventListener('click', onClick); window.removeEventListener(STEP_FOLD_EVENT, onAll); };
   }, [id]);
   const bodyId = `${id}-body`;
-  return <section id={id} data-fold={open ? 'open' : 'closed'} className={`${className} scroll-mt-24`}>
-    <div className="min-w-0">
-      {header}
+  return <section id={id} data-fold={open ? 'open' : 'closed'} className={`${className} scroll-mt-20`}>
+    {/* The toggle sits beside the heading, not under it, so a closed step is one
+        short block and a link landing on an open step still shows its first field. */}
+    <div className="flex min-w-0 items-start justify-between gap-3 lg:block">
+      <div className="min-w-0">{header}</div>
       <button type="button" data-testid={`fold-toggle-${id}`} aria-expanded={open} aria-controls={bodyId} onClick={() => setOpen((v) => !v)}
-        className={`no-print mt-3 inline-flex min-h-11 items-center gap-2 rounded-2xl border-[1.5px] px-4 text-sm font-bold ${open ? 'border-charcoal/20 bg-white text-charcoal' : 'border-blue bg-blue-soft text-charcoal'}`}>
-        {open ? `Close this ${label}` : `Open this ${label}`}<span aria-hidden="true">{open ? '▴' : '▾'}</span>
+        className={`no-print mt-1 inline-flex min-h-11 shrink-0 items-center gap-1.5 whitespace-nowrap lg:mt-3 rounded-2xl border-[1.5px] px-4 text-sm font-bold ${open ? 'border-charcoal/20 bg-white text-charcoal' : 'border-blue bg-blue-soft text-charcoal'}`}>
+        {open ? 'Close' : 'Open'}<span className="sr-only"> {label === 'step' ? 'this step' : `this ${label}`}</span><span aria-hidden="true">{open ? '▴' : '▾'}</span>
       </button>
     </div>
     <div id={bodyId} data-fold-body hidden={!open} className="min-w-0">{children}</div>

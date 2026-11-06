@@ -48,16 +48,17 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
       <div className="flex flex-col justify-center p-5 md:p-10 lg:p-12 xl:p-16">
         <p className="inline-flex w-fit rounded-full bg-rose/20 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/70">The Wedding Checklist PDF · $9</p>
         <h1 className="mt-5 font-serif text-[40px] leading-[42px] sm:text-6xl sm:leading-[.98] lg:text-7xl">The wedding checklist<br/>built around<br/><em className="font-normal">your actual date.</em></h1>
-        <SiteDefinition host={HOST} className="mt-6 max-w-xl text-base leading-7 text-charcoal/80 md:text-lg md:leading-8" />
-        <p className="mt-4 max-w-xl text-base leading-7 text-charcoal/70 md:text-lg md:leading-8">{checklist.promise}</p>
+        <SiteDefinition host={HOST} className="mt-6 max-w-xl text-[15px] leading-[23px] sm:text-base sm:leading-7 text-charcoal/80 md:text-lg md:leading-8" />
         {/* Addition for the lead audience (search decision, 6 Nov 2026: couples planning it themselves). */}
         <p data-testid="home-planner-free-line" className="mt-4 max-w-xl border-l-2 border-blue pl-3 text-base font-semibold leading-7 text-charcoal">Planning it yourselves, without a planner? This is the planner's checklist, dated from your wedding day.</p>
-        <ul className="mt-5 grid gap-2 text-sm font-semibold text-charcoal/75">{checklist.features.slice(0, 4).map((f) => <li key={f}>✓ {f}</li>)}</ul>
+        {/* The buttons sit right after the answer paragraph so a phone sees them on the first screen (hostile review, 390px). */}
         {/* Design system order: the free planner is the one blue button, the $9 PDF second. */}
-        <a data-testid="home-planner-cta" href={PLANNER_ROUTE} className="mt-8 inline-flex min-h-12 w-full max-w-md items-center justify-center rounded-2xl bg-charcoal px-5 py-3.5 text-center text-base font-bold text-linen">Open the free wedding planner ›</a>
+        <a data-testid="home-planner-cta" href={PLANNER_ROUTE} className="mt-6 inline-flex min-h-12 w-full max-w-md items-center justify-center rounded-2xl bg-charcoal px-5 py-3.5 text-center text-base font-bold text-linen">Open the free wedding planner ›</a>
         <p className="mt-2 max-w-md text-center text-[13px] text-charcoal/60">Free with your email. Your plan stays in your browser.</p>
         <div className="mt-4 max-w-md" data-testid="home-primary-cta"><CheckoutButton tone="secondary" sku={checklist.sku} price={checklist.price} label={`Get the Wedding Checklist PDF — $${checklist.price}`} productName={checklist.name}/></div>
         <p className="mt-3 text-sm text-charcoal/55">{checklist.value_note}. Secure checkout by Stripe.</p>
+        <p className="mt-6 max-w-xl text-[15px] leading-[23px] text-charcoal/70 sm:text-base sm:leading-7 md:text-lg md:leading-8">{checklist.promise}</p>
+        <ul className="mt-5 grid gap-2 text-sm font-semibold text-charcoal/75">{checklist.features.slice(0, 4).map((f) => <li key={f}>✓ {f}</li>)}</ul>
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold"><Link href={checklist.route} className="underline underline-offset-4">Look inside the checklist first →</Link><Link href="/shop" className="underline underline-offset-4">All four tools in one bundle — $39</Link></div>
         <div className="mt-8"><BinderTabs plannerHref={PLANNER_ROUTE} /></div>
         <p className="mt-6 text-xs font-bold uppercase tracking-[.2em] text-charcoal/45">Or pick the tool you need</p>
@@ -69,7 +70,7 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         </div>
       </div>
       {/* The real look-inside page of the paid file, not the styled cover (the cover carries invented couple names, which the brand rules out as a hero). */}
-      <div className="relative min-h-[260px] bg-linen sm:min-h-[520px] lg:min-h-[650px]"><Image src="/product-previews/checklist-pdf/checklist-pdf-preview-1.png" alt="Wedding Checklist PDF: the printable planning packet and editable master checklist" fill priority sizes="(max-width:1024px) 100vw, 58vw" className="object-contain p-3 lg:object-cover lg:p-0"/></div>
+      <div className="relative min-h-[260px] bg-linen sm:min-h-[520px] lg:min-h-[650px]"><Image src="/product-previews/checklist-pdf/checklist-pdf-preview-1.png" alt="Wedding Checklist PDF: the printable planning packet and editable master checklist" fill priority sizes="(max-width:1024px) 100vw, 58vw" className="object-contain p-3 lg:p-8"/></div>
     </div>
   </section>
 
