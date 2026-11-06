@@ -1,6 +1,7 @@
 # THE DREAM WEDDING APP PREVIEW (docs/APP_PLAN.md): copied from KeepMyProof's simulator
 # preview. Checks the app (typecheck + unit tests, under 5 minutes), then builds the iOS app
-# for the simulator (no Apple account, ad-hoc signed, nothing paid) and puts it on Appetize
+# for the simulator (no Apple account, ad-hoc signed, nothing paid) and the Android app
+# (release APK signed with the local debug key), and puts both on Appetize
 # so the owner can tap through every build before anyone pays for a store account.
 # GitHub-hosted runners only (free for this public repo). Touches nothing the website
 # builds or deploys: it runs only for apps/mobile, the shared planning logic, or itself.
@@ -88,4 +89,49 @@ jobs:
         env:
           APPETIZE_API_TOKEN: ${{ secrets.APPETIZE_API_TOKEN }}
           APPETIZE_PUBLIC_KEY: ${{ vars.APPETIZE_DREAM_WEDDING_PUBLIC_KEY }}
-        run: scripts/preview/appetize.sh DreamWedding-simulator.zip
+        run: scripts/preview/appetize.sh DreamWedding-simulator.zip ios
+  preview-android:
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      EXPO_NO_TELEMETRY: '1'
+      CI: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: npm ci --no-audit --no-fund
+      - name: Generate the Android project
+        run: npx expo prebuild --platform android --no-install > prebuild.log 2>&1 || { tail -40 prebuild.log; exit 1; }
+      - name: Build the Android app (release, signed with the local debug key; no store account)
+        run: |
+          cd android && ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=x86_64,arm64-v8a > ../gradle.log 2>&1 || { grep -E "error|FAILURE|What went wrong" -A3 ../gradle.log | head -60; exit 1; }
+          cd .. && apk=$(ls android/app/build/outputs/apk/release/*.apk | head -1)
+          [ -s "$apk" ] || { echo "NAMED STOP [PREVIEW_NO_APK] no release APK was built"; exit 1; }
+          cp "$apk" DreamWedding.apk
+          echo "Android build: $(du -h DreamWedding.apk | cut -f1), attached as **dream-wedding-android-build**." >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: android-build-logs
+          path: apps/mobile/*.log
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dream-wedding-android-build
+          path: apps/mobile/DreamWedding.apk
+          retention-days: 30
+      - name: Put the Android build on Appetize
+        env:
+          APPETIZE_API_TOKEN: ${{ secrets.APPETIZE_API_TOKEN }}
+          APPETIZE_PUBLIC_KEY: ${{ vars.APPETIZE_DREAM_WEDDING_ANDROID_KEY }}
+        run: scripts/preview/appetize.sh DreamWedding.apk android
