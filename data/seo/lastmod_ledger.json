@@ -2,15 +2,15 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "15b286bbc3664450466ac8029cd39a059f317fd6",
+  "generated_from_commit": "401628e8cef435b4a24ab96b6e242360d8d5fe0d",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
-      "lastmod": "2026-10-25",
+      "lastmod": "2026-11-06",
       "source": "app/page.tsx"
     },
     "/about": {
-      "lastmod": "2026-10-25",
+      "lastmod": "2026-11-06",
       "source": "app/about/page.tsx"
     },
     "/amazon/wedding-budget-line-by-line": {
@@ -18,7 +18,7 @@
       "source": "data/seo/editorial_page_shape.json#amazon/wedding-budget-line-by-line"
     },
     "/amazon/wedding-day-timeline": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-06",
       "source": "data/seo/editorial_page_shape.json#amazon/wedding-day-timeline"
     },
     "/amazon/wedding-guest-list-problem": {
@@ -42,15 +42,15 @@
       "source": "app/disclaimer/page.tsx"
     },
     "/editorial-policy": {
-      "lastmod": "2026-10-30",
+      "lastmod": "2026-11-06",
       "source": "app/editorial-policy/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-10-08",
+      "lastmod": "2026-11-06",
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
-      "lastmod": "2026-11-05",
+      "lastmod": "2026-11-06",
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/bridal-shower-checklist": {
@@ -118,7 +118,7 @@
       "source": "data/seo/consolidated_decisions.json#/guides/wedding-seating-chart-template"
     },
     "/methodology": {
-      "lastmod": "2026-09-02",
+      "lastmod": "2026-11-06",
       "source": "app/methodology/page.tsx"
     },
     "/micro-wedding-planning": {
@@ -126,7 +126,7 @@
       "source": "app/micro-wedding-planning/page.tsx"
     },
     "/photos": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-11-06",
       "source": "app/photos/page.tsx"
     },
     "/printable-wedding-checklist": {
@@ -146,7 +146,7 @@
       "source": "data/products/product_catalog.json#products[id=checklist-pdf]"
     },
     "/products/operations-suite": {
-      "lastmod": "2026-10-27",
+      "lastmod": "2026-11-06",
       "source": "app/products/operations-suite/page.tsx"
     },
     "/products/seating-chart-maker": {
@@ -158,11 +158,11 @@
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/questions": {
-      "lastmod": "2026-11-01",
+      "lastmod": "2026-11-06",
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {
-      "lastmod": "2026-10-25",
+      "lastmod": "2026-11-06",
       "source": "app/readiness-score/page.tsx"
     },
     "/refund-policy": {
@@ -170,11 +170,11 @@
       "source": "app/refund-policy/page.tsx"
     },
     "/shop": {
-      "lastmod": "2026-11-05",
+      "lastmod": "2026-11-06",
       "source": "app/shop/page.tsx"
     },
     "/shop/compare": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-11-06",
       "source": "app/shop/compare/page.tsx"
     },
     "/terms": {
