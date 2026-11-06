@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-05T12:42:25.933Z",
+  "generated_at": "2026-11-06T12:42:16.613Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-07",
-          "end": "2026-11-03"
+          "start": "2026-10-08",
+          "end": "2026-11-04"
         },
         "totals": {
           "clicks": 0,
@@ -244,8 +244,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-07",
-          "end": "2026-11-03"
+          "start": "2026-10-08",
+          "end": "2026-11-04"
         },
         "totals": {
           "clicks": 0,
@@ -453,8 +453,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-07",
-          "end": "2026-11-03"
+          "start": "2026-10-08",
+          "end": "2026-11-04"
         },
         "totals": {
           "clicks": 1,
@@ -486,8 +486,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 66.3,
               "pages": [
@@ -723,8 +723,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-07",
-          "end": "2026-11-03"
+          "start": "2026-10-08",
+          "end": "2026-11-04"
         },
         "totals": {
           "clicks": 0,
@@ -756,8 +756,8 @@
               "metric": "impressions_28d",
               "number": 16,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 72.8,
               "pages": [
@@ -784,8 +784,8 @@
               "metric": "impressions_28d",
               "number": 6,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 97,
               "pages": [
@@ -812,8 +812,8 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 73.8,
               "pages": [
@@ -838,8 +838,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 73,
               "pages": [
@@ -870,8 +870,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 86.5,
               "pages": [
@@ -896,8 +896,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 94.5,
               "pages": [
@@ -922,8 +922,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 69,
               "pages": [
@@ -948,8 +948,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 62,
               "pages": [
@@ -974,8 +974,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 91,
               "pages": [
@@ -1000,8 +1000,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 59,
               "pages": [
@@ -1026,8 +1026,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 78,
               "pages": [
@@ -1052,8 +1052,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 89,
               "pages": [
@@ -1078,8 +1078,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 96,
               "pages": [
@@ -1104,8 +1104,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 74,
               "pages": [
@@ -1130,8 +1130,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-07",
-                "end": "2026-11-03"
+                "start": "2026-10-08",
+                "end": "2026-11-04"
               },
               "position": 93,
               "pages": [

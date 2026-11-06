@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-10-07",
-        "end": "2026-11-03"
+        "start": "2026-10-08",
+        "end": "2026-11-04"
       },
-      "collected_at": "2026-11-05T12:42:22.752Z",
+      "collected_at": "2026-11-06T12:42:15.415Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -70,10 +70,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-10-07",
-        "end": "2026-11-03"
+        "start": "2026-10-08",
+        "end": "2026-11-04"
       },
-      "collected_at": "2026-11-05T12:42:23.653Z",
+      "collected_at": "2026-11-06T12:42:15.798Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -124,10 +124,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-10-07",
-        "end": "2026-11-03"
+        "start": "2026-10-08",
+        "end": "2026-11-04"
       },
-      "collected_at": "2026-11-05T12:42:24.527Z",
+      "collected_at": "2026-11-06T12:42:16.111Z",
       "complete": true,
       "totals": {
         "clicks": 1,
@@ -216,10 +216,10 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-10-07",
-        "end": "2026-11-03"
+        "start": "2026-10-08",
+        "end": "2026-11-04"
       },
-      "collected_at": "2026-11-05T12:42:25.817Z",
+      "collected_at": "2026-11-06T12:42:16.442Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -498,5 +498,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-11-05T12:42:25.817Z"
+  "updated_at": "2026-11-06T12:42:16.443Z"
 }
