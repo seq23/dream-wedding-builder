@@ -70,9 +70,25 @@ const routeOwners = new Map<string, SiteHost>(
 const productHosts = new Map<string, SiteHost>(
   productsWithDomains.map((product) => [product.id, product.domain])
 );
+// A guide lives on the main site unless route_ownership.json gives it to a
+// satellite (and then only if it is in that satellite's own_tool_paths): the
+// 2026-11-03 ruling keeps shared and general guides on weddingchecklistpdf.com.
+// Until 2026-11-06 an unrouted guide fell back to its product's host, which is how
+// general guides kept answering 200 on the satellites with self-canonicals.
 const guideHosts = new Map<string, SiteHost>(
-  registry.pages.map((page) => [page.slug, productHosts.get(page.product_id) ?? PARENT_HOST])
+  registry.pages.map((page) => [page.slug, PARENT_HOST])
 );
+
+/** The paths a satellite host may serve: its hub, its product page and guides about its own tool. */
+export function ownToolPaths(host: string): string[] {
+  if (!isCanonicalHost(host) || host === PARENT_HOST) return [];
+  return [...((ownership.hosts[host] as { own_tool_paths?: string[] }).own_tool_paths ?? [])];
+}
+
+/** The host whose page this guide is: the route table's owner, else the main site. */
+export function hostForGuide(slug: string): SiteHost {
+  return canonicalHostForPath(`/guides/${slug}`) ?? PARENT_HOST;
+}
 
 export function canonicalUrl(host: string, path = '/'): string {
   return `https://${host}${path === '/' ? '/' : path}`;

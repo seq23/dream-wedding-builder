@@ -163,7 +163,7 @@ function route(request: NextRequest) {
     url.pathname = hostConfig[host].root_target;
     return NextResponse.redirect(url, 308);
   }
-  if (pathname === '/guides' || pathname === '/editorial-policy' || pathname === '/sitemap.xml' || pathname === '/robots.txt' || pathname === '/llms.txt') return withPathname(request);
+  if (pathname === '/sitemap.xml' || pathname === '/robots.txt' || pathname === '/llms.txt') return withPathname(request);
 
   const owner = canonicalHostForPath(pathname);
   if (owner && owner !== host) {

@@ -1,7 +1,7 @@
 import hubs from '@/data/seo/hub_pages.json';
 import ownership from '@/data/seo/route_ownership.json';
 import pageRescue from '@/data/seo/page_rescue.json';
-import { canonicalHostForPath, CANONICAL_HOSTS, hrefFrom } from '@/lib/site-config';
+import { canonicalHostForPath, CANONICAL_HOSTS, hrefFrom, ownToolPaths } from '@/lib/site-config';
 import { GET as llms } from '@/app/llms.txt/route';
 import { describe, expect, it } from 'vitest';
 import { NextRequest } from 'next/server';
@@ -15,11 +15,15 @@ describe('budget consolidation', () => {
   it('301s every retired URL and slash variant directly to a kept hub on every sibling host', () => {
     expect(Object.keys(rescue.redirects).length).toBe(16);
     for (const [path, target] of Object.entries(rescue.redirects)) {
+      // The kept hub is the budget tool hub, or since 2026-11-06 a shared budget
+      // landing that now lives on the main site: one hop to whichever owns it.
+      const owner = canonicalHostForPath(target);
+      expect(owner).toBe(ownToolPaths(rescue.host).includes(target) ? rescue.host : pageRescue.main_host);
       for (const host of [rescue.host, 'weddingchecklistpdf.com', 'weddingtimelinetemplate.com', 'weddingseatingchartmaker.com']) {
         for (const suffix of ['', '/']) {
           const response = middleware(new NextRequest(`https://${host}${path}${suffix}?utm_source=test`, { headers: { host } }));
           expect(response.status).toBe(301);
-          expect(response.headers.get('location')).toBe(`https://${rescue.host}${target}?utm_source=test`);
+          expect(response.headers.get('location')).toBe(`https://${owner}${target}?utm_source=test`);
           expect(target in rescue.redirects).toBe(false);
         }
       }
@@ -27,12 +31,16 @@ describe('budget consolidation', () => {
       expect(path in frozen.records).toBe(false);
     }
   });
-  it('advertises only the nine retained URLs and preserves the previously visible cost-per-guest hub', async () => {
+  it('advertises only the five budget-tool URLs and keeps the cost-per-guest hub listed on the main site', async () => {
     const response = await GET(new Request(`https://${rescue.host}/sitemap.xml`, { headers: { host: rescue.host } }));
     const urls = [...(await response.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
-    expect(urls.length).toBe(9);
-    expect(urls).toContain('/wedding-cost-per-guest');
-    for (const path of Object.keys(rescue.redirects)) expect(urls).not.toContain(path);
+    expect(urls.length).toBe(5);
+    expect(urls.sort()).toEqual(ownToolPaths(rescue.host).sort());
+    const main = pageRescue.main_host;
+    const mainUrls = [...(await (await GET(new Request(`https://${main}/sitemap.xml`, { headers: { host: main } }))).text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+    expect(mainUrls).toContain('/wedding-cost-per-guest');
+    expect(mainUrls).toContain('/wedding-budget-tradeoffs');
+    for (const path of Object.keys(rescue.redirects)) expect([...urls, ...mainUrls]).not.toContain(path);
     expect(shippingPages.filter((p) => p.product_id === 'budget-spreadsheet').map((p) => p.slug).sort()).toEqual([...rescue.kept_guides].sort());
   });
 });
@@ -70,7 +78,9 @@ describe('wedding editorial consolidation and domain isolation', () => {
       const text = await (await llms(new Request(`https://${host}/llms.txt`, { headers: { host } }))).text();
       for (const match of text.matchAll(/\]\((https:\/\/[^)]+)\)/g)) {
         const url = new URL(match[1]);
-        expect(url.host).toBe(host);
+        // A satellite links its own-tool pages on itself and shared pages on the main site.
+        const own = host === pageRescue.main_host || ownToolPaths(host).includes(url.pathname) || ['/', '/sitemap.xml'].includes(url.pathname);
+        expect(url.host, match[1]).toBe(own ? host : pageRescue.main_host);
         expect(url.pathname in pageRescue.redirects).toBe(false);
       }
     }
@@ -83,8 +93,14 @@ describe('wedding editorial consolidation and domain isolation', () => {
       expect(hub.related.length).toBeGreaterThan(0);
       for (const path of hub.related) {
         expect(path in pageRescue.redirects).toBe(false);
-        expect(hrefFrom(host, path)).toBe(path);
-        if (path !== '/guides') expect(canonicalHostForPath(path)).toBe(host);
+        // Own-tool pages link in place; shared guides link straight to the main site.
+        if (ownToolPaths(host).includes(path)) {
+          expect(hrefFrom(host, path)).toBe(path);
+          expect(canonicalHostForPath(path)).toBe(host);
+        } else {
+          expect(canonicalHostForPath(path)).toBe(pageRescue.main_host);
+          expect(hrefFrom(host, path)).toBe(`https://${pageRescue.main_host}${path}`);
+        }
       }
     }
   });

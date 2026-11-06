@@ -80,6 +80,10 @@ const owned = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/route
 const before = queue.variants.length;
 queue.variants = queue.variants.filter((v) => (v.release_date && v.release_date <= today) || owned.has(v.path));
 if (queue.variants.length !== before) log.push(`DROPPED ${before - queue.variants.length} unreleased variant(s) for pages no longer served`);
+// A drop leaves holes in the dated schedule (2026-11-04..06 the drip went red with
+// "gap in the schedule" after the consolidation retired 17 guides): every pin not yet
+// released goes back in the pool so scheduleVariants re-packs it from tomorrow.
+if (queue.variants.length !== before) for (const v of queue.variants) if (v.release_date && v.release_date > today) delete v.release_date;
 
 // 2. Refill.
 const pages = queue.pages.filter((p) => owned.has(p.path) && !Object.hasOwn(pageRescue.redirects, p.path)).map((p) => ({ ...p, angles: anglesFor(p.path) }));

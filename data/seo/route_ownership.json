@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "canonical_scheme": "https",
   "parent_host": "weddingchecklistpdf.com",
+  "satellite_rule": "Owner ruling 2026-11-03 (spry brain): weddingchecklistpdf.com is the canonical main wedding site. Shared or general wedding guides live there only; a satellite host keeps only pages about its own tool (its hub, its product page and the guides about the tool itself), listed in hosts.<host>.own_tool_paths. Every other path requested on a satellite 301s to the main site. tests/unit/satellite-own-tool-only.test.ts fails on any satellite-owned route outside that list.",
   "hosts": {
     "weddingchecklistpdf.com": {
       "root_action": "render",
@@ -11,17 +12,34 @@
     "weddingbudgetspreadsheet.com": {
       "root_action": "redirect",
       "root_target": "/wedding-budget-spreadsheet",
-      "product_id": "budget-spreadsheet"
+      "product_id": "budget-spreadsheet",
+      "own_tool_paths": [
+        "/wedding-budget-spreadsheet",
+        "/products/budget-spreadsheet",
+        "/guides/wedding-budget-template",
+        "/guides/wedding-budget-calculator",
+        "/guides/wedding-budget-spreadsheet-categories"
+      ]
     },
     "weddingtimelinetemplate.com": {
       "root_action": "redirect",
       "root_target": "/wedding-timeline-template",
-      "product_id": "timeline-template"
+      "product_id": "timeline-template",
+      "own_tool_paths": [
+        "/wedding-timeline-template",
+        "/products/timeline-template",
+        "/guides/wedding-day-timeline-template"
+      ]
     },
     "weddingseatingchartmaker.com": {
       "root_action": "redirect",
       "root_target": "/wedding-seating-chart",
-      "product_id": "seating-chart-maker"
+      "product_id": "seating-chart-maker",
+      "own_tool_paths": [
+        "/wedding-seating-chart",
+        "/products/seating-chart-maker",
+        "/guides/wedding-seating-chart-template"
+      ]
     }
   },
   "alias_hosts": {
@@ -90,7 +108,7 @@
     },
     {
       "path": "/guides/wedding-seating-chart-accessibility",
-      "host": "weddingseatingchartmaker.com",
+      "host": "weddingchecklistpdf.com",
       "type": "guide",
       "indexable": true
     },
@@ -108,7 +126,7 @@
     },
     {
       "path": "/guides/wedding-day-timeline",
-      "host": "weddingtimelinetemplate.com",
+      "host": "weddingchecklistpdf.com",
       "type": "guide",
       "indexable": true
     },
@@ -234,7 +252,7 @@
     },
     {
       "path": "/guides/wedding-rehearsal-timeline",
-      "host": "weddingtimelinetemplate.com",
+      "host": "weddingchecklistpdf.com",
       "type": "guide",
       "indexable": true
     },
@@ -318,13 +336,13 @@
     },
     {
       "path": "/wedding-cost-per-guest",
-      "host": "weddingbudgetspreadsheet.com",
+      "host": "weddingchecklistpdf.com",
       "type": "landing",
       "indexable": true
     },
     {
       "path": "/wedding-budget-tradeoffs",
-      "host": "weddingbudgetspreadsheet.com",
+      "host": "weddingchecklistpdf.com",
       "type": "landing",
       "indexable": true
     },
@@ -363,14 +381,24 @@
       "host": "weddingbudgetspreadsheet.com",
       "type": "guide",
       "indexable": true
+    },
+    {
+      "path": "/guides",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
+    },
+    {
+      "path": "/editorial-policy",
+      "host": "weddingchecklistpdf.com",
+      "type": "parent",
+      "indexable": true
     }
   ],
   "shared_host_routes": [
-    "/guides",
     "/sitemap.xml",
     "/robots.txt",
-    "/llms.txt",
-    "/editorial-policy"
+    "/llms.txt"
   ],
   "runtime_routes": [
     "/api",
