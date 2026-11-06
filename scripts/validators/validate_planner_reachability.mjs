@@ -43,7 +43,13 @@ else {
 
 // The banner is the always-on entry, above the nav, on every page of every host.
 if (!shell.includes('data-testid="planner-banner"')) fail('AppShell: no persistent planner banner');
-if (!/data-testid="planner-banner"[\s\S]{0,600}PLANNER_ABSOLUTE/.test(shell)) fail('AppShell banner: does not link to the planner');
+// The banner links either PLANNER_ABSOLUTE itself or a per-host Builder step
+// (builderStepLinks, 6 Nov 2026), every one of which must be built on PLANNER_ABSOLUTE.
+const stepBlock = shell.match(/builderStepLinks[^=]*=\s*\{([\s\S]*?)\n\};/);
+const stepHrefs = stepBlock ? [...stepBlock[1].matchAll(/href:\s*(`[^`]*`)/g)].map((m) => m[1]) : [];
+const bannerUsesSteps = /data-testid="planner-banner"[\s\S]{0,600}builderStepLinks/.test(shell);
+if (bannerUsesSteps && (!stepHrefs.length || stepHrefs.some((h) => !h.trim().startsWith('`${PLANNER_ABSOLUTE')))) fail('AppShell banner: a per-host Builder step link is not built on PLANNER_ABSOLUTE');
+if (!bannerUsesSteps && !/data-testid="planner-banner"[\s\S]{0,600}PLANNER_ABSOLUTE/.test(shell)) fail('AppShell banner: does not link to the planner');
 
 // Mobile nav and footer keep their existing entries; losing them is a regression.
 const mobileNav = shell.match(/aria-label="Mobile navigation"[\s\S]*?<\/nav>/);

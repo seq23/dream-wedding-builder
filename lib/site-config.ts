@@ -58,6 +58,23 @@ export function aliasRedirectTarget(rawHost: string): SiteHost | null {
   return isCanonicalHost(alias.redirects_to) ? alias.redirects_to : PARENT_HOST;
 }
 
+// Domains bought for the Builder (route_ownership.json builder_hosts). They never
+// render: one 301 to the Builder's canonical URL, query kept, fragment set to the
+// Builder step the domain is named for.
+export type BuilderHostConfig = { target: string; fragment: string };
+const builderHosts = Object.fromEntries(Object.entries((ownership as { builder_hosts?: Record<string, unknown> }).builder_hosts ?? {}).filter(([k]) => !k.startsWith('_'))) as Record<string, BuilderHostConfig>;
+export const BUILDER_HOSTS = Object.keys(builderHosts);
+
+/** The absolute URL a Builder domain redirects to, or null when the host is not one. */
+export function builderRedirectUrl(rawHost: string, pathname: string, search: string): string | null {
+  const host = apexHost(rawHost);
+  const cfg = builderHosts[host];
+  if (!cfg) return null;
+  const path = pathname === '/' || pathname === '' ? cfg.target : pathname;
+  const fragment = path === cfg.target && cfg.fragment ? `#${cfg.fragment}` : '';
+  return `https://${PARENT_HOST}${path}${search}${fragment}`;
+}
+
 export const productsWithDomains = products.filter(
   (product): product is typeof product & { domain: SiteHost } => isCanonicalHost(product.domain)
 );
