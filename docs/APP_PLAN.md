@@ -94,19 +94,23 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
    |---|---|---|
    | `dw_full_plan` | $14.99; $9.99 for the first 30 days by a scheduled store price change (intro offers are subscriptions only) | `full_plan` |
    | `dw_planner_printables` | $34.99 | `full_plan`, `printables`, `day_of_kit` |
+   | `dw_printables_topup` | $19.99 (owners of the full plan only; $14.99 + $19.99 = the bundle) | `printables` |
    | `dw_day_of_kit` | $9.99 | `day_of_kit` |
 
    `full_plan` unlocks: all 104 tasks dated, two phones (task 7), every window's
    reminders (task 4), tradition packs (task 5), the day-of handover pack, PDF export.
    Free (same as the website): the 24 core tasks, ticks, own tasks, 1 AI draft, the basic
    packet, plus the reminder for the current window. Offering `default`:
-   dw_planner_printables first (better value), then dw_full_plan; offering `after_unlock`:
-   dw_day_of_kit only. Prices come from the store at run time, never typed into the app.
+   dw_planner_printables first (better value), then dw_full_plan; offering `after_unlock`
+   (owns `full_plan`, not `printables`): dw_printables_topup, then dw_day_of_kit; owns
+   `printables`: no offer. The rule is one pure function, `offersFor` in
+   `apps/mobile/src/billing/offers.ts` (already in the scaffold, guarded by
+   `test/offers.unit.ts`); screens never decide offers themselves. Prices come from the store at run time, never typed into the app.
    Printables are digital content, so in-app purchase only (Apple 3.1.1); download from
    our server after the store confirms; restorable.
    Tests: with no key every buy button is off and free features never check a purchase;
-   each product grants exactly its entitlements; an owner of `full_plan` never sees
-   dw_planner_printables; restore brings back all three; printables download only after a
+   each product grants exactly its entitlements; `offersFor` keeps passing (full plan owners
+   see the top-up, never the bundle; printables owners see nothing); restore brings back all three; printables download only after a
    confirmed purchase; no product, offering or price is created by code.
 9. **More, and delete.** Every row on screen 9; "Delete my plan from this phone" confirms
    on the page first.
