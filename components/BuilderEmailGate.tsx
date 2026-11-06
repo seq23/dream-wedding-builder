@@ -44,7 +44,7 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
 
   if (unlocked) return <>{children}</>;
   return <div className="relative">
-    <section data-testid="builder-email-gate" className="relative z-10 mx-auto mb-8 max-w-2xl rounded-[2rem] border border-charcoal/10 bg-white p-7 shadow-soft md:p-10">
+    <section data-testid="builder-email-gate" className="relative z-10 mx-auto mb-8 max-w-2xl rounded-[12px] border border-charcoal/10 bg-white p-7 shadow-soft md:p-10">
       <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free wedding planning builder</p>
       {/* An h2, not an h1: the gate is an interstitial drawn OVER the page, and the
           page it covers keeps rendering its own h1 below (aria-hidden and inert hide

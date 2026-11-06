@@ -4,7 +4,17 @@
 
 :root { color-scheme: light; }
 html { scroll-behavior: smooth; }
-body { @apply bg-ivory text-charcoal antialiased; }
+body { @apply bg-ivory text-charcoal antialiased; font-family: theme('fontFamily.sans'); }
+/* Dream Wedding type (design system, 6 Nov 2026). Instrument Serif has one weight,
+   so headings rank by size: never a synthesized bold on the serif. Uppercase labels
+   (tabs, kickers, prices) are DM Mono. */
+.font-serif { font-synthesis-weight: none; font-weight: 400; letter-spacing: -0.01em; }
+.uppercase:not(a):not(button) { font-family: theme('fontFamily.mono'); font-weight: 500; }
+/* Blue is the one primary button (white text); a midnight block that is not a link or
+   a button (the footer, the bundle panel, step numbers) stays midnight. */
+:is(a, button).bg-charcoal { background-color: #2747D9; color: #FFFFFF; }
+:is(a, button).bg-charcoal:hover { background-color: #1E38B0; }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #1B1F3B; outline-offset: 2px; }
 /* A long unbroken heading word at 36px ("Photo/Description-to-Scope") widened the
    whole planner grid past 390px and the page scrolled sideways (hostile review,
    6 Nov 2026). Headings may wrap anywhere rather than push the layout. */
@@ -13,7 +23,7 @@ h1, h2, h3, h4 { overflow-wrap: anywhere; }
    width (339px) and pushed the planner past the phone screen. */
 select, input[type="file"] { max-width: 100%; }
 button, a { -webkit-tap-highlight-color: transparent; }
-::selection { @apply bg-champagne/40; }
+::selection { background: #E8ECFC; }
 @media (max-width: 640px) {
   body { overflow-x: hidden; }
   h1, h2, h3 { text-wrap: balance; }
@@ -32,3 +42,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Collapsible Builder steps: a printed plan shows every step, open or closed. */
+@media print { [data-fold-body][hidden] { display: block !important; } }
+/* 44px tap targets for the footer's link lists (hostile review at 390px). */
+footer .grid.gap-2 { gap: 0; }
+footer .grid.gap-2 > a, footer li > a { display: inline-flex; min-height: 44px; align-items: center; }

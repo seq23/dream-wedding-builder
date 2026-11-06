@@ -10,6 +10,11 @@ import { breadcrumbTrail, pageNameFor } from '@/lib/page-frame';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { PATHNAME_HEADER } from '@/lib/pathname-header';
 
+// Dream Wedding type (design system, 6 Nov 2026): Instrument Serif (headings),
+// Instrument Sans (body, buttons), DM Mono (tabs, prices), from Google Fonts with
+// display=swap so text shows at once in the fallback face.
+const FONTS_HREF = 'https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;600;700&family=Instrument+Serif:ital@0;1&display=swap';
+
 // Host-aware so each of the four sites links its own icon, manifest and share card
 // (served per host by app/favicon.ico, app/og.png, ... route handlers). Pages that set
 // their own openGraph replace this block wholesale, which is why seoMetadata() and
@@ -57,6 +62,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }) : null;
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={FONTS_HREF} />
+      </head>
       <body>
         {/* Cloudflare Web Analytics. Rendered here because the zone's auto-install never
             reached this Worker's HTML; the token is per host (data/cf_web_analytics.json). */}

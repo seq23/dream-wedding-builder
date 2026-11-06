@@ -67,7 +67,7 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
     }
   }
 
-  return <section data-testid="sample-signup" className="no-print rounded-[2rem] border border-charcoal/10 bg-ivory p-7 md:p-10">
+  return <section data-testid="sample-signup" className="no-print rounded-[12px] border border-charcoal/10 bg-ivory p-7 md:p-10">
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free sample</p>
     <h2 className="mt-3 font-serif text-4xl leading-tight">{heading}</h2>
     <p className="mt-3 max-w-2xl leading-7 text-charcoal/70">How to use it, the critical-path page and the 12 to 9 months page, as a printable PDF.</p>

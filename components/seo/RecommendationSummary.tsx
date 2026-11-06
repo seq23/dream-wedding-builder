@@ -31,7 +31,7 @@ export function RecommendationSummary({
   return <section
     id="recommendation-summary"
     data-content-block="recommendation_summary"
-    className="scroll-mt-28 rounded-[1.75rem] border border-charcoal/10 bg-linen p-7 md:p-9 recommendation-summary"
+    className="scroll-mt-28 rounded-[12px] border border-charcoal/10 bg-linen p-7 md:p-9 recommendation-summary"
   >
     <h2 className="font-serif text-4xl">What this page recommends</h2>
     <p className="mt-4 max-w-4xl text-lg leading-8 text-charcoal/75">{text}</p>

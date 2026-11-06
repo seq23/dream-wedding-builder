@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ProductCard } from '@/components/ProductCard';
 import { CheckoutButton } from '@/components/CheckoutButton';
+import { BinderTabs } from '@/components/BinderTabs';
+import { PLANNER_ROUTE } from '@/lib/planner-seed';
 import { products, suite, supportEmail } from '@/lib/products';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SiteDefinition } from '@/components/seo/SiteDefinition';
@@ -41,17 +43,23 @@ const trust = [
 ];
 
 export default function HomePage(){return <div className="space-y-16 md:space-y-24">
-  <section className="overflow-hidden rounded-[2rem] border border-charcoal/10 bg-white shadow-[0_30px_90px_rgba(78,62,49,.12)]">
+  <section className="overflow-hidden rounded-[12px] border border-charcoal/10 bg-white shadow-soft">
     <div className="grid lg:grid-cols-[.82fr_1.18fr]">
-      <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12 xl:p-16">
+      <div className="flex flex-col justify-center p-5 md:p-10 lg:p-12 xl:p-16">
         <p className="inline-flex w-fit rounded-full bg-rose/20 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/70">The Wedding Checklist PDF · $9</p>
-        <h1 className="mt-5 font-serif text-5xl leading-[.98] sm:text-6xl lg:text-7xl">The wedding checklist<br/>built around<br/><em className="font-normal text-[#a88032]">your actual date.</em></h1>
+        <h1 className="mt-5 font-serif text-[40px] leading-[42px] sm:text-6xl sm:leading-[.98] lg:text-7xl">The wedding checklist<br/>built around<br/><em className="font-normal">your actual date.</em></h1>
         <SiteDefinition host={HOST} className="mt-6 max-w-xl text-base leading-7 text-charcoal/80 md:text-lg md:leading-8" />
         <p className="mt-4 max-w-xl text-base leading-7 text-charcoal/70 md:text-lg md:leading-8">{checklist.promise}</p>
+        {/* Addition for the lead audience (search decision, 6 Nov 2026: couples planning it themselves). */}
+        <p data-testid="home-planner-free-line" className="mt-4 max-w-xl border-l-2 border-blue pl-3 text-base font-semibold leading-7 text-charcoal">Planning it yourselves, without a planner? This is the planner's checklist, dated from your wedding day.</p>
         <ul className="mt-5 grid gap-2 text-sm font-semibold text-charcoal/75">{checklist.features.slice(0, 4).map((f) => <li key={f}>✓ {f}</li>)}</ul>
-        <div className="mt-8 max-w-md" data-testid="home-primary-cta"><CheckoutButton sku={checklist.sku} price={checklist.price} label={`Get the Wedding Checklist PDF — $${checklist.price}`} productName={checklist.name}/></div>
+        {/* Design system order: the free planner is the one blue button, the $9 PDF second. */}
+        <a data-testid="home-planner-cta" href={PLANNER_ROUTE} className="mt-8 inline-flex min-h-12 w-full max-w-md items-center justify-center rounded-2xl bg-charcoal px-5 py-3.5 text-center text-base font-bold text-linen">Open the free wedding planner ›</a>
+        <p className="mt-2 max-w-md text-center text-[13px] text-charcoal/60">Free with your email. Your plan stays in your browser.</p>
+        <div className="mt-4 max-w-md" data-testid="home-primary-cta"><CheckoutButton tone="secondary" sku={checklist.sku} price={checklist.price} label={`Get the Wedding Checklist PDF — $${checklist.price}`} productName={checklist.name}/></div>
         <p className="mt-3 text-sm text-charcoal/55">{checklist.value_note}. Secure checkout by Stripe.</p>
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold"><Link href={checklist.route} className="underline underline-offset-4">Look inside the checklist first →</Link><Link href="/shop" className="underline underline-offset-4">All four tools in one bundle — $39</Link></div>
+        <div className="mt-8"><BinderTabs plannerHref={PLANNER_ROUTE} /></div>
         <p className="mt-6 text-xs font-bold uppercase tracking-[.2em] text-charcoal/45">Or pick the tool you need</p>
         <div className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
           <a href="https://weddingseatingchartmaker.com/products/seating-chart-maker" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Seating Chart Maker — $19</a>
@@ -60,11 +68,12 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
           <Link href="/products/operations-suite" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Operations Suite bundle — $39</Link>
         </div>
       </div>
-      <div className="relative min-h-[420px] bg-linen sm:min-h-[520px] lg:min-h-[650px]"><Image src={checklist.hero_image} alt="Wedding Checklist PDF: the printable planning packet and editable master checklist" fill priority sizes="(max-width:1024px) 100vw, 58vw" className="object-cover"/></div>
+      {/* The real look-inside page of the paid file, not the styled cover (the cover carries invented couple names, which the brand rules out as a hero). */}
+      <div className="relative min-h-[260px] bg-linen sm:min-h-[520px] lg:min-h-[650px]"><Image src="/product-previews/checklist-pdf/checklist-pdf-preview-1.png" alt="Wedding Checklist PDF: the printable planning packet and editable master checklist" fill priority sizes="(max-width:1024px) 100vw, 58vw" className="object-contain p-3 lg:object-cover lg:p-0"/></div>
     </div>
   </section>
 
-  <section className="rounded-[2rem] border border-charcoal/10 bg-white p-7 md:p-10">
+  <section className="rounded-[12px] border border-charcoal/10 bg-white p-7 md:p-10">
     <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Planning guides</p>
     <h2 className="mt-3 font-serif text-4xl md:text-6xl">Read the method, then put it to work.</h2>
     <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -73,7 +82,7 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         ['Step-by-Step Planning Checklist','/wedding-planning-checklist'],
         ['Wedding Checklist PDF Guide','/wedding-checklist-pdf'],
         ['Printable Wedding Checklist','/printable-wedding-checklist']
-      ].map(([label,href])=><Link key={href} href={href} className="rounded-[1.25rem] bg-ivory p-5 font-serif text-2xl transition hover:bg-linen">{label} →</Link>)}
+      ].map(([label,href])=><Link key={href} href={href} className="rounded-[12px] bg-ivory p-5 font-serif text-2xl transition hover:bg-linen">{label} →</Link>)}
     </div>
     {/* Checklists by wedding type: the guides Search Console ranks around position 7
         (data/seo/guide_strengthening.json), linked from the homepage so they carry
@@ -84,6 +93,13 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         ['Courthouse Wedding Checklist','/guides/courthouse-wedding-checklist'],
         ['Destination Wedding Checklist','/guides/destination-wedding-checklist']
       ].map(([label,href])=><Link key={href} href={href} className="rounded-2xl border border-charcoal/10 bg-white p-4 font-bold">{label} →</Link>)}
+    </div>
+    {/* Addition for the lead audience (search decision, 6 Nov 2026). The two planner
+        pages are not built yet, so they are tagged planned and carry no link. */}
+    <div className="mt-5 grid gap-3 md:grid-cols-3" data-testid="home-planner-free-guides">
+      <Link href="/guides/day-of-coordinator-checklist" className="rounded-2xl border border-charcoal/10 bg-white p-4 font-bold">Day-of Coordinator Checklist →</Link>
+      <p className="flex flex-wrap items-center gap-2 rounded-2xl border border-dashed border-charcoal/20 p-4 font-bold text-charcoal/60">Do you need a wedding planner? <span className="rounded-full bg-coral-soft px-2 py-0.5 font-mono text-[11px] font-medium uppercase tracking-[.08em] text-charcoal">planned</span></p>
+      <p className="flex flex-wrap items-center gap-2 rounded-2xl border border-dashed border-charcoal/20 p-4 font-bold text-charcoal/60">What a wedding planner costs <span className="rounded-full bg-coral-soft px-2 py-0.5 font-mono text-[11px] font-medium uppercase tracking-[.08em] text-charcoal">planned</span></p>
     </div>
     <div className="mt-5 grid gap-3 md:grid-cols-3">
       <a href="https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet" className="rounded-2xl border border-charcoal/10 p-4 font-bold">Wedding Budget Spreadsheet Guide →</a>
@@ -97,20 +113,20 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
     <div className="mt-9 grid gap-6 md:grid-cols-2 xl:grid-cols-4">{products.map(p=><ProductCard key={p.id} product={p}/>)}</div>
   </section>
 
-  <section data-testid="bundle" className="overflow-hidden rounded-[2rem] bg-charcoal text-linen shadow-[0_30px_80px_rgba(39,35,31,.2)]"><div className="grid lg:grid-cols-[.9fr_1.1fr]"><div className="p-7 md:p-10 lg:p-12"><p className="inline-flex rounded-full bg-[#c79425] px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-white">Bundle — save ${bundleSavings}</p><h2 className="mt-5 font-serif text-5xl md:text-6xl">{suite.name}: all four tools for ${suite.price}</h2>
+  <section data-testid="bundle" className="overflow-hidden rounded-[12px] bg-charcoal text-linen shadow-soft"><div className="grid lg:grid-cols-[.9fr_1.1fr]"><div className="p-7 md:p-10 lg:p-12"><p className="inline-flex rounded-full bg-coral px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-midnight">Bundle — save ${bundleSavings}</p><h2 className="mt-5 font-serif text-5xl md:text-6xl">{suite.name}: all four tools for ${suite.price}</h2>
     <table className="mt-6 w-full max-w-md text-sm"><tbody>{products.map((p) => <tr key={p.id} className="border-b border-linen/15"><td className="py-2 text-linen/85">{p.name}</td><td className="py-2 text-right text-linen/85">${p.price}</td></tr>)}
       <tr className="border-b border-linen/15"><td className="py-2 text-linen/60">Bought separately</td><td className="py-2 text-right text-linen/60 line-through">${bundleSeparate}</td></tr>
       <tr><td className="py-2 font-bold">Bundle price</td><td className="py-2 text-right text-xl font-bold">${suite.price}</td></tr></tbody></table>
-    <p className="mt-3 font-bold text-[#e6c06a]">You save ${bundleSavings} ({Math.round((bundleSavings / bundleSeparate) * 100)}%) against buying the four tools one at a time.</p>
+    <p className="mt-3 font-bold text-coral">You save ${bundleSavings} ({Math.round((bundleSavings / bundleSeparate) * 100)}%) against buying the four tools one at a time.</p>
     <div className="mt-8 max-w-md"><CheckoutButton sku={suite.sku} price={suite.price} label={`Get the bundle — $${suite.price} (save $${bundleSavings})`} productName={suite.name}/></div><p className="mt-3 text-sm text-linen/55">One-time payment • Instant protected access • No subscription</p></div><div className="relative min-h-[420px] lg:min-h-full"><Image src="/product-images/operations-suite.png" alt="All four Dream Wedding planning tools included in the $39 Operations Suite" fill sizes="(max-width:1024px) 100vw, 55vw" className="object-cover"/></div></div></section>
 
   <section className="grid gap-8 lg:grid-cols-[1.35fr_.65fr]">
-    <div><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Why couples pay for these tools</p><h2 className="mt-3 font-serif text-4xl md:text-6xl">Free inspiration is easy. Final-mile execution is not.</h2><p className="mt-4 max-w-3xl text-lg leading-8 text-charcoal/65">These products are built around the handoffs and mistakes that create expensive wedding-week stress: unassigned guests, hidden balances, missing owners, impossible timing, and generic task lists.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{trust.map(([h,b])=><article className="rounded-[1.5rem] border border-charcoal/8 bg-white p-6 shadow-soft" key={h}><h3 className="font-serif text-2xl">{h}</h3><p className="mt-3 text-sm leading-6 text-charcoal/65">{b}</p></article>)}</div></div>
-    <aside className="rounded-[2rem] bg-linen p-7 md:p-9"><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">How it works</p><h2 className="mt-3 font-serif text-4xl">From purchase to usable handoff in four steps.</h2><ol className="mt-7 space-y-5 text-charcoal/70">{[['1','Choose your tool','Buy one clearly priced product or the complete suite.'],['2','Pay securely','Stripe handles checkout and payment verification.'],['3','Receive access','Verified purchases unlock protected files on screen and by email.'],['4','Customize and hand off','Use the editable files with your partner, venue, vendors, or coordinator.']].map(([n,h,b])=><li key={n} className="grid grid-cols-[2rem_1fr] gap-3"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-charcoal text-sm font-bold text-linen">{n}</span><div><strong className="block text-charcoal">{h}</strong><span className="text-sm leading-6">{b}</span></div></li>)}</ol></aside>
+    <div><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Why couples pay for these tools</p><h2 className="mt-3 font-serif text-4xl md:text-6xl">Free inspiration is easy. Final-mile execution is not.</h2><p className="mt-4 max-w-3xl text-lg leading-8 text-charcoal/65">These products are built around the handoffs and mistakes that create expensive wedding-week stress: unassigned guests, hidden balances, missing owners, impossible timing, and generic task lists.</p><div className="mt-8 grid gap-4 sm:grid-cols-2">{trust.map(([h,b])=><article className="rounded-[12px] border border-charcoal/8 bg-white p-6 shadow-soft" key={h}><h3 className="font-serif text-2xl">{h}</h3><p className="mt-3 text-sm leading-6 text-charcoal/65">{b}</p></article>)}</div></div>
+    <aside className="rounded-[12px] bg-linen p-7 md:p-9"><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">How it works</p><h2 className="mt-3 font-serif text-4xl">From purchase to usable handoff in four steps.</h2><ol className="mt-7 space-y-5 text-charcoal/70">{[['1','Choose your tool','Buy one clearly priced product or the complete suite.'],['2','Pay securely','Stripe handles checkout and payment verification.'],['3','Receive access','Verified purchases unlock protected files on screen and by email.'],['4','Customize and hand off','Use the editable files with your partner, venue, vendors, or coordinator.']].map(([n,h,b])=><li key={n} className="grid grid-cols-[2rem_1fr] gap-3"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-charcoal text-sm font-bold text-linen">{n}</span><div><strong className="block text-charcoal">{h}</strong><span className="text-sm leading-6">{b}</span></div></li>)}</ol></aside>
   </section>
 
-  <section className="rounded-[2rem] bg-rose/20 p-7 text-center md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Not sure where your plan is weakest?</p><h2 className="mx-auto mt-3 max-w-4xl font-serif text-4xl leading-tight md:text-6xl">Run your plan through the Wedding Planning Builder, then pick the tool that fixes the gap.</h2><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/free-wedding-planner" className="rounded-2xl bg-charcoal px-7 py-4 font-bold text-linen shadow-lg">Open the planning builder →</Link><Link href="/shop" className="rounded-2xl border border-charcoal/20 bg-white px-7 py-4 font-bold">Compare All Wedding Tools & Prices →</Link></div></section>
+  <section className="rounded-[12px] bg-rose/20 p-7 text-center md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Not sure where your plan is weakest?</p><h2 className="mx-auto mt-3 max-w-4xl font-serif text-4xl leading-tight md:text-6xl">Run your plan through the Wedding Planning Builder, then pick the tool that fixes the gap.</h2><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/free-wedding-planner" className="rounded-2xl bg-charcoal px-7 py-4 font-bold text-linen shadow-lg">Open the planning builder →</Link><Link href="/shop" className="rounded-2xl border border-charcoal/20 bg-white px-7 py-4 font-bold">Compare All Wedding Tools & Prices →</Link></div></section>
 
-  <section aria-labelledby="home-faq"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Questions couples ask</p><h2 id="home-faq" className="mt-3 font-serif text-4xl md:text-5xl">Wedding Checklist PDF questions</h2><div className="mt-6 grid gap-4">{(home.faqs ?? []).map((item) => <details key={item.question} className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-4 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
+  <section aria-labelledby="home-faq"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Questions couples ask</p><h2 id="home-faq" className="mt-3 font-serif text-4xl md:text-5xl">Wedding Checklist PDF questions</h2><div className="mt-6 grid gap-4">{(home.faqs ?? []).map((item) => <details key={item.question} className="rounded-[12px] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-4 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
   <JsonLd data={homeSchemaNodes({ host: HOST, path: '/', headline: TITLE, description: DESCRIPTION, faqs: home.faqs ?? [], steps: home.steps ?? [], breadcrumbs: [{ name: 'Dream Wedding Builder', canonical: 'https://weddingchecklistpdf.com/' }], ...dateModifiedFor('/') })} />
 </div>}
