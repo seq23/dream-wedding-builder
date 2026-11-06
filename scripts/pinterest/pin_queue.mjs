@@ -91,6 +91,11 @@ const paused = pace.action === 'pause';
 const due = !paused && (seed > 0 || needsRefill(queue, today) || pages.some((p) => !queue.variants.some((v) => v.path === p.path)));
 const count = seed > 0 ? seed * pages.length : queue.config.refill_batch;
 const planned = due ? planRefill(queue, pages, count) : [];
+// A refill's new pins sit on the few pages with the fewest variants. Appended after the
+// pins already dated they cannot fill a day without repeating a page (2026-11-13
+// simulation: 14 new pins on 4 pages gave 2-pin days), so every pin not yet released goes
+// back in the pool with them and scheduleVariants re-packs the lot from tomorrow.
+if (planned.length) for (const v of queue.variants) if (v.release_date && v.release_date > today) delete v.release_date;
 if (due && !planned.length) {
   console.error(`NAMED STOP: PINTEREST_QUEUE_EXHAUSTED - ${unreleasedCount(queue.variants, today)} unreleased (threshold ${queue.config.refill_threshold}) and no unused angle left on any page; add angles to data/pinterest/angles.json.`);
   process.exit(1);
