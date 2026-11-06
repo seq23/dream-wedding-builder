@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { unlockBuilder } from './unlock-builder';
+import { openSteps, unlockBuilder } from './unlock-builder';
 
 test.beforeEach(async ({ page }) => { await unlockBuilder(page); });
 
@@ -79,6 +79,7 @@ test('outcome: Recommendation Studio gives context-aware floral guidance', async
 
 test('outcome: venue selections persist into dashboard and packet', async ({ page }) => {
   await page.goto('/free-wedding-planner');
+  await openSteps(page, 'step-2');
   await page.getByTestId('constraint-mode-hard').click();
   await page.getByTestId('location-input').fill('Italy');
   await page.getByTestId('guest-input').fill('80');
@@ -120,6 +121,7 @@ test('outcome: no-constraints discovery route still makes Recommendation Studio 
 
 test('outcome: build page points users to Photos Lab and saves scope result', async ({ page }) => {
   await page.goto('/free-wedding-planner');
+  await openSteps(page, 'step-4');
   await expect(page.getByTestId('photos-cta-tablescape')).toBeVisible();
   await expect(page.getByTestId('photos-cta-attire')).toBeVisible();
   await expect(page.getByTestId('photos-cta-anything')).toBeVisible();
@@ -153,6 +155,7 @@ test('outcome: photos page supports description-only flower girl dress sourcing'
 
 test('outcome: vendor selections persist into dashboard and packet', async ({ page }) => {
   await page.goto('/free-wedding-planner');
+  await openSteps(page, 'step-5');
   await page.getByTestId('select-vendor-florist-designer').click();
   await expect(page.getByTestId('selected-vendor-summary')).toContainText('Florist / Designer');
   await page.getByTestId('save-guided-plan').click();
@@ -165,6 +168,7 @@ test('outcome: vendor selections persist into dashboard and packet', async ({ pa
 
 test('outcome: trends start unselected and only chosen trends persist', async ({ page }) => {
   await page.goto('/free-wedding-planner');
+  await openSteps(page, 'step-6');
   await expect(page.getByTestId('canonical-plan-summary')).toContainText('Selected standout ideas: 0');
   await page.getByTestId('toggle-trend-color-smoke-kiss-moment').click();
   await page.getByTestId('save-guided-plan').click();
@@ -175,6 +179,7 @@ test('outcome: trends start unselected and only chosen trends persist', async ({
 
 test('outcome: printable packet contains planner-grade sections and caveats', async ({ page }) => {
   await page.goto('/free-wedding-planner');
+  await openSteps(page, 'step-2', 'step-5');
   await page.getByTestId('constraint-mode-hard').click();
   await page.getByTestId('location-input').fill('Italy');
   await page.getByTestId('guest-input').fill('80');

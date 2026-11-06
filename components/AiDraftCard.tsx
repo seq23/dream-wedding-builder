@@ -95,7 +95,7 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
     } finally { setBusy(false); }
   }
 
-  return <section id="ai-draft" data-testid="ai-draft-card" className="rounded-[1.5rem] border border-charcoal/15 bg-white p-5 md:p-7">
+  return <section id="ai-draft" data-testid="ai-draft-card" className="rounded-[12px] border border-charcoal/15 bg-white p-5 md:p-7">
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/50">AI draft · free, once per email</p>
     <h2 className="mt-2 font-serif text-3xl">Describe your wedding in a sentence.</h2>
     <p className="mt-2 text-sm leading-6 text-charcoal/70">An AI drafts your dated plan from it; then you edit everything by hand. It is sent to a free AI model, which may keep what you type, so leave out names and anything private.</p>

@@ -34,7 +34,10 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
       // A link to a step (#your-date, #step-3) arrived behind the gate; once the
       // planner opens, take the couple to the step they came for, not the top.
       const target = window.location.hash.slice(1);
-      if (target) requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView({ block: 'start' }));
+      // Again once web fonts have swapped in: the headings above change height when
+      // they do, which would leave the couple short of the step.
+      const go = () => document.getElementById(target)?.scrollIntoView({ block: 'start' });
+      if (target) { requestAnimationFrame(go); document.fonts?.ready.then(() => requestAnimationFrame(go)).catch(() => {}); }
     } catch {
       setError('Could not reach the server. Please try again.');
     } finally {
@@ -44,7 +47,7 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
 
   if (unlocked) return <>{children}</>;
   return <div className="relative">
-    <section data-testid="builder-email-gate" className="relative z-10 mx-auto mb-8 max-w-2xl rounded-[2rem] border border-charcoal/10 bg-white p-7 shadow-soft md:p-10">
+    <section data-testid="builder-email-gate" className="relative z-10 mx-auto mb-8 max-w-2xl rounded-[12px] border border-charcoal/10 bg-white p-7 shadow-soft md:p-10">
       <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free wedding planning builder</p>
       {/* An h2, not an h1: the gate is an interstitial drawn OVER the page, and the
           page it covers keeps rendering its own h1 below (aria-hidden and inert hide
