@@ -51,7 +51,19 @@ export function documentTitle(title: string, host: string = PARENT_HOST): { abso
     return { absolute: trimmed.toLowerCase().includes(name.toLowerCase()) ? trimmed : title };
   }
   const suffix = ` | ${name}`;
-  return { absolute: `${clip(title, TITLE_MAX - suffix.length)}${suffix}` };
+  return { absolute: `${fitTopic(title, TITLE_MAX - suffix.length)}${suffix}` };
+}
+
+// A long topic is shortened at its own clause break ("Wedding cost per guest: what
+// 50, 100 and 150 guests actually cost" -> "Wedding cost per guest") before it is
+// ever cut mid-phrase. The clipped form "Wedding cost per guest: what 50…" was the
+// title Google showed for the site's one page with search demand (5 Nov 2026).
+const TOPIC_MIN = 15;
+function fitTopic(title: string, max: number): string {
+  if (title.length <= max) return title;
+  const head = title.split(/:\s|\s[\u2014\u2013-]\s|\?\s/)[0].trim();
+  if (head.length >= TOPIC_MIN && head.length <= max && head.length < title.length) return head;
+  return clip(title, max);
 }
 
 // Every page shares its host's 1200x630 /og.png (served per host by app/og.png/route.ts)
