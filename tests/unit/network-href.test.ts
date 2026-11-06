@@ -116,6 +116,18 @@ describe('rendered titles are trimmed to 65, fail only below 75% of 30, and keep
     expect(documentTitle('Wedding Seating Chart Maker - Editable Wedding Planning Tool', host).absolute).toBe('Wedding Seating Chart Maker - Editable Wedding Planning Tool');
   });
 
+  it('a long topic is shortened at its clause break, not cut mid-phrase', () => {
+    const host = 'weddingbudgetspreadsheet.com';
+    expect(documentTitle('Wedding cost per guest: what 50, 100 and 150 guests actually cost', host).absolute)
+      .toBe('Wedding cost per guest | Wedding Budget Spreadsheet');
+    expect(documentTitle('Wedding budget tradeoffs: what a better venue costs you elsewhere', host).absolute)
+      .toBe('Wedding budget tradeoffs | Wedding Budget Spreadsheet');
+    // No clause break that fits: the word-boundary clip still applies.
+    const noBreak = documentTitle('A very long wedding budget title without any clause break that keeps going on', host).absolute;
+    expect(noBreak.length).toBeLessThanOrEqual(TITLE_MAX);
+    expect(noBreak).toContain('\u2026');
+  });
+
   it('every shipping guide title renders in range', () => {
     expect(shippingPages.length).toBeGreaterThan(0);
     for (const page of shippingPages) {
