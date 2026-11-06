@@ -17,7 +17,7 @@
 
 import { BUILDER_SIGNUPS_DDL } from './builder-signup';
 
-export const MAILING_ADDRESS = '3055 Lombard St #471024, San Francisco, CA 94147';
+export const MAILING_ADDRESS = '2055 Lombard St #471024, San Francisco, CA 94147';
 export const SITE = 'https://weddingchecklistpdf.com';
 export const MARKETING_FROM = 'Dream Wedding Builder <hello@mail.weddingchecklistpdf.com>';
 export const REPLY_TO = 'info@weddingchecklistpdf.com';
