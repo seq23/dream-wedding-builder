@@ -49,6 +49,7 @@ import { applySeed, planPatchFromSeed, seedFieldLabels } from '@/lib/planner-see
 import { readinessBand, readinessBreakdown } from '@/lib/readiness';
 import { loadSavedPlan, loadSavedScope } from '@/lib/saved-plan';
 import { DatedPlanView } from '@/components/DatedPlanView';
+import { AiDraftCard, AiDraftLabel } from '@/components/AiDraftCard';
 
 const stepLabels = ['Must-haves', 'Ask for ideas', 'Venue', 'Budget', 'Design', 'Vendors', 'Standout ideas', 'Planner packet'];
 const visionKeyMap = { feeling: 'feelings', setting: 'settings', formality: 'formality', florals: 'florals', food: 'food', photos: 'photos', avoid: 'avoids' } as const;
@@ -219,6 +220,8 @@ function BuildPage() {
       </Card>
     </section>
 
+    <AiDraftCard plan={plan} onApply={next => { setPlan(next); persist(next); }} />
+
     <section id="your-date" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
       <div className="pt-2"><Badge>Your date</Badge><h2 className="mt-3 font-serif text-3xl">Your dated plan.</h2><p className="mt-2 text-sm text-charcoal/65">Every step below, placed on your calendar.</p></div>
       <Card data-testid="wedding-date-card">
@@ -226,7 +229,7 @@ function BuildPage() {
           <input id="wedding-date" data-testid="wedding-date" type="date" value={plan.weddingDate} onChange={event => { const next = { ...plan, weddingDate: event.target.value }; setPlan(next); persist(next); }} className="min-h-11 max-w-xs rounded-2xl border border-charcoal/20 bg-white p-3 text-base" />
         </label>
         <p className="mt-2 text-xs text-charcoal/60">Not sure yet? Pick your best guess; you can change it any time. Saved in this browser only.</p>
-        <div className="mt-5"><DatedPlanView weddingDate={plan.weddingDate} /></div>
+        <div className="mt-5 space-y-4"><AiDraftLabel plan={plan} /><DatedPlanView weddingDate={plan.weddingDate} /></div>
       </Card>
     </section>
 

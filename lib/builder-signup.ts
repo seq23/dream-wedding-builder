@@ -3,6 +3,8 @@
 // Nothing here sends email.
 
 export const BUILDER_ACCESS_KEY = 'dwb-builder-access';
+/** The address the visitor opened the builder with, kept in their own browser so the AI draft step can name it. */
+export const BUILDER_EMAIL_KEY = 'dwb-builder-email';
 
 export const CONSENT_TEXT =
   'Email me wedding planning tips and occasional offers from Dream Wedding Builder. I can unsubscribe at any time.';
