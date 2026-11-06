@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     description: body.description,
     ip: req.headers.get('cf-connecting-ip') ?? req.headers.get('x-real-ip') ?? '',
     today: centralDay(),
-    salt: e.AI_DRAFT_SALT || e.DOWNLOAD_SIGNING_SECRET || 'dwb-ai-draft'
+    salt: e.AI_DRAFT_SALT || e.DOWNLOAD_SIGNING_SECRET || ''
   });
   return NextResponse.json(result.body, { status: result.status, headers: { 'cache-control': 'no-store' } });
 }

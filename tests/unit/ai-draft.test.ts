@@ -83,6 +83,16 @@ describe('AI draft: very limited free use, enforced on the server', () => {
     expect(aiDraftEnabled('someone-else.com', 'on')).toBe(false);
   });
 
+  it('no salt set: a named stop, no model call, nothing stored (no hardcoded fallback salt)', async () => {
+    const { db } = fakeD1(['a@example.com']);
+    const fetchImpl = answer(GOOD);
+    const lines: string[] = [];
+    const r = await draftPlan(input({ db, fetchImpl: fetchImpl as never, salt: '', log: (l: string) => lines.push(l) }));
+    expect(r.status).toBe(503);
+    expect(lines.join('\n')).toContain('NAMED STOP [AI_DRAFT_SALT_MISSING]');
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
   it('an email that never opened the planner is refused before any model call', async () => {
     const { db } = fakeD1([]);
     const fetchImpl = answer(GOOD);
