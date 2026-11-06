@@ -127,11 +127,19 @@ export function buildMessages(description: string, today: string) {
   ];
 }
 
+// Free reasoning models spend part of max_tokens thinking, so an answer can arrive
+// cut off mid-object (seen 6 Nov 2026 with Nemotron 3 Ultra at 500 tokens). A whole
+// object is parsed; a cut-off one keeps the complete "key": value pairs it has.
 function firstJsonObject(text: string): unknown {
   const start = text.indexOf('{');
+  if (start < 0) return null;
   const end = text.lastIndexOf('}');
-  if (start < 0 || end <= start) return null;
-  try { return JSON.parse(text.slice(start, end + 1)); } catch { return null; }
+  if (end > start) { try { return JSON.parse(text.slice(start, end + 1)); } catch { /* fall through to salvage */ } }
+  const out: Record<string, unknown> = {};
+  const body = text.slice(start);
+  for (const m of body.matchAll(/"(\w+)"\s*:\s*"((?:[^"\\]|\\.)*)"/g)) out[m[1]] = m[2];
+  for (const m of body.matchAll(/"(\w+)"\s*:\s*\[((?:\s*"(?:[^"\\]|\\.)*"\s*,?)*)\s*\]/g)) out[m[1]] = [...m[2].matchAll(/"((?:[^"\\]|\\.)*)"/g)].map(x => x[1]);
+  return Object.keys(out).length ? out : null;
 }
 
 const plainText = (value: unknown, max: number) => typeof value === 'string' ? value.replace(/[<>\u0000-\u001f]/g, '').replace(/\s+/g, ' ').trim().slice(0, max) : '';
@@ -215,7 +223,7 @@ export async function draftPlan(input: DraftInput): Promise<DraftResult> {
 
   let routed: { status: string; stop?: string; model?: string; content?: string };
   try {
-    routed = await routeChat({ messages: buildMessages(cleaned.text, input.today), maxTokens: 500, temperature: 0, purpose: 'builder-ai-draft', apiKey: input.apiKey ?? '', fetchImpl: input.fetchImpl ?? ((url: RequestInfo | URL, init?: RequestInit) => fetch(url, init)), config: llmConfig, timeoutMs: 20000 });
+    routed = await routeChat({ messages: buildMessages(cleaned.text, input.today), maxTokens: 1500, temperature: 0, purpose: 'builder-ai-draft', apiKey: input.apiKey ?? '', fetchImpl: input.fetchImpl ?? ((url: RequestInfo | URL, init?: RequestInit) => fetch(url, init)), config: llmConfig, timeoutMs: 20000 });
   } catch (err) {
     await settle('error', null);
     log(`NAMED STOP [AI_DRAFT_ROUTER_REFUSED] ${String((err as Error)?.message || err).slice(0, 200)}`);

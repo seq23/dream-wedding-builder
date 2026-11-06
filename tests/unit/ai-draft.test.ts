@@ -154,6 +154,11 @@ describe('AI draft: the model is never trusted', () => {
     expect(Object.keys(d!)).not.toContain('html');
   });
 
+  it('an answer cut off mid-object keeps the complete fields it has', () => {
+    const cut = '{\n  "weddingDate": "2027-06-15",\n  "guestCount": "200",\n  "locations": "Memphis",\n  "season": "summer",\n  "priorities": ["Food + Bar", "Photography"],\n  "budgetTa';
+    expect(parseDraft(cut, TODAY)).toMatchObject({ weddingDate: '2027-06-15', guestCount: '200', locations: 'Memphis', season: 'summer', priorities: ['Food + Bar', 'Photography'], budgetTarget: '' });
+  });
+
   it('an answer with nothing usable is null, never an empty plan', () => {
     expect(parseDraft('I cannot help with that', TODAY)).toBeNull();
     expect(parseDraft(JSON.stringify({ notes: ['x y z'] }), TODAY)).toBeNull();

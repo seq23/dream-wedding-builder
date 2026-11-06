@@ -88,7 +88,7 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
       </label>}
       {message ? <p role="status" data-testid="ai-message" className="rounded-2xl bg-ivory p-3 text-sm leading-6">{message}</p> : null}
       {result ? <p role="status" data-testid="ai-result" className="rounded-2xl bg-ivory p-3 text-sm leading-6">Drafted. {result.filled.length ? `Filled: ${result.filled.map(f => FIELD_LABELS[f] ?? f).join(', ')}.` : 'Nothing new to fill.'}{result.kept.length ? ` Kept your own answers for: ${result.kept.map(f => FIELD_LABELS[f] ?? f).join(', ')}.` : ''} Your dated plan is below.</p> : null}
-      <button data-testid="ai-submit" type="submit" disabled={busy || plan.aiDraft !== null} className="min-h-12 rounded-full bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-50">{busy ? 'Drafting… (up to 20 seconds)' : plan.aiDraft ? 'Your free AI draft is used ✓' : 'Draft my plan with AI ›'}</button>
+      <button data-testid="ai-submit" type="submit" disabled={busy || plan.aiDraft !== null} className="min-h-12 rounded-full bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-50">{busy ? 'Drafting… (this can take up to a minute)' : plan.aiDraft ? 'Your free AI draft is used ✓' : 'Draft my plan with AI ›'}</button>
     </form>
   </section>;
 }
