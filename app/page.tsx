@@ -44,11 +44,11 @@ const trust = [
 
 export default function HomePage(){return <div className="space-y-16 md:space-y-24">
   <section className="overflow-hidden rounded-[12px] border border-charcoal/10 bg-white shadow-soft">
-    <div className="grid lg:grid-cols-[.82fr_1.18fr]">
-      <div className="flex flex-col justify-center p-5 md:p-10 lg:p-12 xl:p-16">
+    <div className="grid min-[900px]:grid-cols-[1.05fr_.95fr]">
+      <div className="flex flex-col p-5 md:p-8 xl:p-12">
         <p className="inline-flex w-fit rounded-full bg-rose/20 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/70">The Wedding Checklist PDF · $9</p>
-        <h1 className="mt-5 font-serif text-[40px] leading-[42px] sm:text-6xl sm:leading-[.98] lg:text-7xl">The wedding checklist<br/>built around<br/><em className="font-normal">your actual date.</em></h1>
-        <SiteDefinition host={HOST} className="mt-6 max-w-xl text-[15px] leading-[23px] sm:text-base sm:leading-7 text-charcoal/80 md:text-lg md:leading-8" />
+        <h1 className="mt-5 font-serif text-[40px] leading-[42px] sm:text-[52px] sm:leading-[1.02] min-[900px]:text-[48px] xl:text-[60px] xl:leading-[1.0]">The wedding checklist<br/>built around<br/><em className="font-normal">your actual date.</em></h1>
+        <SiteDefinition host={HOST} className="mt-6 max-w-xl text-[15px] leading-[23px] sm:text-base sm:leading-7 text-charcoal/80" />
         {/* Addition for the lead audience (search decision, 6 Nov 2026: couples planning it themselves). */}
         <p data-testid="home-planner-free-line" className="mt-4 max-w-xl border-l-2 border-blue pl-3 text-base font-semibold leading-7 text-charcoal">Planning it yourselves, without a planner? This is the planner's checklist, dated from your wedding day.</p>
         {/* The buttons sit right after the answer paragraph so a phone sees them on the first screen (hostile review, 390px). */}
@@ -60,7 +60,6 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         <p className="mt-6 max-w-xl text-[15px] leading-[23px] text-charcoal/70 sm:text-base sm:leading-7 md:text-lg md:leading-8">{checklist.promise}</p>
         <ul className="mt-5 grid gap-2 text-sm font-semibold text-charcoal/75">{checklist.features.slice(0, 4).map((f) => <li key={f}>✓ {f}</li>)}</ul>
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold"><Link href={checklist.route} className="underline underline-offset-4">Look inside the checklist first →</Link><Link href="/shop" className="underline underline-offset-4">All four tools in one bundle — $39</Link></div>
-        <div className="mt-8"><BinderTabs plannerHref={PLANNER_ROUTE} /></div>
         <p className="mt-6 text-xs font-bold uppercase tracking-[.2em] text-charcoal/45">Or pick the tool you need</p>
         <div className="mt-2 grid gap-2 text-sm sm:grid-cols-2">
           <a href="https://weddingseatingchartmaker.com/products/seating-chart-maker" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Wedding Seating Chart Maker — $19</a>
@@ -69,8 +68,14 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
           <Link href="/products/operations-suite" className="rounded-xl border border-charcoal/10 bg-linen/70 px-4 py-3 font-bold transition hover:border-charcoal/25 hover:bg-linen">Operations Suite bundle — $39</Link>
         </div>
       </div>
-      {/* The real look-inside page of the paid file, not the styled cover (the cover carries invented couple names, which the brand rules out as a hero). */}
-      <div className="relative min-h-[260px] bg-linen sm:min-h-[520px] lg:min-h-[650px]"><Image src="/product-previews/checklist-pdf/checklist-pdf-preview-1.png" alt="Wedding Checklist PDF: the printable planning packet and editable master checklist" fill priority sizes="(max-width:1024px) 100vw, 58vw" className="object-contain p-3 lg:p-8"/></div>
+      {/* Right column from 900px: the real look-inside page of the paid file and the
+          planner's own planning windows, at the top of the column so the first laptop screen is
+          never an empty column (her laptop review, 6 Nov 2026). The cover image carries
+          invented couple names, which the brand rules out as a hero. */}
+      <div className="grid content-start gap-6 bg-linen p-5 md:p-8 min-[900px]:self-start">
+        <Image src="/product-previews/checklist-pdf/checklist-pdf-preview-1.png" alt="Wedding Checklist PDF: the printable planning packet and editable master checklist" width={1600} height={1080} priority sizes="(max-width:900px) 100vw, 45vw" className="h-auto w-full rounded-[10px] shadow-soft"/>
+        <BinderTabs plannerHref={PLANNER_ROUTE} />
+      </div>
     </div>
   </section>
 

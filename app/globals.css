@@ -48,3 +48,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 /* 44px tap targets for the footer's link lists (hostile review at 390px). */
 footer .grid.gap-2 { gap: 0; }
 footer .grid.gap-2 > a, footer li > a { display: inline-flex; min-height: 44px; align-items: center; }
+/* Laptop and desktop: every page's H1 is capped so it runs two or three lines, not
+   five (her laptop review at 1050px, 6 Nov 2026). Phones keep each page's own size. */
+@media (min-width: 900px) {
+  main h1.font-serif { font-size: clamp(44px, 4.4vw, 64px) !important; line-height: 1.04 !important; }
+}
