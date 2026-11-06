@@ -200,6 +200,9 @@ export async function draftPlan(input: DraftInput): Promise<DraftResult> {
   const cleaned = cleanDescription(input.description);
   if (!cleaned.ok) return refuse(400, 'BAD_DESCRIPTION', cleaned.error);
   if (!input.db) { log('NAMED STOP [AI_DRAFT_NO_DB] D1 binding missing; nothing generated'); return refuse(503, 'BUSY', MESSAGES.busy); }
+  // No hardcoded fallback salt (search-readiness i11, 6 Nov 2026): a salt in a public
+  // repo would make the stored email and IP hashes reversible by anyone.
+  if (!input.salt) { log('NAMED STOP [AI_DRAFT_SALT_MISSING] neither AI_DRAFT_SALT nor DOWNLOAD_SIGNING_SECRET is set; nothing generated'); return refuse(503, 'BUSY', MESSAGES.busy); }
   const db = input.db;
 
   await db.prepare(AI_DRAFTS_DDL).run();
