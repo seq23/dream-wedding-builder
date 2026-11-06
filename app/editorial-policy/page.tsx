@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { headers } from 'next/headers';
 import type { Metadata } from 'next';
 import { seoMetadata } from '@/lib/seo';
-import { apexHost, canonicalUrl, hrefFrom, isCanonicalHost, PARENT_HOST, productForHost, type SiteHost } from '@/lib/site-config';
+import { canonicalUrl, hrefFrom, PARENT_HOST, productForHost, type SiteHost } from '@/lib/site-config';
 import { homePathFor, ORGANIZATION, siteHome, siteOrganizationId } from '@/lib/site-home';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -20,10 +19,11 @@ import { supportEmail } from '@/lib/products';
 
 const PATH = '/editorial-policy';
 
+// Since 2026-11-06 the policy is a main-site page: the satellites 301 it to
+// weddingchecklistpdf.com (owner ruling 2026-11-03, shared pages live on the main
+// site only), so it always answers for the main host.
 async function resolvedHost(): Promise<SiteHost> {
-  const h = await headers();
-  const host = apexHost(h.get('x-forwarded-host') ?? h.get('host'));
-  return (isCanonicalHost(host) ? host : PARENT_HOST) as SiteHost;
+  return PARENT_HOST;
 }
 
 function copyFor(host: SiteHost) {

@@ -92,7 +92,12 @@ if (ledgerExists) {
   try { known = new Set(JSON.parse(fs.readFileSync(ledgerPath, 'utf8')).urls || []); }
   catch { ledgerExists = false; }
 }
-const newUrls = [...urls.keys()].filter((u) => !known.has(u));
+// One Worker serves four hosts, so a page moving host (2026-11-06: shared guides
+// moved from the satellites to weddingchecklistpdf.com, owner ruling 2026-11-03)
+// keeps its path and 301s from the old URL. That is a move, not a publication.
+const pathOf = (u) => { try { return new URL(u).pathname; } catch { return u; } };
+const knownPaths = new Set([...known].map(pathOf));
+const newUrls = [...urls.keys()].filter((u) => !known.has(u) && !knownPaths.has(pathOf(u)));
 
 const dated = [...urls.entries()].filter(([, d]) => d);
 const undated = [...urls.entries()].filter(([, d]) => !d);

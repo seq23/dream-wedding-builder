@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 import { shippingPages } from '@/lib/authority-registry';
 import { dateModifiedFor } from '@/lib/lastmod';
 import { productById } from '@/lib/products';
-import { canonicalUrl, hostForProduct, hrefFrom } from '@/lib/site-config';
+import { canonicalUrl, hostForGuide, hrefFrom, PARENT_HOST } from '@/lib/site-config';
 import { ORGANIZATION_ID } from '@/lib/site-home';
 import { guideLead, guideMetadata, guideMetaDescription, guideRecommendation, guideStrengthening, strengthening } from '@/lib/seo';
 import { plannerHref, plannerLabelForGuide, seedFromGuide } from '@/lib/planner-seed';
@@ -24,7 +24,7 @@ export default async function Guide({ params }: { params: Promise<{ slug: string
   const page = shippingPages.find((item) => item.slug === slug);
   if (!page) notFound();
   const product = productById(page.product_id);
-  const host = hostForProduct(page.product_id);
+  const host = hostForGuide(page.slug);
   const canonical = canonicalUrl(host, `/guides/${page.slug}`);
   const related = (page.related_slugs ?? []).map((slug) => ({ slug, title: shippingPages.find(item => item.slug === slug)?.title ?? seeds.seeds.find(item => item.slug === slug)?.title ?? slug.replaceAll('-', ' ') }));
   const shape = budgetShape(page.slug);
@@ -42,7 +42,7 @@ export default async function Guide({ params }: { params: Promise<{ slug: string
   const article = { '@context': 'https://schema.org', '@type': 'Article', headline: guideStrengthening(page.slug)?.title ?? page.title, description: guideMetaDescription(page), mainEntityOfPage: canonical, ...dateModifiedFor(`/guides/${page.slug}`), publisher: { '@id': ORGANIZATION_ID }, ...editorialArticleFields(page.slug), ...budgetArticleFields(page.slug) };
   const faq = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
   return <article data-testid="guide-definition" className="mx-auto max-w-5xl space-y-10 md:space-y-14">
-    <Breadcrumbs items={[{ name: 'Guides', href: '/guides', canonical: canonicalUrl(host, '/guides') }, { name: page.title, href: `/guides/${page.slug}`, canonical }]} />
+    <Breadcrumbs items={[{ name: 'Guides', href: hrefFrom(host, '/guides'), canonical: canonicalUrl(PARENT_HOST, '/guides') }, { name: page.title, href: `/guides/${page.slug}`, canonical }]} />
     <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">{page.cluster}</p><h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">{boost?.h1 ?? page.title}</h1><p className="definition mt-6 max-w-4xl text-xl leading-9 text-charcoal/70">{shape?.definition ?? editorial?.definition ?? guideLead(page)}</p><Link href={hrefFrom(host, page.hub_route ?? "/guides")} className="no-print mt-7 inline-flex rounded-2xl border border-charcoal/20 bg-linen px-5 py-3 font-bold">Start with the complete {page.cluster.toLowerCase()} hub →</Link></header>
     <section><h2 className="font-serif text-4xl">Quick answer</h2><p className="mt-4 leading-8">{guideRecommendation(page)}</p></section>
     {editorial?.fields.length ? <section><h2 className="font-serif text-4xl">What should the working record contain?</h2><ul className="mt-5 list-disc pl-6">{editorial.fields.map((field) => <li key={field} className="mt-2">{field}</li>)}</ul></section> : <section><h2 className="font-serif text-4xl">How should I work through this plan?</h2><ol className="list-decimal pl-6">{page.steps.filter((step) => !/Record the controlling|Test the plan against|Review the working version|Freeze and date/.test(step)).map((step) => <li key={step} className="mt-3">{step}</li>)}</ol></section>}

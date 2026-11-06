@@ -3,7 +3,7 @@ import hubsJson from '@/data/seo/hub_pages.json';
 import registryJson from '@/data/authority/content_registry.json';
 import guideMetaJson from '@/data/seo/guide_meta_descriptions.json';
 import strengtheningJson from '@/data/seo/guide_strengthening.json';
-import { canonicalUrl, hostForProduct, PARENT_HOST } from '@/lib/site-config';
+import { canonicalUrl, hostForGuide, PARENT_HOST } from '@/lib/site-config';
 import { ogImages, ogImageUrl, siteHome } from '@/lib/site-home';
 import { DESC_MAX, DESC_MIN, TITLE_MAX as TITLE_BAND_MAX } from '@/lib/length-floor.mjs';
 
@@ -148,4 +148,4 @@ export function guideMetaDescription(guide: { slug: string; summary?: string; an
 export type GuideStrengthening = { target_query: string; title: string; h1: string; definition: string; faqs: { question: string; answer: string }[] };
 export const strengthening = strengtheningJson as unknown as { money_page: { path: string; host: string; target_query: string; link_label: string }; product_path: { pdf: { product_id: string; route: string; price: number }; bundle: { product_id: string; route: string; price: number } }; guides: Record<string, GuideStrengthening> };
 export function guideStrengthening(slug: string): GuideStrengthening | null { return strengthening.guides[slug] ?? null; }
-export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForProduct(guide.product_id); return seoMetadata({ title: guideStrengthening(slug)?.title ?? guide.title, description: guideMetaDescription(guide), host, path: `/guides/${guide.slug}`, type: 'article' }); }
+export function guideMetadata(slug: string): Metadata { const guide = guideBySlug(slug); if (!guide) return {}; const host = hostForGuide(guide.slug); return seoMetadata({ title: guideStrengthening(slug)?.title ?? guide.title, description: guideMetaDescription(guide), host, path: `/guides/${guide.slug}`, type: 'article' }); }

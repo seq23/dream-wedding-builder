@@ -1,7 +1,7 @@
 import hubs from '@/data/seo/hub_pages.json';
 import products from '@/data/products/product_catalog.json';
-import { shippingPages } from '@/lib/authority-registry';
-import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
+
+import { apexHost, guidesForHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
 import { plannerLandings } from '@/data/planner-landings';
 import { PLANNER_ABSOLUTE } from '@/lib/planner-seed';
 export const dynamic = 'force-dynamic';
@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   const product = products.products.find((item) => 'domain' in item && item.domain === host);
   const ownedHubs = Object.entries(hubs.pages).filter(([, page]) => page.host === host);
   // Same rule as the sitemap: never hand a crawler a URL the router will 404.
-  const ownedGuides = shippingPages.filter((page) => page.product_id === product?.id);
+  const ownedGuides = guidesForHost(host);
   // The free planner and the pages that define the method are the first things a
   // reader or an answer engine should be pointed at - they were absent from this
   // file entirely while it listed 24 guides.
@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     ...ownedHubs.map(([slug, page]) => `- [${page.title}](https://${host}/${slug})`),
     ...ownedGuides.slice(0, 24).map((page) => `- [${page.title}](https://${host}/guides/${page.slug})`),
     '',
-    `- [All guides](https://${host}/guides)`,
+    `- [All guides](https://${PARENT_HOST}/guides)`,
     `- [Sitemap](https://${host}/sitemap.xml)`
   ];
   return new Response(lines.join('\n') + '\n', { headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'public, max-age=0, s-maxage=3600' } });

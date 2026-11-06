@@ -262,8 +262,11 @@ if (problems.length) {
 function registerRoute(record) {
   const p = `/guides/${record.slug}`;
   if (ownership.routes.some((r) => r.path === p)) return true;
-  const host = hostForProduct[record.product_id];
-  if (!host) return false;
+  // A new guide is shared content, so it is the main site's page (owner ruling
+  // 2026-11-03). Its product still decides which tool the page sells; a satellite
+  // only ever gets a page by being listed in its own_tool_paths by hand.
+  if (!hostForProduct[record.product_id]) return false;
+  const host = ownership.parent_host;
   ownership.routes.push({ path: p, host, type: 'guide', indexable: true });
   return true;
 }

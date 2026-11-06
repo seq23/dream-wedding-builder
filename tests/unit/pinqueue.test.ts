@@ -253,7 +253,11 @@ describe('auto-refill', () => {
     const joining = '/guides/elopement-planning-checklist';
     q.pages = q.pages.filter((p) => p.path !== joining);
     q.variants = q.variants.filter((v) => v.path !== joining);
-    const pages = [...q.pages, { path: joining, art: ['product-images/checklist-pdf.png'], joined: '2026-11-20' }].map((p) => ({ ...p, angles: anglesFor(p.path) }));
+    // The refill is offered only pages the site still serves, exactly as
+    // scripts/pinterest/pin_queue.mjs filters them; a retired guide left in q.pages
+    // with no pins is never a candidate.
+    const live = q.pages.filter((p) => ownership.routes.some((r) => r.host === HOST && r.path === p.path) && !Object.hasOwn(rescue.redirects, p.path));
+    const pages = [...live, { path: joining, art: ['product-images/checklist-pdf.png'], joined: '2026-11-20' }].map((p) => ({ ...p, angles: anglesFor(p.path) }));
     const planned = planRefill(q, pages, 3);
     expect(planned[0].path).toBe(joining);
   });

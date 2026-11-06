@@ -4,7 +4,7 @@ import hubs from '@/data/seo/hub_pages.json';
 import ownership from '@/data/seo/route_ownership.json';
 import { lastmodFor } from '@/lib/lastmod';
 import { isPublishablePath, isShippingSlug } from '@/lib/authority-registry';
-import { apexHost, isCanonicalHost } from '@/lib/site-config';
+import { apexHost, hostForGuide, isCanonicalHost } from '@/lib/site-config';
 import searchLoopConfig from '@/search-loop.config.json';
 import searchLoopLedger from '@/data/search-loop/pages.json';
 import { searchLoopHost, searchLoopPages } from '@/lib/search-loop-pages.mjs';
@@ -30,12 +30,13 @@ export async function GET(request: Request): Promise<Response> {
   if (!product) return new Response('Unknown canonical host', { status: 404 });
   const ownedRoutes = ownership.routes.filter((route) => route.host === host && route.indexable).map((route) => route.path);
   // Pages every host renders for itself (route_ownership.json shared_host_routes,
-  // less the files): the guide index and the editorial policy.
+  // less the files). Since 2026-11-06 that is none: the guide index and the
+  // editorial policy are main-site routes.
   const perHostPages = ownership.shared_host_routes.filter((path) => !path.includes('.'));
   const urls = [...new Set([...ownedRoutes, ...perHostPages])].map((path) => ({ loc: `https://${host}${path === '/' ? '/' : path}`, lastmod: lastmodFor(path) }));
   // Defensive inclusion: every hub and guide owner must appear even if the manifest is stale.
   for (const [slug, hub] of Object.entries(hubs.pages)) if (hub.host === host && !urls.some((item) => item.loc.endsWith(`/${slug}`))) urls.push({ loc: `https://${host}/${slug}`, lastmod: lastmodFor(`/${slug}`) });
-  for (const page of pages.filter((item) => item.product_id === product.id && isShippingSlug(item.slug))) if (!urls.some((item) => item.loc.endsWith(`/guides/${page.slug}`))) urls.push({ loc: `https://${host}/guides/${page.slug}`, lastmod: lastmodFor(`/guides/${page.slug}`) });
+  for (const page of pages.filter((item) => hostForGuide(item.slug) === host && isShippingSlug(item.slug))) if (!urls.some((item) => item.loc.endsWith(`/guides/${page.slug}`))) urls.push({ loc: `https://${host}/guides/${page.slug}`, lastmod: lastmodFor(`/guides/${page.slug}`) });
   // Pages the shared search engine published (search-loop.config.json), on its host,
   // dated from the engine's own ledger.
   if (searchLoopHost(searchLoopConfig) === host) for (const page of searchLoopPages(searchLoopConfig, searchLoopLedger)) if (!urls.some((item) => item.loc === `https://${host}${page.route}`)) urls.push({ loc: `https://${host}${page.route}`, lastmod: page.lastmod });

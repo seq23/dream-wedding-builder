@@ -73,7 +73,7 @@ export interface PlannerLanding {
 export const plannerLandings: PlannerLanding[] = [
   {
     slug: 'wedding-cost-per-guest',
-    host: 'weddingbudgetspreadsheet.com',
+    host: 'weddingchecklistpdf.com',
     productId: 'budget-spreadsheet',
     title: 'Wedding cost per guest: what 50, 100 and 150 guests actually cost',
     h1: 'What a wedding costs per guest — and why guest count is the only number that changes everything',
@@ -213,7 +213,7 @@ export const plannerLandings: PlannerLanding[] = [
   },
   {
     slug: 'wedding-budget-tradeoffs',
-    host: 'weddingbudgetspreadsheet.com',
+    host: 'weddingchecklistpdf.com',
     productId: 'budget-spreadsheet',
     title: 'Wedding budget tradeoffs: what a better venue costs you elsewhere',
     h1: 'Can I afford a better venue if I cut the open bar?',

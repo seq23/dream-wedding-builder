@@ -14,7 +14,9 @@ function list(html: string) {
   return lists[0];
 }
 describe('collection schema matches visible cards', () => {
-  for (const domain of CANONICAL_HOSTS) it(`${domain} guide index lists its own guides in order`, async () => {
+  // The guide index is a main-site page since 2026-11-06 (satellites 301 /guides to it,
+  // pinned in tests/unit/satellite-own-tool-only.test.ts).
+  for (const domain of CANONICAL_HOSTS.filter((h) => h === 'weddingchecklistpdf.com')) it(`${domain} guide index lists its own guides in order`, async () => {
     host = domain;
     const html = renderToStaticMarkup(await GuidesIndex());
     const entries = guidesForHost(domain);
@@ -22,6 +24,12 @@ describe('collection schema matches visible cards', () => {
     expect(node.url).toBe(canonicalUrl(domain, '/guides'));
     expect(node.itemListElement).toEqual(entries.map((page, index) => ({ '@type': 'ListItem', position: index + 1, name: page.title, url: canonicalUrl(domain, `/guides/${page.slug}`) })));
     for (const page of entries) expect(html).toContain(`href="/guides/${page.slug}"`);
+  });
+  it('the guide index is only ever the main site\'s', async () => {
+    for (const domain of CANONICAL_HOSTS) {
+      host = domain;
+      expect(list(renderToStaticMarkup(await GuidesIndex())).url).toBe(canonicalUrl('weddingchecklistpdf.com', '/guides'));
+    }
   });
   it('shop lists the four visible products and its bundle, at canonical destinations', () => {
     const html = renderToStaticMarkup(<ShopPage />);
