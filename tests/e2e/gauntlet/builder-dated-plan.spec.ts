@@ -61,3 +61,30 @@ test.describe('dated plan, saved-plan safety and phone width', () => {
     await expect(page.getByTestId('planner-banner')).toBeVisible();
   });
 });
+
+test.describe('dated plan ticks, own tasks and reminders (no account)', () => {
+  test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+
+  test('a tick and an own task survive coming back the next visit; the dashboard counts the same; reminders download', async ({ page }) => {
+    await unlockBuilder(page);
+    await page.goto('/free-wedding-planner');
+    const d = new Date(); d.setDate(d.getDate() + 200);
+    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    await page.getByTestId('wedding-date').fill(iso);
+    await page.getByTestId('dated-task-toggle').first().click();
+    const firstNow = page.locator('[data-testid^="dated-task-add-"]').first();
+    await firstNow.click();
+    await page.getByTestId('dated-task-input').fill('Book the church');
+    await page.getByTestId('dated-task-save').click();
+    await expect(page.getByTestId('dated-plan-progress')).toContainText('1 of');
+    const total = (await page.getByTestId('dated-plan-progress').innerText()).match(/of (\d+)/)![1];
+    await page.reload();
+    await expect(page.getByTestId('dated-task-text').filter({ hasText: 'Book the church' })).toBeVisible();
+    await expect(page.getByTestId('dated-plan-progress')).toContainText(`1 of ${total} done`);
+    const download = page.waitForEvent('download');
+    await page.getByTestId('dated-plan-ics').click();
+    expect((await download).suggestedFilename()).toBe('wedding-plan-reminders.ics');
+    await page.goto('/dashboard');
+    await expect(page.getByTestId('dated-plan-progress')).toContainText(`1 of ${total} done`);
+  });
+});
