@@ -27,7 +27,7 @@ export function BackButton({ route }: { route: string }) {
 export function CloseButton({ route }: { route: string }) {
   return (
     <Pressable accessibilityRole="button" accessibilityLabel="Close" onPress={() => goBack(route)} hitSlop={8}
-      style={{ minHeight: 44, minWidth: 44, justifyContent: 'center', paddingLeft: 12 }}>
+      style={{ minHeight: 44, minWidth: 44, justifyContent: 'center', paddingRight: 12 }}>
       <Text style={[type.button, { color: color.midnight }]}>✕ Close</Text>
     </Pressable>
   );
@@ -42,13 +42,14 @@ export function goHome() {
 
 // Header options for a screen inside a stack: its title names where you are; sub-screens
 // get "← Back", sheets get "✕ Close", tab roots get neither (the tab bar is there).
+// Sheets open inside the tab's stack (not as a native modal), so the four tabs stay
+// visible under them too.
 export function headerFor(route: string) {
   const s = byRoute(route);
   return {
     title: s.title,
     headerBackVisible: false,
-    headerLeft: s.kind === 'sheet' ? undefined : () => <BackButton route={route} />,
-    headerRight: s.kind === 'sheet' ? () => <CloseButton route={route} /> : undefined,
+    headerLeft: () => (s.kind === 'sheet' ? <CloseButton route={route} /> : <BackButton route={route} />),
   };
 }
 

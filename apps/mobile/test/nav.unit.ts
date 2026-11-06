@@ -18,8 +18,7 @@ test('each route in the map is the URL its file really serves', () => {
 test('every screen reaches the plan in one tap', () => {
   for (const s of SCREENS) {
     const oneTap =
-      (s.kind === 'tab' || s.kind === 'sub') ? !!s.tab                       // the tab bar, with Plan on it
-      : s.kind === 'sheet' ? s.back === HOME                                  // ✕ Close lands on the plan
+      s.kind !== 'onboarding' ? !!s.tab                                       // the tab bar, with Plan on it (sheets too)
       : s.links.some(l => l.label === 'Skip ›' && l.href === HOME);           // onboarding: Skip ›
     assert.ok(oneTap, `${s.route} (${s.kind}) has no one-tap way to the plan`);
   }
