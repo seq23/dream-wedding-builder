@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { BUILDER_EMAIL_KEY } from '@/lib/builder-signup';
+import { BUILDER_ACCESS_KEY, BUILDER_EMAIL_KEY } from '@/lib/builder-signup';
 import type { AiDraftFields } from '@/lib/ai-draft';
 import type { WeddingPlan } from '@/data/planning';
 
@@ -51,8 +51,29 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
   const [message, setMessage] = useState('');
   const [result, setResult] = useState<{ filled: string[]; kept: string[] } | null>(null);
 
+  // The card mounts under the email gate (the planner renders, inert, beneath it),
+  // so the address the gate saves arrives after mount: read it again on unlock.
+  // Live check, 6 Nov 2026: the card asked for the email the couple had just given.
   useEffect(() => {
-    try { const saved = localStorage.getItem(BUILDER_EMAIL_KEY); if (saved) { setEmail(saved); setKnownEmail(true); } } catch { /* storage blocked: ask for it */ }
+    const readEmail = () => { try { const saved = localStorage.getItem(BUILDER_EMAIL_KEY); if (saved) { setEmail(saved); setKnownEmail(true); } } catch { /* storage blocked: ask for it */ } };
+    readEmail();
+    window.addEventListener('dwb-builder-unlocked', readEmail);
+    return () => window.removeEventListener('dwb-builder-unlocked', readEmail);
+  }, []);
+
+  // aiweddingplannerfree.com lands on #ai-draft, but the card only exists once the
+  // server says the step is on, after the browser has already looked for the anchor.
+  useEffect(() => {
+    if (!enabled || window.location.hash !== '#ai-draft') return;
+    const go = () => requestAnimationFrame(() => document.getElementById('ai-draft')?.scrollIntoView({ block: 'start' }));
+    let open = false;
+    try { open = Boolean(localStorage.getItem(BUILDER_ACCESS_KEY)); } catch { /* fine */ }
+    if (open) go();
+    window.addEventListener('dwb-builder-unlocked', go);
+    return () => window.removeEventListener('dwb-builder-unlocked', go);
+  }, [enabled]);
+
+  useEffect(() => {
     fetch('/api/ai-draft', { cache: 'no-store' }).then(r => r.json()).then((d: { enabled?: boolean; maxLength?: number }) => { setEnabled(Boolean(d.enabled)); if (d.maxLength) setMaxLength(d.maxLength); }).catch(() => setEnabled(false));
   }, []);
 
