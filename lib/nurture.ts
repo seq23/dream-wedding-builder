@@ -163,6 +163,17 @@ export function dueStep(sentKinds: Set<string>, lastSentAt: number | null, now: 
 const sqlTime = (ms: number) => new Date(ms).toISOString().replace('T', ' ').slice(0, 19);
 const parseSql = (v: unknown) => Date.parse(`${String(v).replace(' ', 'T')}Z`);
 
+// Rule 0 (7 Nov 2026): a refused send is a named stop with Resend's own words, never a quiet
+// FAILED. Each run records itself in nurture_runs; /api/health/email answers 503 on a stop and
+// .github/workflows/email-health.yml goes red on it, so someone sees it.
+let lastSendFailure: string | null = null;
+export const sendFailureStop = (n: number) => `NAMED STOP [RESEND_SEND_FAILED] ${n} email(s) not sent (${lastSendFailure ?? 'unknown error'}); check RESEND_API_KEY and MARKETING_FROM_EMAIL on the dream-wedding-builder Worker`;
+export const NURTURE_RUNS_DDL = `CREATE TABLE IF NOT EXISTS nurture_runs (ran_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, sent INTEGER NOT NULL, failed INTEGER NOT NULL, stop TEXT)`;
+export async function recordRun(db: NurtureDB, sent: number, failed: number, stop: string | null) {
+  await db.prepare(NURTURE_RUNS_DDL).run();
+  await db.prepare('INSERT INTO nurture_runs (sent, failed, stop) VALUES (?, ?, ?)').bind(sent, failed, stop).run();
+}
+
 /** Sends one email and records it. A row already present means it was sent: nothing is sent twice. */
 async function sendOnce(env: NurtureEnv, email: string, hash: string, step: Step, fetchImpl: typeof fetch): Promise<'SENT' | 'ALREADY' | 'FAILED' | 'CEILING'> {
   const db = env.DB!;
@@ -187,11 +198,12 @@ async function sendOnce(env: NurtureEnv, email: string, hash: string, step: Step
       headers: { 'List-Unsubscribe': `<${unsubscribe}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' }
     })
   });
-  const body = await res.json().catch(() => ({})) as { id?: string };
+  const body = await res.json().catch(() => ({})) as { id?: string; message?: string };
   if (!res.ok) {
+    lastSendFailure = `Resend HTTP ${res.status}${body?.message ? `: ${String(body.message).slice(0, 160)}` : ''}`;
     // Release the claim so the next run retries this step.
     await db.prepare('DELETE FROM email_sends WHERE email_hash = ? AND kind = ?').bind(hash, step.kind).run();
-    console.error(JSON.stringify({ event: 'NURTURE_SEND_FAILED', kind: step.kind, status: res.status }));
+    console.error(JSON.stringify({ event: 'NURTURE_SEND_FAILED', kind: step.kind, status: res.status, message: body?.message ?? null }));
     return 'FAILED';
   }
   await db.prepare('UPDATE email_sends SET provider_message_id = ? WHERE email_hash = ? AND kind = ?').bind(body.id ?? null, hash, step.kind).run();
@@ -220,7 +232,7 @@ export async function sendSample(env: NurtureEnv, email: string, fetchImpl: type
 /** The hourly run: due sequence steps, then due review asks. */
 export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: typeof fetch = fetch) {
   const stop = nurtureStop(env);
-  if (stop) { console.error(JSON.stringify({ event: 'NURTURE_STOPPED', stop })); return { stop, sent: 0, review_asks: 0 }; }
+  if (stop) { console.error(JSON.stringify({ event: 'NURTURE_STOPPED', stop })); if (env.DB) await recordRun(env.DB, 0, 0, stop); return { stop, sent: 0, review_asks: 0, ceiling: false, failed: 0 }; }
   const db = env.DB!;
   await ensureTables(db);
   const optouts = new Set(((await db.prepare('SELECT email_hash FROM email_optouts').bind().all()).results ?? []).map((r) => String(r.email_hash)));
@@ -236,7 +248,7 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
   const buyers = new Set<string>();
   for (const r of (await db.prepare("SELECT DISTINCT lower(customer_email) AS email FROM orders WHERE status = 'PAID'").bind().all()).results ?? []) buyers.add(await emailHash(String(r.email)));
 
-  let sent = 0;
+  let sent = 0; let failed = 0;
   // The series is for people who asked for the sample: signed up from the sample form, or
   // already signed up elsewhere and then got the sample (step 0 recorded).
   const signups = (await db.prepare('SELECT email, source FROM builder_signups WHERE unsubscribed_at IS NULL ORDER BY created_at').bind().all()).results ?? [];
@@ -249,8 +261,9 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
     const step = dueStep(e.kinds, e.last, now);
     if (!step) continue;
     const outcome = await sendOnce(env, email, hash, step, fetchImpl);
-    if (outcome === 'CEILING') return { stop: null, sent, review_asks: 0, ceiling: true };
+    if (outcome === 'CEILING') return finish(sent, 0, true);
     if (outcome === 'SENT') { sent++; e.kinds.add(step.kind); e.last = now; byHash.set(hash, e); }
+    else if (outcome === 'FAILED') failed++;
   }
 
   let reviewAsks = 0;
@@ -262,10 +275,19 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
     if (optouts.has(hash) || e?.kinds.has('review_ask')) continue;
     if (e?.last != null && now - e.last < DAYS_BETWEEN * DAY) continue; // one email per 3 days, review ask included
     const outcome = await sendOnce(env, email, hash, REVIEW_ASK, fetchImpl);
-    if (outcome === 'CEILING') return { stop: null, sent, review_asks: reviewAsks, ceiling: true };
+    if (outcome === 'CEILING') return finish(sent, reviewAsks, true);
     if (outcome === 'SENT') reviewAsks++;
+    else if (outcome === 'FAILED') failed++;
   }
-  return { stop: null, sent, review_asks: reviewAsks, ceiling: false };
+  return finish(sent, reviewAsks, false);
+
+  // One exit: a run where any due email was refused is a named stop, recorded for the health check.
+  async function finish(s: number, r: number, ceiling: boolean) {
+    const runStop = failed ? sendFailureStop(failed) : null;
+    if (runStop) console.error(JSON.stringify({ event: 'NURTURE_STOPPED', stop: runStop }));
+    await recordRun(db, s + r, failed, runStop);
+    return { stop: runStop, sent: s, review_asks: r, ceiling, failed };
+  }
 }
 
 /** Unsubscribe: record the opt-out by hash and mark any matching sign-up. */

@@ -33,7 +33,7 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState<'' | 'sent' | 'unsent'>('');
   const [token, setToken] = useState('');
   const widget = useRef<HTMLDivElement>(null);
   const widgetId = useRef<string | undefined>(undefined);
@@ -57,9 +57,9 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
     setBusy(true);
     try {
       const res = await fetch('/api/sample', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, turnstileToken: token }) });
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; emailed?: boolean };
       if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); setToken(''); api.current?.reset(widgetId.current); return; }
-      setDone(true);
+      setDone(data.emailed === true ? 'sent' : 'unsent');
     } catch {
       setError('Could not reach the server. Please try again.');
     } finally {
@@ -71,7 +71,8 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free sample</p>
     <h2 className="mt-3 font-serif text-4xl leading-tight">{heading}</h2>
     <p className="mt-3 max-w-2xl leading-7 text-charcoal/70">How to use it, the critical-path page and the 12 to 9 months page, as a printable PDF.</p>
-    {done ? <p className="mt-6 rounded-2xl bg-white p-5 font-semibold">Sent. You can also <a className="underline" href={SAMPLE_PDF}>open the sample now</a>.</p> :
+    {done === 'sent' ? <p className="mt-6 rounded-2xl bg-white p-5 font-semibold">Sent. You can also <a className="underline" href={SAMPLE_PDF}>open the sample now</a>.</p> :
+    done === 'unsent' ? <p role="alert" data-testid="sample-unsent" className="mt-6 rounded-2xl border border-red-pen bg-white p-5 font-semibold">The email did not send, so it is not in your inbox. <a className="underline" href={SAMPLE_PDF}>Open the sample now</a>; we have been told and will fix it.</p> :
     <form onSubmit={submit} className="mt-6 grid max-w-xl gap-4" data-session-recording>
       <ConversionAnalytics />
       <label className="grid gap-2 text-sm font-bold">Email address
