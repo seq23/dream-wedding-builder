@@ -135,10 +135,11 @@
     {
       "path": "/guides/courthouse-wedding-checklist",
       "art": [
-        "/pinterest/topic-art/courthouse-1.jpg",
-        "/pinterest/topic-art/courthouse-2.jpg",
-        "/pinterest/topic-art/courthouse-3.jpg",
-        "/pinterest/topic-art/courthouse-4.jpg"
+        "/pinterest/topic-art/courthouse-v3-1.jpg",
+        "/pinterest/topic-art/courthouse-v3-2.jpg",
+        "/pinterest/topic-art/courthouse-v2-1.jpg",
+        "/pinterest/topic-art/courthouse-v2-2.jpg",
+        "/pinterest/topic-art/courthouse-v2-3.jpg"
       ],
       "joined": "2026-10-16",
       "topic": "courthouse"
@@ -146,10 +147,11 @@
     {
       "path": "/guides/destination-wedding-checklist",
       "art": [
-        "/pinterest/topic-art/destination-1.jpg",
-        "/pinterest/topic-art/destination-2.jpg",
-        "/pinterest/topic-art/destination-3.jpg",
-        "/pinterest/topic-art/destination-4.jpg"
+        "/pinterest/topic-art/destination-v3-1.jpg",
+        "/pinterest/topic-art/destination-v3-2.jpg",
+        "/pinterest/topic-art/destination-v2-1.jpg",
+        "/pinterest/topic-art/destination-v3-4.jpg",
+        "/pinterest/topic-art/destination-v2-3.jpg"
       ],
       "joined": "2026-10-16",
       "topic": "destination"
@@ -237,10 +239,11 @@
     {
       "path": "/guides/bridal-shower-checklist",
       "art": [
-        "/pinterest/topic-art/bridal-shower-1.jpg",
-        "/pinterest/topic-art/bridal-shower-2.jpg",
-        "/pinterest/topic-art/bridal-shower-3.jpg",
-        "/pinterest/topic-art/bridal-shower-4.jpg"
+        "/pinterest/topic-art/bridal-shower-v2-1.jpg",
+        "/pinterest/topic-art/bridal-shower-v2-2.jpg",
+        "/pinterest/topic-art/bridal-shower-v2-3.jpg",
+        "/pinterest/topic-art/bridal-shower-v2-6.jpg",
+        "/pinterest/topic-art/bridal-shower-v2-5.jpg"
       ],
       "joined": "2026-11-01",
       "topic": "bridal-shower"
@@ -1170,7 +1173,7 @@
       "description": "A bridal shower is somebody else’s hosted event, so settle who decides and who pays first, then the guest list, the date and the party itself.",
       "layout": "binder-page",
       "palette": "coral-soft",
-      "art": "/pinterest/topic-art/bridal-shower-3.jpg",
+      "art": "/pinterest/topic-art/bridal-shower-v2-1.jpg",
       "topic": "bridal-shower",
       "release_date": "2026-11-07",
       "image": {
@@ -1178,7 +1181,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 134382,
+        "length": 134216,
         "text": [
           {
             "role": "eyebrow",
@@ -1562,7 +1565,7 @@
       "description": "Build the bridal shower guest list from the wedding list: anyone invited to the shower must already be invited to the wedding.",
       "layout": "split",
       "palette": "midnight",
-      "art": "/pinterest/topic-art/bridal-shower-4.jpg",
+      "art": "/pinterest/topic-art/bridal-shower-v2-2.jpg",
       "topic": "bridal-shower",
       "release_date": "2026-11-11",
       "image": {
@@ -1570,7 +1573,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 158327,
+        "length": 112765,
         "text": [
           {
             "role": "headline",
@@ -2011,7 +2014,7 @@
       "description": "Choose a bridal shower date that avoids the weeks holding wedding deadlines such as final headcount, stationery mailing and final payments.",
       "layout": "tab-panel",
       "palette": "ivory",
-      "art": "/pinterest/topic-art/bridal-shower-1.jpg",
+      "art": "/pinterest/topic-art/bridal-shower-v2-3.jpg",
       "topic": "bridal-shower",
       "release_date": "2026-11-16",
       "image": {
@@ -2019,7 +2022,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 154946,
+        "length": 218265,
         "text": [
           {
             "role": "eyebrow",
@@ -2456,7 +2459,7 @@
       "description": "Gifts are a records problem: decide who records who gave what, how gifts get home and who transports them, then hand the record to the couple.",
       "layout": "header",
       "palette": "blue-soft",
-      "art": "/pinterest/topic-art/bridal-shower-2.jpg",
+      "art": "/pinterest/topic-art/bridal-shower-v2-6.jpg",
       "topic": "bridal-shower",
       "release_date": "2026-11-21",
       "image": {
@@ -2464,7 +2467,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 126835,
+        "length": 156596,
         "text": [
           {
             "role": "eyebrow",
@@ -2904,7 +2907,7 @@
       "description": "Agree which decisions belong to the bridal shower host and which belong to the couple, particularly the guest list and the theme.",
       "layout": "card",
       "palette": "coral-soft",
-      "art": "/pinterest/topic-art/bridal-shower-3.jpg",
+      "art": "/pinterest/topic-art/bridal-shower-v2-5.jpg",
       "topic": "bridal-shower",
       "release_date": "2026-11-25",
       "image": {
@@ -2912,7 +2915,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 147911,
+        "length": 145684,
         "text": [
           {
             "role": "eyebrow",
@@ -3579,7 +3582,7 @@
       "description": "A courthouse wedding checklist starts with jurisdiction-specific rules: appointment, marriage license, witnesses, identification, security screening and photography rules.",
       "layout": "split",
       "palette": "blue-soft",
-      "art": "/pinterest/topic-art/courthouse-1.jpg",
+      "art": "/pinterest/topic-art/courthouse-v3-1.jpg",
       "topic": "courthouse",
       "release_date": "2026-11-07",
       "image": {
@@ -3587,7 +3590,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 237411,
+        "length": 121136,
         "text": [
           {
             "role": "headline",
@@ -3635,7 +3638,7 @@
       "description": "Destination planning adds travel, lodging, local vendor, documentation, shipping and guest-communication dependencies to the normal wedding plan. Work each one in order.",
       "layout": "tab-panel",
       "palette": "midnight",
-      "art": "/pinterest/topic-art/destination-2.jpg",
+      "art": "/pinterest/topic-art/destination-v3-1.jpg",
       "topic": "destination",
       "release_date": "2026-11-08",
       "image": {
@@ -3643,7 +3646,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 152903,
+        "length": 127110,
         "text": [
           {
             "role": "eyebrow",
@@ -3691,7 +3694,7 @@
       "description": "Confirm whether the shower venue permits outside food, decorations or alcohol; home and restaurant hosting differ on all three.",
       "layout": "binder-page",
       "palette": "midnight",
-      "art": "/pinterest/topic-art/bridal-shower-4.jpg",
+      "art": "/pinterest/topic-art/bridal-shower-v2-1.jpg",
       "topic": "bridal-shower",
       "release_date": "2026-11-30",
       "image": {
@@ -3699,7 +3702,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 141519,
+        "length": 132865,
         "text": [
           {
             "role": "eyebrow",
@@ -4366,7 +4369,7 @@
       "description": "Reserve the courthouse appointment if your courthouse requires one, then gather the documents, assign witnesses and plan arrival and parking.",
       "layout": "tab-panel",
       "palette": "coral-soft",
-      "art": "/pinterest/topic-art/courthouse-2.jpg",
+      "art": "/pinterest/topic-art/courthouse-v3-2.jpg",
       "topic": "courthouse",
       "release_date": "2026-11-12",
       "image": {
@@ -4374,7 +4377,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 261495,
+        "length": 154150,
         "text": [
           {
             "role": "eyebrow",
@@ -4422,7 +4425,7 @@
       "description": "Decide what must travel in carry-on luggage for a destination wedding: rings, attire, documents and medication should not be left to checked bags.",
       "layout": "header",
       "palette": "ivory",
-      "art": "/pinterest/topic-art/destination-3.jpg",
+      "art": "/pinterest/topic-art/destination-v3-2.jpg",
       "topic": "destination",
       "release_date": "2026-11-12",
       "image": {
@@ -4430,7 +4433,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 144788,
+        "length": 151016,
         "text": [
           {
             "role": "eyebrow",
@@ -4758,7 +4761,7 @@
       "description": "Verify the identification and document requirements directly with your courthouse, gather them ahead of time and bring a printed confirmation.",
       "layout": "header",
       "palette": "midnight",
-      "art": "/pinterest/topic-art/courthouse-3.jpg",
+      "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
       "topic": "courthouse",
       "release_date": "2026-11-16",
       "image": {
@@ -4766,7 +4769,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 332783,
+        "length": 184702,
         "text": [
           {
             "role": "eyebrow",
@@ -4814,7 +4817,7 @@
       "description": "Confirm whether the destination ceremony will be legal or symbolic before building the rest of the plan around it.",
       "layout": "card",
       "palette": "blue-soft",
-      "art": "/pinterest/topic-art/destination-4.jpg",
+      "art": "/pinterest/topic-art/destination-v2-1.jpg",
       "topic": "destination",
       "release_date": "2026-11-17",
       "image": {
@@ -4822,7 +4825,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 128583,
+        "length": 170330,
         "text": [
           {
             "role": "eyebrow",
@@ -5094,7 +5097,7 @@
       "description": "Courthouses set their own security screening and photography rules. Check what yours allows before the ceremony day.",
       "layout": "card",
       "palette": "ivory",
-      "art": "/pinterest/topic-art/courthouse-4.jpg",
+      "art": "/pinterest/topic-art/courthouse-v2-2.jpg",
       "topic": "courthouse",
       "release_date": "2026-11-21",
       "image": {
@@ -5102,7 +5105,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 263327,
+        "length": 158272,
         "text": [
           {
             "role": "eyebrow",
@@ -5150,7 +5153,7 @@
       "description": "The travel layer of a destination wedding: room blocks, guest transport and local contacts.",
       "layout": "binder-page",
       "palette": "coral-soft",
-      "art": "/pinterest/topic-art/destination-1.jpg",
+      "art": "/pinterest/topic-art/destination-v3-4.jpg",
       "topic": "destination",
       "release_date": "2026-11-22",
       "image": {
@@ -5158,7 +5161,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 194389,
+        "length": 159691,
         "text": [
           {
             "role": "eyebrow",
@@ -5429,7 +5432,7 @@
       "description": "Assign your witnesses, plan arrival and parking, then decide what celebration or announcements follow the courthouse ceremony.",
       "layout": "binder-page",
       "palette": "blue-soft",
-      "art": "/pinterest/topic-art/courthouse-1.jpg",
+      "art": "/pinterest/topic-art/courthouse-v2-3.jpg",
       "topic": "courthouse",
       "release_date": "2026-11-26",
       "image": {
@@ -5437,7 +5440,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 185077,
+        "length": 112114,
         "text": [
           {
             "role": "eyebrow",
@@ -5484,7 +5487,7 @@
       "description": "Shipping is its own dependency in destination planning. Check shipping restrictions before anything is sent.",
       "layout": "split",
       "palette": "midnight",
-      "art": "/pinterest/topic-art/destination-2.jpg",
+      "art": "/pinterest/topic-art/destination-v2-3.jpg",
       "topic": "destination",
       "release_date": "2026-11-26",
       "image": {
@@ -5492,7 +5495,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 152838,
+        "length": 154948,
         "text": [
           {
             "role": "headline",
@@ -5767,7 +5770,7 @@
       "description": "A small ceremony still has a checklist: appointment, license, witnesses, identification, security and photography rules, arrival and parking.",
       "layout": "split",
       "palette": "coral-soft",
-      "art": "/pinterest/topic-art/courthouse-2.jpg",
+      "art": "/pinterest/topic-art/courthouse-v3-1.jpg",
       "topic": "courthouse",
       "release_date": "2026-11-30",
       "image": {
@@ -5775,7 +5778,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 280342,
+        "length": 132297,
         "text": [
           {
             "role": "headline",
@@ -5823,7 +5826,7 @@
       "description": "Weather contingencies are part of the destination plan, alongside travel, lodging, local vendors, documents and shipping.",
       "layout": "tab-panel",
       "palette": "ivory",
-      "art": "/pinterest/topic-art/destination-3.jpg",
+      "art": "/pinterest/topic-art/destination-v3-1.jpg",
       "topic": "destination",
       "release_date": "2026-12-01",
       "image": {
@@ -5831,7 +5834,7 @@
         "type": "image/jpeg",
         "width": 1000,
         "height": 1500,
-        "length": 143361,
+        "length": 122674,
         "text": [
           {
             "role": "eyebrow",

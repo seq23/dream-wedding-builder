@@ -9,6 +9,10 @@ import pageRescue from '../../data/seo/page_rescue.json' with { type: 'json' };
 //                            each topic board one pin today (used once, 1 Nov 2026)
 //            --requeue       replace every unreleased pin with a new one (topic art + the
 //                            gate; used 6 Nov 2026). Released pins are never touched.
+//            --redraw a,b    redraw the unreleased pins of topics a,b with their topic's
+//                            current images (after new art lands in topic_art.json): the
+//                            first pin due gets the topic's first (lead) image. Copy and
+//                            dates stay; released pins are never touched.
 //
 // Runs DAILY (.github/workflows/pinterest-drip.yml, after the search loop):
 // 0. Questions: every live search-loop page (/questions/*) not yet pinned gets its
@@ -46,6 +50,7 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(today)) throw new Error(`--today must be YYYY-MM
 const seed = opt('--seed') ? Number(opt('--seed')) : 0;
 const startToday = args.includes('--start-today');
 const requeue = args.includes('--requeue');
+const redraw = new Set((opt('--redraw') ?? '').split(',').filter(Boolean));
 const handWritten = (pagePath) => readJson('data/pinterest/angles.json')[pagePath] ?? [];
 const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 
@@ -85,6 +90,23 @@ for (const page of queue.pages) {
   const topic = topicFor(page.path);
   page.art = topic ? topicImages(topic) : artFor(pageSource(page.path)?.productId ?? 'checklist-pdf').slice(0, 4);
   if (topic) page.topic = topic; else delete page.topic;
+}
+
+// --redraw: unreleased pins of the named topics take their topic's images in release order
+// (lead image first) and lose their drawn image, so the render + gate below redraw them.
+if (redraw.size) {
+  for (const t of redraw) if (!topicImages(t).length) throw new Error(`--redraw ${t}: no images for that topic in data/pinterest/topic_art.json`);
+  const waiting = queue.variants.filter((v) => redraw.has(v.topic) && (!v.release_date || v.release_date > today)).sort((a, b) => (a.release_date ?? '9999') < (b.release_date ?? '9999') ? -1 : (a.release_date ?? '9999') > (b.release_date ?? '9999') ? 1 : a.seq - b.seq);
+  const next = new Map();
+  for (const v of waiting) {
+    const images = topicImages(v.topic);
+    const i = next.get(v.topic) ?? 0;
+    v.art = images[i % images.length];
+    next.set(v.topic, i + 1);
+    if (v.image?.path && fs.existsSync(path.join(ROOT, 'public', v.image.path))) fs.unlinkSync(path.join(ROOT, 'public', v.image.path));
+    delete v.image;
+  }
+  log.push(`REDRAW: ${waiting.length} unreleased pin(s) of ${[...redraw].join(', ')}; published pins kept`);
 }
 
 // --requeue: every pin not yet released is retired (its id is never reused) and its image
