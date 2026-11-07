@@ -101,7 +101,9 @@
     "/guides/wedding-venue-selection-checklist",
     "/guides/wedding-week-checklist",
     "/products/checklist-pdf",
-    "/products/operations-suite"
+    "/products/operations-suite",
+    "/wedding-budget-tradeoffs",
+    "/wedding-cost-per-guest"
   ],
   "pages": [
     {
@@ -473,6 +475,28 @@
         "/pinterest/topic-art/seating-v4-5.jpg"
       ],
       "joined": "2026-11-06",
+      "topic": "seating"
+    },
+    {
+      "path": "/wedding-budget-tradeoffs",
+      "art": [
+        "/pinterest/topic-art/bundle-v4-1.jpg",
+        "/pinterest/topic-art/bundle-v4-2.jpg",
+        "/pinterest/topic-art/bundle-v4-3.jpg",
+        "/pinterest/topic-art/bundle-v4-4.jpg"
+      ],
+      "joined": "2026-11-07",
+      "topic": "bundle"
+    },
+    {
+      "path": "/wedding-cost-per-guest",
+      "art": [
+        "/pinterest/topic-art/seating-v4-2.jpg",
+        "/pinterest/topic-art/seating-v4-3.jpg",
+        "/pinterest/topic-art/seating-v4-4.jpg",
+        "/pinterest/topic-art/seating-v4-5.jpg"
+      ],
+      "joined": "2026-11-07",
       "topic": "seating"
     }
   ],
@@ -1260,7 +1284,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/rehearsal-dinner-v4-3.jpg",
       "topic": "rehearsal-dinner",
-      "release_date": "2026-11-08",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-02.jpg",
@@ -1307,7 +1330,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-08"
     },
     {
       "id": "guides-wedding-emergency-kit-02",
@@ -1322,7 +1346,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/emergency-kit-v4-5.jpg",
       "topic": "emergency-kit",
-      "release_date": "2026-11-08",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-emergency-kit-02.jpg",
@@ -1369,7 +1392,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-08"
     },
     {
       "id": "guides-wedding-planning-timeline-05",
@@ -1384,7 +1408,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/planning-timeline-v4-5.jpg",
       "topic": "planning-timeline",
-      "release_date": "2026-11-09",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-planning-timeline-05.jpg",
@@ -1432,7 +1455,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-09"
     },
     {
       "id": "guides-wedding-day-timeline-07",
@@ -1504,7 +1528,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/rehearsal-v4-2.jpg",
       "topic": "rehearsal",
-      "release_date": "2026-11-09",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-04.jpg",
@@ -1551,7 +1574,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-09"
     },
     {
       "id": "guides-wedding-seating-chart-accessibility-06",
@@ -1566,7 +1590,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/seating-1.jpg",
       "topic": "seating",
-      "release_date": "2026-11-10",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-06.jpg",
         "type": "image/jpeg",
@@ -1608,7 +1631,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-10"
     },
     {
       "id": "guides-bridal-shower-checklist-04",
@@ -1623,7 +1647,6 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/bridal-shower-v2-2.jpg",
       "topic": "bridal-shower",
-      "release_date": "2026-11-11",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-04.jpg",
         "type": "image/jpeg",
@@ -1666,7 +1689,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-11"
     },
     {
       "id": "guides-day-of-coordinator-checklist-06",
@@ -1738,7 +1762,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/rehearsal-dinner-v4-4.jpg",
       "topic": "rehearsal-dinner",
-      "release_date": "2026-11-13",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-03.jpg",
@@ -1785,7 +1808,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-13"
     },
     {
       "id": "guides-wedding-emergency-kit-03",
@@ -1800,7 +1824,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/emergency-kit-v4-1.jpg",
       "topic": "emergency-kit",
-      "release_date": "2026-11-14",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-emergency-kit-03.jpg",
@@ -1847,7 +1870,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-14"
     },
     {
       "id": "guides-wedding-planning-timeline-06",
@@ -1862,7 +1886,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/planning-timeline-v4-4.jpg",
       "topic": "planning-timeline",
-      "release_date": "2026-11-14",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-planning-timeline-06.jpg",
@@ -1909,7 +1932,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-14"
     },
     {
       "id": "guides-wedding-day-timeline-08",
@@ -1924,7 +1948,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/wedding-day-3.jpg",
       "topic": "wedding-day",
-      "release_date": "2026-11-13",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-08.jpg",
         "type": "image/jpeg",
@@ -1965,7 +1988,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-13"
     },
     {
       "id": "guides-wedding-rehearsal-timeline-05",
@@ -1980,7 +2004,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/rehearsal-v4-1.jpg",
       "topic": "rehearsal",
-      "release_date": "2026-11-14",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-05.jpg",
@@ -2027,7 +2050,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-14"
     },
     {
       "id": "guides-wedding-seating-chart-accessibility-07",
@@ -2042,7 +2066,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/seating-v4-5.jpg",
       "topic": "seating",
-      "release_date": "2026-11-15",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-07.jpg",
@@ -2089,7 +2112,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-15"
     },
     {
       "id": "guides-bridal-shower-checklist-05",
@@ -2104,7 +2128,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/bridal-shower-v2-3.jpg",
       "topic": "bridal-shower",
-      "release_date": "2026-11-16",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-05.jpg",
         "type": "image/jpeg",
@@ -2146,7 +2169,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-16"
     },
     {
       "id": "guides-day-of-coordinator-checklist-07",
@@ -2161,7 +2185,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/coordinator-v4-3.jpg",
       "topic": "coordinator",
-      "release_date": "2026-11-12",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-day-of-coordinator-checklist-07.jpg",
@@ -2208,7 +2231,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-12"
     },
     {
       "id": "guides-rehearsal-dinner-timeline-04",
@@ -2223,7 +2247,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/rehearsal-dinner-v4-1.jpg",
       "topic": "rehearsal-dinner",
-      "release_date": "2026-11-18",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-04.jpg",
@@ -2271,7 +2294,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-18"
     },
     {
       "id": "guides-wedding-emergency-kit-04",
@@ -2286,7 +2310,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/emergency-kit-v4-2.jpg",
       "topic": "emergency-kit",
-      "release_date": "2026-11-18",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-emergency-kit-04.jpg",
@@ -2333,7 +2356,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-18"
     },
     {
       "id": "guides-wedding-planning-timeline-07",
@@ -2348,7 +2372,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/planning-timeline-v4-3.jpg",
       "topic": "planning-timeline",
-      "release_date": "2026-11-19",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-planning-timeline-07.jpg",
@@ -2395,7 +2418,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-19"
     },
     {
       "id": "guides-wedding-day-timeline-09",
@@ -2410,7 +2434,6 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/wedding-day-4.jpg",
       "topic": "wedding-day",
-      "release_date": "2026-11-18",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-09.jpg",
         "type": "image/jpeg",
@@ -2451,7 +2474,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-18"
     },
     {
       "id": "guides-wedding-rehearsal-timeline-06",
@@ -2466,7 +2490,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/rehearsal-v4-5.jpg",
       "topic": "rehearsal",
-      "release_date": "2026-11-19",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-06.jpg",
@@ -2513,7 +2536,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-19"
     },
     {
       "id": "guides-wedding-seating-chart-accessibility-08",
@@ -2528,7 +2552,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/seating-v4-2.jpg",
       "topic": "seating",
-      "release_date": "2026-11-19",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-08.jpg",
@@ -2575,7 +2598,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-19"
     },
     {
       "id": "guides-bridal-shower-checklist-06",
@@ -2590,7 +2614,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/bridal-shower-v2-6.jpg",
       "topic": "bridal-shower",
-      "release_date": "2026-11-21",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-06.jpg",
         "type": "image/jpeg",
@@ -2632,7 +2655,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-21"
     },
     {
       "id": "guides-day-of-coordinator-checklist-08",
@@ -2647,7 +2671,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/coordinator-v4-2.jpg",
       "topic": "coordinator",
-      "release_date": "2026-11-17",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-day-of-coordinator-checklist-08.jpg",
@@ -2695,7 +2718,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-17"
     },
     {
       "id": "guides-rehearsal-dinner-timeline-05",
@@ -2710,7 +2734,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/rehearsal-dinner-v4-2.jpg",
       "topic": "rehearsal-dinner",
-      "release_date": "2026-11-22",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-05.jpg",
@@ -2757,7 +2780,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-23"
     },
     {
       "id": "guides-wedding-emergency-kit-05",
@@ -2772,7 +2796,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/emergency-kit-v4-4.jpg",
       "topic": "emergency-kit",
-      "release_date": "2026-11-23",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-emergency-kit-05.jpg",
@@ -2820,7 +2843,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-23"
     },
     {
       "id": "guides-wedding-planning-timeline-08",
@@ -2835,7 +2859,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/planning-timeline-v4-2.jpg",
       "topic": "planning-timeline",
-      "release_date": "2026-11-23",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-planning-timeline-08.jpg",
@@ -2882,7 +2905,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-24"
     },
     {
       "id": "guides-wedding-day-timeline-10",
@@ -2897,7 +2921,6 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/wedding-day-1.jpg",
       "topic": "wedding-day",
-      "release_date": "2026-11-23",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-10.jpg",
         "type": "image/jpeg",
@@ -2939,7 +2962,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-23"
     },
     {
       "id": "guides-wedding-rehearsal-timeline-07",
@@ -2954,7 +2978,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/rehearsal-v4-4.jpg",
       "topic": "rehearsal",
-      "release_date": "2026-11-24",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-07.jpg",
@@ -3002,7 +3025,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-24"
     },
     {
       "id": "guides-wedding-seating-chart-accessibility-09",
@@ -3017,7 +3041,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/seating-4.jpg",
       "topic": "seating",
-      "release_date": "2026-11-24",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-09.jpg",
         "type": "image/jpeg",
@@ -3059,7 +3082,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-24"
     },
     {
       "id": "guides-bridal-shower-checklist-07",
@@ -3074,7 +3098,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/bridal-shower-v2-1.jpg",
       "topic": "bridal-shower",
-      "release_date": "2026-11-25",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-07.jpg",
@@ -3121,7 +3144,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-26"
     },
     {
       "id": "guides-day-of-coordinator-checklist-09",
@@ -3136,7 +3160,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/coordinator-v4-1.jpg",
       "topic": "coordinator",
-      "release_date": "2026-11-21",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-day-of-coordinator-checklist-09.jpg",
@@ -3184,7 +3207,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-22"
     },
     {
       "id": "guides-rehearsal-dinner-timeline-06",
@@ -3199,7 +3223,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/rehearsal-dinner-v4-3.jpg",
       "topic": "rehearsal-dinner",
-      "release_date": "2026-11-27",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-06.jpg",
@@ -3246,7 +3269,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-28"
     },
     {
       "id": "guides-wedding-emergency-kit-06",
@@ -3261,7 +3285,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/emergency-kit-v4-5.jpg",
       "topic": "emergency-kit",
-      "release_date": "2026-11-28",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-emergency-kit-06.jpg",
@@ -3308,7 +3331,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-29"
     },
     {
       "id": "guides-wedding-planning-timeline-09",
@@ -3323,7 +3347,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/planning-timeline-v4-1.jpg",
       "topic": "planning-timeline",
-      "release_date": "2026-11-28",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-planning-timeline-09.jpg",
@@ -3370,7 +3393,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-29"
     },
     {
       "id": "guides-wedding-day-timeline-11",
@@ -3385,7 +3409,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/wedding-day-2.jpg",
       "topic": "wedding-day",
-      "release_date": "2026-11-27",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-11.jpg",
         "type": "image/jpeg",
@@ -3428,7 +3451,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-28"
     },
     {
       "id": "guides-wedding-rehearsal-timeline-08",
@@ -3443,7 +3467,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/rehearsal-v4-3.jpg",
       "topic": "rehearsal",
-      "release_date": "2026-11-28",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-08.jpg",
@@ -3490,7 +3513,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-29"
     },
     {
       "id": "guides-wedding-seating-chart-accessibility-10",
@@ -3505,7 +3529,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/seating-v4-3.jpg",
       "topic": "seating",
-      "release_date": "2026-11-29",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-10.jpg",
@@ -3552,7 +3575,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-30"
     },
     {
       "id": "products-checklist-pdf-11",
@@ -3567,7 +3591,6 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/checklist-1.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-11",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-11.jpg",
         "type": "image/jpeg",
@@ -3610,7 +3633,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-11"
     },
     {
       "id": "products-operations-suite-12",
@@ -3625,7 +3649,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/bundle-v4-2.jpg",
       "topic": "bundle",
-      "release_date": "2026-11-11",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-12.jpg",
@@ -3673,7 +3696,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-11"
     },
     {
       "id": "printable-wedding-checklist-12",
@@ -3688,7 +3712,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/checklist-v4-3.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-10",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-12.jpg",
@@ -3735,7 +3758,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-10"
     },
     {
       "id": "guides-elopement-planning-checklist-11",
@@ -3750,7 +3774,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/elopement-v4-4.jpg",
       "topic": "elopement",
-      "release_date": "2026-11-10",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-11.jpg",
@@ -3797,7 +3820,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-10"
     },
     {
       "id": "guides-courthouse-wedding-checklist-12",
@@ -3812,7 +3836,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/courthouse-v3-1.jpg",
       "topic": "courthouse",
-      "release_date": "2026-11-08",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-12.jpg",
         "type": "image/jpeg",
@@ -3854,7 +3877,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-08"
     },
     {
       "id": "guides-destination-wedding-checklist-12",
@@ -3869,7 +3893,6 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/destination-v3-1.jpg",
       "topic": "destination",
-      "release_date": "2026-11-09",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-12.jpg",
         "type": "image/jpeg",
@@ -3911,7 +3934,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-09"
     },
     {
       "id": "guides-bridal-shower-checklist-08",
@@ -3926,7 +3950,6 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/bridal-shower-v2-1.jpg",
       "topic": "bridal-shower",
-      "release_date": "2026-12-02",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-08.jpg",
         "type": "image/jpeg",
@@ -3968,7 +3991,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-12-03"
     },
     {
       "id": "guides-day-of-coordinator-checklist-10",
@@ -3983,7 +4007,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/coordinator-4.jpg",
       "topic": "coordinator",
-      "release_date": "2026-11-26",
       "image": {
         "path": "/pinterest/drip/guides-day-of-coordinator-checklist-10.jpg",
         "type": "image/jpeg",
@@ -4026,7 +4049,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-27"
     },
     {
       "id": "guides-rehearsal-dinner-timeline-07",
@@ -4041,7 +4065,6 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/rehearsal-dinner-1.jpg",
       "topic": "rehearsal-dinner",
-      "release_date": "2026-12-01",
       "image": {
         "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-07.jpg",
         "type": "image/jpeg",
@@ -4083,7 +4106,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-12-03"
     },
     {
       "id": "guides-wedding-emergency-kit-07",
@@ -4098,7 +4122,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/emergency-kit-v4-4.jpg",
       "topic": "emergency-kit",
-      "release_date": "2026-12-02",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-emergency-kit-07.jpg",
@@ -4146,7 +4169,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-04"
     },
     {
       "id": "guides-wedding-planning-timeline-10",
@@ -4161,7 +4185,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/planning-timeline-2.jpg",
       "topic": "planning-timeline",
-      "release_date": "2026-12-02",
       "image": {
         "path": "/pinterest/drip/guides-wedding-planning-timeline-10.jpg",
         "type": "image/jpeg",
@@ -4203,7 +4226,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-12-04"
     },
     {
       "id": "guides-wedding-day-timeline-12",
@@ -4218,7 +4242,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/wedding-day-v4-2.jpg",
       "topic": "wedding-day",
-      "release_date": "2026-12-01",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-12.jpg",
@@ -4266,7 +4289,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-03"
     },
     {
       "id": "guides-wedding-rehearsal-timeline-09",
@@ -4281,7 +4305,7 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/rehearsal-v4-3.jpg",
       "topic": "rehearsal",
-      "release_date": null,
+      "release_date": "2026-12-06",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-09.jpg",
@@ -4344,7 +4368,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/seating-v4-2.jpg",
       "topic": "seating",
-      "release_date": "2026-12-03",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-11.jpg",
@@ -4391,7 +4414,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-05"
     },
     {
       "id": "products-checklist-pdf-12",
@@ -4406,7 +4430,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/checklist-2.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-15",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-12.jpg",
         "type": "image/jpeg",
@@ -4449,7 +4472,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-15"
     },
     {
       "id": "products-operations-suite-13",
@@ -4464,7 +4488,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/bundle-v4-1.jpg",
       "topic": "bundle",
-      "release_date": "2026-11-16",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-13.jpg",
@@ -4512,7 +4535,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-16"
     },
     {
       "id": "printable-wedding-checklist-13",
@@ -4527,7 +4551,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/checklist-v4-3.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-20",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-13.jpg",
@@ -4575,7 +4598,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-20"
     },
     {
       "id": "guides-elopement-planning-checklist-12",
@@ -4590,7 +4614,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/elopement-v4-4.jpg",
       "topic": "elopement",
-      "release_date": "2026-11-17",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-12.jpg",
@@ -4638,7 +4661,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-17"
     },
     {
       "id": "guides-courthouse-wedding-checklist-13",
@@ -4653,7 +4677,6 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/courthouse-v3-2.jpg",
       "topic": "courthouse",
-      "release_date": "2026-11-12",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-13.jpg",
         "type": "image/jpeg",
@@ -4695,7 +4718,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-12"
     },
     {
       "id": "guides-destination-wedding-checklist-13",
@@ -4710,7 +4734,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/destination-v3-2.jpg",
       "topic": "destination",
-      "release_date": "2026-11-12",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-13.jpg",
         "type": "image/jpeg",
@@ -4752,7 +4775,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-12"
     },
     {
       "id": "guides-day-of-coordinator-checklist-11",
@@ -4767,7 +4791,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/coordinator-v4-4.jpg",
       "topic": "coordinator",
-      "release_date": "2026-11-30",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-day-of-coordinator-checklist-11.jpg",
@@ -4814,7 +4837,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-02"
     },
     {
       "id": "products-checklist-pdf-13",
@@ -4829,7 +4853,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/checklist-3.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-20",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-13.jpg",
         "type": "image/jpeg",
@@ -4871,7 +4894,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-20"
     },
     {
       "id": "products-operations-suite-14",
@@ -4886,7 +4910,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/bundle-v4-1.jpg",
       "topic": "bundle",
-      "release_date": "2026-11-25",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-14.jpg",
@@ -4933,7 +4956,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-25"
     },
     {
       "id": "printable-wedding-checklist-14",
@@ -4948,7 +4972,6 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/checklist-1.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-15",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-14.jpg",
         "type": "image/jpeg",
@@ -4990,7 +5013,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-15"
     },
     {
       "id": "guides-elopement-planning-checklist-13",
@@ -5005,7 +5029,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/elopement-3.jpg",
       "topic": "elopement",
-      "release_date": "2026-11-13",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-13.jpg",
         "type": "image/jpeg",
@@ -5047,7 +5070,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-13"
     },
     {
       "id": "guides-courthouse-wedding-checklist-14",
@@ -5062,7 +5086,6 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
       "topic": "courthouse",
-      "release_date": "2026-11-16",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-14.jpg",
         "type": "image/jpeg",
@@ -5104,7 +5127,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-16"
     },
     {
       "id": "guides-destination-wedding-checklist-14",
@@ -5119,7 +5143,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/destination-v2-1.jpg",
       "topic": "destination",
-      "release_date": "2026-11-17",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-14.jpg",
         "type": "image/jpeg",
@@ -5161,7 +5184,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-17"
     },
     {
       "id": "products-checklist-pdf-14",
@@ -5176,7 +5200,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/checklist-v4-3.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-25",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-14.jpg",
@@ -5223,7 +5246,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-25"
     },
     {
       "id": "products-operations-suite-15",
@@ -5238,7 +5262,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/bundle-v4-4.jpg",
       "topic": "bundle",
-      "release_date": "2026-11-20",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-15.jpg",
@@ -5286,7 +5309,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-20"
     },
     {
       "id": "printable-wedding-checklist-15",
@@ -5301,7 +5325,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/checklist-2.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-24",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-15.jpg",
         "type": "image/jpeg",
@@ -5344,7 +5367,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-25"
     },
     {
       "id": "guides-elopement-planning-checklist-14",
@@ -5359,7 +5383,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/elopement-v4-3.jpg",
       "topic": "elopement",
-      "release_date": "2026-11-22",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-14.jpg",
@@ -5406,7 +5429,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-22"
     },
     {
       "id": "guides-courthouse-wedding-checklist-15",
@@ -5421,7 +5445,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
       "topic": "courthouse",
-      "release_date": "2026-11-26",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-15.jpg",
@@ -5468,7 +5491,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-27"
     },
     {
       "id": "guides-destination-wedding-checklist-15",
@@ -5483,7 +5507,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/destination-v2-3.jpg",
       "topic": "destination",
-      "release_date": "2026-11-22",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-15.jpg",
@@ -5530,7 +5553,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-22"
     },
     {
       "id": "products-checklist-pdf-15",
@@ -5545,7 +5569,6 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/checklist-1.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-29",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-15.jpg",
         "type": "image/jpeg",
@@ -5586,7 +5609,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-30"
     },
     {
       "id": "products-operations-suite-16",
@@ -5601,7 +5625,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/bundle-v4-3.jpg",
       "topic": "bundle",
-      "release_date": "2026-11-30",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-16.jpg",
@@ -5649,7 +5672,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-01"
     },
     {
       "id": "printable-wedding-checklist-16",
@@ -5664,7 +5688,6 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/checklist-3.jpg",
       "topic": "checklist",
-      "release_date": "2026-11-29",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-16.jpg",
         "type": "image/jpeg",
@@ -5706,7 +5729,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-30"
     },
     {
       "id": "guides-elopement-planning-checklist-15",
@@ -5721,7 +5745,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/elopement-v4-5.jpg",
       "topic": "elopement",
-      "release_date": "2026-11-27",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-15.jpg",
@@ -5768,7 +5791,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-11-28"
     },
     {
       "id": "guides-courthouse-wedding-checklist-16",
@@ -5783,7 +5807,6 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
       "topic": "courthouse",
-      "release_date": "2026-12-03",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-16.jpg",
@@ -5830,7 +5853,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-04"
     },
     {
       "id": "guides-destination-wedding-checklist-16",
@@ -5845,7 +5869,6 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/destination-v2-3.jpg",
       "topic": "destination",
-      "release_date": "2026-11-30",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-16.jpg",
         "type": "image/jpeg",
@@ -5887,7 +5910,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-12-02"
     },
     {
       "id": "products-checklist-pdf-16",
@@ -5902,7 +5926,7 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/checklist-2.jpg",
       "topic": "checklist",
-      "release_date": null,
+      "release_date": "2026-12-05",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-16.jpg",
         "type": "image/jpeg",
@@ -5960,7 +5984,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/bundle-v4-2.jpg",
       "topic": "bundle",
-      "release_date": null,
+      "release_date": "2026-12-06",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-17.jpg",
@@ -6022,7 +6046,6 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/checklist-v4-4.jpg",
       "topic": "checklist",
-      "release_date": "2026-12-03",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-17.jpg",
@@ -6070,7 +6093,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-05"
     },
     {
       "id": "guides-elopement-planning-checklist-16",
@@ -6085,7 +6109,6 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/elopement-v4-2.jpg",
       "topic": "elopement",
-      "release_date": "2026-12-01",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-16.jpg",
@@ -6133,7 +6156,8 @@
           "bands": 1,
           "brand": "Wedding Checklist PDF"
         }
-      }
+      },
+      "release_date": "2026-12-02"
     },
     {
       "id": "guides-courthouse-wedding-checklist-17",
@@ -6148,7 +6172,6 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/courthouse-v3-1.jpg",
       "topic": "courthouse",
-      "release_date": "2026-11-21",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-17.jpg",
         "type": "image/jpeg",
@@ -6190,7 +6213,8 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-21"
     },
     {
       "id": "guides-destination-wedding-checklist-17",
@@ -6205,7 +6229,6 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/destination-v3-1.jpg",
       "topic": "destination",
-      "release_date": "2026-11-26",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-17.jpg",
         "type": "image/jpeg",
@@ -6247,7 +6270,449 @@
           }
         ]
       },
-      "generation": "dw-v2"
+      "generation": "dw-v2",
+      "release_date": "2026-11-27"
+    },
+    {
+      "id": "wedding-budget-tradeoffs-01",
+      "seq": 145,
+      "path": "/wedding-budget-tradeoffs",
+      "eyebrow": "WEDDING BUDGET",
+      "headline": "Wedding Budget Tradeoffs That Actually Work",
+      "subline": "Change the format, not the quality",
+      "title": "Wedding Budget Tradeoffs That Work: Change the Format, Not the Quality",
+      "description": "The tradeoffs that move real money change the format rather than the quality: an off-peak or non-Saturday date, a lunch reception instead of dinner, beer, wine and one signature cocktail.",
+      "layout": "band-top",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/bundle-v4-2.jpg",
+      "topic": "bundle",
+      "generation": "dw-v3",
+      "release_date": "2026-11-21",
+      "image": {
+        "path": "/pinterest/drip/wedding-budget-tradeoffs-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 146405,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Budget",
+              "Tradeoffs That",
+              "Actually Work"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#EFF1E9"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Change the format, not the quality"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EFF1E9"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EFF1E9"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.661,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "wedding-budget-tradeoffs-02",
+      "seq": 146,
+      "path": "/wedding-budget-tradeoffs",
+      "eyebrow": "WEDDING BUDGET",
+      "headline": "Wedding Budget Tradeoffs: Venue or Open Bar?",
+      "subline": "The bar cut rarely moves a tier",
+      "title": "Wedding Budget Tradeoffs: Can You Cut the Open Bar for a Better Venue?",
+      "description": "Cutting a full open bar frees real money but rarely enough to move a venue tier, and at a venue with a food and beverage minimum the bar spend counts toward it anyway.",
+      "layout": "band-low",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/bundle-v4-3.jpg",
+      "topic": "bundle",
+      "generation": "dw-v3",
+      "release_date": "2026-11-26",
+      "image": {
+        "path": "/pinterest/drip/wedding-budget-tradeoffs-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 124313,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Budget",
+              "Tradeoffs: Venue",
+              "or Open Bar?"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F4EEE2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The bar cut rarely moves a tier"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EEE2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EEE2"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.661,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "wedding-budget-tradeoffs-03",
+      "seq": 147,
+      "path": "/wedding-budget-tradeoffs",
+      "eyebrow": "WEDDING BUDGET",
+      "headline": "Wedding Budget Tradeoffs: Four Tests",
+      "subline": "Most swaps fail the second one",
+      "title": "Wedding Budget Tradeoffs: Test Any Swap With Four Questions",
+      "description": "Test any wedding tradeoff in four questions: does the saving clear a threshold, does the money leave the building, does it touch a protected priority, and does it create a new cost?",
+      "layout": "band-frame",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/bundle-v4-4.jpg",
+      "topic": "bundle",
+      "generation": "dw-v3",
+      "release_date": "2026-12-01",
+      "image": {
+        "path": "/pinterest/drip/wedding-budget-tradeoffs-03.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 180259,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Budget",
+              "Tradeoffs: Four Tests"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F9F6F2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Most swaps fail the second one"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F9F6F2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F9F6F2"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "wedding-budget-tradeoffs-04",
+      "seq": 148,
+      "path": "/wedding-budget-tradeoffs",
+      "eyebrow": "WEDDING BUDGET",
+      "headline": "Wedding Budget Tradeoffs: Savings That Cost More",
+      "subline": "Your own bar adds corkage and staffing",
+      "title": "Wedding Budget Tradeoffs: The Savings That Cost More",
+      "description": "Several classic savings are net-negative once the replacement is priced: swapping a bar package for a self-supplied bar adds corkage, licensing, staffing, glassware, ice and insurance.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/bundle-v4-1.jpg",
+      "topic": "bundle",
+      "generation": "dw-v3",
+      "release_date": "2026-12-06",
+      "image": {
+        "path": "/pinterest/drip/wedding-budget-tradeoffs-04.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 138118,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Budget",
+              "Tradeoffs: Savings",
+              "That Cost More"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F5EAE4"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Your own bar adds",
+              "corkage and staffing"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F5EAE4"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F5EAE4"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.626,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "wedding-cost-per-guest-01",
+      "seq": 149,
+      "path": "/wedding-cost-per-guest",
+      "eyebrow": "WEDDING BUDGET",
+      "headline": "Wedding Cost Per Guest, Explained",
+      "subline": "What scales per head, what stays fixed",
+      "title": "Wedding Cost Per Guest: What Scales and What Stays Fixed",
+      "description": "Roughly 60-70% of a typical wedding budget moves with guest count: catering, bar, rentals and staffing scale per head, while photography, music and attire do not move at all.",
+      "layout": "band-top",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/seating-v4-3.jpg",
+      "topic": "seating",
+      "generation": "dw-v3",
+      "release_date": "2026-11-26",
+      "image": {
+        "path": "/pinterest/drip/wedding-cost-per-guest-01.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 151017,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Cost Per",
+              "Guest, Explained"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#E9ECE6"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "What scales per head,",
+              "what stays fixed"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E9ECE6"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E9ECE6"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.69,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "wedding-cost-per-guest-02",
+      "seq": 150,
+      "path": "/wedding-cost-per-guest",
+      "eyebrow": "WEDDING BUDGET",
+      "headline": "Wedding Cost Per Guest: The Honest Range",
+      "subline": "Why the published spread runs so wide",
+      "title": "Wedding Cost Per Guest: Why the Honest Range Runs So Wide",
+      "description": "Published planning benchmarks give a wide per-guest range for an all-in wedding. The low end assumes a venue that owns its tables and kitchen; the high end, a blank space where everything is a rental.",
+      "layout": "band-low",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/seating-v4-4.jpg",
+      "topic": "seating",
+      "generation": "dw-v3",
+      "release_date": "2026-12-01",
+      "image": {
+        "path": "/pinterest/drip/wedding-cost-per-guest-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 200759,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Cost",
+              "Per Guest: The",
+              "Honest Range"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#EAE2D3"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Why the published",
+              "spread runs so wide"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#EAE2D3"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#EAE2D3"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.626,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "wedding-cost-per-guest-03",
+      "seq": 151,
+      "path": "/wedding-cost-per-guest",
+      "eyebrow": "WEDDING BUDGET",
+      "headline": "Wedding Cost Per Guest vs Minimums",
+      "subline": "Fewer guests below it save nothing",
+      "title": "Wedding Cost Per Guest vs Venue Minimums: When Cutting Guests Saves Nothing",
+      "description": "A food and beverage minimum behaves as a floor, not a per-head cost: below the minimum you pay it anyway, so cutting guests under a venue minimum saves nothing.",
+      "layout": "band-frame",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/seating-v4-5.jpg",
+      "topic": "seating",
+      "generation": "dw-v3",
+      "release_date": null,
+      "image": {
+        "path": "/pinterest/drip/wedding-cost-per-guest-03.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 207195,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Cost Per",
+              "Guest vs Minimums"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F2EEE8"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Fewer guests below it save nothing"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F2EEE8"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F2EEE8"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
     }
   ],
   "questions": [],

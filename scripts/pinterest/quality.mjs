@@ -221,7 +221,9 @@ export async function gateQueue(queue, today, { render = renderToFile } = {}) {
     if (!chosen) {
       const copies = isQuestion(v) ? [v] : [v, ...anglesFor(v.path).filter((a) => !otherCopy.has(copyKey(a)) && copyKey(a) !== copyKey(v))];
       const topic = isQuestion(v) ? v.topic : topicFor(v.path);
-      const arts = topic ? [...new Set([norm(v.art), ...topicImages(topic)])].filter((a) => topicImages(topic).includes(a)) : [v.art];
+      // A page's pins each show a different photo: photos its other pins do not use go first.
+      const usedByPage = new Set(page.filter((x) => x !== v).map((x) => norm(x.art)));
+      const arts = (topic ? [...new Set([norm(v.art), ...topicImages(topic)])].filter((a) => topicImages(topic).includes(a)) : [v.art]).sort((a, b) => Number(usedByPage.has(a)) - Number(usedByPage.has(b)));
       const skins = [[v.layout, v.palette], ...LAYOUTS.flatMap((l) => Object.keys(PALETTES).map((p) => [l, p]))].filter(([l, p], k, list) => list.findIndex(([a, b]) => a === l && b === p) === k);
       let renders = 0;
       search: for (const copy of copies) {

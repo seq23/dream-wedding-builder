@@ -1,7 +1,7 @@
 // Types for scripts/pinterest/pin_sources.mjs (tsconfig has allowJs: false).
 import type { PinAngle } from '../../lib/pinqueue.mjs';
 
-export type PageSource = { kind: 'product' | 'guide' | 'hub'; productId: string; name: string; eyebrow: string; facts: string[]; summary: string; text: string };
+export type PageSource = { kind: 'product' | 'guide' | 'hub' | 'landing'; productId: string; name: string; eyebrow: string; facts: string[]; summary: string; text: string };
 export declare const HOST: string;
 export declare function eligiblePaths(): string[];
 export declare function pageSource(pagePath: string): PageSource | null;
