@@ -16,3 +16,12 @@ describe('full plan card', () => {
     expect(productById('operations-suite')?.price).toBe(39);
   });
 });
+
+import { signupSource } from '@/components/BuilderEmailGate';
+describe('tool-site planner button source', () => {
+  it('tags a signup from a tool site and ignores anything else', () => {
+    expect(signupSource('?from=weddingseatingchartmaker.com')).toBe('free-wedding-planner:weddingseatingchartmaker.com');
+    expect(signupSource('?from=evil.example')).toBe('free-wedding-planner');
+    expect(signupSource('')).toBe('free-wedding-planner');
+  });
+});
