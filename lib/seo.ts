@@ -62,7 +62,17 @@ const TOPIC_MIN = 15;
 function fitTopic(title: string, max: number): string {
   if (title.length <= max) return title;
   const head = title.split(/:\s|\s[\u2014\u2013-]\s|\?\s/)[0].trim();
-  if (head.length >= TOPIC_MIN && head.length <= max && head.length < title.length) return head;
+  if (head.length >= TOPIC_MIN && head.length <= max && head.length < title.length) {
+    // The numbers in a dropped clause are usually what the page was searched for:
+    // every query /wedding-cost-per-guest ranked on named a guest count, and the
+    // bare head "Wedding cost per guest" (live from 6 Nov 2026, when the " | Wedding
+    // Checklist PDF" suffix left 41 characters) lost all of them. Keep them in
+    // brackets when they fit: "Wedding cost per guest (50, 100, 150)".
+    const numbers = [...new Set(title.slice(head.length).match(/\b\d[\d,]*\d\b|\b\d\b/g) ?? [])].map((n) => n.replace(/,$/, ''));
+    const withNumbers = numbers.length && !/\d/.test(head) ? `${head} (${numbers.join(', ')})` : '';
+    if (withNumbers && withNumbers.length <= max) return withNumbers;
+    return head;
+  }
   return clip(title, max);
 }
 
