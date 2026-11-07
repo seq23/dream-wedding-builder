@@ -12,6 +12,7 @@ import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
 import ownership from '@/data/seo/route_ownership.json';
 import rawQueue from '@/data/pinterest/queue.json';
+import retiredFixture from '../fixtures/pinterest/retired_pins.json';
 import { boards, buildPinfeed, pinItems } from '@/lib/pinfeed';
 import { addDays, applyFallback, applyPause, chicagoDate, decidePace, dueVariants, needsRefill, pageSlug, planRefill, scheduleVariants, spreadViolations, SPREAD, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
 import { anglesFor, derivedAngles, eligiblePaths, guideFacts, pageSource } from '../../scripts/pinterest/pin_sources.mjs';
@@ -140,23 +141,37 @@ describe('pin quality gate (her call 6 Nov 2026: "approve all, make them good"; 
   // words, fill >= 60% of the pin with the photo under one band branded "Wedding Checklist
   // PDF", read at a 236px thumbnail, and keep the spread rule. Pins she approved as drawn
   // (dw-v2) post as they are.
-  it('every unreleased and pending pin passes the gate, and the gate fails the pins it replaced', async () => {
-    const unreleased = queue.variants.filter((v) => !v.release_date || v.release_date > chicagoDate());
-    expect(unreleased.length + (queue.pending ?? []).length).toBeGreaterThanOrEqual(queue.config.refill_threshold);
-    expect((queue.pending ?? []).length).toBeGreaterThan(0);
+  // The pins the gate must judge: every unposted pin (scheduled, undated or awaiting her
+  // approval) of a generation that is not frozen. Before her yes they sit in pending;
+  // after it they are dated in variants. Either way there must be some.
+  const unposted = (q: PinQueue) => [...q.variants, ...(q.questions ?? []), ...(q.pending ?? [])].filter((v) => !(v.release_date && v.release_date <= chicagoDate()));
+  const gated = unposted(queue).filter((v) => !isFrozen(v, queue.config));
+  // The retired old-style pins (the frames drawn before the 6 Nov re-queue and the dw-v2
+  // frames), frozen as a fixture so the check never depends on what the live queue holds.
+  const retired = (retiredFixture as { pins: PinVariant[] }).pins;
+
+  it('every queued, unposted pin passes the gate, and the gate refuses every retired old-style pin', async () => {
+    expect(unposted(queue).length).toBeGreaterThanOrEqual(queue.config.refill_threshold);
+    expect(gated.length).toBeGreaterThan(0);
+    expect(gated.filter((v) => v.generation === queue.config.generation).length).toBeGreaterThan(0);
     expect(await auditQueue(clone(), chicagoDate())).toEqual([]);
-    // The pins drawn before the re-queue (all published by 6 Nov 2026), re-dated as if
-    // still waiting, and the dw-v2 pins in the retired frames: the gate holds every one.
+    // The retired pins, re-dated as if still waiting to post: the gate holds every one, on
+    // the design itself (their images exist, so no pin passes as "image missing").
+    expect(retired.length).toBeGreaterThanOrEqual(60);
+    for (const v of retired) {
+      expect(LEGACY_LAYOUTS, v.id).toContain(v.layout);
+      expect(existsSync(join('public', v.image!.path)), v.image!.path).toBe(true);
+    }
     const old = clone();
-    const legacy = old.variants.filter((v) => LEGACY_LAYOUTS.includes(v.layout));
-    expect(legacy.length).toBeGreaterThanOrEqual(60);
-    for (const v of legacy) if (v.release_date && v.release_date <= chicagoDate()) v.release_date = '2099-01-01';
+    const ids = new Set(retired.map((v) => v.id));
+    old.variants = [...old.variants.filter((v) => !ids.has(v.id)), ...retired.map((v) => ({ ...v, release_date: '2099-01-01' }))];
     const oldIssues = await auditQueue(old, chicagoDate(), { all: true });
-    expect(legacy.filter((v) => !oldIssues.some((i) => i.startsWith(`${v.id}:`))).map((v) => v.id)).toEqual([]);
+    expect(retired.filter((v) => !oldIssues.some((i) => i.startsWith(`${v.id}:`) && !i.includes('image missing'))).map((v) => v.id)).toEqual([]);
   }, 60_000);
 
   it('refuses sales words, product screenshots, unlicensed or narrow photos, long or unsearched headlines and framed layouts', () => {
-    const v = queue.pending![0] as PinVariant;
+    const v = gated.find((x) => x.generation === queue.config.generation) as PinVariant;
+    expect(v, 'an unposted pin of the current generation').toBeDefined();
     expect(salesIssue(v)).toBeNull();
     expect(copyIssue(v)).toBeNull();
     expect(photoIssue(v.art)).toBeNull();
@@ -176,12 +191,24 @@ describe('pin quality gate (her call 6 Nov 2026: "approve all, make them good"; 
     expect(layoutIssue(v, { ...v.image!.shape!, brand: 'Dream Wedding Builder' })).toMatch(/brand/);
   });
 
-  it('pins awaiting her approval never reach a feed', () => {
-    const ids = new Set((queue.pending ?? []).map((v) => v.id));
-    expect(ids.size).toBeGreaterThan(0);
-    for (const board of boards.BOARDS) {
-      const xml = buildPinfeed(new Date('2027-12-31T18:00:00Z'), board);
-      for (const id of ids) expect(xml.includes(`utm_content=${id}`), id).toBe(false);
+  it('pins awaiting her approval never reach a feed, even dated, while the same pin scheduled does', () => {
+    // A probe pin awaiting approval (dated, to prove the feed ignores pending outright),
+    // plus every real pending pin. The probe is a copy of a gated pin under a fresh id.
+    const at = new Date('2027-12-31T18:00:00Z');
+    const probe = { ...(gated[0] as PinVariant), id: 'pending-probe-01', release_date: '2027-12-30' };
+    const feeds = () => boards.BOARDS.map((board) => buildPinfeed(at, board)).join('\n');
+    const saved = { pending: queue.pending, variants: queue.variants };
+    try {
+      queue.pending = [...(queue.pending ?? []), probe];
+      const xml = feeds();
+      for (const v of queue.pending) expect(xml.includes(`utm_content=${v.id}`), v.id).toBe(false);
+      // Negative proof: the same pin, scheduled, does reach a feed.
+      queue.pending = saved.pending;
+      queue.variants = [...saved.variants, probe];
+      expect(feeds().includes(`utm_content=${probe.id}`)).toBe(true);
+    } finally {
+      queue.pending = saved.pending;
+      queue.variants = saved.variants;
     }
     for (const v of queue.pending ?? []) expect(v.release_date, v.id).toBeNull();
   });
