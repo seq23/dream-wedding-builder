@@ -14,11 +14,13 @@ export type PinVariant = {
   layout: string;
   palette: string;
   art: string;
+  topic?: string;
+  search?: string[];
   release_date: string | null;
-  image?: PinImage;
+  image?: PinImage & { text?: Array<{ role: string; size: number; lines: string[]; fit: boolean; ink: string; ground: string }> };
 };
 export type PinAngle = { eyebrow: string; headline: string; subline: string; title: string; description: string };
-export type PinQueuePage = { path: string; art: string[]; joined: string };
+export type PinQueuePage = { path: string; art: string[]; joined: string; topic?: string };
 export type PinQueueConfig = {
   pins_per_day: number;
   timezone: string;
@@ -31,7 +33,7 @@ export type PinQueueConfig = {
   palettes: string[];
 };
 export type PinPace = { since: string; review_after_days: number; fallback: { pins_per_day: number; layouts: string[] }; fell_back_at: string | null; paused_at?: string | null; log: Array<{ at: string; change: string; why: string }> };
-export type PinQueue = { config: PinQueueConfig & { pace?: PinPace }; known_pages: string[]; pages: PinQueuePage[]; variants: PinVariant[]; questions?: PinVariant[] };
+export type PinQueue = { config: PinQueueConfig & { pace?: PinPace }; known_pages: string[]; pages: PinQueuePage[]; variants: PinVariant[]; questions?: PinVariant[]; retired_ids?: string[]; held?: Array<{ id: string; path: string; headline: string; reason: string; at: string }> };
 export type PaceDecision = { action: 'keep' | 'fallback' | 'pause'; reason: string };
 export declare function decidePace(config: PinQueueConfig & { pace?: PinPace }, history: Array<{ generated_at?: string; status?: string; total?: number | null }> | null, today: string): PaceDecision;
 export declare function applyFallback<T extends PinQueueConfig & { pace?: PinPace }>(config: T, today: string, reason: string): T;

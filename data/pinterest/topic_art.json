@@ -1,0 +1,1076 @@
+{
+ "_comment": "Topic art for the Pinterest daily drip (owner-approved 6 Nov 2026: \"approve all, make them good\"). Every page that gets pins maps to ONE topic; a pin may only use its topic's images, and scripts/pinterest/quality.mjs holds any pin whose art is not its page's topic. Photos are CC0 or public domain only (licence, creator and source recorded per image, found through the Openverse API on 6 Nov 2026, resized into public/pinterest/topic-art/); product art is this site's own. No identifiable people, no couples (design system). A new page with no topic here gets no pins until one is added (PIN_QUALITY_HOLD names it). pages.<path>.search: the searches the page answers (its own title and its board's Pinterest searches, data/pinterest/boards.json keywords); a pin headline must name one of them.",
+ "topics": {
+  "checklist": {
+   "label": "Printable wedding checklist on paper",
+   "words": [
+    "checklist",
+    "printable",
+    "pdf",
+    "task",
+    "tasks",
+    "to-do",
+    "list"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/checklist-1.jpg",
+     "width": 960,
+     "height": 639,
+     "title": "Checklist Goals",
+     "creator": "Glenn Carstens-Peters",
+     "creator_url": "https://stocksnap.io/author/32960",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/checklist-goals-TBJ9OPDGMK",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/TBJ9OPDGMK.jpg",
+     "openverse_id": "e069bf08-07a3-4330-bd99-d939d419ce14"
+    },
+    {
+     "file": "/pinterest/topic-art/checklist-2.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Flat lay shot Clapham Studios",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/3292450/free-photo-image-accessory-aircraft-airplane",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdXB3azYxODAzMDM5LXdpa2ltZWRpYS1pbWFnZS1rb3dreDQxeS5qcGc.jpg",
+     "openverse_id": "a7255592-2905-49b7-b5c8-11ae96866e7a"
+    },
+    {
+     "file": "/pinterest/topic-art/checklist-3.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Free open calendar pen photo",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/5912649/image-paper-book-public-domain",
+     "image_url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4MTIwNzgwNS1pbWFnZS1rd3Z3NWt0dS5qcGc.jpg",
+     "openverse_id": "cb16d823-f3ac-49db-aac7-19e98e02d561"
+    },
+    {
+     "file": "/product-images/checklist-pdf.png",
+     "width": 1122,
+     "height": 1402,
+     "title": "Dream Wedding Builder product art",
+     "creator": "Dream Wedding Builder",
+     "licence": "own",
+     "source": "this repository (scripts/brand/generate_product_mockups.py)",
+     "focus": [
+      0.5,
+      0.0
+     ]
+    }
+   ]
+  },
+  "bundle": {
+   "label": "Budget spreadsheet, planners and receipts",
+   "words": [
+    "budget",
+    "spreadsheet",
+    "cost",
+    "costs",
+    "bundle",
+    "tracker",
+    "payment",
+    "payments",
+    "money"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/bundle-1.jpg",
+     "width": 960,
+     "height": 638,
+     "title": "Accounting Finance",
+     "creator": "Wilfred Iven",
+     "creator_url": "https://firmbee.com",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/accounting-finance-JONMP7TPGK",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/JONMP7TPGK.jpg",
+     "openverse_id": "9b7ef946-1e8c-4654-bd90-ee183d6056a3"
+    },
+    {
+     "file": "/pinterest/topic-art/bundle-3.jpg",
+     "width": 1024,
+     "height": 626,
+     "title": null,
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/5974308/photo-image-laptop-work-macbook",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJlZXJhbmdlcGV4ZWxzMDA2NDEtaW1hZ2Uta3d5dDN6MmUuanBn.jpg",
+     "openverse_id": "d0db0d02-a1dc-499a-8224-2f70610a7c15"
+    },
+    {
+     "file": "/product-images/operations-suite.png",
+     "width": 1122,
+     "height": 1402,
+     "title": "Dream Wedding Builder product art",
+     "creator": "Dream Wedding Builder",
+     "licence": "own",
+     "source": "this repository (scripts/brand/generate_product_mockups.py)",
+     "focus": [
+      0.5,
+      0.0
+     ]
+    },
+    {
+     "file": "/product-images/budget-spreadsheet.png",
+     "width": 1122,
+     "height": 1402,
+     "title": "Dream Wedding Builder product art",
+     "creator": "Dream Wedding Builder",
+     "licence": "own",
+     "source": "this repository (scripts/brand/generate_product_mockups.py)",
+     "focus": [
+      0.5,
+      0.0
+     ]
+    }
+   ]
+  },
+  "elopement": {
+   "label": "Scenic elopement spot and rings",
+   "words": [
+    "elope",
+    "eloping",
+    "elopement",
+    "officiant",
+    "permit"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/elopement-1.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Windy Wild Goose Island Overlook",
+     "creator": "GlacierNPS",
+     "creator_url": "https://www.flickr.com/photos/43288043@N04",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/43288043@N04/23096668293",
+     "image_url": "https://live.staticflickr.com/701/23096668293_e129c57150_b.jpg",
+     "openverse_id": "e23667a7-cfc3-4b9c-8c0f-1e7f5f4a85d8"
+    },
+    {
+     "file": "/pinterest/topic-art/elopement-2.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Wild Goose Island Overlook",
+     "creator": "GlacierNPS",
+     "creator_url": "https://www.flickr.com/photos/43288043@N04",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/43288043@N04/3990050315",
+     "image_url": "https://live.staticflickr.com/3514/3990050315_3958b7ea9e_b.jpg",
+     "openverse_id": "268d1fe1-47b9-4be3-aacd-f1259926c300"
+    },
+    {
+     "file": "/pinterest/topic-art/elopement-3.jpg",
+     "width": 960,
+     "height": 639,
+     "title": "Wedding Rings",
+     "creator": "Rickopan",
+     "creator_url": "http://rickopan.com",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/wedding-rings-KH7YRRTVTS",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/KH7YRRTVTS.jpg",
+     "openverse_id": "7ba795af-4e4f-4b9e-ade6-98b6c79aaba3"
+    },
+    {
+     "file": "/pinterest/topic-art/elopement-4.jpg",
+     "width": 1024,
+     "height": 695,
+     "title": "Acadia National Park",
+     "creator": "U.S. Geological Survey",
+     "creator_url": "https://www.flickr.com/photos/27784370@N05",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/27784370@N05/14782401887",
+     "image_url": "https://live.staticflickr.com/5569/14782401887_ab0b44b2a0_b.jpg",
+     "openverse_id": "aef463a4-1baa-4667-84cb-0d6c9020d6f7"
+    }
+   ]
+  },
+  "courthouse": {
+   "label": "Courthouse / city hall ceremony",
+   "words": [
+    "courthouse",
+    "city hall",
+    "civil",
+    "license",
+    "licence",
+    "marriage license"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/courthouse-1.jpg",
+     "width": 1024,
+     "height": 768,
+     "title": "Ovid - New York - Seneca County Courthouse Complex - 'Three Bears,' is a historic courthouse complex",
+     "creator": "Onasill - Bill Badzo - 149 Million Views - Thank Y",
+     "creator_url": "https://www.flickr.com/photos/7156765@N05",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/7156765@N05/51513431053",
+     "image_url": "https://live.staticflickr.com/65535/51513431053_70deeb6973_b.jpg",
+     "openverse_id": "6b07cfa1-52b1-4030-90b5-bcaae401a393"
+    },
+    {
+     "file": "/pinterest/topic-art/courthouse-2.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Kingston - Ontario - Canada - Frontenac County Courthouse - Heritage",
+     "creator": "Onasill - Bill Badzo - 149 Million Views - Thank Y",
+     "creator_url": "https://www.flickr.com/photos/7156765@N05",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/7156765@N05/51533728649",
+     "image_url": "https://live.staticflickr.com/65535/51533728649_789ae8cde4_b.jpg",
+     "openverse_id": "0a2dc8d7-05af-4a2d-b7ca-d98265e23c74"
+    },
+    {
+     "file": "/pinterest/topic-art/courthouse-3.jpg",
+     "width": 1024,
+     "height": 768,
+     "title": "City and County of Denver Building ~ City Hall/Courthouse ~ Denver Co",
+     "creator": "Onasill - Bill Badzo - OFF- VACATION",
+     "creator_url": "https://www.flickr.com/photos/7156765@N05",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/7156765@N05/51626549530",
+     "image_url": "https://live.staticflickr.com/65535/51626549530_f4c6fec9a2_b.jpg",
+     "openverse_id": "8e42ad1d-8e83-4ca3-8f57-248ec1bdebb5"
+    },
+    {
+     "file": "/pinterest/topic-art/courthouse-4.jpg",
+     "width": 889,
+     "height": 1024,
+     "title": "St. Louis City Hall building",
+     "creator": "Carol M Highsmith",
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/2347041/st-louis-city-hall-building-detail-with-clock",
+     "image_url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA4L3BkNTFiYXRjaDExLTA5LmpwZw.jpg",
+     "openverse_id": "cf9db9ae-c981-4201-9d2b-b8d0452ee9f9"
+    }
+   ]
+  },
+  "destination": {
+   "label": "Beach travel and passports",
+   "words": [
+    "destination",
+    "travel",
+    "abroad",
+    "beach",
+    "passport",
+    "fly",
+    "flights"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/destination-1.jpg",
+     "width": 960,
+     "height": 510,
+     "title": "Tropical Beach",
+     "creator": "Matt Moloney",
+     "creator_url": "https://mjmolo.com",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/tropical-beach-4ASM8GQGNN",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/4ASM8GQGNN.jpg",
+     "openverse_id": "d64bf86c-b73d-40c9-898a-316360987fe4",
+     "focus": [
+      0.5,
+      0.45
+     ]
+    },
+    {
+     "file": "/pinterest/topic-art/destination-2.jpg",
+     "width": 960,
+     "height": 1280,
+     "title": "Tropical Beach",
+     "creator": "Joe deSousa",
+     "creator_url": "https://www.flickr.com/people/mustangjoe",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/tropical-beach-QNZ8GZN3RQ",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/QNZ8GZN3RQ.jpg",
+     "openverse_id": "3fb1900b-ef65-4c16-a1c4-92be5d388314"
+    },
+    {
+     "file": "/pinterest/topic-art/destination-3.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Project 365 #2: 020109 Such Sweet Sorrow",
+     "creator": "comedy_nose",
+     "creator_url": "https://www.flickr.com/photos/23408922@N07",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/23408922@N07/3167156532",
+     "image_url": "https://live.staticflickr.com/3133/3167156532_5969f74531_b.jpg",
+     "openverse_id": "df8b4fb3-6657-462d-95a2-b629b596eac5"
+    },
+    {
+     "file": "/pinterest/topic-art/destination-4.jpg",
+     "width": 960,
+     "height": 640,
+     "title": "Passport Travel",
+     "creator": "Alex Robert",
+     "creator_url": "https://stocksnap.io/author/34687",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/passport-travel-6KKR2X9MGV",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/6KKR2X9MGV.jpg",
+     "openverse_id": "261c046d-f217-40b5-ada6-4961414546c2"
+    }
+   ]
+  },
+  "bridal-shower": {
+   "label": "Bridal shower gifts and table",
+   "words": [
+    "shower",
+    "gift",
+    "gifts",
+    "host",
+    "hosting"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/bridal-shower-1.jpg",
+     "width": 960,
+     "height": 640,
+     "title": "Pink Party",
+     "creator": "Altered Reality",
+     "creator_url": "https://stocksnap.io/author/177206",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/pink-party-SQLBG32Q8C",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/SQLBG32Q8C.jpg",
+     "openverse_id": "c7a5d093-68ea-42c9-9e88-79e9f8c8336e"
+    },
+    {
+     "file": "/pinterest/topic-art/bridal-shower-2.jpg",
+     "width": 960,
+     "height": 640,
+     "title": "Gift Box",
+     "creator": "Altered Reality",
+     "creator_url": "https://stocksnap.io/author/177206",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/gift-box-PIHUS3UFDJ",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/PIHUS3UFDJ.jpg",
+     "openverse_id": "37e76c9a-3cb2-4855-ab57-46dfa92d3dd4"
+    },
+    {
+     "file": "/pinterest/topic-art/bridal-shower-3.jpg",
+     "width": 960,
+     "height": 640,
+     "title": "Christmas Holiday",
+     "creator": "Negative Space",
+     "creator_url": "https://stocksnap.io/author/4440",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/christmas-holiday-N48V8SK5K3",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/N48V8SK5K3.jpg",
+     "openverse_id": "0782ee75-e5b8-4fe7-97a0-23a46fb58aee"
+    },
+    {
+     "file": "/pinterest/topic-art/bridal-shower-4.jpg",
+     "width": 1024,
+     "height": 632,
+     "title": "Free Valentine's dinner table setup",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/5913173/image-public-domain-celebration-table",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxMjAyNTg0LWltYWdlLWt3dnc4M20zLmpwZw.jpg",
+     "openverse_id": "e3a789fc-576c-4231-8b7f-c89dc0f612ae"
+    }
+   ]
+  },
+  "coordinator": {
+   "label": "Clipboard handover and venue setup",
+   "words": [
+    "coordinator",
+    "day-of",
+    "handover",
+    "vendor",
+    "vendors"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/coordinator-1.jpg",
+     "width": 1024,
+     "height": 680,
+     "title": "Slide notes on clipboard on bus",
+     "creator": "D Coetzee",
+     "creator_url": "https://www.flickr.com/photos/29507259@N02",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/29507259@N02/5816539356",
+     "image_url": "https://live.staticflickr.com/2564/5816539356_b48638dde8_b.jpg",
+     "openverse_id": "b2654bb3-8bcf-4290-a296-5a54ea30b3e0"
+    },
+    {
+     "file": "/pinterest/topic-art/coordinator-2.jpg",
+     "width": 960,
+     "height": 640,
+     "title": "Clipboard Desk",
+     "creator": "Design by Matt",
+     "creator_url": "https://mattbango.com",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/clipboard-desk-VXAISJRBH9",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/VXAISJRBH9.jpg",
+     "openverse_id": "56b45760-55eb-4358-b9b3-f43de78196e1"
+    },
+    {
+     "file": "/pinterest/topic-art/coordinator-3.jpg",
+     "width": 960,
+     "height": 1200,
+     "title": "Clipboard Desk",
+     "creator": "Design by Matt",
+     "creator_url": "https://mattbango.com",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/clipboard-desk-GDQF7E19UL",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/GDQF7E19UL.jpg",
+     "openverse_id": "964c0548-9783-4485-9682-d02ca550b76c"
+    },
+    {
+     "file": "/pinterest/topic-art/coordinator-4.jpg",
+     "width": 960,
+     "height": 640,
+     "title": "Events Venue",
+     "creator": "Sweet Ice Cream Photography",
+     "creator_url": "https://stocksnap.io/author/28403",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/events-venue-5K1C2ZXZZP",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/5K1C2ZXZZP.jpg",
+     "openverse_id": "8a654264-a6b7-4d61-b891-f07c6210cd39"
+    }
+   ]
+  },
+  "rehearsal-dinner": {
+   "label": "Dinner table set for the rehearsal dinner",
+   "words": [
+    "rehearsal dinner",
+    "dinner",
+    "toast",
+    "toasts",
+    "restaurant"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/rehearsal-dinner-1.jpg",
+     "width": 960,
+     "height": 641,
+     "title": "Table Setup",
+     "creator": "WDnet Studio",
+     "creator_url": "https://stocksnap.io/author/30770",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/table-setup-IDMY0C7HYT",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/IDMY0C7HYT.jpg",
+     "openverse_id": "93d68eca-99dc-4c54-8dc4-61fa12b44f52"
+    },
+    {
+     "file": "/pinterest/topic-art/rehearsal-dinner-2.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Shooting new farm-to-table restaurant Concord",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/3283202/free-photo-image-dining-table-room-pub-background",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdXB3azYxNzU1NzIxLXdpa2ltZWRpYS1pbWFnZS1rb3diOW9kMS5qcGc.jpg",
+     "openverse_id": "7e478056-d650-4f04-b68d-93bd54bbf7af"
+    },
+    {
+     "file": "/pinterest/topic-art/rehearsal-dinner-3.jpg",
+     "width": 1024,
+     "height": 681,
+     "title": null,
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/5942935/free-public-domain-cc0-photo",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg4ODk2NDctaW1hZ2Uta3d5bzhxZW0uanBn.jpg",
+     "openverse_id": "b56183e6-6fbf-43dc-88e3-4ab1a7f872fc",
+     "focus": [
+      0.2,
+      0.5
+     ]
+    },
+    {
+     "file": "/pinterest/topic-art/rehearsal-dinner-4.jpg",
+     "width": 727,
+     "height": 1024,
+     "title": "Table Setting With Champagne. Celebration",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/5965098/table-setting-with-champagne-celebration",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHUyMzM0NTc0LWltYWdlLWt3eXJudW4zLmpwZw.jpg",
+     "openverse_id": "2c3a9ae7-44c9-42b1-a397-8673746827ff"
+    }
+   ]
+  },
+  "emergency-kit": {
+   "label": "Sewing kit, safety pins and supplies",
+   "words": [
+    "emergency",
+    "kit",
+    "repair",
+    "sewing"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/emergency-kit-1.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Sewing kit",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/3337601/free-photo-image-tape-cc0-craft",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvd2s2MzMxNTUyNy1pbWFnZS1rcDZham9qei5qcGc.jpg",
+     "openverse_id": "282237d7-7efe-465f-9933-29269aff2bd2"
+    },
+    {
+     "file": "/pinterest/topic-art/emergency-kit-2.jpg",
+     "width": 1024,
+     "height": 576,
+     "title": "Seamstress basics sewing kit",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/6043228/photo-image-public-domain-free",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZmwxODYwODA0MjgyMy1pbWFnZS1reWJlbGo1aC5qcGc.jpg",
+     "openverse_id": "04fdd98b-4ef9-4001-95d2-175176eeda10"
+    },
+    {
+     "file": "/pinterest/topic-art/emergency-kit-3.jpg",
+     "width": 1024,
+     "height": 1024,
+     "title": "Safety Pin",
+     "creator": "pingnews.com",
+     "creator_url": "https://www.flickr.com/photos/39735679@N00",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/39735679@N00/30657228300",
+     "image_url": "https://live.staticflickr.com/5607/30657228300_318bc3dc0a_b.jpg",
+     "openverse_id": "c690a986-efb7-404b-a40e-d975af98c61b"
+    },
+    {
+     "file": "/pinterest/topic-art/emergency-kit-4.jpg",
+     "width": 1024,
+     "height": 679,
+     "title": "Safety pins",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/6032992/safety-pins-free-public-domain-cc0-photo",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJzYWZldHlfcGluX2ZpeGluZ19waW5fMC1pbWFnZS1reWJjdWtocy5qcGc.jpg",
+     "openverse_id": "39dc810b-62b8-4103-805a-2e042a5cc95c"
+    }
+   ]
+  },
+  "planning-timeline": {
+   "label": "Calendar and planner pages",
+   "words": [
+    "timeline",
+    "calendar",
+    "months",
+    "month",
+    "schedule",
+    "planning"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/planning-timeline-1.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": null,
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/5943881/free-public-domain-cc0-photo",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHg4MTQ0NTQtaW1hZ2Uta3d5b2R3czQuanBn.jpg",
+     "openverse_id": "08421142-7171-4569-ad38-7049f9f65d95"
+    },
+    {
+     "file": "/pinterest/topic-art/planning-timeline-2.jpg",
+     "width": 1024,
+     "height": 685,
+     "title": "open calendar short notes scribbled",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/3299160/free-photo-image-calendar-time-plan",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdXB3azYyMDQ3Nzc3LXdpa2ltZWRpYS1pbWFnZS1rb3dvajJnbS5qcGc.jpg",
+     "openverse_id": "9e1c36d7-be7f-4b01-a87b-a202907b4b31"
+    },
+    {
+     "file": "/pinterest/topic-art/planning-timeline-3.jpg",
+     "width": 960,
+     "height": 638,
+     "title": "Notebook Notepad",
+     "creator": "Lia Leslie",
+     "creator_url": "https://stocksnap.io/author/26765",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/notebook-notepad-UUY821MG70",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/UUY821MG70.jpg",
+     "openverse_id": "56f18ea1-fcbb-49b6-9b5a-c6cdc84d80dd"
+    },
+    {
+     "file": "/pinterest/topic-art/planning-timeline-4.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "Some accessories on a white desk",
+     "creator": "freestocks.org",
+     "creator_url": "https://www.flickr.com/photos/135396164@N05",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/135396164@N05/33572876081",
+     "image_url": "https://live.staticflickr.com/2837/33572876081_7618124453_b.jpg",
+     "openverse_id": "f3dad07d-1e84-4f74-8c2e-478da5a3b271"
+    }
+   ]
+  },
+  "wedding-day": {
+   "label": "Ceremony aisle and reception tables on the day",
+   "words": [
+    "wedding day",
+    "day of",
+    "ceremony",
+    "reception",
+    "schedule"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/wedding-day-1.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "scene prepared wedding flower bouquets",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/3302972/free-photo-image-aisle-animal-bird",
+     "image_url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA2L3Vwd2s2MTcxMDc3OC13aWtpbWVkaWEtaW1hZ2Uta293cW81ZWwuanBn.jpg",
+     "openverse_id": "22a2c0df-921e-4a72-a8c5-f36decb7939e"
+    },
+    {
+     "file": "/pinterest/topic-art/wedding-day-2.jpg",
+     "width": 1100,
+     "height": 825,
+     "title": "Wedding Reception, Bangkok Thailand",
+     "creator": "pingjarupat",
+     "creator_url": "https://wordpress.org/photos/author/pingjarupat/",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "wordpress",
+     "landing_url": "https://wordpress.org/photos/photo/256693d10a/",
+     "image_url": "https://pd.w.org/2025/12/256693d10adbc2060.35260487-2048x1536.jpeg",
+     "openverse_id": "b97d639c-04b1-4d61-b06c-b1af06800a64"
+    },
+    {
+     "file": "/pinterest/topic-art/wedding-day-3.jpg",
+     "width": 1024,
+     "height": 684,
+     "title": "Wooden swing wedding ceremony chairs",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/3283666/free-photo-image-yard-garden-cc0",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdXB3azYxNzM0NTE1LXdpa2ltZWRpYS1pbWFnZS1rb3dia2hmdS5qcGc.jpg",
+     "openverse_id": "3363a356-4624-487c-ba10-9595671c38ed"
+    },
+    {
+     "file": "/pinterest/topic-art/wedding-day-4.jpg",
+     "width": 681,
+     "height": 1024,
+     "title": "Free beautiful wedding cake image",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/5923700/photo-image-aesthetic-flower-public-domain",
+     "image_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxNDQ3Mjc5LWltYWdlLWt3dnlveXh0LmpwZw.jpg",
+     "openverse_id": "0f0f8aa2-b78e-4a9c-a937-1c05c07ec98c"
+    }
+   ]
+  },
+  "rehearsal": {
+   "label": "Ceremony aisle and arch for the rehearsal",
+   "words": [
+    "rehearsal",
+    "processional",
+    "aisle",
+    "ceremony"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/rehearsal-1.jpg",
+     "width": 1024,
+     "height": 666,
+     "title": "West malling Christianity church aisle",
+     "creator": null,
+     "creator_url": null,
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "rawpixel",
+     "landing_url": "https://www.rawpixel.com/image/11189427/west-malling-christianity-church-aisle",
+     "image_url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA1L2ZsNTI0NDI2MjIxNDktaW1hZ2UuanBn.jpg",
+     "openverse_id": "96628863-36b9-47ae-9273-ea714e3e3f90"
+    },
+    {
+     "file": "/pinterest/topic-art/rehearsal-2.jpg",
+     "width": 1023,
+     "height": 646,
+     "title": "NORWALK - Business - Capilla del Amor Wedding Chapel - 13421 San Antonio Dr. - UNiversity 4-3747 - Postcard - Style 1 - (double-sided) - A",
+     "creator": "monstersforsale",
+     "creator_url": "https://www.flickr.com/photos/51514834@N00",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/51514834@N00/8555408825",
+     "image_url": "https://live.staticflickr.com/8516/8555408825_0dcaa88afb_b.jpg",
+     "openverse_id": "4c155090-aa41-40da-999a-3b824d4fbb53"
+    },
+    {
+     "file": "/pinterest/topic-art/rehearsal-3.jpg",
+     "width": 1023,
+     "height": 681,
+     "title": "Wedding arch, Christian cross, white birch, dried flowers, hay, grass field, spruce trees, Jessie & Chris wedding, Fairbanks, Alaska, USA",
+     "creator": "Wonderlane",
+     "creator_url": "https://www.flickr.com/photos/71401718@N00",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/71401718@N00/8631303887",
+     "image_url": "https://live.staticflickr.com/8401/8631303887_42c57453a8_b.jpg",
+     "openverse_id": "a65dd1ad-a86b-4d36-9c49-d50036ea394b"
+    },
+    {
+     "file": "/pinterest/topic-art/rehearsal-4.jpg",
+     "width": 1024,
+     "height": 683,
+     "title": "The Echo of LOVE",
+     "creator": "Angel Lite Photography",
+     "creator_url": "https://www.flickr.com/photos/136038519@N08",
+     "licence": "pdm",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/136038519@N08/27373891062",
+     "image_url": "https://live.staticflickr.com/7428/27373891062_3d2d5c3d3f_b.jpg",
+     "openverse_id": "9e4ba892-51e1-4feb-a7e3-9bbb07587e1d"
+    }
+   ]
+  },
+  "seating": {
+   "label": "Reception tables and place cards",
+   "words": [
+    "seating",
+    "seat",
+    "table",
+    "tables",
+    "guest",
+    "guests",
+    "accessibility",
+    "accessible"
+   ],
+   "images": [
+    {
+     "file": "/pinterest/topic-art/seating-1.jpg",
+     "width": 960,
+     "height": 547,
+     "title": "Events Wedding",
+     "creator": "Clem Onojeghuo",
+     "creator_url": "https://stocksnap.io/author/11287",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "stocksnap",
+     "landing_url": "https://stocksnap.io/photo/events-wedding-B6KDETRBD4",
+     "image_url": "https://cdn.stocksnap.io/img-thumbs/960w/B6KDETRBD4.jpg",
+     "openverse_id": "5549fe2f-f245-4ad1-94f5-4ff3230f40f5"
+    },
+    {
+     "file": "/pinterest/topic-art/seating-2.jpg",
+     "width": 1024,
+     "height": 768,
+     "title": "Mesa de boda",
+     "creator": "Daquella manera",
+     "creator_url": "https://www.flickr.com/photos/62518311@N00",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/62518311@N00/195757100",
+     "image_url": "https://live.staticflickr.com/61/195757100_5dfb9b03a5_b.jpg",
+     "openverse_id": "7af43a15-1c69-46e4-bce5-a8dc405d22bc"
+    },
+    {
+     "file": "/pinterest/topic-art/seating-3.jpg",
+     "width": 1024,
+     "height": 768,
+     "title": "Mesas de boda",
+     "creator": "Daquella manera",
+     "creator_url": "https://www.flickr.com/photos/62518311@N00",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "flickr",
+     "landing_url": "https://www.flickr.com/photos/62518311@N00/195755930",
+     "image_url": "https://live.staticflickr.com/62/195755930_5956b78a7a_b.jpg",
+     "openverse_id": "10c17da5-56f2-432a-bf6d-cb0ebd530dd7"
+    },
+    {
+     "file": "/pinterest/topic-art/seating-4.jpg",
+     "width": 1400,
+     "height": 934,
+     "title": "A wedding banquet table, perfectly prepared to receive the guests.",
+     "creator": "Javier Salinas",
+     "creator_url": "https://javiersalinas.es",
+     "licence": "cc0",
+     "licence_version": "1.0",
+     "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "source": "wordpress",
+     "landing_url": "https://wordpress.org/photos/photo/6064a19bf1/",
+     "image_url": "https://pd.w.org/2023/07/6064a19bf19214a2.44480961-2048x1366.jpg",
+     "openverse_id": "e06ba7f8-d7e6-4e2c-84ad-1b87f0a25702"
+    },
+    {
+     "file": "/product-images/seating-chart-maker.png",
+     "width": 1122,
+     "height": 1402,
+     "title": "Dream Wedding Builder product art",
+     "creator": "Dream Wedding Builder",
+     "licence": "own",
+     "source": "this repository (scripts/brand/generate_product_mockups.py)",
+     "focus": [
+      0.5,
+      0.0
+     ]
+    }
+   ]
+  }
+ },
+ "pages": {
+  "/products/checklist-pdf": {
+   "topic": "checklist",
+   "search": [
+    "wedding checklist pdf",
+    "wedding checklist printable",
+    "wedding planning checklist"
+   ]
+  },
+  "/printable-wedding-checklist": {
+   "topic": "checklist",
+   "search": [
+    "printable wedding checklist",
+    "wedding checklist printable"
+   ]
+  },
+  "/products/operations-suite": {
+   "topic": "bundle",
+   "search": [
+    "wedding planning bundle",
+    "wedding budget spreadsheet",
+    "wedding budget planning",
+    "wedding seating chart",
+    "wedding timeline template"
+   ]
+  },
+  "/guides/elopement-planning-checklist": {
+   "topic": "elopement",
+   "search": [
+    "elopement planning checklist",
+    "elopement",
+    "eloping"
+   ]
+  },
+  "/guides/courthouse-wedding-checklist": {
+   "topic": "courthouse",
+   "search": [
+    "courthouse wedding checklist",
+    "courthouse wedding",
+    "city hall wedding"
+   ]
+  },
+  "/guides/destination-wedding-checklist": {
+   "topic": "destination",
+   "search": [
+    "destination wedding checklist",
+    "destination wedding"
+   ]
+  },
+  "/guides/bridal-shower-checklist": {
+   "topic": "bridal-shower",
+   "search": [
+    "bridal shower checklist",
+    "bridal shower"
+   ]
+  },
+  "/guides/day-of-coordinator-checklist": {
+   "topic": "coordinator",
+   "search": [
+    "day of coordinator checklist",
+    "wedding day of coordinator",
+    "wedding timeline day of"
+   ]
+  },
+  "/guides/rehearsal-dinner-timeline": {
+   "topic": "rehearsal-dinner",
+   "search": [
+    "rehearsal dinner timeline",
+    "rehearsal dinner"
+   ]
+  },
+  "/guides/wedding-emergency-kit": {
+   "topic": "emergency-kit",
+   "search": [
+    "wedding emergency kit",
+    "wedding emergency kit list"
+   ]
+  },
+  "/guides/wedding-planning-timeline": {
+   "topic": "planning-timeline",
+   "search": [
+    "wedding planning timeline",
+    "wedding checklist timeline"
+   ]
+  },
+  "/guides/wedding-day-timeline": {
+   "topic": "wedding-day",
+   "search": [
+    "wedding day timeline",
+    "wedding timeline day of",
+    "wedding day schedule"
+   ]
+  },
+  "/guides/wedding-rehearsal-timeline": {
+   "topic": "rehearsal",
+   "search": [
+    "wedding rehearsal timeline",
+    "wedding rehearsal"
+   ]
+  },
+  "/guides/wedding-seating-chart-accessibility": {
+   "topic": "seating",
+   "search": [
+    "wedding seating chart",
+    "wedding seating chart accessibility",
+    "accessible wedding seating"
+   ]
+  }
+ }
+}
