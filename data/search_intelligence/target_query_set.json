@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-06T12:42:16.613Z",
+  "generated_at": "2026-11-07T12:42:11.126Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-08",
-          "end": "2026-11-04"
+          "start": "2026-10-09",
+          "end": "2026-11-05"
         },
         "totals": {
           "clicks": 0,
@@ -18,7 +18,7 @@
         }
       },
       "target_count": 3,
-      "dropped_count": 24,
+      "dropped_count": 5,
       "by_source": {
         "semrush_keyword_magic": 3
       },
@@ -71,119 +71,7 @@
       ],
       "dropped": [
         {
-          "query": "alphabetical vs. table-order seating charts",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "children and high chairs in the seating chart",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "how to plan long-table wedding seating",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "how to plan wedding seating with round tables",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "how to seat divorced parents at a wedding",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "managing late rsvp seating changes",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "preparing escort-card data from your seating plan",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "sweetheart table vs. head table",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding guest list and headcount control",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding guest list template: required fields + preview",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding meal counts and dietary tracking",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding rsvp tracking system",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding seating chart accessibility planning",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding seating chart allergy tracking",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding seating chart for 100 guests",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding seating chart for 150 guests",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding seating chart for 50 guests",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:authority_atlas"
@@ -211,27 +99,6 @@
           ]
         },
         {
-          "query": "wedding seating chart meal-choice tracking",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding seating chart vendor handoff",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding table capacity guide",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding table planner",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
@@ -244,8 +111,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-08",
-          "end": "2026-11-04"
+          "start": "2026-10-09",
+          "end": "2026-11-05"
         },
         "totals": {
           "clicks": 0,
@@ -255,7 +122,7 @@
         }
       },
       "target_count": 3,
-      "dropped_count": 20,
+      "dropped_count": 4,
       "by_source": {
         "semrush_keyword_magic": 3
       },
@@ -308,83 +175,6 @@
       ],
       "dropped": [
         {
-          "query": "diy wedding cost tradeoffs",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "estimated vs. actual wedding costs",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "how to plan a $10,000 wedding budget",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "how to plan a $20,000 wedding budget",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "how to plan a $30,000 wedding budget",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "how to plan a $50,000 wedding budget",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "tracking family contributions to a wedding",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding budget contingency planning",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding budget for 100 guests",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding budget for 150 guests",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding budget for 50 guests",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding budget planner",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
@@ -406,45 +196,10 @@
           ]
         },
         {
-          "query": "wedding deposit schedule",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding gratuity planner",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding hidden costs checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding monthly cash-flow planning",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding payment tracker",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:query_universe"
-          ]
-        },
-        {
-          "query": "wedding vendor payment tracker",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
           ]
         }
       ]
@@ -453,23 +208,49 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-08",
-          "end": "2026-11-04"
+          "start": "2026-10-09",
+          "end": "2026-11-05"
         },
         "totals": {
-          "clicks": 1,
-          "impressions": 8,
-          "ctr": 0.125,
-          "position": 25.5
+          "clicks": 0,
+          "impressions": 11,
+          "ctr": 0,
+          "position": 41.81818181818182
         }
       },
-      "target_count": 4,
-      "dropped_count": 24,
+      "target_count": 6,
+      "dropped_count": 5,
       "by_source": {
-        "google_search_console": 1,
+        "google_search_console": 3,
         "semrush_keyword_magic": 3
       },
       "targets": [
+        {
+          "query": "wedding ceremony timeline template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 3,
+          "position": 65.7,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 3,
+              "period": {
+                "start": "2026-10-09",
+                "end": "2026-11-05"
+              },
+              "position": 65.7,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
+            }
+          ]
+        },
         {
           "query": "wedding timeline template",
           "source": "google_search_console",
@@ -486,8 +267,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 66.3,
               "pages": [
@@ -499,6 +280,32 @@
               "metric": "monthly_search_volume",
               "number": 2400,
               "file": "data/authority_scale/query_atlas.json"
+            }
+          ]
+        },
+        {
+          "query": "wedding day of timeline template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 1,
+          "position": 60,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 1,
+              "period": {
+                "start": "2026-10-09",
+                "end": "2026-11-05"
+              },
+              "position": 60,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
             }
           ]
         },
@@ -550,76 +357,6 @@
       ],
       "dropped": [
         {
-          "query": "adding travel buffers to a wedding timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "backyard wedding timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "brunch wedding timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "church ceremony wedding timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "destination wedding weekend itinerary",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "evening wedding timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "family photo timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "one-venue wedding timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "two-venue wedding timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding day logistics timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding day timeline: build a realistic schedule",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
@@ -634,45 +371,10 @@
           ]
         },
         {
-          "query": "wedding music and cue sheet",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding order of events",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:query_universe"
-          ]
-        },
-        {
-          "query": "wedding photography timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding reception flow timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding reception order of events",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding setup and breakdown timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
           ]
         },
         {
@@ -688,34 +390,6 @@
           "origins": [
             "targets.json:authority_atlas"
           ]
-        },
-        {
-          "query": "wedding timeline with a first look",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding timeline without a first look",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding vendor arrival schedule",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding-party timeline",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
         }
       ]
     },
@@ -723,18 +397,18 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-08",
-          "end": "2026-11-04"
+          "start": "2026-10-09",
+          "end": "2026-11-05"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 78,
+          "impressions": 79,
           "ctr": 0,
-          "position": 54.64102564102564
+          "position": 55.29113924050633
         }
       },
       "target_count": 17,
-      "dropped_count": 38,
+      "dropped_count": 19,
       "by_source": {
         "google_search_console": 15,
         "semrush_keyword_magic": 2
@@ -744,8 +418,8 @@
           "query": "free wedding planner",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 16,
-          "position": 72.8,
+          "number": 17,
+          "position": 73.2,
           "pages": [
             "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
@@ -754,12 +428,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 16,
+              "number": 17,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
-              "position": 72.8,
+              "position": 73.2,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
@@ -784,8 +458,8 @@
               "metric": "impressions_28d",
               "number": 6,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 97,
               "pages": [
@@ -812,45 +486,13 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 73.8,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
-            }
-          ]
-        },
-        {
-          "query": "printable wedding checklist",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 2,
-          "position": 73,
-          "pages": [
-            "https://weddingchecklistpdf.com/printable-wedding-checklist"
-          ],
-          "route": "/products/checklist-pdf",
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 2,
-              "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
-              },
-              "position": 73,
-              "pages": [
-                "https://weddingchecklistpdf.com/printable-wedding-checklist"
-              ]
-            },
-            {
-              "source": "semrush_keyword_magic",
-              "metric": "monthly_search_volume",
-              "number": 480,
-              "file": "data/authority_scale/query_atlas.json"
             }
           ]
         },
@@ -870,8 +512,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 86.5,
               "pages": [
@@ -896,8 +538,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 94.5,
               "pages": [
@@ -922,8 +564,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 69,
               "pages": [
@@ -948,8 +590,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 62,
               "pages": [
@@ -974,8 +616,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 91,
               "pages": [
@@ -1000,13 +642,45 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 59,
               "pages": [
                 "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
               ]
+            }
+          ]
+        },
+        {
+          "query": "printable wedding checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 1,
+          "position": 83,
+          "pages": [
+            "https://weddingchecklistpdf.com/printable-wedding-checklist"
+          ],
+          "route": "/products/checklist-pdf",
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 1,
+              "period": {
+                "start": "2026-10-09",
+                "end": "2026-11-05"
+              },
+              "position": 83,
+              "pages": [
+                "https://weddingchecklistpdf.com/printable-wedding-checklist"
+              ]
+            },
+            {
+              "source": "semrush_keyword_magic",
+              "metric": "monthly_search_volume",
+              "number": 480,
+              "file": "data/authority_scale/query_atlas.json"
             }
           ]
         },
@@ -1026,8 +700,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 78,
               "pages": [
@@ -1052,8 +726,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 89,
               "pages": [
@@ -1078,8 +752,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 96,
               "pages": [
@@ -1104,8 +778,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 74,
               "pages": [
@@ -1130,8 +804,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-08",
-                "end": "2026-11-04"
+                "start": "2026-10-09",
+                "end": "2026-11-05"
               },
               "position": 93,
               "pages": [
@@ -1173,55 +847,6 @@
       ],
       "dropped": [
         {
-          "query": "12-month wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "18-month wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "3-month wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "6-month wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "9-month wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "accessible wedding planning checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "backyard wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "bridal shower checklist",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
@@ -1257,27 +882,6 @@
           ]
         },
         {
-          "query": "micro-wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "one-month wedding checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "post-wedding returns and closing checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "printable wedding checklist: every task, owner and deadline",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
@@ -1286,13 +890,6 @@
         },
         {
           "query": "questions to ask every wedding vendor: where the answers go",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "rehearsal dinner checklist",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:authority_atlas"
@@ -1327,13 +924,6 @@
           ]
         },
         {
-          "query": "wedding attire lead time checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding checklist pdf: what is inside the paid download",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
@@ -1348,7 +938,7 @@
           ]
         },
         {
-          "query": "wedding day timeline: companion files for book readers",
+          "query": "wedding day timeline book: companion files for readers",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:authority_atlas"
@@ -1362,14 +952,7 @@
           ]
         },
         {
-          "query": "wedding final-payment checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding planning binder: tabs, files, and workflow",
+          "query": "wedding guest list template: required fields + preview",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:authority_atlas"
@@ -1390,52 +973,10 @@
           ]
         },
         {
-          "query": "wedding rain plan checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
           "query": "wedding tick list",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:query_universe"
-          ]
-        },
-        {
-          "query": "wedding vendor booking checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding vendor list: categories, status, and contacts",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding venue selection checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding-day emergency checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
-          ]
-        },
-        {
-          "query": "wedding-week checklist",
-          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
-          "origins": [
-            "targets.json:authority_atlas"
           ]
         }
       ]

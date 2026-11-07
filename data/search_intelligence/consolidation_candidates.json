@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-06T12:42:16.781Z",
+  "generated_at": "2026-11-07T12:42:11.242Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
     "guide": 645,
@@ -10,58 +10,50 @@
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-08",
-        "end": "2026-11-04"
+        "start": "2026-10-09",
+        "end": "2026-11-05"
       },
-      "content_pages_examined": 3,
+      "content_pages_examined": 2,
       "candidate_count": 0,
       "candidates": [],
       "excluded_utility_paths": [
-        "/editorial-policy",
-        "/guides",
         "/products/seating-chart-maker"
       ]
     },
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-08",
-        "end": "2026-11-04"
+        "start": "2026-10-09",
+        "end": "2026-11-05"
       },
       "content_pages_examined": 4,
       "candidate_count": 0,
       "candidates": [],
       "excluded_utility_paths": [
-        "/editorial-policy",
-        "/guides",
-        "/products/budget-spreadsheet",
-        "/wedding-budget-tradeoffs",
-        "/wedding-cost-per-guest"
+        "/products/budget-spreadsheet"
       ]
     },
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-08",
-        "end": "2026-11-04"
+        "start": "2026-10-09",
+        "end": "2026-11-05"
       },
-      "content_pages_examined": 4,
+      "content_pages_examined": 2,
       "candidate_count": 0,
       "candidates": [],
       "excluded_utility_paths": [
-        "/editorial-policy",
-        "/guides",
         "/products/timeline-template"
       ]
     },
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-08",
-        "end": "2026-11-04"
+        "start": "2026-10-09",
+        "end": "2026-11-05"
       },
-      "content_pages_examined": 18,
-      "candidate_count": 1,
+      "content_pages_examined": 21,
+      "candidate_count": 3,
       "candidates": [
         {
           "url": "https://weddingchecklistpdf.com/wedding-guest-list-template",
@@ -69,6 +61,22 @@
           "impressions_28d": 0,
           "words": 363,
           "thin_threshold": 373,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingchecklistpdf.com/guides/wedding-seating-chart-accessibility",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 580,
+          "thin_threshold": 645,
+          "action": "REVIEW_FOR_CONSOLIDATION"
+        },
+        {
+          "url": "https://weddingchecklistpdf.com/guides/wedding-day-timeline",
+          "type": "guide",
+          "impressions_28d": 0,
+          "words": 585,
+          "thin_threshold": 645,
           "action": "REVIEW_FOR_CONSOLIDATION"
         }
       ],
@@ -91,6 +99,8 @@
         "/shop",
         "/terms",
         "/trends",
+        "/wedding-budget-tradeoffs",
+        "/wedding-cost-per-guest",
         "/wedding-planning-reality-check",
         "/what-to-do-6-months-before-the-wedding"
       ]
