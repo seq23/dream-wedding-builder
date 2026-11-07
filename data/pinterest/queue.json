@@ -50,13 +50,19 @@
           "at": "2026-11-06",
           "change": "band layouts band-top/band-low/band-frame, palettes ivory/blush/sage/champagne, brand line \"Wedding Checklist PDF\"; the 50 failing queued pins redrawn as dw-v3 and held in pending for her approval; the 34 approved dw-v2 pins keep posting as drawn; spread rule: at most 2 pins per page in any 7 days, each with another photo",
           "why": "6 Nov 2026 Pinterest assessment: 50 of 84 queued pins failed (dull or off-topic photos, long headlines, sales words, spreadsheet screenshots, titles not led by a search)"
+        },
+        {
+          "at": "2026-11-07",
+          "change": "approved dw-v3: 50 pending pin(s) join the schedule",
+          "why": "her yes to the sample page"
         }
       ],
       "paused_at": null
     },
     "generation": "dw-v3",
     "approved_generations": [
-      "dw-v2"
+      "dw-v2",
+      "dw-v3"
     ],
     "frozen_generations": [
       "dw-v2"
@@ -1242,6 +1248,193 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-rehearsal-dinner-timeline-02",
+      "seq": 62,
+      "path": "/guides/rehearsal-dinner-timeline",
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "Rehearsal Dinner Timeline",
+      "subline": "Start from when the rehearsal ends",
+      "title": "Rehearsal Dinner Timeline: Start From When the Rehearsal Ends",
+      "description": "A rehearsal dinner timeline should be anchored to the moment the ceremony rehearsal actually ends, because that is the variable everything else inherits.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/rehearsal-dinner-v4-3.jpg",
+      "topic": "rehearsal-dinner",
+      "release_date": "2026-11-08",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 238322,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Rehearsal",
+              "Dinner Timeline"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F0E4DB"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Start from when the rehearsal ends"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F0E4DB"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F0E4DB"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-emergency-kit-02",
+      "seq": 63,
+      "path": "/guides/wedding-emergency-kit",
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Wedding Emergency Kit List",
+      "subline": "Pack it by what can go wrong",
+      "title": "Wedding Emergency Kit List: Pack It by What Can Go Wrong",
+      "description": "Pack a wedding emergency kit by failure mode rather than by product: garment, body, paper, power and weather.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/emergency-kit-v4-5.jpg",
+      "topic": "emergency-kit",
+      "release_date": "2026-11-08",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-emergency-kit-02.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 255043,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding",
+              "Emergency Kit List"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F2E7E1"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Pack it by what can go wrong"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F2E7E1"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F2E7E1"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-planning-timeline-05",
+      "seq": 64,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "WEDDING PLANNING TIMELINE",
+      "headline": "Wedding Planning Timeline",
+      "subline": "Plan each decision in dependency order",
+      "title": "Wedding Planning Timeline: Plan in Dependency Order, Not by Calendar",
+      "description": "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/planning-timeline-v4-5.jpg",
+      "topic": "planning-timeline",
+      "release_date": "2026-11-09",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-05.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 121490,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Planning",
+              "Timeline"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#EFE2DB"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Plan each decision",
+              "in dependency order"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EFE2DB"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EFE2DB"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.69,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-wedding-day-timeline-07",
       "seq": 65,
       "path": "/guides/wedding-day-timeline",
@@ -1299,6 +1492,68 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-wedding-rehearsal-timeline-04",
+      "seq": 66,
+      "path": "/guides/wedding-rehearsal-timeline",
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Wedding Rehearsal Timeline",
+      "subline": "Run the rehearsal in under an hour",
+      "title": "Wedding Rehearsal Timeline: Run It in Under an Hour",
+      "description": "Run a wedding rehearsal in under an hour: processional in reverse, positions before movement, the full sequence twice, then readings and handoffs.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/rehearsal-v4-2.jpg",
+      "topic": "rehearsal",
+      "release_date": "2026-11-09",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-04.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 274976,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Rehearsal",
+              "Timeline"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F2E9E6"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Run the rehearsal in under an hour"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F2E9E6"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F2E9E6"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-wedding-seating-chart-accessibility-06",
       "seq": 67,
       "path": "/guides/wedding-seating-chart-accessibility",
@@ -1311,7 +1566,7 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/seating-1.jpg",
       "topic": "seating",
-      "release_date": "2026-11-08",
+      "release_date": "2026-11-10",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-06.jpg",
         "type": "image/jpeg",
@@ -1368,7 +1623,7 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/bridal-shower-v2-2.jpg",
       "topic": "bridal-shower",
-      "release_date": "2026-11-09",
+      "release_date": "2026-11-11",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-04.jpg",
         "type": "image/jpeg",
@@ -1471,6 +1726,192 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-rehearsal-dinner-timeline-03",
+      "seq": 70,
+      "path": "/guides/rehearsal-dinner-timeline",
+      "eyebrow": "REHEARSAL DINNER TOASTS",
+      "headline": "Rehearsal Dinner Toast Timeline",
+      "subline": "Place toasts between courses",
+      "title": "Rehearsal Dinner Timeline: Place Toasts Between Courses",
+      "description": "Place the toasts deliberately: a welcome before or during the first course, and remaining remarks between courses rather than stacked at the end.",
+      "layout": "band-low",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/rehearsal-dinner-v4-4.jpg",
+      "topic": "rehearsal-dinner",
+      "release_date": "2026-11-13",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-03.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 224369,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Rehearsal Dinner",
+              "Toast Timeline"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#EAECE4"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Place toasts between courses"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EAECE4"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EAECE4"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-emergency-kit-03",
+      "seq": 71,
+      "path": "/guides/wedding-emergency-kit",
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Wedding Emergency Kit in Two Bags",
+      "subline": "One for getting ready, one for venue",
+      "title": "Wedding Emergency Kit: Split It Into Two Bags",
+      "description": "The getting-ready room and the venue need different things, so split the wedding emergency kit into a getting-ready bag and a venue bag.",
+      "layout": "band-low",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/emergency-kit-v4-1.jpg",
+      "topic": "emergency-kit",
+      "release_date": "2026-11-14",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-emergency-kit-03.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 274119,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Emergency",
+              "Kit in Two Bags"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#E6E9E2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "One for getting ready, one for venue"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E6E9E2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E6E9E2"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-planning-timeline-06",
+      "seq": 72,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Wedding Planning Timeline: Start Here",
+      "subline": "Lock date, venue, guests and budget",
+      "title": "Wedding Planning Timeline: Lock Date, Venue, Guests and Budget First",
+      "description": "Lock the date, the venue, the guest ceiling and the money ceiling first; every later choice is costed or scheduled against those four.",
+      "layout": "band-low",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/planning-timeline-v4-4.jpg",
+      "topic": "planning-timeline",
+      "release_date": "2026-11-14",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-06.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 267530,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Planning",
+              "Timeline: Start Here"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#EBEFE9"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Lock date, venue, guests and budget"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EBEFE9"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EBEFE9"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-wedding-day-timeline-08",
       "seq": 73,
       "path": "/guides/wedding-day-timeline",
@@ -1483,7 +1924,7 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/wedding-day-3.jpg",
       "topic": "wedding-day",
-      "release_date": "2026-11-09",
+      "release_date": "2026-11-13",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-08.jpg",
         "type": "image/jpeg",
@@ -1527,6 +1968,130 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-wedding-rehearsal-timeline-05",
+      "seq": 74,
+      "path": "/guides/wedding-rehearsal-timeline",
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Wedding Rehearsal Positions",
+      "subline": "Set them before anyone walks",
+      "title": "Wedding Rehearsal Timeline: Set Positions Before Anyone Walks",
+      "description": "Mark where the couple, officiant and wedding party stand before anybody walks anywhere.",
+      "layout": "band-low",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/rehearsal-v4-1.jpg",
+      "topic": "rehearsal",
+      "release_date": "2026-11-14",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-05.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 301774,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Rehearsal",
+              "Positions"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#E8EAE2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Set them before anyone walks"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E8EAE2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E8EAE2"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-seating-chart-accessibility-07",
+      "seq": 75,
+      "path": "/guides/wedding-seating-chart-accessibility",
+      "eyebrow": "SEATING CHART",
+      "headline": "Accessible Wedding Seating Chart",
+      "subline": "Map routes and restrooms first",
+      "title": "Wedding Seating Chart: Map Routes and Restroom Access",
+      "description": "Map routes and restroom access, reserve appropriate table positions and avoid blocking mobility devices when building the seating chart.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/seating-v4-5.jpg",
+      "topic": "seating",
+      "release_date": "2026-11-15",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-07.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 212551,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Accessible Wedding",
+              "Seating Chart"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F0E3DE"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Map routes and restrooms first"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F0E3DE"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F0E3DE"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-bridal-shower-checklist-05",
       "seq": 76,
       "path": "/guides/bridal-shower-checklist",
@@ -1539,7 +2104,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/bridal-shower-v2-3.jpg",
       "topic": "bridal-shower",
-      "release_date": null,
+      "release_date": "2026-11-16",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-05.jpg",
         "type": "image/jpeg",
@@ -1584,6 +2149,255 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-day-of-coordinator-checklist-07",
+      "seq": 77,
+      "path": "/guides/day-of-coordinator-checklist",
+      "eyebrow": "DAY-OF COORDINATOR",
+      "headline": "Day-of Coordinator Checklist",
+      "subline": "Write down what they decide alone",
+      "title": "Day-of Coordinator Checklist: What They May Decide Alone",
+      "description": "Write down which decisions the day-of coordinator may make alone and which must escalate and to whom; absorbing decisions is the value of the role.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/coordinator-v4-3.jpg",
+      "topic": "coordinator",
+      "release_date": "2026-11-12",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-07.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 354652,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Day-of Coordinator",
+              "Checklist"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F4E9E4"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Write down what they decide alone"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F4E9E4"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F4E9E4"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-rehearsal-dinner-timeline-04",
+      "seq": 78,
+      "path": "/guides/rehearsal-dinner-timeline",
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "Rehearsal Dinner Timeline",
+      "subline": "End on time for the wedding morning",
+      "title": "Rehearsal Dinner Timeline: End On Time for the Wedding Morning",
+      "description": "Set an end time and name who signals it; a rehearsal dinner drifting late is the most common cause of a difficult wedding morning.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/rehearsal-dinner-v4-1.jpg",
+      "topic": "rehearsal-dinner",
+      "release_date": "2026-11-18",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-04.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 137585,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Rehearsal",
+              "Dinner Timeline"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F4EDE0"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "End on time for the",
+              "wedding morning"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EDE0"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EDE0"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.61,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-emergency-kit-04",
+      "seq": 79,
+      "path": "/guides/wedding-emergency-kit",
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Wedding Emergency Kit",
+      "subline": "Name one carrier for each bag",
+      "title": "Wedding Emergency Kit: Name Who Carries It and Where It Lives",
+      "description": "Name one carrier for each emergency kit bag and one fixed place where it lives; a complete kit nobody can find is the same as no kit at all.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/emergency-kit-v4-2.jpg",
+      "topic": "emergency-kit",
+      "release_date": "2026-11-18",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-emergency-kit-04.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 344162,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding",
+              "Emergency Kit"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F0E8DA"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Name one carrier for each bag"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F0E8DA"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F0E8DA"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-planning-timeline-07",
+      "seq": 80,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Wedding Planning Timeline for Vendors",
+      "subline": "Book the scarcest vendors first",
+      "title": "Wedding Planning Timeline: Book Vendors by Scarcity",
+      "description": "Book the vendors whose calendars fill first and who cannot be duplicated on the day: photographer, officiant, catering and any single-crew supplier.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/planning-timeline-v4-3.jpg",
+      "topic": "planning-timeline",
+      "release_date": "2026-11-19",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-07.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 228684,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Planning",
+              "Timeline for Vendors"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#E7E0D4"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Book the scarcest vendors first"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#E7E0D4"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#E7E0D4"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-wedding-day-timeline-09",
       "seq": 81,
       "path": "/guides/wedding-day-timeline",
@@ -1596,7 +2410,7 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/wedding-day-4.jpg",
       "topic": "wedding-day",
-      "release_date": null,
+      "release_date": "2026-11-18",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-09.jpg",
         "type": "image/jpeg",
@@ -1640,6 +2454,130 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-wedding-rehearsal-timeline-06",
+      "seq": 82,
+      "path": "/guides/wedding-rehearsal-timeline",
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Wedding Rehearsal Processional",
+      "subline": "Build it in reverse, walk it twice",
+      "title": "Wedding Rehearsal: Build the Processional in Reverse",
+      "description": "Place people at the front and send them back down the aisle in order, then walk the processional forward twice at the real pace with the music cue present.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/rehearsal-v4-5.jpg",
+      "topic": "rehearsal",
+      "release_date": "2026-11-19",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-06.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 266686,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Rehearsal",
+              "Processional"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F2EDE2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Build it in reverse, walk it twice"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F2EDE2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F2EDE2"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-seating-chart-accessibility-08",
+      "seq": 83,
+      "path": "/guides/wedding-seating-chart-accessibility",
+      "eyebrow": "ACCESSIBLE SEATING",
+      "headline": "Accessible Wedding Seating",
+      "subline": "Ask guests what helps, then plan",
+      "title": "Accessible Wedding Seating: Ask What Accommodation Helps",
+      "description": "Ask each guest what accommodation is helpful before building the seating chart, and confirm it with the venue.",
+      "layout": "band-low",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/seating-v4-2.jpg",
+      "topic": "seating",
+      "release_date": "2026-11-19",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-08.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 203135,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Accessible",
+              "Wedding Seating"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#E4E7DF"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Ask guests what helps, then plan"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E4E7DF"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E4E7DF"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-bridal-shower-checklist-06",
       "seq": 84,
       "path": "/guides/bridal-shower-checklist",
@@ -1652,7 +2590,7 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/bridal-shower-v2-6.jpg",
       "topic": "bridal-shower",
-      "release_date": null,
+      "release_date": "2026-11-21",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-06.jpg",
         "type": "image/jpeg",
@@ -1697,6 +2635,256 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-day-of-coordinator-checklist-08",
+      "seq": 85,
+      "path": "/guides/day-of-coordinator-checklist",
+      "eyebrow": "COORDINATOR HANDOVER",
+      "headline": "Day-of Coordinator Checklist",
+      "subline": "Book the handover before the final week",
+      "title": "Day-of Coordinator Checklist: Book the Handover Before the Final Week",
+      "description": "Book the handover meeting far enough ahead that anything missing can still be produced, not in the final week.",
+      "layout": "band-low",
+      "palette": "sage",
+      "art": "/pinterest/topic-art/coordinator-v4-2.jpg",
+      "topic": "coordinator",
+      "release_date": "2026-11-17",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-08.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 347372,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Day-of Coordinator",
+              "Checklist"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#E4E6DD"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Book the handover",
+              "before the final week"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E4E6DD"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#E4E6DD"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.69,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-rehearsal-dinner-timeline-05",
+      "seq": 86,
+      "path": "/guides/rehearsal-dinner-timeline",
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "Rehearsal Dinner Timeline",
+      "subline": "Give the kitchen a time to hold",
+      "title": "Rehearsal Dinner Timeline: Give the Kitchen a Time It Can Hold",
+      "description": "Agree a service time with the venue that the kitchen can actually hold, and confirm whether it is a set menu or ordered on the night.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/rehearsal-dinner-v4-2.jpg",
+      "topic": "rehearsal-dinner",
+      "release_date": "2026-11-22",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-05.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 225835,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Rehearsal",
+              "Dinner Timeline"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F1EBE3"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Give the kitchen a time to hold"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F1EBE3"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F1EBE3"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-emergency-kit-05",
+      "seq": 87,
+      "path": "/guides/wedding-emergency-kit",
+      "eyebrow": "EMERGENCY KIT LIST",
+      "headline": "Wedding Emergency Kit List",
+      "subline": "License and contracts go in venue bag",
+      "title": "Wedding Emergency Kit List: License and Contracts Go in the Venue Bag",
+      "description": "Put anything legally or contractually required, such as the marriage license and vendor contracts, in the venue bag rather than in a pocket.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/emergency-kit-v4-4.jpg",
+      "topic": "emergency-kit",
+      "release_date": "2026-11-23",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-emergency-kit-05.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 162030,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding",
+              "Emergency Kit List"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F6F3ED"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "License and contracts",
+              "go in venue bag"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F6F3ED"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F6F3ED"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.69,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-planning-timeline-08",
+      "seq": 88,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Wedding Planning Timeline Deadlines",
+      "subline": "Add the dates others set for you",
+      "title": "Wedding Planning Timeline: Schedule the Deadlines Imposed on You",
+      "description": "Schedule the deadlines that are imposed on you rather than chosen: stationery mail dates, final headcount, final payment dates and license collection.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/planning-timeline-v4-2.jpg",
+      "topic": "planning-timeline",
+      "release_date": "2026-11-23",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-08.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 236097,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Planning",
+              "Timeline Deadlines"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F8F5F0"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Add the dates others set for you"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F8F5F0"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F8F5F0"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-wedding-day-timeline-10",
       "seq": 89,
       "path": "/guides/wedding-day-timeline",
@@ -1709,7 +2897,7 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/wedding-day-1.jpg",
       "topic": "wedding-day",
-      "release_date": null,
+      "release_date": "2026-11-23",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-10.jpg",
         "type": "image/jpeg",
@@ -1754,6 +2942,69 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-wedding-rehearsal-timeline-07",
+      "seq": 90,
+      "path": "/guides/wedding-rehearsal-timeline",
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Wedding Rehearsal Timeline",
+      "subline": "Rehearse every ring and reading handoff",
+      "title": "Wedding Rehearsal Timeline: Rehearse Every Ring and Reading Handoff",
+      "description": "Rehearse the moments that involve an object changing hands: rings, readings, unity elements and any document to be signed.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/rehearsal-v4-4.jpg",
+      "topic": "rehearsal",
+      "release_date": "2026-11-24",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-07.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 255307,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Rehearsal",
+              "Timeline"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F9F5F0"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Rehearse every ring",
+              "and reading handoff"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F9F5F0"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F9F5F0"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.69,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-wedding-seating-chart-accessibility-09",
       "seq": 91,
       "path": "/guides/wedding-seating-chart-accessibility",
@@ -1766,7 +3017,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/seating-4.jpg",
       "topic": "seating",
-      "release_date": null,
+      "release_date": "2026-11-24",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-09.jpg",
         "type": "image/jpeg",
@@ -1811,6 +3062,317 @@
       "generation": "dw-v2"
     },
     {
+      "id": "guides-bridal-shower-checklist-07",
+      "seq": 92,
+      "path": "/guides/bridal-shower-checklist",
+      "eyebrow": "BRIDAL SHOWER HOSTS",
+      "headline": "Bridal Shower Checklist",
+      "subline": "Agree what the host decides",
+      "title": "Bridal Shower Checklist: Agree What the Host Decides",
+      "description": "Agree which decisions belong to the bridal shower host and which belong to the couple, particularly the guest list and the theme.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/bridal-shower-v2-1.jpg",
+      "topic": "bridal-shower",
+      "release_date": "2026-11-25",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-bridal-shower-checklist-07.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 172817,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Bridal Shower",
+              "Checklist"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F6EAE6"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Agree what the host decides"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F6EAE6"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F6EAE6"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-day-of-coordinator-checklist-09",
+      "seq": 93,
+      "path": "/guides/day-of-coordinator-checklist",
+      "eyebrow": "COORDINATOR HANDOVER",
+      "headline": "Day-of Coordinator Checklist",
+      "subline": "Hand over contracts, not summaries",
+      "title": "Day-of Coordinator Checklist: Contracts, Not Summaries",
+      "description": "Hand over the signed contracts so the day-of coordinator can settle a scope dispute on the day without calling you.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/coordinator-v4-1.jpg",
+      "topic": "coordinator",
+      "release_date": "2026-11-21",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-09.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 141279,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Day-of Coordinator",
+              "Checklist"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#E7E3D4"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Hand over contracts,",
+              "not summaries"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#E7E3D4"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#E7E3D4"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.61,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-rehearsal-dinner-timeline-06",
+      "seq": 94,
+      "path": "/guides/rehearsal-dinner-timeline",
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "Rehearsal Dinner Timeline",
+      "subline": "Set invitation times from real travel",
+      "title": "Rehearsal Dinner Timeline: Set Invitation Times From Real Travel",
+      "description": "Add real travel time between the ceremony site and the restaurant, checked at that time of day, then set the invitation time from that arrival.",
+      "layout": "band-low",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/rehearsal-dinner-v4-3.jpg",
+      "topic": "rehearsal-dinner",
+      "release_date": "2026-11-27",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-06.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 226869,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Rehearsal",
+              "Dinner Timeline"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F3E6DE"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Set invitation times from real travel"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3E6DE"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3E6DE"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-emergency-kit-06",
+      "seq": 95,
+      "path": "/guides/wedding-emergency-kit",
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Wedding Emergency Kit List",
+      "subline": "Pack chargers for the devices you use",
+      "title": "Wedding Emergency Kit: Match Chargers to the Devices You Actually Use",
+      "description": "Add chargers and a battery pack matched to the actual devices in use on the wedding day, not a generic cable set.",
+      "layout": "band-low",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/emergency-kit-v4-5.jpg",
+      "topic": "emergency-kit",
+      "release_date": "2026-11-28",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-emergency-kit-06.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 260778,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding",
+              "Emergency Kit List"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#EDE3DE"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Pack chargers for the devices you use"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EDE3DE"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EDE3DE"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-planning-timeline-09",
+      "seq": 96,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Wedding Planning Timeline",
+      "subline": "Set a guest number, not a range",
+      "title": "Wedding Planning Timeline: Set a Guest Ceiling as a Number",
+      "description": "Set a guest ceiling as a number, not a range, because catering, seating, stationery and transport are all quoted against it.",
+      "layout": "band-low",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/planning-timeline-v4-1.jpg",
+      "topic": "planning-timeline",
+      "release_date": "2026-11-28",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-09.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 155817,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Planning",
+              "Timeline"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#EDE2DD"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Set a guest number, not a range"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EDE2DD"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EDE2DD"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
       "id": "guides-wedding-day-timeline-11",
       "seq": 97,
       "path": "/guides/wedding-day-timeline",
@@ -1823,7 +3385,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/wedding-day-2.jpg",
       "topic": "wedding-day",
-      "release_date": null,
+      "release_date": "2026-11-27",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-11.jpg",
         "type": "image/jpeg",
@@ -1867,6 +3429,130 @@
         ]
       },
       "generation": "dw-v2"
+    },
+    {
+      "id": "guides-wedding-rehearsal-timeline-08",
+      "seq": 98,
+      "path": "/guides/wedding-rehearsal-timeline",
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Wedding Rehearsal Timeline",
+      "subline": "Confirm the venue slot in writing",
+      "title": "Wedding Rehearsal: Confirm the Venue Slot in Writing",
+      "description": "Confirm the rehearsal slot with the venue in writing, because access for a rehearsal is often a separate permission from access on the day.",
+      "layout": "band-low",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/rehearsal-v4-3.jpg",
+      "topic": "rehearsal",
+      "release_date": "2026-11-28",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-08.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 209486,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Rehearsal",
+              "Timeline"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#EBE1D8"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Confirm the venue slot in writing"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EBE1D8"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#EBE1D8"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-wedding-seating-chart-accessibility-10",
+      "seq": 99,
+      "path": "/guides/wedding-seating-chart-accessibility",
+      "eyebrow": "ACCESSIBLE SEATING",
+      "headline": "Accessible Wedding Seating Chart",
+      "subline": "Brief the venue contact on it",
+      "title": "Accessible Wedding Seating Chart: Brief the Venue Contact",
+      "description": "Brief the responsible venue contact on the accessible seating plan so the accommodations are in place on the day.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "art": "/pinterest/topic-art/seating-v4-3.jpg",
+      "topic": "seating",
+      "release_date": "2026-11-29",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-10.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 148580,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Accessible Wedding",
+              "Seating Chart"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F0EADE"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Brief the venue contact on it"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F0EADE"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F0EADE"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
     },
     {
       "id": "products-checklist-pdf-11",
@@ -1925,6 +3611,193 @@
         ]
       },
       "generation": "dw-v2"
+    },
+    {
+      "id": "products-operations-suite-12",
+      "seq": 101,
+      "path": "/products/operations-suite",
+      "eyebrow": "WEDDING PLANNING BUNDLE",
+      "headline": "Wedding Budget Spreadsheet and Timeline",
+      "subline": "Keep costs, dates and guests in step",
+      "title": "Wedding Budget Spreadsheet: Budget, Timeline and Seating in One Plan",
+      "description": "The Wedding Checklist PDF, Budget Spreadsheet, Timeline Template and Seating Chart Maker work from one plan, so budget, timeline and seating stay in step.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/bundle-v4-2.jpg",
+      "topic": "bundle",
+      "release_date": "2026-11-11",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/products-operations-suite-12.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 143335,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding Budget",
+              "Spreadsheet",
+              "and Timeline"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F8ECE6"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Keep costs, dates and guests in step"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F8ECE6"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F8ECE6"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.661,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "printable-wedding-checklist-12",
+      "seq": 102,
+      "path": "/printable-wedding-checklist",
+      "eyebrow": "PRINTABLE CHECKLIST",
+      "headline": "Printable Wedding Checklist",
+      "subline": "Print it and work by hand",
+      "title": "Printable Wedding Checklist: Print It and Work From It by Hand",
+      "description": "A printable wedding checklist you work from by hand: every task from setting the date to the wedding-week handoff, with a line for who owns it, when it is due and whether it is done.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/checklist-v4-3.jpg",
+      "topic": "checklist",
+      "release_date": "2026-11-10",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/printable-wedding-checklist-12.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 183071,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Printable",
+              "Wedding Checklist"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F3E7E2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Print it and work by hand"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3E7E2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3E7E2"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
+    },
+    {
+      "id": "guides-elopement-planning-checklist-11",
+      "seq": 103,
+      "path": "/guides/elopement-planning-checklist",
+      "eyebrow": "ELOPEMENT CHECKLIST",
+      "headline": "Elopement Planning Checklist",
+      "subline": "Plan around the marriage license first",
+      "title": "Elopement Planning Checklist: Plan Around the Marriage License First",
+      "description": "An elopement removes guests, not legal requirements. Verify the marriage license rules, any waiting period and the witness rules where you will marry before anything else.",
+      "layout": "band-top",
+      "palette": "blush",
+      "art": "/pinterest/topic-art/elopement-v4-4.jpg",
+      "topic": "elopement",
+      "release_date": "2026-11-10",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/guides-elopement-planning-checklist-11.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 324614,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Elopement",
+              "Planning Checklist"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F3EAE6"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Plan around the marriage license first"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3EAE6"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3EAE6"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      }
     },
     {
       "id": "guides-courthouse-wedding-checklist-12",
@@ -2053,7 +3926,7 @@
       "palette": "midnight",
       "art": "/pinterest/topic-art/bridal-shower-v2-1.jpg",
       "topic": "bridal-shower",
-      "release_date": null,
+      "release_date": "2026-12-02",
       "image": {
         "path": "/pinterest/drip/guides-bridal-shower-checklist-08.jpg",
         "type": "image/jpeg",
@@ -2110,7 +3983,7 @@
       "palette": "blue-soft",
       "art": "/pinterest/topic-art/coordinator-4.jpg",
       "topic": "coordinator",
-      "release_date": null,
+      "release_date": "2026-11-26",
       "image": {
         "path": "/pinterest/drip/guides-day-of-coordinator-checklist-10.jpg",
         "type": "image/jpeg",
@@ -2168,7 +4041,7 @@
       "palette": "coral-soft",
       "art": "/pinterest/topic-art/rehearsal-dinner-1.jpg",
       "topic": "rehearsal-dinner",
-      "release_date": "2026-11-08",
+      "release_date": "2026-12-01",
       "image": {
         "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-07.jpg",
         "type": "image/jpeg",
@@ -2213,2790 +4086,6 @@
       "generation": "dw-v2"
     },
     {
-      "id": "guides-wedding-planning-timeline-10",
-      "seq": 110,
-      "path": "/guides/wedding-planning-timeline",
-      "eyebrow": "WEDDING PLANNING TIMELINE",
-      "headline": "Avoid Deposit Losses by Planning in the Right Order",
-      "subline": "Reversing a locked decision costs most",
-      "title": "Wedding Planning Timeline: Avoid Deposit Losses With the Right Order",
-      "description": "Reversing the date, venue, guest ceiling or money ceiling after vendors are contracted is where re-work and deposit losses come from.",
-      "layout": "binder-page",
-      "palette": "blue-soft",
-      "art": "/pinterest/topic-art/planning-timeline-2.jpg",
-      "topic": "planning-timeline",
-      "release_date": "2026-11-11",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-planning-timeline-10.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 129896,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "WEDDING PLANNING TIMELINE"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Avoid Deposit",
-              "Losses by Planning",
-              "in the Right Order"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#E8ECFC"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Reversing a locked decision costs most"
-            ],
-            "fit": true,
-            "ink": "#3C4160",
-            "ground": "#E8ECFC"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "products-checklist-pdf-12",
-      "seq": 114,
-      "path": "/products/checklist-pdf",
-      "eyebrow": "EDITABLE + PRINTABLE",
-      "headline": "A Printable Wedding Checklist You Can Also Edit",
-      "subline": "13 printable pages + an editable checklist",
-      "title": "Printable Wedding Checklist PDF You Can Also Edit: 13 Pages + Editable Checklist",
-      "description": "A 13-page printable PDF plus an editable XLSX and setup CSV: the same 104-row wedding checklist on paper and on screen, with owners, dependencies, priorities and deadlines.",
-      "layout": "tab-panel",
-      "palette": "blue-soft",
-      "art": "/pinterest/topic-art/checklist-2.jpg",
-      "topic": "checklist",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/products-checklist-pdf-12.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 160675,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "EDITABLE + PRINTABLE"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "A Printable",
-              "Wedding Checklist",
-              "You Can Also Edit"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#E8ECFC"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "13 printable pages +",
-              "an editable checklist"
-            ],
-            "fit": true,
-            "ink": "#3C4160",
-            "ground": "#E8ECFC"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-courthouse-wedding-checklist-13",
-      "seq": 118,
-      "path": "/guides/courthouse-wedding-checklist",
-      "eyebrow": "COURTHOUSE WEDDING",
-      "headline": "Book the Courthouse Appointment Before Anything Else",
-      "subline": "If your courthouse requires one",
-      "title": "Courthouse Wedding Checklist: Book the Appointment First",
-      "description": "Reserve the courthouse appointment if your courthouse requires one, then gather the documents, assign witnesses and plan arrival and parking.",
-      "layout": "tab-panel",
-      "palette": "coral-soft",
-      "art": "/pinterest/topic-art/courthouse-v3-2.jpg",
-      "topic": "courthouse",
-      "release_date": "2026-11-10",
-      "image": {
-        "path": "/pinterest/drip/guides-courthouse-wedding-checklist-13.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 154150,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "COURTHOUSE WEDDING"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Book the Courthouse",
-              "Appointment Before",
-              "Anything Else"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FDE9E1"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "If your courthouse requires one"
-            ],
-            "fit": true,
-            "ink": "#4A4560",
-            "ground": "#FDE9E1"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-destination-wedding-checklist-13",
-      "seq": 119,
-      "path": "/guides/destination-wedding-checklist",
-      "eyebrow": "DESTINATION WEDDING",
-      "headline": "Pack Rings and Papers in Your Destination Carry-On",
-      "subline": "Attire, documents, medication too",
-      "title": "Destination Wedding Checklist: What Goes in Your Carry-On",
-      "description": "Decide what must travel in carry-on luggage for a destination wedding: rings, attire, documents and medication should not be left to checked bags.",
-      "layout": "header",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/destination-v3-2.jpg",
-      "topic": "destination",
-      "release_date": "2026-11-11",
-      "image": {
-        "path": "/pinterest/drip/guides-destination-wedding-checklist-13.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 151016,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "DESTINATION WEDDING"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Pack Rings and",
-              "Papers in Your",
-              "Destination Carry-On"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FAF7F2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Attire, documents, medication too"
-            ],
-            "fit": true,
-            "ink": "#555A73",
-            "ground": "#FAF7F2"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "products-checklist-pdf-13",
-      "seq": 121,
-      "path": "/products/checklist-pdf",
-      "eyebrow": "WEDDING CHECKLIST PDF",
-      "headline": "Plan Who Owns Each Task Before Anyone Assumes",
-      "subline": "Responsibilities assigned, not assumed",
-      "title": "Wedding Planning Checklist PDF: Plan Who Owns Each Task",
-      "description": "A wedding planning checklist with a responsibility field on every row, so each task has a named owner instead of an assumption. 104-row editable checklist and 13-page printable PDF.",
-      "layout": "split",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/checklist-3.jpg",
-      "topic": "checklist",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/products-checklist-pdf-13.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 150346,
-        "text": [
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Plan Who Owns",
-              "Each Task Before",
-              "Anyone Assumes"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FAF7F2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Responsibilities assigned, not assumed"
-            ],
-            "fit": true,
-            "ink": "#555A73",
-            "ground": "#FAF7F2"
-          },
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "WEDDING CHECKLIST PDF"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "printable-wedding-checklist-14",
-      "seq": 123,
-      "path": "/printable-wedding-checklist",
-      "eyebrow": "PRINTABLE CHECKLIST",
-      "headline": "Cross Out What Doesn’t Apply on Your Printable List",
-      "subline": "Then write one owner per line",
-      "title": "Printable Wedding Checklist: Cross Out What Doesn’t Apply, Then Assign Owners",
-      "description": "How to use a printable wedding checklist: cross out the tasks that do not apply to your wedding, then write one owner on every line that is left.",
-      "layout": "header",
-      "palette": "midnight",
-      "art": "/pinterest/topic-art/checklist-1.jpg",
-      "topic": "checklist",
-      "release_date": "2026-11-10",
-      "image": {
-        "path": "/pinterest/drip/printable-wedding-checklist-14.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 131105,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "PRINTABLE CHECKLIST"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Cross Out What",
-              "Doesn’t Apply on",
-              "Your Printable List"
-            ],
-            "fit": true,
-            "ink": "#FAF7F2",
-            "ground": "#1B1F3B"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Then write one owner per line"
-            ],
-            "fit": true,
-            "ink": "#D9DCEB",
-            "ground": "#1B1F3B"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-elopement-planning-checklist-13",
-      "seq": 124,
-      "path": "/guides/elopement-planning-checklist",
-      "eyebrow": "ELOPEMENT PERMITS",
-      "headline": "Get the Location Permit Before You Book Elopement Flights",
-      "subline": "Secure it before booking travel",
-      "title": "Elopement Planning: Get the Location Permit Before Booking Flights",
-      "description": "Some elopement locations need a permit. Secure it before booking travel, then plan photos, attire and the day itself.",
-      "layout": "header",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/elopement-3.jpg",
-      "topic": "elopement",
-      "release_date": "2026-11-10",
-      "image": {
-        "path": "/pinterest/drip/guides-elopement-planning-checklist-13.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 185078,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "ELOPEMENT PERMITS"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Get the Location Permit",
-              "Before You Book",
-              "Elopement Flights"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FAF7F2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Secure it before booking travel"
-            ],
-            "fit": true,
-            "ink": "#555A73",
-            "ground": "#FAF7F2"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-courthouse-wedding-checklist-14",
-      "seq": 125,
-      "path": "/guides/courthouse-wedding-checklist",
-      "eyebrow": "COURTHOUSE DOCUMENTS",
-      "headline": "Bring the Right ID and Documents to the Courthouse",
-      "subline": "Gather documents before the day",
-      "title": "Courthouse Wedding Checklist: Bring the Right ID and Documents",
-      "description": "Verify the identification and document requirements directly with your courthouse, gather them ahead of time and bring a printed confirmation.",
-      "layout": "header",
-      "palette": "midnight",
-      "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
-      "topic": "courthouse",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/guides-courthouse-wedding-checklist-14.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 184702,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "COURTHOUSE DOCUMENTS"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Bring the Right ID",
-              "and Documents",
-              "to the Courthouse"
-            ],
-            "fit": true,
-            "ink": "#FAF7F2",
-            "ground": "#1B1F3B"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Gather documents before the day"
-            ],
-            "fit": true,
-            "ink": "#D9DCEB",
-            "ground": "#1B1F3B"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-destination-wedding-checklist-14",
-      "seq": 126,
-      "path": "/guides/destination-wedding-checklist",
-      "eyebrow": "DESTINATION WEDDING",
-      "headline": "Confirm Legal or Symbolic Before You Plan the Destination",
-      "subline": "Confirm the ceremony plan first",
-      "title": "Destination Wedding: Confirm a Legal or Symbolic Ceremony First",
-      "description": "Confirm whether the destination ceremony will be legal or symbolic before building the rest of the plan around it.",
-      "layout": "card",
-      "palette": "blue-soft",
-      "art": "/pinterest/topic-art/destination-v2-1.jpg",
-      "topic": "destination",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/guides-destination-wedding-checklist-14.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 170330,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "DESTINATION WEDDING"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Confirm Legal or",
-              "Symbolic Before You",
-              "Plan the Destination"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#E8ECFC"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Confirm the ceremony plan first"
-            ],
-            "fit": true,
-            "ink": "#3C4160",
-            "ground": "#E8ECFC"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "printable-wedding-checklist-15",
-      "seq": 129,
-      "path": "/printable-wedding-checklist",
-      "eyebrow": "BOOKING STAGE",
-      "headline": "Book Venue and Key Vendors in Printable Checklist Order",
-      "subline": "Venue · catering · photography · music",
-      "title": "Printable Wedding Checklist: Book the Venue and Key Vendors in Order",
-      "description": "After the foundations, the printable checklist moves to venue and ceremony access, then catering, photography, entertainment and the other key vendors.",
-      "layout": "card",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/checklist-2.jpg",
-      "topic": "checklist",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/printable-wedding-checklist-15.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 182924,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "BOOKING STAGE"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Book Venue and Key",
-              "Vendors in Printable",
-              "Checklist Order"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FAF7F2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Venue · catering · photography",
-              "music"
-            ],
-            "fit": true,
-            "ink": "#555A73",
-            "ground": "#FAF7F2"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "products-checklist-pdf-15",
-      "seq": 133,
-      "path": "/products/checklist-pdf",
-      "eyebrow": "WEDDING WEEK",
-      "headline": "Hand Off Wedding Week With a Printable Tracker",
-      "subline": "Separate from the long-range plan",
-      "title": "Wedding Checklist Printable: Hand Off Wedding Week With a Separate Tracker",
-      "description": "A separate wedding-week tracker keeps the handoff apart from long-range planning, so the people running the week get only what they need. Part of the 13-page printable Wedding Checklist PDF.",
-      "layout": "header",
-      "palette": "coral-soft",
-      "art": "/pinterest/topic-art/checklist-1.jpg",
-      "topic": "checklist",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/products-checklist-pdf-15.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 130842,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "WEDDING WEEK"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Hand Off Wedding Week",
-              "With a Printable Tracker"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FDE9E1"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Separate from the long-range plan"
-            ],
-            "fit": true,
-            "ink": "#4A4560",
-            "ground": "#FDE9E1"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "printable-wedding-checklist-16",
-      "seq": 135,
-      "path": "/printable-wedding-checklist",
-      "eyebrow": "FINAL WEEKS",
-      "headline": "Finish the Printable Checklist With Counts and Balances",
-      "subline": "Final counts · balances · receipts",
-      "title": "Printable Wedding Checklist: Finish With Final Counts, Balances and Receipts",
-      "description": "The last stage of the printable checklist: final guest, meal, allergy and accessibility inputs, seating and escort-card data, final balances, gratuities and receipts.",
-      "layout": "binder-page",
-      "palette": "blue-soft",
-      "art": "/pinterest/topic-art/checklist-3.jpg",
-      "topic": "checklist",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/printable-wedding-checklist-16.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 131400,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "FINAL WEEKS"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Finish the Printable",
-              "Checklist With",
-              "Counts and Balances"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#E8ECFC"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Final counts · balances · receipts"
-            ],
-            "fit": true,
-            "ink": "#3C4160",
-            "ground": "#E8ECFC"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-destination-wedding-checklist-16",
-      "seq": 138,
-      "path": "/guides/destination-wedding-checklist",
-      "eyebrow": "DESTINATION WEDDING",
-      "headline": "Check Shipping Rules Before Anything Ships to Your Destination",
-      "subline": "Shipping restrictions vary",
-      "title": "Destination Wedding: Check Shipping Restrictions Before Anything Ships",
-      "description": "Shipping is its own dependency in destination planning. Check shipping restrictions before anything is sent.",
-      "layout": "split",
-      "palette": "midnight",
-      "art": "/pinterest/topic-art/destination-v2-3.jpg",
-      "topic": "destination",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/guides-destination-wedding-checklist-16.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 154948,
-        "text": [
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Check Shipping Rules",
-              "Before Anything Ships",
-              "to Your Destination"
-            ],
-            "fit": true,
-            "ink": "#FAF7F2",
-            "ground": "#1B1F3B"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Shipping restrictions vary"
-            ],
-            "fit": true,
-            "ink": "#D9DCEB",
-            "ground": "#1B1F3B"
-          },
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "DESTINATION WEDDING"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "products-checklist-pdf-16",
-      "seq": 139,
-      "path": "/products/checklist-pdf",
-      "eyebrow": "PLANNING CHECKLIST",
-      "headline": "See Vendor Dependencies Before They Block Your Planning",
-      "subline": "Dependency and status on every row",
-      "title": "Wedding Planning Checklist: See Vendor Dependencies Before They Block You",
-      "description": "Vendor and payment dependencies are surfaced on the checklist itself, with dependency, priority and status fields on all 104 rows, so you see what is waiting on what before it blocks the plan.",
-      "layout": "card",
-      "palette": "midnight",
-      "art": "/pinterest/topic-art/checklist-2.jpg",
-      "topic": "checklist",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/products-checklist-pdf-16.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 184036,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "PLANNING CHECKLIST"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 90,
-            "lines": [
-              "See Vendor Dependencies",
-              "Before They Block Your",
-              "Planning"
-            ],
-            "fit": true,
-            "ink": "#FAF7F2",
-            "ground": "#1B1F3B"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Dependency and",
-              "status on every row"
-            ],
-            "fit": true,
-            "ink": "#D9DCEB",
-            "ground": "#1B1F3B"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-courthouse-wedding-checklist-17",
-      "seq": 143,
-      "path": "/guides/courthouse-wedding-checklist",
-      "eyebrow": "COURTHOUSE WEDDING",
-      "headline": "Keep a Courthouse Wedding Small Without Skipping Steps",
-      "subline": "A real checklist for a short ceremony",
-      "title": "Courthouse Wedding Checklist: Keep It Small Without Skipping Steps",
-      "description": "A small ceremony still has a checklist: appointment, license, witnesses, identification, security and photography rules, arrival and parking.",
-      "layout": "split",
-      "palette": "coral-soft",
-      "art": "/pinterest/topic-art/courthouse-v3-1.jpg",
-      "topic": "courthouse",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/guides-courthouse-wedding-checklist-17.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 132297,
-        "text": [
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Keep a Courthouse",
-              "Wedding Small",
-              "Without Skipping Steps"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FDE9E1"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "A real checklist for a short ceremony"
-            ],
-            "fit": true,
-            "ink": "#4A4560",
-            "ground": "#FDE9E1"
-          },
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "COURTHOUSE WEDDING"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    },
-    {
-      "id": "guides-destination-wedding-checklist-17",
-      "seq": 144,
-      "path": "/guides/destination-wedding-checklist",
-      "eyebrow": "DESTINATION WEDDING",
-      "headline": "Plan a Weather Backup for Your Destination Wedding",
-      "subline": "Weather contingency included",
-      "title": "Destination Wedding Checklist: Plan a Weather Backup",
-      "description": "Weather contingencies are part of the destination plan, alongside travel, lodging, local vendors, documents and shipping.",
-      "layout": "tab-panel",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/destination-v3-1.jpg",
-      "topic": "destination",
-      "release_date": null,
-      "image": {
-        "path": "/pinterest/drip/guides-destination-wedding-checklist-17.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 122674,
-        "text": [
-          {
-            "role": "eyebrow",
-            "size": 43,
-            "lines": [
-              "DESTINATION WEDDING"
-            ],
-            "fit": true,
-            "ink": "#FFFFFF",
-            "ground": "#2747D9"
-          },
-          {
-            "role": "headline",
-            "size": 100,
-            "lines": [
-              "Plan a Weather",
-              "Backup for Your",
-              "Destination Wedding"
-            ],
-            "fit": true,
-            "ink": "#1B1F3B",
-            "ground": "#FAF7F2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Weather contingency included"
-            ],
-            "fit": true,
-            "ink": "#555A73",
-            "ground": "#FAF7F2"
-          }
-        ]
-      },
-      "generation": "dw-v2"
-    }
-  ],
-  "questions": [],
-  "pending": [
-    {
-      "id": "guides-rehearsal-dinner-timeline-02",
-      "seq": 62,
-      "path": "/guides/rehearsal-dinner-timeline",
-      "eyebrow": "REHEARSAL DINNER",
-      "headline": "Rehearsal Dinner Timeline",
-      "subline": "Start from when the rehearsal ends",
-      "title": "Rehearsal Dinner Timeline: Start From When the Rehearsal Ends",
-      "description": "A rehearsal dinner timeline should be anchored to the moment the ceremony rehearsal actually ends, because that is the variable everything else inherits.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/rehearsal-dinner-v4-3.jpg",
-      "topic": "rehearsal-dinner",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-02.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 238322,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Rehearsal",
-              "Dinner Timeline"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F0E4DB"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Start from when the rehearsal ends"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F0E4DB"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F0E4DB"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-emergency-kit-02",
-      "seq": 63,
-      "path": "/guides/wedding-emergency-kit",
-      "eyebrow": "WEDDING EMERGENCY KIT",
-      "headline": "Wedding Emergency Kit List",
-      "subline": "Pack it by what can go wrong",
-      "title": "Wedding Emergency Kit List: Pack It by What Can Go Wrong",
-      "description": "Pack a wedding emergency kit by failure mode rather than by product: garment, body, paper, power and weather.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/emergency-kit-v4-5.jpg",
-      "topic": "emergency-kit",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-emergency-kit-02.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 255043,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding",
-              "Emergency Kit List"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F2E7E1"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Pack it by what can go wrong"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F2E7E1"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F2E7E1"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-planning-timeline-05",
-      "seq": 64,
-      "path": "/guides/wedding-planning-timeline",
-      "eyebrow": "WEDDING PLANNING TIMELINE",
-      "headline": "Wedding Planning Timeline",
-      "subline": "Plan each decision in dependency order",
-      "title": "Wedding Planning Timeline: Plan in Dependency Order, Not by Calendar",
-      "description": "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/planning-timeline-v4-5.jpg",
-      "topic": "planning-timeline",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-planning-timeline-05.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 121490,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Planning",
-              "Timeline"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#EFE2DB"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Plan each decision",
-              "in dependency order"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EFE2DB"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EFE2DB"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.69,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-rehearsal-timeline-04",
-      "seq": 66,
-      "path": "/guides/wedding-rehearsal-timeline",
-      "eyebrow": "WEDDING REHEARSAL",
-      "headline": "Wedding Rehearsal Timeline",
-      "subline": "Run the rehearsal in under an hour",
-      "title": "Wedding Rehearsal Timeline: Run It in Under an Hour",
-      "description": "Run a wedding rehearsal in under an hour: processional in reverse, positions before movement, the full sequence twice, then readings and handoffs.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/rehearsal-v4-2.jpg",
-      "topic": "rehearsal",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-04.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 274976,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Rehearsal",
-              "Timeline"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F2E9E6"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Run the rehearsal in under an hour"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F2E9E6"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F2E9E6"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-rehearsal-dinner-timeline-03",
-      "seq": 70,
-      "path": "/guides/rehearsal-dinner-timeline",
-      "eyebrow": "REHEARSAL DINNER TOASTS",
-      "headline": "Rehearsal Dinner Toast Timeline",
-      "subline": "Place toasts between courses",
-      "title": "Rehearsal Dinner Timeline: Place Toasts Between Courses",
-      "description": "Place the toasts deliberately: a welcome before or during the first course, and remaining remarks between courses rather than stacked at the end.",
-      "layout": "band-low",
-      "palette": "sage",
-      "art": "/pinterest/topic-art/rehearsal-dinner-v4-4.jpg",
-      "topic": "rehearsal-dinner",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-03.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 224369,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Rehearsal Dinner",
-              "Toast Timeline"
-            ],
-            "fit": true,
-            "ink": "#24302A",
-            "ground": "#EAECE4"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Place toasts between courses"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#EAECE4"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#EAECE4"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-emergency-kit-03",
-      "seq": 71,
-      "path": "/guides/wedding-emergency-kit",
-      "eyebrow": "WEDDING EMERGENCY KIT",
-      "headline": "Wedding Emergency Kit in Two Bags",
-      "subline": "One for getting ready, one for venue",
-      "title": "Wedding Emergency Kit: Split It Into Two Bags",
-      "description": "The getting-ready room and the venue need different things, so split the wedding emergency kit into a getting-ready bag and a venue bag.",
-      "layout": "band-low",
-      "palette": "sage",
-      "art": "/pinterest/topic-art/emergency-kit-v4-1.jpg",
-      "topic": "emergency-kit",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-emergency-kit-03.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 274119,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Emergency",
-              "Kit in Two Bags"
-            ],
-            "fit": true,
-            "ink": "#24302A",
-            "ground": "#E6E9E2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "One for getting ready, one for venue"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E6E9E2"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E6E9E2"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-planning-timeline-06",
-      "seq": 72,
-      "path": "/guides/wedding-planning-timeline",
-      "eyebrow": "PLANNING TIMELINE",
-      "headline": "Wedding Planning Timeline: Start Here",
-      "subline": "Lock date, venue, guests and budget",
-      "title": "Wedding Planning Timeline: Lock Date, Venue, Guests and Budget First",
-      "description": "Lock the date, the venue, the guest ceiling and the money ceiling first; every later choice is costed or scheduled against those four.",
-      "layout": "band-low",
-      "palette": "sage",
-      "art": "/pinterest/topic-art/planning-timeline-v4-4.jpg",
-      "topic": "planning-timeline",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-planning-timeline-06.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 267530,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Planning",
-              "Timeline: Start Here"
-            ],
-            "fit": true,
-            "ink": "#24302A",
-            "ground": "#EBEFE9"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Lock date, venue, guests and budget"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#EBEFE9"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#EBEFE9"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-rehearsal-timeline-05",
-      "seq": 74,
-      "path": "/guides/wedding-rehearsal-timeline",
-      "eyebrow": "WEDDING REHEARSAL",
-      "headline": "Wedding Rehearsal Positions",
-      "subline": "Set them before anyone walks",
-      "title": "Wedding Rehearsal Timeline: Set Positions Before Anyone Walks",
-      "description": "Mark where the couple, officiant and wedding party stand before anybody walks anywhere.",
-      "layout": "band-low",
-      "palette": "sage",
-      "art": "/pinterest/topic-art/rehearsal-v4-1.jpg",
-      "topic": "rehearsal",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-05.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 301774,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Rehearsal",
-              "Positions"
-            ],
-            "fit": true,
-            "ink": "#24302A",
-            "ground": "#E8EAE2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Set them before anyone walks"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E8EAE2"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E8EAE2"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-seating-chart-accessibility-07",
-      "seq": 75,
-      "path": "/guides/wedding-seating-chart-accessibility",
-      "eyebrow": "SEATING CHART",
-      "headline": "Accessible Wedding Seating Chart",
-      "subline": "Map routes and restrooms first",
-      "title": "Wedding Seating Chart: Map Routes and Restroom Access",
-      "description": "Map routes and restroom access, reserve appropriate table positions and avoid blocking mobility devices when building the seating chart.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/seating-v4-5.jpg",
-      "topic": "seating",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-07.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 212551,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Accessible Wedding",
-              "Seating Chart"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F0E3DE"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Map routes and restrooms first"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F0E3DE"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F0E3DE"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-day-of-coordinator-checklist-07",
-      "seq": 77,
-      "path": "/guides/day-of-coordinator-checklist",
-      "eyebrow": "DAY-OF COORDINATOR",
-      "headline": "Day-of Coordinator Checklist",
-      "subline": "Write down what they decide alone",
-      "title": "Day-of Coordinator Checklist: What They May Decide Alone",
-      "description": "Write down which decisions the day-of coordinator may make alone and which must escalate and to whom; absorbing decisions is the value of the role.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/coordinator-v4-3.jpg",
-      "topic": "coordinator",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-07.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 354652,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Day-of Coordinator",
-              "Checklist"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F4E9E4"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Write down what they decide alone"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F4E9E4"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F4E9E4"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-rehearsal-dinner-timeline-04",
-      "seq": 78,
-      "path": "/guides/rehearsal-dinner-timeline",
-      "eyebrow": "REHEARSAL DINNER",
-      "headline": "Rehearsal Dinner Timeline",
-      "subline": "End on time for the wedding morning",
-      "title": "Rehearsal Dinner Timeline: End On Time for the Wedding Morning",
-      "description": "Set an end time and name who signals it; a rehearsal dinner drifting late is the most common cause of a difficult wedding morning.",
-      "layout": "band-frame",
-      "palette": "champagne",
-      "art": "/pinterest/topic-art/rehearsal-dinner-v4-1.jpg",
-      "topic": "rehearsal-dinner",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-04.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 137585,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Rehearsal",
-              "Dinner Timeline"
-            ],
-            "fit": true,
-            "ink": "#2E2A22",
-            "ground": "#F4EDE0"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "End on time for the",
-              "wedding morning"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F4EDE0"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F4EDE0"
-          }
-        ],
-        "shape": {
-          "layout": "band-frame",
-          "photo_fraction": 0.61,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-emergency-kit-04",
-      "seq": 79,
-      "path": "/guides/wedding-emergency-kit",
-      "eyebrow": "WEDDING EMERGENCY KIT",
-      "headline": "Wedding Emergency Kit",
-      "subline": "Name one carrier for each bag",
-      "title": "Wedding Emergency Kit: Name Who Carries It and Where It Lives",
-      "description": "Name one carrier for each emergency kit bag and one fixed place where it lives; a complete kit nobody can find is the same as no kit at all.",
-      "layout": "band-frame",
-      "palette": "champagne",
-      "art": "/pinterest/topic-art/emergency-kit-v4-2.jpg",
-      "topic": "emergency-kit",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-emergency-kit-04.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 344162,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding",
-              "Emergency Kit"
-            ],
-            "fit": true,
-            "ink": "#2E2A22",
-            "ground": "#F0E8DA"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Name one carrier for each bag"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F0E8DA"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F0E8DA"
-          }
-        ],
-        "shape": {
-          "layout": "band-frame",
-          "photo_fraction": 0.643,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-planning-timeline-07",
-      "seq": 80,
-      "path": "/guides/wedding-planning-timeline",
-      "eyebrow": "PLANNING TIMELINE",
-      "headline": "Wedding Planning Timeline for Vendors",
-      "subline": "Book the scarcest vendors first",
-      "title": "Wedding Planning Timeline: Book Vendors by Scarcity",
-      "description": "Book the vendors whose calendars fill first and who cannot be duplicated on the day: photographer, officiant, catering and any single-crew supplier.",
-      "layout": "band-frame",
-      "palette": "champagne",
-      "art": "/pinterest/topic-art/planning-timeline-v4-3.jpg",
-      "topic": "planning-timeline",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-planning-timeline-07.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 228684,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Planning",
-              "Timeline for Vendors"
-            ],
-            "fit": true,
-            "ink": "#2E2A22",
-            "ground": "#E7E0D4"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Book the scarcest vendors first"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#E7E0D4"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#E7E0D4"
-          }
-        ],
-        "shape": {
-          "layout": "band-frame",
-          "photo_fraction": 0.643,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-rehearsal-timeline-06",
-      "seq": 82,
-      "path": "/guides/wedding-rehearsal-timeline",
-      "eyebrow": "WEDDING REHEARSAL",
-      "headline": "Wedding Rehearsal Processional",
-      "subline": "Build it in reverse, walk it twice",
-      "title": "Wedding Rehearsal: Build the Processional in Reverse",
-      "description": "Place people at the front and send them back down the aisle in order, then walk the processional forward twice at the real pace with the music cue present.",
-      "layout": "band-frame",
-      "palette": "champagne",
-      "art": "/pinterest/topic-art/rehearsal-v4-5.jpg",
-      "topic": "rehearsal",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-06.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 266686,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Rehearsal",
-              "Processional"
-            ],
-            "fit": true,
-            "ink": "#2E2A22",
-            "ground": "#F2EDE2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Build it in reverse, walk it twice"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F2EDE2"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F2EDE2"
-          }
-        ],
-        "shape": {
-          "layout": "band-frame",
-          "photo_fraction": 0.643,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-seating-chart-accessibility-08",
-      "seq": 83,
-      "path": "/guides/wedding-seating-chart-accessibility",
-      "eyebrow": "ACCESSIBLE SEATING",
-      "headline": "Accessible Wedding Seating",
-      "subline": "Ask guests what helps, then plan",
-      "title": "Accessible Wedding Seating: Ask What Accommodation Helps",
-      "description": "Ask each guest what accommodation is helpful before building the seating chart, and confirm it with the venue.",
-      "layout": "band-low",
-      "palette": "sage",
-      "art": "/pinterest/topic-art/seating-v4-2.jpg",
-      "topic": "seating",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-08.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 203135,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Accessible",
-              "Wedding Seating"
-            ],
-            "fit": true,
-            "ink": "#24302A",
-            "ground": "#E4E7DF"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Ask guests what helps, then plan"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E4E7DF"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E4E7DF"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-day-of-coordinator-checklist-08",
-      "seq": 85,
-      "path": "/guides/day-of-coordinator-checklist",
-      "eyebrow": "COORDINATOR HANDOVER",
-      "headline": "Day-of Coordinator Checklist",
-      "subline": "Book the handover before the final week",
-      "title": "Day-of Coordinator Checklist: Book the Handover Before the Final Week",
-      "description": "Book the handover meeting far enough ahead that anything missing can still be produced, not in the final week.",
-      "layout": "band-low",
-      "palette": "sage",
-      "art": "/pinterest/topic-art/coordinator-v4-2.jpg",
-      "topic": "coordinator",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-08.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 347372,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Day-of Coordinator",
-              "Checklist"
-            ],
-            "fit": true,
-            "ink": "#24302A",
-            "ground": "#E4E6DD"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Book the handover",
-              "before the final week"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E4E6DD"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#46524A",
-            "ground": "#E4E6DD"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.69,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-rehearsal-dinner-timeline-05",
-      "seq": 86,
-      "path": "/guides/rehearsal-dinner-timeline",
-      "eyebrow": "REHEARSAL DINNER",
-      "headline": "Rehearsal Dinner Timeline",
-      "subline": "Give the kitchen a time to hold",
-      "title": "Rehearsal Dinner Timeline: Give the Kitchen a Time It Can Hold",
-      "description": "Agree a service time with the venue that the kitchen can actually hold, and confirm whether it is a set menu or ordered on the night.",
-      "layout": "band-top",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/rehearsal-dinner-v4-2.jpg",
-      "topic": "rehearsal-dinner",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-05.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 225835,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Rehearsal",
-              "Dinner Timeline"
-            ],
-            "fit": true,
-            "ink": "#2B2622",
-            "ground": "#F1EBE3"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Give the kitchen a time to hold"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F1EBE3"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F1EBE3"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-emergency-kit-05",
-      "seq": 87,
-      "path": "/guides/wedding-emergency-kit",
-      "eyebrow": "EMERGENCY KIT LIST",
-      "headline": "Wedding Emergency Kit List",
-      "subline": "License and contracts go in venue bag",
-      "title": "Wedding Emergency Kit List: License and Contracts Go in the Venue Bag",
-      "description": "Put anything legally or contractually required, such as the marriage license and vendor contracts, in the venue bag rather than in a pocket.",
-      "layout": "band-top",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/emergency-kit-v4-4.jpg",
-      "topic": "emergency-kit",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-emergency-kit-05.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 162030,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding",
-              "Emergency Kit List"
-            ],
-            "fit": true,
-            "ink": "#2B2622",
-            "ground": "#F6F3ED"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "License and contracts",
-              "go in venue bag"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F6F3ED"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F6F3ED"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.69,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-planning-timeline-08",
-      "seq": 88,
-      "path": "/guides/wedding-planning-timeline",
-      "eyebrow": "PLANNING TIMELINE",
-      "headline": "Wedding Planning Timeline Deadlines",
-      "subline": "Add the dates others set for you",
-      "title": "Wedding Planning Timeline: Schedule the Deadlines Imposed on You",
-      "description": "Schedule the deadlines that are imposed on you rather than chosen: stationery mail dates, final headcount, final payment dates and license collection.",
-      "layout": "band-top",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/planning-timeline-v4-2.jpg",
-      "topic": "planning-timeline",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-planning-timeline-08.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 236097,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Planning",
-              "Timeline Deadlines"
-            ],
-            "fit": true,
-            "ink": "#2B2622",
-            "ground": "#F8F5F0"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Add the dates others set for you"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F8F5F0"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F8F5F0"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-rehearsal-timeline-07",
-      "seq": 90,
-      "path": "/guides/wedding-rehearsal-timeline",
-      "eyebrow": "WEDDING REHEARSAL",
-      "headline": "Wedding Rehearsal Timeline",
-      "subline": "Rehearse every ring and reading handoff",
-      "title": "Wedding Rehearsal Timeline: Rehearse Every Ring and Reading Handoff",
-      "description": "Rehearse the moments that involve an object changing hands: rings, readings, unity elements and any document to be signed.",
-      "layout": "band-top",
-      "palette": "ivory",
-      "art": "/pinterest/topic-art/rehearsal-v4-4.jpg",
-      "topic": "rehearsal",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-07.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 255307,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Rehearsal",
-              "Timeline"
-            ],
-            "fit": true,
-            "ink": "#2B2622",
-            "ground": "#F9F5F0"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Rehearse every ring",
-              "and reading handoff"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F9F5F0"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C43",
-            "ground": "#F9F5F0"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.69,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-bridal-shower-checklist-07",
-      "seq": 92,
-      "path": "/guides/bridal-shower-checklist",
-      "eyebrow": "BRIDAL SHOWER HOSTS",
-      "headline": "Bridal Shower Checklist",
-      "subline": "Agree what the host decides",
-      "title": "Bridal Shower Checklist: Agree What the Host Decides",
-      "description": "Agree which decisions belong to the bridal shower host and which belong to the couple, particularly the guest list and the theme.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/bridal-shower-v2-1.jpg",
-      "topic": "bridal-shower",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-bridal-shower-checklist-07.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 172817,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Bridal Shower",
-              "Checklist"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F6EAE6"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Agree what the host decides"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F6EAE6"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F6EAE6"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-day-of-coordinator-checklist-09",
-      "seq": 93,
-      "path": "/guides/day-of-coordinator-checklist",
-      "eyebrow": "COORDINATOR HANDOVER",
-      "headline": "Day-of Coordinator Checklist",
-      "subline": "Hand over contracts, not summaries",
-      "title": "Day-of Coordinator Checklist: Contracts, Not Summaries",
-      "description": "Hand over the signed contracts so the day-of coordinator can settle a scope dispute on the day without calling you.",
-      "layout": "band-frame",
-      "palette": "champagne",
-      "art": "/pinterest/topic-art/coordinator-v4-1.jpg",
-      "topic": "coordinator",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-day-of-coordinator-checklist-09.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 141279,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Day-of Coordinator",
-              "Checklist"
-            ],
-            "fit": true,
-            "ink": "#2E2A22",
-            "ground": "#E7E3D4"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Hand over contracts,",
-              "not summaries"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#E7E3D4"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#E7E3D4"
-          }
-        ],
-        "shape": {
-          "layout": "band-frame",
-          "photo_fraction": 0.61,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-rehearsal-dinner-timeline-06",
-      "seq": 94,
-      "path": "/guides/rehearsal-dinner-timeline",
-      "eyebrow": "REHEARSAL DINNER",
-      "headline": "Rehearsal Dinner Timeline",
-      "subline": "Set invitation times from real travel",
-      "title": "Rehearsal Dinner Timeline: Set Invitation Times From Real Travel",
-      "description": "Add real travel time between the ceremony site and the restaurant, checked at that time of day, then set the invitation time from that arrival.",
-      "layout": "band-low",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/rehearsal-dinner-v4-3.jpg",
-      "topic": "rehearsal-dinner",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-rehearsal-dinner-timeline-06.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 226869,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Rehearsal",
-              "Dinner Timeline"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F3E6DE"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Set invitation times from real travel"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F3E6DE"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F3E6DE"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-emergency-kit-06",
-      "seq": 95,
-      "path": "/guides/wedding-emergency-kit",
-      "eyebrow": "WEDDING EMERGENCY KIT",
-      "headline": "Wedding Emergency Kit List",
-      "subline": "Pack chargers for the devices you use",
-      "title": "Wedding Emergency Kit: Match Chargers to the Devices You Actually Use",
-      "description": "Add chargers and a battery pack matched to the actual devices in use on the wedding day, not a generic cable set.",
-      "layout": "band-low",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/emergency-kit-v4-5.jpg",
-      "topic": "emergency-kit",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-emergency-kit-06.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 260778,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding",
-              "Emergency Kit List"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#EDE3DE"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Pack chargers for the devices you use"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EDE3DE"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EDE3DE"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-planning-timeline-09",
-      "seq": 96,
-      "path": "/guides/wedding-planning-timeline",
-      "eyebrow": "PLANNING TIMELINE",
-      "headline": "Wedding Planning Timeline",
-      "subline": "Set a guest number, not a range",
-      "title": "Wedding Planning Timeline: Set a Guest Ceiling as a Number",
-      "description": "Set a guest ceiling as a number, not a range, because catering, seating, stationery and transport are all quoted against it.",
-      "layout": "band-low",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/planning-timeline-v4-1.jpg",
-      "topic": "planning-timeline",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-planning-timeline-09.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 155817,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Planning",
-              "Timeline"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#EDE2DD"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Set a guest number, not a range"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EDE2DD"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EDE2DD"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-rehearsal-timeline-08",
-      "seq": 98,
-      "path": "/guides/wedding-rehearsal-timeline",
-      "eyebrow": "WEDDING REHEARSAL",
-      "headline": "Wedding Rehearsal Timeline",
-      "subline": "Confirm the venue slot in writing",
-      "title": "Wedding Rehearsal: Confirm the Venue Slot in Writing",
-      "description": "Confirm the rehearsal slot with the venue in writing, because access for a rehearsal is often a separate permission from access on the day.",
-      "layout": "band-low",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/rehearsal-v4-3.jpg",
-      "topic": "rehearsal",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-rehearsal-timeline-08.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 209486,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Rehearsal",
-              "Timeline"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#EBE1D8"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Confirm the venue slot in writing"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EBE1D8"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#EBE1D8"
-          }
-        ],
-        "shape": {
-          "layout": "band-low",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-wedding-seating-chart-accessibility-10",
-      "seq": 99,
-      "path": "/guides/wedding-seating-chart-accessibility",
-      "eyebrow": "ACCESSIBLE SEATING",
-      "headline": "Accessible Wedding Seating Chart",
-      "subline": "Brief the venue contact on it",
-      "title": "Accessible Wedding Seating Chart: Brief the Venue Contact",
-      "description": "Brief the responsible venue contact on the accessible seating plan so the accommodations are in place on the day.",
-      "layout": "band-frame",
-      "palette": "champagne",
-      "art": "/pinterest/topic-art/seating-v4-3.jpg",
-      "topic": "seating",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-10.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 148580,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Accessible Wedding",
-              "Seating Chart"
-            ],
-            "fit": true,
-            "ink": "#2E2A22",
-            "ground": "#F0EADE"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Brief the venue contact on it"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F0EADE"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#564C3C",
-            "ground": "#F0EADE"
-          }
-        ],
-        "shape": {
-          "layout": "band-frame",
-          "photo_fraction": 0.643,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "products-operations-suite-12",
-      "seq": 101,
-      "path": "/products/operations-suite",
-      "eyebrow": "WEDDING PLANNING BUNDLE",
-      "headline": "Wedding Budget Spreadsheet and Timeline",
-      "subline": "Keep costs, dates and guests in step",
-      "title": "Wedding Budget Spreadsheet: Budget, Timeline and Seating in One Plan",
-      "description": "The Wedding Checklist PDF, Budget Spreadsheet, Timeline Template and Seating Chart Maker work from one plan, so budget, timeline and seating stay in step.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/bundle-v4-2.jpg",
-      "topic": "bundle",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/products-operations-suite-12.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 143335,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Wedding Budget",
-              "Spreadsheet",
-              "and Timeline"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F8ECE6"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Keep costs, dates and guests in step"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F8ECE6"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F8ECE6"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.661,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "printable-wedding-checklist-12",
-      "seq": 102,
-      "path": "/printable-wedding-checklist",
-      "eyebrow": "PRINTABLE CHECKLIST",
-      "headline": "Printable Wedding Checklist",
-      "subline": "Print it and work by hand",
-      "title": "Printable Wedding Checklist: Print It and Work From It by Hand",
-      "description": "A printable wedding checklist you work from by hand: every task from setting the date to the wedding-week handoff, with a line for who owns it, when it is due and whether it is done.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/checklist-v4-3.jpg",
-      "topic": "checklist",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/printable-wedding-checklist-12.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 183071,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Printable",
-              "Wedding Checklist"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F3E7E2"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Print it and work by hand"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F3E7E2"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F3E7E2"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
-      "id": "guides-elopement-planning-checklist-11",
-      "seq": 103,
-      "path": "/guides/elopement-planning-checklist",
-      "eyebrow": "ELOPEMENT CHECKLIST",
-      "headline": "Elopement Planning Checklist",
-      "subline": "Plan around the marriage license first",
-      "title": "Elopement Planning Checklist: Plan Around the Marriage License First",
-      "description": "An elopement removes guests, not legal requirements. Verify the marriage license rules, any waiting period and the witness rules where you will marry before anything else.",
-      "layout": "band-top",
-      "palette": "blush",
-      "art": "/pinterest/topic-art/elopement-v4-4.jpg",
-      "topic": "elopement",
-      "release_date": null,
-      "generation": "dw-v3",
-      "image": {
-        "path": "/pinterest/drip/guides-elopement-planning-checklist-11.jpg",
-        "type": "image/jpeg",
-        "width": 1000,
-        "height": 1500,
-        "length": 324614,
-        "text": [
-          {
-            "role": "headline",
-            "size": 104,
-            "lines": [
-              "Elopement",
-              "Planning Checklist"
-            ],
-            "fit": true,
-            "ink": "#3A2828",
-            "ground": "#F3EAE6"
-          },
-          {
-            "role": "subline",
-            "size": 46,
-            "lines": [
-              "Plan around the marriage license first"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F3EAE6"
-          },
-          {
-            "role": "brand",
-            "size": 25,
-            "lines": [
-              "Wedding Checklist PDF"
-            ],
-            "fit": true,
-            "ink": "#5E4844",
-            "ground": "#F3EAE6"
-          }
-        ],
-        "shape": {
-          "layout": "band-top",
-          "photo_fraction": 0.725,
-          "bands": 1,
-          "brand": "Wedding Checklist PDF"
-        }
-      }
-    },
-    {
       "id": "guides-wedding-emergency-kit-07",
       "seq": 109,
       "path": "/guides/wedding-emergency-kit",
@@ -5009,7 +4098,7 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/emergency-kit-v4-4.jpg",
       "topic": "emergency-kit",
-      "release_date": null,
+      "release_date": "2026-12-02",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-emergency-kit-07.jpg",
@@ -5060,6 +4149,63 @@
       }
     },
     {
+      "id": "guides-wedding-planning-timeline-10",
+      "seq": 110,
+      "path": "/guides/wedding-planning-timeline",
+      "eyebrow": "WEDDING PLANNING TIMELINE",
+      "headline": "Avoid Deposit Losses by Planning in the Right Order",
+      "subline": "Reversing a locked decision costs most",
+      "title": "Wedding Planning Timeline: Avoid Deposit Losses With the Right Order",
+      "description": "Reversing the date, venue, guest ceiling or money ceiling after vendors are contracted is where re-work and deposit losses come from.",
+      "layout": "binder-page",
+      "palette": "blue-soft",
+      "art": "/pinterest/topic-art/planning-timeline-2.jpg",
+      "topic": "planning-timeline",
+      "release_date": "2026-12-02",
+      "image": {
+        "path": "/pinterest/drip/guides-wedding-planning-timeline-10.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 129896,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "WEDDING PLANNING TIMELINE"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Avoid Deposit",
+              "Losses by Planning",
+              "in the Right Order"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#E8ECFC"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Reversing a locked decision costs most"
+            ],
+            "fit": true,
+            "ink": "#3C4160",
+            "ground": "#E8ECFC"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "guides-wedding-day-timeline-12",
       "seq": 111,
       "path": "/guides/wedding-day-timeline",
@@ -5072,7 +4218,7 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/wedding-day-v4-2.jpg",
       "topic": "wedding-day",
-      "release_date": null,
+      "release_date": "2026-12-01",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-day-timeline-12.jpg",
@@ -5198,7 +4344,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/seating-v4-2.jpg",
       "topic": "seating",
-      "release_date": null,
+      "release_date": "2026-12-03",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-wedding-seating-chart-accessibility-11.jpg",
@@ -5248,6 +4394,64 @@
       }
     },
     {
+      "id": "products-checklist-pdf-12",
+      "seq": 114,
+      "path": "/products/checklist-pdf",
+      "eyebrow": "EDITABLE + PRINTABLE",
+      "headline": "A Printable Wedding Checklist You Can Also Edit",
+      "subline": "13 printable pages + an editable checklist",
+      "title": "Printable Wedding Checklist PDF You Can Also Edit: 13 Pages + Editable Checklist",
+      "description": "A 13-page printable PDF plus an editable XLSX and setup CSV: the same 104-row wedding checklist on paper and on screen, with owners, dependencies, priorities and deadlines.",
+      "layout": "tab-panel",
+      "palette": "blue-soft",
+      "art": "/pinterest/topic-art/checklist-2.jpg",
+      "topic": "checklist",
+      "release_date": "2026-11-15",
+      "image": {
+        "path": "/pinterest/drip/products-checklist-pdf-12.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 160675,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "EDITABLE + PRINTABLE"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "A Printable",
+              "Wedding Checklist",
+              "You Can Also Edit"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#E8ECFC"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "13 printable pages +",
+              "an editable checklist"
+            ],
+            "fit": true,
+            "ink": "#3C4160",
+            "ground": "#E8ECFC"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "products-operations-suite-13",
       "seq": 115,
       "path": "/products/operations-suite",
@@ -5260,7 +4464,7 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/bundle-v4-1.jpg",
       "topic": "bundle",
-      "release_date": null,
+      "release_date": "2026-11-16",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-13.jpg",
@@ -5323,7 +4527,7 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/checklist-v4-3.jpg",
       "topic": "checklist",
-      "release_date": null,
+      "release_date": "2026-11-20",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-13.jpg",
@@ -5386,7 +4590,7 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/elopement-v4-4.jpg",
       "topic": "elopement",
-      "release_date": null,
+      "release_date": "2026-11-17",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-12.jpg",
@@ -5437,6 +4641,120 @@
       }
     },
     {
+      "id": "guides-courthouse-wedding-checklist-13",
+      "seq": 118,
+      "path": "/guides/courthouse-wedding-checklist",
+      "eyebrow": "COURTHOUSE WEDDING",
+      "headline": "Book the Courthouse Appointment Before Anything Else",
+      "subline": "If your courthouse requires one",
+      "title": "Courthouse Wedding Checklist: Book the Appointment First",
+      "description": "Reserve the courthouse appointment if your courthouse requires one, then gather the documents, assign witnesses and plan arrival and parking.",
+      "layout": "tab-panel",
+      "palette": "coral-soft",
+      "art": "/pinterest/topic-art/courthouse-v3-2.jpg",
+      "topic": "courthouse",
+      "release_date": "2026-11-12",
+      "image": {
+        "path": "/pinterest/drip/guides-courthouse-wedding-checklist-13.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 154150,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "COURTHOUSE WEDDING"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Book the Courthouse",
+              "Appointment Before",
+              "Anything Else"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FDE9E1"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "If your courthouse requires one"
+            ],
+            "fit": true,
+            "ink": "#4A4560",
+            "ground": "#FDE9E1"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
+      "id": "guides-destination-wedding-checklist-13",
+      "seq": 119,
+      "path": "/guides/destination-wedding-checklist",
+      "eyebrow": "DESTINATION WEDDING",
+      "headline": "Pack Rings and Papers in Your Destination Carry-On",
+      "subline": "Attire, documents, medication too",
+      "title": "Destination Wedding Checklist: What Goes in Your Carry-On",
+      "description": "Decide what must travel in carry-on luggage for a destination wedding: rings, attire, documents and medication should not be left to checked bags.",
+      "layout": "header",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/destination-v3-2.jpg",
+      "topic": "destination",
+      "release_date": "2026-11-12",
+      "image": {
+        "path": "/pinterest/drip/guides-destination-wedding-checklist-13.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 151016,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "DESTINATION WEDDING"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Pack Rings and",
+              "Papers in Your",
+              "Destination Carry-On"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FAF7F2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Attire, documents, medication too"
+            ],
+            "fit": true,
+            "ink": "#555A73",
+            "ground": "#FAF7F2"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "guides-day-of-coordinator-checklist-11",
       "seq": 120,
       "path": "/guides/day-of-coordinator-checklist",
@@ -5449,7 +4767,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/coordinator-v4-4.jpg",
       "topic": "coordinator",
-      "release_date": null,
+      "release_date": "2026-11-30",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-day-of-coordinator-checklist-11.jpg",
@@ -5499,6 +4817,63 @@
       }
     },
     {
+      "id": "products-checklist-pdf-13",
+      "seq": 121,
+      "path": "/products/checklist-pdf",
+      "eyebrow": "WEDDING CHECKLIST PDF",
+      "headline": "Plan Who Owns Each Task Before Anyone Assumes",
+      "subline": "Responsibilities assigned, not assumed",
+      "title": "Wedding Planning Checklist PDF: Plan Who Owns Each Task",
+      "description": "A wedding planning checklist with a responsibility field on every row, so each task has a named owner instead of an assumption. 104-row editable checklist and 13-page printable PDF.",
+      "layout": "split",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/checklist-3.jpg",
+      "topic": "checklist",
+      "release_date": "2026-11-20",
+      "image": {
+        "path": "/pinterest/drip/products-checklist-pdf-13.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 150346,
+        "text": [
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Plan Who Owns",
+              "Each Task Before",
+              "Anyone Assumes"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FAF7F2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Responsibilities assigned, not assumed"
+            ],
+            "fit": true,
+            "ink": "#555A73",
+            "ground": "#FAF7F2"
+          },
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "WEDDING CHECKLIST PDF"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "products-operations-suite-14",
       "seq": 122,
       "path": "/products/operations-suite",
@@ -5511,7 +4886,7 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/bundle-v4-1.jpg",
       "topic": "bundle",
-      "release_date": null,
+      "release_date": "2026-11-25",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-14.jpg",
@@ -5561,6 +4936,234 @@
       }
     },
     {
+      "id": "printable-wedding-checklist-14",
+      "seq": 123,
+      "path": "/printable-wedding-checklist",
+      "eyebrow": "PRINTABLE CHECKLIST",
+      "headline": "Cross Out What Doesn’t Apply on Your Printable List",
+      "subline": "Then write one owner per line",
+      "title": "Printable Wedding Checklist: Cross Out What Doesn’t Apply, Then Assign Owners",
+      "description": "How to use a printable wedding checklist: cross out the tasks that do not apply to your wedding, then write one owner on every line that is left.",
+      "layout": "header",
+      "palette": "midnight",
+      "art": "/pinterest/topic-art/checklist-1.jpg",
+      "topic": "checklist",
+      "release_date": "2026-11-15",
+      "image": {
+        "path": "/pinterest/drip/printable-wedding-checklist-14.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 131105,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "PRINTABLE CHECKLIST"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Cross Out What",
+              "Doesn’t Apply on",
+              "Your Printable List"
+            ],
+            "fit": true,
+            "ink": "#FAF7F2",
+            "ground": "#1B1F3B"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Then write one owner per line"
+            ],
+            "fit": true,
+            "ink": "#D9DCEB",
+            "ground": "#1B1F3B"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
+      "id": "guides-elopement-planning-checklist-13",
+      "seq": 124,
+      "path": "/guides/elopement-planning-checklist",
+      "eyebrow": "ELOPEMENT PERMITS",
+      "headline": "Get the Location Permit Before You Book Elopement Flights",
+      "subline": "Secure it before booking travel",
+      "title": "Elopement Planning: Get the Location Permit Before Booking Flights",
+      "description": "Some elopement locations need a permit. Secure it before booking travel, then plan photos, attire and the day itself.",
+      "layout": "header",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/elopement-3.jpg",
+      "topic": "elopement",
+      "release_date": "2026-11-13",
+      "image": {
+        "path": "/pinterest/drip/guides-elopement-planning-checklist-13.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 185078,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "ELOPEMENT PERMITS"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Get the Location Permit",
+              "Before You Book",
+              "Elopement Flights"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FAF7F2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Secure it before booking travel"
+            ],
+            "fit": true,
+            "ink": "#555A73",
+            "ground": "#FAF7F2"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
+      "id": "guides-courthouse-wedding-checklist-14",
+      "seq": 125,
+      "path": "/guides/courthouse-wedding-checklist",
+      "eyebrow": "COURTHOUSE DOCUMENTS",
+      "headline": "Bring the Right ID and Documents to the Courthouse",
+      "subline": "Gather documents before the day",
+      "title": "Courthouse Wedding Checklist: Bring the Right ID and Documents",
+      "description": "Verify the identification and document requirements directly with your courthouse, gather them ahead of time and bring a printed confirmation.",
+      "layout": "header",
+      "palette": "midnight",
+      "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
+      "topic": "courthouse",
+      "release_date": "2026-11-16",
+      "image": {
+        "path": "/pinterest/drip/guides-courthouse-wedding-checklist-14.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 184702,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "COURTHOUSE DOCUMENTS"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Bring the Right ID",
+              "and Documents",
+              "to the Courthouse"
+            ],
+            "fit": true,
+            "ink": "#FAF7F2",
+            "ground": "#1B1F3B"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Gather documents before the day"
+            ],
+            "fit": true,
+            "ink": "#D9DCEB",
+            "ground": "#1B1F3B"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
+      "id": "guides-destination-wedding-checklist-14",
+      "seq": 126,
+      "path": "/guides/destination-wedding-checklist",
+      "eyebrow": "DESTINATION WEDDING",
+      "headline": "Confirm Legal or Symbolic Before You Plan the Destination",
+      "subline": "Confirm the ceremony plan first",
+      "title": "Destination Wedding: Confirm a Legal or Symbolic Ceremony First",
+      "description": "Confirm whether the destination ceremony will be legal or symbolic before building the rest of the plan around it.",
+      "layout": "card",
+      "palette": "blue-soft",
+      "art": "/pinterest/topic-art/destination-v2-1.jpg",
+      "topic": "destination",
+      "release_date": "2026-11-17",
+      "image": {
+        "path": "/pinterest/drip/guides-destination-wedding-checklist-14.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 170330,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "DESTINATION WEDDING"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Confirm Legal or",
+              "Symbolic Before You",
+              "Plan the Destination"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#E8ECFC"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Confirm the ceremony plan first"
+            ],
+            "fit": true,
+            "ink": "#3C4160",
+            "ground": "#E8ECFC"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "products-checklist-pdf-14",
       "seq": 127,
       "path": "/products/checklist-pdf",
@@ -5573,7 +5176,7 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/checklist-v4-3.jpg",
       "topic": "checklist",
-      "release_date": null,
+      "release_date": "2026-11-25",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-checklist-pdf-14.jpg",
@@ -5635,7 +5238,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/bundle-v4-4.jpg",
       "topic": "bundle",
-      "release_date": null,
+      "release_date": "2026-11-20",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-15.jpg",
@@ -5686,6 +5289,64 @@
       }
     },
     {
+      "id": "printable-wedding-checklist-15",
+      "seq": 129,
+      "path": "/printable-wedding-checklist",
+      "eyebrow": "BOOKING STAGE",
+      "headline": "Book Venue and Key Vendors in Printable Checklist Order",
+      "subline": "Venue · catering · photography · music",
+      "title": "Printable Wedding Checklist: Book the Venue and Key Vendors in Order",
+      "description": "After the foundations, the printable checklist moves to venue and ceremony access, then catering, photography, entertainment and the other key vendors.",
+      "layout": "card",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/checklist-2.jpg",
+      "topic": "checklist",
+      "release_date": "2026-11-24",
+      "image": {
+        "path": "/pinterest/drip/printable-wedding-checklist-15.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 182924,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "BOOKING STAGE"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Book Venue and Key",
+              "Vendors in Printable",
+              "Checklist Order"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FAF7F2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Venue · catering · photography",
+              "music"
+            ],
+            "fit": true,
+            "ink": "#555A73",
+            "ground": "#FAF7F2"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "guides-elopement-planning-checklist-14",
       "seq": 130,
       "path": "/guides/elopement-planning-checklist",
@@ -5698,7 +5359,7 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/elopement-v4-3.jpg",
       "topic": "elopement",
-      "release_date": null,
+      "release_date": "2026-11-22",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-14.jpg",
@@ -5760,7 +5421,7 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
       "topic": "courthouse",
-      "release_date": null,
+      "release_date": "2026-11-26",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-15.jpg",
@@ -5822,7 +5483,7 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/destination-v2-3.jpg",
       "topic": "destination",
-      "release_date": null,
+      "release_date": "2026-11-22",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-destination-wedding-checklist-15.jpg",
@@ -5872,6 +5533,62 @@
       }
     },
     {
+      "id": "products-checklist-pdf-15",
+      "seq": 133,
+      "path": "/products/checklist-pdf",
+      "eyebrow": "WEDDING WEEK",
+      "headline": "Hand Off Wedding Week With a Printable Tracker",
+      "subline": "Separate from the long-range plan",
+      "title": "Wedding Checklist Printable: Hand Off Wedding Week With a Separate Tracker",
+      "description": "A separate wedding-week tracker keeps the handoff apart from long-range planning, so the people running the week get only what they need. Part of the 13-page printable Wedding Checklist PDF.",
+      "layout": "header",
+      "palette": "coral-soft",
+      "art": "/pinterest/topic-art/checklist-1.jpg",
+      "topic": "checklist",
+      "release_date": "2026-11-29",
+      "image": {
+        "path": "/pinterest/drip/products-checklist-pdf-15.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 130842,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "WEDDING WEEK"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Hand Off Wedding Week",
+              "With a Printable Tracker"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FDE9E1"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Separate from the long-range plan"
+            ],
+            "fit": true,
+            "ink": "#4A4560",
+            "ground": "#FDE9E1"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "products-operations-suite-16",
       "seq": 134,
       "path": "/products/operations-suite",
@@ -5884,7 +5601,7 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/bundle-v4-3.jpg",
       "topic": "bundle",
-      "release_date": null,
+      "release_date": "2026-11-30",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/products-operations-suite-16.jpg",
@@ -5935,6 +5652,63 @@
       }
     },
     {
+      "id": "printable-wedding-checklist-16",
+      "seq": 135,
+      "path": "/printable-wedding-checklist",
+      "eyebrow": "FINAL WEEKS",
+      "headline": "Finish the Printable Checklist With Counts and Balances",
+      "subline": "Final counts · balances · receipts",
+      "title": "Printable Wedding Checklist: Finish With Final Counts, Balances and Receipts",
+      "description": "The last stage of the printable checklist: final guest, meal, allergy and accessibility inputs, seating and escort-card data, final balances, gratuities and receipts.",
+      "layout": "binder-page",
+      "palette": "blue-soft",
+      "art": "/pinterest/topic-art/checklist-3.jpg",
+      "topic": "checklist",
+      "release_date": "2026-11-29",
+      "image": {
+        "path": "/pinterest/drip/printable-wedding-checklist-16.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 131400,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "FINAL WEEKS"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Finish the Printable",
+              "Checklist With",
+              "Counts and Balances"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#E8ECFC"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Final counts · balances · receipts"
+            ],
+            "fit": true,
+            "ink": "#3C4160",
+            "ground": "#E8ECFC"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
       "id": "guides-elopement-planning-checklist-15",
       "seq": 136,
       "path": "/guides/elopement-planning-checklist",
@@ -5947,7 +5721,7 @@
       "palette": "ivory",
       "art": "/pinterest/topic-art/elopement-v4-5.jpg",
       "topic": "elopement",
-      "release_date": null,
+      "release_date": "2026-11-27",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-15.jpg",
@@ -6009,7 +5783,7 @@
       "palette": "sage",
       "art": "/pinterest/topic-art/courthouse-v2-1.jpg",
       "topic": "courthouse",
-      "release_date": null,
+      "release_date": "2026-12-03",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-courthouse-wedding-checklist-16.jpg",
@@ -6057,6 +5831,121 @@
           "brand": "Wedding Checklist PDF"
         }
       }
+    },
+    {
+      "id": "guides-destination-wedding-checklist-16",
+      "seq": 138,
+      "path": "/guides/destination-wedding-checklist",
+      "eyebrow": "DESTINATION WEDDING",
+      "headline": "Check Shipping Rules Before Anything Ships to Your Destination",
+      "subline": "Shipping restrictions vary",
+      "title": "Destination Wedding: Check Shipping Restrictions Before Anything Ships",
+      "description": "Shipping is its own dependency in destination planning. Check shipping restrictions before anything is sent.",
+      "layout": "split",
+      "palette": "midnight",
+      "art": "/pinterest/topic-art/destination-v2-3.jpg",
+      "topic": "destination",
+      "release_date": "2026-11-30",
+      "image": {
+        "path": "/pinterest/drip/guides-destination-wedding-checklist-16.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 154948,
+        "text": [
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Check Shipping Rules",
+              "Before Anything Ships",
+              "to Your Destination"
+            ],
+            "fit": true,
+            "ink": "#FAF7F2",
+            "ground": "#1B1F3B"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Shipping restrictions vary"
+            ],
+            "fit": true,
+            "ink": "#D9DCEB",
+            "ground": "#1B1F3B"
+          },
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "DESTINATION WEDDING"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
+      "id": "products-checklist-pdf-16",
+      "seq": 139,
+      "path": "/products/checklist-pdf",
+      "eyebrow": "PLANNING CHECKLIST",
+      "headline": "See Vendor Dependencies Before They Block Your Planning",
+      "subline": "Dependency and status on every row",
+      "title": "Wedding Planning Checklist: See Vendor Dependencies Before They Block You",
+      "description": "Vendor and payment dependencies are surfaced on the checklist itself, with dependency, priority and status fields on all 104 rows, so you see what is waiting on what before it blocks the plan.",
+      "layout": "card",
+      "palette": "midnight",
+      "art": "/pinterest/topic-art/checklist-2.jpg",
+      "topic": "checklist",
+      "release_date": null,
+      "image": {
+        "path": "/pinterest/drip/products-checklist-pdf-16.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 184036,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "PLANNING CHECKLIST"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 90,
+            "lines": [
+              "See Vendor Dependencies",
+              "Before They Block Your",
+              "Planning"
+            ],
+            "fit": true,
+            "ink": "#FAF7F2",
+            "ground": "#1B1F3B"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Dependency and",
+              "status on every row"
+            ],
+            "fit": true,
+            "ink": "#D9DCEB",
+            "ground": "#1B1F3B"
+          }
+        ]
+      },
+      "generation": "dw-v2"
     },
     {
       "id": "products-operations-suite-17",
@@ -6133,7 +6022,7 @@
       "palette": "champagne",
       "art": "/pinterest/topic-art/checklist-v4-4.jpg",
       "topic": "checklist",
-      "release_date": null,
+      "release_date": "2026-12-03",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/printable-wedding-checklist-17.jpg",
@@ -6196,7 +6085,7 @@
       "palette": "blush",
       "art": "/pinterest/topic-art/elopement-v4-2.jpg",
       "topic": "elopement",
-      "release_date": null,
+      "release_date": "2026-12-01",
       "generation": "dw-v3",
       "image": {
         "path": "/pinterest/drip/guides-elopement-planning-checklist-16.jpg",
@@ -6245,8 +6134,124 @@
           "brand": "Wedding Checklist PDF"
         }
       }
+    },
+    {
+      "id": "guides-courthouse-wedding-checklist-17",
+      "seq": 143,
+      "path": "/guides/courthouse-wedding-checklist",
+      "eyebrow": "COURTHOUSE WEDDING",
+      "headline": "Keep a Courthouse Wedding Small Without Skipping Steps",
+      "subline": "A real checklist for a short ceremony",
+      "title": "Courthouse Wedding Checklist: Keep It Small Without Skipping Steps",
+      "description": "A small ceremony still has a checklist: appointment, license, witnesses, identification, security and photography rules, arrival and parking.",
+      "layout": "split",
+      "palette": "coral-soft",
+      "art": "/pinterest/topic-art/courthouse-v3-1.jpg",
+      "topic": "courthouse",
+      "release_date": "2026-11-21",
+      "image": {
+        "path": "/pinterest/drip/guides-courthouse-wedding-checklist-17.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 132297,
+        "text": [
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Keep a Courthouse",
+              "Wedding Small",
+              "Without Skipping Steps"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FDE9E1"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "A real checklist for a short ceremony"
+            ],
+            "fit": true,
+            "ink": "#4A4560",
+            "ground": "#FDE9E1"
+          },
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "COURTHOUSE WEDDING"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          }
+        ]
+      },
+      "generation": "dw-v2"
+    },
+    {
+      "id": "guides-destination-wedding-checklist-17",
+      "seq": 144,
+      "path": "/guides/destination-wedding-checklist",
+      "eyebrow": "DESTINATION WEDDING",
+      "headline": "Plan a Weather Backup for Your Destination Wedding",
+      "subline": "Weather contingency included",
+      "title": "Destination Wedding Checklist: Plan a Weather Backup",
+      "description": "Weather contingencies are part of the destination plan, alongside travel, lodging, local vendors, documents and shipping.",
+      "layout": "tab-panel",
+      "palette": "ivory",
+      "art": "/pinterest/topic-art/destination-v3-1.jpg",
+      "topic": "destination",
+      "release_date": "2026-11-26",
+      "image": {
+        "path": "/pinterest/drip/guides-destination-wedding-checklist-17.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 122674,
+        "text": [
+          {
+            "role": "eyebrow",
+            "size": 43,
+            "lines": [
+              "DESTINATION WEDDING"
+            ],
+            "fit": true,
+            "ink": "#FFFFFF",
+            "ground": "#2747D9"
+          },
+          {
+            "role": "headline",
+            "size": 100,
+            "lines": [
+              "Plan a Weather",
+              "Backup for Your",
+              "Destination Wedding"
+            ],
+            "fit": true,
+            "ink": "#1B1F3B",
+            "ground": "#FAF7F2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "Weather contingency included"
+            ],
+            "fit": true,
+            "ink": "#555A73",
+            "ground": "#FAF7F2"
+          }
+        ]
+      },
+      "generation": "dw-v2"
     }
   ],
+  "questions": [],
+  "pending": [],
   "retired_ids": [
     "products-checklist-pdf-06",
     "products-operations-suite-06",
