@@ -7,6 +7,8 @@ import pageRescue from '../../data/seo/page_rescue.json' with { type: 'json' };
 //   options: --today YYYY-MM-DD (default: today in America/Chicago)
 //            --start-today   re-date every unreleased pin at the current pace and give
 //                            each topic board one pin today (used once, 1 Nov 2026)
+//            --requeue       replace every unreleased pin with a new one (topic art + the
+//                            gate; used 6 Nov 2026). Released pins are never touched.
 //
 // Runs DAILY (.github/workflows/pinterest-drip.yml, after the search loop):
 // 0. Questions: every live search-loop page (/questions/*) not yet pinned gets its
@@ -29,8 +31,9 @@ import path from 'node:path';
 import { addDays, applyFallback, applyPause, chicagoDate, decidePace, needsRefill, pageSlug, planRefill, scheduleVariants, unreleasedCount } from '../../lib/pinqueue.mjs';
 import { pinBoards } from '../../lib/pinboards.mjs';
 import { searchLoopPages } from '../../lib/search-loop-pages.mjs';
-import { anglesFor, artFor, eligiblePaths, HOST, pageSource, questionPin } from './pin_sources.mjs';
-import { H, renderPin, W } from './render_pin.mjs';
+import { anglesFor, artFor, eligiblePaths, HOST, pageSource, questionPin, topicFor, topicImages } from './pin_sources.mjs';
+import { gateAndReschedule, gateNewPin } from './quality.mjs';
+import { closeRenderer, renderToFile } from './render_pin.mjs';
 
 const ROOT = process.cwd();
 const QUEUE = path.join(ROOT, 'data/pinterest/queue.json');
@@ -42,6 +45,8 @@ const today = opt('--today') ?? chicagoDate();
 if (!/^\d{4}-\d{2}-\d{2}$/.test(today)) throw new Error(`--today must be YYYY-MM-DD, got ${today}`);
 const seed = opt('--seed') ? Number(opt('--seed')) : 0;
 const startToday = args.includes('--start-today');
+const requeue = args.includes('--requeue');
+const handWritten = (pagePath) => readJson('data/pinterest/angles.json')[pagePath] ?? [];
 const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 
 const queue = JSON.parse(fs.readFileSync(QUEUE, 'utf8'));
@@ -70,10 +75,27 @@ for (const pagePath of eligiblePaths()) {
   if (!queue.known_pages.includes(pagePath)) queue.known_pages.push(pagePath);
   const source = pageSource(pagePath);
   if (!source) { log.push(`SKIPPED ${pagePath}: no source record to write truthful copy from`); continue; }
-  queue.pages.push({ path: pagePath, art: artFor(source.productId).slice(0, 4), joined: today });
+  queue.pages.push({ path: pagePath, art: [], joined: today });
   log.push(`JOINED ${pagePath}`);
 }
 queue.known_pages.sort();
+// Every page draws from its topic art (data/pinterest/topic_art.json); a page with no topic
+// keeps the product art, and the quality gate holds its pins (NO_TOPIC_ART) until one is added.
+for (const page of queue.pages) {
+  const topic = topicFor(page.path);
+  page.art = topic ? topicImages(topic) : artFor(pageSource(page.path)?.productId ?? 'checklist-pdf').slice(0, 4);
+  if (topic) page.topic = topic; else delete page.topic;
+}
+
+// --requeue: every pin not yet released is retired (its id is never reused) and its image
+// deleted; the refill below plans the replacements. Published pins are never touched.
+if (requeue) {
+  const out = queue.variants.filter((v) => !v.release_date || v.release_date > today);
+  queue.retired_ids = [...new Set([...(queue.retired_ids ?? []), ...out.map((v) => v.id)])];
+  for (const v of out) if (v.image?.path && fs.existsSync(path.join(ROOT, 'public', v.image.path))) fs.unlinkSync(path.join(ROOT, 'public', v.image.path));
+  queue.variants = queue.variants.filter((v) => v.release_date && v.release_date <= today);
+  log.push(`REQUEUE: retired ${out.length} unreleased pin(s); published pins kept`);
+}
 
 // A page that stopped being served must not be released.
 const owned = new Set(JSON.parse(fs.readFileSync(path.join(ROOT, 'data/seo/route_ownership.json'), 'utf8')).routes.filter((r) => r.host === HOST).map((r) => r.path));
@@ -86,10 +108,11 @@ if (queue.variants.length !== before) log.push(`DROPPED ${before - queue.variant
 if (queue.variants.length !== before) for (const v of queue.variants) if (v.release_date && v.release_date > today) delete v.release_date;
 
 // 2. Refill.
-const pages = queue.pages.filter((p) => owned.has(p.path) && !Object.hasOwn(pageRescue.redirects, p.path)).map((p) => ({ ...p, angles: anglesFor(p.path) }));
+const pages = queue.pages.filter((p) => owned.has(p.path) && !Object.hasOwn(pageRescue.redirects, p.path)).map((p) => ({ ...p, angles: requeue ? handWritten(p.path) : anglesFor(p.path) }));
 const paused = pace.action === 'pause';
-const due = !paused && (seed > 0 || needsRefill(queue, today) || pages.some((p) => !queue.variants.some((v) => v.path === p.path)));
-const count = seed > 0 ? seed * pages.length : queue.config.refill_batch;
+const due = !paused && (seed > 0 || requeue || needsRefill(queue, today) || pages.some((p) => !queue.variants.some((v) => v.path === p.path)));
+// A re-queue plans every unused hand-written angle (the gate drops what cannot be made good).
+const count = seed > 0 ? seed * pages.length : requeue ? pages.reduce((n, p) => n + p.angles.length, 0) : queue.config.refill_batch;
 const planned = due ? planRefill(queue, pages, count) : [];
 // A refill's new pins sit on the few pages with the fewest variants. Appended after the
 // pins already dated they cannot fill a day without repeating a page (2026-11-13
@@ -108,9 +131,8 @@ let rendered = 0;
 for (const variant of queue.variants) {
   const rel = `/${IMAGE_DIR}/${variant.id}.jpg`;
   if (variant.image && fs.existsSync(path.join(ROOT, 'public', rel))) continue;
-  const buffer = await renderPin(variant);
-  fs.writeFileSync(path.join(ROOT, 'public', rel), buffer);
-  variant.image = { path: rel, type: 'image/jpeg', width: W, height: H, length: buffer.length };
+  const drawn = await renderToFile(variant, rel);
+  variant.image = { ...drawn.image, text: drawn.text };
   rendered += 1;
 }
 
@@ -122,10 +144,9 @@ for (const page of paused ? [] : searchLoopPages(slConfig, readJson('data/search
   if (queue.questions.some((q) => q.id === id)) continue;
   const pin = questionPin(page, slConfig, id);
   if (!pin) { log.push(`SKIPPED ${page.route}: no page file or question too long to print on a pin`); continue; }
-  const rel = `/${IMAGE_DIR}/${id}.jpg`;
-  const buffer = await renderPin(pin);
-  fs.writeFileSync(path.join(ROOT, 'public', rel), buffer);
-  queue.questions.push({ ...pin, release_date: today, image: { path: rel, type: 'image/jpeg', width: W, height: H, length: buffer.length } });
+  const gated = await gateNewPin(pin, queue, today);
+  if (gated.held) { log.push(`PIN_QUALITY_HOLD ${page.route}: ${gated.held}`); continue; }
+  queue.questions.push({ ...gated, release_date: today });
   log.push(`QUESTION PIN ${page.route} -> ${boards.boardFor(page.route, pin.title).slug}`);
 }
 // A question page the engine merged away must not stay in a feed.
@@ -151,6 +172,13 @@ if (startToday) {
 // 3. Dates.
 const firstDay = [queue.config.drip_start, addDays(today, 1)].sort().pop();
 if (!paused) scheduleVariants(queue.variants, { pinsPerDay: queue.config.pins_per_day, firstDay });
+
+// 4. Quality gate (scripts/pinterest/quality.mjs): every unreleased pin must look new, show
+// its page's topic, state the searcher's benefit and read at 236px; one that cannot be made
+// good is held and never posted.
+const gate = paused ? { reworked: [], held: [] } : await gateAndReschedule(queue, today);
+log.push(`quality gate: ${gate.reworked.length} reworked, ${gate.held.length} held`);
+closeRenderer();
 queue.variants.sort((a, b) => a.seq - b.seq);
 
 fs.writeFileSync(QUEUE, `${JSON.stringify(queue, null, 2)}\n`);

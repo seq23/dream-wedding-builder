@@ -1,327 +1,619 @@
 {
-  "_comment": "Hand-written pin angles for the pages in the launch feed (owner-approved daily drip, 16 Oct 2026). Every headline, subline, title and description restates something the target page itself says (product catalog, content registry, hub page data); no prices, so nothing can drift from the live price. Every number used must appear in that page's source text: tests/unit/pinqueue.test.ts checks it. When a page's angles run out, scripts/pinterest/pin_queue.mjs derives further angles from the page's source data.",
+  "_comment": "Hand-written pin angles for the pages in the launch feed (owner-approved daily drip, 16 Oct 2026). Every headline, subline, title and description restates something the target page itself says (product catalog, content registry, hub page data); no prices, so nothing can drift from the live price. Every number used must appear in that page's source text: tests/unit/pinqueue.test.ts checks it. When a page's angles run out, scripts/pinterest/pin_queue.mjs derives further angles from the page's source data. Rewritten 6 Nov 2026 for the pin quality gate (scripts/pinterest/quality.mjs): every hand-written headline states what the searcher gets, in its page's own search words (data/pinterest/topic_art.json pages.search).",
   "/products/checklist-pdf": [
     {
+      "eyebrow": "WEDDING CHECKLIST PDF",
+      "headline": "Plan Every Task From Your Date, Not Month 12",
+      "subline": "A PDF checklist sequenced to your wedding",
+      "title": "Wedding Checklist PDF: Plan Every Task From Your Date, Not Month 12",
+      "description": "A wedding checklist PDF that sequences tasks from today through the wedding, so a short engagement starts where you are instead of at a generic month 12. 104-row editable checklist plus a 13-page printable packet."
+    },
+    {
       "eyebrow": "EDITABLE + PRINTABLE",
-      "headline": "Wedding Checklist\nPDF",
-      "subline": "104 rows \u00b7 13 printable pages",
-      "title": "Wedding Checklist PDF: 104-Row Editable Checklist + 13-Page Printable",
-      "description": "A 104-row editable master checklist plus a 13-page printable PDF and setup CSV. Assign target dates, owners, dependencies and priorities from 12+ months out through wedding week."
-    },
-    {
-      "eyebrow": "DATED PLANNING SYSTEM",
-      "headline": "A Checklist Built\nAround Your Date",
-      "subline": "Planning windows from 12+ months out",
-      "title": "A Wedding Checklist Built Around Your Actual Wedding Date",
-      "description": "Planning-window worksheets run from 12+ months out through wedding week, so every task is sequenced from today to the wedding instead of copied from a generic list."
+      "headline": "A Printable Wedding Checklist You Can Also Edit",
+      "subline": "13 printable pages + an editable checklist",
+      "title": "Printable Wedding Checklist PDF You Can Also Edit: 13 Pages + Editable Checklist",
+      "description": "A 13-page printable PDF plus an editable XLSX and setup CSV: the same 104-row wedding checklist on paper and on screen, with owners, dependencies, priorities and deadlines."
     },
     {
       "eyebrow": "WEDDING CHECKLIST PDF",
-      "headline": "Who Owns\nEach Task?",
-      "subline": "Assign it. Don't assume it.",
-      "title": "Wedding Checklist with an Owner for Every Task",
-      "description": "Responsibility, dependency, priority and status fields on every row, so each wedding task has a named owner instead of an assumed one. Editable XLSX plus a printable PDF."
+      "headline": "Plan Who Owns Each Task Before Anyone Assumes",
+      "subline": "Responsibilities assigned, not assumed",
+      "title": "Wedding Planning Checklist PDF: Plan Who Owns Each Task",
+      "description": "A wedding planning checklist with a responsibility field on every row, so each task has a named owner instead of an assumption. 104-row editable checklist and 13-page printable PDF."
     },
     {
-      "eyebrow": "WEDDING CHECKLIST PDF",
-      "headline": "Vendor & Payment\nDependencies",
-      "subline": "Surfaced before they block you",
-      "title": "Wedding Checklist That Surfaces Vendor and Payment Dependencies",
-      "description": "Dependency fields and a separate final-payment tracker surface which vendor bookings and balances hold up the rest of your plan, so nothing waits until wedding week."
+      "eyebrow": "FINAL PAYMENTS",
+      "headline": "Track Final Payments in Your Printable Checklist",
+      "subline": "A separate final-payment tracker",
+      "title": "Wedding Checklist Printable: Track Final Payments in One Place",
+      "description": "The Wedding Checklist PDF keeps final payments on their own tracker, so vendor balances and due dates are not buried in the long-range plan. Includes a 13-page printable PDF."
     },
     {
-      "eyebrow": "WEDDING-WEEK HANDOFF",
-      "headline": "Wedding Week,\nHanded Off",
-      "subline": "Separate wedding-week tracker",
-      "title": "Wedding Checklist with Separate Wedding-Week and Final-Payment Trackers",
-      "description": "The wedding-week handoff lives on its own tracker, apart from long-range planning, alongside a final-payment tracker. Part of the editable and printable Wedding Checklist PDF."
+      "eyebrow": "WEDDING WEEK",
+      "headline": "Hand Off Wedding Week With a Printable Tracker",
+      "subline": "Separate from the long-range plan",
+      "title": "Wedding Checklist Printable: Hand Off Wedding Week With a Separate Tracker",
+      "description": "A separate wedding-week tracker keeps the handoff apart from long-range planning, so the people running the week get only what they need. Part of the 13-page printable Wedding Checklist PDF."
     },
     {
-      "eyebrow": "SHORT ENGAGEMENT?",
-      "headline": "Plan From Today,\nNot Month 12",
-      "subline": "Tasks sequenced to your wedding",
-      "title": "Short Engagement Wedding Checklist: Tasks Sequenced From Today",
-      "description": "Built for short-engagement planners: tasks are sequenced from today through the wedding, with owners, dependencies and priorities, in an editable checklist and printable PDF."
-    },
-    {
-      "eyebrow": "NOT A GENERIC LIST",
-      "headline": "Beyond the Generic\n12-Month List",
-      "subline": "Priority \u00b7 dependency \u00b7 status",
-      "title": "A Wedding Checklist for Couples Who Don't Want a Generic 12-Month List",
-      "description": "Destination, backyard and micro-wedding couples get a dated checklist with priority, dependency and status fields instead of a one-size 12-month list. Editable XLSX and printable PDF."
+      "eyebrow": "PLANNING CHECKLIST",
+      "headline": "See Vendor Dependencies Before They Block Your Planning",
+      "subline": "Dependency and status on every row",
+      "title": "Wedding Planning Checklist: See Vendor Dependencies Before They Block You",
+      "description": "Vendor and payment dependencies are surfaced on the checklist itself, with dependency, priority and status fields on all 104 rows, so you see what is waiting on what before it blocks the plan."
     }
   ],
   "/products/operations-suite": [
     {
-      "eyebrow": "FOUR WEDDING PLANNERS",
-      "headline": "Four Planners,\nOne Bundle",
-      "subline": "Checklist \u00b7 Budget \u00b7 Timeline \u00b7 Seating",
-      "title": "Wedding Planning Bundle: Checklist, Budget, Timeline and Seating Chart",
-      "description": "The Dream Wedding Operations Suite bundles the Wedding Checklist PDF, Budget Spreadsheet, Timeline Template and Seating Chart Maker with venue, vendor and payment trackers."
+      "eyebrow": "WEDDING PLANNING BUNDLE",
+      "headline": "One Bundle Runs Your Budget, Timeline and Seating Together",
+      "subline": "Four planners that share one plan",
+      "title": "Wedding Planning Bundle: Run Budget, Timeline, Seating and Checklist Together",
+      "description": "The Dream Wedding Operations Suite bundles the Wedding Checklist PDF, Budget Spreadsheet, Timeline Template and Seating Chart Maker, so budget, timeline and seating work from one plan."
     },
     {
-      "eyebrow": "OPERATIONS SUITE",
-      "headline": "Every Tool.\nEvery Detail.",
-      "subline": "Beautifully organized",
-      "title": "Dream Wedding Operations Suite: Every Tool, Every Detail, Organized",
-      "description": "Every Dream Wedding Builder planner in one suite: checklist, budget spreadsheet, timeline template, seating chart maker, plus a wedding-week handoff packet and responsibility matrix."
+      "eyebrow": "BUDGET SPREADSHEET",
+      "headline": "Keep Every Vendor Payment in One Budget Spreadsheet",
+      "subline": "Vendor contact and payment trackers",
+      "title": "Wedding Budget Spreadsheet: Keep Every Vendor Payment in One Place",
+      "description": "The Operations Suite includes the Wedding Budget Spreadsheet plus vendor contact and payment trackers, so every vendor, contact and payment sits in one place."
     },
     {
-      "eyebrow": "INCLUDED IN THE SUITE",
-      "headline": "Vendor Contacts\n& Payments",
-      "subline": "Trackers for both, in one place",
-      "title": "Wedding Vendor Contact and Payment Trackers in One Planning Suite",
-      "description": "The Operations Suite adds vendor contact and payment trackers to the checklist, budget, timeline and seating planners, so contacts and balances live next to the plan."
+      "eyebrow": "VENUE COMPARISON",
+      "headline": "Compare Venues Side by Side in One Planning Bundle",
+      "subline": "Venue comparison worksheet included",
+      "title": "Wedding Planning Bundle: Compare Venues Side by Side Before You Book",
+      "description": "A venue comparison worksheet is included in the Dream Wedding Operations Suite, alongside the checklist, budget spreadsheet, timeline template and seating chart maker."
     },
     {
-      "eyebrow": "INCLUDED IN THE SUITE",
-      "headline": "A Wedding-Week\nHandoff Packet",
+      "eyebrow": "WEDDING PLANNING BUNDLE",
+      "headline": "Stop Juggling Four Templates: One Planning Bundle",
+      "subline": "Checklist · budget · timeline · seating",
+      "title": "Wedding Planning Bundle: Stop Juggling Four Separate Templates",
+      "description": "One bundle instead of four separate templates: the Wedding Checklist PDF, Wedding Budget Spreadsheet, Wedding Timeline Template and Wedding Seating Chart Maker."
+    },
+    {
+      "eyebrow": "WEDDING-WEEK HANDOFF",
+      "headline": "Hand Off Wedding Week With the Planning Bundle",
       "subline": "Emergency contacts + responsibility matrix",
-      "title": "Wedding-Week Handoff Packet with Emergency Contacts and a Responsibility Matrix",
-      "description": "Hand the wedding week to the people running it: the Operations Suite includes a handoff packet, emergency contacts and a responsibility matrix alongside four wedding planners."
+      "title": "Wedding Planning Bundle: Hand Off Wedding Week With Contacts and Roles",
+      "description": "The Operations Suite includes a wedding-week handoff packet with emergency contacts and a responsibility matrix, so the people running the week know who does what."
     },
     {
-      "eyebrow": "INCLUDED IN THE SUITE",
-      "headline": "Compare Venues\nSide by Side",
-      "subline": "Venue comparison worksheet",
-      "title": "Wedding Venue Comparison Worksheet, Part of the Operations Suite",
-      "description": "A venue comparison worksheet comes with the Operations Suite, together with the Wedding Checklist PDF, Budget Spreadsheet, Timeline Template and Seating Chart Maker."
-    },
-    {
-      "eyebrow": "THE COMPLETE SET",
-      "headline": "Budget, Timeline,\nSeating, Checklist",
-      "subline": "Plus venue, vendor and payment trackers",
-      "title": "Wedding Budget, Timeline, Seating Chart and Checklist in One Bundle",
-      "description": "Four wedding planners in one bundle: budget spreadsheet, timeline template, seating chart maker and checklist PDF, plus venue comparison, vendor contact and payment trackers."
-    },
-    {
-      "eyebrow": "ONE PLANNING SYSTEM",
-      "headline": "Stop Juggling\nFour Templates",
-      "subline": "One suite, one plan",
-      "title": "One Wedding Planning Suite Instead of Four Separate Templates",
-      "description": "The Operations Suite keeps the checklist, budget, timeline and seating chart together with vendor and payment trackers and a wedding-week handoff packet."
+      "eyebrow": "BUDGET PLANNING",
+      "headline": "Get the Budget Spreadsheet and Seating Chart Maker Together",
+      "subline": "Budget spreadsheet + seating chart maker",
+      "title": "Wedding Budget Planning: Plan the Budget and Seating Chart Together",
+      "description": "The Wedding Budget Spreadsheet and the Wedding Seating Chart Maker come together in the Dream Wedding Operations Suite, with the checklist and timeline template."
     }
   ],
   "/printable-wedding-checklist": [
     {
-      "eyebrow": "PRINTER-FIRST PLANNING",
-      "headline": "Print It.\nWork From It.",
-      "subline": "Task \u00b7 Owner \u00b7 Due date \u00b7 Done",
-      "title": "Printable Wedding Checklist: Task, Owner, Due Date, Done",
+      "eyebrow": "PRINTABLE CHECKLIST",
+      "headline": "Print One Wedding Checklist and Work From It by Hand",
+      "subline": "Task · owner · due date · done",
+      "title": "Printable Wedding Checklist: Print It and Work From It by Hand",
       "description": "A printable wedding checklist you work from by hand: every task from setting the date to the wedding-week handoff, with a line for who owns it, when it is due and whether it is done."
     },
     {
-      "eyebrow": "PRINTABLE CHECKLIST",
-      "headline": "Every Task,\nOwner & Deadline",
-      "subline": "From the date to the handoff",
-      "title": "Printable Wedding Checklist: Every Task, Owner and Deadline",
-      "description": "Every wedding task from setting the date to the wedding-week handoff, with an owner, a due date and a done box. Prints cleanly from your browser and keeps the critical path on a few pages."
+      "eyebrow": "START HERE",
+      "headline": "Start Your Printable Checklist With the Four Foundations",
+      "subline": "Date · guest range · location · budget",
+      "title": "Printable Wedding Checklist: Start With Date, Guest Range, Location, Budget",
+      "description": "The printable checklist starts with the foundations every later choice depends on: the date or date window, a guest-count range, the location or venue search area and a budget ceiling."
     },
     {
-      "eyebrow": "HOW TO USE IT",
-      "headline": "Cross Out What\nDoesn't Apply",
+      "eyebrow": "PRINTABLE CHECKLIST",
+      "headline": "Cross Out What Doesn’t Apply on Your Printable List",
       "subline": "Then write one owner per line",
-      "title": "How to Use a Printable Wedding Checklist: Cross Out, Assign, Date",
-      "description": "Print the checklist, cross out tasks that do not apply, write one owner beside each remaining line, and move contract-based dates into your calendar or working tracker."
+      "title": "Printable Wedding Checklist: Cross Out What Doesn’t Apply, Then Assign Owners",
+      "description": "How to use a printable wedding checklist: cross out the tasks that do not apply to your wedding, then write one owner on every line that is left."
+    },
+    {
+      "eyebrow": "BOOKING STAGE",
+      "headline": "Book Venue and Key Vendors in Printable Checklist Order",
+      "subline": "Venue · catering · photography · music",
+      "title": "Printable Wedding Checklist: Book the Venue and Key Vendors in Order",
+      "description": "After the foundations, the printable checklist moves to venue and ceremony access, then catering, photography, entertainment and the other key vendors."
+    },
+    {
+      "eyebrow": "FINAL WEEKS",
+      "headline": "Finish the Printable Checklist With Counts and Balances",
+      "subline": "Final counts · balances · receipts",
+      "title": "Printable Wedding Checklist: Finish With Final Counts, Balances and Receipts",
+      "description": "The last stage of the printable checklist: final guest, meal, allergy and accessibility inputs, seating and escort-card data, final balances, gratuities and receipts."
     },
     {
       "eyebrow": "PRINTABLE CHECKLIST",
-      "headline": "Foundation\nFirst",
-      "subline": "Date \u00b7 guest range \u00b7 location \u00b7 budget",
-      "title": "Wedding Planning Foundation: Date, Guest Count, Location, Budget",
-      "description": "Start the printable wedding checklist with the foundation: date or date window, guest-count range, location or venue search area, budget ceiling and decision owners."
-    },
-    {
-      "eyebrow": "PRINTABLE CHECKLIST",
-      "headline": "Booking\n& Build",
-      "subline": "Venue \u00b7 key vendors \u00b7 guests \u00b7 logistics",
-      "title": "Wedding Booking Checklist: Venue, Key Vendors, Guests, Logistics",
-      "description": "Secure the critical path first: venue and ceremony access, catering, photography and other key vendors, then the guest list, attire, rentals, transportation and lodging."
-    },
-    {
-      "eyebrow": "PRINTABLE CHECKLIST",
-      "headline": "Finalize\n& Hand Off",
-      "subline": "Counts \u00b7 balances \u00b7 timelines \u00b7 contacts",
-      "title": "Finalize and Hand Off: The Last Page of Your Wedding Checklist",
-      "description": "Stop adding scope and reconcile the wedding that is actually happening: final guest and meal counts, seating data, final balances and receipts, timelines and emergency contacts."
-    },
-    {
-      "eyebrow": "PRINTABLE CHECKLIST",
-      "headline": "A Control Sheet,\nNot a Contract",
-      "subline": "Move contract dates to your tracker",
-      "title": "A Printable Wedding Checklist Is a Control Sheet, Not a Contract",
-      "description": "The printout is a control sheet, not a replacement for contracts or vendor instructions: transfer contract-based dates into your calendar or working tracker as you go."
+      "headline": "Print a Checklist That Ends With the Wedding-Week Handoff",
+      "subline": "Timelines · contacts · documents · returns",
+      "title": "Printable Wedding Checklist: End With the Wedding-Week Handoff",
+      "description": "The printable checklist ends with the handoff: master and role-specific timelines, emergency contacts, legal documents, setup and the return plan."
     }
   ],
   "/guides/elopement-planning-checklist": [
     {
       "eyebrow": "ELOPEMENT CHECKLIST",
-      "headline": "Eloping?\nCheck the Law First",
-      "subline": "License \u00b7 waiting period \u00b7 witnesses",
-      "title": "Eloping? Check the Marriage License, Waiting Period and Witness Rules First",
-      "description": "An elopement removes guests, not legal requirements. Verify the marriage license rules, any waiting period and the witness rules where the ceremony will actually take place."
-    },
-    {
-      "eyebrow": "FREE GUIDE",
-      "headline": "No Guests.\nStill Legal Rules.",
-      "subline": "License, officiant, witnesses",
-      "title": "Elopement Planning: No Guests, but the Legal Rules Still Apply",
-      "description": "The license, the officiant's authority and the witness rules still decide whether an elopement is a valid marriage. A free checklist for what to confirm before you travel."
+      "headline": "Plan Your Elopement Around the Marriage License First",
+      "subline": "License · waiting period · witnesses",
+      "title": "Elopement Planning Checklist: Plan Around the Marriage License First",
+      "description": "An elopement removes guests, not legal requirements. Verify the marriage license rules, any waiting period and the witness rules where you will marry before anything else."
     },
     {
       "eyebrow": "ELOPEMENT CHECKLIST",
-      "headline": "Is Your Officiant\nAuthorized There?",
+      "headline": "Check Your Officiant Can Marry You Where You Elope",
       "subline": "Confirm before you book travel",
-      "title": "Elopement Checklist: Confirm Your Officiant Is Authorized Where You Marry",
-      "description": "Confirm the officiant is authorized in the jurisdiction where the ceremony takes place, and secure any location permit, before booking travel for your elopement."
+      "title": "Elopement Checklist: Check Your Officiant Can Marry You There",
+      "description": "Confirm the officiant’s authority in the place you will marry before booking travel; an elopement still has legal requirements even without guests."
     },
     {
-      "eyebrow": "ELOPEMENT CHECKLIST",
-      "headline": "Location Permit\nBefore Flights",
+      "eyebrow": "ELOPEMENT PERMITS",
+      "headline": "Get the Location Permit Before You Book Elopement Flights",
       "subline": "Secure it before booking travel",
-      "title": "Elopement Planning: Secure the Location Permit Before You Book Travel",
-      "description": "Secure any location permit for the ceremony site before booking travel, then plan photos, attire and the day itself. A free elopement planning checklist."
+      "title": "Elopement Planning: Get the Location Permit Before Booking Flights",
+      "description": "Some elopement locations need a permit. Secure it before booking travel, then plan photos, attire and the day itself."
     },
     {
-      "eyebrow": "FREE GUIDE",
-      "headline": "Waiting Periods\nVary by Place",
+      "eyebrow": "FREE ELOPEMENT GUIDE",
+      "headline": "Eloping? Know the Waiting Period Before You Pick a Date",
       "subline": "Confirm with the issuing office",
-      "title": "Elopement License Waiting Periods Vary: Confirm With the Issuing Office",
-      "description": "License validity windows, waiting periods and required witness counts vary by jurisdiction and change over time, so confirm the current rule with the issuing office for your location."
-    },
-    {
-      "eyebrow": "FREE GUIDE",
-      "headline": "The Elopement\nChecklist",
-      "subline": "Then plan photos, attire, the day",
-      "title": "The Elopement Checklist: Legal Steps First, Then Photos, Attire and the Day",
-      "description": "Check the marriage license, waiting period, witnesses, officiant authority and location permits before you travel, then plan photos, attire and the day itself."
+      "title": "Eloping? Know the Waiting Period Before You Pick a Date",
+      "description": "Waiting periods vary by place. Confirm the waiting period with the issuing office before setting the elopement date and booking travel."
     },
     {
       "eyebrow": "ELOPEMENT CHECKLIST",
-      "headline": "How Many\nWitnesses?",
-      "subline": "It depends where you marry",
-      "title": "How Many Witnesses Does an Elopement Need? It Depends Where You Marry",
-      "description": "Required witness counts vary by jurisdiction. Check the witness rules that apply where the ceremony will actually take place, along with the license and any waiting period."
+      "headline": "Elope Without Missing a Legal Step",
+      "subline": "License · officiant · witnesses · permit",
+      "title": "Elopement Planning Checklist: Elope Without Missing a Legal Step",
+      "description": "A free elopement planning checklist: marriage license requirements, any waiting period, witness rules, the officiant’s authority and location permits, checked before travel."
+    },
+    {
+      "eyebrow": "ELOPEMENT CHECKLIST",
+      "headline": "Plan Photos and Attire After the Elopement Paperwork",
+      "subline": "Legal steps first, then the day",
+      "title": "Elopement Planning Checklist: Paperwork First, Then Photos and Attire",
+      "description": "Plan the legal side of an elopement first: license, waiting period, witnesses, officiant and permits. Then plan photos, attire and the day itself."
     }
   ],
   "/guides/courthouse-wedding-checklist": [
     {
       "eyebrow": "COURTHOUSE WEDDING",
-      "headline": "Courthouse\nWedding Checklist",
-      "subline": "Start with your local rules",
-      "title": "Courthouse Wedding Checklist: Start With Your Jurisdiction's Rules",
-      "description": "A courthouse wedding checklist begins with jurisdiction-specific appointment, license, witness, identification, security and photography rules. Verify them directly first."
+      "headline": "Plan a Courthouse Wedding Around Your Local Rules",
+      "subline": "Appointment · license · ID · witnesses",
+      "title": "Courthouse Wedding Checklist: Plan Around Your Local Rules",
+      "description": "A courthouse wedding checklist starts with jurisdiction-specific rules: appointment, marriage license, witnesses, identification, security screening and photography rules."
     },
     {
       "eyebrow": "COURTHOUSE WEDDING",
-      "headline": "Book the\nAppointment",
+      "headline": "Book the Courthouse Appointment Before Anything Else",
       "subline": "If your courthouse requires one",
-      "title": "Courthouse Wedding: Reserve the Appointment If Your Courthouse Requires One",
-      "description": "Verify your courthouse's requirements directly, reserve the appointment if one is needed, gather documents and assign witnesses before the day."
+      "title": "Courthouse Wedding Checklist: Book the Appointment First",
+      "description": "Reserve the courthouse appointment if your courthouse requires one, then gather the documents, assign witnesses and plan arrival and parking."
     },
     {
-      "eyebrow": "COURTHOUSE TIP",
-      "headline": "Bring a Printed\nConfirmation",
-      "subline": "And a backup ID plan",
-      "title": "Courthouse Wedding Tip: Bring a Printed Confirmation and a Backup ID Plan",
-      "description": "Keep a printed confirmation and a backup identification plan, because building access and appointment rules vary from courthouse to courthouse."
+      "eyebrow": "COURTHOUSE DOCUMENTS",
+      "headline": "Bring the Right ID and Documents to the Courthouse",
+      "subline": "Gather documents before the day",
+      "title": "Courthouse Wedding Checklist: Bring the Right ID and Documents",
+      "description": "Verify the identification and document requirements directly with your courthouse, gather them ahead of time and bring a printed confirmation."
     },
     {
       "eyebrow": "COURTHOUSE WEDDING",
-      "headline": "Security &\nPhoto Rules",
+      "headline": "Know the Courthouse Photo and Security Rules Before You Go",
       "subline": "Check what your courthouse allows",
-      "title": "Courthouse Wedding Checklist: Security Screening and Photography Rules",
-      "description": "Security screening and photography rules are part of a courthouse wedding plan. Check what your courthouse allows before you invite a photographer or bring extras."
+      "title": "Courthouse Wedding: Know the Photo and Security Rules Before You Go",
+      "description": "Courthouses set their own security screening and photography rules. Check what yours allows before the ceremony day."
     },
     {
-      "eyebrow": "COURTHOUSE WEDDING",
-      "headline": "Assign Your\nWitnesses",
-      "subline": "Know the rule where you marry",
-      "title": "Courthouse Wedding: Know the Witness Rule and Assign Your Witnesses",
-      "description": "Witness rules depend on the jurisdiction. Verify the requirement, assign your witnesses, and gather their identification along with your own documents."
-    },
-    {
-      "eyebrow": "COURTHOUSE WEDDING",
-      "headline": "Plan Arrival\n& Parking",
+      "eyebrow": "CITY HALL WEDDING",
+      "headline": "Plan Arrival, Parking and Witnesses for City Hall",
       "subline": "Then decide what follows",
-      "title": "Courthouse Wedding Day: Plan Arrival, Parking and the Celebration After",
-      "description": "Plan arrival and parking for the courthouse, then decide what celebration or announcements follow the ceremony. Part of a free courthouse wedding checklist."
+      "title": "City Hall Wedding Checklist: Plan Arrival, Parking and Witnesses",
+      "description": "Assign your witnesses, plan arrival and parking, then decide what celebration or announcements follow the courthouse ceremony."
     },
     {
-      "eyebrow": "FREE GUIDE",
-      "headline": "Small Ceremony,\nReal Checklist",
-      "subline": "Appointment \u00b7 license \u00b7 ID \u00b7 witnesses",
-      "title": "Small Courthouse Ceremony, Real Checklist: Appointment, License, ID, Witnesses",
-      "description": "Even a short courthouse ceremony needs a plan: appointment booking, marriage license, witnesses, identification, security screening and photography rules, then the small plans around it."
+      "eyebrow": "COURTHOUSE WEDDING",
+      "headline": "Keep a Courthouse Wedding Small Without Skipping Steps",
+      "subline": "A real checklist for a short ceremony",
+      "title": "Courthouse Wedding Checklist: Keep It Small Without Skipping Steps",
+      "description": "A small ceremony still has a checklist: appointment, license, witnesses, identification, security and photography rules, arrival and parking."
     }
   ],
   "/guides/destination-wedding-checklist": [
     {
       "eyebrow": "DESTINATION WEDDING",
-      "headline": "Planning a\nDestination Wedding?",
-      "subline": "Work each dependency in order",
-      "title": "Planning a Destination Wedding? Work Each Dependency in Order",
-      "description": "Destination planning adds travel, lodging, local vendor, documentation, shipping and guest-communication dependencies to the normal wedding plan. Work through them in order."
+      "headline": "Plan a Destination Wedding Without Missing a Document",
+      "subline": "Travel, lodging, documents, vendors",
+      "title": "Destination Wedding Checklist: Plan It Without Missing a Document",
+      "description": "Destination planning adds travel, lodging, local vendor, documentation, shipping and guest-communication dependencies to the normal wedding plan. Work each one in order."
     },
     {
-      "eyebrow": "DESTINATION TIP",
-      "headline": "Rings Go in\nYour Carry-On",
+      "eyebrow": "DESTINATION WEDDING",
+      "headline": "Pack Rings and Papers in Your Destination Carry-On",
       "subline": "Attire, documents, medication too",
-      "title": "Destination Wedding Tip: Keep Rings, Attire and Documents in Your Carry-On",
-      "description": "Keep critical attire, rings, documents, medication and ceremony essentials out of checked-only baggage. One of the steps in a free destination wedding checklist."
+      "title": "Destination Wedding Checklist: What Goes in Your Carry-On",
+      "description": "Decide what must travel in carry-on luggage for a destination wedding: rings, attire, documents and medication should not be left to checked bags."
     },
     {
       "eyebrow": "DESTINATION WEDDING",
-      "headline": "Room Blocks,\nTransport, Contacts",
-      "subline": "Confirm the travel layer",
+      "headline": "Confirm Legal or Symbolic Before You Plan the Destination",
+      "subline": "Confirm the ceremony plan first",
+      "title": "Destination Wedding: Confirm a Legal or Symbolic Ceremony First",
+      "description": "Confirm whether the destination ceremony will be legal or symbolic before building the rest of the plan around it."
+    },
+    {
+      "eyebrow": "DESTINATION LOGISTICS",
+      "headline": "Set Up Room Blocks and Transport for Destination Guests",
+      "subline": "Room blocks · transport · local contacts",
       "title": "Destination Wedding Checklist: Room Blocks, Transport and Local Contacts",
-      "description": "Confirm room blocks, transport and local contacts for your destination wedding, alongside the ceremony plan, shipping restrictions and weather contingencies."
+      "description": "The travel layer of a destination wedding: room blocks, guest transport and local contacts."
     },
     {
       "eyebrow": "DESTINATION WEDDING",
-      "headline": "Legal or\nSymbolic Ceremony?",
-      "subline": "Confirm the plan first",
-      "title": "Destination Wedding: Decide on a Legal or Symbolic Ceremony First",
-      "description": "Confirm whether the destination ceremony will be legal or symbolic before the rest of the plan depends on it. A free, step-by-step destination wedding checklist."
+      "headline": "Check Shipping Rules Before Anything Ships to Your Destination",
+      "subline": "Shipping restrictions vary",
+      "title": "Destination Wedding: Check Shipping Restrictions Before Anything Ships",
+      "description": "Shipping is its own dependency in destination planning. Check shipping restrictions before anything is sent."
     },
     {
       "eyebrow": "DESTINATION WEDDING",
-      "headline": "Check Shipping\nRestrictions",
-      "subline": "Before anything ships",
-      "title": "Destination Wedding Checklist: Check Shipping Restrictions Before You Ship",
-      "description": "Shipping restrictions are one of the extra dependencies a destination wedding adds. Check them, and what must travel in carry-on luggage, before anything is sent."
-    },
-    {
-      "eyebrow": "DESTINATION WEDDING",
-      "headline": "Have a Weather\nContingency",
-      "subline": "Part of the destination plan",
-      "title": "Destination Wedding Checklist: Plan a Weather Contingency",
-      "description": "Weather contingencies belong on every destination wedding checklist, together with room blocks, transport, local contacts and shipping restrictions."
-    },
-    {
-      "eyebrow": "FREE GUIDE",
-      "headline": "Travel, Lodging,\nDocuments, Vendors",
-      "subline": "Nothing left to the week you fly",
-      "title": "Destination Wedding Checklist: Travel, Lodging, Documents and Local Vendors",
-      "description": "Work through travel, lodging, local vendor, documentation, shipping and guest-communication steps in order so nothing is left to the week you fly."
+      "headline": "Plan a Weather Backup for Your Destination Wedding",
+      "subline": "Weather contingency included",
+      "title": "Destination Wedding Checklist: Plan a Weather Backup",
+      "description": "Weather contingencies are part of the destination plan, alongside travel, lodging, local vendors, documents and shipping."
     }
   ],
   "/guides/day-of-coordinator-checklist": [
     {
+      "eyebrow": "DAY-OF COORDINATOR",
+      "headline": "Hand Your Day-of Coordinator Everything in One Packet",
+      "subline": "Timeline · vendors · contracts · payments",
+      "title": "Day-of Coordinator Checklist: Hand Over Everything in One Packet",
+      "description": "A day-of coordinator can only run what they were handed: the frozen timeline, the vendor contact sheet, signed contracts, payment envelopes, the seating chart and the setup diagram."
+    },
+    {
+      "eyebrow": "DAY-OF COORDINATOR",
+      "headline": "Tell Your Day-of Coordinator What They Can Decide Alone",
+      "subline": "Write the decision list down",
+      "title": "Day-of Coordinator Checklist: What They May Decide Alone",
+      "description": "Write down which decisions the day-of coordinator may make alone and which must escalate and to whom; absorbing decisions is the value of the role."
+    },
+    {
       "eyebrow": "COORDINATOR HANDOVER",
-      "headline": "Agree the\nClose-Out",
-      "subline": "Name who collects each item",
-      "title": "Day-of Coordinator Checklist: Agree the Close-Out",
-      "description": "Give the coordinator a close-out list covering gifts, cards, hired items and personal belongings before the evening starts."
+      "headline": "Book the Day-of Coordinator Handover Before the Final Week",
+      "subline": "Time to produce anything missing",
+      "title": "Day-of Coordinator: Book the Handover Before the Final Week",
+      "description": "Book the handover meeting far enough ahead that anything missing can still be produced, not in the final week."
+    },
+    {
+      "eyebrow": "COORDINATOR HANDOVER",
+      "headline": "Give the Coordinator Contracts, Not Summaries, for Day-of Disputes",
+      "subline": "Settle scope without calling you",
+      "title": "Day-of Coordinator Checklist: Contracts, Not Summaries",
+      "description": "Hand over the signed contracts so the day-of coordinator can settle a scope dispute on the day without calling you."
+    },
+    {
+      "eyebrow": "DAY-OF COORDINATOR",
+      "headline": "Agree the Day-of Close-Out Before the Night Starts",
+      "subline": "Who collects each item, and where it goes",
+      "title": "Day-of Coordinator Checklist: Agree the Close-Out Before the Night Starts",
+      "description": "Agree the close-out with the day-of coordinator: what comes back at the end of the night, to whom, and where it is stored."
+    },
+    {
+      "eyebrow": "VENDOR CONTACT SHEET",
+      "headline": "Give the Day-of Coordinator a Vendor Sheet With Arrival Times",
+      "subline": "Name · mobile · arrival · load-in",
+      "title": "Day-of Coordinator Checklist: A Vendor Sheet With Arrival Times",
+      "description": "For each supplier the day-of coordinator needs a name, a mobile number, an arrival time and a load-in location."
     }
   ],
   "/guides/bridal-shower-checklist": [
     {
-      "eyebrow": "HOSTED EVENT CHECKLIST",
-      "headline": "Set Hosting\nResponsibilities",
-      "subline": "Agree decisions before bookings",
-      "title": "Bridal Shower Checklist: Set Hosting Responsibilities",
-      "description": "Agree what the host decides and what the couple decides before choosing the party details. Keep a gift record for thank-you notes."
+      "eyebrow": "BRIDAL SHOWER CHECKLIST",
+      "headline": "Plan a Bridal Shower by Settling Who Pays First",
+      "subline": "Then the guest list, date and party",
+      "title": "Bridal Shower Checklist: Settle Who Hosts and Who Pays First",
+      "description": "A bridal shower is somebody else’s hosted event, so settle who decides and who pays first, then the guest list, the date and the party itself."
+    },
+    {
+      "eyebrow": "BRIDAL SHOWER GUESTS",
+      "headline": "Invite Only Wedding Guests to the Bridal Shower",
+      "subline": "The guest-list rule that prevents trouble",
+      "title": "Bridal Shower Guest List: Invite Only People Invited to the Wedding",
+      "description": "Build the bridal shower guest list from the wedding list: anyone invited to the shower must already be invited to the wedding."
+    },
+    {
+      "eyebrow": "BRIDAL SHOWER DATE",
+      "headline": "Set the Bridal Shower Date Away From Wedding Deadlines",
+      "subline": "Not during headcount or final payments",
+      "title": "Bridal Shower Checklist: Pick a Date Away From Wedding Deadlines",
+      "description": "Choose a bridal shower date that avoids the weeks holding wedding deadlines such as final headcount, stationery mailing and final payments."
+    },
+    {
+      "eyebrow": "BRIDAL SHOWER GIFTS",
+      "headline": "Keep a Bridal Shower Gift Record for Thank-You Notes",
+      "subline": "Who records it · who takes gifts home",
+      "title": "Bridal Shower Checklist: Keep a Gift Record for Thank-You Notes",
+      "description": "Gifts are a records problem: decide who records who gave what, how gifts get home and who transports them, then hand the record to the couple."
+    },
+    {
+      "eyebrow": "BRIDAL SHOWER HOSTS",
+      "headline": "Agree What the Shower Host Decides and What You Decide",
+      "subline": "Guest list and theme first",
+      "title": "Bridal Shower Checklist: Agree What the Host Decides",
+      "description": "Agree which decisions belong to the bridal shower host and which belong to the couple, particularly the guest list and the theme."
+    },
+    {
+      "eyebrow": "BRIDAL SHOWER VENUE",
+      "headline": "Check the Bridal Shower Venue’s Food and Decor Rules",
+      "subline": "Outside food · decorations · alcohol",
+      "title": "Bridal Shower Checklist: Check the Venue’s Food, Decor and Alcohol Rules",
+      "description": "Confirm whether the shower venue permits outside food, decorations or alcohol; home and restaurant hosting differ on all three."
+    }
+  ],
+  "/guides/rehearsal-dinner-timeline": [
+    {
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "Set the Rehearsal Dinner Start From the Real Rehearsal End",
+      "subline": "The variable everything inherits",
+      "title": "Rehearsal Dinner Timeline: Start From When the Rehearsal Ends",
+      "description": "A rehearsal dinner timeline should be anchored to the moment the ceremony rehearsal actually ends, because that is the variable everything else inherits."
+    },
+    {
+      "eyebrow": "REHEARSAL DINNER TOASTS",
+      "headline": "Place Rehearsal Dinner Toasts Between Courses, Not at the End",
+      "subline": "A welcome first, remarks between courses",
+      "title": "Rehearsal Dinner Timeline: Place Toasts Between Courses",
+      "description": "Place the toasts deliberately: a welcome before or during the first course, and remaining remarks between courses rather than stacked at the end."
+    },
+    {
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "End the Rehearsal Dinner on Time for the Wedding Morning",
+      "subline": "Name who closes the evening",
+      "title": "Rehearsal Dinner Timeline: End On Time for the Wedding Morning",
+      "description": "Set an end time and name who signals it; a rehearsal dinner drifting late is the most common cause of a difficult wedding morning."
+    },
+    {
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "Give the Rehearsal Dinner Kitchen a Time It Can Hold",
+      "subline": "Set menu or ordered on the night",
+      "title": "Rehearsal Dinner Timeline: Give the Kitchen a Time It Can Hold",
+      "description": "Agree a service time with the venue that the kitchen can actually hold, and confirm whether it is a set menu or ordered on the night."
+    },
+    {
+      "eyebrow": "REHEARSAL DINNER",
+      "headline": "Set Rehearsal Dinner Invitation Times From Real Travel",
+      "subline": "Checked at that time of day",
+      "title": "Rehearsal Dinner Timeline: Set Invitation Times From Real Travel",
+      "description": "Add real travel time between the ceremony site and the restaurant, checked at that time of day, then set the invitation time from that arrival."
+    },
+    {
+      "eyebrow": "REHEARSAL DINNER SPEECHES",
+      "headline": "Tell Each Rehearsal Dinner Speaker Their Turn in Advance",
+      "subline": "Who speaks, in what order, how long",
+      "title": "Rehearsal Dinner Timeline: Tell Each Speaker Their Turn in Advance",
+      "description": "Name who speaks at the rehearsal dinner, in what order and roughly for how long, and tell each of them in advance."
+    }
+  ],
+  "/guides/wedding-emergency-kit": [
+    {
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Pack a Wedding Emergency Kit by What Can Go Wrong",
+      "subline": "Garment · body · paper · power · weather",
+      "title": "Wedding Emergency Kit List: Pack It by What Can Go Wrong",
+      "description": "Pack a wedding emergency kit by failure mode rather than by product: garment, body, paper, power and weather."
+    },
+    {
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Split Your Wedding Emergency Kit Into Two Bags",
+      "subline": "One for getting ready, one for the venue",
+      "title": "Wedding Emergency Kit: Split It Into Two Bags",
+      "description": "The getting-ready room and the venue need different things, so split the wedding emergency kit into a getting-ready bag and a venue bag."
+    },
+    {
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Name Who Carries the Wedding Emergency Kit",
+      "subline": "One carrier and one place per bag",
+      "title": "Wedding Emergency Kit: Name Who Carries It and Where It Lives",
+      "description": "Name one carrier for each emergency kit bag and one fixed place where it lives; a complete kit nobody can find is the same as no kit at all."
+    },
+    {
+      "eyebrow": "EMERGENCY KIT LIST",
+      "headline": "Keep the License and Contracts in the Emergency Kit Venue Bag",
+      "subline": "Not in a pocket",
+      "title": "Wedding Emergency Kit List: License and Contracts Go in the Venue Bag",
+      "description": "Put anything legally or contractually required, such as the marriage license and vendor contracts, in the venue bag rather than in a pocket."
+    },
+    {
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Match Emergency Kit Chargers to the Devices You Use",
+      "subline": "Plus a battery pack",
+      "title": "Wedding Emergency Kit: Match Chargers to the Devices You Actually Use",
+      "description": "Add chargers and a battery pack matched to the actual devices in use on the wedding day, not a generic cable set."
+    },
+    {
+      "eyebrow": "WEDDING EMERGENCY KIT",
+      "headline": "Tell the Wedding Party Where the Emergency Kit Is",
+      "subline": "Before the ceremony, not during a problem",
+      "title": "Wedding Emergency Kit: Tell Everyone Where It Is Before the Ceremony",
+      "description": "Tell the wedding party and the coordinator where both emergency kit bags are before the ceremony, not during a problem."
+    }
+  ],
+  "/guides/wedding-planning-timeline": [
+    {
+      "eyebrow": "WEDDING PLANNING TIMELINE",
+      "headline": "Plan Your Wedding Timeline in Dependency Order",
+      "subline": "Each locked decision unlocks the next",
+      "title": "Wedding Planning Timeline: Plan in Dependency Order, Not by Calendar",
+      "description": "A wedding planning timeline is a dependency order rather than a calendar, because each locked decision is what makes the next one answerable."
+    },
+    {
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Lock Date, Venue, Guests and Budget First on Your Timeline",
+      "subline": "The four decisions that block the rest",
+      "title": "Wedding Planning Timeline: Lock Date, Venue, Guests and Budget First",
+      "description": "Lock the date, the venue, the guest ceiling and the money ceiling first; every later choice is priced or scheduled against those four."
+    },
+    {
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Book Vendors on Your Timeline by Scarcity, Not Importance",
+      "subline": "Photographer · officiant · catering first",
+      "title": "Wedding Planning Timeline: Book Vendors by Scarcity",
+      "description": "Book the vendors whose calendars fill first and who cannot be duplicated on the day: photographer, officiant, catering and any single-crew supplier."
+    },
+    {
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Put Imposed Deadlines on Your Wedding Planning Timeline",
+      "subline": "Stationery · headcount · payments · license",
+      "title": "Wedding Planning Timeline: Schedule the Deadlines Imposed on You",
+      "description": "Schedule the deadlines that are imposed on you rather than chosen: stationery mail dates, final headcount, final payment dates and license collection."
+    },
+    {
+      "eyebrow": "PLANNING TIMELINE",
+      "headline": "Set a Guest Number, Not a Range, Early in Your Timeline",
+      "subline": "Catering and seating are quoted on it",
+      "title": "Wedding Planning Timeline: Set a Guest Ceiling as a Number",
+      "description": "Set a guest ceiling as a number, not a range, because catering, seating, stationery and transport are all quoted against it."
+    },
+    {
+      "eyebrow": "WEDDING PLANNING TIMELINE",
+      "headline": "Avoid Deposit Losses by Planning in the Right Order",
+      "subline": "Reversing a locked decision costs most",
+      "title": "Wedding Planning Timeline: Avoid Deposit Losses With the Right Order",
+      "description": "Reversing the date, venue, guest ceiling or money ceiling after vendors are contracted is where re-work and deposit losses come from."
+    }
+  ],
+  "/guides/wedding-day-timeline": [
+    {
+      "eyebrow": "WEDDING DAY TIMELINE",
+      "headline": "Build a Wedding Day Timeline From Fixed Anchors",
+      "subline": "Back for prep, forward for reception",
+      "title": "Wedding Day Timeline: Build a Realistic Schedule From Fixed Anchors",
+      "description": "Build the wedding-day timeline from fixed anchors, work backward for preparation and forward for reception and breakdown."
+    },
+    {
+      "eyebrow": "WEDDING DAY TIMELINE",
+      "headline": "Give Each Role Its Own Wedding Day Timeline",
+      "subline": "Couple · family · photographer · vendors",
+      "title": "Wedding Day Timeline: Give Each Role Its Own Version",
+      "description": "Issue role-specific versions of the wedding day timeline for the couple, family, wedding party, photographer and vendors."
+    },
+    {
+      "eyebrow": "WEDDING DAY TIMELINE",
+      "headline": "Plan Buffers Into Your Wedding Day Timeline",
+      "subline": "From venue access through breakdown",
+      "title": "Wedding Day Timeline: Plan Buffers From Venue Access to Breakdown",
+      "description": "A wedding-day timeline should coordinate people, places, vendors, dependencies and buffers from venue access through breakdown."
+    },
+    {
+      "eyebrow": "WEDDING DAY SCHEDULE",
+      "headline": "Freeze Your Wedding Day Timeline and Name One Owner",
+      "subline": "Every later change goes through them",
+      "title": "Wedding Day Timeline: Freeze the Final Version and Name One Owner",
+      "description": "Freeze and date the final wedding day timeline, then route every later change through one owner."
+    },
+    {
+      "eyebrow": "WEDDING DAY TIMELINE",
+      "headline": "Test Your Wedding Day Timeline Against the Real Count",
+      "subline": "Capacity · contracts · timing · payments",
+      "title": "Wedding Day Timeline: Test It Against the Real Count and Contracts",
+      "description": "Test the wedding day plan against the real count, capacity, contract, timing, payment or handoff dependency that could break it."
+    },
+    {
+      "eyebrow": "WEDDING DAY TIMELINE",
+      "headline": "Review Your Wedding Day Timeline With Everyone Who Acts on It",
+      "subline": "Then document the corrections",
+      "title": "Wedding Day Timeline: Review It With the People Who Act on It",
+      "description": "Review the working wedding day timeline with the people who must act on it, then document corrections before freezing it."
+    }
+  ],
+  "/guides/wedding-rehearsal-timeline": [
+    {
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Run Your Wedding Rehearsal in Under an Hour",
+      "subline": "Positions, processional, readings",
+      "title": "Wedding Rehearsal Timeline: Run It in Under an Hour",
+      "description": "Run a wedding rehearsal in under an hour: processional in reverse, positions before movement, the full sequence twice, then readings and handoffs."
+    },
+    {
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Set Rehearsal Positions Before Anyone Walks the Aisle",
+      "subline": "Couple · officiant · wedding party",
+      "title": "Wedding Rehearsal Timeline: Set Positions Before Anyone Walks",
+      "description": "Mark where the couple, officiant and wedding party stand before anybody walks anywhere."
+    },
+    {
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Build the Rehearsal Processional in Reverse",
+      "subline": "Then walk it forward twice",
+      "title": "Wedding Rehearsal: Build the Processional in Reverse",
+      "description": "Place people at the front and send them back down the aisle in order, then walk the processional forward twice at the real pace with the music cue present."
+    },
+    {
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Rehearse Every Ring and Reading Handoff",
+      "subline": "Anything that changes hands",
+      "title": "Wedding Rehearsal Timeline: Rehearse Every Ring and Reading Handoff",
+      "description": "Rehearse the moments that involve an object changing hands: rings, readings, unity elements and any document to be signed."
+    },
+    {
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Confirm the Rehearsal Venue Slot in Writing",
+      "subline": "Rehearsal access is a separate permission",
+      "title": "Wedding Rehearsal: Confirm the Venue Slot in Writing",
+      "description": "Confirm the rehearsal slot with the venue in writing, because access for a rehearsal is often a separate permission from access on the day."
+    },
+    {
+      "eyebrow": "WEDDING REHEARSAL",
+      "headline": "Name Who Cues the Music at the Rehearsal",
+      "subline": "And who holds the rings",
+      "title": "Wedding Rehearsal Timeline: Name Who Cues the Music and Holds the Rings",
+      "description": "Name who cues the officiant, who cues the music and who holds the rings, and say those names out loud to the group at the rehearsal."
+    }
+  ],
+  "/guides/wedding-seating-chart-accessibility": [
+    {
+      "eyebrow": "ACCESSIBLE SEATING",
+      "headline": "Plan Accessible Wedding Seating Before Placing Tables",
+      "subline": "Confirm with the guest and the venue",
+      "title": "Wedding Seating Chart Accessibility: Plan It Before Placing Tables",
+      "description": "Accessibility planning should begin before table placement and should be confirmed directly with the guest and venue."
+    },
+    {
+      "eyebrow": "SEATING CHART",
+      "headline": "Map Routes and Restrooms on Your Wedding Seating Chart",
+      "subline": "Reserve the right table positions",
+      "title": "Wedding Seating Chart: Map Routes and Restroom Access",
+      "description": "Map routes and restroom access, reserve appropriate table positions and avoid blocking mobility devices when building the seating chart."
+    },
+    {
+      "eyebrow": "ACCESSIBLE SEATING",
+      "headline": "Ask Guests What Seating Accommodation Helps",
+      "subline": "Then plan the chart around it",
+      "title": "Accessible Wedding Seating: Ask What Accommodation Helps",
+      "description": "Ask each guest what accommodation is helpful before building the seating chart, and confirm it with the venue."
+    },
+    {
+      "eyebrow": "SEATING CHART",
+      "headline": "Keep Mobility Devices Clear on the Seating Chart",
+      "subline": "Never block a mobility device",
+      "title": "Wedding Seating Chart Accessibility: Keep Mobility Devices Clear",
+      "description": "Plan table positions on the wedding seating chart so mobility devices are never blocked, then brief the responsible venue contact."
+    },
+    {
+      "eyebrow": "ACCESSIBLE SEATING",
+      "headline": "Brief the Venue Contact on Your Accessible Seating Chart",
+      "subline": "The responsible venue contact",
+      "title": "Accessible Wedding Seating Chart: Brief the Venue Contact",
+      "description": "Brief the responsible venue contact on the accessible seating plan so the accommodations are in place on the day."
+    },
+    {
+      "eyebrow": "SEATING CHART",
+      "headline": "Freeze the Seating Chart and Route Changes Through One Owner",
+      "subline": "Date the final version",
+      "title": "Wedding Seating Chart: Freeze It and Route Changes Through One Owner",
+      "description": "Freeze and date the final seating chart; route every later change through one owner."
     }
   ]
 }

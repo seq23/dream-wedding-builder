@@ -15,7 +15,8 @@ import rawQueue from '@/data/pinterest/queue.json';
 import { boards, buildPinfeed, pinItems } from '@/lib/pinfeed';
 import { addDays, applyFallback, applyPause, chicagoDate, decidePace, dueVariants, needsRefill, pageSlug, planRefill, scheduleVariants, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
 import { anglesFor, derivedAngles, eligiblePaths, guideFacts, pageSource } from '../../scripts/pinterest/pin_sources.mjs';
-import { LAYOUTS, PALETTES } from '../../scripts/pinterest/render_pin.mjs';
+import { LAYOUTS, LEGACY_LAYOUTS, LEGACY_PALETTES, PALETTES } from '../../scripts/pinterest/render_pin.mjs';
+import { auditQueue } from '../../scripts/pinterest/quality.mjs';
 
 const HOST = 'weddingchecklistpdf.com';
 const queue = rawQueue as PinQueue;
@@ -85,8 +86,11 @@ describe('pin queue schema', () => {
       for (const field of ['eyebrow', 'headline', 'subline', 'title', 'description'] as const) expect(v[field].trim().length, `${v.id}.${field}`).toBeGreaterThan(0);
       expect(v.title.length, v.id).toBeLessThanOrEqual(100);
       expect(v.description.length, v.id).toBeLessThanOrEqual(500);
-      expect(LAYOUTS).toContain(v.layout);
-      expect(Object.keys(PALETTES)).toContain(v.palette);
+      // Pins published before the 6 Nov 2026 re-queue keep the old renderer's names; every
+      // pin not yet released is drawn by the brand renderer.
+      const released = v.release_date !== null && v.release_date <= chicagoDate();
+      expect(released ? [...LAYOUTS, ...LEGACY_LAYOUTS] : LAYOUTS, v.id).toContain(v.layout);
+      expect(released ? [...Object.keys(PALETTES), ...LEGACY_PALETTES] : Object.keys(PALETTES), v.id).toContain(v.palette);
       expect(existsSync(join('public', v.art)), v.art).toBe(true);
       expect(v.release_date === null || /^\d{4}-\d{2}-\d{2}$/.test(v.release_date)).toBe(true);
       if (v.release_date) expect(v.release_date >= queue.config.drip_start, v.id).toBe(true);
@@ -123,6 +127,26 @@ describe('pin queue schema', () => {
       expect({ w: meta.width, h: meta.height, type: `image/${meta.format}` }, file).toEqual({ w: 1000, h: 1500, type: v.image!.type });
     }
   });
+});
+
+describe('pin quality gate (her call 6 Nov 2026: "approve all, make them good")', () => {
+  // Every pin not yet released must look different from the account's recent pins (dHash),
+  // show its page's topic art, state the searcher's benefit in the page's search words and
+  // read at a 236px thumbnail. The pins drawn before the re-queue fail it: 4 shared checklist
+  // photos for 23 pages, label headlines ("Finalize & Hand Off"), no renderer text metrics.
+  it('every unreleased pin passes the gate, and the gate fails the pins it replaced', async () => {
+    const unreleased = queue.variants.filter((v) => !v.release_date || v.release_date > chicagoDate());
+    expect(unreleased.length).toBeGreaterThanOrEqual(queue.config.refill_threshold);
+    expect(await auditQueue(clone(), chicagoDate())).toEqual([]);
+    // The pins drawn before the re-queue (all published by 6 Nov 2026), re-dated as if
+    // still waiting: the gate holds every one of them.
+    const old = clone();
+    const legacy = old.variants.filter((v) => LEGACY_LAYOUTS.includes(v.layout));
+    expect(legacy.length).toBeGreaterThanOrEqual(30);
+    for (const v of legacy) v.release_date = '2099-01-01';
+    const oldIssues = await auditQueue(old, chicagoDate());
+    expect(oldIssues.filter((i) => legacy.some((v) => i.startsWith(`${v.id}:`))).length).toBe(legacy.length);
+  }, 60_000);
 });
 
 describe('release schedule', () => {

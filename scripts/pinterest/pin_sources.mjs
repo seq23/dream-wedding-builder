@@ -120,6 +120,42 @@ export function artFor(productId) {
   return found.length ? found : artFor('checklist-pdf');
 }
 
+// Topic art (data/pinterest/topic_art.json): each pin page maps to one topic, and its pins
+// may only use that topic's images (photos that show the topic, or the product's own art).
+let topicCache;
+export function topicArt() {
+  return (topicCache ??= readJson('data/pinterest/topic_art.json'));
+}
+
+/** The page's topic tag, or null when no topic art is mapped for it (it then gets no pins). */
+export function topicFor(pagePath) {
+  return topicArt().pages[pagePath]?.topic ?? null;
+}
+
+/** The searches a page answers (its title + its board's Pinterest searches). */
+export function searchesFor(pagePath) {
+  return topicArt().pages[pagePath]?.search ?? [];
+}
+
+/** The image paths of a topic, in their recorded order. */
+export function topicImages(topic) {
+  return (topicArt().topics[topic]?.images ?? []).map((i) => i.file);
+}
+
+/** Crop focus recorded for an image ([x, y] in 0..1), centre by default. */
+export function focusFor(art) {
+  for (const t of Object.values(topicArt().topics)) for (const i of t.images) if (i.file === art || i.file === `/${art}`) return i.focus ?? [0.5, 0.5];
+  return [0.5, 0.5];
+}
+
+/** The topic whose words a question names first (longest word wins), else the checklist topic. */
+export function topicForText(text) {
+  const t = ` ${String(text).toLowerCase().replace(/[^a-z0-9]+/g, ' ')} `;
+  let best = null;
+  for (const [tag, topic] of Object.entries(topicArt().topics)) for (const w of topic.words ?? []) if (t.includes(` ${w.replace(/[^a-z0-9]+/g, ' ')} `) && (!best || w.length > best.w.length)) best = { tag, w };
+  return best?.tag ?? 'checklist';
+}
+
 const clip = (text, max) => {
   if (text.length <= max) return text;
   const cut = text.slice(0, max - 1);
@@ -204,7 +240,8 @@ export function questionPin(page, slConfig, id) {
   const headline = wrapQuestion(question);
   if (!headline || !meta) return null;
   const n = [...id].reduce((sum, c) => sum + c.charCodeAt(0), 0);
-  const art = artFor('checklist-pdf');
+  const topic = topicForText(q);
+  const art = topicImages(topic);
   return {
     id,
     seq: 0,
@@ -214,8 +251,10 @@ export function questionPin(page, slConfig, id) {
     subline: 'The short answer + next steps',
     title: clip(question, 100),
     description: clip(meta, 440),
-    layout: 'stripe',
-    palette: ['cream', 'blush', 'sage', 'slate', 'terracotta'][n % 5],
+    layout: ['header', 'split', 'tab-panel', 'card', 'binder-page'][n % 5],
+    palette: ['ivory', 'blue-soft', 'coral-soft', 'midnight'][n % 4],
+    topic,
+    search: [q.toLowerCase()],
     art: art[n % art.length]
   };
 }
