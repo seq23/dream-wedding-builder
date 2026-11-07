@@ -7,7 +7,7 @@
 //   hub pages    -> data/seo/hub_pages.json (h1, section bullets, description)
 // Hand-written angles for a page live in data/pinterest/angles.json and go first;
 // when they run out, derivedAngles() builds more from the same source by template
-// ($0: no model call). Art is the product's own committed images, never people.
+// ($0: no model call). Art is the page's topic photos (data/pinterest/topic_art.json).
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -142,6 +142,18 @@ export function topicImages(topic) {
   return (topicArt().topics[topic]?.images ?? []).map((i) => i.file);
 }
 
+/** The recorded licence/photo facts of an art path (a retired image carries `retired`). */
+export function imageRecord(art) {
+  const file = `/${String(art).replace(/^\/+/, '')}`;
+  for (const t of Object.values(topicArt().topics)) for (const i of t.images) if (i.file === file) return i;
+  return (topicArt().retired_images ?? []).find((i) => i.file === file) ?? null;
+}
+
+/** How many list items the page holds (pages.<path>.items), for numbered headlines. */
+export function pageItems(pagePath) {
+  return topicArt().pages[pagePath]?.items ?? null;
+}
+
 /** Crop focus recorded for an image ([x, y] in 0..1), centre by default. */
 export function focusFor(art) {
   for (const t of Object.values(topicArt().topics)) for (const i of t.images) if (i.file === art || i.file === `/${art}`) return i.focus ?? [0.5, 0.5];
@@ -251,8 +263,8 @@ export function questionPin(page, slConfig, id) {
     subline: 'The short answer + next steps',
     title: clip(question, 100),
     description: clip(meta, 440),
-    layout: ['header', 'split', 'tab-panel', 'card', 'binder-page'][n % 5],
-    palette: ['ivory', 'blue-soft', 'coral-soft', 'midnight'][n % 4],
+    layout: ['band-top', 'band-low', 'band-frame'][n % 3],
+    palette: ['ivory', 'blush', 'sage', 'champagne'][n % 4],
     topic,
     search: [q.toLowerCase()],
     art: art[n % art.length]
