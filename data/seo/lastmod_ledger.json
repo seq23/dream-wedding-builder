@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "afcc0755f43e09049974462972ca4ae374e6e1ae",
+  "generated_from_commit": "f1f83bd43b5d61a25196bf26551ed6a069f82d4f",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -158,7 +158,7 @@
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/questions": {
-      "lastmod": "2026-11-06",
+      "lastmod": "2026-11-07",
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {

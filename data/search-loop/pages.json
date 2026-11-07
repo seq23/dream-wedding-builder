@@ -839,6 +839,38 @@
       "indexnow_at": "2026-11-03",
       "merged_at": "2026-11-04",
       "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
+    },
+    {
+      "slug": "can-you-plan-a-wedding-without-a-wedding-planner",
+      "query": "can you plan a wedding without a wedding planner",
+      "lane": "striking",
+      "score": 30,
+      "reasons": [],
+      "signals": {
+        "words": 9,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+      "route": "/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+      "url": "https://weddingchecklistpdf.com/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+      "published_at": "2026-11-07",
+      "status": "live",
+      "hash": "d3677dad595a074ba3425b065ce0cf251ef617a4919cee2760463ff6687c6857",
+      "model": "free-route",
+      "facts": [
+        "https://www.census.gov/topics/families.html",
+        "https://www.loc.gov/"
+      ],
+      "linked_from": [],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 38 words (aim 40-60): \"How far in advance should I start planning my wedd\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"What is the hardest part of planning a wedding wit\"",
+        "b5 FAQ answer is 37 words (aim 40-60): \"How can I keep my wedding costs down on my own?\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"Should I hire a day-of coordinator if I plan the w\""
+      ]
     }
   ],
   "dropped": [
@@ -1011,6 +1043,14 @@
     {
       "query": "printable bridal checklist",
       "at": "2026-11-05",
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "printable wedding checklist free pdf",
+      "at": "2026-11-07",
+      "gate": 2,
       "reason": [
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
       ]
@@ -1255,6 +1295,46 @@
       "kind": "sitemap",
       "matched_by": "same wording",
       "matched_text": "elopement planning checklist",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner printable",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "route": "/free-wedding-planner",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner",
+      "stage": "search"
+    },
+    {
+      "query": "printable wedding checklist pdf",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "route": "/printable-wedding-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "printable wedding checklist",
+      "stage": "search"
+    },
+    {
+      "query": "wedding planning checklist pdf",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/wedding-planning-checklist",
+      "route": "/wedding-planning-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "wedding planning checklist",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "route": "/free-wedding-planner",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "free wedding planner",
       "stage": "search"
     }
   ]

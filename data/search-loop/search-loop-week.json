@@ -2,13 +2,13 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W45",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-06T12:21:47.540Z",
+  "generated_at": "2026-11-07T12:19:15.377Z",
   "state": "slow",
-  "published": 21,
+  "published": 22,
   "indexed": "not read: no page old enough to inspect yet (14 days)",
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 256,
+  "ai_bot_hits": 483,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
@@ -158,18 +158,44 @@
       "strengthen": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
       "matched_by": "same wording",
       "at": "2026-11-05"
+    },
+    {
+      "query": "free wedding planner printable",
+      "strengthen": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-07"
+    },
+    {
+      "query": "printable wedding checklist pdf",
+      "strengthen": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "matched_by": "same wording",
+      "at": "2026-11-07"
+    },
+    {
+      "query": "wedding planning checklist pdf",
+      "strengthen": "https://weddingchecklistpdf.com/wedding-planning-checklist",
+      "matched_by": "same wording",
+      "at": "2026-11-07"
+    },
+    {
+      "query": "free wedding planner",
+      "strengthen": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "matched_by": "same wording",
+      "at": "2026-11-07"
     }
   ],
   "cap": {
     "max_live_pages": 22,
-    "live": 0,
-    "room": 22,
+    "live": 1,
+    "room": 21,
     "why": "up from 20 to 22: Google impressions 82 in the last 28 days beat 55 in the 28 before"
   },
   "notes": [
     "site config lowers the mode to slow",
-    "BUILD published 0 of quota 1: 0 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued",
-    "CHECK runs weekly in mode=slow; last ran 2026-11-03"
+    "BUILD distinct gate: 4 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
+    "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json",
+    "CHECK runs weekly in mode=slow; last ran 2026-11-03",
+    "IndexNow: 1 new page(s) not live yet; submitted when they answer 200"
   ],
   "lanes": {
     "ratio": {
@@ -183,7 +209,7 @@
       "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
     },
     "striking": {
-      "pages": 21,
+      "pages": 22,
       "measured": 0,
       "top3": 0,
       "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
@@ -197,5 +223,5 @@
     "weight_changes": [],
     "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/42217063112"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/42371933940"
 }

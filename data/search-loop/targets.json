@@ -828,6 +828,42 @@
   ],
   "strengthen": [
     {
+      "query": "free wedding planner",
+      "page": "/free-wedding-planner",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "score": 30,
+      "from": "distinct-gate",
+      "matched_by": "same wording",
+      "at": "2026-11-07"
+    },
+    {
+      "query": "wedding planning checklist pdf",
+      "page": "/wedding-planning-checklist",
+      "url": "https://weddingchecklistpdf.com/wedding-planning-checklist",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "same wording",
+      "at": "2026-11-07"
+    },
+    {
+      "query": "printable wedding checklist pdf",
+      "page": "/printable-wedding-checklist",
+      "url": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "same wording",
+      "at": "2026-11-07"
+    },
+    {
+      "query": "free wedding planner printable",
+      "page": "/free-wedding-planner",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-07"
+    },
+    {
       "query": "planning an elopement wedding",
       "page": "/guides/elopement-planning-checklist",
       "url": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
