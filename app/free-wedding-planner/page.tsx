@@ -49,6 +49,7 @@ import { applySeed, planPatchFromSeed, seedFieldLabels } from '@/lib/planner-see
 import { readinessBand, readinessBreakdown } from '@/lib/readiness';
 import { loadSavedPlan, loadSavedScope } from '@/lib/saved-plan';
 import { DatedPlanView } from '@/components/DatedPlanView';
+import { FullPlanCard } from '@/components/FullPlanCard';
 import { AiDraftCard, AiDraftLabel } from '@/components/AiDraftCard';
 import { StepFold, StepFoldAll } from '@/components/StepFold';
 
@@ -231,6 +232,7 @@ function BuildPage() {
         </label>
         <p className="mt-2 text-xs text-charcoal/60">Not sure yet? Pick your best guess; you can change it any time. Saved in this browser only.</p>
         <div className="mt-5 space-y-4"><AiDraftLabel plan={plan} /><DatedPlanView weddingDate={plan.weddingDate} /></div>
+        <FullPlanCard />
       </Card>
     </StepFold>
 

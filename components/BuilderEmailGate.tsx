@@ -5,6 +5,15 @@ import Link from 'next/link';
 import { BUILDER_ACCESS_KEY, BUILDER_EMAIL_KEY, CONSENT_TEXT, UNSUBSCRIBE_NOTE } from '@/lib/builder-signup';
 import { ConversionAnalytics } from '@/components/ConversionAnalytics';
 
+// A signup that came from a tool site's "Open the free wedding planner" button (her yes
+// 7 Nov 2026, look 3) is stored as free-wedding-planner:<tool host>, so the scorecard can
+// count it. Only the three tool hosts are accepted; anything else is the plain source.
+const TOOL_HOSTS = ['weddingseatingchartmaker.com', 'weddingtimelinetemplate.com', 'weddingbudgetspreadsheet.com'];
+export function signupSource(search: string = typeof window === 'undefined' ? '' : window.location.search) {
+  const from = new URLSearchParams(search).get('from') ?? '';
+  return TOOL_HOSTS.includes(from) ? `free-wedding-planner:${from}` : 'free-wedding-planner';
+}
+
 // The builder stays free, but opens after the visitor leaves an email. The builder
 // is still rendered underneath (inert) so the page keeps its content for search and
 // returning visitors on this browser go straight in.
@@ -25,7 +34,7 @@ export function BuilderEmailGate({ children }: { children: ReactNode }) {
     if (!consent) { setError('Please tick the box to agree to planning emails.'); return; }
     setBusy(true);
     try {
-      const res = await fetch('/api/builder-signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, source: 'free-wedding-planner' }) });
+      const res = await fetch('/api/builder-signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, source: signupSource() }) });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); return; }
       try { localStorage.setItem(BUILDER_ACCESS_KEY, new Date().toISOString()); localStorage.setItem(BUILDER_EMAIL_KEY, email.trim().toLowerCase()); } catch { /* still unlock this visit */ }
