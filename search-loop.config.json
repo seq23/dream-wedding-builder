@@ -7,11 +7,17 @@
     "name": "Dream Wedding Builder",
     "url": "https://weddingchecklistpdf.com/"
   },
-  "audience": "engaged couples planning their own wedding (and the friend or parent helping them) who want a clear checklist, budget, timeline and seating plan without hiring a planner",
-  "voice": "warm, plain and practical; short sentences; concrete steps, timings and examples over inspiration; no invented statistics, prices, vendors, reviews or quotes; examples are examples, not guarantees",
+  "audience": "engaged couples who want a wedding planner's help without paying a planner, planning their own wedding (and the friend or parent helping them) with a clear checklist, timeline and seating plan",
+  "voice": "warm, plain and practical; short sentences; concrete steps, timings and examples over inspiration; no invented statistics, prices, vendors, reviews or quotes; examples are examples, not guarantees; never imply a human planner; planner prices only with a dated source",
   "topics": [
-    "wedding checklist",
+    "wedding planner cost",
+    "is a wedding planner worth it",
+    "do i need a wedding planner",
+    "diy wedding planning",
+    "plan a wedding without a planner",
+    "day of coordinator alternative",
     "wedding planning checklist",
+    "wedding checklist",
     "printable wedding checklist",
     "wedding day timeline",
     "wedding timeline template",
@@ -36,8 +42,8 @@
     ]
   },
   "action": {
-    "label": "Get the Wedding Checklist PDF ($9, secure checkout)",
-    "url": "https://weddingchecklistpdf.com/products/checklist-pdf#look-inside"
+    "label": "Open the free wedding planner (free with your email)",
+    "url": "https://weddingchecklistpdf.com/free-wedding-planner"
   },
   "allowed_link_targets": [
     "https://weddingchecklistpdf.com",
@@ -85,7 +91,7 @@
       "height": 630
     },
     "header_html": "<header class=\"site-header\"><script type=\"application/ld+json\" data-entity=\"data/seo/entity.json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"@id\":\"https://weddingchecklistpdf.com/#organization\",\"name\":\"Dream Wedding Builder\",\"url\":\"https://weddingchecklistpdf.com/\",\"logo\":\"https://weddingchecklistpdf.com/icon-512.png\",\"description\":\"Dream Wedding Builder publishes wedding planning guides and editable planning files across four single-purpose sites: a checklist, a budget spreadsheet, a seating chart and a timeline.\",\"sameAs\":[\"https://www.pinterest.com/weddingchecklistpdf/\"]},{\"@type\":\"Organization\",\"@id\":\"https://weddingchecklistpdf.com/#site\",\"name\":\"Wedding Checklist PDF\",\"url\":\"https://weddingchecklistpdf.com/\",\"logo\":\"https://weddingchecklistpdf.com/icon-512.png\",\"description\":\"Wedding Checklist PDF publishes wedding planning checklist guides and sells a $9 editable checklist with a 13-page printable packet.\",\"parentOrganization\":{\"@id\":\"https://weddingchecklistpdf.com/#organization\"}}]}</script><a class=\"brand\" href=\"https://weddingchecklistpdf.com/\">Wedding Checklist PDF</a><nav aria-label=\"Primary\"><a href=\"https://weddingchecklistpdf.com/questions\">Planning questions</a><a href=\"https://weddingchecklistpdf.com/guides\">Guides</a><a href=\"https://weddingchecklistpdf.com/shop\">Shop</a></nav></header>",
-    "footer_html": "<footer class=\"site-footer\"><p>Dream Wedding Builder, a Spry Labs company. Planning guidance only; every wedding, venue and contract differs.</p><p><a href=\"https://weddingchecklistpdf.com/questions\">All planning questions</a> \u00b7 <a href=\"https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet\">Budget spreadsheet</a> \u00b7 <a href=\"https://weddingtimelinetemplate.com/wedding-timeline-template\">Timeline template</a> \u00b7 <a href=\"https://weddingseatingchartmaker.com/wedding-seating-chart\">Seating chart maker</a></p></footer>"
+    "footer_html": "<footer class=\"site-footer\"><p>Dream Wedding Builder, a Spry Labs company. Planning guidance only; every wedding, venue and contract differs.</p><p><a href=\"https://weddingchecklistpdf.com/questions\">All planning questions</a> · <a href=\"https://weddingbudgetspreadsheet.com/wedding-budget-spreadsheet\">Budget spreadsheet</a> · <a href=\"https://weddingtimelinetemplate.com/wedding-timeline-template\">Timeline template</a> · <a href=\"https://weddingseatingchartmaker.com/wedding-seating-chart\">Seating chart maker</a></p></footer>"
   },
   "related": {
     "max_pages_per_new_page": 2,
