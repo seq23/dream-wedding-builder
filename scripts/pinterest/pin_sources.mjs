@@ -5,10 +5,14 @@
 //   /guides/*    -> data/authority/content_registry.json (title, answer, summary)
 //                   + data/seo/guide_meta_descriptions.json
 //   hub pages    -> data/seo/hub_pages.json (h1, section bullets, description)
+//   landing pages -> data/planner-landings.ts (title, direct answer, section bullets,
+//                   description); a landing joins the drip only when
+//                   data/pinterest/topic_art.json `pages` records its photos and searches
 // Hand-written angles for a page live in data/pinterest/angles.json and go first;
 // when they run out, derivedAngles() builds more from the same source by template
 // ($0: no model call). Art is the page's topic photos (data/pinterest/topic_art.json).
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 export const HOST = 'weddingchecklistpdf.com';
@@ -30,21 +34,30 @@ function sources() {
     }
   })(readJson('data/seo/hub_pages.json'));
   const ownership = readJson('data/seo/route_ownership.json');
-  cache = { catalog, registry, metaDescriptions: metaDescriptions.descriptions ?? metaDescriptions, hubs, ownership };
+  // Plain data with type annotations: Node (>= 22.18) strips the types on require.
+  const landings = Object.fromEntries(createRequire(import.meta.url)(path.join(ROOT, 'data/planner-landings.ts')).plannerLandings.filter((l) => l.host === HOST).map((l) => [`/${l.slug}`, l]));
+  cache = { catalog, registry, metaDescriptions: metaDescriptions.descriptions ?? metaDescriptions, hubs, landings, ownership };
   return cache;
 }
 
-/** Product and guide pages this host serves: the pages that may join the drip. */
+/**
+ * Pages this host serves that may join the drip: every product and guide page, and each
+ * planner landing page whose photos and searches are recorded in topic_art.json `pages`
+ * (the budget landings carry the vendors-budget board, which no guide feeds since the
+ * vendor guides were consolidated).
+ */
 export function eligiblePaths() {
-  return sources().ownership.routes
-    .filter((r) => r.host === HOST && r.indexable !== false && /^\/(products|guides)\/[a-z0-9-]+$/.test(r.path))
+  const { ownership, landings } = sources();
+  const mapped = topicArt().pages;
+  return ownership.routes
+    .filter((r) => r.host === HOST && r.indexable !== false && (/^\/(products|guides)\/[a-z0-9-]+$/.test(r.path) || (r.type === 'landing' && landings[r.path] && mapped[r.path])))
     .map((r) => r.path)
     .sort();
 }
 
 /** The page's own source record, or null when nothing truthful can be said about it. */
 export function pageSource(pagePath) {
-  const { catalog, registry, metaDescriptions, hubs } = sources();
+  const { catalog, registry, metaDescriptions, hubs, landings } = sources();
   const product = catalog.find((p) => p.route === pagePath || `/products/${p.id}` === pagePath);
   if (product) {
     return {
@@ -69,6 +82,21 @@ export function pageSource(pagePath) {
       facts,
       summary: metaDescriptions[guideSlug] ?? guide.summary,
       text: JSON.stringify({ guide, meta: metaDescriptions[guideSlug] ?? null })
+    };
+  }
+  const landing = landings[pagePath];
+  if (landing) {
+    return {
+      kind: 'landing',
+      productId: landing.productId ?? 'checklist-pdf',
+      name: String(landing.title).split(':')[0].trim(),
+      eyebrow: 'FREE GUIDE',
+      // No derived facts: the landings' sentences carry figures and lists ("$19,000 to
+      // $32,000", "chairs, china, glassware") that cut into fragments; their pins come
+      // only from the hand-written angles in data/pinterest/angles.json.
+      facts: [],
+      summary: landing.description,
+      text: JSON.stringify(landing)
     };
   }
   const hub = hubs[pagePath];

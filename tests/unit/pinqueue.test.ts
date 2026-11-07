@@ -392,7 +392,16 @@ describe('auto-refill', () => {
   it('every product and guide page the site serves has a source record, so a new one can join with truthful copy', () => {
     // Pages added since the last weekly run are not in known_pages yet; the refill adds them.
     for (const path of eligiblePaths()) expect(pageSource(path), path).not.toBeNull();
-    for (const page of queue.pages) expect(derivedAngles(page.path).length, page.path).toBeGreaterThan(0);
+    // Product, guide and hub pages can always derive more angles from their source; a
+    // planner landing (figures and lists that cut into fragments) derives none and must
+    // carry a hand-written angle for every photo of its topic.
+    for (const page of queue.pages) {
+      if (pageSource(page.path)?.kind === 'landing') {
+        expect(derivedAngles(page.path), page.path).toEqual([]);
+        expect(anglesFor(page.path).length, page.path).toBeGreaterThanOrEqual(new Set(stock.filter((v) => v.path === page.path).map((v) => v.art)).size);
+        expect(anglesFor(page.path).length, page.path).toBeGreaterThan(0);
+      } else expect(derivedAngles(page.path).length, page.path).toBeGreaterThan(0);
+    }
   });
 });
 
@@ -418,6 +427,26 @@ describe('topic boards: one feed per board, every pin in exactly one', () => {
     for (const board of boards.BOARDS.slice(1)) {
       expect(parseFeed(buildPinfeed(new Date(`${boards.SPLIT_FROM}T18:00:00Z`), board)).items.length, board.slug).toBeGreaterThan(0);
     }
+  });
+
+  it('every topic board is fed: a served page in the drip routes to it and it has pins dated since the split (vendors-budget had none, 7 Nov 2026)', () => {
+    const unfed = (q: PinQueue) => boards.BOARDS.filter((board) => {
+      const served = q.pages.filter((p) => owned.has(p.path) && !Object.hasOwn(rescue.redirects, p.path) && boards.boardFor(p.path).slug === board.slug);
+      const pins = q.variants.filter((v) => v.release_date && v.release_date >= boards.SPLIT_FROM && served.some((p) => p.path === v.path));
+      return served.length === 0 || pins.length === 0;
+    }).map((b) => b.slug);
+    expect(boards.BOARDS.length).toBeGreaterThanOrEqual(4);
+    expect(unfed(queue)).toEqual([]);
+    // Each budget pin has its own photo within its page.
+    const budget = queue.variants.filter((v) => boards.boardFor(v.path).slug === 'vendors-budget' && v.release_date && v.release_date >= boards.SPLIT_FROM);
+    for (const path of new Set(budget.map((v) => v.path))) {
+      const arts = budget.filter((v) => v.path === path).map((v) => v.art);
+      expect(new Set(arts).size, path).toBe(arts.length);
+    }
+    // Negative proof: without the budget landings the board is unfed again.
+    const without = clone();
+    without.pages = without.pages.filter((p) => !budget.some((v) => v.path === p.path));
+    expect(unfed(without)).toContain('vendors-budget');
   });
 
   it('a question page goes to the board its words name, else the first board', () => {

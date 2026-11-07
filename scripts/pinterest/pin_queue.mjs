@@ -195,10 +195,20 @@ if (queue.variants.length !== before) for (const v of queue.variants) if (v.rele
 // 2. Refill.
 const pages = queue.pages.filter((p) => owned.has(p.path) && !Object.hasOwn(pageRescue.redirects, p.path)).map((p) => ({ ...p, angles: requeue ? handWritten(p.path) : anglesFor(p.path) }));
 const paused = pace.action === 'pause';
-const due = !paused && (seed > 0 || requeue || needsRefill(queue, today) || pages.some((p) => !queue.variants.some((v) => v.path === p.path) && !queue.pending.some((v) => v.path === p.path)));
+const joining = pages.filter((p) => !queue.variants.some((v) => v.path === p.path) && !queue.pending.some((v) => v.path === p.path));
+const lowStock = needsRefill(queue, today);
+const due = !paused && (seed > 0 || requeue || lowStock || joining.length > 0);
 // A re-queue plans every unused hand-written angle (the gate drops what cannot be made good).
-const count = seed > 0 ? seed * pages.length : requeue ? pages.reduce((n, p) => n + p.angles.length, 0) : queue.config.refill_batch;
-const planned = due ? planRefill(queue, pages, count) : [];
+// A page that joins while stock is full gets its own pins only: one per photo of its topic
+// (each pin a different photo), never a full refill batch across every page.
+const joinOnly = !seed && !requeue && !lowStock && joining.length > 0;
+const count = seed > 0 ? seed * pages.length : requeue ? pages.reduce((n, p) => n + p.angles.length, 0) : joinOnly ? joining.reduce((n, p) => n + Math.min(p.art.length, p.angles.length), 0) : queue.config.refill_batch;
+const planJoin = () => {
+  const out = [];
+  for (const p of joining) out.push(...planRefill({ ...queue, variants: [...queue.variants, ...out] }, [p], Math.min(p.art.length, p.angles.length)));
+  return out;
+};
+const planned = due ? (joinOnly ? planJoin() : planRefill(queue, pages, count)) : [];
 // A refill's new pins sit on the few pages with the fewest variants. Appended after the
 // pins already dated they cannot fill a day without repeating a page (2026-11-13
 // simulation: 14 new pins on 4 pages gave 2-pin days), so every pin not yet released goes

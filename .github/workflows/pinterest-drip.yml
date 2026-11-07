@@ -49,8 +49,9 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v7
-        with: { node-version: '20', cache: npm }
+        with: { node-version: '22', cache: npm }
       - run: npm ci
+      # Node 22: scripts/pinterest/pin_sources.mjs requires data/planner-landings.ts (types stripped).
       # The pins are drawn with Pillow and the committed brand fonts (scripts/pinterest/render_pin.py).
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
