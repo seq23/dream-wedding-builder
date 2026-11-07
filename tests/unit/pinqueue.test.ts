@@ -142,6 +142,18 @@ describe('release schedule', () => {
     }
   });
 
+  it('a refill on few pages never leaves a short day mid-schedule (13 Nov 2026 simulation: 2-pin days)', () => {
+    // 6 pages with 1 pin each and 2 pages with 6 each: greedy packing runs out of distinct pages.
+    const mk = (path: string, n: number) => Array.from({ length: n }, (_, i) => ({ id: `${path}-${i}`, path, seq: i, release_date: null as string | null }));
+    const vs = [...['a', 'b', 'c', 'd', 'e', 'f'].flatMap((p) => mk(`/${p}`, 1)), ...mk('/big1', 6), ...mk('/big2', 6)];
+    scheduleVariants(vs as never, { pinsPerDay: 3, firstDay: '2026-12-01' });
+    const days = [...new Set(vs.filter((v) => v.release_date).map((v) => v.release_date!))].sort();
+    expect(days.length).toBeGreaterThan(0);
+    for (const day of days) expect(vs.filter((v) => v.release_date === day).length, day).toBe(3);
+    expect(scheduleViolations(vs as never, 3)).toEqual([]);
+    expect(vs.some((v) => !v.release_date), 'leftovers wait undated for the next refill').toBe(true);
+  });
+
   it('the scheduler keeps the rule when pins_per_day is raised', () => {
     for (const pinsPerDay of [1, 2, 3]) {
       const q = clone();
