@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "derived_at": "2026-11-03",
+  "derived_at": "2026-11-07",
   "derived_from": "data/authority/content_registry.json",
   "derived_by": "scripts/authority_scale/derive_composition_spec.mjs",
   "note": "Read back out of the guides that render, never hand-written. Every field here is invariant across every shipping guide in its cluster; everything not here is authored per guide. The derivation is proved by recomposing all shipping guides from three sentences each and comparing to the committed bytes.",

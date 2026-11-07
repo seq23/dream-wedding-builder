@@ -27,21 +27,13 @@
         {
           "heading": "Build the guest data for Wedding Seating Chart Accessibility Planning",
           "paragraphs": [
-            "Accessibility planning should begin before table placement and should be confirmed directly with the guest and venue.",
             "Use one row per person with stable display and sort names, household or social group, RSVP, meal, allergy, accessibility, child/high-chair, table, and unresolved-status fields as applicable."
           ]
         },
         {
           "heading": "Place, count, and reconcile",
           "paragraphs": [
-            "Ask what accommodation is helpful, map routes and restroom access, reserve appropriate table positions, avoid blocking mobility devices, and brief the responsible venue contact.",
             "Example: an aisle seat is not automatically accessible if the route to it crosses steps, narrow gaps, or service traffic."
-          ],
-          "bullets": [
-            "Ask what accommodation is helpful, map routes and restroom access, reserve appropriate table positions, avoid blocking mobility devices, and brief the responsible venue contact.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
           ]
         },
         {
@@ -112,21 +104,13 @@
         {
           "heading": "Define the real scope of Destination Wedding Checklist",
           "paragraphs": [
-            "Destination planning adds travel, lodging, local vendor, documentation, shipping, and guest-communication dependencies to the normal wedding plan.",
             "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
           ]
         },
         {
           "heading": "Work in dependency order",
           "paragraphs": [
-            "Confirm legal or symbolic ceremony plans, room blocks, transport, local contacts, shipping restrictions, weather contingencies, and what must travel in carry-on luggage.",
             "Example: keep critical attire, rings, documents, medication, and ceremony essentials out of checked-only baggage."
-          ],
-          "bullets": [
-            "Confirm legal or symbolic ceremony plans, room blocks, transport, local contacts, shipping restrictions, weather contingencies, and what must travel in carry-on luggage.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
           ]
         },
         {
@@ -197,21 +181,13 @@
         {
           "heading": "Define the real scope of Courthouse Wedding Checklist",
           "paragraphs": [
-            "A courthouse wedding checklist should begin with jurisdiction-specific appointment, license, witness, identification, security, and photography rules.",
             "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
           ]
         },
         {
           "heading": "Work in dependency order",
           "paragraphs": [
-            "Verify requirements directly, reserve the appointment if needed, gather documents, assign witnesses, plan arrival and parking, and decide what celebration or announcements follow.",
             "Example: keep a printed confirmation and backup identification plan because building access and appointment rules vary."
-          ],
-          "bullets": [
-            "Verify requirements directly, reserve the appointment if needed, gather documents, assign witnesses, plan arrival and parking, and decide what celebration or announcements follow.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
           ]
         },
         {
@@ -282,21 +258,13 @@
         {
           "heading": "Anchor Wedding Day Timeline: Build a Realistic Schedule to fixed facts",
           "paragraphs": [
-            "A wedding-day timeline should coordinate people, places, vendors, dependencies, and buffers from venue access through breakdown.",
             "Identify the times and access windows that cannot move, then mark who controls each one. Everything else should be built around those anchors."
           ]
         },
         {
           "heading": "Sequence people, places, and dependencies",
           "paragraphs": [
-            "Build from fixed anchors, work backward for preparation, forward for reception and breakdown, then issue role-specific versions for the couple, family, wedding party, photographer, and vendors.",
             "Example: first-look, no-first-look, one-location, and two-location versions need different photography and travel logic."
-          ],
-          "bullets": [
-            "Build from fixed anchors, work backward for preparation, forward for reception and breakdown, then issue role-specific versions for the couple, family, wedding party, photographer, and vendors.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
           ]
         },
         {
@@ -1371,21 +1339,13 @@
         {
           "heading": "Define the real scope of Elopement Planning Checklist",
           "paragraphs": [
-            "An elopement removes guests and production but not legal requirements, because the licence, the officiant's authority, and the witness rules still decide whether the marriage is valid.",
             "Write down what is included, what is excluded, the date or deadline that controls the work, and who has authority to close the decision. A checklist line without these facts often reopens later."
           ]
         },
         {
           "heading": "Work in dependency order",
           "paragraphs": [
-            "Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel.",
             "Example: licence validity windows, waiting periods, and required witness counts vary by jurisdiction and change over time, so confirm the current rule with the issuing office for your location rather than relying on any general guide, this one included."
-          ],
-          "bullets": [
-            "Verify the marriage licence requirements, any waiting period, and the witness rules that apply where the ceremony will actually take place, confirm the officiant is authorised in that jurisdiction, and secure any location permit before booking travel.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
           ]
         },
         {
@@ -1456,21 +1416,13 @@
         {
           "heading": "Set the financial boundary for Wedding Budget Spreadsheet Categories",
           "paragraphs": [
-            "A wedding budget spreadsheet works best when its categories match how contracts and payments actually arrive, staying simple enough to review at a glance.",
             "Separate the planning ceiling from category targets, quotes, contracted commitments, payments, and final actuals. Each state answers a different management question."
           ]
         },
         {
           "heading": "Model the decision before committing",
           "paragraphs": [
-            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
             "Example: keeping each tax, service charge, delivery fee, and gratuity on its own line makes the total self-evident."
-          ],
-          "bullets": [
-            "First, set up major categories for venue, food and beverage, photography, attire, flowers and decor, entertainment, stationery, transportation, lodging, ceremony, gifts, beauty, rentals, taxes and fees, and contingency; then add subcategories only when they improve control.",
-            "Record the controlling inputs, constraints, and unresolved items in one source of truth.",
-            "Test the plan against the real count, capacity, contract, timing, payment, or handoff dependency that could break it.",
-            "Review the working version with the people who must act on it, then document corrections."
           ]
         },
         {

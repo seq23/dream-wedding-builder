@@ -118,6 +118,10 @@ describe('rendered titles are trimmed to 65, fail only below 75% of 30, and keep
 
   it('a long topic is shortened at its clause break, not cut mid-phrase', () => {
     const host = 'weddingbudgetspreadsheet.com';
+    // The numbers of the dropped clause are kept in brackets when they fit (the
+    // page's owning host since 6 Nov 2026), and the bare head is the fallback.
+    expect(documentTitle('Wedding cost per guest: what 50, 100 and 150 guests actually cost', 'weddingchecklistpdf.com').absolute)
+      .toBe('Wedding cost per guest (50, 100, 150) | Wedding Checklist PDF');
     expect(documentTitle('Wedding cost per guest: what 50, 100 and 150 guests actually cost', host).absolute)
       .toBe('Wedding cost per guest | Wedding Budget Spreadsheet');
     expect(documentTitle('Wedding budget tradeoffs: what a better venue costs you elsewhere', host).absolute)

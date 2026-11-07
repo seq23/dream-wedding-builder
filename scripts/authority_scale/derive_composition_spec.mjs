@@ -72,7 +72,8 @@ for (const [cluster, population] of [...byCluster.entries()].sort()) {
     // The heading embeds the title verbatim, so the pattern is the heading with
     // the title lifted back out.
     sec0_heading_pattern: modal(group, (p) => p.sections[0].heading.split(p.title).join('{TITLE}')),
-    sec0_para1: modal(group, (p) => p.sections[0].paragraphs[1]),
+    // The cluster paragraph closes section 0 (the summary no longer opens it).
+    sec0_para1: modal(group, (p) => p.sections[0].paragraphs.at(-1)),
     sec1_heading: modal(group, (p) => p.sections[1].heading),
     sec2_heading: modal(group, (p) => p.sections[2].heading),
     sec2_para0: modal(group, (p) => p.sections[2].paragraphs[0]),
