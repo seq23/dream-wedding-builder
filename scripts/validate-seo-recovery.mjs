@@ -8,7 +8,8 @@ const hubs = read('data/seo/hub_pages.json').pages;
 const registry = read('data/authority/content_registry.json');
 const previewManifest = read('data/products/product_preview_manifest.json');
 const catalog = read('data/products/product_catalog.json');
-const products = catalog.products.filter((product) => product.domain);
+// The four tool products; Kindle-book kits (kind book_kit) are noindex pages reached from their companions.
+const products = catalog.products.filter((product) => product.domain && product.kind !== 'book_kit');
 const links = read('data/authority/internal_link_registry.json').links;
 const retirements = { ...read('data/seo/budget_rescue.json').redirects, ...read('data/seo/page_rescue.json').redirects };
 

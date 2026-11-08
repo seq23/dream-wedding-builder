@@ -126,6 +126,45 @@
           "delivery": "private-r2-required"
         }
       ]
+    },
+    {
+      "product_id": "courthouse-wedding-kit",
+      "sku": "DWB-COURTHOUSE-001",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "DWB-COURTHOUSE-001_v1.0.0.pdf",
+          "sha256": "0afdaa9e5827737d0c1c964b35805f299479f7aa5e55a4adce2e43d0e5fbccbb",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        }
+      ]
+    },
+    {
+      "product_id": "wedding-vows-workbook",
+      "sku": "DWB-VOWS-001",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "DWB-VOWS-001_v1.0.0.pdf",
+          "sha256": "73f46467cb6b7a944cff957429820bf87a412c153b53aa4930562baf4e0d5526",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        }
+      ]
+    },
+    {
+      "product_id": "maid-of-honor-kit",
+      "sku": "DWB-MOH-001",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "DWB-MOH-001_v1.0.0.pdf",
+          "sha256": "ae46edebd51fd3d39a0942f4644c126c1be2483ce3039e97f1bec887d93dbc4b",
+          "content_type": "application/pdf",
+          "delivery": "private-r2-required"
+        }
+      ]
     }
   ]
 }

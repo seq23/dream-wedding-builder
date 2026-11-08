@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "fb541ae48b85d84c68a3ec86b8cb2fb0e5909f8d",
+  "generated_from_commit": "32d756329ea5642335a5549dfb6ab3dd355fd07a",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -157,6 +157,14 @@
       "lastmod": "2026-09-25",
       "source": "data/products/product_catalog.json#products[id=checklist-pdf]"
     },
+    "/products/courthouse-wedding-kit": {
+      "lastmod": "2026-11-08",
+      "source": "data/products/product_catalog.json#products[id=courthouse-wedding-kit] (uncommitted at generation; pinned to run date)"
+    },
+    "/products/maid-of-honor-kit": {
+      "lastmod": "2026-11-08",
+      "source": "data/products/product_catalog.json#products[id=maid-of-honor-kit] (uncommitted at generation; pinned to run date)"
+    },
     "/products/operations-suite": {
       "lastmod": "2026-11-06",
       "source": "app/products/operations-suite/page.tsx"
@@ -168,6 +176,10 @@
     "/products/timeline-template": {
       "lastmod": "2026-10-25",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
+    },
+    "/products/wedding-vows-workbook": {
+      "lastmod": "2026-11-08",
+      "source": "data/products/product_catalog.json#products[id=wedding-vows-workbook] (uncommitted at generation; pinned to run date)"
     },
     "/questions": {
       "lastmod": "2026-11-08",

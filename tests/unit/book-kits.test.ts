@@ -5,11 +5,12 @@ import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { bookKits, companionCtas, kitOnSale } from '@/lib/book-kits';
 import { productBySku } from '@/lib/products';
+import { priceEnvKeyForProduct } from '@/lib/checkout-contract';
 import hubs from '@/data/seo/hub_pages.json';
 
 const page = (hubs as any).pages['amazon/wedding-vows'];
 
-describe('book kits behind the price gate', () => {
+describe('book kits and their price gate', () => {
   it('there are three kits, each with its PDF committed and its R2 object recorded', () => {
     expect(bookKits.map((k) => k.id).sort()).toEqual(['courthouse-wedding-kit', 'maid-of-honor-kit', 'wedding-vows-workbook']);
     for (const kit of bookKits) {
@@ -18,9 +19,17 @@ describe('book kits behind the price gate', () => {
       expect(kit.price).toBe(9);
     }
   });
-  it('while off sale: checkout does not know the SKU and the companion page keeps its current button only', () => {
-    for (const kit of bookKits.filter((k) => !kitOnSale(k))) expect(productBySku(kit.sku)).toBeUndefined();
-    expect(companionCtas(page)).toEqual([page.book_cta]);
+  it('off sale: the companion page keeps its current button only', () => {
+    const off = bookKits.map((k) => ({ ...k, on_sale: false }));
+    expect(companionCtas(page, off as any)).toEqual([page.book_cta]);
+  });
+  it('on sale today: checkout knows each kit SKU at $9 and its price env key is the one the Worker holds', () => {
+    for (const kit of bookKits) {
+      expect(kitOnSale(kit), kit.id).toBe(true);
+      const product = productBySku(kit.sku);
+      expect(product?.price, kit.sku).toBe(9);
+      expect(priceEnvKeyForProduct(kit.id)).toBe(kit.price_env_key);
+    }
   });
   it('once on sale: the kit leads and the old product is second', () => {
     const live = bookKits.map((k) => (k.id === 'wedding-vows-workbook' ? { ...k, on_sale: true } : k));

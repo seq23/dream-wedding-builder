@@ -1477,12 +1477,12 @@
     },
     "amazon/courthouse-wedding-planner": {
       "title": "Courthouse Wedding Planner book: free next steps",
-      "description": "You are reading The Courthouse Wedding Planner. Here are the free courthouse checklist and planner, then the $9 Wedding Checklist PDF if you want the full file.",
+      "description": "You are reading The Courthouse Wedding Planner. Here is the $9 Courthouse Wedding Kit that goes with it, and the free courthouse checklist and planner.",
       "host": "weddingchecklistpdf.com",
       "eyebrow": "Kindle book companion",
       "h1": "You're reading The Courthouse Wedding Planner",
       "intro": "Thank you for reading The Courthouse Wedding Planner. The book stands on its own; this page gives you the free next step on this site and then names the one paid file that fits, with what it does and does not cover.",
-      "direct_answer": "If you are adding a meal, photos or a small party around the ceremony, the Wedding Checklist PDF is $9: a 104-row dated, editable checklist you trim to a courthouse day. It is not a courthouse-specific product and it does not book or file anything for you. The free next step is the courthouse wedding checklist on this site, then the free wedding planner builder.",
+      "direct_answer": "The Courthouse Wedding Kit is the $9 printable that goes with the book: the license steps in order, the questions to ask your county clerk, a witness and ID list, the courthouse-day timeline, a small reception plan and a budget page. It states no county's fees or rules as fact. The free next step is the courthouse wedding checklist on this site, then the free wedding planner builder.",
       "sections": [
         {
           "heading": "What is the free next step?",
@@ -1498,16 +1498,18 @@
           ]
         },
         {
-          "heading": "What does the $9 Wedding Checklist PDF add?",
+          "heading": "What does the $9 Courthouse Wedding Kit add?",
           "paragraphs": [
-            "The Wedding Checklist PDF is a general wedding planning file, not a courthouse planner. It has a 104-row editable checklist, planning-window worksheets and separate wedding-week and final-payment trackers. A courthouse couple will cross out many rows: it is useful if you are adding a lunch, a photographer or a small reception and want one dated list with owners for every task.",
-            "If you also want the seating, budget and timeline files, all four tools come together as the Dream Wedding Operations Suite for $39."
+            "The kit is a 12-page printable made for this book. It turns the steps into pages you fill in: a license checklist with a date beside each step, nine questions to ask the office that issues your license with room for the answers, the witnesses and the ID each person brings, a timeline built backwards from your appointment, and a small reception plan with a guest list.",
+            "It also has a budget page and an after-the-wedding checklist for certified copies and a name change. If you are adding more, the $9 Wedding Checklist PDF is a general 104-row planning checklist, and all four planning tools come together for $39."
           ],
           "bullets": [
-            "104-row editable checklist with owners and dates",
-            "Wedding-week and final-payment trackers",
-            "13-page printable PDF plus editable XLSX",
-            "Not courthouse-specific: you skip the rows that do not apply"
+            "License and paperwork checklist, step by step",
+            "Questions to call the county clerk",
+            "Witness and ID list",
+            "Courthouse-day timeline and what to bring",
+            "Small reception plan, guest list and budget page",
+            "No county's fees or rules stated as fact"
           ]
         },
         {
@@ -1547,9 +1549,9 @@
             "Date, budget and must-haves in one working plan"
           ],
           [
-            "Wedding Checklist PDF",
+            "The Courthouse Wedding Kit",
             "$9 once",
-            "One dated, editable list if you add a meal, photos or a small party"
+            "The book's steps as fill-in pages: license, clerk questions, the day, the meal"
           ],
           [
             "Dream Wedding Operations Suite",
@@ -1561,11 +1563,11 @@
       "faqs": [
         {
           "question": "Do I need to buy anything after the book?",
-          "answer": "No. The book and the free courthouse checklist are enough for a courthouse ceremony. The paid files only help if you want one editable list for a meal, photos or a small party around the ceremony."
+          "answer": "No. The book and the free courthouse checklist are enough for a courthouse ceremony. The $9 kit turns the steps into fill-in pages, so the license, the clerk's answers, the witnesses and the day are written down in one place."
         },
         {
-          "question": "Is the Wedding Checklist PDF made for courthouse weddings?",
-          "answer": "No. It is a general wedding planning checklist. It works for a courthouse wedding once you cross out the rows that do not apply, which will be many. If a short paper list is all you need, the free printable checklist is the better fit."
+          "question": "Does the kit list the fees and rules for my county?",
+          "answer": "No. Fees, waiting periods and witness rules differ by county and change over time, so the kit gives you the questions and your county clerk gives you the answers. Write each answer and the date you were told."
         },
         {
           "question": "Does this site book the courthouse or file the licence?",
@@ -1579,7 +1581,7 @@
         "/printable-wedding-checklist",
         "/products/checklist-pdf"
       ],
-      "product_id": "checklist-pdf",
+      "product_id": "courthouse-wedding-kit",
       "schema": "Article",
       "book_cta": {
         "label": "Get the Wedding Checklist PDF — $9 ›",
@@ -1589,12 +1591,12 @@
     },
     "amazon/wedding-vows": {
       "title": "Writing Your Wedding Vows book: your free next step",
-      "description": "You are reading Writing Your Wedding Vows. Here is the free next step for the rest of the planning, and what the $39 planning suite does not contain: vows.",
+      "description": "You are reading Writing Your Wedding Vows. Here is the $9 Wedding Vows Workbook that goes with it: prompts, a structure, three templates and a timing guide.",
       "host": "weddingchecklistpdf.com",
       "eyebrow": "Kindle book companion",
       "h1": "You're reading Writing Your Wedding Vows",
-      "intro": "Thank you for reading Writing Your Wedding Vows. The book is the whole of what we have on vows: there is no vow-writing product on this site. This page gives you a free next step for the rest of the wedding, and is plain about what the paid files do and do not include.",
-      "direct_answer": "Write your vows from the book; it is the complete vow guide we offer. For the rest of the wedding, the Dream Wedding Operations Suite ($39) holds the seating, budget, timeline and checklist files. It does not contain vows: there is no vow-writing product on this site. The free next step is the planner builder or the printable checklist, to give the vows a deadline.",
+      "intro": "Thank you for reading Writing Your Wedding Vows. This page gives you the workbook made for the book, then a free next step for the rest of the wedding.",
+      "direct_answer": "The Wedding Vows Workbook is the $9 printable that goes with the book: decide the basics together, memory and promise prompts, a five-part structure, three fill-in templates, a length and timing guide, a read-aloud practice log and two cut-out vow cards. It helps you write your own vows; it does not write them for you. For the rest of the wedding, the free planner builder and the printable checklist are free.",
       "sections": [
         {
           "heading": "What is the free next step?",
@@ -1609,15 +1611,17 @@
           ]
         },
         {
-          "heading": "What do the paid files cover, and what do they leave out?",
+          "heading": "What does the $9 Wedding Vows Workbook add?",
           "paragraphs": [
-            "The paid files are planning tools: a seating chart maker, a budget spreadsheet, a wedding day timeline and a dated checklist. None of them contains vow templates, vow examples or vow prompts, and buying them adds nothing to the book.",
-            "The timeline is where the ceremony order lives, including when the vows are read. The checklist is where the vow deadline sits with every other task."
+            "The workbook is a 12-page printable made for this book. It starts with a page you fill in together, so both sets of vows have a similar length and tone, then gives you prompts to collect material, a five-part structure to put it in order, and three templates if you want a head start.",
+            "A timing table shows roughly how many words fit in thirty seconds, one, two or three minutes, and a practice log helps you read the vows aloud and cut what trips you up. The last page holds two cut-out cards for the final version."
           ],
           "bullets": [
-            "Wedding Checklist PDF: $9, dated planning checklist",
-            "Dream Wedding Operations Suite: $39, all four planning tools",
-            "No vow templates, examples or prompts in either"
+            "Decide the basics together",
+            "Memory and promise prompts",
+            "A five-part structure and three fill-in templates",
+            "Length and timing guide",
+            "Read-aloud practice log and two vow cards"
           ]
         },
         {
@@ -1643,7 +1647,12 @@
           [
             "Writing Your Wedding Vows",
             "Already yours",
-            "Writing the vows; it is the complete vow guide we offer"
+            "The method and the reasons behind it"
+          ],
+          [
+            "The Wedding Vows Workbook",
+            "$9 once",
+            "Prompts, structure, templates, timing and the final cards"
           ],
           [
             "Free wedding planner builder",
@@ -1651,61 +1660,34 @@
             "Putting the vow deadline on a dated plan"
           ],
           [
-            "Free printable checklist",
-            "Free",
-            "A paper list with the vows and every other task"
-          ],
-          [
             "Dream Wedding Operations Suite",
             "$39 once",
-            "Planning files for seating, budget, timeline and tasks; no vows"
+            "Planning files for seating, budget, timeline and tasks"
           ]
         ]
       },
       "faqs": [
         {
-          "question": "Is there a vow template I can buy here?",
-          "answer": "No. There is no vow-writing product on this site and the planning suite does not contain one. The book is the whole of what we have on vows, and it is enough to write them."
+          "question": "Does the workbook write my vows for me?",
+          "answer": "No. It gives you prompts, a structure and three fill-in templates, so you write your own vows faster. The words stay yours, which is what makes personal vows land."
         },
         {
           "question": "When should our vows be finished?",
           "answer": "Many couples aim to finish a few weeks before the wedding, so there is time to read them aloud, time them and trim them. Put that date on your plan so it does not slide into wedding week."
         },
         {
-          "question": "Then why offer the planning suite on this page?",
-          "answer": "Because the vows are one task among many. If you are planning the rest of the wedding yourselves, the suite holds the seating, budget, timeline and checklist files. If you only came for the vows, the book is all you need."
+          "question": "What is the planning suite for?",
+          "answer": "The rest of the wedding. The suite holds the seating, budget, timeline and checklist files; it contains no vows. If you only came for the vows, the book and the workbook are all you need."
         }
       ],
       "related": [
+        "/products/wedding-vows-workbook",
         "/free-wedding-planner",
         "/printable-wedding-checklist",
-        "/wedding-timeline-template",
         "/products/operations-suite"
       ],
-      "product_id": "checklist-pdf",
+      "product_id": "wedding-vows-workbook",
       "schema": "Article",
-      "bundle_offer": {
-        "product_id": "operations-suite",
-        "href": "/products/operations-suite",
-        "eyebrow": "The planning bundle, and what it does not contain",
-        "heading": "Dream Wedding Operations Suite",
-        "paragraphs": [
-          "This is what we sell, and it is for planning the wedding, not for writing vows. The suite is the four paid planning files in one purchase: seating, budget, the wedding day timeline and the dated checklist.",
-          "Fifty-two dollars of tools for thirty-nine, as one payment, delivered as editable workbooks with printable packets and a personal-use licence."
-        ],
-        "includes": [
-          "Wedding Seating Chart Maker",
-          "Wedding Budget Spreadsheet",
-          "Wedding Timeline Template",
-          "Wedding Checklist PDF",
-          "Venue comparison worksheet",
-          "Vendor contact and payment trackers",
-          "Wedding-week handoff packet",
-          "Emergency contacts and responsibility matrix"
-        ],
-        "excludes": "It does not contain vows. There are no vow templates, examples or prompts in the suite, and nothing in it repeats or extends the book you already own.",
-        "cta": "Get the complete suite - $39"
-      },
       "book_cta": {
         "label": "Get the Dream Wedding Operations Suite — $39 ›",
         "href": "/products/operations-suite"
@@ -1714,12 +1696,12 @@
     },
     "amazon/maid-of-honor-handbook": {
       "title": "Maid of Honor Handbook: free checklist and planner",
-      "description": "You are reading The Maid of Honor Handbook. Here are the free printable checklist and planner to help the couple, then the $9 Wedding Checklist PDF.",
+      "description": "You are reading The Maid of Honor Handbook. Here is the $9 Maid of Honor Kit that goes with it: duties timeline, shower planners and a speech builder.",
       "host": "weddingchecklistpdf.com",
       "eyebrow": "Kindle book companion",
       "h1": "You're reading The Maid of Honor Handbook",
       "intro": "Thank you for reading The Maid of Honor Handbook. The book covers the role; this page gives you the free tools on this site that help you keep the couple's planning on track, then the paid files with what they do and do not include.",
-      "direct_answer": "The Wedding Checklist PDF ($9) is the couple's planning file, with an owner column for every task, so everyone can see which jobs are yours; it is not a maid of honor guide and has no speech or shower templates. The free next step is the printable wedding checklist: mark the tasks the couple has asked you to own and write a date beside each.",
+      "direct_answer": "The Maid of Honor Kit is the $9 printable that goes with the book: a duties timeline from engagement to wedding day, questions to ask the couple, shower and bachelorette planners, a budget split sheet, a speech builder with prompts and a practice log, and the day-of emergency kit list. The free next step is the printable wedding checklist: mark the tasks the couple has asked you to own and write a date beside each.",
       "sections": [
         {
           "heading": "What is the free next step?",
@@ -1734,15 +1716,17 @@
           ]
         },
         {
-          "heading": "What does the $9 Wedding Checklist PDF add?",
+          "heading": "What does the $9 Maid of Honor Kit add?",
           "paragraphs": [
-            "The Wedding Checklist PDF is the couple's planning file: a 104-row editable checklist with owner, date, dependency and status columns, and a separate wedding-week tracker. It suits a maid of honor helping a couple who plan the wedding themselves, because every task can carry a named owner.",
-            "It is not a maid of honor guide. It has no speech templates, shower plans or bachelorette ideas; the book is the whole of what we have on the role. All four planning tools come together as the Dream Wedding Operations Suite for $39."
+            "The kit is a 13-page printable made for this book. It starts with the questions to agree with the couple, then gives you a duties timeline, a shower planner with a guest and gift tracker, a bachelorette planner for options, dates and bookings, and a budget split sheet so everyone sees the same numbers.",
+            "For the toast there is a five-part speech builder, prompts, a draft page and a practice log. The last pages are the day-of emergency kit list and your run sheet for the wedding day. If the couple is planning it themselves, the $9 Wedding Checklist PDF is their planning file."
           ],
           "bullets": [
-            "104-row editable checklist with an owner for every task",
-            "Wedding-week handoff tracker",
-            "No speech, shower or bachelorette templates"
+            "Duties timeline, engagement to wedding day",
+            "Shower and bachelorette planners",
+            "Budget split sheet",
+            "Speech builder, prompts and practice log",
+            "Day-of emergency kit and run sheet"
           ]
         },
         {
@@ -1771,14 +1755,14 @@
             "The role, the timeline and the speech"
           ],
           [
+            "The Maid of Honor Kit",
+            "$9 once",
+            "The duties, shower, bachelorette, budget split and speech as fill-in pages"
+          ],
+          [
             "Free printable checklist",
             "Free",
             "Marking which tasks are yours, with dates"
-          ],
-          [
-            "Free wedding planner builder",
-            "Free with an email",
-            "One dated plan the couple and you can work from"
           ],
           [
             "Wedding Checklist PDF",
@@ -1790,7 +1774,7 @@
       "faqs": [
         {
           "question": "Is there a maid of honor product on this site?",
-          "answer": "No. The book is the whole of what we have on the role. The paid files are wedding planning tools for the couple; none contains a speech template, shower plan or bachelorette ideas."
+          "answer": "Yes: the $9 Maid of Honor Kit, made for this book. It holds the duties timeline, shower and bachelorette planners, a budget split sheet, a speech builder and the day-of emergency kit list."
         },
         {
           "question": "How do I know which tasks are mine?",
@@ -1807,7 +1791,7 @@
         "/wedding-checklist",
         "/products/checklist-pdf"
       ],
-      "product_id": "checklist-pdf",
+      "product_id": "maid-of-honor-kit",
       "schema": "Article",
       "book_cta": {
         "label": "Get the Wedding Checklist PDF — $9 ›",

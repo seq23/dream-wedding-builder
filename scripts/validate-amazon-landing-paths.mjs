@@ -114,15 +114,6 @@ const BUNDLE_PATHS = {
   },
 };
 
-// Writing Your Wedding Vows (8 Nov 2026): no vow product exists, so the page sells the bundle and
-// must say, in its own text, that the bundle holds no vows.
-BUNDLE_PATHS['/amazon/wedding-vows'] = {
-  must_state: [/no vow-writing product/i, /does not contain vows/i],
-  must_not_state: [
-    /\bsuite\b[^.]{0,80}\b(contains|includes|holds|adds)\b[^.]{0,40}\bvow (templates?|examples?|prompts?)\b/i,
-    /\bvow (templates?|examples?|prompts?)\b[^.]{0,60}\b(are|is)\b\s+\b(in|inside|part of)\b\s+the suite/i,
-  ],
-};
 const errors = [];
 const notes = [];
 let examined = 0;
