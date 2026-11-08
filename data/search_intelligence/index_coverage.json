@@ -215,13 +215,14 @@
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "state": "OK",
       "named_stop": null,
-      "sitemap_url_count": 43,
+      "sitemap_url_count": 46,
       "inspected_this_run": 43,
       "errors_this_run": [],
       "summary": {
         "by_coverage_state": {
           "Crawled - currently not indexed": 2,
           "Discovered - currently not indexed": 10,
+          "NOT_INSPECTED": 3,
           "Submitted and indexed": 26,
           "URL is unknown to Google": 5
         },
@@ -231,7 +232,7 @@
           "discovered_not_indexed": 10,
           "unknown_to_google": 5,
           "other": 0,
-          "not_inspected": 0
+          "not_inspected": 3
         }
       },
       "urls": [
@@ -750,6 +751,39 @@
           "googleCanonical": null,
           "userCanonical": null,
           "inspected_at": "2026-11-08T16:55:34.749Z"
+        },
+        {
+          "url": "https://weddingchecklistpdf.com/amazon/courthouse-wedding-planner",
+          "verdict": null,
+          "coverageState": "NOT_INSPECTED",
+          "lastCrawlTime": null,
+          "indexingState": null,
+          "googleCanonical": null,
+          "userCanonical": null,
+          "inspected_at": null,
+          "not_inspected_reason": "not reached this run"
+        },
+        {
+          "url": "https://weddingchecklistpdf.com/amazon/wedding-vows",
+          "verdict": null,
+          "coverageState": "NOT_INSPECTED",
+          "lastCrawlTime": null,
+          "indexingState": null,
+          "googleCanonical": null,
+          "userCanonical": null,
+          "inspected_at": null,
+          "not_inspected_reason": "not reached this run"
+        },
+        {
+          "url": "https://weddingchecklistpdf.com/amazon/maid-of-honor-handbook",
+          "verdict": null,
+          "coverageState": "NOT_INSPECTED",
+          "lastCrawlTime": null,
+          "indexingState": null,
+          "googleCanonical": null,
+          "userCanonical": null,
+          "inspected_at": null,
+          "not_inspected_reason": "not reached this run"
         }
       ]
     }

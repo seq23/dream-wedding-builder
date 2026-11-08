@@ -14,6 +14,9 @@ const passthroughPrefixes = ['/api/', '/_next/', '/google'];
 // unknown path from a real one before Next's router sees it. Kept honest by
 // tests/unit/middleware-trailing-slash.test.ts, which reads the app directory and
 // fails if a route segment is missing here or a dead one is left behind.
+// The 8 Nov 2026 Kindle books print https://weddingchecklistpdf.com/amazon/<slug>/ (with a slash).
+export const KINDLE_SLASH_PATHS = ['/amazon/courthouse-wedding-planner', '/amazon/wedding-vows', '/amazon/maid-of-honor-handbook'];
+
 export const ROUTE_SEGMENTS = [
   'about', 'admin', 'amazon', 'api', 'apple-touch-icon.png', 'backyard-wedding-planning',
   'dashboard', 'disclaimer', 'editorial-policy', 'favicon.ico', 'free-wedding-planner', 'guides',
@@ -78,6 +81,9 @@ function trailingSlash(request: NextRequest, pathname: string) {
   const url = new URL(request.url);
   url.pathname = stripped;
   const segment = stripped.split('/')[1] ?? '';
+  // Kindle companions whose book prints the URL WITH a slash answer that URL directly (200)
+  // rather than 308: the reader typed it from a page. The canonical tag still names the bare path.
+  if (KINDLE_SLASH_PATHS.includes(stripped)) return NextResponse.rewrite(url);
   if (ROUTE_SEGMENTS.includes(segment)) return NextResponse.redirect(url, 308);
   return NextResponse.rewrite(url);
 }

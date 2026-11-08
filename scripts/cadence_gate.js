@@ -97,7 +97,11 @@ if (ledgerExists) {
 // keeps its path and 301s from the old URL. That is a move, not a publication.
 const pathOf = (u) => { try { return new URL(u).pathname; } catch { return u; } };
 const knownPaths = new Set([...known].map(pathOf));
-const newUrls = [...urls.keys()].filter((u) => !known.has(u) && !knownPaths.has(pathOf(u)));
+// Kindle book companions (/amazon/<slug>) are not search publishing: each path is printed inside a
+// book on sale, so it must exist the day the book ships whatever the weekly cap (owner, 8 Nov 2026:
+// three books at once). scripts/validate-amazon-landing-paths.mjs gates those pages instead.
+const isBookCompanion = (u) => pathOf(u).startsWith('/amazon/');
+const newUrls = [...urls.keys()].filter((u) => !known.has(u) && !knownPaths.has(pathOf(u)) && !isBookCompanion(u));
 
 const dated = [...urls.entries()].filter(([, d]) => d);
 const undated = [...urls.entries()].filter(([, d]) => !d);

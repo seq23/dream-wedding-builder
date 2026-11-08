@@ -30,6 +30,8 @@ export type HubPage = {
   sections: HubSection[]; table: { headers: string[]; rows: string[][] }; faqs: { question: string; answer: string }[];
   related: string[]; asset?: { label: string; href: string; secondary_label?: string; secondary_href?: string } | null;
   product_id: string; schema: string; printable?: boolean; bundle_offer?: HubBundleOffer;
+  // A Kindle companion's one paid button (owner, 8 Nov 2026): shown after the quick answer and again at the end.
+  book_cta?: { label: string; href: string };
 };
 export type GuidePage = (typeof registryJson.pages)[number];
 export const hubs = hubsJson.pages as Record<string, HubPage>;

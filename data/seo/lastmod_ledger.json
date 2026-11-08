@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "b9a4f11e6e536b011cd8d762d432b228021b1855",
+  "generated_from_commit": "fb541ae48b85d84c68a3ec86b8cb2fb0e5909f8d",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -12,6 +12,14 @@
     "/about": {
       "lastmod": "2026-11-06",
       "source": "app/about/page.tsx"
+    },
+    "/amazon/courthouse-wedding-planner": {
+      "lastmod": "2026-11-08",
+      "source": "data/seo/editorial_page_shape.json#amazon/courthouse-wedding-planner"
+    },
+    "/amazon/maid-of-honor-handbook": {
+      "lastmod": "2026-11-08",
+      "source": "data/seo/editorial_page_shape.json#amazon/maid-of-honor-handbook"
     },
     "/amazon/wedding-budget-line-by-line": {
       "lastmod": "2026-11-04",
@@ -32,6 +40,10 @@
     "/amazon/wedding-vendor-questions": {
       "lastmod": "2026-11-04",
       "source": "data/seo/editorial_page_shape.json#amazon/wedding-vendor-questions"
+    },
+    "/amazon/wedding-vows": {
+      "lastmod": "2026-11-08",
+      "source": "data/seo/editorial_page_shape.json#amazon/wedding-vows"
     },
     "/backyard-wedding-planning": {
       "lastmod": "2026-09-02",
