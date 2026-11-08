@@ -12,18 +12,24 @@ import registry from '@/data/authority/content_registry.json';
 import { productRecommendation, seoMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { PageByline, bylineWebPageNode } from '@/components/seo/PageByline';
+import { bookKits, bookKitById, kitOnSale } from '@/lib/book-kits';
+import { BookKitPage } from '@/components/BookKitPage';
 import { RecommendationSummary } from '@/components/seo/RecommendationSummary';
 
 type Preview = { src: string; title: string; caption: string; alt: string };
 type Inventory = { pdf: string; workbook: string; sheets: string[]; formula_count: number; extra: string[] };
 
-export function generateStaticParams(){ return products.map(product => ({ slug: product.id })); }
+export function generateStaticParams(){ return [...products.map(product => ({ slug: product.id })), ...bookKits.filter(kitOnSale).map(kit => ({ slug: kit.id }))]; }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
- const { slug } = await params; const product = products.find(item => item.id === slug); if (!product) return {};
+ const { slug } = await params; const product = products.find(item => item.id === slug);
+ const kit = product ? undefined : bookKitById(slug);
+ if (kit && kitOnSale(kit)) return seoMetadata({ title: `${kit.name}: $${kit.price} Printable Wedding Kit`, description: kit.promise, host: kit.domain, path: kit.route });
+ if (!product) return {};
  return seoMetadata({ title: `${product.name} - Editable Wedding Planning Tool`, description: product.promise, host: product.domain, path: product.route, type: 'website' });
 }
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
- const { slug } = await params; const product = products.find(item => item.id === slug); if (!product) notFound();
+ const { slug } = await params; const product = products.find(item => item.id === slug);
+ if (!product) { const kit = bookKitById(slug); if (kit && kitOnSale(kit)) return <BookKitPage kit={kit} />; notFound(); }
  const budget = product.id === 'budget-spreadsheet' ? budgetShape('wedding-budget-spreadsheet') : undefined;
  const guideHub: Record<string,string> = { 'checklist-pdf':'/wedding-checklist-pdf', 'budget-spreadsheet':'/wedding-budget-spreadsheet', 'timeline-template':'/wedding-timeline-template', 'seating-chart-maker':'/wedding-seating-chart' };
  const relatedGuides = registry.pages.filter(page => page.product_id === product.id).slice(0,6);

@@ -1584,7 +1584,8 @@
       "book_cta": {
         "label": "Get the Wedding Checklist PDF — $9 ›",
         "href": "/products/checklist-pdf"
-      }
+      },
+      "book_kit": "courthouse-wedding-kit"
     },
     "amazon/wedding-vows": {
       "title": "Writing Your Wedding Vows book: your free next step",
@@ -1708,7 +1709,8 @@
       "book_cta": {
         "label": "Get the Dream Wedding Operations Suite — $39 ›",
         "href": "/products/operations-suite"
-      }
+      },
+      "book_kit": "wedding-vows-workbook"
     },
     "amazon/maid-of-honor-handbook": {
       "title": "Maid of Honor Handbook: free checklist and planner",
@@ -1810,7 +1812,8 @@
       "book_cta": {
         "label": "Get the Wedding Checklist PDF — $9 ›",
         "href": "/products/checklist-pdf"
-      }
+      },
+      "book_kit": "maid-of-honor-kit"
     }
   }
 }

@@ -32,6 +32,8 @@ export type HubPage = {
   product_id: string; schema: string; printable?: boolean; bundle_offer?: HubBundleOffer;
   // A Kindle companion's one paid button (owner, 8 Nov 2026): shown after the quick answer and again at the end.
   book_cta?: { label: string; href: string };
+  // The book's own $9 kit (data/products/book_kits.json): leads the page once the kit is on sale.
+  book_kit?: string;
 };
 export type GuidePage = (typeof registryJson.pages)[number];
 export const hubs = hubsJson.pages as Record<string, HubPage>;

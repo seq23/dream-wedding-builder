@@ -22,7 +22,7 @@ describe('Kindle companion buy buttons', () => {
   }
   it('the template renders it right after the opening definition and again at the end', () => {
     const tpl = fs.readFileSync('components/seo/HubPage.tsx', 'utf8');
-    const top = tpl.indexOf('data-book-cta="top"'), end = tpl.indexOf('data-book-cta="end"');
+    const top = tpl.indexOf("ctaLink('top')"), end = tpl.indexOf("ctaLink('end')");
     // In the header, right after the opening definition: the first phone screen, before the quick answer.
     expect(top).toBeGreaterThan(tpl.indexOf('className="definition'));
     expect(top).toBeLessThan(tpl.indexOf('Quick answer'));
