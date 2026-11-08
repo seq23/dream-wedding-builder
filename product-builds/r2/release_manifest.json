@@ -83,6 +83,48 @@
         "DWB-SUITE-001_starter_v2.0.0.csv",
         "DWB-SUITE-001_v2.0.0.pdf"
       ]
+    },
+    {
+      "product_id": "courthouse-wedding-kit",
+      "sku": "DWB-COURTHOUSE-001",
+      "version": "1.0.0",
+      "r2_key": "products/courthouse-wedding-kit/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/courthouse-wedding-kit/current.zip",
+      "bytes": 13406,
+      "sha256": "908741b59a949d268f2cb1cdd2f6a8b29d276765f7e4a55616d5b92bfacc796a",
+      "file_count": 1,
+      "files": [
+        "DWB-COURTHOUSE-001_v1.0.0.pdf"
+      ]
+    },
+    {
+      "product_id": "wedding-vows-workbook",
+      "sku": "DWB-VOWS-001",
+      "version": "1.0.0",
+      "r2_key": "products/wedding-vows-workbook/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/wedding-vows-workbook/current.zip",
+      "bytes": 11380,
+      "sha256": "7bff731009e1538defc28206ef326c714cdcefca941bc7f72499bcd6cd43ddd7",
+      "file_count": 1,
+      "files": [
+        "DWB-VOWS-001_v1.0.0.pdf"
+      ]
+    },
+    {
+      "product_id": "maid-of-honor-kit",
+      "sku": "DWB-MOH-001",
+      "version": "1.0.0",
+      "r2_key": "products/maid-of-honor-kit/current.zip",
+      "bucket": "dream-wedding-builder-products",
+      "local_path": "product-builds/r2/products/maid-of-honor-kit/current.zip",
+      "bytes": 12949,
+      "sha256": "80a4eadba310d81749014bf790ea0d01747ef3786a59084a676c4d290e0b3f88",
+      "file_count": 1,
+      "files": [
+        "DWB-MOH-001_v1.0.0.pdf"
+      ]
     }
   ]
 }

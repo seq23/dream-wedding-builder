@@ -46,14 +46,19 @@ export type SuiteProduct = {
 export type Product = PaidProduct;
 export type GovernedProduct = PaidProduct | SuiteProduct;
 
+// Paid tools with the full product template. Kindle-book kits (kind "book_kit", data/products/book_kits.json)
+// are sold through the same checkout but render their own page, so they are listed separately.
 export const products = catalog.products
-  .filter((product) => product.id !== 'operations-suite') as unknown as PaidProduct[];
+  .filter((product) => product.id !== 'operations-suite' && (product as { kind?: string }).kind !== 'book_kit') as unknown as PaidProduct[];
+
+export const bookKitProducts = catalog.products
+  .filter((product) => (product as { kind?: string }).kind === 'book_kit') as unknown as GovernedProduct[];
 
 export const suite = catalog.products.find(
   (product) => product.id === 'operations-suite'
 ) as unknown as SuiteProduct;
 
-const governedProducts: GovernedProduct[] = [...products, suite];
+const governedProducts: GovernedProduct[] = [...products, suite, ...bookKitProducts];
 
 export function productById(id: string): GovernedProduct | undefined {
   return governedProducts.find((product) => product.id === id);

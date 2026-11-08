@@ -23,7 +23,9 @@ export function generateStaticParams(){ return [...products.map(product => ({ sl
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
  const { slug } = await params; const product = products.find(item => item.id === slug);
  const kit = product ? undefined : bookKitById(slug);
- if (kit && kitOnSale(kit)) return seoMetadata({ title: `${kit.name}: $${kit.price} Printable Wedding Kit`, description: kit.promise, host: kit.domain, path: kit.route });
+ // Kit pages are reached from their books' companion pages, not search: noindex keeps them out of the
+ // sitemap, the cadence cap and the pin drip (8 Nov 2026). Drop the robots line to index them.
+ if (kit && kitOnSale(kit)) return { ...seoMetadata({ title: `${kit.name}: $${kit.price} Printable Wedding Kit`, description: kit.promise, host: kit.domain, path: kit.route }), robots: { index: false, follow: true } };
  if (!product) return {};
  return seoMetadata({ title: `${product.name} - Editable Wedding Planning Tool`, description: product.promise, host: product.domain, path: product.route, type: 'website' });
 }

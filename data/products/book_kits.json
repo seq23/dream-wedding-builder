@@ -1,5 +1,5 @@
 {
-  "_why": "The three $9 Kindle-book kits (owner yes 8 Nov 2026). Built and uploaded to the private R2 bucket, but NOT on sale: on_sale stays false until each Stripe price exists (NAMED STOP STRIPE_PRICES_MISSING: needs the owner's restricted key STRIPE_DWB_LIVE_RESTRICTED). While false the kit is unlisted: its product route answers 404, checkout does not know the SKU, and the companion pages keep their current button. To go on sale: create the prices, set each price_env_key as a Worker secret, move the row into product_catalog.json and the download manifest, set on_sale true.",
+  "_why": "The three $9 Kindle-book kits (owner yes 8 Nov 2026). On sale since 8 Nov 2026: live Stripe prices in the Wedding Tools account, set as Worker secrets (price_env_key); catalog rows (kind book_kit) in product_catalog.json; files in the download manifest and the private R2 bucket. Setting on_sale false takes a kit off sale: its page answers 404 and the companion pages fall back to their other product.",
   "kits": [
     {
       "id": "courthouse-wedding-kit",
@@ -44,7 +44,7 @@
       "price": 9,
       "domain": "weddingchecklistpdf.com",
       "route": "/products/courthouse-wedding-kit",
-      "on_sale": false,
+      "on_sale": true,
       "price_env_key": "STRIPE_COURTHOUSE_WEDDING_KIT_PRICE_ID",
       "release": {
         "version": "1.0.0",
@@ -52,8 +52,8 @@
         "pdf_sha256": "0afdaa9e5827737d0c1c964b35805f299479f7aa5e55a4adce2e43d0e5fbccbb",
         "r2_bucket": "dream-wedding-builder-products",
         "r2_key": "products/courthouse-wedding-kit/current.zip",
-        "zip_sha256": "10652c3742d17a175ac0829b10382fdb699b7afbaf5dd304a98b7c0f73165eb1",
-        "zip_bytes": 13409,
+        "zip_sha256": "908741b59a949d268f2cb1cdd2f6a8b29d276765f7e4a55616d5b92bfacc796a",
+        "zip_bytes": 13406,
         "uploaded": "2026-11-08"
       }
     },
@@ -99,7 +99,7 @@
       "price": 9,
       "domain": "weddingchecklistpdf.com",
       "route": "/products/wedding-vows-workbook",
-      "on_sale": false,
+      "on_sale": true,
       "price_env_key": "STRIPE_WEDDING_VOWS_WORKBOOK_PRICE_ID",
       "release": {
         "version": "1.0.0",
@@ -107,8 +107,8 @@
         "pdf_sha256": "73f46467cb6b7a944cff957429820bf87a412c153b53aa4930562baf4e0d5526",
         "r2_bucket": "dream-wedding-builder-products",
         "r2_key": "products/wedding-vows-workbook/current.zip",
-        "zip_sha256": "434cc53d511b0e8afffd24d9b9e5d1cff299c934c8c724d20bb71eb950194ddb",
-        "zip_bytes": 11382,
+        "zip_sha256": "7bff731009e1538defc28206ef326c714cdcefca941bc7f72499bcd6cd43ddd7",
+        "zip_bytes": 11380,
         "uploaded": "2026-11-08"
       }
     },
@@ -155,7 +155,7 @@
       "price": 9,
       "domain": "weddingchecklistpdf.com",
       "route": "/products/maid-of-honor-kit",
-      "on_sale": false,
+      "on_sale": true,
       "price_env_key": "STRIPE_MAID_OF_HONOR_KIT_PRICE_ID",
       "release": {
         "version": "1.0.0",
@@ -163,8 +163,8 @@
         "pdf_sha256": "ae46edebd51fd3d39a0942f4644c126c1be2483ce3039e97f1bec887d93dbc4b",
         "r2_bucket": "dream-wedding-builder-products",
         "r2_key": "products/maid-of-honor-kit/current.zip",
-        "zip_sha256": "25b958a0c728b250ef3ce35441fa9a7a4fcc3d2bbc2c2a40ade976c9b7ac5f10",
-        "zip_bytes": 12953,
+        "zip_sha256": "80a4eadba310d81749014bf790ea0d01747ef3786a59084a676c4d290e0b3f88",
+        "zip_bytes": 12949,
         "uploaded": "2026-11-08"
       }
     }

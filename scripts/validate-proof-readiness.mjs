@@ -93,7 +93,8 @@ for (const product of manifest.products || []) {
     if (digest !== file.sha256) fail(`checksum mismatch for ${releasePath}`);
   }
 }
-if (releaseFileCount !== 15) fail(`expected 15 governed release files, found ${releaseFileCount}`);
+// 15 tool files + the three book-kit PDFs (8 Nov 2026).
+if (releaseFileCount !== 18) fail(`expected 18 governed release files, found ${releaseFileCount}`);
 
 for (const file of [
   'migrations/0001_fulfillment.sql',

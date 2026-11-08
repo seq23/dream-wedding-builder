@@ -21,7 +21,14 @@ const failures = [];
 const fail = (message) => failures.push(message);
 
 const catalog = JSON.parse(read('data/products/product_catalog.json'));
-const products = catalog.products ?? [];
+// Kindle-book kits (kind book_kit) are reached from their books' companion pages, not the planner:
+// each must be the product of a hub page that links it (scripts/validate-amazon-landing-paths.mjs
+// checks those pages), so they are checked here against the hubs instead.
+const products = (catalog.products ?? []).filter((p) => p.kind !== 'book_kit');
+const hubsForKits = JSON.parse(read('data/seo/hub_pages.json')).pages;
+for (const kit of (catalog.products ?? []).filter((p) => p.kind === 'book_kit')) {
+  if (!Object.values(hubsForKits).some((h) => h.product_id === kit.id && h.book_kit === kit.id)) fail(`book kit ${kit.id}: no companion page sells it (hub product_id and book_kit)`);
+}
 if (products.length === 0) fail('product catalog: examined 0 products - nothing to check');
 
 const planner = read('app/free-wedding-planner/page.tsx');
