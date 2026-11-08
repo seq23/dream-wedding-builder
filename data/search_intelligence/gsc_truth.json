@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-10-09",
-        "end": "2026-11-05"
+        "start": "2026-10-10",
+        "end": "2026-11-06"
       },
-      "collected_at": "2026-11-07T12:42:08.845Z",
+      "collected_at": "2026-11-08T12:43:08.320Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -70,10 +70,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-10-09",
-        "end": "2026-11-05"
+        "start": "2026-10-10",
+        "end": "2026-11-06"
       },
-      "collected_at": "2026-11-07T12:42:09.533Z",
+      "collected_at": "2026-11-08T12:43:08.877Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -124,10 +124,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-10-09",
-        "end": "2026-11-05"
+        "start": "2026-10-10",
+        "end": "2026-11-06"
       },
-      "collected_at": "2026-11-07T12:42:10.029Z",
+      "collected_at": "2026-11-08T12:43:09.700Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -230,24 +230,24 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-10-09",
-        "end": "2026-11-05"
+        "start": "2026-10-10",
+        "end": "2026-11-06"
       },
-      "collected_at": "2026-11-07T12:42:10.742Z",
+      "collected_at": "2026-11-08T12:43:10.423Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 79,
+        "impressions": 83,
         "ctr": 0,
-        "position": 55.29113924050633
+        "position": 55.98795180722892
       },
       "queries": [
         {
           "query": "free wedding planner",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 17,
-          "position": 73.23529411764706
+          "impressions": 18,
+          "position": 73.5
         },
         {
           "query": "wedding planner free",
@@ -299,6 +299,13 @@
           "position": 91
         },
         {
+          "query": "planning a wedding checklist pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 89
+        },
+        {
           "query": "printable elopement checklist",
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
@@ -325,6 +332,13 @@
           "clicks": 0,
           "impressions": 1,
           "position": 89
+        },
+        {
+          "query": "wedding checklist pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 63
         },
         {
           "query": "wedding plan checklist pdf",
@@ -366,14 +380,14 @@
         {
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 28,
-          "position": 72.7
+          "impressions": 29,
+          "position": 72.9
         },
         {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 16,
-          "position": 81.9
+          "impressions": 18,
+          "position": 81.3
         },
         {
           "page": "https://weddingchecklistpdf.com/privacy",
@@ -396,8 +410,8 @@
         {
           "page": "https://weddingchecklistpdf.com/methodology",
           "clicks": 0,
-          "impressions": 7,
-          "position": 1.1
+          "impressions": 8,
+          "position": 7.1
         },
         {
           "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
@@ -512,5 +526,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-11-07T12:42:10.742Z"
+  "updated_at": "2026-11-08T12:43:10.424Z"
 }
