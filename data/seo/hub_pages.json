@@ -1482,7 +1482,7 @@
       "eyebrow": "Kindle book companion",
       "h1": "You're reading The Courthouse Wedding Planner",
       "intro": "Thank you for reading The Courthouse Wedding Planner. The book stands on its own; this page gives you the free next step on this site and then names the one paid file that fits, with what it does and does not cover.",
-      "direct_answer": "Your free next step is the courthouse wedding checklist on this site, then the free wedding planner builder for the date, budget and guest decisions around the ceremony. If you want an editable file, the Wedding Checklist PDF is $9: a 104-row dated checklist you trim to a courthouse day. It is not a courthouse-specific product, and it does not book or file anything for you.",
+      "direct_answer": "If you are adding a meal, photos or a small party around the ceremony, the Wedding Checklist PDF is $9: a 104-row dated, editable checklist you trim to a courthouse day. It is not a courthouse-specific product and it does not book or file anything for you. The free next step is the courthouse wedding checklist on this site, then the free wedding planner builder.",
       "sections": [
         {
           "heading": "What is the free next step?",
@@ -1580,7 +1580,11 @@
         "/products/checklist-pdf"
       ],
       "product_id": "checklist-pdf",
-      "schema": "Article"
+      "schema": "Article",
+      "book_cta": {
+        "label": "Get the Wedding Checklist PDF — $9 ›",
+        "href": "/products/checklist-pdf"
+      }
     },
     "amazon/wedding-vows": {
       "title": "Writing Your Wedding Vows book: your free next step",
@@ -1589,7 +1593,7 @@
       "eyebrow": "Kindle book companion",
       "h1": "You're reading Writing Your Wedding Vows",
       "intro": "Thank you for reading Writing Your Wedding Vows. The book is the whole of what we have on vows: there is no vow-writing product on this site. This page gives you a free next step for the rest of the wedding, and is plain about what the paid files do and do not include.",
-      "direct_answer": "Write your vows from the book; nothing else is needed for that. There is no vow-writing product on this site, and the Dream Wedding Operations Suite does not contain one. For the rest of the wedding, the free planner builder and the free printable checklist are the next step, and the paid files ($9 checklist, $39 for all four tools) are for planning, not for vows.",
+      "direct_answer": "Write your vows from the book; it is the complete vow guide we offer. For the rest of the wedding, the Dream Wedding Operations Suite ($39) holds the seating, budget, timeline and checklist files. It does not contain vows: there is no vow-writing product on this site. The free next step is the planner builder or the printable checklist, to give the vows a deadline.",
       "sections": [
         {
           "heading": "What is the free next step?",
@@ -1700,6 +1704,10 @@
         ],
         "excludes": "It does not contain vows. There are no vow templates, examples or prompts in the suite, and nothing in it repeats or extends the book you already own.",
         "cta": "Get the complete suite - $39"
+      },
+      "book_cta": {
+        "label": "Get the Dream Wedding Operations Suite — $39 ›",
+        "href": "/products/operations-suite"
       }
     },
     "amazon/maid-of-honor-handbook": {
@@ -1709,7 +1717,7 @@
       "eyebrow": "Kindle book companion",
       "h1": "You're reading The Maid of Honor Handbook",
       "intro": "Thank you for reading The Maid of Honor Handbook. The book covers the role; this page gives you the free tools on this site that help you keep the couple's planning on track, then the paid files with what they do and do not include.",
-      "direct_answer": "Your free next step is the free printable wedding checklist: print it, mark the tasks the couple has asked you to own, and write a date beside each. The free wedding planner builder is there if the couple wants one plan you can all work from. The $9 Wedding Checklist PDF is the couple's planning file, with an owner column for every task; it is not a maid of honor guide and has no speech or shower templates.",
+      "direct_answer": "The Wedding Checklist PDF ($9) is the couple's planning file, with an owner column for every task, so everyone can see which jobs are yours; it is not a maid of honor guide and has no speech or shower templates. The free next step is the printable wedding checklist: mark the tasks the couple has asked you to own and write a date beside each.",
       "sections": [
         {
           "heading": "What is the free next step?",
@@ -1798,7 +1806,11 @@
         "/products/checklist-pdf"
       ],
       "product_id": "checklist-pdf",
-      "schema": "Article"
+      "schema": "Article",
+      "book_cta": {
+        "label": "Get the Wedding Checklist PDF — $9 ›",
+        "href": "/products/checklist-pdf"
+      }
     }
   }
 }
