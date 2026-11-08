@@ -870,7 +870,34 @@
         "b5 FAQ answer is 38 words (aim 40-60): \"What is the hardest part of planning a wedding wit\"",
         "b5 FAQ answer is 37 words (aim 40-60): \"How can I keep my wedding costs down on my own?\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"Should I hire a day-of coordinator if I plan the w\""
-      ]
+      ],
+      "indexnow_at": "2026-11-08"
+    },
+    {
+      "slug": "what-do-you-need-to-consider-when-planning-a-wedding",
+      "query": "what do you need to consider when planning a wedding",
+      "lane": "striking",
+      "score": 30,
+      "reasons": [],
+      "signals": {
+        "words": 10,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/what-do-you-need-to-consider-when-planning-a-wedding.html",
+      "route": "/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+      "url": "https://weddingchecklistpdf.com/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+      "published_at": "2026-11-08",
+      "status": "live",
+      "hash": "c831544eaf8d80542dc2d5b539b5245fde1815aa1e9522822ed2da0db09a3711",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Marriage_license",
+        "https://www.consumerfinance.gov/"
+      ],
+      "linked_from": [],
+      "checks": {}
     }
   ],
   "dropped": [
@@ -1335,6 +1362,16 @@
       "kind": "sitemap",
       "matched_by": "same wording",
       "matched_text": "free wedding planner",
+      "stage": "search"
+    },
+    {
+      "query": "printable wedding checklist",
+      "at": "2026-11-08",
+      "url": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "route": "/printable-wedding-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "printable wedding checklist",
       "stage": "search"
     }
   ]

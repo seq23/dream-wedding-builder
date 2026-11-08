@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "f1f83bd43b5d61a25196bf26551ed6a069f82d4f",
+  "generated_from_commit": "a8ec5caff80e4be0bb69ae17999c9251504a442f",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -46,11 +46,11 @@
       "source": "app/editorial-policy/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-11-06",
+      "lastmod": "2026-11-07",
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
-      "lastmod": "2026-11-06",
+      "lastmod": "2026-11-07",
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/bridal-shower-checklist": {
@@ -58,7 +58,7 @@
       "source": "data/seo/editorial_page_shape.json#bridal-shower-checklist"
     },
     "/guides/courthouse-wedding-checklist": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#courthouse-wedding-checklist"
     },
     "/guides/day-of-coordinator-checklist": {
@@ -66,11 +66,11 @@
       "source": "data/seo/editorial_page_shape.json#day-of-coordinator-checklist"
     },
     "/guides/destination-wedding-checklist": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#destination-wedding-checklist"
     },
     "/guides/elopement-planning-checklist": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#elopement-planning-checklist"
     },
     "/guides/rehearsal-dinner-timeline": {
@@ -82,7 +82,7 @@
       "source": "data/seo/budget_page_shape.json#wedding-budget-calculator"
     },
     "/guides/wedding-budget-spreadsheet-categories": {
-      "lastmod": "2026-11-02",
+      "lastmod": "2026-11-07",
       "source": "data/seo/budget_page_shape.json#wedding-budget-spreadsheet-categories"
     },
     "/guides/wedding-budget-template": {
@@ -90,7 +90,7 @@
       "source": "data/seo/budget_page_shape.json#wedding-budget-template"
     },
     "/guides/wedding-day-timeline": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#wedding-day-timeline"
     },
     "/guides/wedding-day-timeline-template": {
@@ -110,7 +110,7 @@
       "source": "data/seo/editorial_page_shape.json#wedding-rehearsal-timeline"
     },
     "/guides/wedding-seating-chart-accessibility": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#wedding-seating-chart-accessibility"
     },
     "/guides/wedding-seating-chart-template": {
@@ -158,7 +158,7 @@
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/questions": {
-      "lastmod": "2026-11-07",
+      "lastmod": "2026-11-08",
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {
