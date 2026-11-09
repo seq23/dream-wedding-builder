@@ -171,6 +171,45 @@
       "source_requirement": "General planning guidance; external requirements must be verified."
     },
     {
+      "query": "courthouse wedding planner book: free next steps",
+      "semantic_key": "hub:amazon/courthouse-wedding-planner",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "courthouse-wedding-kit",
+      "route": "/amazon/courthouse-wedding-planner",
+      "entity": "You're reading The Courthouse Wedding Planner",
+      "conversion_route": "/products/courthouse-wedding-kit",
+      "hub_route": "/amazon/courthouse-wedding-planner",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "writing your wedding vows book: your free next step",
+      "semantic_key": "hub:amazon/wedding-vows",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "wedding-vows-workbook",
+      "route": "/amazon/wedding-vows",
+      "entity": "You're reading Writing Your Wedding Vows",
+      "conversion_route": "/products/wedding-vows-workbook",
+      "hub_route": "/amazon/wedding-vows",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
+      "query": "maid of honor handbook: free checklist and planner",
+      "semantic_key": "hub:amazon/maid-of-honor-handbook",
+      "cluster": "SEO trunk/product preview",
+      "domain": "weddingchecklistpdf.com",
+      "product_id": "maid-of-honor-kit",
+      "route": "/amazon/maid-of-honor-handbook",
+      "entity": "You're reading The Maid of Honor Handbook",
+      "conversion_route": "/products/maid-of-honor-kit",
+      "hub_route": "/amazon/maid-of-honor-handbook",
+      "status": "admitted",
+      "source_requirement": "General planning guidance; external requirements must be verified."
+    },
+    {
       "query": "wedding seating chart accessibility planning",
       "semantic_key": "seating-chart-maker:wedding-seating-chart-accessibility",
       "cluster": "Wedding seating chart",
