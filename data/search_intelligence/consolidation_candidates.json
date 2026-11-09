@@ -1,17 +1,17 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-08T12:43:10.784Z",
+  "generated_at": "2026-11-09T12:43:06.767Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
     "guide": 503,
-    "hub": 373
+    "hub": 383
   },
   "hosts": {
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-10",
-        "end": "2026-11-06"
+        "start": "2026-10-11",
+        "end": "2026-11-07"
       },
       "content_pages_examined": 2,
       "candidate_count": 0,
@@ -23,8 +23,8 @@
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-10",
-        "end": "2026-11-06"
+        "start": "2026-10-11",
+        "end": "2026-11-07"
       },
       "content_pages_examined": 4,
       "candidate_count": 0,
@@ -36,8 +36,8 @@
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-10",
-        "end": "2026-11-06"
+        "start": "2026-10-11",
+        "end": "2026-11-07"
       },
       "content_pages_examined": 2,
       "candidate_count": 0,
@@ -49,10 +49,10 @@
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-10",
-        "end": "2026-11-06"
+        "start": "2026-10-11",
+        "end": "2026-11-07"
       },
-      "content_pages_examined": 21,
+      "content_pages_examined": 24,
       "candidate_count": 3,
       "candidates": [
         {
@@ -60,7 +60,7 @@
           "type": "hub",
           "impressions_28d": 0,
           "words": 363,
-          "thin_threshold": 373,
+          "thin_threshold": 383,
           "action": "REVIEW_FOR_CONSOLIDATION"
         },
         {

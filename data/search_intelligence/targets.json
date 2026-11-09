@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-08T12:43:07.500Z",
-  "count": 46,
+  "generated_at": "2026-11-09T12:43:04.024Z",
+  "count": 49,
   "targets": [
     {
       "target_id": "041f5ce832a91de82705",
@@ -224,6 +224,16 @@
       "source": "authority_atlas"
     },
     {
+      "target_id": "a1f194381faa74c3c47a",
+      "query": "courthouse wedding planner book: free next steps",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/courthouse-wedding-planner",
+      "product_id": "courthouse-wedding-kit",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
       "target_id": "7773494cc474e9a484f7",
       "query": "day-of wedding coordinator checklist",
       "host": "weddingchecklistpdf.com",
@@ -249,6 +259,16 @@
       "host": "weddingchecklistpdf.com",
       "route": "/guides/elopement-planning-checklist",
       "product_id": "checklist-pdf",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "3594847d195490cea434",
+      "query": "maid of honor handbook: free checklist and planner",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/maid-of-honor-handbook",
+      "product_id": "maid-of-honor-kit",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -459,6 +479,16 @@
       "host": "weddingtimelinetemplate.com",
       "route": "/wedding-timeline-template",
       "product_id": "timeline-template",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "ba4f9daf4ec2a5f73a14",
+      "query": "writing your wedding vows book: your free next step",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/wedding-vows",
+      "product_id": "wedding-vows-workbook",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"

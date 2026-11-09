@@ -1,20 +1,20 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-08T12:43:10.606Z",
+  "generated_at": "2026-11-09T12:43:06.601Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-10",
-          "end": "2026-11-06"
+          "start": "2026-10-11",
+          "end": "2026-11-07"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 6,
+          "impressions": 5,
           "ctr": 0,
-          "position": 9.833333333333334
+          "position": 11.2
         }
       },
       "target_count": 3,
@@ -111,8 +111,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-10",
-          "end": "2026-11-06"
+          "start": "2026-10-11",
+          "end": "2026-11-07"
         },
         "totals": {
           "clicks": 0,
@@ -208,14 +208,14 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-10",
-          "end": "2026-11-06"
+          "start": "2026-10-11",
+          "end": "2026-11-07"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 11,
+          "impressions": 10,
           "ctr": 0,
-          "position": 41.81818181818182
+          "position": 45.9
         }
       },
       "target_count": 6,
@@ -241,8 +241,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 65.7,
               "pages": [
@@ -267,8 +267,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 66.3,
               "pages": [
@@ -299,8 +299,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 60,
               "pages": [
@@ -397,20 +397,20 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-10",
-          "end": "2026-11-06"
+          "start": "2026-10-11",
+          "end": "2026-11-07"
         },
         "totals": {
           "clicks": 0,
           "impressions": 83,
           "ctr": 0,
-          "position": 55.98795180722892
+          "position": 57.8433734939759
         }
       },
-      "target_count": 18,
-      "dropped_count": 19,
+      "target_count": 19,
+      "dropped_count": 22,
       "by_source": {
-        "google_search_console": 17,
+        "google_search_console": 18,
         "semrush_keyword_magic": 1
       },
       "targets": [
@@ -418,8 +418,8 @@
           "query": "free wedding planner",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 18,
-          "position": 73.5,
+          "number": 19,
+          "position": 73.6,
           "pages": [
             "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
@@ -428,12 +428,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 18,
+              "number": 19,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
-              "position": 73.5,
+              "position": 73.6,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
@@ -458,8 +458,8 @@
               "metric": "impressions_28d",
               "number": 6,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 97,
               "pages": [
@@ -486,12 +486,40 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 73.8,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "destination wedding checklist pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 57.5,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides",
+            "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-11",
+                "end": "2026-11-07"
+              },
+              "position": 57.5,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides",
+                "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
               ]
             }
           ]
@@ -512,8 +540,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 86.5,
               "pages": [
@@ -538,8 +566,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 94.5,
               "pages": [
@@ -549,13 +577,13 @@
           ]
         },
         {
-          "query": "destination wedding checklist pdf",
+          "query": "checklist bruiloft pdf",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 1,
-          "position": 69,
+          "position": 54,
           "pages": [
-            "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
+            "https://weddingchecklistpdf.com/guides"
           ],
           "route": null,
           "measurements": [
@@ -564,12 +592,12 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
-              "position": 69,
+              "position": 54,
               "pages": [
-                "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
+                "https://weddingchecklistpdf.com/guides"
               ]
             }
           ]
@@ -590,8 +618,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 62,
               "pages": [
@@ -616,10 +644,36 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 91,
+              "pages": [
+                "https://weddingchecklistpdf.com/free-wedding-planner"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "free wedding planner pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 1,
+          "position": 80,
+          "pages": [
+            "https://weddingchecklistpdf.com/free-wedding-planner"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 1,
+              "period": {
+                "start": "2026-10-11",
+                "end": "2026-11-07"
+              },
+              "position": 80,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
@@ -642,8 +696,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 89,
               "pages": [
@@ -668,8 +722,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 59,
               "pages": [
@@ -694,8 +748,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 83,
               "pages": [
@@ -726,36 +780,10 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 78,
-              "pages": [
-                "https://weddingchecklistpdf.com/printable-wedding-checklist"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding checklist free printable",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 89,
-          "pages": [
-            "https://weddingchecklistpdf.com/printable-wedding-checklist"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
-              },
-              "position": 89,
               "pages": [
                 "https://weddingchecklistpdf.com/printable-wedding-checklist"
               ]
@@ -778,8 +806,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 63,
               "pages": [
@@ -810,8 +838,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 96,
               "pages": [
@@ -836,8 +864,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 74,
               "pages": [
@@ -862,8 +890,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-10",
-                "end": "2026-11-06"
+                "start": "2026-10-11",
+                "end": "2026-11-07"
               },
               "position": 93,
               "pages": [
@@ -904,6 +932,13 @@
           ]
         },
         {
+          "query": "courthouse wedding planner book: free next steps",
+          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
+          "origins": [
+            "targets.json:authority_atlas"
+          ]
+        },
+        {
           "query": "day-of wedding coordinator checklist",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
@@ -919,6 +954,13 @@
         },
         {
           "query": "elopement planning checklist",
+          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
+          "origins": [
+            "targets.json:authority_atlas"
+          ]
+        },
+        {
+          "query": "maid of honor handbook: free checklist and planner",
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:authority_atlas"
@@ -1020,6 +1062,13 @@
           "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
           "origins": [
             "targets.json:query_universe"
+          ]
+        },
+        {
+          "query": "writing your wedding vows book: your free next step",
+          "reason": "UNMEASURED: no Search Console impressions in the window and no keyword-volume figure in the repo",
+          "origins": [
+            "targets.json:authority_atlas"
           ]
         }
       ]
