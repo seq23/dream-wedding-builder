@@ -19,6 +19,7 @@ const allowedRootFiles = new Set([
   'HOSTILE_REVIEW_2026-07-10.md',
   'IMPLEMENTATION_STATUS.md',
   'README.md',
+  'RUNBOOK.md',
   'REPO_IDENTITY.md',
   'REPO_VALIDATION_MATRIX.md',
   'REPO_VISUAL_STYLE_GUIDE.md',

@@ -27,6 +27,14 @@
  *      conversion form AND an ENABLED <script> for the Clarity loader, and the
  *      loader the edge serves carries THIS host's Clarity project id
  *      (Search Readiness e6/i8)
+ *   9. visits are measurable: the homepage carries exactly one Cloudflare Web
+ *      Analytics beacon, its token is THIS host's token from
+ *      data/cf_web_analytics.json, and its `send.to` is the same-origin
+ *      `/cdn-cgi/rum`. With a bare token the beacon posts to
+ *      cloudflareinsights.com, the browser blocks it on CORS, and nothing is
+ *      recorded: that ran for 33 days (8 Oct - 9 Nov 2026) on all four hosts
+ *      while every build-time check stayed green, and it left the scorecard's
+ *      social-visits row unreadable (docs/analytics/web-analytics-beacon.md).
  *
  * Rule 0: it counts every assertion it made and fails on zero hosts, zero
  * assertions or zero conversion pages. A run that checked nothing has not passed.
@@ -52,6 +60,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { BEACON_ENDPOINT, cloudflareBeacons } from '../brand_social/lib.mjs';
 
 const ROOT = process.cwd();
 const UA = 'Mozilla/5.0 (compatible; DreamWeddingBuilder-live-check/1.0; +https://weddingchecklistpdf.com/)';
@@ -71,6 +80,8 @@ const indexNowKey = fs.existsSync(path.join(ROOT, 'public/indexnow-key.txt'))
 // host is the assertion that matters: a loader built from the wrong file would file
 // every domain's sessions under one project and still answer 200.
 const clarityProjects = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/clarity_projects.json'), 'utf8')).projects ?? {};
+// Per-host Web Analytics site tokens: the same file app/layout.tsx renders the beacon from.
+const beaconTokens = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/cf_web_analytics.json'), 'utf8'));
 
 const failures = [];
 let assertions = 0;
@@ -173,6 +184,16 @@ async function checkHost(host) {
     const node = nodes.find((item) => item['@id'] === record?.['@id'] && item.name);
     assert(host, Boolean(node), `the homepage has no Organization ${record?.['@id']}`);
     if (node) assert(host, JSON.stringify([].concat(node.sameAs ?? [])) === JSON.stringify(record.sameAs), `${record['@id']} sameAs is ${JSON.stringify(node.sameAs ?? [])}, entity.json says ${JSON.stringify(record.sameAs)}`);
+  }
+
+  // 9. Visits are measurable: one beacon, this host's token, posting same-origin.
+  const beacons = cloudflareBeacons(home.body);
+  assert(host, beacons.length === 1, `the homepage carries ${beacons.length} Cloudflare Web Analytics beacon(s), not exactly 1`);
+  const beacon = beacons[0];
+  if (beacon !== undefined) {
+    const expectedToken = beaconTokens[host];
+    assert(host, Boolean(beacon) && beacon.token === expectedToken, `the beacon token is ${beacon?.token ?? 'unreadable'}, data/cf_web_analytics.json says ${expectedToken}`);
+    assert(host, beacon?.send?.to === BEACON_ENDPOINT, `the beacon posts to ${beacon?.send?.to ?? 'https://cloudflareinsights.com/cdn-cgi/rum (no send.to)'}, not the same-origin ${BEACON_ENDPOINT}: the browser blocks the cross-origin post and no visit is recorded`);
   }
 
   // 5. A made-up path is a real 404, not a redirect and not a soft 200.

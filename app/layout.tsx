@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import { AppShell } from '@/components/AppShell';
 import { apexHost, isCanonicalHost, PARENT_HOST } from '@/lib/site-config';
 import { siteDirectory } from '@/lib/site-directory';
-import { CF_BEACON_SRC, webAnalyticsToken } from '@/lib/web-analytics';
+import { beaconPayload, CF_BEACON_SRC, webAnalyticsToken } from '@/lib/web-analytics';
 import { ogImages, ogImageUrl, pageFrameNodes, resolveSiteHost, siteHome } from '@/lib/site-home';
 import { breadcrumbTrail, pageNameFor } from '@/lib/page-frame';
 import { JsonLd } from '@/components/seo/JsonLd';
@@ -69,8 +69,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         {/* Cloudflare Web Analytics. Rendered here because the zone's auto-install never
-            reached this Worker's HTML; the token is per host (data/cf_web_analytics.json). */}
-        {beaconToken ? <script defer src={CF_BEACON_SRC} data-cf-beacon={JSON.stringify({ token: beaconToken })} /> : null}
+            reached this Worker's HTML; the token is per host (data/cf_web_analytics.json).
+            The payload names the same-origin endpoint: with a bare token the beacon posts
+            cross-origin and the browser blocks it (lib/web-analytics.ts). */}
+        {beaconToken ? <script defer src={CF_BEACON_SRC} data-cf-beacon={JSON.stringify(beaconPayload(beaconToken))} /> : null}
         {/* The directory is resolved here, on the server, and handed to AppShell
             as plain strings. AppShell is a client component and importing
             hub_pages.json there would ship every hub's full body text to the
