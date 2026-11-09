@@ -897,7 +897,68 @@
         "https://www.consumerfinance.gov/"
       ],
       "linked_from": [],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-09"
+    },
+    {
+      "slug": "is-a-wedding-planner-worth-it",
+      "query": "is a wedding planner worth it",
+      "lane": "can_be_one",
+      "score": 31.6,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 31.6
+      },
+      "reasons": [
+        "weak top 10 (0.54): 2 directories, 3 forums, 0 off-target national, 2 thin or old, 8 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "bing_suggest": true,
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.54,
+          "counts": {
+            "results": 10,
+            "directories": 2,
+            "forums": 3,
+            "off_target_national": 0,
+            "thin_or_old": 2,
+            "exact_answer": 8
+          },
+          "reasons": [
+            "top 10: 2 directories, 3 forums, 0 off-target national, 2 thin or old, 8 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/is-a-wedding-planner-worth-it.html",
+      "route": "/questions/is-a-wedding-planner-worth-it",
+      "url": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "published_at": "2026-11-09",
+      "status": "live",
+      "hash": "de95065a5d831e5ee98229440e84d913eb0a75ab253a76cc9b3b4788ba95c8ee",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Wedding",
+        "https://www.usa.gov/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+          "route": "/public/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+          "before_hash": "725ea1565452affbabb6cc61d0a659804f37e2fe0f9829c718b1a7b889cbc34d",
+          "after_hash": "0973663eecd7d7170c81c092a32b7bedbafcb0291e8ca4780af013c3cd94c2b3"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 35 words (aim 40-60): \"Can I hire someone just for the wedding day?\"",
+        "b5 FAQ answer is 31 words (aim 40-60): \"Do planners save you money overall?\"",
+        "b5 FAQ answer is 30 words (aim 40-60): \"How far in advance should I book a coordinator?\"",
+        "b5 FAQ answer is 32 words (aim 40-60): \"What is the difference between a venue coordinator\""
+      ]
     }
   ],
   "dropped": [
