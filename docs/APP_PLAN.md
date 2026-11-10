@@ -99,6 +99,7 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
    | `dw_planner_printables` | $34.99 | `full_plan`, `printables`, `day_of_kit` |
    | `dw_printables_topup` | $19.99 (owners of the full plan only; $14.99 + $19.99 = the bundle) | `printables` |
    | `dw_day_of_kit` | $9.99 | `day_of_kit` |
+   | `dw_new_event` (consumable) | $14.99, the full-plan price of the day | `full_plan` for one new event |
 
    `full_plan` unlocks: all 104 tasks dated, two phones (task 7), every window's
    reminders (task 4), tradition packs (task 5), the day-of handover pack, PDF export.
@@ -111,12 +112,28 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
    `test/offers.unit.ts`); screens never decide offers themselves. Prices come from the store at run time, never typed into the app.
    Printables are digital content, so in-app purchase only (Apple 3.1.1); download from
    our server after the store confirms; restorable.
-   **One purchase covers the couple and every plan they ever make** (hostile review 10 Nov, wins over the page;
-   2026): a phone that joins a shared plan (task 7) sees that plan fully unlocked while it is
-   joined, with no second purchase; changing the date, deleting the plan and starting again,
-   or a new phone (Restore) never asks to pay again. One plan at a time on a phone.
+   **The full plan is paid once per event** (owner, 10 Nov 2026: "if they want to start over
+   and plan an entirely new event we charge again but editing an existing event (within
+   reason) is free and we make some things lock once they pay"). Wins over the plan page.
+   - **The event:** at unlock the couple types the event's name ("Maya & Jordan's wedding"),
+     kept on the phone. Once paid, **the name locks** (shown with a lock, no edit).
+   - **Free edits, within reason:** tasks, ticks, own tasks, traditions and reminders, always.
+     **The date may move up to 3 times** after unlock (postponements); each move shows
+     "2 date changes left for this event". A 4th change needs a new event.
+   - **A new event is a new purchase:** "Start a new event ›" in More says the price first
+     ("A new event is a new full plan: $14.99, paid once. This event stays as it is.") and buys
+     `dw_new_event`. Deleting the plan never refunds or frees an event.
+   - **The couple pays once:** a phone that joins a shared plan (task 7) sees that event fully
+     unlocked while joined, with no second purchase.
+   - **Store shape:** the first event is `dw_full_plan` (non-consumable, so Restore on a new
+     phone always brings it back); each further event is `dw_new_event`, a **consumable**
+     at the same price, since a non-consumable can be bought only once. A consumable cannot be
+     restored by the store, so each paid event's unlock is recorded on the phone and inside the
+     event's private shared-plan backup (task 7), and Restore reads both. Printables
+     (`printables`, `day_of_kit`) stay once per person, every event.
+   - Reminders, two phones, traditions and the 104 tasks belong to the event that was paid for.
    Tests: with no key every buy button is off and free features never check a purchase;
-   each product grants exactly its entitlements; a joined phone with no purchase sees all 104 tasks of the shared plan and loses them when sharing stops; deleting the plan and setting a new date keeps every entitlement; `offersFor` keeps passing (full plan owners
+   each product grants exactly its entitlements; a joined phone with no purchase sees all 104 tasks of the shared plan and loses them when sharing stops; the name cannot be edited after unlock; date moves 1 to 3 keep the unlock and the 4th is refused with the new-event offer; a new event without `dw_new_event` stays on the free plan; deleting and recreating never unlocks a new event; Restore brings back the first event and every recorded paid event; `offersFor` keeps passing (full plan owners
    see the top-up, never the bundle; printables owners see nothing); restore brings back all three; printables download only after a
    confirmed purchase; no product, offering or price is created by code.
 9. **More, and delete.** Every row on screen 9; "Delete my plan from this phone" confirms
