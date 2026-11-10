@@ -32,7 +32,7 @@
       "name": "Wedding Vendors, Venue & Budget Checklists",
       "feed": "/pinfeed/vendors-budget.xml",
       "keywords": ["wedding budget checklist", "wedding vendor checklist", "wedding venue checklist", "wedding budget planning", "wedding budget list"],
-      "paths": ["vendor", "final-payment", "venue", "attire"],
+      "paths": ["vendor", "final-payment", "venue", "attire", "budget", "cost-per-guest"],
       "words": ["vendor", "venue", "budget", "cost", "deposit", "pay", "photographer", "caterer", "florist", "dj", "dress", "attire", "contract"]
     }
   ]

@@ -49,7 +49,9 @@ import { applySeed, planPatchFromSeed, seedFieldLabels } from '@/lib/planner-see
 import { readinessBand, readinessBreakdown } from '@/lib/readiness';
 import { loadSavedPlan, loadSavedScope } from '@/lib/saved-plan';
 import { DatedPlanView } from '@/components/DatedPlanView';
+import { FullPlanCard } from '@/components/FullPlanCard';
 import { AiDraftCard, AiDraftLabel } from '@/components/AiDraftCard';
+import { StepFold, StepFoldAll } from '@/components/StepFold';
 
 const stepLabels = ['Must-haves', 'Ask for ideas', 'Venue', 'Budget', 'Design', 'Vendors', 'Standout ideas', 'Planner packet'];
 const visionKeyMap = { feeling: 'feelings', setting: 'settings', formality: 'formality', florals: 'florals', food: 'food', photos: 'photos', avoid: 'avoids' } as const;
@@ -188,7 +190,7 @@ function BuildPage() {
   const selectConstraintMode = (mode: ConstraintMode) => patch({ constraintMode: mode });
 
   return <div className="space-y-10 pb-24">
-    {seedReport && <section data-testid="seed-notice" className="rounded-[1.5rem] border border-charcoal/15 bg-white p-5 text-sm leading-6">
+    {seedReport && <section data-testid="seed-notice" className="rounded-[12px] border border-charcoal/15 bg-white p-5 text-sm leading-6">
       <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Seeded from the page you came from</p>
       {seedReport.applied.length > 0 && <p className="mt-2 font-semibold" data-testid="seed-applied">Filled in for you: {seedReport.applied.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}.</p>}
       {seedReport.skipped.length > 0 && <p className="mt-2 font-semibold text-charcoal/70" data-testid="seed-skipped">Kept your saved answers for: {seedReport.skipped.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}. A link can never overwrite work you already entered.</p>}
@@ -199,15 +201,16 @@ function BuildPage() {
       <div>
         <Badge>Free wedding planner</Badge>
         <p className="mt-5 max-w-2xl font-serif text-2xl italic leading-9 text-charcoal/70">A calm planner desk for the messy decisions before anyone books a venue.</p>
-        <h1 className="mt-4 max-w-4xl font-serif text-5xl leading-tight md:text-7xl">Build the wedding around reality, not generic inspiration.</h1>
+        <h1 className="mt-4 max-w-4xl font-serif text-[40px] leading-[42px] md:text-7xl md:leading-tight">Build the wedding around reality, not generic inspiration.</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-charcoal/70">Add your date for a dated plan, then start with your must-haves. Stuck on venue, flowers, budget or anything else? Ask for ideas in Step 1. What you save here is used in every step.</p>
         <div className="mt-6 flex flex-wrap gap-2" aria-label="Planner steps">{stepLabels.map((label, index) => <a key={label} href={`#step-${index}`} className="inline-flex min-h-11 items-center rounded-full border border-charcoal/10 bg-white px-4 py-2 text-sm font-bold shadow-soft">Step {index}: {label}</a>)}</div>
+        <StepFoldAll />
         <div className="mt-6 flex flex-wrap gap-3">
           <a href="#your-date" className="rounded-full bg-charcoal px-5 py-3 font-bold text-linen">Start with your date</a>
           <a href="#step-1" data-testid="hero-recommendation-studio-cta" className="rounded-full border border-charcoal/20 bg-white px-5 py-3 font-bold">Ask Recommendation Studio</a>
         </div>
         <div className="mt-6 flex flex-wrap gap-2" aria-label="Planning trust markers"><TrustMarker>Seeded examples only</TrustMarker><TrustMarker>No live availability claimed</TrustMarker><TrustMarker>Verify before booking</TrustMarker><TrustMarker>Confidence labels included</TrustMarker><TrustMarker>Packet records assumptions</TrustMarker></div>
-        <div className="mt-6 grid gap-2 md:grid-cols-2" data-testid="master-plan-modules">{intelligenceModules.map(module => <p key={module} className="rounded-2xl border border-charcoal/10 bg-white p-3 text-sm font-bold">{module}</p>)}</div>
+        <div className="mt-6 flex flex-wrap gap-2" data-testid="master-plan-modules">{intelligenceModules.map(module => <p key={module} className="rounded-full border border-charcoal/10 bg-white px-3 py-1.5 text-[13px] font-semibold">{module}</p>)}</div>
       </div>
       <Card className="sticky top-6 h-fit bg-ivory" data-testid="canonical-plan-summary">
         <p className="text-xs uppercase tracking-[0.3em] text-charcoal/50">Working Plan</p>
@@ -222,19 +225,18 @@ function BuildPage() {
 
     <AiDraftCard plan={plan} onApply={next => { setPlan(next); persist(next); }} />
 
-    <section id="your-date" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Your date</Badge><h2 className="mt-3 font-serif text-3xl">Your dated plan.</h2><p className="mt-2 text-sm text-charcoal/65">Every step below, placed on your calendar.</p></div>
+    <StepFold id="your-date" defaultOpen header={<div className="pt-2"><Badge>Your date</Badge><h2 className="mt-3 font-serif text-3xl">Your dated plan.</h2><p className="mt-2 text-sm text-charcoal/65">Every step below, placed on your calendar.</p></div>}>
       <Card data-testid="wedding-date-card">
         <label className="grid gap-2 text-sm font-semibold" htmlFor="wedding-date">Wedding date
           <input id="wedding-date" data-testid="wedding-date" type="date" value={plan.weddingDate} onChange={event => { const next = { ...plan, weddingDate: event.target.value }; setPlan(next); persist(next); }} className="min-h-11 max-w-xs rounded-2xl border border-charcoal/20 bg-white p-3 text-base" />
         </label>
         <p className="mt-2 text-xs text-charcoal/60">Not sure yet? Pick your best guess; you can change it any time. Saved in this browser only.</p>
         <div className="mt-5 space-y-4"><AiDraftLabel plan={plan} /><DatedPlanView weddingDate={plan.weddingDate} /></div>
+        <FullPlanCard />
       </Card>
-    </section>
+    </StepFold>
 
-    <section id="step-0" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 0</Badge><h2 className="mt-3 font-serif text-3xl">Planning Reality Check.</h2><p className="mt-2 text-sm text-charcoal/65">Constraint-first, not form-first. Tell the system whether hard rules already exist.</p></div>
+    <StepFold id="step-0" defaultOpen header={<div className="pt-2"><Badge>Step 0</Badge><h2 className="mt-3 font-serif text-3xl">Planning Reality Check.</h2><p className="mt-2 text-sm text-charcoal/65">Constraint-first, not form-first. Tell the system whether hard rules already exist.</p></div>}>
       <Card data-testid="constraint-profile">
         <h3 className="font-serif text-4xl">Do you already know any must-haves?</h3>
         <p className="mt-3 text-charcoal/70">Your answer controls which constraint fields appear. Not decided yet is allowed; the Recommendation Studio can help discover constraints.</p>
@@ -318,10 +320,9 @@ function BuildPage() {
           </div>
         </div>}
       </Card>
-    </section>
+    </StepFold>
 
-    <section id="step-1" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 1</Badge><h2 className="mt-3 font-serif text-3xl">Recommendation Studio.</h2><p className="mt-2 text-sm text-charcoal/65">Ask the veteran planner brain anything. It uses your constraints if they exist, or helps discover them if they do not.</p></div>
+    <StepFold id="step-1" defaultOpen header={<div className="pt-2"><Badge>Step 1</Badge><h2 className="mt-3 font-serif text-3xl">Recommendation Studio.</h2><p className="mt-2 text-sm text-charcoal/65">Ask the veteran planner brain anything. It uses your constraints if they exist, or helps discover them if they do not.</p></div>}>
       <Card data-testid="recommendation-studio">
         <h3 className="font-serif text-4xl">Stumped? Ask Recommendation Studio.</h3>
         <p className="mt-3 text-charcoal/70">Try: “Italy, full buyout, sleeps 70–80, outside catering required,” or “I want pink, orange, and yellow flowers for a beach wedding.”</p>
@@ -344,10 +345,9 @@ function BuildPage() {
           <Trace label="Recommendation Studio uses saved constraints + seeded planner heuristics, not live vendor data" confidence={recommendation.confidence} />
         </div>}
       </Card>
-    </section>
+    </StepFold>
 
-    <section id="step-2" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 2</Badge><h2 className="mt-3 font-serif text-3xl">Venue + Lodging Matchmaker.</h2><p className="mt-2 text-sm text-charcoal/65">Uses buyout, sleeping capacity, catering freedom, guest count, travel, and protected priorities.</p></div>
+    <StepFold id="step-2" header={<div className="pt-2"><Badge>Step 2</Badge><h2 className="mt-3 font-serif text-3xl">Venue + Lodging Matchmaker.</h2><p className="mt-2 text-sm text-charcoal/65">Uses buyout, sleeping capacity, catering freedom, guest count, travel, and protected priorities.</p></div>}>
       <Card data-testid="venue-finder">
         <h3 className="font-serif text-4xl">Constraint-powered venue strategy.</h3>
         <p data-testid="venue-match-summary" className="mt-3 rounded-2xl bg-ivory p-4 text-sm font-semibold">{venueMatchSummary(plan)}</p>
@@ -365,10 +365,9 @@ function BuildPage() {
         <div data-testid="selected-venue-summary" className="mt-5 rounded-2xl bg-ivory p-4 text-sm font-semibold">Selected venue strategies: {chosenVenues.length ? chosenVenues.map(v => v.name).join(' · ') : 'Not decided yet'}</div>
         <a href="#step-1" data-testid="venue-to-studio-cta" className="mt-4 inline-flex rounded-full border border-charcoal/20 bg-white px-5 py-3 font-bold">Not sure which venue type fits? Ask Recommendation Studio.</a>
       </Card>
-    </section>
+    </StepFold>
 
-    <section id="step-3" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 3</Badge><h2 className="mt-3 font-serif text-3xl">Budget + Tradeoff Reality.</h2><p className="mt-2 text-sm text-charcoal/65">Pressure-tests the plan without cutting protected priorities first.</p></div>
+    <StepFold id="step-3" header={<div className="pt-2"><Badge>Step 3</Badge><h2 className="mt-3 font-serif text-3xl">Budget + Tradeoff Reality.</h2><p className="mt-2 text-sm text-charcoal/65">Pressure-tests the plan without cutting protected priorities first.</p></div>}>
       <Card data-testid="budget-reality">
         <h3 className="font-serif text-4xl">Protect what matters.</h3>
         <p className="mt-3 text-charcoal/70">The app keeps the top three priorities safe when suggesting savings.</p>
@@ -379,10 +378,9 @@ function BuildPage() {
         <a href="#step-1" data-testid="budget-to-studio-cta" className="mt-4 inline-flex rounded-full border border-charcoal/20 bg-white px-5 py-3 font-bold">Need tradeoffs that protect your top three priorities? Ask Recommendation Studio.</a>
         <Trace label="Budget math from guest count + user budget + venue/lodging/catering constraints + protected priorities" confidence="Low/Medium" />
       </Card>
-    </section>
+    </StepFold>
 
-    <section id="step-4" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 4</Badge><h2 className="mt-3 font-serif text-3xl">Design + scope.</h2><p className="mt-2 text-sm text-charcoal/65">Translate theme, colors, photos, and descriptions into planner/vendor language.</p></div>
+    <StepFold id="step-4" header={<div className="pt-2"><Badge>Step 4</Badge><h2 className="mt-3 font-serif text-3xl">Design + scope.</h2><p className="mt-2 text-sm text-charcoal/65">Translate theme, colors, photos, and descriptions into planner/vendor language.</p></div>}>
       <div className="space-y-6">
         <Card data-testid="vibe-translator">
           <h3 className="font-serif text-4xl">Vibe, theme, and design direction.</h3>
@@ -401,33 +399,34 @@ function BuildPage() {
 
         <Card data-testid="scope-intelligence"><h3 className="font-serif text-4xl">Turn a photo or description into a scope</h3><p className="mt-3 text-charcoal/70">Upload or describe anything. Price the scope, vendors, and verification path. Have an idea but no photo? Ask Recommendation Studio or use the Photos Lab.</p><div className="mt-4 flex flex-wrap gap-3"><Link data-testid="photos-cta-tablescape" className="rounded-2xl bg-white px-4 py-3 text-sm font-bold" href="/photos">Upload tablescape inspiration</Link><Link data-testid="photos-cta-attire" className="rounded-2xl bg-white px-4 py-3 text-sm font-bold" href="/photos">Upload attire / flower girl dresses</Link><Link data-testid="photos-cta-anything" className="rounded-2xl border border-charcoal/20 bg-white px-4 py-3 text-sm font-bold" href="/photos">Scope anything else you care about</Link><a data-testid="scope-to-studio-cta" className="rounded-2xl border border-charcoal/20 bg-white px-4 py-3 text-sm font-bold" href="#step-1">Ask Recommendation Studio</a></div><div className="mt-5 grid gap-4 md:grid-cols-2"><Field label="What are we scoping?"><select data-testid="scope-category" value={scopeCategory} onChange={event => setScopeCategory(event.target.value)} className="w-full min-w-0 rounded-2xl border border-charcoal/10 bg-white p-3">{inspirationCategories.map(cat => <option key={cat}>{cat}</option>)}</select></Field><Field label="Photo for your reference (stays on your phone; the scope comes from the category and your words)"><input data-testid="photo-input" type="file" accept="image/*" onChange={event => setFileName(event.target.files?.[0]?.name || '')} className="w-full min-w-0 rounded-2xl border border-dashed border-charcoal/20 bg-white p-3" /></Field></div>{fileName && <p className="mt-3 font-semibold">Selected image: {fileName}</p>}<Field label="Or describe it in your own words"><TextArea testId="scope-description" value={scopeDescription} onChange={setScopeDescription} placeholder="long tables with lace cloths, candles everywhere, soft pink flowers, bows on chairs, maybe chandeliers" /></Field><div className="mt-5 rounded-2xl bg-amber-50 p-4 text-sm"><strong>Photo analysis notice:</strong> Photos are not uploaded or read today; the scope below is built from the category and your description. No fake live vendor/product search is claimed. Results are planning estimates only and may be wrong. Exact pricing, vendor fit, product match, and availability require verification.</div><label className="mt-4 flex gap-2 text-sm"><input data-testid="photo-consent" type="checkbox" checked={photoConsent} onChange={event => setPhotoConsent(event.target.checked)} /> I understand and want to analyze this photo/description.</label><button data-testid="analyze-photo" disabled={(!fileName && !scopeDescription.trim()) || !photoConsent} onClick={analyzeScope} className="mt-4 rounded-full bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-40">Analyze and save scope</button>{photoAnalyzed && <Card className="mt-6 bg-ivory shadow-none" data-testid="photo-results"><Badge>{selectedScope.title}</Badge><h4 className="mt-3 font-serif text-3xl">Scope estimate, vendor map, and verification checklist</h4><p className="mt-2 text-sm text-charcoal/70">{selectedScope.intakePrompt}</p><div className="mt-5 grid gap-4 md:grid-cols-2"><div><strong>Missing questions</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{selectedScope.missingQuestions.map(q => <li key={q}>{q}</li>)}</ul></div><div><strong>Likely table count</strong><p className="mt-2 text-sm">{tableCountFromPlan(plan)}</p><strong className="mt-4 block">Vendors likely needed</strong><p className="mt-2 text-sm">{selectedScope.vendorsNeeded.join(' · ')}</p></div></div><div className="mt-5 grid gap-3">{selectedScope.components.map(component => <div key={component.name} className="rounded-2xl bg-white p-4"><strong>{component.name}</strong><p className="mt-1 text-sm">{component.visibleStatus} · {component.quantityBasis} · {component.estimate}</p><p className="mt-2 text-xs text-charcoal/60">Vendors: {component.vendors.join(', ')}. Confidence: {component.confidence}. Verify: {component.verificationQuestions.join(' ')}</p></div>)}</div><div className="mt-5 grid gap-3 md:grid-cols-2"><div><strong>Warnings</strong><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{selectedScope.warnings.map(w => <li key={w}>{w}</li>)}</ul></div><div><strong>Inquiry starter</strong><p className="mt-2 rounded-2xl bg-white p-3 text-sm">{selectedScope.inquiryStarter}</p></div></div><Trace label="Uploaded inspiration or bride description + seeded scope benchmarks" confidence={selectedScope.confidence} /></Card>}</Card>
       </div>
-    </section>
+    </StepFold>
 
-    <section id="step-5" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 5</Badge><h2 className="mt-3 font-serif text-3xl">Vendor Team + Inquiry Builder.</h2><p className="mt-2 text-sm text-charcoal/65">Mark vendor categories that need sourcing or inquiry questions.</p></div>
+    <StepFold id="step-5" header={<div className="pt-2"><Badge>Step 5</Badge><h2 className="mt-3 font-serif text-3xl">Vendor Team + Inquiry Builder.</h2><p className="mt-2 text-sm text-charcoal/65">Mark vendor categories that need sourcing or inquiry questions.</p></div>}>
       <Card data-testid="vendor-map"><h3 className="font-serif text-4xl">Choose vendor focus areas.</h3><div className="mt-5 grid gap-4 md:grid-cols-2">{vendorCategories.map(vendor => { const active = plan.selectedVendorCategories.includes(vendor.name); return <Card key={vendor.name} className={`shadow-none ${active ? 'border-charcoal bg-charcoal text-linen' : 'bg-white'}`}><h4 className="font-serif text-2xl">{vendor.name}</h4><ul className={`mt-3 list-disc space-y-1 pl-5 text-sm ${active ? 'text-linen/80' : 'text-charcoal/70'}`}>{vendor.questions.map(question => <li key={question}>{question}</li>)}</ul><button data-testid={`select-vendor-${testIdFrom(vendor.name)}`} onClick={() => toggleVendor(vendor.name)} className={`mt-4 w-full rounded-full px-4 py-3 text-sm font-bold ${active ? 'bg-linen text-charcoal' : 'border border-charcoal/20 bg-white text-charcoal'}`}>{active ? 'Selected vendor focus' : 'Add vendor focus'}</button><Trace label="Vendor type guidance; specific vendors require sourced data" confidence="Medium" /></Card>; })}</div><div data-testid="selected-vendor-summary" className="mt-5 rounded-2xl bg-ivory p-4 text-sm font-semibold">Vendor focus areas: {chosenVendors.length ? chosenVendors.map(v => v.name).join(' · ') : 'Not decided yet'}</div><a href="#step-1" data-testid="vendor-to-studio-cta" className="mt-4 inline-flex rounded-full border border-charcoal/20 bg-white px-5 py-3 font-bold">Need better vendor questions? Ask Recommendation Studio.</a></Card>
-    </section>
+    </StepFold>
 
-    <section id="step-6" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 6</Badge><h2 className="mt-3 font-serif text-3xl">Standout ideas + inspiration templates.</h2><p className="mt-2 text-sm text-charcoal/65">Concrete wow moments only. Nothing is selected until the bride chooses it. Templates do not overwrite location, budget, guest count, or constraints.</p></div>
+    <StepFold id="step-6" header={<div className="pt-2"><Badge>Step 6</Badge><h2 className="mt-3 font-serif text-3xl">Standout ideas + inspiration templates.</h2><p className="mt-2 text-sm text-charcoal/65">Concrete wow moments only. Nothing is selected until the bride chooses it. Templates do not overwrite location, budget, guest count, or constraints.</p></div>}>
       <div className="space-y-6"><Card data-testid="inspiration-templates"><h3 className="font-serif text-4xl">Optional inspiration templates</h3><div className="mt-5 grid gap-4 md:grid-cols-3">{inspirationTemplates.map(template => <button type="button" key={template.name} onClick={() => applyTemplate(template.name)} className={`rounded-3xl border p-4 text-left ${plan.selectedTemplate === template.name ? 'border-charcoal bg-charcoal text-linen' : 'border-charcoal/10 bg-linen'}`}><strong>{template.name}</strong><p className="mt-2 text-sm opacity-75">Adopt: {template.adopt.join(', ')}</p><p className="mt-2 text-xs opacity-70">Does not adopt: {template.doNotAdopt.join(', ')}</p></button>)}</div><Trace label="Template is inspiration only; no active wedding state overwrite" confidence="High" /></Card><div className="grid gap-4 md:grid-cols-3">{featuredStandoutIdeas.map(trend => <Card key={trend.id} className="shadow-none"><TrendCard trend={trend} compact /><button data-testid={`toggle-trend-${trend.id}`} onClick={() => toggleTrend(trend.id)} className="mt-3 w-full rounded-full border border-charcoal/20 bg-white px-4 py-2 text-sm font-bold">{plan.selectedTrends.includes(trend.id) ? 'Remove from working plan' : 'Add to working plan'}</button></Card>)}</div><Link href="/trends" className="inline-flex rounded-full bg-charcoal px-5 py-3 text-sm font-bold text-linen">Open full Standout Ideas Catalogue</Link></div>
-    </section>
+    </StepFold>
 
-    <section id="step-7" className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <div className="pt-2"><Badge>Step 7</Badge><h2 className="mt-3 font-serif text-3xl">Planner Packet.</h2><p className="mt-2 text-sm text-charcoal/65">Output is more valuable than intake.</p></div>
+    <StepFold id="step-7" header={<div className="pt-2"><Badge>Step 7</Badge><h2 className="mt-3 font-serif text-3xl">Planner Packet.</h2><p className="mt-2 text-sm text-charcoal/65">Output is more valuable than intake.</p></div>}>
       <Card data-testid="step-pack"><h3 className="font-serif text-4xl">Planner-ready working brief preview</h3><p className="mt-3 leading-7">{brief}</p><div className="mt-5 grid gap-4 md:grid-cols-3"><p><strong>Constraint mode:</strong><br />{plan.constraintMode || 'Not decided yet'}</p><p><strong>Location:</strong><br />{plan.locations || 'Not decided yet'}</p><p><strong>Guest count:</strong><br />{plan.guestCount || 'Not decided yet'}</p><p><strong>Budget:</strong><br />{displayEstimate}</p><p><strong>Protected priorities:</strong><br />{protectedItems.length ? protectedItems.join(', ') : 'Not decided yet'}</p><p><strong>Selected venues:</strong><br />{chosenVenues.length ? chosenVenues.map(v => v.name).join(', ') : 'Not decided yet'}</p><p><strong>Vendor focus:</strong><br />{chosenVendors.length ? chosenVendors.map(v => v.name).join(', ') : 'Not decided yet'}</p><p><strong>Recommendation Studio:</strong><br />{recommendation ? 'Saved recommendation included' : 'No Recommendation Studio recommendation saved yet'}</p><p><strong>Design scope:</strong><br />{photoAnalyzed ? selectedScope.title : 'Not analyzed yet'}</p></div><div data-testid="risk-reality-check" className="mt-5 rounded-2xl bg-ivory p-4"><strong>Risk / Reality Check:</strong><ul className="mt-2 list-disc pl-5 text-sm">{risks.map(risk => <li key={risk}>{risk}</li>)}</ul></div><div className="mt-5 rounded-2xl bg-ivory p-4"><strong>Source trace:</strong> Chosen by user + interpreted from wording/photos + seeded estimates + verification caveats. No exact pricing, availability, or vendor claim is presented without source/confidence labels.</div><Link href="/pack" className="mt-6 inline-flex rounded-full bg-charcoal px-6 py-3 font-bold text-linen">Open full packet</Link><div className="mt-5 grid gap-3 text-sm">{Object.values(disclaimers).map(item => <p key={item} className="rounded-2xl bg-white p-3">{item}</p>)}</div></Card>
-    </section>
+    </StepFold>
 
+    <StepFold id="planner-reference" label="reference" className="grid gap-4" header={<div><Badge>Reference</Badge><p className="mt-3 font-serif text-3xl">Planning buckets, scope components and inspiration scopes.</p><p className="mt-2 text-sm text-charcoal/65">The seeded reference the steps above draw on. Examples only; verify before booking.</p></div>}>
+      <div className="grid gap-4">
     <section className="grid gap-4 md:grid-cols-3" data-testid="planner-bucket-map">{planningBuckets.map(bucket => <Card key={bucket}><Badge>Bucket</Badge><h3 className="mt-3 font-serif text-2xl">{bucket}</h3><p className="mt-2 text-sm text-charcoal/70">Recommendation Studio can reason across this bucket using the saved Constraint Profile.</p></Card>)}</section>
     <section className="grid gap-4 md:grid-cols-3" data-testid="scope-components-map">{scopeComponents.map(scope => <Card key={scope.category}><Badge>{scope.category}</Badge><p className="mt-3 text-sm"><strong>Components:</strong> {scope.components.join(' · ')}</p><p className="mt-3 text-sm"><strong>Vendors:</strong> {scope.vendors.join(' · ')}</p><p className="mt-3 text-xs text-charcoal/60"><strong>Warnings:</strong> {scope.warnings.join(' · ')}</p></Card>)}</section>
     <section className="grid gap-4 md:grid-cols-4">{inspirationScopes.map(scope => <Card key={scope.title}><Badge>{scope.confidence} confidence</Badge><h3 className="mt-3 font-serif text-2xl">{scope.title}</h3><p className="mt-2 text-sm text-charcoal/70">{scope.intakePrompt}</p></Card>)}</section>
+      </div>
+    </StepFold>
 
     {/* Every paid file is reachable from here, and each one states which part of
         the plan above it corresponds to. A tool that only ever offers a bundled
         "compare prices" link makes the reader work out the mapping themselves,
         and three of the four products were previously unreachable from any plan
         state at all. Reasons are computed from the plan, so they change as it does. */}
-    <section className="rounded-[1.75rem] border border-charcoal/10 bg-white p-7" data-testid="planner-working-files"><h2 className="font-serif text-4xl">When the plan stops changing</h2><p className="mt-3 max-w-3xl text-base leading-7 text-charcoal/70">This builder works out the shape of the wedding. Executing it takes files you can edit and hand to other people. Each one below carries the part of the plan you just built.</p>
+    <section className="rounded-[12px] border border-charcoal/10 bg-white p-7" data-testid="planner-working-files"><h2 className="font-serif text-4xl">When the plan stops changing</h2><p className="mt-3 max-w-3xl text-base leading-7 text-charcoal/70">This builder works out the shape of the wedding. Executing it takes files you can edit and hand to other people. Each one below carries the part of the plan you just built.</p>
       <div className="mt-5 grid gap-3 md:grid-cols-2">{workingFiles.map(file => <a key={file.id} data-testid={`planner-product-${file.id}`} href={file.route} className="rounded-2xl border border-charcoal/10 bg-ivory p-4 transition hover:bg-linen"><span className="block font-bold">{file.name} — ${file.price}</span><span className="mt-1 block text-sm leading-6 text-charcoal/65">{file.reason}</span></a>)}</div>
       <Link href="/shop" className="mt-5 inline-flex font-bold underline underline-offset-4">Compare the four wedding planning tools and prices →</Link>
       <p className="mt-3 text-xs text-charcoal/55">The planner itself is free and stays free. These are optional working files, not a paywall on anything above.</p>

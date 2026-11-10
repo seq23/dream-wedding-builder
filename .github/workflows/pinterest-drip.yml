@@ -8,13 +8,19 @@ name: Pinterest drip (daily questions + refill, weekly metrics)
 #   1. scripts/pinterest/pin_queue.mjs: every new search-loop /questions/ page gets a pin
 #      the same day; new /products/* and /guides/* pages join; when fewer than
 #      config.refill_threshold variants are unreleased it plans, renders and dates the
-#      next batch ($0: template copy from the page's own data, sharp images from the
-#      product art); the pace rule (decidePace) applies its one-time fallback after 4
+#      next batch ($0: copy from the page's own data, images drawn in the brand from the
+#      page's topic art, data/pinterest/topic_art.json), then runs the pin quality gate
+#      (scripts/pinterest/quality.mjs: a pin that looks like a recent one, is off-topic,
+#      has a label headline or cannot be read at 236px is redrawn or held, PIN_QUALITY_HOLD,
+#      never posted); the pace rule (decidePace) applies its one-time fallback after 4
 #      zero-visit weeks. Exits 1 naming PINTEREST_QUEUE_EXHAUSTED if a refill is due and
 #      nothing truthful is left to say.
 #   2. Saturdays only: scripts/pinterest/collect_metrics.mjs: pins released, Pinterest-
-#      referred visits per pin, and sales/signups by pin visitors, or the named stop
-#      PINTEREST_METRICS_UNAVAILABLE.
+#      referred visits per pin, and sales/signups by pin visitors over every whole day since
+#      the last count, or the named stop PINTEREST_METRICS_UNAVAILABLE.
+# Sample approval: pins of a generation she has not approved wait in queue.json `pending`
+# (the feed never reads it). After her yes, ONE command releases them into the schedule:
+#   gh workflow run pinterest-drip.yml -R seq23/dream-wedding-builder -f approve=dw-v3
 # The commit touches only data/pinterest, public/pinterest/drip and reports/pinterest,
 # none of which feeds any page's lastmod or a sitemap. Workers Builds deploys the push.
 on:
@@ -22,6 +28,11 @@ on:
     - cron: '20 7 * * *'  # America/Chicago, all year
       timezone: America/Chicago
   workflow_dispatch:
+    inputs:
+      approve:
+        description: 'Her yes to a pin sample: the generation to release from pending (e.g. dw-v3). Empty = a normal run.'
+        required: false
+        default: ''
 
 permissions: { contents: write }
 
@@ -38,26 +49,44 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v7
-        with: { node-version: '20', cache: npm }
+        with: { node-version: '22', cache: npm }
       - run: npm ci
+      # Node 22: scripts/pinterest/pin_sources.mjs requires data/planner-landings.ts (types stripped).
+      # The pins are drawn with Pillow and the committed brand fonts (scripts/pinterest/render_pin.py).
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: python -m pip install --quiet pillow==11.3.0
       - name: Join new pages, refill below threshold, date the queue
-        run: node scripts/pinterest/pin_queue.mjs
+        env:
+          APPROVE: ${{ inputs.approve }}
+        run: |
+          if [ -n "$APPROVE" ]; then
+            case "$APPROVE" in (*[!a-z0-9-]*) echo "approve must be a generation name like dw-v3"; exit 1;; esac
+            node scripts/pinterest/pin_queue.mjs --approve "$APPROVE"
+          else
+            node scripts/pinterest/pin_queue.mjs
+          fi
       - name: Queue and feed guards
         run: npx vitest run tests/unit/pinqueue.test.ts tests/unit/pinfeed.test.ts
       - name: Pinterest visits, sales and signups per pin (Saturdays)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          APPROVE: ${{ inputs.approve }}
         run: |
-          if [ "$(TZ=America/Chicago date +%u)" = 6 ] || [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+          if [ "$(TZ=America/Chicago date +%u)" = 6 ] || { [ "$GITHUB_EVENT_NAME" = workflow_dispatch ] && [ -z "$APPROVE" ]; }; then
             node scripts/pinterest/collect_metrics.mjs
           else
             echo "Weekly measurement runs on Saturdays; today the drip only stocked the queue."
           fi
       - name: Commit and push
+        env:
+          APPROVE: ${{ inputs.approve }}
         run: |
           git config user.name 'dream-wedding-pinterest-bot'
           git config user.email 'actions@users.noreply.github.com'
           git add data/pinterest public/pinterest/drip reports/pinterest
-          git diff --cached --quiet || git commit -m 'pinterest: daily drip (question pins, refill, metrics)'
+          msg='pinterest: daily drip (question pins, refill, metrics)'
+          [ -n "$APPROVE" ] && msg="pinterest: release the approved $APPROVE pins"
+          git diff --cached --quiet || git commit -m "$msg"
           scripts/ci/push_back.sh "$GITHUB_REF_NAME"

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 const catalog=JSON.parse(fs.readFileSync('data/products/product_catalog.json','utf8'));
 const prices=Object.fromEntries(catalog.products.map(p=>[p.id,p.price]));
-const expected={'seating-chart-maker':19,'budget-spreadsheet':12,'timeline-template':12,'checklist-pdf':9,'operations-suite':39};
+const expected={'seating-chart-maker':19,'budget-spreadsheet':12,'timeline-template':12,'checklist-pdf':9,'operations-suite':39,'courthouse-wedding-kit':9,'wedding-vows-workbook':9,'maid-of-honor-kit':9};
 const errors=[];
 for(const [id,price] of Object.entries(expected)) if(prices[id]!==price) errors.push(`${id} price must be ${price}`);
 for(const p of catalog.products){ if(!p.image)errors.push(`${p.id} missing image`); if(!p.cta||!p.cta.includes(`$${p.price}`))errors.push(`${p.id} CTA missing price`); }

@@ -19,5 +19,29 @@
     "window": "last 7 days (since 2026-10-19)",
     "total": 0,
     "by_variant": {}
+  },
+  {
+    "generated_at": "2026-11-06T23:26:16.889Z",
+    "status": "MEASURED",
+    "window": "last 7 days (since 2026-10-30)",
+    "total": 1,
+    "pins_released": 21,
+    "sales": 0,
+    "signups": 0,
+    "by_variant": {
+      "(launch item, no utm_content)": 1
+    }
+  },
+  {
+    "generated_at": "2026-11-07T00:46:50.840Z",
+    "status": "MEASURED",
+    "window": "last 7 days (since 2026-10-31)",
+    "total": 1,
+    "pins_released": 23,
+    "sales": 0,
+    "signups": 0,
+    "by_variant": {
+      "(launch item, no utm_content)": 1
+    }
   }
 ]

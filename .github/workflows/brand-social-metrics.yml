@@ -1,0 +1,50 @@
+name: Brand social metrics (daily)
+
+# Writes data/brand-social/metrics.json, the file the Boss OS Monday scorecard reads
+# for the `dw-brand-social` row: posts published through Buffer and site visits from
+# Instagram or TikTok to weddingchecklistpdf.com, each over 28 days
+# (scripts/brand_social/collect_metrics.mjs; docs/analytics/web-analytics-beacon.md).
+#
+# Daily, not weekly: the scorecard refuses a file older than 9 days, so one failed run
+# never leaves the Monday line blank. A metric that cannot be measured is written as
+# absent with a reason under `unread` - never a 0. Cloudflare unreadable is a NAMED STOP
+# and a red run, and the last good file stays on main.
+#
+# The commit touches only data/brand-social, which no page, lastmod or sitemap reads.
+on:
+  schedule:
+    - cron: '55 5 * * *'  # America/Chicago, all year
+      timezone: America/Chicago
+  workflow_dispatch:
+
+permissions: { contents: write }
+
+concurrency:
+  group: brand-social-metrics
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    timeout-minutes: 5  # three API reads and four page fetches take seconds; fault detector, not a budget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with: { node-version: '20' }
+      - name: Read Buffer and Cloudflare Web Analytics
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BUFFER_BRANDS_ACCESS_TOKEN: ${{ secrets.BUFFER_BRANDS_ACCESS_TOKEN }}
+        run: npm run -s brand-social:collect
+      - name: The file the scorecard reads is sound
+        run: node scripts/validators/validate_brand_social.mjs
+      - name: Commit and push
+        run: |
+          git config user.name 'dream-wedding-brand-social-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/brand-social
+          git diff --cached --quiet || git commit -m 'brand-social: daily metrics for the scorecard'
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"

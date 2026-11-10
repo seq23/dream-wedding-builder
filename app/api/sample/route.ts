@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runtimeEnv } from '@/lib/cloudflare-runtime';
 import { normalizeEmail, storeBuilderSignup } from '@/lib/builder-signup';
-import { SAMPLE_SOURCE, sendSample, type NurtureEnv } from '@/lib/nurture';
+import { SAMPLE_SOURCE, sendFailureStop, sendSample, type NurtureEnv } from '@/lib/nurture';
 import { verifyTurnstile } from '@/lib/turnstile';
 import { LIMITS, TOO_MANY, callerKey, takeSlot, type LimitDB } from '@/lib/abuse-limits';
 
@@ -33,7 +33,9 @@ export async function POST(req: NextRequest) {
   const host = (req.headers.get('x-forwarded-host') ?? req.headers.get('host') ?? '').slice(0, 120);
   await storeBuilderSignup(env.DB as never, { email, source: SAMPLE_SOURCE, host });
   const sent = await sendSample(env, email);
-  if (sent.status === 'STOPPED') console.error(JSON.stringify({ event: 'SAMPLE_NOT_SENT', stop: sent.stop }));
-  // The PDF link is shown on the page as well, so the visitor is never left waiting on email.
-  return NextResponse.json({ ok: true, emailed: sent.status === 'SENT' || sent.status === 'ALREADY' });
+  const emailed = sent.status === 'SENT' || sent.status === 'ALREADY';
+  // Not emailed is said, never hidden (rule 0, 7 Nov 2026): the page says so plainly and keeps the PDF link.
+  const stop = emailed || sent.status === 'OPTED_OUT' ? null : ('stop' in sent && sent.stop ? sent.stop : sendFailureStop(1));
+  if (stop) console.error(JSON.stringify({ event: 'SAMPLE_NOT_SENT', stop }));
+  return NextResponse.json({ ok: true, emailed, ...(stop ? { stop } : {}) });
 }

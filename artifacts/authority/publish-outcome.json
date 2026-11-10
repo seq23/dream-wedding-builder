@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "run_at": "2026-11-02T13:49:44.792Z",
+  "run_at": "2026-11-10T11:22:14.563Z",
   "outcome": "HELD_AWAITING_AUTHORING",
   "outcome_kind": "LEGITIMATE_STOP",
   "outcome_reason": "0 seed(s) are not marked ready; 29 backlog topic(s) have a cluster and a scaffold but no author.",
@@ -87,5 +87,61 @@
     ]
   },
   "held_seeds": [],
-  "skipped_seeds": []
+  "skipped_seeds": [
+    {
+      "slug": "wedding-guest-list-headcount-control",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-rsvp-tracking-system",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-meal-count-dietary-tracking",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-day-logistics-timeline",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-reception-flow-timeline",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-music-cue-sheet",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-venue-selection-checklist",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "accessible-wedding-planning-checklist",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-rain-plan-checklist",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "diy-wedding-cost-tradeoffs",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    },
+    {
+      "slug": "wedding-attire-lead-time-checklist",
+      "reason": "CONSOLIDATED",
+      "detail": "Expand the owning guide; new routes require a distinct editorial kept-ledger decision."
+    }
+  ]
 }

@@ -464,6 +464,83 @@
       "standalone_value": 52,
       "savings": 13,
       "cta": "Get the complete suite — $39"
+    },
+    {
+      "id": "courthouse-wedding-kit",
+      "sku": "DWB-COURTHOUSE-001",
+      "name": "The Courthouse Wedding Kit",
+      "domain": "weddingchecklistpdf.com",
+      "price": 9,
+      "route": "/products/courthouse-wedding-kit",
+      "kind": "book_kit",
+      "headline": "Every step of a courthouse wedding, on paper.",
+      "sub": "A 12-page printable kit for a courthouse wedding: the license steps in order, the questions to ask your county clerk, a witness and ID list, the courthouse-day timeline, a small reception plan, a budget page and the name-change checklist.",
+      "features": [
+        "License and paperwork checklist, step by step",
+        "Questions to call the county clerk, with space for the answers",
+        "Witness and ID list",
+        "Courthouse-day timeline and what to bring",
+        "Small reception plan and guest list",
+        "Budget page: estimated, actual, paid",
+        "After the wedding: certified copies and name change",
+        "Announcements and thank-you tracker"
+      ],
+      "image": "/product-previews/courthouse-wedding-kit/courthouse-wedding-kit-preview-1.png",
+      "hero_image": "/product-previews/courthouse-wedding-kit/courthouse-wedding-kit-preview-1.png",
+      "canonical_url": "https://weddingchecklistpdf.com/products/courthouse-wedding-kit",
+      "parent_host": true,
+      "cta": "Get the Courthouse Wedding Kit — $9"
+    },
+    {
+      "id": "wedding-vows-workbook",
+      "sku": "DWB-VOWS-001",
+      "name": "The Wedding Vows Workbook",
+      "domain": "weddingchecklistpdf.com",
+      "price": 9,
+      "route": "/products/wedding-vows-workbook",
+      "kind": "book_kit",
+      "headline": "From a blank page to vows you can say out loud.",
+      "sub": "A 12-page printable workbook for writing your vows: decide the basics together, memory and promise prompts, a five-part structure, three fill-in templates, a length and timing guide, a read-aloud practice log and two cut-out vow cards.",
+      "features": [
+        "Decide the basics together",
+        "Memory prompts and promise prompts",
+        "A five-part structure",
+        "Three fill-in templates: classic, story-led, short and sweet",
+        "Length and timing guide",
+        "Read-aloud practice log",
+        "Two cut-out final vow cards"
+      ],
+      "image": "/product-previews/wedding-vows-workbook/wedding-vows-workbook-preview-1.png",
+      "hero_image": "/product-previews/wedding-vows-workbook/wedding-vows-workbook-preview-1.png",
+      "canonical_url": "https://weddingchecklistpdf.com/products/wedding-vows-workbook",
+      "parent_host": true,
+      "cta": "Get the Wedding Vows Workbook — $9"
+    },
+    {
+      "id": "maid-of-honor-kit",
+      "sku": "DWB-MOH-001",
+      "name": "The Maid of Honor Kit",
+      "domain": "weddingchecklistpdf.com",
+      "price": 9,
+      "route": "/products/maid-of-honor-kit",
+      "kind": "book_kit",
+      "headline": "Everything you are asked to carry, organized.",
+      "sub": "A 13-page printable kit for a maid of honor: a duties timeline from engagement to wedding day, questions to ask the couple, shower and bachelorette planners, a budget split sheet, a speech builder and the day-of emergency kit list.",
+      "features": [
+        "Duties timeline, engagement to wedding day",
+        "Questions to ask the couple",
+        "Shower planner and guest and gift tracker",
+        "Bachelorette planner: options, dates, bookings",
+        "Budget split sheet",
+        "Speech builder, prompts, draft page and practice log",
+        "Day-of emergency kit list",
+        "Wedding day run sheet"
+      ],
+      "image": "/product-previews/maid-of-honor-kit/maid-of-honor-kit-preview-1.png",
+      "hero_image": "/product-previews/maid-of-honor-kit/maid-of-honor-kit-preview-1.png",
+      "canonical_url": "https://weddingchecklistpdf.com/products/maid-of-honor-kit",
+      "parent_host": true,
+      "cta": "Get the Maid of Honor Kit — $9"
     }
   ]
 }

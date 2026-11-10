@@ -1,17 +1,17 @@
 {
-  "derived_at": "2026-11-03",
+  "derived_at": "2026-11-04",
   "derived_by": "scripts/cadence/derive_capacity.mjs",
   "measured_from": "data/authority/content_registry.json",
   "predicate": "lib/authority-complete.mjs isComplete() - a record the router 404s was never capacity",
   "first_commit": "2026-05-24",
   "first_content_commit": "2026-07-10",
-  "last_content_commit": "2026-11-03",
-  "authoring_weeks": 16.6,
-  "repo_age_weeks": 23.3,
+  "last_content_commit": "2026-11-04",
+  "authoring_weeks": 16.7,
+  "repo_age_weeks": 23.4,
   "renderable_guides_now": 16,
-  "sustained_throughput_per_week": 0.97,
-  "throughput_if_measured_from_repo_start": 0.69,
-  "throughput_if_measured_to_today": 0.97,
+  "sustained_throughput_per_week": 0.96,
+  "throughput_if_measured_from_repo_start": 0.68,
+  "throughput_if_measured_to_today": 0.91,
   "window_choice": "Measured from the first commit that created content, not from the first commit in the repo. The registry did not exist for the first weeks of this repo and no guide could have been written in them, so including them measures setup time as authoring time and understates capacity by roughly half.",
   "window_close_choice": "The window closes at the last commit that changed the registry, not at today. Closing it at today divides a cumulative stock by a denominator that grows with the clock, so the rate falls every idle day and floor() drops it a whole unit on an arbitrary calendar date - which is what turned three green scheduled runs red on 2026-09-04 with no commit behind them. Anchored to the last authoring event the figure is a pure function of committed history: the same tree derives the same numbers whenever it is measured. throughput_if_measured_to_today is reported to show the difference and is not used.",
   "best_single_interval_per_week": 78.17,
@@ -106,8 +106,18 @@
       "renderable": 73
     },
     {
-      "sha": "82e80ac6267dcb71cbdd0c6683cbdee535c0f1cd",
-      "date": "2026-11-03",
+      "sha": "02345ec423a068492cef17b305adec0839e2be07",
+      "date": "2026-11-04",
+      "renderable": 16
+    },
+    {
+      "sha": "db3ccf7d335158bf5d3f3fd005c4229e993d3bbf",
+      "date": "2026-11-06",
+      "renderable": 16
+    },
+    {
+      "sha": "d5d19801847dada4f670e8d50ede85c1519e031b",
+      "date": "2026-11-07",
       "renderable": 16
     }
   ]

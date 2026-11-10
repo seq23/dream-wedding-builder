@@ -2,23 +2,31 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "15b286bbc3664450466ac8029cd39a059f317fd6",
+  "generated_from_commit": "52e6fc584d52947f067c727c7909b601f6be7da9",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
-      "lastmod": "2026-10-25",
+      "lastmod": "2026-11-06",
       "source": "app/page.tsx"
     },
     "/about": {
       "lastmod": "2026-10-25",
       "source": "app/about/page.tsx"
     },
+    "/amazon/courthouse-wedding-planner": {
+      "lastmod": "2026-11-08",
+      "source": "data/seo/editorial_page_shape.json#amazon/courthouse-wedding-planner"
+    },
+    "/amazon/maid-of-honor-handbook": {
+      "lastmod": "2026-11-08",
+      "source": "data/seo/editorial_page_shape.json#amazon/maid-of-honor-handbook"
+    },
     "/amazon/wedding-budget-line-by-line": {
       "lastmod": "2026-11-04",
       "source": "data/seo/editorial_page_shape.json#amazon/wedding-budget-line-by-line"
     },
     "/amazon/wedding-day-timeline": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-06",
       "source": "data/seo/editorial_page_shape.json#amazon/wedding-day-timeline"
     },
     "/amazon/wedding-guest-list-problem": {
@@ -33,6 +41,10 @@
       "lastmod": "2026-11-04",
       "source": "data/seo/editorial_page_shape.json#amazon/wedding-vendor-questions"
     },
+    "/amazon/wedding-vows": {
+      "lastmod": "2026-11-08",
+      "source": "data/seo/editorial_page_shape.json#amazon/wedding-vows"
+    },
     "/backyard-wedding-planning": {
       "lastmod": "2026-09-02",
       "source": "app/backyard-wedding-planning/page.tsx"
@@ -42,15 +54,15 @@
       "source": "app/disclaimer/page.tsx"
     },
     "/editorial-policy": {
-      "lastmod": "2026-10-30",
+      "lastmod": "2026-11-06",
       "source": "app/editorial-policy/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-10-08",
+      "lastmod": "2026-11-07",
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
-      "lastmod": "2026-11-05",
+      "lastmod": "2026-11-07",
       "source": "app/guides/page.tsx + newest listed guide"
     },
     "/guides/bridal-shower-checklist": {
@@ -58,7 +70,7 @@
       "source": "data/seo/editorial_page_shape.json#bridal-shower-checklist"
     },
     "/guides/courthouse-wedding-checklist": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#courthouse-wedding-checklist"
     },
     "/guides/day-of-coordinator-checklist": {
@@ -66,11 +78,11 @@
       "source": "data/seo/editorial_page_shape.json#day-of-coordinator-checklist"
     },
     "/guides/destination-wedding-checklist": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#destination-wedding-checklist"
     },
     "/guides/elopement-planning-checklist": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#elopement-planning-checklist"
     },
     "/guides/rehearsal-dinner-timeline": {
@@ -82,7 +94,7 @@
       "source": "data/seo/budget_page_shape.json#wedding-budget-calculator"
     },
     "/guides/wedding-budget-spreadsheet-categories": {
-      "lastmod": "2026-11-02",
+      "lastmod": "2026-11-07",
       "source": "data/seo/budget_page_shape.json#wedding-budget-spreadsheet-categories"
     },
     "/guides/wedding-budget-template": {
@@ -90,7 +102,7 @@
       "source": "data/seo/budget_page_shape.json#wedding-budget-template"
     },
     "/guides/wedding-day-timeline": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#wedding-day-timeline"
     },
     "/guides/wedding-day-timeline-template": {
@@ -110,7 +122,7 @@
       "source": "data/seo/editorial_page_shape.json#wedding-rehearsal-timeline"
     },
     "/guides/wedding-seating-chart-accessibility": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-07",
       "source": "data/seo/editorial_page_shape.json#wedding-seating-chart-accessibility"
     },
     "/guides/wedding-seating-chart-template": {
@@ -145,6 +157,14 @@
       "lastmod": "2026-09-25",
       "source": "data/products/product_catalog.json#products[id=checklist-pdf]"
     },
+    "/products/courthouse-wedding-kit": {
+      "lastmod": "2026-11-08",
+      "source": "data/products/product_catalog.json#products[id=courthouse-wedding-kit]"
+    },
+    "/products/maid-of-honor-kit": {
+      "lastmod": "2026-11-08",
+      "source": "data/products/product_catalog.json#products[id=maid-of-honor-kit]"
+    },
     "/products/operations-suite": {
       "lastmod": "2026-10-27",
       "source": "app/products/operations-suite/page.tsx"
@@ -157,8 +177,12 @@
       "lastmod": "2026-10-25",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
+    "/products/wedding-vows-workbook": {
+      "lastmod": "2026-11-08",
+      "source": "data/products/product_catalog.json#products[id=wedding-vows-workbook]"
+    },
     "/questions": {
-      "lastmod": "2026-11-01",
+      "lastmod": "2026-11-10",
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {

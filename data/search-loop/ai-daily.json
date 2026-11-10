@@ -60,6 +60,92 @@
           "Meta-ExternalAgent": 1
         }
       }
+    },
+    "2026-11-07": {
+      "ai_visitors": {
+        "total": 0,
+        "by_engine": {},
+        "by_path": {},
+        "source": "web-analytics"
+      },
+      "ai_bot_hits": {
+        "total": 227,
+        "by_bot": {
+          "OAI-SearchBot (ChatGPT search)": 15,
+          "ClaudeBot": 36,
+          "GPTBot (OpenAI training)": 11,
+          "Bytespider": 17,
+          "Amazonbot": 55,
+          "CCBot (Common Crawl)": 30,
+          "ChatGPT-User (ChatGPT fetch)": 8,
+          "Claude-User": 19,
+          "Perplexity-User": 11,
+          "PerplexityBot": 5,
+          "DuckAssistBot": 20
+        }
+      }
+    },
+    "2026-11-08": {
+      "ai_visitors": {
+        "total": 0,
+        "by_engine": {},
+        "by_path": {},
+        "source": "web-analytics"
+      },
+      "ai_bot_hits": {
+        "total": 37,
+        "by_bot": {
+          "OAI-SearchBot (ChatGPT search)": 2,
+          "ClaudeBot": 21,
+          "Amazonbot": 11,
+          "Bytespider": 2,
+          "GPTBot (OpenAI training)": 1
+        }
+      }
+    },
+    "2026-11-09": {
+      "ai_visitors": {
+        "total": 0,
+        "by_engine": {},
+        "by_path": {},
+        "source": "web-analytics"
+      },
+      "ai_bot_hits": {
+        "total": 430,
+        "by_bot": {
+          "OAI-SearchBot (ChatGPT search)": 42,
+          "ClaudeBot": 66,
+          "GPTBot (OpenAI training)": 33,
+          "Bytespider": 48,
+          "Amazonbot": 55,
+          "CCBot (Common Crawl)": 20,
+          "ChatGPT-User (ChatGPT fetch)": 33,
+          "Claude-User": 52,
+          "Perplexity-User": 18,
+          "Meta-ExternalAgent": 2,
+          "PerplexityBot": 45,
+          "DuckAssistBot": 16
+        }
+      }
+    },
+    "2026-11-10": {
+      "ai_visitors": {
+        "total": 0,
+        "by_engine": {},
+        "by_path": {},
+        "source": "web-analytics"
+      },
+      "ai_bot_hits": {
+        "total": 126,
+        "by_bot": {
+          "OAI-SearchBot (ChatGPT search)": 2,
+          "ClaudeBot": 15,
+          "Amazonbot": 28,
+          "Bytespider": 3,
+          "GPTBot (OpenAI training)": 77,
+          "ChatGPT-User (ChatGPT fetch)": 1
+        }
+      }
     }
   }
 }

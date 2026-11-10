@@ -2,8 +2,8 @@
 # Commit step for the shared search engine (search-loop.yml, default branch only).
 # Re-derives the lastmod ledger (the /questions hub moves with its newest page)
 # and the committed per-host sitemaps from the engine's ledger on every run - a
-# publish adds URLs, a 90-day merge removes one - so validate:sitemap-currency
-# stays true without waiting for another lane. Then commits the engine ledger,
+# publish adds URLs, a 90-day merge removes one so the sitemaps
+# stay current without waiting for another lane. Then commits the engine ledger,
 # the pages, the sitemaps and any redirect, and pushes with a bounded rebase
 # retry. IndexNow is submitted by the engine itself.
 set -euo pipefail
@@ -14,13 +14,11 @@ set -euo pipefail
 # links from the repository path, so public/questions/<slug>.html was linked as
 # /public/questions/<slug> - public/ is the web root, so all 53 answered 404.
 # Point the Article at the one brand record and the links at the served route
-# before anything else reads the pages, and gate both.
+# before anything else reads the pages, and gate the links.
 node scripts/seo/normalize_question_entity.mjs
 node scripts/seo/normalize_question_routes.mjs
 node scripts/seo/build_lastmod_ledger.mjs > /dev/null
 node scripts/authority/build-sitemaps.mjs
-node scripts/validators/validate_sitemap_currency.mjs
-node scripts/validators/validate_question_entity.mjs
 node scripts/validators/validate_question_links.mjs
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

@@ -118,7 +118,37 @@
       "outcome": "REFRESHED",
       "refreshed": 3,
       "queued": 62
+    },
+    {
+      "at": "2026-11-06",
+      "outcome": "QUEUE_EMPTY",
+      "refreshed": 0,
+      "queued": 0
+    },
+    {
+      "at": "2026-11-07",
+      "outcome": "QUEUE_EMPTY",
+      "refreshed": 0,
+      "queued": 0
+    },
+    {
+      "at": "2026-11-08",
+      "outcome": "QUEUE_EMPTY",
+      "refreshed": 0,
+      "queued": 0
+    },
+    {
+      "at": "2026-11-09",
+      "outcome": "QUEUE_EMPTY",
+      "refreshed": 0,
+      "queued": 0
+    },
+    {
+      "at": "2026-11-10",
+      "outcome": "QUEUE_EMPTY",
+      "refreshed": 0,
+      "queued": 0
     }
   ],
-  "updated_at": "2026-11-02"
+  "updated_at": "2026-11-10"
 }

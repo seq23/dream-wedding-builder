@@ -30,3 +30,30 @@ describe('book alias host', () => {
   it('leaves canonical hosts alone', () => expect(aliasRedirectTarget('weddingchecklistpdf.com')).toBeNull());
   it('leaves unknown hosts alone', () => expect(aliasRedirectTarget('example.com')).toBeNull());
 });
+
+// Guard for 7 Nov 2026 (weddingbudgetspreadsheet.com impressions 60 -> 6): the
+// satellites' own guides were in no guide index anywhere, because a satellite's
+// /guides 301s to the main site and the main index listed main-site guides only.
+describe('the main guide index links every satellite guide at the host that serves it', () => {
+  it('lists each satellite guide, owned by and canonical on its satellite', async () => {
+    const { satelliteGuides, PARENT_HOST } = await import('@/lib/site-config');
+    const guides = satelliteGuides();
+    expect(guides.length).toBeGreaterThan(0);
+    for (const { host, page, url } of guides) {
+      expect(host).not.toBe(PARENT_HOST);
+      expect(canonicalHostForPath(`/guides/${page.slug}`)).toBe(host);
+      expect(url).toBe(`https://${host}/guides/${page.slug}`);
+    }
+  });
+
+  it('renders those links on /guides, and the main-site list alone would miss them', async () => {
+    const { satelliteGuides, PARENT_HOST } = await import('@/lib/site-config');
+    const { renderToStaticMarkup } = await import('react-dom/server');
+    const { default: GuidesIndex } = await import('@/app/guides/page');
+    const html = renderToStaticMarkup(await GuidesIndex());
+    for (const { url } of satelliteGuides()) expect(html).toContain(`href="${url}"`);
+    // Negative: the main-site guide list by itself names none of them.
+    const own = new Set(guidesForHost(PARENT_HOST).map((page) => page.slug));
+    expect(satelliteGuides().filter(({ page }) => own.has(page.slug))).toEqual([]);
+  });
+});

@@ -3,7 +3,7 @@ import { linksFor, type Placement } from '@/lib/affiliates';
 export function AffiliatePicks({ placement, heading = 'Registry and invitations, when you get there' }: { placement: Placement; heading?: string }) {
   const links = linksFor(placement);
   const anyTracked = links.some((link) => link.tracked);
-  return <section data-testid="affiliate-picks" data-placement={placement} className="no-print rounded-[1.75rem] border border-charcoal/10 bg-white p-7 md:p-9">
+  return <section data-testid="affiliate-picks" data-placement={placement} className="no-print rounded-[12px] border border-charcoal/10 bg-white p-7 md:p-9">
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Outside services couples use</p>
     <h2 className="mt-3 font-serif text-3xl md:text-4xl">{heading}</h2>
     <div className="mt-6 grid gap-3 md:grid-cols-3">

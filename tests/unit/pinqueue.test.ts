@@ -12,10 +12,12 @@ import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
 import ownership from '@/data/seo/route_ownership.json';
 import rawQueue from '@/data/pinterest/queue.json';
+import retiredFixture from '../fixtures/pinterest/retired_pins.json';
 import { boards, buildPinfeed, pinItems } from '@/lib/pinfeed';
-import { addDays, applyFallback, applyPause, chicagoDate, decidePace, dueVariants, needsRefill, pageSlug, planRefill, scheduleVariants, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
+import { addDays, applyFallback, applyPause, chicagoDate, decidePace, dueVariants, needsRefill, pageSlug, planRefill, scheduleVariants, spreadViolations, SPREAD, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
 import { anglesFor, derivedAngles, eligiblePaths, guideFacts, pageSource } from '../../scripts/pinterest/pin_sources.mjs';
-import { LAYOUTS, PALETTES } from '../../scripts/pinterest/render_pin.mjs';
+import { LAYOUTS, LEGACY_LAYOUTS, LEGACY_PALETTES, PALETTES } from '../../scripts/pinterest/render_pin.mjs';
+import { auditQueue, copyIssue, isFrozen, layoutIssue, photoIssue, salesIssue } from '../../scripts/pinterest/quality.mjs';
 
 const HOST = 'weddingchecklistpdf.com';
 const queue = rawQueue as PinQueue;
@@ -23,6 +25,8 @@ const clone = (): PinQueue => JSON.parse(JSON.stringify(rawQueue));
 const owned = new Set([...ownership.routes.filter(r => r.host === HOST).map(r => r.path), ...Object.keys(rescue.redirects).filter(path => ownership.routes.some(r => r.host === HOST && r.path === rescue.redirects[path as keyof typeof rescue.redirects]))]);
 const launchPaths = pinItems.map((i) => i.path);
 const dated = queue.variants.filter((v) => v.release_date) as Array<PinVariant & { release_date: string }>;
+// Every pin of the queue: scheduled variants plus pins drawn and awaiting her approval.
+const stock = [...queue.variants, ...(queue.pending ?? [])];
 
 type FeedItem = { title: string; link: string; description: string; pubDate: string; enclosure: Record<string, string> | null; media: Record<string, string> | null };
 const parseFeed = (xml: string): { items: FeedItem[] } => JSON.parse(execFileSync('python3', ['-I', 'scripts/pinterest/parse_feed.py'], { input: xml }).toString());
@@ -61,22 +65,22 @@ describe('pin queue schema', () => {
   it('every page the site serves for the drip is queued, not only recorded (the 16 Oct seed queued 6 of 30)', () => {
     const queued = new Set(queue.pages.map((p) => p.path));
     for (const path of eligiblePaths()) expect(queued.has(path), path).toBe(true);
-    for (const path of eligiblePaths()) expect(queue.variants.some((v) => v.path === path), path).toBe(true);
+    for (const path of eligiblePaths()) expect(stock.some((v) => v.path === path), path).toBe(true);
   });
 
   it('queues 6-8 variants for every launch page and at least 20 dated variants in all', () => {
     expect(dated.length).toBeGreaterThanOrEqual(20);
     for (const path of launchPaths) {
-      const n = queue.variants.filter((v) => v.path === path).length;
+      const n = stock.filter((v) => v.path === path).length;
       expect(n, path).toBeGreaterThanOrEqual(6);
-      if (queue.variants.every((v) => v.seq <= 42)) expect(n, path).toBeLessThanOrEqual(8);
+      if (stock.every((v) => v.seq <= 42)) expect(n, path).toBeLessThanOrEqual(8);
     }
   });
 
   it('every variant is complete, distinct and truthful to its page', () => {
     const ids = new Set<string>();
     const designs = new Map<string, Set<string>>();
-    for (const v of queue.variants) {
+    for (const v of stock) {
       expect(ids.has(v.id), v.id).toBe(false);
       ids.add(v.id);
       expect(v.id).toMatch(new RegExp(`^${pageSlug(v.path)}-\\d{2,}$`));
@@ -85,8 +89,13 @@ describe('pin queue schema', () => {
       for (const field of ['eyebrow', 'headline', 'subline', 'title', 'description'] as const) expect(v[field].trim().length, `${v.id}.${field}`).toBeGreaterThan(0);
       expect(v.title.length, v.id).toBeLessThanOrEqual(100);
       expect(v.description.length, v.id).toBeLessThanOrEqual(500);
-      expect(LAYOUTS).toContain(v.layout);
-      expect(Object.keys(PALETTES)).toContain(v.palette);
+      // Pins published before the 6 Nov 2026 re-queue keep the old renderer's names; every
+      // pin not yet released is drawn by the brand renderer.
+      const released = v.release_date !== null && v.release_date <= chicagoDate();
+      // Released pins and the dw-v2 pins she approved as drawn keep their old design names.
+      const asDrawn = released || isFrozen(v, queue.config);
+      expect(asDrawn ? [...LAYOUTS, ...LEGACY_LAYOUTS] : LAYOUTS, v.id).toContain(v.layout);
+      expect(asDrawn ? [...Object.keys(PALETTES), ...LEGACY_PALETTES] : Object.keys(PALETTES), v.id).toContain(v.palette);
       expect(existsSync(join('public', v.art)), v.art).toBe(true);
       expect(v.release_date === null || /^\d{4}-\d{2}-\d{2}$/.test(v.release_date)).toBe(true);
       if (v.release_date) expect(v.release_date >= queue.config.drip_start, v.id).toBe(true);
@@ -105,7 +114,7 @@ describe('pin queue schema', () => {
 
   it('consecutive variants of one page never share a layout or a palette', () => {
     for (const page of queue.pages) {
-      const vs = queue.variants.filter((v) => v.path === page.path).sort((a, b) => a.seq - b.seq);
+      const vs = stock.filter((v) => v.path === page.path).sort((a, b) => a.seq - b.seq);
       for (let i = 1; i < vs.length; i += 1) {
         expect(vs[i].layout, vs[i].id).not.toBe(vs[i - 1].layout);
         expect(vs[i].palette, vs[i].id).not.toBe(vs[i - 1].palette);
@@ -114,7 +123,7 @@ describe('pin queue schema', () => {
   });
 
   it('every image exists at 1000x1500 and its declared length is its byte size', async () => {
-    for (const v of queue.variants) {
+    for (const v of stock) {
       expect(v.image, v.id).toBeTruthy();
       const file = join('public', v.image!.path);
       expect(existsSync(file), file).toBe(true);
@@ -125,9 +134,91 @@ describe('pin queue schema', () => {
   });
 });
 
+describe('pin quality gate (her call 6 Nov 2026: "approve all, make them good"; the 6 Nov Pinterest assessment)', () => {
+  // Every pin not yet released, and every pin awaiting her approval, must look different
+  // from the account's recent pins (dHash), show a licensed topic photo (never a product
+  // screenshot), carry no sales words, lead with the page's search phrase in at most 7
+  // words, fill >= 60% of the pin with the photo under one band branded "Wedding Checklist
+  // PDF", read at a 236px thumbnail, and keep the spread rule. Pins she approved as drawn
+  // (dw-v2) post as they are.
+  // The pins the gate must judge: every unposted pin (scheduled, undated or awaiting her
+  // approval) of a generation that is not frozen. Before her yes they sit in pending;
+  // after it they are dated in variants. Either way there must be some.
+  const unposted = (q: PinQueue) => [...q.variants, ...(q.questions ?? []), ...(q.pending ?? [])].filter((v) => !(v.release_date && v.release_date <= chicagoDate()));
+  const gated = unposted(queue).filter((v) => !isFrozen(v, queue.config));
+  // The retired old-style pins (the frames drawn before the 6 Nov re-queue and the dw-v2
+  // frames), frozen as a fixture so the check never depends on what the live queue holds.
+  const retired = (retiredFixture as { pins: PinVariant[] }).pins;
+
+  it('every queued, unposted pin passes the gate, and the gate refuses every retired old-style pin', async () => {
+    expect(unposted(queue).length).toBeGreaterThanOrEqual(queue.config.refill_threshold);
+    expect(gated.length).toBeGreaterThan(0);
+    expect(gated.filter((v) => v.generation === queue.config.generation).length).toBeGreaterThan(0);
+    expect(await auditQueue(clone(), chicagoDate())).toEqual([]);
+    // The retired pins, re-dated as if still waiting to post: the gate holds every one, on
+    // the design itself (their images exist, so no pin passes as "image missing").
+    expect(retired.length).toBeGreaterThanOrEqual(60);
+    for (const v of retired) {
+      expect(LEGACY_LAYOUTS, v.id).toContain(v.layout);
+      expect(existsSync(join('public', v.image!.path)), v.image!.path).toBe(true);
+    }
+    const old = clone();
+    const ids = new Set(retired.map((v) => v.id));
+    old.variants = [...old.variants.filter((v) => !ids.has(v.id)), ...retired.map((v) => ({ ...v, release_date: '2099-01-01' }))];
+    const oldIssues = await auditQueue(old, chicagoDate(), { all: true });
+    expect(retired.filter((v) => !oldIssues.some((i) => i.startsWith(`${v.id}:`) && !i.includes('image missing'))).map((v) => v.id)).toEqual([]);
+  }, 60_000);
+
+  it('refuses sales words, product screenshots, unlicensed or narrow photos, long or unsearched headlines and framed layouts', () => {
+    const v = gated.find((x) => x.generation === queue.config.generation) as PinVariant;
+    expect(v, 'an unposted pin of the current generation').toBeDefined();
+    expect(salesIssue(v)).toBeNull();
+    expect(copyIssue(v)).toBeNull();
+    expect(photoIssue(v.art)).toBeNull();
+    expect(layoutIssue(v)).toBeNull();
+    for (const bad of ['Get the Planning Bundle', 'Only $9 today', 'Look inside the real file', 'Preview · not editable', 'Included in the suite']) expect(salesIssue({ ...v, subline: bad }), bad).not.toBeNull();
+    expect(salesIssue({ ...v, title: `${v.title} | Wedding Planning Bundle` })).not.toBeNull();
+    expect(photoIssue('/product-images/checklist-pdf.png')).not.toBeNull();
+    expect(photoIssue('/pinterest/topic-art/courthouse-v2-3.jpg')).toMatch(/retired|screenshot/); // the gavel
+    expect(photoIssue('/pinterest/topic-art/checklist-1.jpg')).not.toBeNull(); // stocksnap, 960px
+    expect(copyIssue({ ...v, headline: `${v.headline} and every other thing too` })).toMatch(/words/);
+    expect(copyIssue({ ...v, headline: 'Lovely Ideas for Your Big Day' })).toMatch(/search phrase/);
+    expect(copyIssue({ ...v, headline: `99 ${v.headline}` })).toMatch(/numbered|words/);
+    expect(copyIssue({ ...v, title: `Save this: ${v.title}` })).toMatch(/title/);
+    expect(layoutIssue({ ...v, layout: 'binder-page' })).toMatch(/retired/);
+    expect(layoutIssue({ ...v, layout: 'tab-panel' })).toMatch(/retired/);
+    expect(layoutIssue(v, { ...v.image!.shape!, photo_fraction: 0.5 })).toMatch(/60%/);
+    expect(layoutIssue(v, { ...v.image!.shape!, brand: 'Dream Wedding Builder' })).toMatch(/brand/);
+  });
+
+  it('pins awaiting her approval never reach a feed, even dated, while the same pin scheduled does', () => {
+    // A probe pin awaiting approval (dated, to prove the feed ignores pending outright),
+    // plus every real pending pin. The probe is a copy of a gated pin under a fresh id.
+    const at = new Date('2027-12-31T18:00:00Z');
+    const probe = { ...(gated[0] as PinVariant), id: 'pending-probe-01', release_date: '2027-12-30' };
+    const feeds = () => boards.BOARDS.map((board) => buildPinfeed(at, board)).join('\n');
+    const saved = { pending: queue.pending, variants: queue.variants };
+    try {
+      queue.pending = [...(queue.pending ?? []), probe];
+      const xml = feeds();
+      for (const v of queue.pending) expect(xml.includes(`utm_content=${v.id}`), v.id).toBe(false);
+      // Negative proof: the same pin, scheduled, does reach a feed.
+      queue.pending = saved.pending;
+      queue.variants = [...saved.variants, probe];
+      expect(feeds().includes(`utm_content=${probe.id}`)).toBe(true);
+    } finally {
+      queue.pending = saved.pending;
+      queue.variants = saved.variants;
+    }
+    for (const v of queue.pending ?? []) expect(v.release_date, v.id).toBeNull();
+  });
+});
+
 describe('release schedule', () => {
   it('1 pin a day from 17 Oct 2026, pins_per_day from 1 Nov, no gaps, never the same page two days running', () => {
     expect(scheduleViolations(queue.variants, queue.config.pins_per_day).filter((p) => !p.startsWith(`${boards.SPLIT_FROM}: ${boards.BOARDS.length} pins`))).toEqual([]);
+    // Spread (from 7 Nov 2026): at most SPREAD.max pins of a page in any SPREAD.days days, each with another photo.
+    expect(spreadViolations(queue.variants, '2026-11-07')).toEqual([]);
     const days = [...new Set(dated.map((v) => v.release_date))].sort();
     expect(days[0]).toBe('2026-10-17');
     for (let i = 1; i < days.length; i += 1) expect(days[i], 'gap in the schedule').toBe(addDays(days[i - 1], 1));
@@ -142,14 +233,44 @@ describe('release schedule', () => {
     }
   });
 
-  it('the scheduler keeps the rule when pins_per_day is raised', () => {
+  it('a refill on few pages never leaves a short day mid-schedule (13 Nov 2026 simulation: 2-pin days)', () => {
+    // 6 pages with 1 pin each and 2 pages with 6 each: greedy packing runs out of distinct pages.
+    const mk = (path: string, n: number) => Array.from({ length: n }, (_, i) => ({ id: `${path}-${i}`, path, seq: i, release_date: null as string | null }));
+    const vs = [...['a', 'b', 'c', 'd', 'e', 'f'].flatMap((p) => mk(`/${p}`, 1)), ...mk('/big1', 6), ...mk('/big2', 6)];
+    scheduleVariants(vs as never, { pinsPerDay: 3, firstDay: '2026-12-01' });
+    const days = [...new Set(vs.filter((v) => v.release_date).map((v) => v.release_date!))].sort();
+    expect(days.length).toBeGreaterThan(0);
+    for (const day of days) expect(vs.filter((v) => v.release_date === day).length, day).toBe(3);
+    expect(scheduleViolations(vs as never, 3)).toEqual([]);
+    expect(vs.some((v) => !v.release_date), 'leftovers wait undated for the next refill').toBe(true);
+  });
+
+  it('the scheduler keeps the rules when pins_per_day is raised, and dates every day it can fill', () => {
     for (const pinsPerDay of [1, 2, 3]) {
       const q = clone();
-      for (const v of q.variants) v.release_date = null;
-      scheduleVariants(q.variants, { pinsPerDay, firstDay: '2026-10-17' });
-      expect(scheduleViolations(q.variants, pinsPerDay), `pins_per_day ${pinsPerDay}`).toEqual([]);
-      expect(q.variants.filter((v) => v.release_date).length).toBeGreaterThan(q.variants.length - 2 * pinsPerDay);
+      const vs = [...q.variants, ...(q.pending ?? [])];
+      for (const v of vs) v.release_date = null;
+      scheduleVariants(vs, { pinsPerDay, firstDay: '2026-10-17' });
+      expect(scheduleViolations(vs, pinsPerDay), `pins_per_day ${pinsPerDay}`).toEqual([]);
+      expect(spreadViolations(vs, '2026-10-17'), `pins_per_day ${pinsPerDay}`).toEqual([]);
+      const last = vs.map((v) => v.release_date).filter(Boolean).sort().pop()!;
+      expect(vs.filter((v) => v.release_date).length).toBeGreaterThan(vs.length / 2);
+      // It stopped only because the next day cannot be filled under the rules.
+      const next = addDays(last, 1);
+      const recent = vs.filter((v) => v.release_date && v.release_date > addDays(next, -SPREAD.days) && v.release_date < next);
+      const open = new Set(vs.filter((v) => !v.release_date).filter((v) => {
+        const mine = recent.filter((r) => r.path === v.path);
+        return !mine.some((r) => r.release_date === last) && mine.length < SPREAD.max && !mine.some((r) => r.art === v.art);
+      }).map((v) => v.path));
+      expect(open.size, `pins_per_day ${pinsPerDay}`).toBeLessThan(pinsPerDay);
     }
+  });
+
+  it('the spread check catches a third pin of a page in 7 days and a repeated photo', () => {
+    const pin = (release_date: string, art: string) => ({ path: '/a', art, release_date });
+    expect(spreadViolations([pin('2026-12-01', 'x'), pin('2026-12-03', 'y'), pin('2026-12-06', 'z')], '2026-12-01')).toHaveLength(1);
+    expect(spreadViolations([pin('2026-12-01', 'x'), pin('2026-12-08', 'y'), pin('2026-12-15', 'z')], '2026-12-01')).toEqual([]);
+    expect(spreadViolations([pin('2026-12-01', 'x'), pin('2026-12-04', 'x')], '2026-12-01')).toHaveLength(1);
   });
 
   it('the check itself catches the same page on consecutive days', () => {
@@ -217,14 +338,19 @@ describe('feed at a fixed clock', () => {
 describe('auto-refill', () => {
   const lastDay = dated.map((v) => v.release_date).sort().pop()!;
 
-  it('triggers below refill_threshold unreleased and not at it', () => {
-    const left = (today: string) => queue.variants.filter((v) => !v.release_date || v.release_date > today).length;
+  it('triggers below refill_threshold pins in stock and not at it; pins awaiting approval are stock', () => {
+    const q = clone();
+    q.pending = [];
+    const left = (today: string) => q.variants.filter((v) => !v.release_date || v.release_date > today).length;
     const days = [...new Set(dated.map((v) => v.release_date))].sort().reverse();
-    const at = days.find((d) => left(d) >= queue.config.refill_threshold)!;
+    const at = days.find((d) => left(d) >= q.config.refill_threshold)!;
     const below = days[days.indexOf(at) - 1];
-    expect(needsRefill(queue, at)).toBe(false);
-    expect(left(below)).toBeLessThan(queue.config.refill_threshold);
-    expect(needsRefill(queue, below)).toBe(true);
+    expect(needsRefill(q, at)).toBe(false);
+    expect(left(below)).toBeLessThan(q.config.refill_threshold);
+    expect(needsRefill(q, below)).toBe(true);
+    // Pins drawn and awaiting her approval stop a refill that would plan more she has not seen.
+    q.pending = Array.from({ length: q.config.refill_threshold - left(below) }, (_, i) => ({ ...q.variants[0], id: `pending-${i}` }));
+    expect(needsRefill(q, below)).toBe(false);
   });
 
   it('a refill adds refill_batch new, distinct variants, fewest-variant pages first, and dates them after the queue', () => {
@@ -236,7 +362,8 @@ describe('auto-refill', () => {
     for (const v of planned) expect(ids.has(v.id), v.id).toBe(false);
     // Fewest-variant pages first: no page received a pin while another page that still had
     // an unused angle sat two or more pins behind it.
-    const total = (path: string) => q.variants.filter((v) => v.path === path).length + planned.filter((v) => v.path === path).length;
+    // Stock counts the pins awaiting her approval too.
+    const total = (path: string) => [...q.variants, ...(q.pending ?? [])].filter((v) => v.path === path).length + planned.filter((v) => v.path === path).length;
     const open = pages.filter((p) => anglesFor(p.path).length > total(p.path));
     const receivers = pages.filter((p) => planned.some((v) => v.path === p.path));
     expect(receivers.length).toBeGreaterThan(1);
@@ -265,7 +392,16 @@ describe('auto-refill', () => {
   it('every product and guide page the site serves has a source record, so a new one can join with truthful copy', () => {
     // Pages added since the last weekly run are not in known_pages yet; the refill adds them.
     for (const path of eligiblePaths()) expect(pageSource(path), path).not.toBeNull();
-    for (const page of queue.pages) expect(derivedAngles(page.path).length, page.path).toBeGreaterThan(0);
+    // Product, guide and hub pages can always derive more angles from their source; a
+    // planner landing (figures and lists that cut into fragments) derives none and must
+    // carry a hand-written angle for every photo of its topic.
+    for (const page of queue.pages) {
+      if (pageSource(page.path)?.kind === 'landing') {
+        expect(derivedAngles(page.path), page.path).toEqual([]);
+        expect(anglesFor(page.path).length, page.path).toBeGreaterThanOrEqual(new Set(stock.filter((v) => v.path === page.path).map((v) => v.art)).size);
+        expect(anglesFor(page.path).length, page.path).toBeGreaterThan(0);
+      } else expect(derivedAngles(page.path).length, page.path).toBeGreaterThan(0);
+    }
   });
 });
 
@@ -291,6 +427,26 @@ describe('topic boards: one feed per board, every pin in exactly one', () => {
     for (const board of boards.BOARDS.slice(1)) {
       expect(parseFeed(buildPinfeed(new Date(`${boards.SPLIT_FROM}T18:00:00Z`), board)).items.length, board.slug).toBeGreaterThan(0);
     }
+  });
+
+  it('every topic board is fed: a served page in the drip routes to it and it has pins dated since the split (vendors-budget had none, 7 Nov 2026)', () => {
+    const unfed = (q: PinQueue) => boards.BOARDS.filter((board) => {
+      const served = q.pages.filter((p) => owned.has(p.path) && !Object.hasOwn(rescue.redirects, p.path) && boards.boardFor(p.path).slug === board.slug);
+      const pins = q.variants.filter((v) => v.release_date && v.release_date >= boards.SPLIT_FROM && served.some((p) => p.path === v.path));
+      return served.length === 0 || pins.length === 0;
+    }).map((b) => b.slug);
+    expect(boards.BOARDS.length).toBeGreaterThanOrEqual(4);
+    expect(unfed(queue)).toEqual([]);
+    // Each budget pin has its own photo within its page.
+    const budget = queue.variants.filter((v) => boards.boardFor(v.path).slug === 'vendors-budget' && v.release_date && v.release_date >= boards.SPLIT_FROM);
+    for (const path of new Set(budget.map((v) => v.path))) {
+      const arts = budget.filter((v) => v.path === path).map((v) => v.art);
+      expect(new Set(arts).size, path).toBe(arts.length);
+    }
+    // Negative proof: without the budget landings the board is unfed again.
+    const without = clone();
+    without.pages = without.pages.filter((p) => !budget.some((v) => v.path === p.path));
+    expect(unfed(without)).toContain('vendors-budget');
   });
 
   it('a question page goes to the board its words name, else the first board', () => {

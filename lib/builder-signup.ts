@@ -9,6 +9,14 @@ export const BUILDER_EMAIL_KEY = 'dwb-builder-email';
 export const CONSENT_TEXT =
   'Email me wedding planning tips and occasional offers from Dream Wedding Builder. I can unsubscribe at any time.';
 
+/**
+ * What the couple agrees to before their sentence leaves the site (Apple 5.1.2:
+ * name who receives it, ask first). The AI draft card shows it beside a required
+ * tick box, and the server asks no model unless that box was ticked.
+ */
+export const AI_CONSENT_TEXT =
+  'Send my sentence to a free AI model from Google Gemini or OpenRouter, which may keep it. I have left out names and anything private.';
+
 export const UNSUBSCRIBE_NOTE =
   'Every email includes an unsubscribe link, or write to info@weddingchecklistpdf.com and we remove your address.';
 

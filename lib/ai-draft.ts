@@ -1,46 +1,47 @@
-// The Builder's one AI step (preview, 6 Nov 2026; not live until Sequoia says yes).
+// The Builder's one AI step: a couple describes their wedding in a sentence
+// ("200 guests, June in Memphis, small budget") and gets the Builder's plan fields
+// filled in, which drives the dated plan. They then edit it by hand.
 //
-// A couple describes their wedding in a sentence ("200 guests, June in Memphis,
-// small budget") and gets the Builder's plan fields filled in, which drives the
-// dated plan. They then edit it by hand like any other plan.
-//
-// Her rules, in code here:
-// - "$0 free AI models only": the call goes through scripts/llm/free_router.mjs,
-//   which tries only the OpenRouter ":free" models in config/llm_routing.json,
-//   asks OpenRouter for max_price 0, and throws on any reported cost. There is no
-//   other provider and no fallback. Gemini and Workers AI are not used: neither
-//   could be proved to have no billing attached (coordinator brief, 6 Nov).
-// - Very limited free use, enforced on the server (D1), never in the browser:
-//     1 AI draft per email address, ever      - the free taste of the freemium plan
-//     3 attempts per IP address per day       - stops one person cycling emails
-//     50 attempts across everyone per day     - the OpenRouter key is shared with
-//       this repo's scheduled jobs and allows 1,000 free-model requests a day; a
-//       failed draft can try 4 models, so 50 drafts use at most 200 (20%).
-//   A failed draft (no free model answered) does not use up the email's draft.
-// - Kill switch: on the live hosts the step runs only when the Worker secret
-//   AI_DRAFT_ENABLED is "on". Unset = off (fail closed). Branch previews on
-//   *.workers.dev run it so it can be reviewed before her yes.
-// - Paid unlock: none. After the free draft the couple edits by hand, which stays
-//   free. A paid AI tier needs a product and price she has not set:
-//   NAMED STOP [AI_DRAFT_PAID_TIER_NOT_PRICED] - nothing is created in Stripe or
-//   Gumroad by code or by an agent.
-// - Rule 0: no free model answering logs NAMED STOP [AI_DRAFT_NO_FREE_MODEL] and
-//   the couple sees a calm "busy, try again later", never a blank plan.
+// Her rules, in code here (owner, 10 Nov 2026: thousands a day, $0, add Gemini):
+// - A $0 chain, in this order, each step free:
+//     (a) Gemini API free tier: gemma-4-31b-it, gemini-3.5-flash-lite, gemini-flash-latest
+//     (b) the OpenRouter ":free" models in config/llm_routing.json (max_price 0; a
+//         reported cost throws and ends the model steps)
+//     (c) the rules parser, lib/ai-draft-rules.ts: no model, unlimited
+//     (d) the plain form (nothing could be read)
+//   Every model call goes through scripts/llm/free_router.mjs; the response names
+//   the step that filled the draft (filledBy).
+// - Capacity, counted in D1 (ai_route_usage) per pool, per provider day and per
+//   minute, each ceiling 80% of the free limit (config/llm_routing.json capacity:
+//   numbers, sources, date read). Over a ceiling the step is skipped without a
+//   call. A 429 moves to the next model at once (no retry); a daily-quota 429
+//   marks that pool spent until its provider's midnight. The global ceiling is the
+//   sum of the pool ceilings; past it, straight to (c).
+// - Billing guard: once per Central day, before the first Gemini call,
+//   gemini-pro-latest (no free tier) is asked for one token. 429 quota = free
+//   tier, no billing. 200 = NAMED STOP [GEMINI_BILLING_ATTACHED]: Gemini skipped
+//   for the day. Anything else: not proven, Gemini skipped, retried in 15 minutes.
+// - Very limited free use, on the server: 1 draft per email address ever, 3
+//   attempts per IP a day. A draft that only reached (d) keeps the email's draft.
+// - Consent: no description goes to a model unless the couple ticked the box
+//   (consent: true); without it only (c) runs, which sends nothing anywhere.
+// - Kill switch: on the live hosts the step runs only when AI_DRAFT_ENABLED is "on".
+// - Paid unlock: none. NAMED STOP [AI_DRAFT_PAID_TIER_NOT_PRICED] - nothing is
+//   created in Stripe or Gumroad by code or by an agent.
 // - Privacy: only the description and today's date are sent. Never the email,
-//   never the IP. Free models may keep what they are sent, so the screen says to
-//   leave out names. Email and IP are stored as salted hashes only.
-// - Prompt-injection safety: the model's answer is never shown as markup and
-//   never trusted. Only whitelisted fields of the right type and length survive.
+//   never the IP; both are stored as salted hashes only.
+// - Prompt-injection safety: a model's answer (and the rules parser's) passes the
+//   same whitelist (parseDraft); it is never shown as markup.
 import { budgetModes, priorityOptions } from '@/data/planning';
 import { normalizeEmail } from '@/lib/builder-signup';
 import { daysBetween, parseDay } from '@/lib/dated-plan';
 import llmConfig from '@/config/llm_routing.json';
-// @ts-expect-error - plain ESM module without types; routeChat is the repo's only door to a model.
-import { routeChat } from '@/scripts/llm/free_router.mjs';
+// @ts-expect-error - plain ESM module without types; the repo's only door to a model.
+import { routeChat, callGemini, probeGeminiBilling } from '@/scripts/llm/free_router.mjs';
+import { rulesDraft } from '@/lib/ai-draft-rules';
 
 export const FREE_DRAFTS_PER_EMAIL = 1;
 export const ATTEMPTS_PER_IP_PER_DAY = 3;
-export const ATTEMPTS_PER_DAY_GLOBAL = 50;
 export const DESCRIPTION_MIN = 10;
 export const DESCRIPTION_MAX = 400;
 
@@ -65,21 +66,23 @@ export interface AiDraftFields {
   notes: string[];
 }
 
+export type DraftStep = 'gemini' | 'openrouter' | 'rules' | 'form';
 export type DraftResult =
-  | { status: 200; body: { ok: true; draft: AiDraftFields; remaining: number } }
-  | { status: 400 | 403 | 429 | 503; body: { ok: false; code: string; error: string } };
+  | { status: 200; body: { ok: true; draft: AiDraftFields; remaining: number; filledBy: Exclude<DraftStep, 'form'>; model: string | null; note: string } }
+  | { status: 400 | 403 | 429 | 503; body: { ok: false; code: string; error: string; filledBy?: 'form' } };
 
 export const MESSAGES = {
   disabled: 'AI drafting is switched off right now. You can still build your plan by hand below.',
   busy: 'AI drafting is busy. Please try again later; you can still build your plan by hand below.',
   usedEmail: 'You have used your free AI draft for this email. Your plan is yours to edit by hand below, and that stays free.',
   ipCap: 'That is the most AI drafts this connection can make today. You can still build your plan by hand below.',
-  globalCap: 'AI drafting has reached today’s limit. Please try again tomorrow; you can still build your plan by hand below.',
   notSignedUp: 'Use the email you opened the planner with.',
   badEmail: 'Enter the email you opened the planner with.',
   tooShort: `Tell us a little more (at least ${DESCRIPTION_MIN} characters).`,
   tooLong: `Please keep it under ${DESCRIPTION_MAX} characters.`,
-  nothingUsable: 'The AI could not read a plan from that. Try adding the month, the place and roughly how many guests.'
+  nothingUsable: 'We could not read a plan from that. Try adding the month, the place and roughly how many guests, or fill in the plan below by hand.',
+  aiNote: 'Drafted by a free AI model. Check each field.',
+  rulesNote: 'Filled from your sentence without AI. Check each field.'
 } as const;
 
 const LIVE_HOSTS = new Set(['weddingchecklistpdf.com', 'www.weddingchecklistpdf.com', 'weddingbudgetspreadsheet.com', 'weddingtimelinetemplate.com', 'weddingseatingchartmaker.com', 'weddingpdfchecklist.com']);
@@ -177,32 +180,176 @@ async function sha256(value: string): Promise<string> {
 type D1Stmt = { bind(...values: unknown[]): D1Stmt; first<T = Record<string, unknown>>(): Promise<T | null>; run(): Promise<unknown> };
 export type D1Like = { prepare(sql: string): D1Stmt };
 
+// ---- Capacity ---------------------------------------------------------------
+// One row per counter. Keys: day|<pool>|<provider day>, min|<pool>|<UTC minute>,
+// spent|<pool>|<provider day> (a daily-quota 429 was seen), billing|gemini|<Central day>.
+export const ROUTE_USAGE_DDL = `CREATE TABLE IF NOT EXISTS ai_route_usage (
+  key TEXT PRIMARY KEY,
+  n INTEGER NOT NULL DEFAULT 0,
+  note TEXT,
+  at INTEGER NOT NULL DEFAULT 0
+)`;
+
+export interface Pool { provider: string; resets_tz: string; rpd: number; rpm: number; ceiling_day: number; ceiling_minute: number }
+export const POOLS = llmConfig.capacity.pools as Record<string, Pool>;
+export const OPENROUTER_POOL = 'openrouter:free';
+export const GEMINI_MODELS = llmConfig.gemini.models as { id: string; pool: string }[];
+/** The global ceiling: the sum of the pool ceilings. Past it, the rules parser. */
+export const MODEL_CALLS_PER_DAY_GLOBAL = Object.values(POOLS).reduce((sum, p) => sum + p.ceiling_day, 0);
+
+export function dayIn(timeZone: string, now: Date): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+}
+const minuteOf = (now: Date) => now.toISOString().slice(0, 16);
+
+type Claim = 'ok' | 'minute' | 'day' | 'spent';
+
+/** Counts one call against a pool, atomically, only while it is under both ceilings. */
+async function claimCall(db: D1Like, poolId: string, now: Date): Promise<Claim> {
+  const pool = POOLS[poolId];
+  if (!pool) return 'day';
+  const day = dayIn(pool.resets_tz, now);
+  if (await db.prepare('SELECT n FROM ai_route_usage WHERE key = ?').bind(`spent|${poolId}|${day}`).first()) return 'spent';
+  const bump = (key: string, ceiling: number) => db.prepare(
+    'INSERT INTO ai_route_usage (key, n, at) VALUES (?, 1, ?) ON CONFLICT(key) DO UPDATE SET n = n + 1, at = excluded.at WHERE n < ? RETURNING n'
+  ).bind(key, now.getTime(), ceiling).first<{ n: number }>();
+  if (!(await bump(`min|${poolId}|${minuteOf(now)}`, pool.ceiling_minute))) return 'minute';
+  if (!(await bump(`day|${poolId}|${day}`, pool.ceiling_day))) return 'day';
+  return 'ok';
+}
+
+async function markSpent(db: D1Like, poolId: string, now: Date, note: string) {
+  const day = dayIn(POOLS[poolId]?.resets_tz ?? 'UTC', now);
+  await db.prepare('INSERT INTO ai_route_usage (key, n, note, at) VALUES (?, 1, ?, ?) ON CONFLICT(key) DO NOTHING').bind(`spent|${poolId}|${day}`, note.slice(0, 120), now.getTime()).run();
+}
+
+const GUARD_RETRY_MS = 15 * 60 * 1000;
+const GUARD_CLAIM_MS = 60 * 1000;
+
+/**
+ * The billing guard: true only when today's probe proved the Gemini key is on the
+ * free tier. One probe per Central day, shared through D1; a request that finds
+ * another one mid-probe skips Gemini rather than probing twice.
+ */
+async function geminiProvedFree(db: D1Like, apiKey: string, fetchImpl: typeof fetch, today: string, now: Date, log: (l: string) => void, notes: string[]): Promise<boolean> {
+  const key = `billing|gemini|${today}`;
+  const row = await db.prepare('SELECT note, at FROM ai_route_usage WHERE key = ?').bind(key).first<{ note: string; at: number }>();
+  if (row?.note === 'FREE') return true;
+  if (row?.note === 'ATTACHED') { notes.push('gemini:billing_attached'); return false; }
+  const t = now.getTime();
+  const claimed = await db.prepare(
+    `INSERT INTO ai_route_usage (key, n, note, at) VALUES (?, 0, 'CHECKING', ?)
+     ON CONFLICT(key) DO UPDATE SET note = 'CHECKING', at = excluded.at
+     WHERE (note = 'UNKNOWN' AND at < ?) OR (note = 'CHECKING' AND at < ?) RETURNING note`
+  ).bind(key, t, t - GUARD_RETRY_MS, t - GUARD_CLAIM_MS).first();
+  if (!claimed) { notes.push('gemini:guard_pending'); return false; }
+  const probe = await probeGeminiBilling({ apiKey, fetchImpl, config: llmConfig }) as { state: 'FREE' | 'ATTACHED' | 'UNKNOWN'; http: number | null; reason: string };
+  await db.prepare('UPDATE ai_route_usage SET note = ?, n = n + 1, at = ? WHERE key = ?').bind(probe.state, t, key).run();
+  // Once a day: drop per-minute counters older than two days (they only ever gate one minute).
+  await db.prepare("DELETE FROM ai_route_usage WHERE key LIKE 'min|%' AND at < ?").bind(t - 2 * 86400000).run();
+  if (probe.state === 'ATTACHED') {
+    log(`NAMED STOP [GEMINI_BILLING_ATTACHED] ${llmConfig.gemini.billing_probe.model} answered HTTP ${probe.http} on ${today}: billing is attached to the Gemini key, so any call could cost money. Gemini skipped for the Central day; remove billing from the project or the key.`);
+    notes.push('gemini:billing_attached');
+    return false;
+  }
+  if (probe.state === 'UNKNOWN') {
+    log(`NAMED STOP [GEMINI_BILLING_UNPROVEN] probe HTTP ${probe.http ?? 'none'}: ${probe.reason.slice(0, 120)}; Gemini skipped, retried in 15 minutes`);
+    notes.push('gemini:billing_unproven');
+    return false;
+  }
+  return true;
+}
+
+// ---- The draft --------------------------------------------------------------
 export interface DraftInput {
   db: D1Like | undefined;
   apiKey: string | undefined;
+  geminiKey?: string | undefined;
   enabled: boolean;
+  /** The couple ticked "send my sentence to a free AI model". Without it no model is asked. */
+  consent?: boolean;
   email: unknown;
   description: unknown;
   ip: string;
   today: string;
   salt: string;
+  now?: Date;
   fetchImpl?: typeof fetch;
   log?: (line: string) => void;
 }
 
 const refuse = (status: 400 | 403 | 429 | 503, code: string, error: string): DraftResult => ({ status, body: { ok: false, code, error } });
 
+type Filled = { step: 'gemini' | 'openrouter'; model: string; draft: AiDraftFields } | null;
+
+/** Steps (a) and (b). Returns the first usable model draft, or null; never throws. */
+async function modelSteps(input: DraftInput, db: D1Like, text: string, now: Date, log: (l: string) => void, trail: string[]): Promise<Filled> {
+  const fetchImpl = input.fetchImpl ?? ((url: RequestInfo | URL, init?: RequestInit) => fetch(url, init));
+  const messages = buildMessages(text, input.today);
+
+  // (a) Gemini free tier
+  if (!input.geminiKey) trail.push('gemini:no_key');
+  else if (await geminiProvedFree(db, input.geminiKey, fetchImpl, input.today, now, log, trail)) {
+    for (const m of GEMINI_MODELS) {
+      const claim = await claimCall(db, m.pool, now);
+      if (claim !== 'ok') { trail.push(`gemini:${m.id}:${claim}`); continue; }
+      let r: { outcome: string; content?: string; http?: number | null; error?: string | null };
+      try { r = await callGemini({ model: m.id, messages, apiKey: input.geminiKey, maxTokens: 1500, temperature: 0, fetchImpl, config: llmConfig, timeoutMs: 20000 }); }
+      catch (err) { trail.push(`gemini:${m.id}:refused`); log(`NAMED STOP [AI_DRAFT_ROUTER_REFUSED] ${String((err as Error)?.message || err).slice(0, 200)}`); break; }
+      trail.push(`gemini:${m.id}:${r.outcome}`);
+      if (r.outcome === 'quota_day') await markSpent(db, m.pool, now, r.error ?? 'daily quota');
+      if (r.outcome === 'credential_refused') { log(`NAMED STOP [GEMINI_KEY_REFUSED] HTTP ${r.http ?? 'none'}; Gemini skipped`); break; }
+      if (r.outcome !== 'answered' || typeof r.content !== 'string') continue;
+      const draft = parseDraft(r.content, input.today);
+      if (draft) return { step: 'gemini', model: m.id, draft };
+      trail.push(`gemini:${m.id}:unusable`);
+      break; // a model that read nothing usable means the sentence is thin: the rules parser next, no more quota spent
+    }
+  }
+
+  // (b) OpenRouter free models, one at a time so each call is counted.
+  for (const m of llmConfig.models) {
+    const claim = await claimCall(db, OPENROUTER_POOL, now);
+    if (claim !== 'ok') { trail.push(`openrouter:${claim}`); break; } // one pool: over it, every model is
+    let routed: { status: string; stop?: string; model?: string; content?: string; attempts?: { http?: number | null; error?: string | null }[] };
+    try {
+      routed = await routeChat({ messages, maxTokens: 1500, temperature: 0, purpose: 'builder-ai-draft', apiKey: input.apiKey ?? '', fetchImpl, config: llmConfig, timeoutMs: 20000, onlyModels: [m.id] });
+    } catch (err) {
+      // A reported cost or an off-list model: a policy breach. No further model is asked.
+      trail.push(`openrouter:${m.id}:refused`);
+      log(`NAMED STOP [AI_DRAFT_ROUTER_REFUSED] ${String((err as Error)?.message || err).slice(0, 200)}`);
+      return null;
+    }
+    const last = routed.attempts?.[routed.attempts.length - 1];
+    if (routed.status === 'OK' && typeof routed.content === 'string') {
+      const draft = parseDraft(routed.content, input.today);
+      if (draft) return { step: 'openrouter', model: routed.model ?? m.id, draft };
+      trail.push(`openrouter:${m.id}:unusable`);
+      return null;
+    }
+    trail.push(`openrouter:${m.id}:${routed.stop === 'NO_FREE_MODEL_ANSWERED' ? `http_${last?.http ?? 'none'}` : routed.stop}`);
+    if (routed.stop === 'NO_FREE_MODEL_KEY' || routed.stop === 'CREDENTIAL_REFUSED') break;
+    if (last?.http === 429 && /per[- ]day|daily/i.test(String(last.error ?? ''))) { await markSpent(db, OPENROUTER_POOL, now, String(last.error)); break; }
+  }
+  return null;
+}
+
 export async function draftPlan(input: DraftInput): Promise<DraftResult> {
   const log = input.log ?? ((line: string) => console.error(line));
+  const now = input.now ?? new Date();
   if (!input.enabled) return refuse(503, 'DISABLED', MESSAGES.disabled);
   const email = normalizeEmail(input.email);
   if (!email) return refuse(400, 'BAD_EMAIL', MESSAGES.badEmail);
   const cleaned = cleanDescription(input.description);
   if (!cleaned.ok) return refuse(400, 'BAD_DESCRIPTION', cleaned.error);
   if (!input.db) { log('NAMED STOP [AI_DRAFT_NO_DB] D1 binding missing; nothing generated'); return refuse(503, 'BUSY', MESSAGES.busy); }
+  // No hardcoded fallback salt (search-readiness i11, 6 Nov 2026): a salt in a public
+  // repo would make the stored email and IP hashes reversible by anyone.
+  if (!input.salt) { log('NAMED STOP [AI_DRAFT_SALT_MISSING] neither AI_DRAFT_SALT nor DOWNLOAD_SIGNING_SECRET is set; nothing generated'); return refuse(503, 'BUSY', MESSAGES.busy); }
   const db = input.db;
 
   await db.prepare(AI_DRAFTS_DDL).run();
+  await db.prepare(ROUTE_USAGE_DDL).run();
   const signedUp = await db.prepare('SELECT email FROM builder_signups WHERE email = ? AND unsubscribed_at IS NULL').bind(email).first();
   if (!signedUp) return refuse(403, 'NOT_SIGNED_UP', MESSAGES.notSignedUp);
 
@@ -212,33 +359,38 @@ export async function draftPlan(input: DraftInput): Promise<DraftResult> {
 
   if (await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE email_hash = ? AND outcome IN ('ok','pending')`, emailHash) >= FREE_DRAFTS_PER_EMAIL) return refuse(429, 'EMAIL_USED', MESSAGES.usedEmail);
   if (await count('SELECT COUNT(*) AS n FROM ai_drafts WHERE ip_hash = ? AND day = ?', ipHash, input.today) >= ATTEMPTS_PER_IP_PER_DAY) return refuse(429, 'IP_CAP', MESSAGES.ipCap);
-  if (await count('SELECT COUNT(*) AS n FROM ai_drafts WHERE day = ?', input.today) >= ATTEMPTS_PER_DAY_GLOBAL) {
-    log(`NAMED STOP [AI_DRAFT_DAILY_CEILING] ${ATTEMPTS_PER_DAY_GLOBAL} attempts reached for ${input.today}`);
-    return refuse(429, 'GLOBAL_CAP', MESSAGES.globalCap);
-  }
 
-  // Reserve before calling the model, so two tabs at once cannot both spend the free draft.
+  // Reserve before calling anything, so two tabs at once cannot both spend the free draft.
   const reserved = await db.prepare(`INSERT INTO ai_drafts (email_hash, ip_hash, day, outcome) VALUES (?, ?, ?, 'pending') RETURNING id`).bind(emailHash, ipHash, input.today).first<{ id: number }>();
   const settle = (outcome: string, model: string | null) => db.prepare('UPDATE ai_drafts SET outcome = ?, model = ? WHERE id = ?').bind(outcome, model, reserved?.id ?? -1).run();
 
-  let routed: { status: string; stop?: string; model?: string; content?: string };
-  try {
-    routed = await routeChat({ messages: buildMessages(cleaned.text, input.today), maxTokens: 1500, temperature: 0, purpose: 'builder-ai-draft', apiKey: input.apiKey ?? '', fetchImpl: input.fetchImpl ?? ((url: RequestInfo | URL, init?: RequestInit) => fetch(url, init)), config: llmConfig, timeoutMs: 20000 });
-  } catch (err) {
-    await settle('error', null);
-    log(`NAMED STOP [AI_DRAFT_ROUTER_REFUSED] ${String((err as Error)?.message || err).slice(0, 200)}`);
-    return refuse(503, 'BUSY', MESSAGES.busy);
+  const trail: string[] = [];
+  let filled: Filled = null;
+  if (!input.consent) trail.push('models:no_consent');
+  else if (await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE day = ? AND (model LIKE 'gemini:%' OR model LIKE 'openrouter:%')`, input.today) >= MODEL_CALLS_PER_DAY_GLOBAL) {
+    trail.push('models:global_ceiling');
+    log(`NAMED STOP [AI_DRAFT_DAILY_CEILING] ${MODEL_CALLS_PER_DAY_GLOBAL} model drafts reached for ${input.today}; the rules parser fills the rest`);
+  } else {
+    try { filled = await modelSteps(input, db, cleaned.text, now, log, trail); }
+    catch (err) { trail.push('models:error'); log(`NAMED STOP [AI_DRAFT_MODEL_STEP_ERROR] ${String((err as Error)?.message || err).slice(0, 200)}`); }
   }
-  if (routed.status !== 'OK' || typeof routed.content !== 'string') {
-    await settle('no_model', null);
-    log(`NAMED STOP [AI_DRAFT_NO_FREE_MODEL] ${routed.stop ?? 'unknown'}; nothing generated, no paid model tried`);
-    return refuse(503, 'BUSY', MESSAGES.busy);
+
+  if (filled) {
+    await settle('ok', `${filled.step}:${filled.model}`);
+    log(`AI_DRAFT_ROUTE ${JSON.stringify({ day: input.today, filled_by: filled.step, model: filled.model, trail })}`);
+    return { status: 200, body: { ok: true, draft: filled.draft, remaining: 0, filledBy: filled.step, model: filled.model, note: MESSAGES.aiNote } };
   }
-  const draft = parseDraft(routed.content, input.today);
-  if (!draft) {
-    await settle('unusable', routed.model ?? null);
-    return refuse(400, 'NOTHING_USABLE', MESSAGES.nothingUsable);
+  if (input.consent) log(`NAMED STOP [AI_DRAFT_NO_FREE_MODEL] ${trail.join(' ') || 'none'}; the rules parser filled it, no paid model tried`);
+
+  // (c) rules parser, through the same whitelist as a model's answer.
+  const rules = parseDraft(JSON.stringify(rulesDraft(cleaned.text, input.today)), input.today);
+  if (rules) {
+    await settle('ok', 'rules');
+    log(`AI_DRAFT_ROUTE ${JSON.stringify({ day: input.today, filled_by: 'rules', trail })}`);
+    return { status: 200, body: { ok: true, draft: rules, remaining: 0, filledBy: 'rules', model: null, note: MESSAGES.rulesNote } };
   }
-  await settle('ok', routed.model ?? null);
-  return { status: 200, body: { ok: true, draft, remaining: 0 } };
+  // (d) the plain form. The email keeps its free draft.
+  await settle('unusable', null);
+  log(`AI_DRAFT_ROUTE ${JSON.stringify({ day: input.today, filled_by: 'form', trail })}`);
+  return { status: 400, body: { ok: false, code: 'NOTHING_USABLE', error: MESSAGES.nothingUsable, filledBy: 'form' } };
 }

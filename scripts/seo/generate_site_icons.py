@@ -24,12 +24,14 @@ import base64, io, json, os, sys
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-FONT_CANDIDATES = [
+# Instrument Serif (the brand's heading face, OFL) when present; Georgia otherwise.
+SERIF_TTF = os.environ.get('DW_SERIF_TTF', '')
+FONT_CANDIDATES = [SERIF_TTF,
     '/System/Library/Fonts/Supplemental/Georgia Bold.ttf',
     '/System/Library/Fonts/Supplemental/Georgia.ttf',
     '/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf',
 ]
-FONT_REGULAR = ['/System/Library/Fonts/Supplemental/Georgia.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf']
+FONT_REGULAR = [SERIF_TTF, '/System/Library/Fonts/Supplemental/Georgia.ttf', '/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf']
 LINEN = '#FFFDF9'
 
 
@@ -40,28 +42,42 @@ def font(paths, size):
     sys.exit('generate_site_icons: no serif TTF found')
 
 
+IVORY = '#FAF7F2'
+MIDNIGHT = '#1B1F3B'
+BLUE = '#2747D9'
+CORAL = '#F28C6B'
+
+
 def square(site, size):
-    img = Image.new('RGB', (size, size), site['background'])
+    """The Dream Wedding mark (design system, 6 Nov 2026): two stepped binder tabs,
+    blue in front of coral, on an ivory tile. Same mark on all four hosts; drawn at
+    4x and scaled down so 16px stays crisp. Geometry is public/brand/dream-wedding-tab.svg."""
+    k = 4 * size / 64
+    img = Image.new('RGB', (size * 4, size * 4), IVORY)
     d = ImageDraw.Draw(img)
-    pad = max(1, size // 16)
-    d.rounded_rectangle([pad, pad, size - pad - 1, size - pad - 1], radius=size // 5, outline=site['accent'], width=max(1, size // 24))
-    f = font(FONT_CANDIDATES, int(size * 0.62))
-    d.text((size / 2, size / 2 + size * 0.02), site['initial'], font=f, fill=site['accent'], anchor='mm')
-    return img
+    r = int(8 * k)
+    d.rounded_rectangle([int(24 * k), int(8 * k), int(52 * k), int(56 * k)], radius=r, fill=CORAL, corners=(False, True, False, False))
+    d.rounded_rectangle([int(12 * k), int(18 * k), int(40 * k), size * 4], radius=r, fill=BLUE, corners=(False, True, False, False))
+    # The three tool sites carry their initial on the blue tab so four browser tabs
+    # can be told apart; the main site shows the plain mark.
+    if site.get('mark_initial'):
+        f = font(FONT_CANDIDATES, int(24 * k))
+        d.text((int(26 * k), int(42 * k)), site['mark_initial'], font=f, fill='#FFFFFF', anchor='mm')
+    return img.resize((size, size), Image.LANCZOS)
 
 
 def og(site, host):
     w, h = 1200, 630
-    img = Image.new('RGB', (w, h), site['background'])
+    img = Image.new('RGB', (w, h), MIDNIGHT)
     d = ImageDraw.Draw(img)
-    d.rectangle([40, 40, w - 41, h - 41], outline=site['accent'], width=4)
+    d.rectangle([40, 40, w - 41, h - 41], outline=CORAL, width=4)
     mark = square(site, 150)
     img.paste(mark, (90, 90))
     size = 76
     while size > 40 and d.textlength(site['name'], font=font(FONT_CANDIDATES, size)) > w - 180:
         size -= 2
     d.text((90, 300), site['name'], font=font(FONT_CANDIDATES, size), fill=LINEN)
-    d.text((90, 405), site['tagline'], font=font(FONT_REGULAR, 36), fill=site['accent'])
+    d.text((90, 405), site['tagline'], font=font(FONT_REGULAR, 36), fill=CORAL)
     d.text((90, 520), host, font=font(FONT_REGULAR, 30), fill=LINEN)
     return img
 
@@ -84,6 +100,7 @@ def main():
     data = json.load(open(os.path.join(ROOT, 'data/seo/site_homes.json')))
     out = {}
     for host, site in data['hosts'].items():
+        site = dict(site, mark_initial='' if host == 'weddingchecklistpdf.com' else site['initial'])
         out[host] = {
             'favicon.ico': ico(site),
             'apple-touch-icon.png': png(square(site, 180), 64),

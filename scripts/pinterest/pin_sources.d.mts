@@ -1,11 +1,19 @@
 // Types for scripts/pinterest/pin_sources.mjs (tsconfig has allowJs: false).
 import type { PinAngle } from '../../lib/pinqueue.mjs';
 
-export type PageSource = { kind: 'product' | 'guide' | 'hub'; productId: string; name: string; eyebrow: string; facts: string[]; summary: string; text: string };
+export type PageSource = { kind: 'product' | 'guide' | 'hub' | 'landing'; productId: string; name: string; eyebrow: string; facts: string[]; summary: string; text: string };
 export declare const HOST: string;
 export declare function eligiblePaths(): string[];
 export declare function pageSource(pagePath: string): PageSource | null;
 export declare function artFor(productId: string): string[];
+export declare function topicArt(): { retired_images?: Array<Record<string, unknown> & { file: string }>; topics: Record<string, { label: string; words: string[]; images: Array<{ file: string; licence: string; focus?: number[] } & Record<string, unknown>> }>; pages: Record<string, { topic: string; search: string[] }> };
+export declare function topicFor(pagePath: string): string | null;
+export declare function searchesFor(pagePath: string): string[];
+export declare function topicImages(topic: string): string[];
+export declare function focusFor(art: string): number[];
+export declare function imageRecord(art: string): (Record<string, unknown> & { file: string }) | null;
+export declare function pageItems(pagePath: string): number | null;
+export declare function topicForText(text: string): string;
 export declare function wrapHeadline(name: string): string;
 export declare function groupFacts(facts: string[]): string[];
 export declare function derivedAngles(pagePath: string): PinAngle[];
