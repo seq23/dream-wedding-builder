@@ -11,6 +11,13 @@ const page = (body: string, headers: Record<string, string> = {}) => new Respons
 const get = (url: string, headers: Record<string, string> = {}) => new Request(url, { headers });
 
 describe('edge cache for public pages', () => {
+  it('a stored copy that comes back with a longer browser lifetime is served with ours', async () => {
+    // Cloudflare hands a stored page back with the zone's 4-hour browser lifetime.
+    const cache = { match: async () => new Response('<html>x</html>', { status: 200, headers: { 'content-type': 'text/html', 'cache-control': 'public, max-age=14400, s-maxage=3600' } }), put: async () => undefined };
+    const hit = await serveWithEdgeCache(get('https://weddingchecklistpdf.com/'), 'v1', cache, ctx(), () => page('fresh'));
+    expect(hit.headers.get('x-edge-cache')).toBe('HIT');
+    expect(hit.headers.get('cache-control')).toBe(PUBLIC_PAGE_CACHE_CONTROL);
+  });
   it('a public page is served cacheable, the second visit comes from the edge copy, and each host has its own copy', async () => {
     const cache = memoryCache(); let renders = 0;
     const app = (host: string) => () => { renders++; return page(`<html>${host}</html>`); };
