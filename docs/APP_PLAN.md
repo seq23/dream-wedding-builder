@@ -32,6 +32,23 @@ repo copy of what Codex builds, in order. When the two disagree, the page wins; 
 
 Run locally: `cd apps/mobile && npm ci && npm run check`.
 
+## Built for 100 paying customers a day (owner, 10 Nov 2026: "begin with the end in mind, build for 100 customers or more per day")
+
+Design target: **100 purchases a day per app**, which at 3 to 6% of free users buying means about
+**2,000 to 3,000 people a day** using the free part. Every task is built to that load at $0.
+- **On the phone, so it scales at $0:** plan, ticks, own tasks, traditions, reminders, PDF. No limit.
+- **The AI draft is a bonus, never a step the plan needs.** Free models cannot serve 3,000 a day (OpenRouter's
+  free models allow about 1,000 requests a day per account, shared with this repo's jobs). The draft screen
+  shows the plain form first (date, guests, place, budget, what matters most) and offers "Fill it from a
+  sentence (free AI) ›" as an extra; when the daily ceiling is reached it says "The free AI helper is full
+  for today. Fill in the form; it takes a minute." Ceiling stays on the server (`AI_DRAFT_DAILY_CEILING`).
+- **Two phones (task 7):** sized for 3,000 shares a day inside Cloudflare's free allowance; the daily ceiling
+  is set from that, not from today's traffic.
+- **Purchases:** the stores and RevenueCat carry any volume; Restore must work with no support email.
+- **Load check before the store step:** a script replays one day at the target (3,000 plan opens, 1,000
+  share writes, 3,000 AI-draft requests against a mocked model) against a preview Worker and fails if any
+  free path errors or any ceiling lets a cost through. Named stop on failure.
+
 ## Rules for every task
 
 - Read `~/Brains/spry.md` (Dream Wedding brand) and `~/Brains/risk.md` first.
