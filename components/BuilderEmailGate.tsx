@@ -3,7 +3,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import Link from 'next/link';
 import { BUILDER_ACCESS_KEY, BUILDER_EMAIL_KEY, CONSENT_TEXT, UNSUBSCRIBE_NOTE } from '@/lib/builder-signup';
-import { ConversionAnalytics } from '@/components/ConversionAnalytics';
 
 // A signup that came from a tool site's "Open the free wedding planner" button (her yes
 // 7 Nov 2026, look 3) is stored as free-wedding-planner:<tool host>, so the scorecard can
@@ -14,71 +13,71 @@ export function signupSource(search: string = typeof window === 'undefined' ? ''
   return TOOL_HOSTS.includes(from) ? `free-wedding-planner:${from}` : 'free-wedding-planner';
 }
 
-// The builder stays free, but opens after the visitor leaves an email. The builder
-// is still rendered underneath (inert) so the page keeps its content for search and
-// returning visitors on this browser go straight in.
-export function BuilderEmailGate({ children }: { children: ReactNode }) {
-  const [unlocked, setUnlocked] = useState(false);
+/** Stores the address she gave. `marketing` is her own optional tick; false means no marketing email, ever. */
+export async function signUp(email: string, marketing: boolean): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const res = await fetch('/api/builder-signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, marketing, source: signupSource() }) });
+    const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+    if (!res.ok || !data.ok) return { ok: false, error: data.error ?? 'Something went wrong. Please try again.' };
+    try { localStorage.setItem(BUILDER_ACCESS_KEY, new Date().toISOString()); localStorage.setItem(BUILDER_EMAIL_KEY, email.trim().toLowerCase()); } catch { /* still open for this visit */ }
+    window.dispatchEvent(new Event('dwb-builder-unlocked'));
+    return { ok: true };
+  } catch {
+    return { ok: false, error: 'Could not reach the server. Please try again.' };
+  }
+}
+
+/** The optional, unticked marketing box. Shared by every place an email is asked for. */
+export function MarketingTick({ checked, onChange, id }: { checked: boolean; onChange: (value: boolean) => void; id: string }) {
+  return <label htmlFor={id} className="flex min-h-11 cursor-pointer items-start gap-3 text-sm leading-6 text-charcoal/75">
+    <input id={id} data-testid="builder-consent" type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="mt-0.5 h-6 w-6 shrink-0 accent-blue" />
+    <span>Optional: {CONSENT_TEXT}</span>
+  </label>;
+}
+
+// The plan comes first and the email second (owner, 10 Nov 2026): a stranger sees her
+// dated plan with no email. The email is asked once, inline, at the moments it buys
+// her something (the printable plan, the free AI draft), never as a wall in front of
+// the plan. The marketing box is separate, optional and unticked; an address given
+// without it gets no marketing email (lib/nurture.ts). No session recording loads here.
+export function EmailAsk({ heading, lead, button, children }: { heading: string; lead: string; button: string; children: ReactNode }) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
   const [email, setEmail] = useState('');
-  const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    try { if (localStorage.getItem(BUILDER_ACCESS_KEY)) setUnlocked(true); } catch { /* storage blocked: the form still works */ }
+    const read = () => { try { setUnlocked(Boolean(localStorage.getItem(BUILDER_ACCESS_KEY))); } catch { setUnlocked(false); } };
+    read();
+    window.addEventListener('dwb-builder-unlocked', read);
+    return () => window.removeEventListener('dwb-builder-unlocked', read);
   }, []);
 
   async function submit(event: FormEvent) {
     event.preventDefault();
     setError('');
-    if (!consent) { setError('Please tick the box to agree to planning emails.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) { setError('Enter a valid email address.'); return; }
     setBusy(true);
-    try {
-      const res = await fetch('/api/builder-signup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, source: signupSource() }) });
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
-      if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); return; }
-      try { localStorage.setItem(BUILDER_ACCESS_KEY, new Date().toISOString()); localStorage.setItem(BUILDER_EMAIL_KEY, email.trim().toLowerCase()); } catch { /* still unlock this visit */ }
-      setUnlocked(true);
-      window.dispatchEvent(new Event('dwb-builder-unlocked'));
-      // A link to a step (#your-date, #step-3) arrived behind the gate; once the
-      // planner opens, take the couple to the step they came for, not the top.
-      const target = window.location.hash.slice(1);
-      // Again once web fonts have swapped in: the headings above change height when
-      // they do, which would leave the couple short of the step.
-      const go = () => document.getElementById(target)?.scrollIntoView({ block: 'start' });
-      if (target) { requestAnimationFrame(go); document.fonts?.ready.then(() => requestAnimationFrame(go)).catch(() => {}); }
-    } catch {
-      setError('Could not reach the server. Please try again.');
-    } finally {
-      setBusy(false);
-    }
+    const result = await signUp(email, marketing);
+    setBusy(false);
+    if (!result.ok) { setError(result.error ?? 'Something went wrong. Please try again.'); return; }
+    setUnlocked(true);
   }
 
+  if (unlocked === null) return null;
   if (unlocked) return <>{children}</>;
-  return <div className="relative">
-    <section data-testid="builder-email-gate" className="relative z-10 mx-auto mb-8 max-w-2xl rounded-[12px] border border-charcoal/10 bg-white p-7 shadow-soft md:p-10">
-      <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free wedding planning builder</p>
-      {/* An h2, not an h1: the gate is an interstitial drawn OVER the page, and the
-          page it covers keeps rendering its own h1 below (aria-hidden and inert hide
-          it from assistive tech, but both are invisible to crawlers, so an h1 here
-          put two h1 elements in the markup - Search Readiness b3, 26 Oct 2026). The
-          page's own h1 stays the document heading. */}
-      <h2 className="mt-3 font-serif text-4xl leading-tight md:text-5xl">Enter your email to open the builder.</h2>
-      <p className="mt-4 leading-7 text-charcoal/70">The builder is free. Your plan stays in this browser; we keep only your email address.</p>
-      <form onSubmit={submit} className="mt-6 grid gap-4" data-session-recording>
-        <ConversionAnalytics />
-        <label className="grid gap-2 text-sm font-bold">Email address
-          <input data-testid="builder-email" type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="rounded-2xl border border-charcoal/20 px-4 py-3 text-base font-normal" placeholder="you@example.com" />
-        </label>
-        <label className="flex items-start gap-3 text-sm leading-6 text-charcoal/75">
-          <input data-testid="builder-consent" type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-4 w-4" />
-          <span>{CONSENT_TEXT}</span>
-        </label>
-        {error ? <p role="alert" className="text-sm font-semibold text-red-700">{error}</p> : null}
-        <button data-testid="builder-email-submit" disabled={busy} className="min-h-12 rounded-2xl bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-60" type="submit">{busy ? 'Opening…' : 'Open the free builder →'}</button>
-        <p className="text-xs leading-5 text-charcoal/55">{UNSUBSCRIBE_NOTE} See the <Link className="underline" href="/privacy">privacy page</Link>.</p>
-      </form>
-    </section>
-    <div aria-hidden="true" inert className="pointer-events-none max-h-[900px] select-none overflow-hidden opacity-40 blur-[2px]">{children}</div>
-  </div>;
+  return <section data-testid="builder-email-gate" className="mx-auto max-w-2xl rounded-[12px] border border-charcoal/15 bg-white p-6 md:p-8">
+    <h2 className="font-serif text-3xl leading-tight">{heading}</h2>
+    <p className="mt-3 leading-7 text-charcoal/70">{lead}</p>
+    <form onSubmit={submit} noValidate className="mt-5 grid gap-4">
+      <label className="grid gap-2 text-sm font-bold">Email address
+        <input data-testid="builder-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className="min-h-11 rounded-2xl border border-charcoal/20 px-4 py-3 text-base font-normal" placeholder="you@example.com" />
+      </label>
+      <MarketingTick id="ask-marketing" checked={marketing} onChange={setMarketing} />
+      {error ? <p role="alert" className="text-sm font-semibold text-red-pen">{error}</p> : null}
+      <button data-testid="builder-email-submit" disabled={busy} className="min-h-12 rounded-2xl bg-blue px-6 py-3 font-bold text-white disabled:opacity-60" type="submit">{busy ? 'Opening…' : button}</button>
+      <p className="text-xs leading-5 text-charcoal/60">Leave the box unticked and we send you no marketing email. {UNSUBSCRIBE_NOTE} See the <Link className="underline" href="/privacy">privacy page</Link>.</p>
+    </form>
+  </section>;
 }

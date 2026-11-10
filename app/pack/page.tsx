@@ -14,6 +14,7 @@ import { loadSavedPlan } from '@/lib/saved-plan';
 import { DatedPlanView } from '@/components/DatedPlanView';
 import { FullPlanCard } from '@/components/FullPlanCard';
 import { AiDraftLabel } from '@/components/AiDraftCard';
+import { EmailAsk } from '@/components/BuilderEmailGate';
 import { plainDate } from '@/lib/dated-plan';
 
 // The printable plan. It prints only what she filled in or picked (hostile review,
@@ -55,7 +56,9 @@ export default function PackPage() {
   const letterFacts = [plan.locations.trim() ? `in ${plan.locations.trim()}` : '', plan.weddingDate ? `on ${plainDate(plan.weddingDate)}` : plan.season.trim() ? `in ${plan.season.trim()}` : '', plan.guestCount.trim() ? `for about ${plan.guestCount.trim()} guests` : ''].filter(Boolean).join(' ');
   const letter = `Hello,\n\nWe are planning a wedding${letterFacts ? ` ${letterFacts}` : ''}.${plan.outdoorNeeds.trim() ? ` We are picturing: ${plan.outdoorNeeds.trim()}.` : ''}${design.use.length ? ` The feel we want: ${design.use.join(', ')}.` : ''}\n\nCould you tell us whether you are free, your starting price, what it includes, what usually costs extra (service charge, tax, set-up, overtime), and any minimum spend?\n\nThank you.`;
 
-  return <div className="mx-auto max-w-3xl space-y-6" data-testid="pack-page">
+  // The plan itself needs no email; the printable copy is one of the two things an
+  // email is asked for. Anyone who already gave one goes straight in.
+  return <EmailAsk heading="Your plan, ready to print" lead="Enter your email to open the printable copy of your plan: your dated tasks, your budget and the questions for each vendor on one page. Your plan itself stays in this browser." button="Open my printable plan ›"><div className="mx-auto max-w-3xl space-y-6" data-testid="pack-page">
     <section className="no-print"><Link href="/free-wedding-planner" className="inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">← Back to the planner</Link><div className="mt-2 flex flex-wrap items-start justify-between gap-4"><div><Badge>From the free wedding planner</Badge><h1 className="mt-4 font-serif text-5xl">Your wedding plan</h1><p className="mt-3 text-charcoal/70">Everything you have filled in so far, on one page to print or save as a PDF. It shows only what you entered or picked.</p></div><PrintButton /></div></section>
 
     {nothingYet && <Card className="print-card" data-testid="pack-empty"><p className="font-semibold">Nothing to print yet.</p><p className="mt-2 text-sm text-charcoal/70">Add your date, guest count or budget in the planner and they appear here by themselves.</p><Link href="/free-wedding-planner" className="mt-3 inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">Open the free wedding planner ›</Link></Card>}
@@ -84,5 +87,5 @@ export default function PackPage() {
 
     <p className="text-xs leading-5 text-charcoal/60" data-testid="pack-disclaimer">{disclaimers.cost} {disclaimers.professional}</p>
     <FullPlanCard />
-  </div>;
+  </div></EmailAsk>;
 }

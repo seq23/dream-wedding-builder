@@ -54,7 +54,7 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
         {/* The buttons sit right after the answer paragraph so a phone sees them on the first screen (hostile review, 390px). */}
         {/* Design system order: the free planner is the one blue button, the $9 PDF second. */}
         <a data-testid="home-planner-cta" href={PLANNER_ROUTE} className="mt-6 inline-flex min-h-12 w-full max-w-md items-center justify-center rounded-2xl bg-charcoal px-5 py-3.5 text-center text-base font-bold text-linen">Open the free wedding planner ›</a>
-        <p className="mt-2 max-w-md text-center text-[13px] text-charcoal/60">Free with your email. Your plan stays in your browser.</p>
+        <p className="mt-2 max-w-md text-center text-[13px] text-charcoal/60">No account, no app, no email to see your plan. It stays in your browser.</p>
         <div className="mt-4 max-w-md" data-testid="home-primary-cta"><CheckoutButton tone="secondary" sku={checklist.sku} price={checklist.price} label={`Get the Wedding Checklist PDF — $${checklist.price}`} productName={checklist.name}/></div>
         <p className="mt-3 text-sm text-charcoal/55">{checklist.value_note}. Secure checkout by Stripe.</p>
         <p className="mt-6 max-w-xl text-[15px] leading-[23px] text-charcoal/70 sm:text-base sm:leading-7 md:text-lg md:leading-8">{checklist.promise}</p>

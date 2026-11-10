@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { AI_CONSENT_TEXT, AI_DRAFT_USED_TEXT, BUILDER_ACCESS_KEY, BUILDER_EMAIL_KEY } from '@/lib/builder-signup';
+import { AI_CONSENT_TEXT, AI_DRAFT_USED_TEXT, BUILDER_EMAIL_KEY } from '@/lib/builder-signup';
+import { MarketingTick, signUp } from '@/components/BuilderEmailGate';
 import type { AiDraftFields } from '@/lib/ai-draft';
 import { budgetModes, type WeddingPlan } from '@/data/planning';
 import { plainDate } from '@/lib/dated-plan';
@@ -101,12 +102,12 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
   const [description, setDescription] = useState('');
   const [busy, setBusy] = useState(false);
   const [consent, setConsent] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const [message, setMessage] = useState('');
   const [result, setResult] = useState<{ kept: string[]; note: string } | null>(null);
 
-  // The card mounts under the email gate (the planner renders, inert, beneath it),
-  // so the address the gate saves arrives after mount: read it again on unlock.
-  // Live check, 6 Nov 2026: the card asked for the email the couple had just given.
+  // The address may be given elsewhere on the page after this card mounted: read it again then.
+  // An address she already gave (to print her plan) is reused, never asked for twice.
   useEffect(() => {
     const readEmail = () => { try { const saved = localStorage.getItem(BUILDER_EMAIL_KEY); if (saved) { setEmail(saved); setKnownEmail(true); } } catch { /* storage blocked: ask for it */ } };
     readEmail();
@@ -118,12 +119,7 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
   // server says the step is on, after the browser has already looked for the anchor.
   useEffect(() => {
     if (!enabled || window.location.hash !== '#ai-draft') return;
-    const go = () => requestAnimationFrame(() => document.getElementById('ai-draft')?.scrollIntoView({ block: 'start' }));
-    let open = false;
-    try { open = Boolean(localStorage.getItem(BUILDER_ACCESS_KEY)); } catch { /* fine */ }
-    if (open) go();
-    window.addEventListener('dwb-builder-unlocked', go);
-    return () => window.removeEventListener('dwb-builder-unlocked', go);
+    requestAnimationFrame(() => document.getElementById('ai-draft')?.scrollIntoView({ block: 'start' }));
   }, [enabled]);
 
   useEffect(() => {
@@ -138,10 +134,17 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
     setResult(null);
     // Our own words for every refusal, shown in the card: a disabled button explains nothing.
     if (description.trim().length < MIN_LENGTH) { setMessage(`Tell us a little more (at least ${MIN_LENGTH} characters), for example the month, the place and roughly how many guests.`); return; }
-    if (!email.trim()) { setMessage('Enter the email you opened the planner with.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) { setMessage('Enter your email address: the free AI draft is one per email.'); return; }
     if (!consent) { setMessage('Tick the box first: nothing is sent until you do.'); return; }
     setMessage(''); setBusy(true);
     try {
+      // The server drafts only for an address it has stored (its one-per-email limit
+      // hangs on that), so a new address is stored first, with her own marketing choice.
+      if (!knownEmail) {
+        const stored = await signUp(email, marketing);
+        if (!stored.ok) { setMessage(stored.error ?? 'Something went wrong. Please try again.'); return; }
+        setKnownEmail(true);
+      }
       const res = await fetch('/api/ai-draft', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, description, consent }) });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; draft?: AiDraftFields; note?: string; filledBy?: string };
       if (!res.ok || !data.ok || !data.draft) { setMessage(data.error ?? 'AI drafting is busy. Please try again later; you can still build your plan by hand below.'); return; }
@@ -177,9 +180,12 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
         <textarea id="ai-description" data-testid="ai-description" value={description} onChange={e => setDescription(e.target.value)} maxLength={maxLength} disabled={busy} placeholder="200 guests, June in Memphis, small budget, outdoor if the weather allows" className="min-h-24 rounded-2xl border border-charcoal/20 p-3 text-base font-normal" />
       </label>
       <p className="text-xs text-charcoal/60">{description.length} of {maxLength} characters</p>
-      {knownEmail ? null : <label className="grid gap-2 text-sm font-semibold" htmlFor="ai-email">The email you opened the planner with
-        <input id="ai-email" data-testid="ai-email" type="email" autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} className="min-h-11 rounded-2xl border border-charcoal/20 px-3 text-base font-normal" />
-      </label>}
+      {knownEmail ? null : <>
+        <label className="grid gap-2 text-sm font-semibold" htmlFor="ai-email">Your email (the free AI draft is one per email)
+          <input id="ai-email" data-testid="ai-email" type="email" autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} disabled={busy} className="min-h-11 rounded-2xl border border-charcoal/20 px-3 text-base font-normal" />
+        </label>
+        <MarketingTick id="ai-marketing" checked={marketing} onChange={setMarketing} />
+      </>}
       <label className="flex min-h-11 cursor-pointer items-start gap-3 text-sm leading-6" htmlFor="ai-consent">
         <input id="ai-consent" data-testid="ai-consent" type="checkbox" checked={consent} onChange={e => { setConsent(e.target.checked); if (e.target.checked) setMessage(''); }} className="mt-0.5 h-6 w-6 shrink-0 accent-blue" />
         <span>{AI_CONSENT_TEXT}</span>

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { DatabaseSync } from 'node:sqlite';
+import { NO_MARKETING_TEXT, storeBuilderSignup } from '@/lib/builder-signup';
 import { MAILING_ADDRESS, REVIEW_ASK_SINCE, SEQUENCE, emailHash, optOut, renderEmail, runNurture, sendSample, unsubscribeUrl, verifyUnsubscribe, type NurtureDB } from '@/lib/nurture';
 
 // A D1-shaped wrapper over an in-memory SQLite, so the real SQL in lib/nurture.ts runs.
@@ -72,6 +73,43 @@ describe('free sample -> email -> paid', () => {
       const { html, text } = renderEmail(step, url);
       for (const body of [html, text]) { expect(body).toContain(MAILING_ADDRESS); expect(body).toContain(url.replace(/&/g, body === html ? '&amp;' : '&')); }
     }
+  });
+
+  it('an email given without the marketing tick gets no marketing email at all; a ticked one and a pre-change one do', async () => {
+    const db = fakeD1(); const { sent, fetchImpl } = resend(); const env = envFor(db);
+    const now = Date.parse('2026-11-10T12:00:00Z');
+    await optOut(db, await emailHash('nobody@example.com')); // creates tables
+    // Stored through the real writer, exactly as the sign-up route does.
+    await storeBuilderSignup(db as never, { email: 'unticked@example.com', source: 'free-wedding-planner', host: 'h', marketing: false });
+    await storeBuilderSignup(db as never, { email: 'ticked@example.com', source: 'free-wedding-planner', host: 'h', marketing: true });
+    await storeBuilderSignup(db as never, { email: 'unticked-sample@example.com', source: 'sample:checklist', host: 'h', marketing: false });
+    // A row from before the change: the column is NULL, and its compulsory tick still counts.
+    db.raw.prepare(`INSERT INTO builder_signups (email, consent_text, source) VALUES ('legacy@example.com', 'c', 'free-wedding-planner')`).run();
+    db.raw.prepare(`UPDATE builder_signups SET created_at = '2026-11-10 11:30:00'`).run();
+    expect((db.raw.prepare(`SELECT marketing_consent AS m FROM builder_signups WHERE email = 'legacy@example.com'`).get() as { m: unknown }).m).toBeNull();
+
+    for (let day = 0; day < 20; day++) await runNurture(env, now + day * DAY, fetchImpl);
+    const to = new Set(sent.map((s) => s.to));
+    expect(to.has('unticked@example.com')).toBe(false);
+    expect(to.has('unticked-sample@example.com')).toBe(false);
+    expect(to.has('ticked@example.com')).toBe(true);
+    expect(to.has('legacy@example.com')).toBe(true);
+
+    // Ticking later turns marketing on; coming back without the tick never turns it off.
+    await storeBuilderSignup(db as never, { email: 'unticked@example.com', source: 'free-wedding-planner', host: 'h', marketing: true });
+    await storeBuilderSignup(db as never, { email: 'ticked@example.com', source: 'free-wedding-planner', host: 'h', marketing: false });
+    const flag = (email: string) => (db.raw.prepare('SELECT marketing_consent AS m FROM builder_signups WHERE email = ?').get(email) as { m: unknown }).m;
+    expect(flag('unticked@example.com')).toBe(1);
+    expect(flag('ticked@example.com')).toBe(1);
+  });
+
+  it('a database from before the change gets the column added, without touching its rows', async () => {
+    const db = fakeD1();
+    db.raw.exec(`CREATE TABLE builder_signups (email TEXT PRIMARY KEY, consent_text TEXT NOT NULL, source TEXT, host TEXT, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, last_seen_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, unsubscribed_at TEXT)`);
+    db.raw.prepare(`INSERT INTO builder_signups (email, consent_text, source) VALUES ('old@example.com', 'old wording', 'free-wedding-planner')`).run();
+    await storeBuilderSignup(db as never, { email: 'new@example.com', source: 'free-wedding-planner', host: 'h', marketing: false });
+    const rows = db.raw.prepare('SELECT email, consent_text, marketing_consent AS m FROM builder_signups ORDER BY email').all() as Array<{ email: string; consent_text: string; m: unknown }>;
+    expect(rows).toEqual([{ email: 'new@example.com', consent_text: NO_MARKETING_TEXT, m: 0 }, { email: 'old@example.com', consent_text: 'old wording', m: null }]);
   });
 
   it('a free-planner sign-up gets exactly one welcome and never a product series', async () => {
