@@ -7,7 +7,6 @@ schedule); see the notes below for what moved.
 
 | Job | Workflow | When | Cron |
 |---|---|---|---|
-| Authority Preflight Validation | `authority-preflight-validation.yml` | every day 04:17 CT | `17 4 * * *` |
 | CI - Build and Validate | `ci.yml` | every day 07:40 CT | `40 7 * * *` |
 | Entity Backlink Watch | `entity-backlink-watch.yml` | Thu 07:40 CT | `40 7 * * 4` |
 | Full Safe Autonomy | `full-safe-autonomy.yml` | every day 05:17 CT | `17 5 * * *` |

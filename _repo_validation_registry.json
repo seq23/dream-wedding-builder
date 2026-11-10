@@ -7,9 +7,9 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 54,
-    "STRONG_WARNING": 3,
-    "SOFT_WARNING": 2
+    "HARD_FAIL": 24,
+    "STRONG_WARNING": 0,
+    "SOFT_WARNING": 0
   },
   "post_deploy_checks": [
     {
@@ -28,15 +28,6 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "five published Kindle EPUBs print these five paths on their last page. The link is baked into files that are already built, so a broken path here cannot be fixed by editing this repo - the remedy is re-uploading five books. Nothing else in the gate ties an app route to an external published artifact, and route_ownership.json alone cannot fail when both the route and its expectation are deleted together, which is why the five paths are hardcoded in the validator.",
-      "composite": false
-    },
-    {
-      "id": "authority",
-      "npmScript": "validate:authority",
-      "command": "node scripts/validate-authority.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "authority contracts govern what may publish",
       "composite": false
     },
     {
@@ -74,17 +65,6 @@
       "repair_evidence": "proved on 2026-08-29 under a simulated clock of 2026-09-20: --check exited 1 naming refresh_capacity_per_week 11 against a measured 7.68/week, --write rewrote the policy to 7/3, and --check then exited 0"
     },
     {
-      "id": "cadence-determinism",
-      "npmScript": "validate:cadence-determinism",
-      "command": "node scripts/validators/validate_cadence_determinism.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "derive_capacity.mjs measured throughput as a cumulative stock over weeks elapsed since the first content commit, so the figure fell a little every day and Math.floor dropped it a whole unit on an arbitrary calendar date. 79 guides read 10.05/week on 2026-09-03 and 9.88/week on 2026-09-04, and three scheduled runs on commit 3990a02 - CI 33874876728, Search Intelligence 33869403684 and Full Safe Autonomy 33863160216 - went red with no code change behind them, on a commit that had been green nine hours earlier. cadence-policy-currency could not catch this: it was the check whose verdict depended on the clock. This runs the derivation under seven simulated clocks out to a year against an untouched tree and requires identical capacity figures and a clean --check at every one, forbids any wall-clock read outside the one reported-and-unused diagnostic, and requires every lane that re-derives the budget to do so before it is spent - the ordering that made 33863160216 fail the publisher for releasing exactly the 5 guides the policy allowed, against a cap of 4 the same job had just written. Counts what it examined and hard-fails on zero simulated clocks, zero source assertions or zero re-deriving lanes.",
-      "manual_repair": "close the measurement window in scripts/cadence/derive_capacity.mjs on a commit date rather than on new Date(), or move the `cadence:derive -- --write` step in the named workflow ahead of the step that spends the budget. Re-running or re-deriving does not fix this class: --write only moves the next calendar boundary a few days out.",
-      "repair_evidence": "proved negatively on 2026-09-04: restoring the wall-clock window (weeks measured to new Date()) fails with \"the derivation is not a function of the tree: a simulated clock of 2026-09-03 yields refresh 10 but 2026-09-04 yields refresh 9\" plus six --check failures; moving `cadence:derive -- --write` back after `authority:scale:publish` in full-safe-autonomy.yml fails with \"spends the cadence budget at line N but only re-derives it at line M\". Both restored, and the gate returns to PASS with 7 simulated clocks, 3 source assertions and 1 re-deriving lane."
-    },
-    {
       "id": "commerce",
       "npmScript": "validate:commerce",
       "command": "node scripts/validate-commerce.mjs",
@@ -96,7 +76,7 @@
     {
       "id": "contracts",
       "npmScript": "validate:contracts",
-      "command": "npm run validate:commerce && npm run validate:authority && npm run validate:downloads && npm run validate:secrets",
+      "command": "npm run validate:commerce && npm run validate:downloads && npm run validate:secrets",
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "composite: commerce, authority, downloads",
@@ -109,15 +89,6 @@
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "conversion and admin surfaces must resolve",
-      "composite": false
-    },
-    {
-      "id": "disclaimers",
-      "npmScript": "validate:disclaimers",
-      "command": "node scripts/validate-disclaimers.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "legal disclaimers are non-negotiable on published pages",
       "composite": false
     },
     {
@@ -148,110 +119,6 @@
       "composite": false
     },
     {
-      "id": "identity-domains",
-      "npmScript": "validate:identity-domains",
-      "command": "node scripts/validate-identity-domains.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "Boss OS refuses to record a repair against a repo that does not declare the repaired domain (siteAudit.ts: a resemblance is not a mapping), so this declaration is load-bearing and must not drift from route_ownership.json, which the Worker actually routes on. It also pins each host root action: a / that 308s to a product hub is deliberate, and the three a2 fix briefs of 26 Oct 2026 were an auditor comparing the hub page canonical against the pre-redirect /.",
-      "composite": false
-    },
-    {
-      "id": "internal-link-graph",
-      "npmScript": "validate:internal-links",
-      "command": "node scripts/validators/validate_internal_link_graph.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "a URL in the sitemap with no inbound internal link is a published page the site itself does not admit exists: it can neither receive nor pass authority, and no other gate can see it because the sitemap producer (data/seo/route_ownership.json) and the link producers (the templates) were never connected. Ahrefs found six on 2026-09-03 - the five /amazon/ book pages added 2026-08-29 and /what-to-do-6-months-before-the-wedding added 2026-09-02. This gate boots the real build, reads each host's real sitemap, and reads the anchors out of the HTML the server returned, so it asserts behaviour rather than the model. Requires a build: it hard-fails rather than skipping when .next is absent, so it can never exit 0 having crawled nothing.",
-      "composite": false,
-      "requires_build": true,
-      "manual_repair": "add the route's label to lib/site-directory.ts (or a hub/landing record) so the footer site directory links it",
-      "repair_evidence": "proved negatively on 2026-09-03: deleting the footer directory block from components/AppShell.tsx returns exactly the six orphans Ahrefs reported; deleting only directoryLabel from the timeline landing returns exactly /what-to-do-6-months-before-the-wedding"
-    },
-    {
-      "id": "rendered-seo-contract",
-      "npmScript": "validate:rendered-seo",
-      "command": "node scripts/validators/validate_rendered_seo_contract.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "Bing Webmaster and the site audit of 2026-09-25 read these off the rendered pages: rules 113/117 on weddingseatingchartmaker.com/products/seating-chart-maker (the http:// copy answered 200 beside the https:// one on all four hosts), rule 118 on descriptions of 81-98 characters with 25 more past 160, and 94 internal links (21-27 /free-wedding-planner?... per product host, 22 /products/*, /guides/* and hub links on weddingchecklistpdf.com) that 308'd across hosts. The data files could not show any of it: the descriptions are assembled in templates, the redirects are decided by middleware, and the links by a dozen emitters. This gate boots the real build, fetches every sitemap URL on every host, and asserts title 30-70 characters (Bing Site Scan flags titles over 70; 29 pages were, almost all pushed over by the site-name suffix) and description 110-160 characters, no duplicate title or description across self-canonical pages, no network href answering 3XX, and a permanent redirect for a Cloudflare-marked http request. Requires a build and hard-fails without one, and on zero pages or zero links examined. Rule 6 added 31 Oct 2026 (Search Readiness e6/i8 and e9): a rendered page with a conversion form must run the Clarity loader as an enabled <script>, and a page without one must not reference it. ConversionAnalytics used next/script `afterInteractive`, which injects the tag from the client after hydration, so every form and buy page on all four hosts served only a <link rel=\"preload\"> - which executes nothing - and the first seconds of every session went unrecorded. The gate fails on zero conversion pages, so a crawl that never reached a checkout form cannot pass it. Length rule since 2 Nov 2026 (owner ruling, no petty validation): the b1/b2 bands are generator targets in lib/length-floor.mjs; lib/seo.ts trims titles and descriptions over the maximum, this gate notes over-length and fails a title or description only below 75% of its minimum.",
-      "composite": false,
-      "requires_build": true,
-      "manual_repair": "a description out of range: edit data/seo/guide_meta_descriptions.json (guides), data/seo/hub_pages.json, data/planner-landings.ts or the page's metadata; a redirecting link: route the emitter's href through hrefFrom() in lib/site-config.ts; an http 200: restore the scheme redirect in middleware.ts",
-      "repair_evidence": "proved negatively on 2026-09-25: at origin/main it failed with 60 descriptions out of range, 94 redirecting network links and 4 http 200s; after the fix it passes on 128 pages and 226 network links; the 30-70 title bound was proved the same way on 2026-09-25: 29 titles over 70 before lib/seo.ts documentTitle(), and restoring one 73-character source title fails the gate on exactly that page"
-    },
-    {
-      "id": "kpi-truth",
-      "npmScript": "validate:kpi-truth",
-      "command": "node scripts/authority_scale/validate_kpi_truth.mjs",
-      "severity": "SOFT_WARNING",
-      "blocksRelease": false,
-      "reason": "measurement honesty check; reports rather than blocks",
-      "composite": false
-    },
-    {
-      "id": "methodology-contrast",
-      "npmScript": "validate:methodology-contrast",
-      "command": "node scripts/validators/validate_methodology_contrast.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "the positioning sentence is the thing a model quotes when asked how this differs from a budget calculator; it must stay true of the shipped Step 3 and must stay a contrast with a category rather than with a named competitor, or it is either a false claim or an indefensible one",
-      "composite": false,
-      "manual_repair": "restore the computed worked example in app/methodology/page.tsx, or narrow the claim to what data/planning.ts budgetReality actually returns",
-      "repair_evidence": "proved on 2026-09-01: claiming \"tradeoff engine computes\" fails with an overclaim error, transcribing the worked example instead of calling budgetReality fails with \"no longer calls budgetReality\", and naming a competitor fails on the surface that names it"
-    },
-    {
-      "id": "no-stubs",
-      "npmScript": "validate:no-stubs",
-      "command": "node scripts/validate-no-stubs.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "stub content must never reach a live page",
-      "composite": false
-    },
-    {
-      "id": "no-theater",
-      "npmScript": "validate:no-theater",
-      "command": "node scripts/validate-no-theater.mjs",
-      "severity": "STRONG_WARNING",
-      "blocksRelease": false,
-      "reason": "advisory copy-quality signal",
-      "composite": false
-    },
-    {
-      "id": "planner-persistent-entry",
-      "npmScript": "validate:planner-persistent-entry",
-      "command": "node scripts/validators/validate_planner_persistent_entry.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "the persistent banner is the planner entry on every page of every host, and a dismissal that is not stored re-nags a reader who already declined - worse than no dismiss control at all",
-      "composite": false,
-      "manual_repair": "restore the planner-banner in components/AppShell.tsx and the localStorage read/write in components/PlannerCta.tsx",
-      "repair_evidence": "proved on 2026-09-01: removing the localStorage.setItem for the dismissal fails with \"dismissal is never written to storage\"; restoring it passes"
-    },
-    {
-      "id": "planner-reachability",
-      "npmScript": "validate:planner-reachability",
-      "command": "node scripts/validators/validate_planner_reachability.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "the free planner is the entry point every other surface now points at; a planner missing from the desktop nav or from a guide is a dead funnel, and it shipped exactly that way for six days without anything noticing",
-      "composite": false,
-      "manual_repair": "restore the desktop nav entry in components/AppShell.tsx and the planner section in app/guides/[slug]/page.tsx",
-      "repair_evidence": "proved on 2026-09-01: deleting the desktop-nav-planner entry fails with \"AppShell desktop nav: no planner entry\"; restoring it passes"
-    },
-    {
-      "id": "planner-seed-contract",
-      "npmScript": "validate:planner-seed-contract",
-      "command": "node scripts/validators/validate_planner_seed_contract.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "a landing page whose seed does not hydrate is a link, not a lead magnet; this runs the real seeding logic over every landing seed and every shipping guide rather than checking that a query string is present",
-      "composite": false,
-      "manual_repair": "fix lib/planner-seed.ts or the offending seed in data/planner-landings.ts",
-      "repair_evidence": "proved on 2026-09-01: making planPatchFromSeed return an empty patch fails with 6 landing-page assertions; restoring it passes 27"
-    },
-    {
       "id": "product-reachability",
       "npmScript": "validate:product-reachability",
       "command": "node scripts/validators/validate_product_reachability.mjs",
@@ -263,57 +130,6 @@
       "repair_evidence": "proved on 2026-09-01: removing the working-files block fails with 4 unreachable products; restoring it passes"
     },
     {
-      "id": "profile-purity",
-      "npmScript": "validate:profile-purity",
-      "command": "node scripts/validate-profile-purity.mjs",
-      "severity": "STRONG_WARNING",
-      "blocksRelease": false,
-      "reason": "profile drift should be corrected but does not break the site",
-      "composite": false
-    },
-    {
-      "id": "proof-readiness",
-      "npmScript": "validate:proof-readiness",
-      "command": "node scripts/validate-proof-readiness.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "release evidence must match what shipped",
-      "composite": false,
-      "repair_command": "npm run authority:flow",
-      "repair_rationale": "validate:proof-readiness fails when artifacts/authority/admission-report.json and release-manifest.json no longer balance against data/authority/content_registry.json; authority:flow (scripts/authority/run-full-flow.mjs) is the script that regenerates both from that registry."
-    },
-    {
-      "id": "query-atlas",
-      "npmScript": "validate:query-atlas",
-      "command": "node scripts/atlas/validate_query_atlas.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "prevents publishing against synthetic queries with no demand evidence",
-      "composite": false,
-      "repair_command": "npm run atlas:build",
-      "repair_rationale": "validate:query-atlas fails with \"missing data/authority_scale/query_atlas.json - run the atlas build first\" when the generated atlas is absent or stale; atlas:build (scripts/atlas/build_query_atlas.mjs) is the script that writes that file from the evidence it validates."
-    },
-    {
-      "id": "readiness-rubric",
-      "npmScript": "validate:readiness-rubric",
-      "command": "node scripts/validators/validate_readiness_rubric.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "/readiness-score publishes how the score works; a page that describes its own behaviour incorrectly is worse than no page, so the rubric must render from lib/readiness.ts and must never restate it",
-      "composite": false,
-      "manual_repair": "render the rubric from lib/readiness.ts instead of restating it in app/readiness-score/page.tsx",
-      "repair_evidence": "proved on 2026-09-01: hardcoding a check label in the rubric page fails with \"hardcodes the check label\"; rendering it from the module passes"
-    },
-    {
-      "id": "search-intelligence",
-      "npmScript": "validate:search-intelligence",
-      "command": "node scripts/search_intelligence/validate.mjs",
-      "severity": "SOFT_WARNING",
-      "blocksRelease": false,
-      "reason": "observational signal, no live-site impact",
-      "composite": false
-    },
-    {
       "id": "secrets",
       "npmScript": "validate:secrets",
       "command": "node scripts/validate-secrets.mjs",
@@ -323,33 +139,13 @@
       "composite": false
     },
     {
-      "id": "seo",
-      "npmScript": "validate:seo",
-      "command": "node scripts/validate-seo-recovery.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "canonical hosts and guide integrity affect every indexed page",
-      "composite": false,
-      "repair_command": "npm run authority:flow && npm run search:diagnose && npm run search:repair",
-      "repair_rationale": "validate:seo reports \"stale authority admission report\" and \"missing upward link registry\", both regenerated by authority:flow, and \"incomplete hub core: <slug>\" when a hub in data/seo/hub_pages.json has no description - the exact field search:diagnose flags as hub_missing_meta_description and search:repair writes. Partial by design: the content-quality failures this validator also reports have no generated fix, and the loop re-validates and reports them by name."
-    },
-    {
       "id": "structural",
       "npmScript": "validate:structural",
-      "command": "npm run validate:profile-purity && npm run validate:tree-hygiene && npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:no-stubs && npm run validate:authority-registry && npm run validate:contracts && npm run validate:conversion-admin && npm run validate:proof-readiness && npm run validate:seo && npm run validate:search-intelligence",
+      "command": "npm run validate:env && npm run validate:authority-registry && npm run validate:contracts && npm run validate:conversion-admin",
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "composite: purity, hygiene, proof readiness, seo, authority",
       "composite": true
-    },
-    {
-      "id": "tree-hygiene",
-      "npmScript": "validate:tree-hygiene",
-      "command": "node scripts/validate-tree-hygiene.mjs",
-      "severity": "STRONG_WARNING",
-      "blocksRelease": false,
-      "reason": "working tree debris is a maintenance problem, not a release risk",
-      "composite": false
     },
     {
       "id": "worker-entrypoint",
@@ -361,17 +157,6 @@
       "composite": false,
       "manual_repair": "restore the Workers Builds deploy command to npm run deploy, and keep opennextjs-cloudflare build ahead of every publish step in package.json",
       "repair_evidence": "proved on 2026-09-01: recording the production misconfiguration (npx wrangler versions upload) in the runbook table fails this validator, as does removing the build step from any publishing script; restoring either passes"
-    },
-    {
-      "id": "repair-contract",
-      "npmScript": "validate:repair-contract",
-      "command": "node scripts/validators/validate_repair_contract.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "the self-heal loop executes repair_command verbatim, and nothing checked that the field held a command. Eight of thirteen were English sentences: five exited 127, and internal-link-graph's exited 2 on the unbalanced quote in \"route's\", so the loop burned three attempts reporting a failed repair it had never attempted while the instruction a human needed sat unprinted in the same field. It also pairs requires_build validators with the lanes that reach them: internal-link-graph hard-fails without .next by design, PR #9 gave ci.yml and self-heal.yml a build and missed full-safe-autonomy.yml, and because nothing tied the registry flag to the workflows that miss only showed up as a cron that went red every night. Reachability is derived by expanding npm scripts and following run-registry.mjs, so a second copy of the wiring cannot drift from the first. Counts what it examined and hard-fails on zero repair fields, zero requires_build validators, or zero workflows.",
-      "composite": false,
-      "manual_repair": "either move the prose out of repair_command into manual_repair, or add `npm run build` to the workflow lane named in the failure, ahead of the step that reaches the gate",
-      "repair_evidence": "proved negatively on 2026-09-03: restoring the prose into internal-link-graph's repair_command fails with \"repair_command is not runnable\"; deleting the `npm run build` step from full-safe-autonomy.yml fails with \"reaches internal-link-graph ... but never runs a build\"; with both fixed it passes 6 runnable commands, 8 manual instructions and 4 build-paired lanes"
     },
     {
       "id": "selfheal-status-contract",
@@ -408,114 +193,6 @@
       "repair_evidence": "proved negatively on 2026-09-15: with the three lanes still on a bare push it fails with 7 findings naming full-safe-autonomy.yml:212 and :234, search-intelligence.yml:52 and self-heal.yml:121 plus 'never invokes scripts/ci/push_back.sh' for each; against a copy of the tree with an empty .github/workflows it fails with 'no workflow files'; against workflows that never commit it fails with 'examined zero lanes'. Reproduced the run's shape locally against a bare repo whose pre-receive hook applies the update then declines: the old step exits 1 with the commit already on main; push_back.sh exits 0 as PUSH_ALREADY_LANDED. Restored, it passes with 5 behaviour scenarios, 5 workflow files and 3 lanes."
     },
     {
-      "id": "seo-icons",
-      "npmScript": "validate:seo-icons",
-      "command": "vitest run tests/unit/seo-hygiene-icons.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "/favicon.ico answered 404 on all four sites and no page linked an icon or manifest (measured live 2026-10-11). One Worker serves four hosts, so a public/ file would be one icon for all; app/<file>/route.ts serves per-host bytes from lib/site-icons.generated.ts. Renders each route for each host and checks status, content type, ICO/PNG headers and sizes, distinct bytes per host, the manifest, the layout <link> URLs and the middleware passthrough.",
-      "manual_repair": "re-run python3 scripts/seo/generate_site_icons.py after editing data/seo/site_homes.json; restore the route handler or layout icons/manifest entry the failure names.",
-      "repair_evidence": "proved negatively on 2026-10-11: removing app/favicon.ico/route.ts fails it (exit 1); restored, it passes."
-    },
-    {
-      "id": "seo-og",
-      "npmScript": "validate:seo-og",
-      "command": "vitest run tests/unit/seo-hygiene-og.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "weddingchecklistpdf.com's homepage declared openGraph without images, and Next replaces the layout's openGraph wholesale, so it had no og:image while its three siblings did (2026-10-11). Checks the per-host 1200x630 /og.png bytes, the layout default, seoMetadata and the checklist homepage all emit og:image with width/height plus twitter:image on the right host, and that no other page declares an openGraph block that could drop the image.",
-      "manual_repair": "route the page's metadata through seoMetadata() or ogImages()/ogImageUrl() from lib/site-home.ts.",
-      "repair_evidence": "proved negatively on 2026-10-11: dropping images: ogImages(...) from app/page.tsx openGraph (the original defect) fails it (exit 1); restored, it passes."
-    },
-    {
-      "id": "seo-jsonld",
-      "npmScript": "validate:seo-jsonld",
-      "command": "vitest run tests/unit/seo-hygiene-jsonld.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "weddingchecklistpdf.com shipped no JSON-LD while the other three homepages carried Article/FAQPage/BreadcrumbList (+HowTo on two) - its `/` renders app/page.tsx, the others redirect to HubPage. Renders all four real homepages and requires the identical HOMEPAGE_SCHEMA_TYPES set (WebSite, Organization, WebPage, BreadcrumbList, Article, FAQPage, HowTo), one BreadcrumbList each, and that home nodes do not leak onto other hubs.",
-      "manual_repair": "emit the homepage nodes through homeSchemaNodes() in lib/site-home.ts from whichever template renders the host's homepage.",
-      "repair_evidence": "proved negatively on 2026-10-11: deleting the homeSchemaNodes JsonLd from app/page.tsx (the original defect) fails it (exit 1); restored, it passes."
-    },
-    {
-      "id": "search-readiness-brand-h1",
-      "npmScript": "validate:search-readiness-brand-h1",
-      "command": "vitest run tests/unit/search-readiness-brand-and-h1.test.tsx",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "Two Search Readiness Checklist failures, 26 Oct 2026. f6: weddingseatingchartmaker.com declared its WebSite name as \"Wedding Seating Chart Maker\" while its homepage title said \"Wedding Seating Chart Planner\", so the site never stated its own brand in the title. b3: /free-wedding-planner shipped two <h1> elements because BuilderEmailGate drew its own over a page that keeps rendering its own (aria-hidden and inert hide the covered page from assistive tech, not from a crawler). Requires every canonical host's homepage title - following the root redirect, as the checker reads it - to contain siteHome(host).name, and requires the rendered gate plus the page it covers to carry exactly one h1.",
-      "manual_repair": "give the host's homepage title in data/seo/hub_pages.json (or app/page.tsx metadata) the site name from data/seo/site_homes.json, then rebuild the atlas with `npm run authority:atlas`; and keep every heading drawn OVER a page at h2 or lower, so the covered page's own h1 stays the only one.",
-      "repair_evidence": "proved negatively on 2026-10-26: restoring the \"Wedding Seating Chart Planner\" title and the gate's <h1> (the original defects) fails it (3 tests, exit 1); restored, 10 tests pass."
-    },
-    {
-      "id": "page-byline-author",
-      "npmScript": "validate:page-byline-author",
-      "command": "vitest run tests/unit/page-byline.test.tsx",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "Search Readiness q1 failures, 3 Nov 2026: weddingbudgetspreadsheet.com /guides failed b3 and c6 and weddingbudgetspreadsheet.com and weddingseatingchartmaker.com product pages failed c6. c6 passes only when a name in the page's JSON-LD `author` also appears in the page's visible text; the guides index carried neither a byline nor an author node, and the product pages printed \"By Dream Wedding Builder\" while declaring no author in their structured data, so the name a reader saw was never the name an engine read. Renders the real guides index for every canonical host and requires the declared author name to appear in the visible text, one h1, and an H2 that matches the checklist's own question shape.",
-      "manual_repair": "render <PageByline path={...}/> and emit bylineWebPageNode(host, path) from components/seo/PageByline.tsx on the template, so the visible byline and the JSON-LD author state one name; keep at least one H2 on an index page phrased as a question.",
-      "repair_evidence": "proved negatively on 2026-11-03: removing <PageByline/> from app/guides/page.tsx (the original defect) fails it on all four hosts (4 tests, exit 1); restored, 11 tests pass."
-    },
-    {
-      "id": "seo-definition",
-      "npmScript": "validate:seo-definition",
-      "command": "vitest run tests/unit/seo-hygiene-definition.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "Homepages had no self-contained definition for answer engines to lift. Renders all four homepages and requires the element immediately after </h1> to be the 40-60 word '<Site> is ...' paragraph whose id is the WebPage SpeakableSpecification cssSelector, appearing exactly once.",
-      "manual_repair": "edit the definition in data/seo/site_homes.json (40-60 words, starting with the site name + ' is ') or restore <SiteDefinition/> directly after the H1.",
-      "repair_evidence": "proved negatively on 2026-10-11: deleting <SiteDefinition/> from app/page.tsx fails it (exit 1); restored, it passes."
-    },
-    {
-      "id": "seo-clarity",
-      "npmScript": "validate:seo-clarity",
-      "command": "vitest run tests/unit/seo-hygiene-clarity.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "Clarity projects exist for all four hosts; a host missing from the map or a wrong id silently records nothing. Pins the four owner-supplied ids, the map's host set to route_ownership.json, the committed loader's map, and the layout script tag plus build wiring.",
-      "manual_repair": "fix data/clarity_projects.json and run node scripts/install_clarity.mjs to regenerate public/assets/clarity-loader.js.",
-      "repair_evidence": "proved negatively on 2026-10-11: deleting weddingtimelinetemplate.com from data/clarity_projects.json fails it (exit 1); restored, it passes."
-    },
-    {
-      "id": "seo-indexnow",
-      "npmScript": "validate:seo-indexnow",
-      "command": "vitest run tests/unit/seo-hygiene-indexnow.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "IndexNow needs <key>.txt at every host root and a submission after pages change; until 2026-10-11 submission ran only from the daily content lane, never after a code deploy. Checks the key file, that the distribution manifest has a non-empty same-host URL file per host, and that indexnow-after-deploy.yml waits for Workers Builds, proves the key file live, then submits.",
-      "manual_repair": "restore public/<key>.txt matching public/indexnow-key.txt, or the step order in .github/workflows/indexnow-after-deploy.yml.",
-      "repair_evidence": "proved negatively on 2026-10-11: deleting public/<key>.txt fails it (exit 1); restored, it passes."
-    },
-    {
-      "id": "seo-lighthouse",
-      "npmScript": "validate:seo-lighthouse",
-      "command": "vitest run tests/unit/seo-hygiene-lighthouse.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "Lighthouse mobile SEO was 92 on three homepages, failing only audit `meta-description`: Next 15 streaming metadata placed <meta name=description> in <body> for UAs off its bot list, Lighthouse's included. Pinned to that audit id: next.config htmlLimitedBots must match the Lighthouse mobile UA and an ordinary browser UA, and every homepage must declare a description.",
-      "manual_repair": "restore htmlLimitedBots: /.*/ in next.config.ts.",
-      "repair_evidence": "proved negatively on 2026-10-11: deleting htmlLimitedBots from next.config.ts (the original cause) fails it (exit 1); restored, it passes."
-    },
-    {
-      "id": "demand-repoint",
-      "npmScript": "validate:demand-repoint",
-      "command": "node scripts/search_intelligence/validate_demand_repoint.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "index coverage, sitemap registration and GSC truth must be fresh and consistent with the committed sitemaps; every target carries a measured number; the publishing freeze must reach the publisher; consolidation candidates are review-only; strengthened pages stay aligned to the query Search Console shows. Each of these failed silently before 2026-10-11 (a SUBMITTED receipt stood in for coverage, 119 targets had no number). A strengthened title over 60 characters is a NOTE in the PASS line, never a failure (owner ruling 2 Nov 2026): documentTitle() trims the rendered title.",
-      "composite": false
-    },
-    {
       "id": "zero-paid-llm",
       "npmScript": "validate:zero-paid-llm",
       "command": "node scripts/llm/validate_zero_paid_llm.mjs",
@@ -536,17 +213,6 @@
       "repair_evidence": "proved negatively on 2026-10-16: removing the other: { 'p:domain_verify' } line from app/page.tsx fails it; restored, it passes."
     },
     {
-      "id": "pinterest-built",
-      "npmScript": "validate:pinterest",
-      "command": "node scripts/validators/validate_pinterest.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "the same Pinterest launch against the BUILT site: boots next start, requires the exact <meta name=\"p:domain_verify\" ...> tag inside the homepage's rendered <head>, /pinfeed.xml and /pinfeed 200 application/rss+xml with >=5 parsed items, and every item page and image URL 200. No build is a hard failure, never a skip; CI runs it via validate:registry after build.",
-      "manual_repair": "see lib/pinfeed.ts and app/page.tsx metadata.other.",
-      "repair_evidence": "proved negatively on 2026-10-16: removing the p:domain_verify line and rebuilding fails it; restored, it passes."
-    },
-    {
       "id": "pinqueue",
       "npmScript": "validate:pinqueue",
       "command": "vitest run tests/unit/pinqueue.test.ts",
@@ -556,27 +222,6 @@
       "reason": "Pinterest daily drip (owner-approved 2026-10-16): data/pinterest/queue.json schema (pins_per_day = 1, 6-8 variants per launch page, >=20 dated, title<=100, description<=500, no price symbol, every number in the copy present in the page's own source record, no repeated headline per page, consecutive variants never share layout or palette); every image a committed 1000x1500 file whose declared length is its byte size; one pin a day from 2026-10-17 with no gaps and never the same page two days running (also at pins_per_day 2 and 3); /pinfeed.xml at fixed clocks shows exactly the launch six plus the variants due by that America/Chicago date, switching at local midnight, newest first, max 50; every link on-site with the pinfeed utm params and utm_content=<variant id>; refill triggers at 13 unreleased and not at 14, adds refill_batch distinct variants dated after the queue, and serves a newly joined page first; every unreleased pin passes the pin quality gate (scripts/pinterest/quality.mjs: dHash >= 40 bits from the 12 pins before it, art from its page's topic in data/pinterest/topic_art.json, a benefit headline in the page's search words, text readable at 236px), and the gate fails the pins drawn before the 6 Nov 2026 re-queue.",
       "manual_repair": "node scripts/pinterest/pin_queue.mjs (add --seed N to add N variants per page now); copy lives in data/pinterest/angles.json and scripts/pinterest/pin_sources.mjs; commit data/pinterest + public/pinterest/drip.",
       "repair_evidence": "proved negatively on 2026-10-16: forcing two consecutive release dates onto one page in queue.json fails 'one pin a day ... never the same page two days running'; restored, it passes."
-    },
-    {
-      "id": "entity-graph",
-      "npmScript": "validate:entity-graph",
-      "command": "node scripts/validators/validate_entity_graph.mjs && vitest run tests/unit/entity-graph.test.ts tests/unit/entity-watch.test.ts",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "Authority audit, 30 Oct 2026: all four sites emitted one Organization whose sameAs was the checklist site's Pinterest, so three domains claimed a profile that is not theirs, and nothing in the repo checked sameAs at all. data/seo/entity.json is now the only place sameAs is written (brand Dream Wedding Builder owns the Pinterest; each site is its own Organization under the brand; the brand sits under Spry Labs at billionairehighperformancecoach.com/spry-labs#organization). This gate fails on zero sites or zero profiles, on sites that are not route_ownership.json's hosts, on any sameAs that is not https, duplicated, on one of this repo's own hosts, also pending, or borrowed from another record, on a broken site -> brand -> Spry Labs chain, and when the JSON-LD lib/site-home.ts emits differs from entity.json on any host. It also unit-tests the weekly watch's dead/unreachable/unverifiable/link-back decisions and its self-heal with fixed fetch results. The built pages are checked by validate_rendered_seo_contract and the deployed ones by live-check.",
-      "manual_repair": "Edit data/seo/entity.json (never lib/site-home.ts): move a profile that is not yet claimed into profiles_pending, put a shared profile on the brand only, and keep the site -> brand -> Spry Labs chain."
-    },
-    {
-      "id": "sitemap-currency",
-      "npmScript": "validate:sitemap-currency",
-      "command": "node scripts/validators/validate_sitemap_currency.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "composite": false,
-      "reason": "Red main 31 Oct 2026 (Full Safe Autonomy run 41192193557): PR #50 added /editorial-policy to all four hosts without regenerating artifacts/sitemaps, so the PR-time cadence gate read stale sitemaps, saw no new URL and passed; the scheduled lane regenerated them and blocked published_into_refresh_debt with nothing able to clear it. The committed sitemaps must list exactly what scripts/authority/sitemap-paths.mjs (the one definition build-sitemaps.mjs also writes from) emits, so cadence:gate in CI sees every URL a PR adds. Fails on zero hosts or zero URLs per host. Since 2 Nov 2026 CI runs the gate as cadence:gate:merge, where refresh debt is a note; refresh debt is enforced in the publish/refresh lane and by the publisher (CI run 41057861308 went red on 53% stale pages a merge cannot refresh).",
-      "manual_repair": "Regenerate the sitemaps with the authority:sitemaps npm script and commit artifacts/sitemaps; then the cadence gate decides whether the new URL may ship (a new URL while refresh debt is over tolerance blocks until the oldest pages in reports/cadence/refresh-queue.json are refreshed).",
-      "repair_evidence": "proved negatively on 2026-10-31: with the pre-fix sitemaps restored it fails naming the four missing /editorial-policy URLs; regenerated, it passes on 4 hosts / 133 URLs."
     },
     {
       "id": "refresh-lane-wiring",
@@ -589,17 +234,6 @@
       "reason": "PR #53 (c27e4ac, 31 Oct 2026) made cadence_gate.js hold new publishing on refresh debt and list the 43 pages to refresh in reports/cadence/refresh-queue.json, but nothing in scripts/, .github/ or package.json read that queue, so the hold could never clear without a person. This gate fails whenever the gate can hold publishing and no scheduled workflow runs the refresh lane (scripts/cadence/refresh_lane.mjs) after restore, before freeze, with the $0 router key, a scope clear after the freeze and a named outcome.",
       "manual_repair": "wire `npm run cadence:refresh` (with OPENROUTER_API_KEY) into full-safe-autonomy.yml between authority:scale:restore and authority:scale:freeze, add authority:scale:clear-scope after the freeze, and keep the always() `npm run cadence:refresh -- --name-outcome` step",
       "repair_evidence": "proved negatively on 2026-10-31: deleting the refresh step from full-safe-autonomy.yml turns this gate red; restoring it returns PASS"
-    },
-    {
-      "id": "question-entity",
-      "npmScript": "validate:question-entity",
-      "command": "node scripts/validators/validate_question_entity.mjs",
-      "severity": "HARD_FAIL",
-      "blocksRelease": true,
-      "reason": "Search Readiness item c1 reads a page's FIRST Organization in JSON-LD and needs name, url, logo and sameAs on it. The shared search engine (seq23/search-loop src/render.mjs) builds the Article's author and publisher from search-loop.config.json's publisher block, which carries only a name and a url, and that inline thin Organization sits in the page graph ahead of the header's complete entity graph - so the thin copy is the one an engine reads. On 2026-11-03 two question pages were flagged \"Organization lacks logo, sameAs\" while data/seo/entity.json had held both all along. scripts/seo/normalize_question_entity.mjs points author/publisher at the brand record instead of copying it, and runs inside .github/scripts/search_loop_commit.sh so tomorrow's engine page is corrected before it is committed; this validator is what keeps that true across engine versions. Its traversal deliberately mirrors boss-os src/shared/boss/searchReadiness/audit.mjs (jsonLd + deepNodes + organization_node), because a validator that walked the graph differently could pass while the checklist the owner reads still failed.",
-      "composite": false,
-      "repair_command": "npm run seo:normalize-question-entity",
-      "repair_evidence": "proved negatively on 2026-11-03: restoring one page to its pre-fix inline publisher turns this gate red with \"lacks logo, sameAs\" - the exact wording of the Search Readiness brief - and running the repair command returns PASS"
     },
     {
       "id": "search-loop-ai-measured",

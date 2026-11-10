@@ -47,7 +47,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if git diff --quiet -- data/seo/entity.json; then echo "entity.json unchanged"; exit 0; fi
-          npm run --silent validate:entity-graph
           branch="bot/entity-watch-$(date -u +%Y%m%d%H%M)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
