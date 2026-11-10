@@ -5,7 +5,7 @@ import { LIMITS, TOO_MANY, callerKey, takeSlot, type LimitDB } from '@/lib/abuse
 import { PIN_COOKIE, recordPinterestConversion, signupRef } from '@/lib/pinterest-conversions';
 
 // Stores the email the free planning builder asks for. Consent must be explicit;
-// a missing database is a 503, never a silent success. Nothing is emailed from here; the
+// a missing database is a 503, never a silent success. Nothing is emailed from here (the hourly run in lib/nurture.ts sends one welcome); the
 // per-IP limit (lib/abuse-limits.ts) keeps the table from being stuffed with strangers' addresses.
 export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as Record<string, unknown> | null;
