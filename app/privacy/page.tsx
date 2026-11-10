@@ -42,7 +42,7 @@ export default function Privacy() {
 
       <h2 className="mt-12 font-serif text-4xl">Planning data stays in your browser</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        The planning builder, the dashboard, and the starter pack keep your plan in your own browser&rsquo;s local storage,
+        The free wedding planner, the dashboard, and the printable plan keep your plan in your own browser&rsquo;s local storage,
         under the keys <code>dwb-plan</code>, <code>dwb-scope</code>, and <code>dwb-trends</code>. That data is not sent to a
         server, is not attached to a profile, and is visible only in the browser that created it. Clearing your browser
         storage deletes it, and it does not travel with you to another device.

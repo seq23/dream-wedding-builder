@@ -3,7 +3,7 @@ import { ConversionAnalytics } from '@/components/ConversionAnalytics';
 // tone="secondary" is the outlined button the design system puts after the one blue
 // primary button (the free planner) on the homepage.
 export function CheckoutButton({ sku, price, label, productName, tone = 'primary' }: { sku: string; price: number; label?: string; productName?: string; tone?: 'primary' | 'secondary' }) {
-  const text = label ?? `Buy ${productName || 'this wedding tool'} — $${price}`;
+  const text = label ?? (productName ? `Get the ${productName} — $${price}` : `Buy now — $${price}`);
   return <form action="/api/checkout" method="POST" className="w-full" data-session-recording>
     <ConversionAnalytics />
     <input type="hidden" name="sku" value={sku}/>

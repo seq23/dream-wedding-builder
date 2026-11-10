@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 // browser tab were both titled "Dream Wedding Builder". The title and
 // description below name the page without changing its indexing posture.
 export const metadata: Metadata = {
-  title: 'Dream Wedding Starter Pack',
+  title: 'Your wedding plan to print',
   description:
     'A printable summary of the plan saved in this browser: reality check, budget and tradeoff notes, venue and vendor selections, and the questions still open.',
   robots: { index: false, follow: false, noarchive: true }
