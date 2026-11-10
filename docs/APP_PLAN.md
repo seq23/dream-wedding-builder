@@ -32,6 +32,24 @@ repo copy of what Codex builds, in order. When the two disagree, the page wins; 
 
 Run locally: `cd apps/mobile && npm ci && npm run check`.
 
+## Paid content is never in the public repo or the app bundle (10 Nov 2026; build it this way from the start)
+
+This repo is public and anything inside an app bundle can be read out of it, so paid content ships
+only after a confirmed purchase:
+- **Bundled in the app (free):** the 23 free tasks from `lib/dated-plan.ts`, each tradition pack's name and
+  one example task (the preview), the screens, and short fake fixtures for tests.
+- **Delivered after purchase:** the other 81 dated tasks, the full tradition packs, the day-of handover
+  pack and the printables. Their sources live outside the repo (`~/.boss-os/dream-wedding/paid/`,
+  uploaded to the existing R2 bucket `dream-wedding-builder-products`), never committed.
+- **The door:** a Worker route `/api/app-unlock` checks the purchase with RevenueCat's server API
+  (secret on the Worker only) and returns short-lived signed links; the phone downloads once, keeps
+  it, and works offline after. No RevenueCat secret yet = NAMED STOP [REVENUECAT_SECRET_MISSING]
+  and the buy button stays off. Restore re-runs the same door.
+- Tests: a check fails if any paid task, full pack or printable text is in `apps/mobile` or the repo;
+  the route refuses without a confirmed entitlement and answers the same for unknown and refused.
+- Task 5 (tradition packs) writes the full packs to the private folder and only the previews to the
+  repo; Claude reads every pack before it is uploaded.
+
 ## Built for 100 paying customers a day (owner, 10 Nov 2026: "begin with the end in mind, build for 100 customers or more per day")
 
 Design target: **100 purchases a day per app**, which at 3 to 6% of free users buying means about
