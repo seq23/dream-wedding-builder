@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { products, suite } from '@/lib/products';
 
-type Status = { status: string; message: string; product_name?: string; email?: string; download_url?: string | null };
+type Status = { status: string; message: string; product_name?: string; email?: string; download_url?: string | null; plan_url?: string | null };
 export function OrderStatus({ sessionId }: { sessionId: string }) {
   const [state, setState] = useState<Status>({ status: 'CHECKING', message: 'Verifying your payment and secure access…' });
   useEffect(() => {
@@ -25,7 +25,8 @@ export function OrderStatus({ sessionId }: { sessionId: string }) {
     <h2 className="mt-3 font-serif text-3xl">{state.product_name || 'Preparing your purchase'}</h2>
     <p className="mt-3 leading-7 text-charcoal/70">{state.message}</p>
     {state.email && <p className="mt-2 text-sm text-charcoal/55">Delivery address: {state.email}</p>}
-    {state.download_url && <a className="mt-6 inline-flex rounded-full bg-charcoal px-6 py-4 font-bold text-linen transition hover:-translate-y-0.5" href={state.download_url}>Download {state.product_name}</a>}
+    {state.plan_url && <div data-testid="order-plan" className="mt-6"><a className="inline-flex min-h-12 items-center rounded-2xl bg-blue px-6 py-4 font-bold text-white" href={state.plan_url}>Open my dated plan ›</a><p className="mt-2 text-sm text-charcoal/65">Every task dated from your wedding day, ready to print.</p></div>}
+    {state.download_url && <a data-testid="order-download" className={state.plan_url ? 'mt-4 inline-flex min-h-11 items-center font-bold underline underline-offset-4' : 'mt-6 inline-flex rounded-full bg-charcoal px-6 py-4 font-bold text-linen transition hover:-translate-y-0.5'} href={state.download_url}>Download {state.product_name}{state.plan_url ? ' files ↓' : ''}</a>}
     {state.download_url && <AfterPurchase bought={state.product_name} />}
     {state.status === 'AWAITING_ASSET' && <p className="mt-5 rounded-2xl bg-amber-50 p-4 text-sm text-amber-900">Payment is complete. Your file will become available after the production release is uploaded to secure storage. No second payment is required.</p>}
   </section>;

@@ -5,6 +5,9 @@ import { buildDatedPlan, localToday, plainDate } from '@/lib/dated-plan';
 import { addCustomTask, emptyProgress, loadProgress, removeCustomTask, saveProgress, taskKey, toggleDone, type PlanProgress } from '@/lib/plan-progress';
 import { buildIcs } from '@/lib/plan-ics';
 import { thisWeek } from '@/lib/this-week';
+import { taskDate } from '@/lib/full-plan';
+import { FULL_PLAN_TEASER } from '@/lib/full-plan-teaser';
+import { useFullPlanCounts } from '@/components/FullPlanCard';
 
 // One view of the dated plan, used by the planner, the dashboard and the packet so
 // the three can never disagree. "today" is read after mount: the server does not
@@ -19,6 +22,7 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
   const [progress, setProgress] = useState<PlanProgress>(emptyProgress());
   const [adding, setAdding] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
+  const fullCounts = useFullPlanCounts();
   useEffect(() => {
     setToday(localToday());
     setProgress(loadProgress(localStorage));
@@ -91,6 +95,15 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
           {window.tasks.map(task => <Task key={task} windowId={window.id} text={task} />)}
           {custom.map(c => <Task key={c.id} windowId={window.id} text={c.text} customId={c.id} />)}
         </ul> : null}
+        {showTasks && !readOnly && !compact && FULL_PLAN_TEASER[window.id] ? (() => {
+          // What the full plan adds to this window: two of its tasks with her dates, greyed.
+          // The count is the paid list's real count for this window; without it, no number is shown.
+          const more = fullCounts?.byWindow[window.id] ? fullCounts.byWindow[window.id] - window.tasks.length : 0;
+          return <div data-testid="full-plan-locked" className="no-print mt-2 rounded-xl border border-dashed border-charcoal/25 p-3 text-sm text-charcoal/55">
+            <p className="font-semibold text-charcoal/75">{more > 0 ? `+${more} more in the full plan` : 'More in the full plan'}, such as:</p>
+            <ul className="mt-1 grid gap-1">{FULL_PLAN_TEASER[window.id].map(task => <li key={task.text} data-testid="full-plan-locked-task"><span aria-hidden="true">🔒 </span>{(() => { const date = taskDate(weddingDate, task.daysBefore) ?? window.endsOn; return date < today ? 'Now' : plainDate(date); })()}: {task.text}</li>)}</ul>
+          </div>;
+        })() : null}
         {showTasks && !readOnly ? (adding === window.id
           ? <form onSubmit={e => addTask(e, window.id)} className="mt-2 flex flex-wrap gap-2">
               <label className="sr-only" htmlFor={`add-${window.id}`}>Your own task</label>
