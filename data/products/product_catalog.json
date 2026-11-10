@@ -107,6 +107,7 @@
         ],
         "formula_count": 30,
         "extra": [
+          "Dated plan: every task dated from your wedding date, opened from your order email",
           "Setup CSV included with purchase",
           "Personal-use license and operating instructions"
         ]
@@ -217,6 +218,7 @@
         ],
         "formula_count": 40,
         "extra": [
+          "Dated plan: every task dated from your wedding date, opened from your order email",
           "Setup CSV included with purchase",
           "Personal-use license and operating instructions"
         ]
@@ -327,6 +329,7 @@
         ],
         "formula_count": 0,
         "extra": [
+          "Dated plan: every task dated from your wedding date, opened from your order email",
           "Setup CSV included with purchase",
           "Personal-use license and operating instructions"
         ]
@@ -341,11 +344,12 @@
       "price": 9,
       "route": "/products/checklist-pdf",
       "headline": "A checklist built around your actual wedding date.",
-      "sub": "Use a 104-row editable checklist and printable planning packet to assign target dates, responsibilities, dependencies, priorities, wedding-week handoffs, and final payments.",
+      "sub": "Every task dated from your wedding date: about 100 tasks from 12+ months out through wedding week, with final payments and a suggested owner. Plus an editable spreadsheet and a 13-page printable packet.",
       "features": [
-        "104-row editable master checklist",
-        "Planning-window worksheets from 12+ months through wedding week",
-        "Responsibility, dependency, priority, and status fields",
+        "About 100 tasks dated from your wedding date",
+        "From 12+ months out through wedding week, final payments included",
+        "A suggested owner on every dated task",
+        "Editable spreadsheet with blank rows for your own tasks",
         "Separate wedding-week and final-payment trackers",
         "13-page printable PDF plus editable XLSX and setup CSV"
       ],
@@ -357,7 +361,7 @@
         "wedding tick list"
       ],
       "eyebrow": "A dated planning system tied to your actual wedding",
-      "promise": "Use a 104-row editable checklist and printable packet to assign owners, dependencies, priorities, deadlines, wedding-week handoffs, and final payments.",
+      "promise": "Every task dated from your wedding date: about 100 tasks with final payments and a suggested owner, plus an editable spreadsheet and a 13-page printable packet.",
       "audience": [
         "Couples who do not want a generic 12-month list",
         "Short-engagement planners",
@@ -379,7 +383,7 @@
       "objections": [
         [
           "How is this different from a generic checklist?",
-          "It adds a 104-row editable checklist, a separate wedding-week handoff, a final-payment tracker, printable worksheets, ownership fields, dependencies, and planning-window guidance."
+          "A generic checklist starts at month 12. This one dates about 100 written tasks from your own wedding date, final payments included, and adds an editable spreadsheet for your own tasks and a 13-page printable packet."
         ],
         [
           "What if I am planning in less than six months?",
@@ -397,9 +401,9 @@
       "gallery": [
         {
           "src": "/product-previews/checklist-pdf/checklist-pdf-preview-1.png",
-          "title": "104-row master checklist",
-          "caption": "See the editable checklist structure for phases, target dates, owners, dependencies, priority, status, and notes.",
-          "alt": "Wedding Checklist PDF paid product preview showing 104-row master checklist"
+          "title": "The editable spreadsheet",
+          "caption": "Blank rows for your own tasks, with columns for phase, target date, owner, dependency, priority, status, and notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing the editable spreadsheet with blank rows for your own tasks"
         },
         {
           "src": "/product-previews/checklist-pdf/checklist-pdf-preview-2.png",
@@ -432,12 +436,13 @@
         "pdf": "13-page printable PDF",
         "workbook": "Editable XLSX workbook",
         "sheets": [
-          "Checklist — 104 rows",
+          "Checklist — blank rows for your own tasks",
           "Wedding Week — 44 rows",
           "Final Payments — 34 rows"
         ],
         "formula_count": 0,
         "extra": [
+          "Dated plan: every task dated from your wedding date, opened from your order email",
           "Setup CSV included with purchase",
           "Personal-use license and operating instructions"
         ]

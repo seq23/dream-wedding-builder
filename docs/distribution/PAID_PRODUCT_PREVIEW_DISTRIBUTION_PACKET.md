@@ -16,7 +16,7 @@ Promote the four product pages by showing prospects what the paid files actually
 
 | Product | Canonical preview destination | What visitors can inspect |
 |---|---|---|
-| Wedding Checklist PDF | `https://weddingchecklistpdf.com/products/checklist-pdf#look-inside` | 104-row checklist, wedding-week handoff, final-payment tracker, printable planning pages |
+| Wedding Checklist PDF | `https://weddingchecklistpdf.com/products/checklist-pdf#look-inside` | editable spreadsheet (blank rows for your own tasks), wedding-week handoff, final-payment tracker, printable planning pages |
 | Wedding Budget Spreadsheet | `https://weddingbudgetspreadsheet.com/products/budget-spreadsheet#look-inside` | categories, vendor payments, hidden costs, summary, monthly cash flow |
 | Wedding Timeline Template | `https://weddingtimelinetemplate.com/products/timeline-template#look-inside` | master schedule, vendor arrivals, role handoffs, printable timeline pages |
 | Wedding Seating Chart Maker | `https://weddingseatingchartmaker.com/products/seating-chart-maker#look-inside` | guest master, table capacity, vendor handoff, guest reconciliation |

@@ -11,7 +11,7 @@
         "pdf": "13-page printable PDF",
         "workbook": "Editable XLSX workbook",
         "sheets": [
-          "Checklist \u2014 104 rows",
+          "Checklist \u2014 blank rows for your own tasks",
           "Wedding Week \u2014 44 rows",
           "Final Payments \u2014 34 rows"
         ],
@@ -24,9 +24,9 @@
       "gallery": [
         {
           "src": "/product-previews/checklist-pdf/checklist-pdf-preview-1.png",
-          "title": "104-row master checklist",
-          "caption": "See the editable checklist structure for phases, target dates, owners, dependencies, priority, status, and notes.",
-          "alt": "Wedding Checklist PDF paid product preview showing 104-row master checklist",
+          "title": "The editable spreadsheet",
+          "caption": "Blank rows for your own tasks, with columns for phase, target date, owner, dependency, priority, status, and notes.",
+          "alt": "Wedding Checklist PDF paid product preview showing the editable spreadsheet with blank rows for your own tasks",
           "source": {
             "kind": "xlsx",
             "file": "product-builds/releases/DWB-CHECKLIST-001_v2.0.0.xlsx",

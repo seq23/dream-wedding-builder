@@ -19,7 +19,7 @@ const home = siteHome(HOST);
 // 66 characters until 2026-10-25, which is past the band a desktop result shows
 // (Search Readiness item b1). "Planning" was the word carrying no query weight.
 const TITLE = 'Wedding Checklist PDF ($9): Printable, Editable Checklist';
-const DESCRIPTION = 'The $9 Wedding Checklist PDF: a 104-row editable checklist and 13-page printable packet with owners, deadlines and final payments. Instant download.';
+const DESCRIPTION = 'The $9 Wedding Checklist PDF: about 100 tasks dated from your wedding date, with final payments, plus an editable spreadsheet and a 13-page printable packet.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://weddingchecklistpdf.com/' },
   // Pinterest domain claim (owner-approved 16 Oct 2026); guarded by tests/unit/pinfeed.test.ts and validate:pinterest.
   other: { 'p:domain_verify': '0fcfdee391238788157a7120c048a945' },
-  openGraph: { title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', url: 'https://weddingchecklistpdf.com/', siteName: 'Wedding Checklist PDF', type: 'website', images: ogImages(HOST, 'Wedding Checklist PDF') },
-  twitter: { card: 'summary_large_image', title: 'Wedding Checklist PDF — $9', description: 'A 104-row editable wedding checklist and 13-page printable planning packet. One-time $9, instant download.', images: [ogImageUrl(HOST)] }
+  openGraph: { title: 'Wedding Checklist PDF — $9', description: 'Every task dated from your wedding date: about 100 tasks, plus an editable spreadsheet and a 13-page printable packet. One-time $9.', url: 'https://weddingchecklistpdf.com/', siteName: 'Wedding Checklist PDF', type: 'website', images: ogImages(HOST, 'Wedding Checklist PDF') },
+  twitter: { card: 'summary_large_image', title: 'Wedding Checklist PDF — $9', description: 'Every task dated from your wedding date: about 100 tasks, plus an editable spreadsheet and a 13-page printable packet. One-time $9.', images: [ogImageUrl(HOST)] }
 };
 
 const checklist = products.find((p) => p.id === 'checklist-pdf')!;
@@ -71,7 +71,7 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
           never an empty column (her laptop review, 6 Nov 2026). The cover image carries
           invented couple names, which the brand rules out as a hero. */}
       <div className="grid content-start gap-6 bg-linen p-5 md:p-8 min-[900px]:self-start">
-        <Image src="/product-previews/checklist-pdf/checklist-pdf-preview-1.png" alt="Wedding Checklist PDF: the printable planning packet and editable master checklist" width={1600} height={1080} priority sizes="(max-width:900px) 100vw, 45vw" className="h-auto w-full rounded-[10px] shadow-soft"/>
+        <Image src="/product-previews/checklist-pdf/checklist-pdf-preview-1.png" alt="Wedding Checklist PDF: the printable planning packet and editable spreadsheet" width={1600} height={1080} priority sizes="(max-width:900px) 100vw, 45vw" className="h-auto w-full rounded-[10px] shadow-soft"/>
         <BinderTabs plannerHref={PLANNER_ROUTE} />
       </div>
     </div>
