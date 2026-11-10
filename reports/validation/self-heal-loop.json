@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-09T11:24:56.683Z",
+  "generated_at": "2026-11-10T11:25:16.935Z",
   "max_attempts": 3,
   "dry_run": false,
   "gate_command": "npm run validate:all",
@@ -45,7 +45,8 @@
     "entity-graph": "Edit data/seo/entity.json (never lib/site-home.ts): move a profile that is not yet claimed into profiles_pending, put a shared profile on the brand only, and keep the site -> brand -> Spry Labs chain.",
     "sitemap-currency": "Regenerate the sitemaps with the authority:sitemaps npm script and commit artifacts/sitemaps; then the cadence gate decides whether the new URL may ship (a new URL while refresh debt is over tolerance blocks until the oldest pages in reports/cadence/refresh-queue.json are refreshed).",
     "refresh-lane-wiring": "wire `npm run cadence:refresh` (with OPENROUTER_API_KEY) into full-safe-autonomy.yml between authority:scale:restore and authority:scale:freeze, add authority:scale:clear-scope after the freeze, and keep the always() `npm run cadence:refresh -- --name-outcome` step",
-    "search-loop-ai-measured": "give SEARCH_LOOP_CF_USAGE_TOKEN Zone:Read + Zone Analytics:Read AND Account Analytics:Read (the engine uses the one CLOUDFLARE_API_TOKEN for both the zone bot/referral queries and the Workers AI usage read); the Boss OS vault already holds such a token as CLOUDFLARE_ANALYTICS_READ_TOKEN, then re-run the Search Loop workflow with stage=check so a fresh report is committed"
+    "search-loop-ai-measured": "give SEARCH_LOOP_CF_USAGE_TOKEN Zone:Read + Zone Analytics:Read AND Account Analytics:Read (the engine uses the one CLOUDFLARE_API_TOKEN for both the zone bot/referral queries and the Workers AI usage read); the Boss OS vault already holds such a token as CLOUDFLARE_ANALYTICS_READ_TOKEN, then re-run the Search Loop workflow with stage=check so a fresh report is committed",
+    "brand-social": "Run `npm run brand-social:collect` with CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and (for posts) BUFFER_BRANDS_ACCESS_TOKEN set, or dispatch the Brand social metrics workflow; fix the collector, never hand-edit the file."
   },
   "status": "CLEAN",
   "safe_to_push": true,
