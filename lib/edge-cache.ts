@@ -48,7 +48,8 @@ export async function serveWithEdgeCache(request: Request, version: string, cach
   const key = cache ? edgeCacheKey(request, version) : null;
   if (!key || !cache) return app();
   const hit = await cache.match(key).catch(() => undefined);
-  if (hit) { const response = new Response(hit.body, hit); response.headers.set('x-edge-cache', 'HIT'); return response; }
+  // A stored copy comes back with the zone's browser lifetime (4 hours) in place of ours; put ours back so a browser re-asks after a minute.
+  if (hit) { const response = new Response(hit.body, hit); response.headers.set('Cache-Control', PUBLIC_PAGE_CACHE_CONTROL); response.headers.set('x-edge-cache', 'HIT'); return response; }
   const fresh = await app();
   if (!isCacheablePage(fresh)) return fresh;
   const response = new Response(fresh.body, fresh);
