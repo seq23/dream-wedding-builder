@@ -100,6 +100,8 @@ export interface AiDraftRecord {
   description: string;
   fields: string[];
   notes: string[];
+  /** false when the no-AI rules reader filled it (filledBy 'rules'); missing on older plans = AI. */
+  byAi?: boolean;
 }
 
 export interface PlannerRecommendation {

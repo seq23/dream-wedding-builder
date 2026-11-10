@@ -192,6 +192,12 @@ describe('AI draft: the model is never trusted', () => {
     expect(r.plan.guestCount).toBe('120');
     expect(r.plan.weddingDate).toBe('2027-06-15');
     expect(r.kept).toContain('guestCount');
-    expect(r.plan.aiDraft).toMatchObject({ fields: ['weddingDate', 'locations', 'budgetMode'], notes: ['n'] });
+    expect(r.plan.aiDraft).toMatchObject({ fields: ['weddingDate', 'locations', 'budgetMode'], notes: ['n'], byAi: true });
+  });
+
+  it('a draft the rules reader filled is recorded as not AI, so the label never claims AI', () => {
+    const r = applyAiDraft(emptyPlan, { weddingDate: '2027-06-15', guestCount: '200', locations: '', season: '', budgetTarget: '', budgetMode: 'unknown', priorities: [], notes: [] }, 'desc', '2026-11-10T00:00:00Z', false);
+    expect(r.plan.aiDraft?.byAi).toBe(false);
+    expect(r.plan.weddingDate).toBe('2027-06-15');
   });
 });

@@ -15,7 +15,7 @@ const FIELD_LABELS: Record<string, string> = {
 };
 
 /** Fills only fields the couple has left empty: an AI draft never overwrites their own work. */
-export function applyAiDraft(plan: WeddingPlan, draft: AiDraftFields, description: string, at: string): { plan: WeddingPlan; filled: string[]; kept: string[] } {
+export function applyAiDraft(plan: WeddingPlan, draft: AiDraftFields, description: string, at: string, byAi = true): { plan: WeddingPlan; filled: string[]; kept: string[] } {
   const next: WeddingPlan = { ...plan };
   const filled: string[] = [];
   const kept: string[] = [];
@@ -27,16 +27,18 @@ export function applyAiDraft(plan: WeddingPlan, draft: AiDraftFields, descriptio
   }
   if (draft.budgetMode && (plan.budgetMode === 'unknown' || !plan.budgetMode)) { next.budgetMode = draft.budgetMode; filled.push('budgetMode'); }
   if (draft.priorities.length) { if (plan.priorities.length) kept.push('priorities'); else { next.priorities = draft.priorities; filled.push('priorities'); } }
-  next.aiDraft = { at, description, fields: filled, notes: draft.notes };
+  next.aiDraft = { at, description, fields: filled, notes: draft.notes, byAi };
   return { plan: next, filled, kept };
 }
 
 export function AiDraftLabel({ plan }: { plan: WeddingPlan }) {
   if (!plan.aiDraft) return null;
   const fields = plan.aiDraft.fields.map(f => FIELD_LABELS[f] ?? f);
+  // The rules reader is not AI: never tell the couple it was (click-through, 10 Nov 2026).
+  const byAi = plan.aiDraft.byAi !== false;
   return <div data-testid="ai-drafted-label" className="rounded-2xl border border-charcoal/15 bg-white p-4 text-sm leading-6">
-    <p className="font-semibold">AI-drafted, from your description. Check every line before you rely on it.</p>
-    {fields.length ? <p className="mt-1 text-charcoal/70">Filled by AI: {fields.join(', ')}. Change any of them below.</p> : null}
+    <p className="font-semibold">{byAi ? 'AI-drafted, from your description.' : 'Drafted from your description, without AI.'} Check every line before you rely on it.</p>
+    {fields.length ? <p className="mt-1 text-charcoal/70">{byAi ? 'Filled by AI' : 'Filled from your sentence'}: {fields.join(', ')}. Change any of them below.</p> : null}
     {plan.aiDraft.notes.length ? <ul className="mt-2 list-disc pl-5 text-charcoal/80">{plan.aiDraft.notes.map(note => <li key={note}>{note}</li>)}</ul> : null}
   </div>;
 }
@@ -86,9 +88,9 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
     setMessage(''); setResult(null); setBusy(true);
     try {
       const res = await fetch('/api/ai-draft', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, description, consent }) });
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; draft?: AiDraftFields; note?: string };
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; draft?: AiDraftFields; note?: string; filledBy?: string };
       if (!res.ok || !data.ok || !data.draft) { setMessage(data.error ?? 'AI drafting is busy. Please try again later; you can still build your plan by hand below.'); return; }
-      const applied = applyAiDraft(plan, data.draft, description.trim(), new Date().toISOString());
+      const applied = applyAiDraft(plan, data.draft, description.trim(), new Date().toISOString(), data.filledBy !== 'rules');
       onApply(applied.plan);
       setResult({ filled: applied.filled, kept: applied.kept, note: data.note ?? '' });
       try { localStorage.setItem(BUILDER_EMAIL_KEY, email.trim().toLowerCase()); } catch { /* fine */ }
