@@ -19,7 +19,7 @@
  */
 import registry from '@/data/authority/content_registry.json';
 import hubsJson from '@/data/seo/hub_pages.json';
-import { products, suite } from '@/lib/products';
+import { products, suite, bookKitProducts } from '@/lib/products';
 import { canonicalHostForPath, canonicalUrl, isCanonicalHost, PARENT_HOST, type SiteHost } from '@/lib/site-config';
 import { labelFor } from '@/lib/site-directory';
 import { homePathFor, siteHome, type Breadcrumb } from '@/lib/site-home';
@@ -55,7 +55,7 @@ export function pageNameFor(path: string): string | null {
   const product = clean.match(/^\/products\/([^/]+)$/);
   if (product) {
     if (product[1] === suite.id) return suite.name;
-    return products.find((item) => item.id === product[1])?.name ?? null;
+    return products.find((item) => item.id === product[1])?.name ?? bookKitProducts.find((item) => item.id === product[1])?.name ?? null;
   }
   const hub = hubPages[clean.slice(1)];
   if (hub) return hub.title.split(':')[0].trim();

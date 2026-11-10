@@ -52,7 +52,8 @@ export default function Privacy() {
       <p className="mt-4 leading-7 text-charcoal/70">
         The planning builder is free and opens after you enter an email address and agree to planning emails. We store that
         address, the wording you agreed to, the site you signed up on, and the date, in this site&rsquo;s Cloudflare D1
-        database. Your plan itself still stays in your browser. Every email we send includes an unsubscribe link, and you can
+        database. Your plan itself still stays in your browser. We send one welcome email, through Resend, with a link back to
+        the planner. Every email we send includes an unsubscribe link, and you can
         also write to <a className="underline underline-offset-4" href={`mailto:${supportEmail}`}>{supportEmail}</a> to have
         the address removed.
       </p>

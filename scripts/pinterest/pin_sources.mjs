@@ -5,10 +5,14 @@
 //   /guides/*    -> data/authority/content_registry.json (title, answer, summary)
 //                   + data/seo/guide_meta_descriptions.json
 //   hub pages    -> data/seo/hub_pages.json (h1, section bullets, description)
+//   landing pages -> data/planner-landings.ts (title, direct answer, section bullets,
+//                   description); a landing joins the drip only when
+//                   data/pinterest/topic_art.json `pages` records its photos and searches
 // Hand-written angles for a page live in data/pinterest/angles.json and go first;
 // when they run out, derivedAngles() builds more from the same source by template
-// ($0: no model call). Art is the product's own committed images, never people.
+// ($0: no model call). Art is the page's topic photos (data/pinterest/topic_art.json).
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 export const HOST = 'weddingchecklistpdf.com';
@@ -30,21 +34,30 @@ function sources() {
     }
   })(readJson('data/seo/hub_pages.json'));
   const ownership = readJson('data/seo/route_ownership.json');
-  cache = { catalog, registry, metaDescriptions: metaDescriptions.descriptions ?? metaDescriptions, hubs, ownership };
+  // Plain data with type annotations: Node (>= 22.18) strips the types on require.
+  const landings = Object.fromEntries(createRequire(import.meta.url)(path.join(ROOT, 'data/planner-landings.ts')).plannerLandings.filter((l) => l.host === HOST).map((l) => [`/${l.slug}`, l]));
+  cache = { catalog, registry, metaDescriptions: metaDescriptions.descriptions ?? metaDescriptions, hubs, landings, ownership };
   return cache;
 }
 
-/** Product and guide pages this host serves: the pages that may join the drip. */
+/**
+ * Pages this host serves that may join the drip: every product and guide page, and each
+ * planner landing page whose photos and searches are recorded in topic_art.json `pages`
+ * (the budget landings carry the vendors-budget board, which no guide feeds since the
+ * vendor guides were consolidated).
+ */
 export function eligiblePaths() {
-  return sources().ownership.routes
-    .filter((r) => r.host === HOST && r.indexable !== false && /^\/(products|guides)\/[a-z0-9-]+$/.test(r.path))
+  const { ownership, landings } = sources();
+  const mapped = topicArt().pages;
+  return ownership.routes
+    .filter((r) => r.host === HOST && r.indexable !== false && (/^\/(products|guides)\/[a-z0-9-]+$/.test(r.path) || (r.type === 'landing' && landings[r.path] && mapped[r.path])))
     .map((r) => r.path)
     .sort();
 }
 
 /** The page's own source record, or null when nothing truthful can be said about it. */
 export function pageSource(pagePath) {
-  const { catalog, registry, metaDescriptions, hubs } = sources();
+  const { catalog, registry, metaDescriptions, hubs, landings } = sources();
   const product = catalog.find((p) => p.route === pagePath || `/products/${p.id}` === pagePath);
   if (product) {
     return {
@@ -69,6 +82,21 @@ export function pageSource(pagePath) {
       facts,
       summary: metaDescriptions[guideSlug] ?? guide.summary,
       text: JSON.stringify({ guide, meta: metaDescriptions[guideSlug] ?? null })
+    };
+  }
+  const landing = landings[pagePath];
+  if (landing) {
+    return {
+      kind: 'landing',
+      productId: landing.productId ?? 'checklist-pdf',
+      name: String(landing.title).split(':')[0].trim(),
+      eyebrow: 'FREE GUIDE',
+      // No derived facts: the landings' sentences carry figures and lists ("$19,000 to
+      // $32,000", "chairs, china, glassware") that cut into fragments; their pins come
+      // only from the hand-written angles in data/pinterest/angles.json.
+      facts: [],
+      summary: landing.description,
+      text: JSON.stringify(landing)
     };
   }
   const hub = hubs[pagePath];
@@ -118,6 +146,54 @@ export function artFor(productId) {
     : [`${productId}`, `${productId}-sample-1`, `merch/${productId}-card`, `${productId}-sample-2`, `${productId}-hero`, `${productId}-sample-3`];
   const found = ids.map((id) => `product-images/${id}.png`).filter((rel) => fs.existsSync(path.join(ROOT, 'public', rel)));
   return found.length ? found : artFor('checklist-pdf');
+}
+
+// Topic art (data/pinterest/topic_art.json): each pin page maps to one topic, and its pins
+// may only use that topic's images (photos that show the topic, or the product's own art).
+let topicCache;
+export function topicArt() {
+  return (topicCache ??= readJson('data/pinterest/topic_art.json'));
+}
+
+/** The page's topic tag, or null when no topic art is mapped for it (it then gets no pins). */
+export function topicFor(pagePath) {
+  return topicArt().pages[pagePath]?.topic ?? null;
+}
+
+/** The searches a page answers (its title + its board's Pinterest searches). */
+export function searchesFor(pagePath) {
+  return topicArt().pages[pagePath]?.search ?? [];
+}
+
+/** The image paths of a topic, in their recorded order. */
+export function topicImages(topic) {
+  return (topicArt().topics[topic]?.images ?? []).map((i) => i.file);
+}
+
+/** The recorded licence/photo facts of an art path (a retired image carries `retired`). */
+export function imageRecord(art) {
+  const file = `/${String(art).replace(/^\/+/, '')}`;
+  for (const t of Object.values(topicArt().topics)) for (const i of t.images) if (i.file === file) return i;
+  return (topicArt().retired_images ?? []).find((i) => i.file === file) ?? null;
+}
+
+/** How many list items the page holds (pages.<path>.items), for numbered headlines. */
+export function pageItems(pagePath) {
+  return topicArt().pages[pagePath]?.items ?? null;
+}
+
+/** Crop focus recorded for an image ([x, y] in 0..1), centre by default. */
+export function focusFor(art) {
+  for (const t of Object.values(topicArt().topics)) for (const i of t.images) if (i.file === art || i.file === `/${art}`) return i.focus ?? [0.5, 0.5];
+  return [0.5, 0.5];
+}
+
+/** The topic whose words a question names first (longest word wins), else the checklist topic. */
+export function topicForText(text) {
+  const t = ` ${String(text).toLowerCase().replace(/[^a-z0-9]+/g, ' ')} `;
+  let best = null;
+  for (const [tag, topic] of Object.entries(topicArt().topics)) for (const w of topic.words ?? []) if (t.includes(` ${w.replace(/[^a-z0-9]+/g, ' ')} `) && (!best || w.length > best.w.length)) best = { tag, w };
+  return best?.tag ?? 'checklist';
 }
 
 const clip = (text, max) => {
@@ -204,7 +280,8 @@ export function questionPin(page, slConfig, id) {
   const headline = wrapQuestion(question);
   if (!headline || !meta) return null;
   const n = [...id].reduce((sum, c) => sum + c.charCodeAt(0), 0);
-  const art = artFor('checklist-pdf');
+  const topic = topicForText(q);
+  const art = topicImages(topic);
   return {
     id,
     seq: 0,
@@ -214,8 +291,10 @@ export function questionPin(page, slConfig, id) {
     subline: 'The short answer + next steps',
     title: clip(question, 100),
     description: clip(meta, 440),
-    layout: 'stripe',
-    palette: ['cream', 'blush', 'sage', 'slate', 'terracotta'][n % 5],
+    layout: ['band-top', 'band-low', 'band-frame'][n % 3],
+    palette: ['ivory', 'blush', 'sage', 'champagne'][n % 4],
+    topic,
+    search: [q.toLowerCase()],
     art: art[n % art.length]
   };
 }

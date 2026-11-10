@@ -30,6 +30,10 @@ export type HubPage = {
   sections: HubSection[]; table: { headers: string[]; rows: string[][] }; faqs: { question: string; answer: string }[];
   related: string[]; asset?: { label: string; href: string; secondary_label?: string; secondary_href?: string } | null;
   product_id: string; schema: string; printable?: boolean; bundle_offer?: HubBundleOffer;
+  // A Kindle companion's one paid button (owner, 8 Nov 2026): shown after the quick answer and again at the end.
+  book_cta?: { label: string; href: string };
+  // The book's own $9 kit (data/products/book_kits.json): leads the page once the kit is on sale.
+  book_kit?: string;
 };
 export type GuidePage = (typeof registryJson.pages)[number];
 export const hubs = hubsJson.pages as Record<string, HubPage>;
@@ -62,7 +66,17 @@ const TOPIC_MIN = 15;
 function fitTopic(title: string, max: number): string {
   if (title.length <= max) return title;
   const head = title.split(/:\s|\s[\u2014\u2013-]\s|\?\s/)[0].trim();
-  if (head.length >= TOPIC_MIN && head.length <= max && head.length < title.length) return head;
+  if (head.length >= TOPIC_MIN && head.length <= max && head.length < title.length) {
+    // The numbers in a dropped clause are usually what the page was searched for:
+    // every query /wedding-cost-per-guest ranked on named a guest count, and the
+    // bare head "Wedding cost per guest" (live from 6 Nov 2026, when the " | Wedding
+    // Checklist PDF" suffix left 41 characters) lost all of them. Keep them in
+    // brackets when they fit: "Wedding cost per guest (50, 100, 150)".
+    const numbers = [...new Set(title.slice(head.length).match(/\b\d[\d,]*\d\b|\b\d\b/g) ?? [])].map((n) => n.replace(/,$/, ''));
+    const withNumbers = numbers.length && !/\d/.test(head) ? `${head} (${numbers.join(', ')})` : '';
+    if (withNumbers && withNumbers.length <= max) return withNumbers;
+    return head;
+  }
   return clip(title, max);
 }
 

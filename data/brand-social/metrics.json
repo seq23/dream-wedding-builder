@@ -1,0 +1,72 @@
+{
+  "updatedAt": "2026-11-10T11:56:19.061Z",
+  "headline_host": "weddingchecklistpdf.com",
+  "window": {
+    "days": 28,
+    "since": "2026-10-14",
+    "until": "2026-11-10",
+    "from": "2026-10-13T11:56:19.061Z",
+    "to": "2026-11-10T11:56:19.061Z"
+  },
+  "social_visits_28d": 0,
+  "by_platform": {
+    "posts": null,
+    "visits": {
+      "instagram": 0,
+      "tiktok": 0
+    }
+  },
+  "by_host": {
+    "weddingchecklistpdf.com": {
+      "site_tag": "1a97575237ad472683f60409f6ef88b3",
+      "pageloads": 10,
+      "first_pageload_date": "2026-11-09",
+      "social_visits": 0,
+      "by_platform": {
+        "instagram": 0,
+        "tiktok": 0
+      },
+      "beacon": "ok"
+    },
+    "weddingbudgetspreadsheet.com": {
+      "site_tag": "3cc32ae54a9b4847986ef7548be8b012",
+      "pageloads": 0,
+      "first_pageload_date": null,
+      "social_visits": 0,
+      "by_platform": {
+        "instagram": 0,
+        "tiktok": 0
+      },
+      "beacon": "ok"
+    },
+    "weddingtimelinetemplate.com": {
+      "site_tag": "e44403aaa5774a8c80003a21e01f0c8b",
+      "pageloads": 0,
+      "first_pageload_date": null,
+      "social_visits": 0,
+      "by_platform": {
+        "instagram": 0,
+        "tiktok": 0
+      },
+      "beacon": "ok"
+    },
+    "weddingseatingchartmaker.com": {
+      "site_tag": "a931b1ad0d1c4dfebb494e51a5ebcd1f",
+      "pageloads": 0,
+      "first_pageload_date": null,
+      "social_visits": 0,
+      "by_platform": {
+        "instagram": 0,
+        "tiktok": 0
+      },
+      "beacon": "ok"
+    }
+  },
+  "unread": {
+    "posts_published_28d": "BUFFER_BRANDS_ACCESS_TOKEN is not set (Missing key: the brands Buffer holding Dream Wedding's Instagram and TikTok)"
+  },
+  "sources": {
+    "posts": "api.buffer.com/graphql posts(status: sent), counted on sentAt, Dream Wedding Instagram and TikTok channels (handles from data/seo/entity.json)",
+    "visits": "Cloudflare Web Analytics rumPageloadEventsAdaptiveGroups sum.visits by refererHost, matched on hostname (data/brand-social/social_referrers.json)"
+  }
+}

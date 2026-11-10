@@ -1,0 +1,8 @@
+{
+  "_comment": "Referrer HOSTNAMES that count as a visit from Instagram or TikTok in data/brand-social/metrics.json (scripts/brand_social/collect_metrics.mjs). Matched on the exact hostname Cloudflare Web Analytics records as refererHost, never on a full referring URL. Add a hostname here when a platform starts sending visits from a new one.",
+  "headline_host": "weddingchecklistpdf.com",
+  "platforms": {
+    "instagram": ["instagram.com", "www.instagram.com", "l.instagram.com", "lm.instagram.com"],
+    "tiktok": ["tiktok.com", "www.tiktok.com", "m.tiktok.com", "vt.tiktok.com", "l.tiktok.com"]
+  }
+}

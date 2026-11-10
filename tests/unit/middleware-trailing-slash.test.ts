@@ -67,3 +67,22 @@ describe('a trailing slash on a real route', () => {
     expect(ask('/about').headers.get('location')).toBeNull();
   });
 });
+
+// The 8 Nov 2026 Kindle books print their companion URL WITH a trailing slash; a reader who
+// types it must land on the page in one answer, with the utm query intact.
+describe('a Kindle companion URL printed with a slash', () => {
+  const ask = (path: string) => middleware(new NextRequest(`https://weddingchecklistpdf.com${path}`, { headers: { host: 'weddingchecklistpdf.com' } }));
+  for (const slug of ['courthouse-wedding-planner', 'wedding-vows', 'maid-of-honor-handbook']) {
+    it(`/amazon/${slug}/ answers the page without a redirect, query kept`, () => {
+      const response = ask(`/amazon/${slug}/?utm_source=kindle&utm_medium=book&utm_campaign=${slug}`);
+      expect(response.status).toBe(200);
+      expect(response.headers.get('location')).toBeNull();
+      const rewrite = new URL(response.headers.get('x-middleware-rewrite')!);
+      expect(rewrite.pathname).toBe(`/amazon/${slug}`);
+      expect(rewrite.searchParams.get('utm_source')).toBe('kindle');
+    });
+  }
+  it('older book paths keep the one-hop 308', () => {
+    expect(ask('/amazon/wedding-day-timeline/').status).toBe(308);
+  });
+});

@@ -56,19 +56,19 @@ export default function ReadinessScore() {
   return <article className="mx-auto max-w-5xl space-y-10 md:space-y-14">
     <Breadcrumbs items={[{ name: 'Constraint-first planning', href: '/methodology', canonical: canonicalUrl(PARENT_HOST, '/methodology') }, { name: 'Readiness score', href: '/readiness-score', canonical: CANONICAL }]} />
 
-    <header className="rounded-[2rem] bg-white p-7 shadow-soft md:p-12">
+    <header className="rounded-[12px] bg-white p-7 shadow-soft md:p-12">
       <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">The rubric</p>
       <h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">The planning readiness score</h1>
       <p className="mt-6 max-w-4xl text-xl leading-9 text-charcoal/70">{DEFINITION}</p>
     </header>
 
-    <section className="rounded-[1.75rem] bg-linen p-7 md:p-9">
+    <section className="rounded-[12px] bg-linen p-7 md:p-9">
       <h2 className="font-serif text-4xl">How it is calculated</h2>
       <p className="mt-4 text-base leading-7 text-charcoal/70">Count the answered inputs, divide by {READINESS_CHECK_COUNT}, multiply by 100, round to the nearest whole number. There is no other term in the formula. Every input carries the same weight — about {Math.round(READINESS_POINTS_PER_CHECK)} points — because weighting them would mean asserting that one input matters more for every couple, and that is exactly the assertion <Link href="/methodology" className="font-bold underline underline-offset-4">constraint-first planning</Link> refuses to make.</p>
       <p className="mt-4 text-base leading-7 text-charcoal/70">The score is computed in your browser from values you typed. Nothing is sent anywhere, and no input is inferred on your behalf.</p>
     </section>
 
-    <section className="rounded-[1.75rem] bg-white p-7 md:p-9">
+    <section className="rounded-[12px] bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl md:text-5xl">The {READINESS_CHECK_COUNT} scored inputs</h2>
       <div className="mt-5 overflow-x-auto">
         <table className="w-full min-w-[40rem] border-collapse text-left text-sm">
@@ -89,12 +89,12 @@ export default function ReadinessScore() {
       <div className="mt-6 grid gap-3">{readinessChecks.map((check) => <p key={check.id} className="rounded-2xl bg-ivory p-4 leading-7"><strong>{check.label}.</strong> {check.why}</p>)}</div>
     </section>
 
-    <section className="rounded-[1.75rem] bg-white p-7 md:p-9">
+    <section className="rounded-[12px] bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl md:text-5xl">What each number means</h2>
       <div className="mt-5 grid gap-3">{readinessBands.map((band) => <p key={band.name} className="rounded-2xl bg-ivory p-4 leading-7"><strong>{band.min}–{band.max}% · {band.name}.</strong> {band.meaning}</p>)}</div>
     </section>
 
-    <section className="rounded-[1.75rem] bg-white p-7 md:p-9">
+    <section className="rounded-[12px] bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl md:text-5xl">What the score is not</h2>
       <ul className="mt-5 grid gap-3">
         <li className="rounded-2xl bg-ivory p-4 leading-7">It is not a quality judgement. A plan built on an unrealistic guest count will happily reach 100%.</li>
@@ -108,19 +108,19 @@ export default function ReadinessScore() {
         page: the answers were in the prose above, but not as the questions couples
         actually type, and markup the visible page does not support is treated as
         deceptive. Both the section and the node read FAQS, so they cannot diverge. */}
-    <section className="rounded-[1.75rem] bg-white p-7 md:p-9">
+    <section className="rounded-[12px] bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl md:text-5xl">Questions couples ask about the score</h2>
-      <div className="mt-6 grid gap-4">{FAQS.map((item) => <details key={item.question} className="rounded-[1.5rem] border border-charcoal/10 bg-ivory p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-3 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div>
+      <div className="mt-6 grid gap-4">{FAQS.map((item) => <details key={item.question} className="rounded-[12px] border border-charcoal/10 bg-ivory p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-3 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div>
     </section>
 
-    <section className="no-print rounded-[1.75rem] border border-charcoal/15 bg-white p-7 md:p-9">
+    <section className="no-print rounded-[12px] border border-charcoal/15 bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl">See your own score</h2>
       <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">The planner shows your readiness score, which inputs are still unanswered, and what answering each one would change. Free with your email, and your plan stays in your browser.</p>
       <Link href={plannerHref({})} className="mt-6 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Open the free wedding planner →</Link>
     </section>
     <PlannerCta label="See your readiness score →" seed={{}} />
 
-    <footer className="rounded-[1.5rem] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">This page is rendered directly from the same module the planner scores with, so the published rubric and the shipped calculation cannot drift apart. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
+    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">This page is rendered directly from the same module the planner scores with, so the published rubric and the shipped calculation cannot drift apart. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
     <JsonLd data={[definedTerm, faq]} />
   </article>;
 }

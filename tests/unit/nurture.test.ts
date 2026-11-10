@@ -74,6 +74,40 @@ describe('free sample -> email -> paid', () => {
     }
   });
 
+  it('a free-planner sign-up gets exactly one welcome and never a product series', async () => {
+    const db = fakeD1(); const { sent, fetchImpl } = resend(); const env = envFor(db);
+    const now = Date.parse('2026-11-10T12:00:00Z');
+    await optOut(db, await emailHash('gone@example.com')); // creates tables
+    const planner = (email: string, created: string, source = 'free-wedding-planner') =>
+      db.raw.prepare(`INSERT INTO builder_signups (email, consent_text, source, created_at) VALUES (?, 'c', ?, ?)`).run(email, source, created);
+    planner('new@example.com', '2026-11-10 11:30:00');
+    planner('tool@example.com', '2026-11-09 13:00:00', 'free-wedding-planner:weddingseatingchartmaker.com');
+    planner('old@example.com', '2026-11-06 09:00:00'); // signed up before the 48-hour window
+    planner('gone@example.com', '2026-11-10 11:00:00'); // opted out
+    planner('buyer@example.com', '2026-11-10 11:00:00');
+    db.raw.prepare(`INSERT INTO orders VALUES ('o1', 'buyer@example.com', 'PAID', 900, '2026-11-10 11:10:00')`).run();
+    planner('sampled@example.com', '2026-11-10 11:00:00'); // asked for the sample too: the series owns them
+    await sendSample(env, 'sampled@example.com', fetchImpl); sent.length = 0;
+
+    const first = await runNurture(env, now, fetchImpl);
+    expect(first.sent).toBe(2); // the welcome is counted in the run's result
+    expect(sent.map((s) => s.to).sort()).toEqual(['new@example.com', 'tool@example.com']);
+    for (const mail of sent) {
+      expect(mail.text).toContain('https://weddingchecklistpdf.com/free-wedding-planner');
+      expect(mail.text).toContain(MAILING_ADDRESS);
+      expect(mail.headers['List-Unsubscribe']).toMatch(/^<https:\/\/weddingchecklistpdf\.com\/api\/unsubscribe\?id=[0-9a-f]{64}&t=[0-9a-f]{32}>$/);
+      expect(mail.text).toContain(mail.headers['List-Unsubscribe'].slice(1, -1));
+    }
+    // Hourly re-runs and a month of later runs: no second welcome, and no seq step, ever.
+    await runNurture(env, now + 3_600_000, fetchImpl);
+    for (let d = 1; d <= 30; d++) await runNurture(env, now + d * DAY, fetchImpl);
+    const kinds = async (email: string) => (db.raw.prepare('SELECT kind FROM email_sends WHERE email_hash = ? ORDER BY kind').all(await emailHash(email)) as Array<{ kind: string }>).map((r) => r.kind);
+    expect(await kinds('new@example.com')).toEqual(['welcome']);
+    expect(await kinds('tool@example.com')).toEqual(['welcome']);
+    for (const email of ['old@example.com', 'gone@example.com', 'buyer@example.com']) expect((await kinds(email)).filter((k) => k !== 'review_ask')).toEqual([]);
+    expect(await kinds('sampled@example.com')).toEqual(SEQUENCE.map((s) => s.kind)); // the series, without a welcome on top
+  });
+
   it('refuses with a named stop instead of sending nothing silently', async () => {
     const run = await runNurture({ DB: fakeD1() }, Date.now(), resend().fetchImpl);
     expect(run.stop).toMatch(/^NAMED STOP \[NO_RESEND_KEY\]/);

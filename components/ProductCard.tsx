@@ -16,7 +16,7 @@ const cardImages: Record<string,string> = {
 export function ProductCard({ product, compact=false, fromHost=PARENT_HOST }: { product: Product; compact?: boolean; fromHost?: string }) {
   const href = hrefFrom(fromHost, product.route);
   const image = cardImages[product.id] || ('image' in product ? product.image : '');
-  return <article className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-charcoal/10 bg-white shadow-[0_18px_50px_rgba(66,54,43,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(66,54,43,.15)]">
+  return <article className="group flex h-full flex-col overflow-hidden rounded-[12px] border border-charcoal/10 bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-soft">
     {image && <Link href={href} className="relative block aspect-[14/9] overflow-hidden bg-linen"><Image src={image} alt={`${product.name} — $${product.price} one-time`} fill sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw" className="object-cover transition duration-500 group-hover:scale-[1.025]"/></Link>}
     <div className="flex flex-1 flex-col p-5 md:p-6">
       <div className="flex items-start justify-between gap-3"><p className="text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/45">Editable wedding tool</p><span className="rounded-full bg-linen px-3 py-1 text-xs font-bold">${product.price}</span></div>

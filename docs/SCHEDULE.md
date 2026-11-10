@@ -7,11 +7,10 @@ schedule); see the notes below for what moved.
 
 | Job | Workflow | When | Cron |
 |---|---|---|---|
-| Authority Preflight Validation | `authority-preflight-validation.yml` | every day 04:17 CT | `17 4 * * *` |
 | CI - Build and Validate | `ci.yml` | every day 07:40 CT | `40 7 * * *` |
 | Entity Backlink Watch | `entity-backlink-watch.yml` | Thu 07:40 CT | `40 7 * * 4` |
 | Full Safe Autonomy | `full-safe-autonomy.yml` | every day 05:17 CT | `17 5 * * *` |
-| Pinterest drip (weekly refill + metrics) | `pinterest-drip.yml` | Sat 06:40 CT | `40 6 * * 6` |
+| Pinterest drip (daily questions + refill; metrics on Saturdays) | `pinterest-drip.yml` | daily 07:20 CT | `20 7 * * *` |
 | Search Loop (shared engine, /questions/ pages) | `search-loop.yml` | every day 06:11 CT | `11 6 * * *` |
 | Search Intelligence - Observe Diagnose Repair Retest | `search-intelligence.yml` | every day 06:41 CT | `41 6 * * *` |
 | Bounded Self-Healing | `self-heal.yml` | Wed 10:10 CT | `10 10 * * 3` |
@@ -25,7 +24,7 @@ schedule); see the notes below for what moved.
   self-healing are not upkeep and keep their own days.
 
 ## Moved on 1 Nov 2026
-- Pinterest drip (weekly refill + metrics): Monday → Saturday 06:40 CT (upkeep window).
+- Pinterest drip (weekly refill + metrics): Monday → Saturday 06:40 CT (upkeep window); since 1 Nov 2026 it runs daily at 07:20 CT, after the search loop. Pins of a generation she has not approved wait in `queue.json` `pending`; after her yes one command releases them: `gh workflow run pinterest-drip.yml -R seq23/dream-wedding-builder -f approve=<generation>`.
 - Entity Backlink Watch: Monday → Thursday 07:40 CT (four backlink watches on Thursday, 20 minutes apart).
 - The Worker's hourly delivery retry (`wrangler.jsonc`, `0 * * * *` UTC) is unchanged.
 - Bounded Self-Healing joins the Wednesday 10:00–10:30 CT self-healing sweep (p-n-p 10:00, Dream Wedding 10:10, backlink network 10:20, WPP 10:30).

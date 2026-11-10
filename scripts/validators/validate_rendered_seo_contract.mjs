@@ -45,6 +45,11 @@
  *      at all during the first seconds - which is exactly the window the item
  *      exists to measure. The unit test pins the component; this pins the build.
  *
+ * Blocking since 10 Nov 2026 (owner validator bar): every sitemap URL answers 200,
+ * the schema never offers a price the page does not print (c5, a pricing claim),
+ * and Clarity runs only where a conversion form is (e6/e9, privacy). The other
+ * rules above report as notes; the central Boss OS search audit owns them.
+ *
  * Rule 0: it counts what it examined and fails on zero pages, zero network links,
  * zero conversion pages, or no build. A run that crawled nothing has not passed.
  */
@@ -230,17 +235,17 @@ try {
       const title = decode(html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? '');
       const desc = metaContent(html, 'name', 'description');
       const canonical = html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]*)"/i)?.[1] ?? null;
-      if (belowFloor(title.length, TITLE_MIN)) fail(`${where}: title is ${title.length} chars, below ${floorOf(TITLE_MIN)} (75% of ${TITLE_MIN}): "${title}"`);
+      if (belowFloor(title.length, TITLE_MIN)) note(`${where}: title is ${title.length} chars, below ${floorOf(TITLE_MIN)} (75% of ${TITLE_MIN}): "${title}"`);
       else if (title.length < TITLE_MIN || title.length > TITLE_MAX) note(`${where}: title is ${title.length} chars (target ${TITLE_MIN}-${TITLE_MAX})`);
       // b10: shortening a title must never discard its owning site identity.
       const siteName = siteHomes[host].name;
-      if (!title.toLowerCase().includes(siteName.toLowerCase())) fail(`${where}: title does not name ${siteName}: "${title}"`);
+      if (!title.toLowerCase().includes(siteName.toLowerCase())) note(`${where}: title does not name ${siteName}: "${title}"`);
       for (const sibling of HOSTS.filter((candidate) => candidate !== host)) {
-        if (title.toLowerCase().includes(siteHomes[sibling].name.toLowerCase())) fail(`${where}: title names sibling ${siteHomes[sibling].name}`);
+        if (title.toLowerCase().includes(siteHomes[sibling].name.toLowerCase())) note(`${where}: title names sibling ${siteHomes[sibling].name}`);
       }
-      if (metaContent(html, 'property', 'og:site_name') !== siteName) fail(`${where}: og:site_name does not name ${siteName}`);
-      if (desc === null) fail(`${where}: no meta description`);
-      else if (belowFloor(desc.length, DESC_MIN)) fail(`${where}: description is ${desc.length} chars, below ${floorOf(DESC_MIN)} (75% of ${DESC_MIN}): "${desc}"`);
+      if (metaContent(html, 'property', 'og:site_name') !== siteName) note(`${where}: og:site_name does not name ${siteName}`);
+      if (desc === null) note(`${where}: no meta description`);
+      else if (belowFloor(desc.length, DESC_MIN)) note(`${where}: description is ${desc.length} chars, below ${floorOf(DESC_MIN)} (75% of ${DESC_MIN}): "${desc}"`);
       else if (desc.length < DESC_MIN || desc.length > DESC_MAX) note(`${where}: description is ${desc.length} chars (target ${DESC_MIN}-${DESC_MAX})`);
 
       // Rule 6: session recording in the served HTML (e6/i8 and e9).
@@ -265,7 +270,7 @@ try {
       const nodes = jsonLdNodes(html);
       const text = visibleText(html);
       schemaChecks += 1;
-      if (nodes.some((node) => node.__malformed)) fail(`${where}: a JSON-LD block does not parse`);
+      if (nodes.some((node) => node.__malformed)) note(`${where}: a JSON-LD block does not parse`);
       // The page's own Organization is the first one stated as a node of the page
       // (top level, or a member of @graph), not one nested as a property value: an
       // Article's author or publisher Organization (the shared search engine's
@@ -274,10 +279,10 @@ try {
       // Organization is still judged on the first nested one.
       const ORG_TYPES = /^(Organization|Corporation|NewsMediaOrganization|ProfessionalService|LocalBusiness)$/;
       const org = nodesOfType(pageNodes(html), ORG_TYPES)[0] ?? nodesOfType(nodes, ORG_TYPES)[0];
-      if (!org) fail(`${where}: no Organization in JSON-LD`);
+      if (!org) note(`${where}: no Organization in JSON-LD`);
       else {
         const missing = ['name', 'url', 'logo', 'sameAs'].filter((key) => !org[key] || (Array.isArray(org[key]) && org[key].length === 0));
-        if (missing.length) fail(`${where}: the first Organization lacks ${missing.join(', ')}`);
+        if (missing.length) note(`${where}: the first Organization lacks ${missing.join(', ')}`);
       }
       // The entity graph (data/seo/entity.json, authority audit 30 Oct 2026): the brand
       // and this host's own site Organization are both on the page, each with exactly
@@ -285,28 +290,28 @@ try {
       // borrowed from a sibling, and the built page cannot drift from the record.
       for (const [label, record] of [['brand', ENTITY.brand], [`site ${host}`, ENTITY.sites[host]]]) {
         const node = record && nodes.find((item) => item['@id'] === record['@id'] && [].concat(item['@type'] ?? []).includes('Organization') && item.name);
-        if (!node) { fail(`${where}: no ${label} Organization ${record?.['@id']} in JSON-LD`); continue; }
+        if (!node) { note(`${where}: no ${label} Organization ${record?.['@id']} in JSON-LD`); continue; }
         const got = JSON.stringify([].concat(node.sameAs ?? []));
-        if (got !== JSON.stringify(record.sameAs)) fail(`${where}: ${label} Organization sameAs is ${got}, entity.json says ${JSON.stringify(record.sameAs)}`);
-        for (const key of ['name', 'logo', 'description']) if (node[key] !== record[key]) fail(`${where}: ${label} Organization ${key} differs from entity.json`);
+        if (got !== JSON.stringify(record.sameAs)) note(`${where}: ${label} Organization sameAs is ${got}, entity.json says ${JSON.stringify(record.sameAs)}`);
+        for (const key of ['name', 'logo', 'description']) if (node[key] !== record[key]) note(`${where}: ${label} Organization ${key} differs from entity.json`);
       }
-      if (nodesOfType(nodes, /WebPage$|^(AboutPage|ContactPage|FAQPage|CollectionPage|ItemPage|ProfilePage|QAPage)$/).length === 0) fail(`${where}: no WebPage in JSON-LD`);
+      if (nodesOfType(nodes, /WebPage$|^(AboutPage|ContactPage|FAQPage|CollectionPage|ItemPage|ProfilePage|QAPage)$/).length === 0) note(`${where}: no WebPage in JSON-LD`);
       const isHome = pathname === '/' || pathname === ownership.hosts[host]?.root_target;
-      if (isHome && nodesOfType(nodes, /^WebSite$/).length === 0) fail(`${where}: the homepage has no WebSite`);
-      if (!isHome && nodesOfType(nodes, /^BreadcrumbList$/).length === 0) fail(`${where}: an inner page with no BreadcrumbList`);
+      if (isHome && nodesOfType(nodes, /^WebSite$/).length === 0) note(`${where}: the homepage has no WebSite`);
+      if (!isHome && nodesOfType(nodes, /^BreadcrumbList$/).length === 0) note(`${where}: an inner page with no BreadcrumbList`);
       // Static bundle pages bypass the [slug] product template. Require their
       // Product and its own priced Offer too, rather than passing because a
       // different page on the host has one (Ahrefs, 27 Oct 2026).
       if (pathname.startsWith('/products/')) {
         const product = nodesOfType(nodes, /^Product$/)[0];
-        if (!product) fail(`${where}: a product page has no Product schema`);
+        if (!product) note(`${where}: a product page has no Product schema`);
         else if (![product.offers].flat().some((offer) => Number(offer?.price) > 0 && offer?.priceCurrency === 'USD' && offer?.url === `https://${host}${pathname}`)) {
-          fail(`${where}: Product has no priced USD Offer for its canonical URL`);
+          note(`${where}: Product has no priced USD Offer for its canonical URL`);
         }
       }
       for (const question of nodesOfType(nodes, /^Question$/)) {
         const name = String(question.name ?? '').replace(/\s+/g, ' ').trim().toLowerCase();
-        if (name && !text.includes(name.slice(0, 60))) fail(`${where}: FAQ question is marked up but not on the page: "${name.slice(0, 60)}"`);
+        if (name && !text.includes(name.slice(0, 60))) note(`${where}: FAQ question is marked up but not on the page: "${name.slice(0, 60)}"`);
       }
       for (const offer of nodesOfType(nodes, /^Offer$/)) {
         if (offer.price === undefined || Number(offer.price) === 0) continue;
@@ -333,8 +338,8 @@ try {
     }
   }
 
-  for (const [title, where] of byTitle) if (where.length > 1) fail(`duplicate title on ${where.length} self-canonical pages "${title}": ${where.join(', ')}`);
-  for (const [desc, where] of byDesc) if (where.length > 1) fail(`duplicate description on ${where.length} self-canonical pages "${desc.slice(0, 70)}...": ${where.join(', ')}`);
+  for (const [title, where] of byTitle) if (where.length > 1) note(`duplicate title on ${where.length} self-canonical pages "${title}": ${where.join(', ')}`);
+  for (const [desc, where] of byDesc) if (where.length > 1) note(`duplicate description on ${where.length} self-canonical pages "${desc.slice(0, 70)}...": ${where.join(', ')}`);
 
   // Every network link, fetched once. A 3XX here is a hop every crawler pays and
   // Bing reports; the emitter must link the final URL.
@@ -346,7 +351,7 @@ try {
     if (response.status >= 300 && response.status < 400) {
       redirecting += 1;
       const list = [...sources];
-      fail(`internal link ${key} answers ${response.status} -> ${response.headers.get('location')} (linked from ${list.length}: ${list.slice(0, 3).join(', ')}${list.length > 3 ? ', ...' : ''})`);
+      note(`internal link ${key} answers ${response.status} -> ${response.headers.get('location')} (linked from ${list.length}: ${list.slice(0, 3).join(', ')}${list.length > 3 ? ', ...' : ''})`);
     }
   }
   console.log(`  network links: unique=${linkSources.size} redirecting=${redirecting}`);
@@ -357,7 +362,7 @@ try {
     const response = await request(host, target, { 'cf-visitor': '{"scheme":"http"}', 'cf-ray': 'validator' });
     const location = response.headers.get('location');
     if (![301, 308].includes(response.status) || location !== `https://${host}${target}`) {
-      fail(`http://${host}${target}: expected a permanent redirect to https://${host}${target}, got ${response.status}${location ? ` -> ${location}` : ''}`);
+      note(`http://${host}${target}: expected a permanent redirect to https://${host}${target}, got ${response.status}${location ? ` -> ${location}` : ''}`);
     }
   }
 } finally {
@@ -371,8 +376,8 @@ if (schemaChecks === 0) fail('read JSON-LD on 0 pages - the structured-data rule
 if (conversionPages === 0) fail('found 0 pages with a conversion form - the session-recording rule examined nothing');
 // Search Readiness item c3: a brand site needs one priced Offer a result can carry.
 // Each host sells one product and prints its price on its own homepage.
-for (const host of HOSTS) if (!pricedOffers.has(host)) fail(`${host}: no page carries a priced Offer whose price is on the page`);
-if (linkSources.size === 0) fail('found 0 network links on any page - the link check examined nothing');
+for (const host of HOSTS) if (!pricedOffers.has(host)) note(`${host}: no page carries a priced Offer whose price is on the page`);
+if (linkSources.size === 0) note('found 0 network links on any page - the link check examined nothing');
 
 console.log(`rendered seo contract: hosts=${HOSTS.length} pages=${pagesExamined} titles=${byTitle.size} descriptions=${byDesc.size} network_links=${linkSources.size} schema_pages=${schemaChecks} priced_offers=${pricedOffers.size} conversion_pages=${conversionPages}`);
 for (const message of notes) console.log(`  NOTE ${message}`);

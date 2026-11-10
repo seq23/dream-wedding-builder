@@ -37,6 +37,7 @@ jobs:
       stage: ${{ inputs.stage || 'auto' }}
       commit_command: bash .github/scripts/search_loop_commit.sh
     secrets:
+      BOSS_OPEN_LOOPS_TOKEN: ${{ secrets.BOSS_OPEN_LOOPS_TOKEN }}  # named stops -> Boss OS Open Loops (search-loop v1.7.0)
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
       GSC_SITE_URL: ${{ secrets.GSC_SITE_URL_CHECKLIST }}

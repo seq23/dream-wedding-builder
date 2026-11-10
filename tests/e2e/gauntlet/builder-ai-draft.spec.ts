@@ -17,6 +17,8 @@ test('a draft fills the plan, is labelled AI-drafted, keeps the couple’s own a
     : route.fulfill({ json: { ok: true, draft, remaining: 0 } }));
   await page.goto('/free-wedding-planner');
   await page.getByTestId('ai-description').fill('200 guests, June in Memphis, small budget');
+  await expect(page.getByTestId('ai-submit')).toBeDisabled();
+  await page.getByTestId('ai-consent').check();
   await page.getByTestId('ai-submit').click();
   await expect(page.getByTestId('ai-result')).toContainText('Kept your own answers for: guest count');
   await expect(page.getByTestId('ai-drafted-label')).toContainText('AI-drafted');
@@ -36,6 +38,8 @@ test('a busy model shows a calm try-again and leaves the plan as it was', async 
     : route.fulfill({ status: 503, json: { ok: false, code: 'BUSY', error: 'AI drafting is busy. Please try again later; you can still build your plan by hand below.' } }));
   await page.goto('/free-wedding-planner');
   await page.getByTestId('ai-description').fill('200 guests, June in Memphis, small budget');
+  await expect(page.getByTestId('ai-submit')).toBeDisabled();
+  await page.getByTestId('ai-consent').check();
   await page.getByTestId('ai-submit').click();
   await expect(page.getByTestId('ai-message')).toContainText('try again later');
   await expect(page.getByTestId('ai-drafted-label')).toHaveCount(0);

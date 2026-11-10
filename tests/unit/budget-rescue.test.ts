@@ -1,6 +1,7 @@
 import hubs from '@/data/seo/hub_pages.json';
 import ownership from '@/data/seo/route_ownership.json';
 import pageRescue from '@/data/seo/page_rescue.json';
+import engineLedger from '@/data/search-loop/pages.json';
 import { canonicalHostForPath, CANONICAL_HOSTS, hrefFrom, ownToolPaths } from '@/lib/site-config';
 import { GET as llms } from '@/app/llms.txt/route';
 import { describe, expect, it } from 'vitest';
@@ -73,7 +74,10 @@ describe('wedding editorial consolidation and domain isolation', () => {
       const response = await GET(new Request(`https://${host}/sitemap.xml`, { headers: { host } }));
       const urls = [...(await response.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => new URL(m[1]));
       expect(urls.length).toBeGreaterThan(0);
-      expect(urls.map(u => u.pathname).sort()).toEqual([...pageRescue.kept_paths_by_host[host]].sort());
+      // Kept paths plus the Search Loop's live question pages on this host, exactly (a live
+      // engine page is a real page and must be in the sitemap; a merged one must not).
+      const enginePaths = engineLedger.pages.filter((p) => p.status === 'live' && new URL(p.url).host === host).map((p) => p.route);
+      expect(urls.map(u => u.pathname).sort()).toEqual([...new Set([...pageRescue.kept_paths_by_host[host], ...enginePaths])].sort());
       for (const url of urls) expect(url.host).toBe(host);
       const text = await (await llms(new Request(`https://${host}/llms.txt`, { headers: { host } }))).text();
       for (const match of text.matchAll(/\]\((https:\/\/[^)]+)\)/g)) {

@@ -20,7 +20,7 @@ export function OrderStatus({ sessionId }: { sessionId: string }) {
     return () => { cancelled = true; };
   }, [sessionId]);
 
-  return <section className="mt-7 rounded-[1.75rem] border border-charcoal/10 bg-white p-6 shadow-soft" aria-live="polite">
+  return <section className="mt-7 rounded-[12px] border border-charcoal/10 bg-white p-6 shadow-soft" aria-live="polite">
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Secure order status</p>
     <h2 className="mt-3 font-serif text-3xl">{state.product_name || 'Preparing your purchase'}</h2>
     <p className="mt-3 leading-7 text-charcoal/70">{state.message}</p>

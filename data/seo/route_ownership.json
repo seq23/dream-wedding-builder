@@ -311,6 +311,24 @@
       "indexable": true
     },
     {
+      "path": "/amazon/courthouse-wedding-planner",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/amazon/wedding-vows",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
+      "path": "/amazon/maid-of-honor-handbook",
+      "host": "weddingchecklistpdf.com",
+      "type": "hub",
+      "indexable": true
+    },
+    {
       "path": "/methodology",
       "host": "weddingchecklistpdf.com",
       "type": "parent",

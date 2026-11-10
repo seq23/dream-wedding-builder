@@ -1,0 +1,172 @@
+{
+  "_why": "The three $9 Kindle-book kits (owner yes 8 Nov 2026). On sale since 8 Nov 2026: live Stripe prices in the Wedding Tools account, set as Worker secrets (price_env_key); catalog rows (kind book_kit) in product_catalog.json; files in the download manifest and the private R2 bucket. Setting on_sale false takes a kit off sale: its page answers 404 and the companion pages fall back to their other product.",
+  "kits": [
+    {
+      "id": "courthouse-wedding-kit",
+      "sku": "DWB-COURTHOUSE-001",
+      "name": "The Courthouse Wedding Kit",
+      "short": "the Courthouse Wedding Kit",
+      "book_slug": "courthouse-wedding-planner",
+      "pages": 12,
+      "headline": "Every step of a courthouse wedding, on paper.",
+      "promise": "A 12-page printable kit for a courthouse wedding: the license steps in order, the questions to ask your county clerk, a witness and ID list, the courthouse-day timeline, a small reception plan, a budget page and the name-change checklist.",
+      "includes": [
+        "License and paperwork checklist, step by step",
+        "Questions to call the county clerk, with space for the answers",
+        "Witness and ID list",
+        "Courthouse-day timeline and what to bring",
+        "Small reception plan and guest list",
+        "Budget page: estimated, actual, paid",
+        "After the wedding: certified copies and name change",
+        "Announcements and thank-you tracker"
+      ],
+      "limits": "It states no county's fees or rules as fact. Rules differ by county and change, so the kit gives you the questions and your county clerk gives you the answers.",
+      "gallery": [
+        {
+          "src": "/product-previews/courthouse-wedding-kit/courthouse-wedding-kit-preview-1.png",
+          "title": "License steps, in order",
+          "caption": "Tick each step from choosing the office to ordering certified copies, with a date beside each.",
+          "alt": "Preview of license steps, in order from the paid PDF"
+        },
+        {
+          "src": "/product-previews/courthouse-wedding-kit/courthouse-wedding-kit-preview-2.png",
+          "title": "Questions to call the clerk",
+          "caption": "Nine questions to ask the office that issues your license, with room for the answers.",
+          "alt": "Preview of questions to call the clerk from the paid PDF"
+        },
+        {
+          "src": "/product-previews/courthouse-wedding-kit/courthouse-wedding-kit-preview-3.png",
+          "title": "The courthouse day",
+          "caption": "A timeline built backwards from your appointment, with a buffer for security.",
+          "alt": "Preview of the courthouse day from the paid PDF"
+        }
+      ],
+      "price": 9,
+      "domain": "weddingchecklistpdf.com",
+      "route": "/products/courthouse-wedding-kit",
+      "on_sale": true,
+      "price_env_key": "STRIPE_COURTHOUSE_WEDDING_KIT_PRICE_ID",
+      "release": {
+        "version": "1.0.0",
+        "pdf": "DWB-COURTHOUSE-001_v1.0.0.pdf",
+        "pdf_sha256": "0afdaa9e5827737d0c1c964b35805f299479f7aa5e55a4adce2e43d0e5fbccbb",
+        "r2_bucket": "dream-wedding-builder-products",
+        "r2_key": "products/courthouse-wedding-kit/current.zip",
+        "zip_sha256": "908741b59a949d268f2cb1cdd2f6a8b29d276765f7e4a55616d5b92bfacc796a",
+        "zip_bytes": 13406,
+        "uploaded": "2026-11-08"
+      }
+    },
+    {
+      "id": "wedding-vows-workbook",
+      "sku": "DWB-VOWS-001",
+      "name": "The Wedding Vows Workbook",
+      "short": "the Wedding Vows Workbook",
+      "book_slug": "wedding-vows",
+      "pages": 12,
+      "headline": "From a blank page to vows you can say out loud.",
+      "promise": "A 12-page printable workbook for writing your vows: decide the basics together, memory and promise prompts, a five-part structure, three fill-in templates, a length and timing guide, a read-aloud practice log and two cut-out vow cards.",
+      "includes": [
+        "Decide the basics together",
+        "Memory prompts and promise prompts",
+        "A five-part structure",
+        "Three fill-in templates: classic, story-led, short and sweet",
+        "Length and timing guide",
+        "Read-aloud practice log",
+        "Two cut-out final vow cards"
+      ],
+      "limits": "It helps you write your own vows; it does not write them for you. Follow any guidance your officiant or venue gives on length or content.",
+      "gallery": [
+        {
+          "src": "/product-previews/wedding-vows-workbook/wedding-vows-workbook-preview-1.png",
+          "title": "A five-part structure",
+          "caption": "Open, a story, what you love, your promises, close: with room to draft each part.",
+          "alt": "Preview of a five-part structure from the paid PDF"
+        },
+        {
+          "src": "/product-previews/wedding-vows-workbook/wedding-vows-workbook-preview-2.png",
+          "title": "Fill-in template",
+          "caption": "A classic template with blanks for your own details.",
+          "alt": "Preview of fill-in template from the paid PDF"
+        },
+        {
+          "src": "/product-previews/wedding-vows-workbook/wedding-vows-workbook-preview-3.png",
+          "title": "Length and timing guide",
+          "caption": "How many words fit in 30 seconds, one, two or three minutes.",
+          "alt": "Preview of length and timing guide from the paid PDF"
+        }
+      ],
+      "price": 9,
+      "domain": "weddingchecklistpdf.com",
+      "route": "/products/wedding-vows-workbook",
+      "on_sale": true,
+      "price_env_key": "STRIPE_WEDDING_VOWS_WORKBOOK_PRICE_ID",
+      "release": {
+        "version": "1.0.0",
+        "pdf": "DWB-VOWS-001_v1.0.0.pdf",
+        "pdf_sha256": "73f46467cb6b7a944cff957429820bf87a412c153b53aa4930562baf4e0d5526",
+        "r2_bucket": "dream-wedding-builder-products",
+        "r2_key": "products/wedding-vows-workbook/current.zip",
+        "zip_sha256": "7bff731009e1538defc28206ef326c714cdcefca941bc7f72499bcd6cd43ddd7",
+        "zip_bytes": 11380,
+        "uploaded": "2026-11-08"
+      }
+    },
+    {
+      "id": "maid-of-honor-kit",
+      "sku": "DWB-MOH-001",
+      "name": "The Maid of Honor Kit",
+      "short": "the Maid of Honor Kit",
+      "book_slug": "maid-of-honor-handbook",
+      "pages": 13,
+      "headline": "Everything you are asked to carry, organized.",
+      "promise": "A 13-page printable kit for a maid of honor: a duties timeline from engagement to wedding day, questions to ask the couple, shower and bachelorette planners, a budget split sheet, a speech builder and the day-of emergency kit list.",
+      "includes": [
+        "Duties timeline, engagement to wedding day",
+        "Questions to ask the couple",
+        "Shower planner and guest and gift tracker",
+        "Bachelorette planner: options, dates, bookings",
+        "Budget split sheet",
+        "Speech builder, prompts, draft page and practice log",
+        "Day-of emergency kit list",
+        "Wedding day run sheet"
+      ],
+      "limits": "Every couple sets its own expectations for the role; the kit starts with the questions to agree them.",
+      "gallery": [
+        {
+          "src": "/product-previews/maid-of-honor-kit/maid-of-honor-kit-preview-1.png",
+          "title": "Duties timeline",
+          "caption": "What usually falls to a maid of honor, from engagement to the last dance.",
+          "alt": "Preview of duties timeline from the paid PDF"
+        },
+        {
+          "src": "/product-previews/maid-of-honor-kit/maid-of-honor-kit-preview-2.png",
+          "title": "Budget split sheet",
+          "caption": "Totals, people sharing, per-person amounts and who has paid.",
+          "alt": "Preview of budget split sheet from the paid PDF"
+        },
+        {
+          "src": "/product-previews/maid-of-honor-kit/maid-of-honor-kit-preview-3.png",
+          "title": "Speech builder",
+          "caption": "A toast in five parts, about two to three minutes long.",
+          "alt": "Preview of speech builder from the paid PDF"
+        }
+      ],
+      "price": 9,
+      "domain": "weddingchecklistpdf.com",
+      "route": "/products/maid-of-honor-kit",
+      "on_sale": true,
+      "price_env_key": "STRIPE_MAID_OF_HONOR_KIT_PRICE_ID",
+      "release": {
+        "version": "1.0.0",
+        "pdf": "DWB-MOH-001_v1.0.0.pdf",
+        "pdf_sha256": "ae46edebd51fd3d39a0942f4644c126c1be2483ce3039e97f1bec887d93dbc4b",
+        "r2_bucket": "dream-wedding-builder-products",
+        "r2_key": "products/maid-of-honor-kit/current.zip",
+        "zip_sha256": "80a4eadba310d81749014bf790ea0d01747ef3786a59084a676c4d290e0b3f88",
+        "zip_bytes": 12949,
+        "uploaded": "2026-11-08"
+      }
+    }
+  ]
+}

@@ -159,6 +159,17 @@ export function guidesForHost(host: string) {
   return shippingPages.filter((page) => canonicalHostForPath(`/guides/${page.slug}`) === resolved);
 }
 
+// The guides each satellite owns about its own tool. A satellite's /guides 301s to
+// the main site's index (2026-11-03 ruling), and guidesForHost(PARENT_HOST) lists only
+// main-site guides, so until 2026-11-07 these pages sat in no guide index at all:
+// reachable only from their own satellite's pages and sitemap. The main index lists
+// them from here, each at the host that serves it.
+export function satelliteGuides() {
+  return CANONICAL_HOSTS.filter((host) => host !== PARENT_HOST).flatMap((host) =>
+    guidesForHost(host).map((page) => ({ host, page, url: canonicalUrl(host, `/guides/${page.slug}`) }))
+  );
+}
+
 export function productForHost(host: string) {
   const resolved = isCanonicalHost(host) ? host : PARENT_HOST;
   return productsWithDomains.find((product) => product.domain === resolved);

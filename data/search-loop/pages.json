@@ -839,6 +839,197 @@
       "indexnow_at": "2026-11-03",
       "merged_at": "2026-11-04",
       "merged_into": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline"
+    },
+    {
+      "slug": "can-you-plan-a-wedding-without-a-wedding-planner",
+      "query": "can you plan a wedding without a wedding planner",
+      "lane": "striking",
+      "score": 30,
+      "reasons": [],
+      "signals": {
+        "words": 9,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+      "route": "/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+      "url": "https://weddingchecklistpdf.com/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+      "published_at": "2026-11-07",
+      "status": "live",
+      "hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d",
+      "model": "free-route",
+      "facts": [
+        "https://www.census.gov/topics/families.html",
+        "https://www.loc.gov/"
+      ],
+      "linked_from": [],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 38 words (aim 40-60): \"How far in advance should I start planning my wedd\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"What is the hardest part of planning a wedding wit\"",
+        "b5 FAQ answer is 37 words (aim 40-60): \"How can I keep my wedding costs down on my own?\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"Should I hire a day-of coordinator if I plan the w\""
+      ],
+      "indexnow_at": "2026-11-08",
+      "action_refreshed": {
+        "at": "2026-11-10",
+        "before_hash": "dcfdaf80084c8f2c21f93b0e27ff20ea69763d316a42e18837603546c9d2f9d4",
+        "after_hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d"
+      }
+    },
+    {
+      "slug": "what-do-you-need-to-consider-when-planning-a-wedding",
+      "query": "what do you need to consider when planning a wedding",
+      "lane": "striking",
+      "score": 30,
+      "reasons": [],
+      "signals": {
+        "words": 10,
+        "question": true,
+        "google_suggest": true,
+        "competition": "not read: no free, ToS-safe competition signal (SERP scraping is not used)"
+      },
+      "rel": "public/questions/what-do-you-need-to-consider-when-planning-a-wedding.html",
+      "route": "/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+      "url": "https://weddingchecklistpdf.com/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+      "published_at": "2026-11-08",
+      "status": "live",
+      "hash": "c831544eaf8d80542dc2d5b539b5245fde1815aa1e9522822ed2da0db09a3711",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Marriage_license",
+        "https://www.consumerfinance.gov/"
+      ],
+      "linked_from": [],
+      "checks": {},
+      "indexnow_at": "2026-11-09"
+    },
+    {
+      "slug": "is-a-wedding-planner-worth-it",
+      "query": "is a wedding planner worth it",
+      "lane": "can_be_one",
+      "score": 31.6,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 31.6
+      },
+      "reasons": [
+        "weak top 10 (0.54): 2 directories, 3 forums, 0 off-target national, 2 thin or old, 8 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "bing_suggest": true,
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.54,
+          "counts": {
+            "results": 10,
+            "directories": 2,
+            "forums": 3,
+            "off_target_national": 0,
+            "thin_or_old": 2,
+            "exact_answer": 8
+          },
+          "reasons": [
+            "top 10: 2 directories, 3 forums, 0 off-target national, 2 thin or old, 8 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/is-a-wedding-planner-worth-it.html",
+      "route": "/questions/is-a-wedding-planner-worth-it",
+      "url": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "published_at": "2026-11-09",
+      "status": "live",
+      "hash": "de95065a5d831e5ee98229440e84d913eb0a75ab253a76cc9b3b4788ba95c8ee",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Wedding",
+        "https://www.usa.gov/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+          "route": "/public/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+          "before_hash": "725ea1565452affbabb6cc61d0a659804f37e2fe0f9829c718b1a7b889cbc34d",
+          "after_hash": "0973663eecd7d7170c81c092a32b7bedbafcb0291e8ca4780af013c3cd94c2b3"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 35 words (aim 40-60): \"Can I hire someone just for the wedding day?\"",
+        "b5 FAQ answer is 31 words (aim 40-60): \"Do planners save you money overall?\"",
+        "b5 FAQ answer is 30 words (aim 40-60): \"How far in advance should I book a coordinator?\"",
+        "b5 FAQ answer is 32 words (aim 40-60): \"What is the difference between a venue coordinator\""
+      ],
+      "indexnow_at": "2026-11-10"
+    },
+    {
+      "slug": "is-it-necessary-to-hire-a-wedding-planner",
+      "query": "is it necessary to hire a wedding planner",
+      "lane": "can_be_one",
+      "score": 28.4,
+      "scores": {
+        "striking": 30,
+        "can_be_one": 28.4
+      },
+      "reasons": [
+        "weak top 10 (0.46): 2 directories, 2 forums, 0 off-target national, 1 thin or old, 0 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 8,
+        "question": true,
+        "google_suggest": true,
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.46,
+          "counts": {
+            "results": 10,
+            "directories": 2,
+            "forums": 2,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 0
+          },
+          "reasons": [
+            "top 10: 2 directories, 2 forums, 0 off-target national, 1 thin or old, 0 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/is-it-necessary-to-hire-a-wedding-planner.html",
+      "route": "/questions/is-it-necessary-to-hire-a-wedding-planner",
+      "url": "https://weddingchecklistpdf.com/questions/is-it-necessary-to-hire-a-wedding-planner",
+      "published_at": "2026-11-10",
+      "status": "live",
+      "hash": "50a16883d8050fcc0fd3b1fe35dba5369e62db52e1359a4c74c3a03d467f03d5",
+      "model": "free-route",
+      "facts": [
+        "https://www.usa.gov/marriage-certificate",
+        "https://en.wikipedia.org/wiki/Event_management"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+          "route": "/public/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+          "before_hash": "0973663eecd7d7170c81c092a32b7bedbafcb0291e8ca4780af013c3cd94c2b3",
+          "after_hash": "dcfdaf80084c8f2c21f93b0e27ff20ea69763d316a42e18837603546c9d2f9d4"
+        },
+        {
+          "rel": "public/questions/is-a-wedding-planner-worth-it.html",
+          "route": "/public/questions/is-a-wedding-planner-worth-it",
+          "before_hash": "67028cb2826bcc87e93c2d80ace80c91607e4fcec7f00c98337b8fc69c59590f",
+          "after_hash": "dcc5cc9695b9c9757027e7076b987feeffbd5b725557430fb512f3a4dcf2a702"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 37 words (aim 40-60): \"What is the alternative to hiring a full-service p\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"How early should I start planning independently?\"",
+        "b5 FAQ answer is 34 words (aim 40-60): \"Where can I find a reliable task list for independ\""
+      ]
     }
   ],
   "dropped": [
@@ -1011,6 +1202,14 @@
     {
       "query": "printable bridal checklist",
       "at": "2026-11-05",
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "printable wedding checklist free pdf",
+      "at": "2026-11-07",
+      "gate": 2,
       "reason": [
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
       ]
@@ -1255,6 +1454,56 @@
       "kind": "sitemap",
       "matched_by": "same wording",
       "matched_text": "elopement planning checklist",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner printable",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "route": "/free-wedding-planner",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner",
+      "stage": "search"
+    },
+    {
+      "query": "printable wedding checklist pdf",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "route": "/printable-wedding-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "printable wedding checklist",
+      "stage": "search"
+    },
+    {
+      "query": "wedding planning checklist pdf",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/wedding-planning-checklist",
+      "route": "/wedding-planning-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "wedding planning checklist",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner",
+      "at": "2026-11-07",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "route": "/free-wedding-planner",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "free wedding planner",
+      "stage": "search"
+    },
+    {
+      "query": "printable wedding checklist",
+      "at": "2026-11-08",
+      "url": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+      "route": "/printable-wedding-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "printable wedding checklist",
       "stage": "search"
     }
   ]

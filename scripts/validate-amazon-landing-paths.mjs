@@ -42,6 +42,10 @@ const BOOK_PATHS = [
   '/amazon/wedding-seating-chart',
   '/amazon/wedding-budget-line-by-line',
   '/amazon/wedding-guest-list-problem',
+  // The three books of the 8 Nov 2026 KDP overhaul print these paths too.
+  '/amazon/courthouse-wedding-planner',
+  '/amazon/wedding-vows',
+  '/amazon/maid-of-honor-handbook',
 ];
 const BOOK_HOST = 'weddingchecklistpdf.com';
 

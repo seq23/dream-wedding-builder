@@ -1,0 +1,94 @@
+{
+  "h1": "What do you need to consider when planning a wedding?",
+  "title_lead": "What do you need to consider",
+  "meta_description": "Discover what you need to consider when planning a wedding. Follow this practical guide covering timelines, venues, budgets, and seating plans.",
+  "direct_answer": "Planning a wedding is the process of organizing your ceremony and reception by coordinating venues, guest lists, budgets, timelines, and legal requirements. It requires balancing personal preferences with practical constraints to create a meaningful event for you and your guests.",
+  "sections": [
+    {
+      "heading": "How do you set a realistic wedding budget?",
+      "paragraphs": [
+        "Setting your budget is the first and most important step in planning any wedding. You need to know your total spending limit before you look at a single venue or dress. Sit down with your partner and any family members who have offered financial contributions. Write down the exact total amount you can comfortably spend without going into debt.",
+        "Once you have a total sum, divide it into categories. Allocate roughly half your budget to your venue and catering, as food and drink usually cost the most. Reserve smaller percentages for photography, attire, flowers, music, and stationery. Always keep a five to ten percent contingency fund for unexpected costs, such as alterations, service fees, or last-minute transport changes. Write every expense down in a spreadsheet or checklist as you pay deposits, and track your remaining balance closely."
+      ],
+      "bullets": [
+        "Determine your absolute maximum spending limit together.",
+        "Allocate fifty percent of funds to venue and catering.",
+        "Create a separate contingency fund for hidden expenses.",
+        "Track every deposit and final payment in writing."
+      ]
+    },
+    {
+      "heading": "How should you build your wedding timeline?",
+      "paragraphs": [
+        "A wedding timeline keeps your planning on track and prevents last-minute panic. Most couples need twelve to eighteen months to plan comfortably, though you can do it in six months if you make decisions quickly. Start by securing your date and venue, since your venue choice dictates every other booking. Once the venue is locked in, book your photographer, caterer, and band or DJ, as popular professionals book out a year or more in advance.",
+        "Six months before the big day, order your wedding attire, send your save-the-dates, and choose your wedding party. Three months out, finalize your menu, purchase your wedding rings, and mail your formal invitations with a clear RSVP deadline. One month before the wedding, create your final guest count, confirm all arrival times with your vendors, and start breaking in your wedding shoes. A structured timeline ensures nothing falls through the cracks and you actually enjoy your engagement period."
+      ],
+      "bullets": [
+        "Secure your venue and date twelve months in advance.",
+        "Book key vendors like photographers and caterer early.",
+        "Mail formal invitations three months prior to the date.",
+        "Confirm final vendor schedules one month before the wedding."
+      ]
+    },
+    {
+      "heading": "What goes into creating a wedding seating plan?",
+      "paragraphs": [
+        "Creating a seating plan is often the most stressful part of wedding planning, but a clear method makes it manageable. Wait until your RSVP deadline has passed and you have your final guest count before you arrange any tables. Group your guests by how they know you, such as college friends, work colleagues, and extended family members, so everyone has someone familiar to talk to during dinner.",
+        "Consider table shapes and room layout when placing your guests. Round tables seat eight to ten people well and encourage conversation across the table. Long rectangular tables offer a modern look but limit cross-conversation. Place older family members away from loud speakers and drafty doors, and seat parents and the wedding party together at a head table or a private sweetheart table. Write names on sticky notes so you can move people around easily as you test different seating arrangements."
+      ],
+      "bullets": [
+        "Wait for final RSVPs before starting your seating chart.",
+        "Group guests by shared connections to spark conversation.",
+        "Keep older relatives away from speakers and exits.",
+        "Use movable sticky notes to test different table layouts."
+      ]
+    },
+    {
+      "heading": "How do you manage guest lists and legal requirements?",
+      "paragraphs": [
+        "Managing your guest list starts with aligning your desired headcount with your venue capacity and budget limits. Write down your dream list first, then categorize guests into essential attendees and optional guests if you need to trim numbers later. Remember that every guest you invite adds to your catering, drink, and stationery costs, so keep your venue size and budget at the front of your mind.",
+        "Do not forget the legal side of getting married. Research the marriage license rules for your specific location, including residency requirements, identification documents, and waiting periods. Many local government offices require you to apply for your marriage license between thirty and sixty days before your ceremony date. Book your appointment with the local registry office early to ensure your paperwork is valid and complete before you walk down the aisle."
+      ],
+      "bullets": [
+        "Align your guest list with your venue capacity and budget.",
+        "Categorize guests to help trim numbers if necessary.",
+        "Research local marriage license rules and waiting periods.",
+        "Book your registry office appointment well in advance."
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "What should be booked first?",
+      "a": "You should always book your wedding venue and date first. Every other wedding vendor, from caterers to photographers, depends entirely on where and when your celebration is happening. Secure your venue contract and deposit before you make any other major purchases or send out save-the-date cards."
+    },
+    {
+      "q": "How do we handle family opinions during planning?",
+      "a": "Set clear boundaries early by thanking family members for their input while reminding them that you and your partner are making the final decisions. If parents contribute financially, give them specific areas to manage, such as the rehearsal dinner, to help them feel included without taking over your main day."
+    },
+    {
+      "q": "When should we send our wedding invitations?",
+      "a": "Send your formal wedding invitations six to eight weeks before the wedding date. If you are hosting a destination wedding or many guests are traveling from out of town, send them eight to twelve weeks in advance so guests have enough time to arrange travel and accommodation."
+    },
+    {
+      "q": "Do we need a professional wedding planner?",
+      "a": "You do not need a professional wedding planner if you are organized and willing to do the research yourself. Using a structured checklist, a realistic budget spreadsheet, and a clear timeline allows you to manage every detail independently while keeping your overall wedding planning costs down."
+    }
+  ],
+  "facts": [
+    {
+      "claim": "Marriage license applications in many jurisdictions require both applicants to present government-issued photo identification and proof of age.",
+      "source_url": "https://en.wikipedia.org/wiki/Marriage_license",
+      "source_name": "Wikipedia",
+      "verified": true,
+      "checked_status": 200
+    },
+    {
+      "claim": "Wedding catering and venue rental typically represent the largest single expense category in an overall wedding budget.",
+      "source_url": "https://www.consumerfinance.gov/",
+      "source_name": "Consumer Financial Protection Bureau",
+      "verified": true,
+      "checked_status": 200
+    }
+  ]
+}

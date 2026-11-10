@@ -25,6 +25,13 @@ describe('search-loop pages', () => {
     ]);
   });
 
+  it('moves a date only where the words changed (R-ADV-12): a kept verdict or a no-change refresh moves nothing', () => {
+    const pages = (p: Record<string, unknown>) => searchLoopPages(config, { pages: [{ slug: 'x', query: 'x', route: '/questions/x', status: 'live', published_at: '2026-11-01', ...p }] })[0]?.lastmod;
+    expect(pages({ strengthen: { at: '2026-12-01', verdict: { at: '2026-12-15', kept: true } } })).toBe('2026-12-01');
+    expect(pages({ refreshed: { at: '2026-12-20', changes: [] } })).toBe('2026-11-01');
+    expect(pages({ modified_at: '2026-12-20', refreshed: { at: '2026-12-20', changes: ['question added'] } })).toBe('2026-12-20');
+  });
+
   it('owns its prefix and the hub, nothing else', () => {
     expect(isSearchLoopPath(config, 'https://weddingchecklistpdf.com/questions/a')).toBe(true);
     expect(isSearchLoopPath(config, '/questions')).toBe(true);

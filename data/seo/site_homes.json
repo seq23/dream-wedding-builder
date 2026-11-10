@@ -22,6 +22,18 @@
         {
           "question": "How are the files delivered?",
           "answer": "Stripe handles checkout and payment verification. Verified purchases unlock the protected files on the success page and by email, and order and access help goes to info@weddingchecklistpdf.com."
+        },
+        {
+          "question": "Do I need a wedding planner to use this?",
+          "answer": "No. The checklist is built for couples planning the wedding themselves. Every task has a planning window, an owner, dependencies and a deadline, so you can see what is due and who is doing it without hiring anyone. It is a set of files, not a person: nobody plans the wedding for you."
+        },
+        {
+          "question": "How much does a wedding planner cost?",
+          "answer": "It depends on where you live and how much the planner does: full planning costs the most and day-of coordination the least. The Knot publishes current averages at theknot.com/content/how-much-do-wedding-planners-charge. This checklist does not replace a planner's judgement; it gives you the planner's checklist, dated from your wedding day, for the $9 price."
+        },
+        {
+          "question": "Can a friend run our wedding day with it?",
+          "answer": "Yes. The separate wedding-week and final-payment trackers list what happens that week and who pays whom, so a friend, a parent or the venue's coordinator can work from the same pages you planned with. The Day-of Coordinator Checklist guide covers the day itself."
         }
       ],
       "steps": [

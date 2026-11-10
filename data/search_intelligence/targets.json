@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-06T12:42:14.636Z",
-  "count": 119,
+  "generated_at": "2026-11-10T12:42:22.712Z",
+  "count": 49,
   "targets": [
     {
       "target_id": "041f5ce832a91de82705",
@@ -204,106 +204,6 @@
       "source": "query_universe"
     },
     {
-      "target_id": "bc4fb77f80a293358c74",
-      "query": "12-month wedding checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/12-month-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "be7488ea68c3b44e0834",
-      "query": "18-month wedding checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/18-month-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "97fc461924f132b58b26",
-      "query": "3-month wedding checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/3-month-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "2ae57b63f1148ab2e23b",
-      "query": "6-month wedding checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/6-month-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "658971f5c6afb38aa6f2",
-      "query": "9-month wedding checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/9-month-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "f1a698b662a01f2e7e0c",
-      "query": "accessible wedding planning checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/accessible-wedding-planning-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "630f9d2cd5171516fe99",
-      "query": "adding travel buffers to a wedding timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-timeline-travel-buffer",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "f1611a00b78f0bccb70b",
-      "query": "alphabetical vs. table-order seating charts",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/alphabetical-vs-table-order-seating-chart",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "93bb55f97887a05434e2",
-      "query": "backyard wedding checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/backyard-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "ae66c0f1c7400123f34a",
-      "query": "backyard wedding timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/backyard-wedding-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "c1aae3e2be2902e07c26",
       "query": "bridal shower checklist",
       "host": "weddingchecklistpdf.com",
@@ -314,41 +214,21 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "a6771e75f3b069a07d1e",
-      "query": "brunch wedding timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/brunch-wedding-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "079baafb6304090f85fe",
-      "query": "children and high chairs in the seating chart",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/children-high-chairs-seating-chart",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "33b31fd99c1473dd4d9c",
-      "query": "church ceremony wedding timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/church-ceremony-wedding-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "74c0e04530614929875d",
       "query": "courthouse wedding checklist",
       "host": "weddingchecklistpdf.com",
       "route": "/guides/courthouse-wedding-checklist",
       "product_id": "checklist-pdf",
+      "intent": "authority",
+      "priority": "MEDIUM",
+      "source": "authority_atlas"
+    },
+    {
+      "target_id": "a1f194381faa74c3c47a",
+      "query": "courthouse wedding planner book: free next steps",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/courthouse-wedding-planner",
+      "product_id": "courthouse-wedding-kit",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -374,26 +254,6 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "91a80a0fe92937cb4187",
-      "query": "destination wedding weekend itinerary",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/destination-wedding-weekend-itinerary",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "929bffff72ef909cad45",
-      "query": "diy wedding cost tradeoffs",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/diy-wedding-cost-tradeoffs",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "07ad747a3481c733f84f",
       "query": "elopement planning checklist",
       "host": "weddingchecklistpdf.com",
@@ -404,161 +264,11 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "595059a7982572788ea0",
-      "query": "estimated vs. actual wedding costs",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/estimated-vs-actual-wedding-costs",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "b00062d7c08eab389cab",
-      "query": "evening wedding timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/evening-wedding-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "557b45e45852a21d38a4",
-      "query": "family photo timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/family-photo-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "310a52b38d6b0ab4a7f8",
-      "query": "how to plan a $10,000 wedding budget",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-10000",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "0f8b073fe3b6a9cdcfb9",
-      "query": "how to plan a $20,000 wedding budget",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-20000",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "a37ba1258c247667546c",
-      "query": "how to plan a $30,000 wedding budget",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-30000",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "e714f748a13ce4e8ebbe",
-      "query": "how to plan a $50,000 wedding budget",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-50000",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "c93859b766e65b68cda5",
-      "query": "how to plan long-table wedding seating",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/long-table-wedding-seating",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "58bd416ec92f2dfd3c87",
-      "query": "how to plan wedding seating with round tables",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/round-table-seating-plan",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "91aaac26ff85e6ca2873",
-      "query": "how to seat divorced parents at a wedding",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/seat-divorced-parents-wedding",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "0fe93939736b56cd3da7",
-      "query": "managing late rsvp seating changes",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/late-rsvp-seating-chart-changes",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "1985aa27c7c4f665455c",
-      "query": "micro-wedding checklist",
+      "target_id": "3594847d195490cea434",
+      "query": "maid of honor handbook: free checklist and planner",
       "host": "weddingchecklistpdf.com",
-      "route": "/guides/micro-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "fe41daf45ecf53ab1a85",
-      "query": "one-month wedding checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/1-month-wedding-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "12835e84ba08e8f5e1db",
-      "query": "one-venue wedding timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/one-venue-wedding-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "7bf02cede374e8f602ab",
-      "query": "post-wedding returns and closing checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/post-wedding-return-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "b317744625918a624638",
-      "query": "preparing escort-card data from your seating plan",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-escort-card-data-export",
-      "product_id": "seating-chart-maker",
+      "route": "/amazon/maid-of-honor-handbook",
+      "product_id": "maid-of-honor-kit",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -584,31 +294,11 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "5cbc0762b78f10285ab3",
-      "query": "rehearsal dinner checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/rehearsal-dinner-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "faf288d5fb03bfb6cfc6",
       "query": "rehearsal dinner timeline",
       "host": "weddingchecklistpdf.com",
       "route": "/guides/rehearsal-dinner-timeline",
       "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "8ea4eaf3c0009c4539d2",
-      "query": "sweetheart table vs. head table",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/sweetheart-table-vs-head-table",
-      "product_id": "seating-chart-maker",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -639,76 +329,6 @@
       "host": "weddingchecklistpdf.com",
       "route": "/amazon/wedding-seating-chart",
       "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "a8041d648f14320f40a3",
-      "query": "tracking family contributions to a wedding",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/family-contributions-wedding-budget",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "d6ba562c2749a58f2844",
-      "query": "two-venue wedding timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/two-venue-wedding-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "86e800746b29394dca82",
-      "query": "wedding attire lead time checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-attire-lead-time-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "709a4b50276680b2b192",
-      "query": "wedding budget contingency planning",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-contingency",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "24aa4094407cce33f83d",
-      "query": "wedding budget for 100 guests",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-for-100-guests",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "81677dc5ea2dbff8fdcf",
-      "query": "wedding budget for 150 guests",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-for-150-guests",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "2d5a589759ecb259f186",
-      "query": "wedding budget for 50 guests",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-budget-for-50-guests",
-      "product_id": "budget-spreadsheet",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -754,10 +374,10 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "efa65b5393a339a7d83d",
-      "query": "wedding day logistics timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-day-logistics-timeline",
+      "target_id": "7e6bad7b76bdc9eb5fc6",
+      "query": "wedding day timeline book: companion files for readers",
+      "host": "weddingchecklistpdf.com",
+      "route": "/amazon/wedding-day-timeline",
       "product_id": "timeline-template",
       "intent": "authority",
       "priority": "MEDIUM",
@@ -784,26 +404,6 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "3301b72ab8de20b70d5d",
-      "query": "wedding day timeline: companion files for book readers",
-      "host": "weddingchecklistpdf.com",
-      "route": "/amazon/wedding-day-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "f21af4bcbc05abac6013",
-      "query": "wedding deposit schedule",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-deposit-schedule",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "2c578f2665ebbd9a9deb",
       "query": "wedding emergency kit list",
       "host": "weddingchecklistpdf.com",
@@ -814,101 +414,11 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "bd585dfc97373dd743f6",
-      "query": "wedding final-payment checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-final-payment-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "1359a599bb5ccec796a8",
-      "query": "wedding gratuity planner",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-gratuity-planner",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "1fa41e1ad4ed65869ece",
-      "query": "wedding guest list and headcount control",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-guest-list-headcount-control",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "3637ff03be6d7ed57f04",
+      "target_id": "bb98207dabb1248c2eb2",
       "query": "wedding guest list template: required fields + preview",
-      "host": "weddingseatingchartmaker.com",
+      "host": "weddingchecklistpdf.com",
       "route": "/wedding-guest-list-template",
       "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "9c2883f8e6a4cfaf1935",
-      "query": "wedding hidden costs checklist",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-hidden-costs-checklist",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "5e5b62815a4f63161ecb",
-      "query": "wedding meal counts and dietary tracking",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-meal-count-dietary-tracking",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "a670d435c27c66455997",
-      "query": "wedding monthly cash-flow planning",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-monthly-cash-flow",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "a65209dde1008aa60b5d",
-      "query": "wedding music and cue sheet",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-music-cue-sheet",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "e5847daf0a5c97d5af17",
-      "query": "wedding photography timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-photography-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "f3f2ca0ceea93f52558e",
-      "query": "wedding planning binder: tabs, files, and workflow",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-planning-binder",
-      "product_id": "checklist-pdf",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"
@@ -924,36 +434,6 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "fe7b2da4b4fa6abcb59e",
-      "query": "wedding rain plan checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-rain-plan-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "ba3f1d447827d955a985",
-      "query": "wedding reception flow timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-reception-flow-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "223d1560dc270c6026d3",
-      "query": "wedding reception order of events",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-reception-order-of-events",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "0528589f4f9b148b1a32",
       "query": "wedding rehearsal timeline",
       "host": "weddingtimelinetemplate.com",
@@ -964,60 +444,10 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "e15918e310b3eb6ad2e2",
-      "query": "wedding rsvp tracking system",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-rsvp-tracking-system",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "be8860279bb475d116bc",
       "query": "wedding seating chart accessibility planning",
       "host": "weddingseatingchartmaker.com",
       "route": "/guides/wedding-seating-chart-accessibility",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "85c9f77522c532f5905e",
-      "query": "wedding seating chart allergy tracking",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-seating-chart-allergy-tracker",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "babfc0704a6ffa91cf2c",
-      "query": "wedding seating chart for 100 guests",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-seating-chart-for-100-guests",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "19426bc6aff09336dc15",
-      "query": "wedding seating chart for 150 guests",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-seating-chart-for-150-guests",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "5eccb36e0b231fbcb723",
-      "query": "wedding seating chart for 50 guests",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-seating-chart-for-50-guests",
       "product_id": "seating-chart-maker",
       "intent": "authority",
       "priority": "MEDIUM",
@@ -1034,50 +464,10 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "4a8d57dac8882e9ecd3c",
-      "query": "wedding seating chart meal-choice tracking",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-seating-chart-meal-tracker",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
       "target_id": "6e422fa05eb93dd67263",
       "query": "wedding seating chart template",
       "host": "weddingseatingchartmaker.com",
       "route": "/guides/wedding-seating-chart-template",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "e899075719dc24287a7b",
-      "query": "wedding seating chart vendor handoff",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-seating-chart-vendor-handoff",
-      "product_id": "seating-chart-maker",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "b628f098cf0f5911fb72",
-      "query": "wedding setup and breakdown timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-setup-breakdown-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "b5249acfa8d578b7416b",
-      "query": "wedding table capacity guide",
-      "host": "weddingseatingchartmaker.com",
-      "route": "/guides/wedding-table-capacity-guide",
       "product_id": "seating-chart-maker",
       "intent": "authority",
       "priority": "MEDIUM",
@@ -1094,101 +484,11 @@
       "source": "authority_atlas"
     },
     {
-      "target_id": "d6b21904827c8dafe08b",
-      "query": "wedding timeline with a first look",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-timeline-with-first-look",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "490367c07385af3c67a0",
-      "query": "wedding timeline without a first look",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-timeline-without-first-look",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "9812e1b70a25e8143772",
-      "query": "wedding vendor arrival schedule",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-vendor-arrival-schedule",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "69d1f00de43570dd7ea8",
-      "query": "wedding vendor booking checklist",
+      "target_id": "ba4f9daf4ec2a5f73a14",
+      "query": "writing your wedding vows book: your free next step",
       "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-vendor-booking-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "ea7fb54d60f68555756c",
-      "query": "wedding vendor list: categories, status, and contacts",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-vendor-list",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "548ecc37f2a38fde34bc",
-      "query": "wedding vendor payment tracker",
-      "host": "weddingbudgetspreadsheet.com",
-      "route": "/guides/wedding-vendor-payment-tracker",
-      "product_id": "budget-spreadsheet",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "8c34bb31b621e6c565bd",
-      "query": "wedding venue selection checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-venue-selection-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "378b42410d9c4a274e8b",
-      "query": "wedding-day emergency checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-day-emergency-checklist",
-      "product_id": "checklist-pdf",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "b0b78a574e080c7b3a4e",
-      "query": "wedding-party timeline",
-      "host": "weddingtimelinetemplate.com",
-      "route": "/guides/wedding-party-timeline",
-      "product_id": "timeline-template",
-      "intent": "authority",
-      "priority": "MEDIUM",
-      "source": "authority_atlas"
-    },
-    {
-      "target_id": "c65302c36e83d63c46f5",
-      "query": "wedding-week checklist",
-      "host": "weddingchecklistpdf.com",
-      "route": "/guides/wedding-week-checklist",
-      "product_id": "checklist-pdf",
+      "route": "/amazon/wedding-vows",
+      "product_id": "wedding-vows-workbook",
       "intent": "authority",
       "priority": "MEDIUM",
       "source": "authority_atlas"

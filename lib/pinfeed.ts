@@ -10,7 +10,7 @@ import { chicagoDate, dueVariants, type PinQueue, type PinVariant } from '@/lib/
 // Canonical URL: https://weddingchecklistpdf.com/pinfeed.xml (/pinfeed answers too).
 // Every link is a product or guide PAGE on this host, never a checkout URL, and
 // carries the pinfeed UTM params. Every image is a committed 1000x1500 pin from
-// scripts/pinterest/generate_pin_images.mjs. Guarded by tests/unit/pinfeed.test.ts
+// scripts/pinterest/generate_pin_images.py. Guarded by tests/unit/pinfeed.test.ts
 // and, against the built site, scripts/validators/validate_pinterest.mjs.
 //
 // Daily drip (owner-approved 16 Oct 2026): besides the six launch items below, the

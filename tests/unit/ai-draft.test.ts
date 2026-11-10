@@ -1,32 +1,18 @@
 import { describe, expect, it, vi } from 'vitest';
-import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
 import { emptyPlan } from '@/data/planning';
-import { BUILDER_SIGNUPS_DDL } from '@/lib/builder-signup';
-import { aiDraftEnabled, ATTEMPTS_PER_DAY_GLOBAL, cleanDescription, draftPlan, parseDraft, type D1Like } from '@/lib/ai-draft';
+import { aiDraftEnabled, cleanDescription, draftPlan, MESSAGES, MODEL_CALLS_PER_DAY_GLOBAL, parseDraft } from '@/lib/ai-draft';
 import { applyAiDraft } from '@/components/AiDraftCard';
+import { fakeD1 } from '@/tests/support/ai-draft-fakes';
 
 const TODAY = '2026-11-06';
-
-// A real SQLite behind the D1 shape, so the limits are proved against real SQL.
-function fakeD1(emails: string[] = []) {
-  const sqlite = new DatabaseSync(':memory:');
-  sqlite.exec(BUILDER_SIGNUPS_DDL);
-  for (const e of emails) sqlite.prepare("INSERT INTO builder_signups (email, consent_text) VALUES (?, 'x')").run(e);
-  const stmt = (sql: string, args: unknown[] = []): ReturnType<D1Like['prepare']> => ({
-    bind: (...values: unknown[]) => stmt(sql, values),
-    first: async () => (sqlite.prepare(sql).get(...(args as never[])) ?? null) as never,
-    run: async () => { /^\s*CREATE/i.test(sql) ? sqlite.exec(sql) : sqlite.prepare(sql).run(...(args as never[])); return {}; }
-  });
-  return { db: { prepare: (sql: string) => stmt(sql) } as D1Like, rows: () => { try { return sqlite.prepare('SELECT * FROM ai_drafts').all() as Record<string, unknown>[]; } catch { return []; } } };
-}
 
 const answer = (content: string) => vi.fn(async (_url: string, _init?: RequestInit) => new Response(JSON.stringify({ model: llmConfig.models[0].id, choices: [{ message: { content } }], usage: { cost: 0 } }), { status: 200 }));
 const GOOD = JSON.stringify({ weddingDate: '2027-06-15', guestCount: '200', locations: 'Memphis, TN', season: 'summer', budgetTarget: 'small', budgetMode: 'hard', priorities: ['Food + Bar', 'Not A Real Priority'], notes: ['Memphis in June is hot: plan shade and water.'] });
 
 function input(over: Partial<Parameters<typeof draftPlan>[0]> = {}) {
-  return { db: undefined, apiKey: 'test-key', enabled: true, email: 'a@example.com', description: '200 guests, June in Memphis, small budget', ip: '1.1.1.1', today: TODAY, salt: 's', log: () => {}, ...over };
+  return { db: undefined, apiKey: 'test-key', enabled: true, consent: true, email: 'a@example.com', description: '200 guests, June in Memphis, small budget', ip: '1.1.1.1', today: TODAY, salt: 's', log: () => {}, ...over };
 }
 
 describe('AI draft: very limited free use, enforced on the server', () => {
@@ -55,16 +41,19 @@ describe('AI draft: very limited free use, enforced on the server', () => {
     expect((await draftPlan(input({ db, email: 'd@example.com', fetchImpl: fetchImpl as never, today: '2026-11-07' }))).status).toBe(200);
   });
 
-  it('the daily ceiling across everyone holds and is logged as a named stop', async () => {
-    const emails = Array.from({ length: ATTEMPTS_PER_DAY_GLOBAL + 1 }, (_, i) => `p${i}@example.com`);
-    const { db } = fakeD1(emails);
+  it('past the global ceiling (the sum of the pool ceilings) no model is asked and the rules parser fills it', async () => {
+    const { db, sqlite } = fakeD1(['a@example.com']);
+    sqlite.exec(`CREATE TABLE IF NOT EXISTS ai_drafts (id INTEGER PRIMARY KEY AUTOINCREMENT, email_hash TEXT NOT NULL, ip_hash TEXT NOT NULL, day TEXT NOT NULL, outcome TEXT NOT NULL, model TEXT, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`);
+    const ins = sqlite.prepare("INSERT INTO ai_drafts (email_hash, ip_hash, day, outcome, model) VALUES (?, ?, ?, 'ok', 'gemini:gemma-4-31b-it')");
+    sqlite.exec('BEGIN'); for (let i = 0; i < MODEL_CALLS_PER_DAY_GLOBAL; i++) ins.run(`e${i}`, `i${i}`, TODAY); sqlite.exec('COMMIT');
     const fetchImpl = answer(GOOD);
     const log = vi.fn();
-    let last;
-    for (const [i, email] of emails.entries()) last = await draftPlan(input({ db, email, ip: `10.0.0.${i}`, fetchImpl: fetchImpl as never, log }));
-    expect(last?.body).toMatchObject({ code: 'GLOBAL_CAP' });
-    expect(fetchImpl).toHaveBeenCalledTimes(ATTEMPTS_PER_DAY_GLOBAL);
+    const r = await draftPlan(input({ db, fetchImpl: fetchImpl as never, log }));
+    expect(r.status).toBe(200);
+    expect(r.body).toMatchObject({ ok: true, filledBy: 'rules', note: MESSAGES.rulesNote });
+    expect(fetchImpl).not.toHaveBeenCalled();
     expect(log.mock.calls.flat().join(' ')).toContain('NAMED STOP [AI_DRAFT_DAILY_CEILING]');
+    expect(MODEL_CALLS_PER_DAY_GLOBAL).toBe(Object.values(llmConfig.capacity.pools).reduce((n, p) => n + p.ceiling_day, 0));
   });
 
   it('kill switch: off means no model call and no row; live hosts are off unless the secret says on', async () => {
@@ -83,6 +72,16 @@ describe('AI draft: very limited free use, enforced on the server', () => {
     expect(aiDraftEnabled('someone-else.com', 'on')).toBe(false);
   });
 
+  it('no salt set: a named stop, no model call, nothing stored (no hardcoded fallback salt)', async () => {
+    const { db } = fakeD1(['a@example.com']);
+    const fetchImpl = answer(GOOD);
+    const lines: string[] = [];
+    const r = await draftPlan(input({ db, fetchImpl: fetchImpl as never, salt: '', log: (l: string) => lines.push(l) }));
+    expect(r.status).toBe(503);
+    expect(lines.join('\n')).toContain('NAMED STOP [AI_DRAFT_SALT_MISSING]');
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
+
   it('an email that never opened the planner is refused before any model call', async () => {
     const { db } = fakeD1([]);
     const fetchImpl = answer(GOOD);
@@ -90,16 +89,32 @@ describe('AI draft: very limited free use, enforced on the server', () => {
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
-  it('no free model answering: calm busy message, a named stop, and the email keeps its free draft', async () => {
+  it('no free model answering: the rules parser fills the draft, a named stop is logged, and it says it was not AI', async () => {
     const { db } = fakeD1(['a@example.com']);
     const down = vi.fn(async () => new Response(JSON.stringify({ error: { message: 'rate limited' } }), { status: 429 }));
     const log = vi.fn();
     const r = await draftPlan(input({ db, fetchImpl: down as never, log }));
-    expect(r.status).toBe(503);
-    expect(r.body).toMatchObject({ code: 'BUSY' });
-    if (!r.body.ok) expect(r.body.error).toContain('try again later');
+    expect(r.status).toBe(200);
+    expect(r.body).toMatchObject({ ok: true, filledBy: 'rules', model: null, note: 'Filled from your sentence without AI. Check each field.' });
+    if (r.body.ok) expect(r.body.draft).toMatchObject({ guestCount: '200', locations: 'Memphis', budgetMode: 'hard', weddingDate: '2027-06-15' });
     expect(log.mock.calls.flat().join(' ')).toContain('NAMED STOP [AI_DRAFT_NO_FREE_MODEL]');
+  });
+
+  it('nothing readable by any step: the plain form, and the email keeps its free draft', async () => {
+    const { db } = fakeD1(['a@example.com']);
+    const down = vi.fn(async () => new Response('{}', { status: 503 }));
+    const r = await draftPlan(input({ db, fetchImpl: down as never, description: 'we are so excited to start planning' }));
+    expect(r.status).toBe(400);
+    expect(r.body).toMatchObject({ ok: false, code: 'NOTHING_USABLE', filledBy: 'form' });
     expect((await draftPlan(input({ db, fetchImpl: answer(GOOD) as never }))).status).toBe(200);
+  });
+
+  it('no tick box, no model: without consent only the rules parser runs and nothing is sent', async () => {
+    const { db } = fakeD1(['a@example.com']);
+    const fetchImpl = answer(GOOD);
+    const r = await draftPlan(input({ db, fetchImpl: fetchImpl as never, consent: false, geminiKey: 'g' }));
+    expect(r.body).toMatchObject({ ok: true, filledBy: 'rules' });
+    expect(fetchImpl).not.toHaveBeenCalled();
   });
 });
 
@@ -119,21 +134,22 @@ describe('AI draft: $0 routes only', () => {
     }
   });
 
-  it('a provider that reports any cost stops the draft; nothing else is tried', async () => {
+  it('a provider that reports any cost ends the model steps; no other model is asked and the rules parser fills it', async () => {
     const { db } = fakeD1(['a@example.com']);
     const paid = vi.fn(async () => new Response(JSON.stringify({ model: llmConfig.models[0].id, choices: [{ message: { content: GOOD } }], usage: { cost: 0.001 } }), { status: 200 }));
     const log = vi.fn();
     const r = await draftPlan(input({ db, fetchImpl: paid as never, log }));
-    expect(r.body).toMatchObject({ code: 'BUSY' });
+    expect(r.body).toMatchObject({ ok: true, filledBy: 'rules' });
     expect(paid).toHaveBeenCalledTimes(1);
     expect(log.mock.calls.flat().join(' ')).toContain('NAMED STOP [AI_DRAFT_ROUTER_REFUSED]');
   });
 
-  it('the AI step reaches a model only through the free router (no provider endpoint or key name of its own)', () => {
-    for (const file of ['lib/ai-draft.ts', 'app/api/ai-draft/route.ts', 'components/AiDraftCard.tsx']) {
+  it('the AI step reaches a model only through the free router; model keys are read only by the server route', () => {
+    for (const file of ['lib/ai-draft.ts', 'lib/ai-draft-rules.ts', 'app/api/ai-draft/route.ts', 'components/AiDraftCard.tsx']) {
       const src = readFileSync(file, 'utf8');
       for (const marker of llmConfig.provider_endpoint_markers) expect(src, `${file} ${marker}`).not.toMatch(new RegExp(marker, 'i'));
-      expect(src, file).not.toMatch(/GEMINI|OPENAI|ANTHROPIC|\bAI\.run\(|env\.AI\b/);
+      expect(src, file).not.toMatch(/OPENAI|ANTHROPIC|\bAI\.run\(|env\.AI\b/);
+      if (file !== 'app/api/ai-draft/route.ts') expect(src, file).not.toMatch(/GEMINI_API_KEY|OPENROUTER_API_KEY/);
     }
     expect(readFileSync('lib/ai-draft.ts', 'utf8')).toMatch(/from '@\/scripts\/llm\/free_router\.mjs'/);
     expect(llmConfig.policy).toMatchObject({ max_cost_usd: 0, paid_fallback: false });
@@ -176,6 +192,12 @@ describe('AI draft: the model is never trusted', () => {
     expect(r.plan.guestCount).toBe('120');
     expect(r.plan.weddingDate).toBe('2027-06-15');
     expect(r.kept).toContain('guestCount');
-    expect(r.plan.aiDraft).toMatchObject({ fields: ['weddingDate', 'locations', 'budgetMode'], notes: ['n'] });
+    expect(r.plan.aiDraft).toMatchObject({ fields: ['weddingDate', 'locations', 'budgetMode'], notes: ['n'], byAi: true });
+  });
+
+  it('a draft the rules reader filled is recorded as not AI, so the label never claims AI', () => {
+    const r = applyAiDraft(emptyPlan, { weddingDate: '2027-06-15', guestCount: '200', locations: '', season: '', budgetTarget: '', budgetMode: 'unknown', priorities: [], notes: [] }, 'desc', '2026-11-10T00:00:00Z', false);
+    expect(r.plan.aiDraft?.byAi).toBe(false);
+    expect(r.plan.weddingDate).toBe('2027-06-15');
   });
 });
