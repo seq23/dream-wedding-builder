@@ -8,13 +8,18 @@ import { runDeliveryRetry, type RetryEnv } from './lib/delivery-retry';
 import { recordPinterestVisit } from './lib/pinterest-visits';
 import { alertOwnerIfFailed, type AlertEnv } from './lib/delivery-alert';
 import { runNurture, type NurtureEnv } from './lib/nurture';
+import { serveWithEdgeCache } from './lib/edge-cache';
 
 export default {
   // Pinterest-referred page views (utm_source=pinterest) are counted per pin variant
-  // in D1 off the response path (lib/pinterest-visits.ts); every other request is untouched.
+  // in D1 off the response path (lib/pinterest-visits.ts).
   fetch(request: Request, env: RetryEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
     if (request.url.includes('utm_source=')) ctx.waitUntil(recordPinterestVisit(env.DB as never, request));
-    return handler.fetch(request, env, ctx);
+    // Public pages are answered from Cloudflare's cache when a copy exists (lib/edge-cache.ts).
+    // The deploy's version id is part of the key, so a new deploy starts with fresh pages.
+    const version = (env as { CF_VERSION_METADATA?: { id?: string } }).CF_VERSION_METADATA?.id ?? '';
+    const cache = version ? (globalThis as unknown as { caches?: { default?: Parameters<typeof serveWithEdgeCache>[2] } }).caches?.default : undefined;
+    return serveWithEdgeCache(request, version, cache, ctx, () => handler.fetch(request, env, ctx));
   },
   async scheduled(_controller: unknown, env: RetryEnv & AlertEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
     // Free-sample follow-ups, the one planner welcome and the one review ask (lib/nurture.ts); due emails only.
