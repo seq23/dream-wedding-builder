@@ -50,6 +50,89 @@
       }
     }
   ],
+  "gemini": {
+    "purpose": "Builder AI draft only (lib/ai-draft.ts), first step of the $0 chain. Called only through scripts/llm/free_router.mjs.",
+    "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+    "key_env": "GEMINI_API_KEY",
+    "key_header": "x-goog-api-key",
+    "free_tier_only": true,
+    "training_note": "Gemini free tier: Google may use prompts and answers to improve its products (pricing page, \"Used to improve our products: Yes\" on the free tier). The consent sentence says the model may keep what it is sent.",
+    "billing_probe": {
+      "model": "gemini-pro-latest",
+      "why": "gemini-pro-latest has no free tier (pricing page: Pro paid-only). On a key with no billing it answers 429 \"exceeded your current quota\"; a 200 means billing is attached and every Gemini call could cost money.",
+      "expect_http": 429,
+      "on_200": "NAMED STOP [GEMINI_BILLING_ATTACHED]: Gemini skipped for the Central day",
+      "cadence": "once per Central day, before the first Gemini call, cached in D1 (ai_route_usage key billing|gemini|<day>)",
+      "checked": "2026-11-10 by the coordinator: 429 exceeded your current quota (free tier, no billing)"
+    },
+    "models": [
+      {
+        "id": "gemma-4-31b-it",
+        "pool": "gemini:gemma-4-31b-it",
+        "checked": "2026-11-10 200 on the free key"
+      },
+      {
+        "id": "gemini-3.5-flash-lite",
+        "pool": "gemini:gemini-3.5-flash-lite",
+        "checked": "2026-11-10 200 on the free key"
+      },
+      {
+        "id": "gemini-flash-latest",
+        "pool": "gemini:gemini-flash-latest",
+        "checked": "2026-11-10 not probed; a 429 falls through"
+      }
+    ]
+  },
+  "capacity": {
+    "read_on": "2026-11-10",
+    "rule": "ceiling = floor(80% of the free limit), per pool (what the provider counts) per provider day and per minute. Over a ceiling the chain moves to the next step without calling. A 429 moves on at once; a daily-quota 429 marks the pool spent for its day.",
+    "sources": {
+      "gemini": "https://ai.google.dev/gemini-api/docs/rate-limits",
+      "gemini_pricing": "https://ai.google.dev/gemini-api/docs/pricing",
+      "gemini_active_limits": "https://aistudio.google.com/rate-limit?timeRange=last-28-days",
+      "openrouter": "https://openrouter.ai/docs/api/reference/limits"
+    },
+    "gemini_finding": "Read 2026-11-10: the rate-limits page no longer prints per-model free-tier numbers; it says limits are per project (not per key), RPD resets at midnight Pacific, and the active numbers are shown only in AI Studio for the signed-in project. The limits below are therefore the published-elsewhere figures marked assumed, and the code learns the real one: a daily-quota 429 marks that model spent until Pacific midnight. Confirm in AI Studio and edit rpd here; nothing else changes.",
+    "pools": {
+      "gemini:gemma-4-31b-it": {
+        "provider": "gemini",
+        "resets_tz": "America/Los_Angeles",
+        "rpd": 14400,
+        "rpm": 30,
+        "rpd_basis": "assumed: the Gemma free-tier figure (30 RPM, 14,400 RPD) Google printed for Gemma on the rate-limits page before limits moved to AI Studio; not printed for Gemma 4 on 2026-11-10",
+        "ceiling_day": 11520,
+        "ceiling_minute": 24
+      },
+      "gemini:gemini-3.5-flash-lite": {
+        "provider": "gemini",
+        "resets_tz": "America/Los_Angeles",
+        "rpd": 1000,
+        "rpm": 15,
+        "rpd_basis": "assumed: Flash-Lite free tier 15 RPM / 1,000 RPD as reported in 2026 third-party guides (e.g. https://pecollective-com.pages.dev/tools/gemini-free-tier-guide/); not printed by Google on 2026-11-10",
+        "ceiling_day": 800,
+        "ceiling_minute": 12
+      },
+      "gemini:gemini-flash-latest": {
+        "provider": "gemini",
+        "resets_tz": "America/Los_Angeles",
+        "rpd": 20,
+        "rpm": 10,
+        "rpd_basis": "assumed: Flash free tier measured at about 20 RPD in 2026 reports; the lowest credible figure",
+        "ceiling_day": 16,
+        "ceiling_minute": 8
+      },
+      "openrouter:free": {
+        "provider": "openrouter",
+        "resets_tz": "UTC",
+        "rpd": 1000,
+        "rpm": 20,
+        "rpd_basis": "published: OpenRouter free-model limits, at least 10 credits purchased: 20 RPM, 1,000 RPD per account across all :free models, per UTC day (read 2026-11-10)",
+        "ceiling_day": 600,
+        "ceiling_minute": 16,
+        "shared_note": "the account limit is shared with this repo scheduled jobs: 80% = 800, of which 200 are left to those jobs, so drafts stop at 600"
+      }
+    }
+  },
   "provider_endpoint_markers": [
     "openrouter\\.ai/api",
     "generativelanguage\\.googleapis\\.com",

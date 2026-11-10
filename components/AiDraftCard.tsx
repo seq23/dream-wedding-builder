@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, type FormEvent } from 'react';
-import { BUILDER_ACCESS_KEY, BUILDER_EMAIL_KEY } from '@/lib/builder-signup';
+import { AI_CONSENT_TEXT, BUILDER_ACCESS_KEY, BUILDER_EMAIL_KEY } from '@/lib/builder-signup';
 import type { AiDraftFields } from '@/lib/ai-draft';
 import type { WeddingPlan } from '@/data/planning';
 
@@ -48,8 +48,9 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
   const [knownEmail, setKnownEmail] = useState(false);
   const [description, setDescription] = useState('');
   const [busy, setBusy] = useState(false);
+  const [consent, setConsent] = useState(false);
   const [message, setMessage] = useState('');
-  const [result, setResult] = useState<{ filled: string[]; kept: string[] } | null>(null);
+  const [result, setResult] = useState<{ filled: string[]; kept: string[]; note: string } | null>(null);
 
   // The card mounts under the email gate (the planner renders, inert, beneath it),
   // so the address the gate saves arrives after mount: read it again on unlock.
@@ -81,14 +82,15 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (!consent) { setMessage('Tick the box first: nothing is sent until you do.'); return; }
     setMessage(''); setResult(null); setBusy(true);
     try {
-      const res = await fetch('/api/ai-draft', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, description }) });
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; draft?: AiDraftFields };
+      const res = await fetch('/api/ai-draft', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, description, consent }) });
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; draft?: AiDraftFields; note?: string };
       if (!res.ok || !data.ok || !data.draft) { setMessage(data.error ?? 'AI drafting is busy. Please try again later; you can still build your plan by hand below.'); return; }
       const applied = applyAiDraft(plan, data.draft, description.trim(), new Date().toISOString());
       onApply(applied.plan);
-      setResult({ filled: applied.filled, kept: applied.kept });
+      setResult({ filled: applied.filled, kept: applied.kept, note: data.note ?? '' });
       try { localStorage.setItem(BUILDER_EMAIL_KEY, email.trim().toLowerCase()); } catch { /* fine */ }
     } catch {
       setMessage('AI drafting is busy. Please try again later; you can still build your plan by hand below.');
@@ -98,7 +100,7 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
   return <section id="ai-draft" data-testid="ai-draft-card" className="rounded-[12px] border border-charcoal/15 bg-white p-5 md:p-7">
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/50">AI draft · free, once per email</p>
     <h2 className="mt-2 font-serif text-3xl">Describe your wedding in a sentence.</h2>
-    <p className="mt-2 text-sm leading-6 text-charcoal/70">An AI drafts your dated plan from it; then you edit everything by hand. It is sent to a free AI model, which may keep what you type, so leave out names and anything private.</p>
+    <p className="mt-2 text-sm leading-6 text-charcoal/70">An AI drafts your dated plan from it; then you edit everything by hand. Leave out names and anything private.</p>
     <form onSubmit={submit} className="mt-4 grid gap-3">
       <label className="grid gap-2 text-sm font-semibold" htmlFor="ai-description">Your wedding, in your words
         <textarea id="ai-description" data-testid="ai-description" value={description} onChange={e => setDescription(e.target.value)} maxLength={maxLength} required minLength={10} placeholder="200 guests, June in Memphis, small budget, outdoor if the weather allows" className="min-h-24 rounded-2xl border border-charcoal/20 p-3 text-base font-normal" />
@@ -107,9 +109,13 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
       {knownEmail ? null : <label className="grid gap-2 text-sm font-semibold" htmlFor="ai-email">The email you opened the planner with
         <input id="ai-email" data-testid="ai-email" type="email" required autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} className="min-h-11 rounded-2xl border border-charcoal/20 px-3 text-base font-normal" />
       </label>}
+      <label className="flex items-start gap-3 text-sm leading-6" htmlFor="ai-consent">
+        <input id="ai-consent" data-testid="ai-consent" type="checkbox" required checked={consent} onChange={e => setConsent(e.target.checked)} className="mt-1 h-4 w-4" />
+        <span>{AI_CONSENT_TEXT}</span>
+      </label>
       {message ? <p role="status" data-testid="ai-message" className="rounded-2xl bg-ivory p-3 text-sm leading-6">{message}</p> : null}
-      {result ? <p role="status" data-testid="ai-result" className="rounded-2xl bg-ivory p-3 text-sm leading-6">Drafted. {result.filled.length ? `Filled: ${result.filled.map(f => FIELD_LABELS[f] ?? f).join(', ')}.` : 'Nothing new to fill.'}{result.kept.length ? ` Kept your own answers for: ${result.kept.map(f => FIELD_LABELS[f] ?? f).join(', ')}.` : ''} Your dated plan is below.</p> : null}
-      <button data-testid="ai-submit" type="submit" disabled={busy || plan.aiDraft !== null} className="min-h-12 rounded-full bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-50">{busy ? 'Drafting… (this can take up to a minute)' : plan.aiDraft ? 'Your free AI draft is used ✓' : 'Draft my plan with AI ›'}</button>
+      {result ? <p role="status" data-testid="ai-result" className="rounded-2xl bg-ivory p-3 text-sm leading-6">Drafted. {result.filled.length ? `Filled: ${result.filled.map(f => FIELD_LABELS[f] ?? f).join(', ')}.` : 'Nothing new to fill.'}{result.kept.length ? ` Kept your own answers for: ${result.kept.map(f => FIELD_LABELS[f] ?? f).join(', ')}.` : ''} {result.note ? ` ${result.note}` : ''} Your dated plan is below.</p> : null}
+      <button data-testid="ai-submit" type="submit" disabled={busy || !consent || plan.aiDraft !== null} className="min-h-12 rounded-full bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-50">{busy ? 'Drafting… (this can take up to a minute)' : plan.aiDraft ? 'Your free AI draft is used ✓' : 'Draft my plan with AI ›'}</button>
     </form>
   </section>;
 }

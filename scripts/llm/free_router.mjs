@@ -81,13 +81,18 @@ export async function routeChat({
   fetchImpl = globalThis.fetch,
   config = readConfig(),
   timeoutMs = Number(process.env.LLM_ROUTER_TIMEOUT_MS || 45000),
+  // A subset of the configured free list (the AI draft counts each model against
+  // its own ceiling, so it asks one at a time). Ids not on the list are ignored:
+  // this can narrow the $0 list, never widen it.
+  onlyModels = null,
 } = {}) {
   const policy = loadPolicy(config);
   if (!Array.isArray(messages) || !messages.length) throw new Error('routeChat: messages are required');
   if (!apiKey) return stop('NO_FREE_MODEL_KEY', 'OPENROUTER_API_KEY absent; nothing was generated', { purpose, attempts: [] });
   const freeIds = new Set(policy.models.map((m) => m.id));
   const attempts = [];
-  for (const m of policy.models) {
+  const tryList = Array.isArray(onlyModels) ? policy.models.filter((m) => onlyModels.includes(m.id)) : policy.models;
+  for (const m of tryList) {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
     let res;
@@ -140,6 +145,102 @@ export async function routeChat({
     return { status: 'OK', purpose, model: m.id, content, cost_usd: 0, usage: json.usage || null, attempts };
   }
   return stop('NO_FREE_MODEL_ANSWERED', 'no $0 model answered; nothing was generated and no paid model was tried', { purpose, attempts });
+}
+
+// --- Gemini API free tier (the Builder's AI draft, first step) ------------------
+// $0 here is proved, not assumed: the Gemini free tier has no price, and a key
+// with billing attached is caught by probeGeminiBilling (gemini-pro-latest has no
+// free tier, so a free key gets 429 and a billed key gets 200). The key goes in
+// the x-goog-api-key header, never the URL, and only ever from the server.
+export const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta';
+
+export function geminiPolicyErrors(c) {
+  const e = [];
+  const g = c?.gemini;
+  if (!g) return ['config.gemini is missing'];
+  if (g.free_tier_only !== true) e.push('gemini.free_tier_only must be true');
+  if (g.key_header !== 'x-goog-api-key') e.push('gemini.key_header must be x-goog-api-key (never a key in the URL)');
+  if (!g.billing_probe?.model || g.billing_probe.expect_http !== 429) e.push('gemini.billing_probe must name a no-free-tier model and expect 429');
+  const models = Array.isArray(g.models) ? g.models : [];
+  if (!models.length) e.push('gemini.models is empty');
+  for (const m of models) {
+    if (!/^[a-z0-9.-]+$/.test(String(m?.id || ''))) e.push(`gemini model id ${JSON.stringify(m?.id)} is not a plain model name`);
+    if (m?.id === g.billing_probe?.model) e.push(`${m.id} is the billing probe (no free tier) and cannot be a draft model`);
+    const pool = c?.capacity?.pools?.[m?.pool];
+    if (!pool || !(pool.ceiling_day > 0) || pool.ceiling_day > Math.floor(pool.rpd * 0.8)) e.push(`${m?.id}: capacity pool ${m?.pool} needs ceiling_day > 0 and at most 80% of rpd`);
+  }
+  return e;
+}
+
+const geminiText = (messages) => messages.map((m) => String(m.content)).join('\n\n');
+
+// One Gemini model, once. Never retries: a 429 is returned at once so the caller
+// moves to the next step. outcome: answered | rate_limited | quota_day |
+// credential_refused | no_answer.
+export async function callGemini({ model, messages, apiKey, maxTokens = 1024, temperature = 0, fetchImpl = globalThis.fetch, config = readConfig(), timeoutMs = 20000 }) {
+  const errs = geminiPolicyErrors(config);
+  if (errs.length) { const err = new Error(`gemini policy refused: ${errs.join('; ')}`); err.code = 'POLICY_REFUSED'; throw err; }
+  if (!config.gemini.models.some((m) => m.id === model)) throw new Error(`callGemini: ${model} is not on the gemini free list`);
+  if (!apiKey) return { outcome: 'credential_refused', http: null, error: 'GEMINI_API_KEY absent' };
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  let res;
+  let json;
+  try {
+    // System text is sent as part of the user turn: Gemma on the Gemini API has
+    // no system instruction.
+    res = await fetchImpl(`${GEMINI_BASE}/models/${model}:generateContent`, {
+      method: 'POST',
+      signal: ctrl.signal,
+      headers: { 'x-goog-api-key': apiKey, 'content-type': 'application/json' },
+      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: geminiText(messages) }] }], generationConfig: { temperature, maxOutputTokens: maxTokens } }),
+    });
+    json = await res.json().catch(() => null);
+  } catch (err) {
+    return { outcome: 'no_answer', http: null, error: String(err?.name === 'AbortError' ? `timeout after ${timeoutMs}ms` : err?.message || err) };
+  } finally {
+    clearTimeout(timer);
+  }
+  const msg = String(json?.error?.message || '').slice(0, 200) || null;
+  if (res.status === 429) {
+    const details = JSON.stringify(json?.error?.details || []);
+    const perDay = /PerDay/i.test(details) || /per day|daily/i.test(msg || '');
+    const quota = details.match(/"quotaValue"\s*:\s*"?(\d+)/);
+    return { outcome: perDay ? 'quota_day' : 'rate_limited', http: 429, error: msg, quota_value: quota ? Number(quota[1]) : null };
+  }
+  if (res.status === 401 || res.status === 403 || (res.status === 400 && /api key/i.test(msg || ''))) return { outcome: 'credential_refused', http: res.status, error: msg };
+  const parts = json?.candidates?.[0]?.content?.parts;
+  const content = Array.isArray(parts) ? parts.filter((p) => !p?.thought && typeof p?.text === 'string').map((p) => p.text).join('') : '';
+  if (!res.ok || !content.trim()) return { outcome: 'no_answer', http: res.status, error: msg };
+  return { outcome: 'answered', http: res.status, model, content, cost_usd: 0 };
+}
+
+// FREE: the no-free-tier model was refused for quota (free tier, no billing).
+// ATTACHED: it answered, so billing is attached: skip Gemini. UNKNOWN: anything
+// else (network, bad key, 5xx): not proven free, so Gemini is skipped for now.
+export async function probeGeminiBilling({ apiKey, fetchImpl = globalThis.fetch, config = readConfig(), timeoutMs = 10000 }) {
+  const model = config?.gemini?.billing_probe?.model;
+  if (!model || !apiKey) return { state: 'UNKNOWN', http: null, reason: !apiKey ? 'GEMINI_API_KEY absent' : 'no billing probe model' };
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    // One token in, one out: if billing is attached this is the only call that can cost anything.
+    const res = await fetchImpl(`${GEMINI_BASE}/models/${model}:generateContent`, {
+      method: 'POST',
+      signal: ctrl.signal,
+      headers: { 'x-goog-api-key': apiKey, 'content-type': 'application/json' },
+      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'OK' }] }], generationConfig: { maxOutputTokens: 1 } }),
+    });
+    const json = await res.json().catch(() => null);
+    const msg = String(json?.error?.message || '').slice(0, 200);
+    if (res.status === 429 && /quota/i.test(msg)) return { state: 'FREE', http: 429, reason: msg };
+    if (res.ok) return { state: 'ATTACHED', http: res.status, reason: `${model} answered ${res.status}: billing is attached` };
+    return { state: 'UNKNOWN', http: res.status, reason: msg || `HTTP ${res.status}` };
+  } catch (err) {
+    return { state: 'UNKNOWN', http: null, reason: String(err?.message || err) };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // Live pricing check without a key: every configured model must still exist and

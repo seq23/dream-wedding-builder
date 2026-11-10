@@ -39,6 +39,7 @@
     "distribution:validate": "node scripts/distribution/validate_distribution.mjs",
     "entity:watch": "node scripts/entity/entity_backlink_watch.mjs",
     "lint": "next lint || echo 'next lint unavailable in this Next version; validators still run'",
+    "load:ai-draft": "node scripts/load/ai-draft-day.mjs",
     "llm:check": "node scripts/llm/free_router.mjs --check --ping",
     "pinterest:images": "python3 scripts/pinterest/generate_pin_images.py",
     "pinterest:metrics": "node scripts/pinterest/collect_metrics.mjs",
