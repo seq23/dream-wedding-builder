@@ -37,7 +37,7 @@ export interface DatedPlan {
 }
 
 // Standard planning windows (months before the wedding). The tasks are general
-// planning practice, not vendor quotes or legal advice; licence timing varies by
+// planning practice, not vendor quotes or legal advice; license timing varies by
 // county, so that task says to check it.
 export const PLAN_WINDOWS: { id: string; label: string; fromMonths: number; toMonths: number; tasks: string[] }[] = [
   { id: '12-plus', label: '12+ months before', fromMonths: Infinity, toMonths: 9, tasks: [
@@ -64,7 +64,7 @@ export const PLAN_WINDOWS: { id: string; label: string; fromMonths: number; toMo
     'Plan the rehearsal dinner and guest transport'
   ] },
   { id: '1-month', label: 'The last month', fromMonths: 1, toMonths: 0.25, tasks: [
-    'Get the marriage licence (check your county’s waiting and validity period)',
+    'Get the marriage license (check your county’s waiting and validity period)',
     'Chase RSVPs and give the caterer the final headcount',
     'Make the seating chart and the day-of timeline',
     'Pay the balances that fall due'
