@@ -81,7 +81,7 @@ def bundle_pin():
 
 def main():
     pins = [
-        card_pin('wedding-checklist-pdf', 'product-images/merch/checklist-pdf-card.png', 360, IVORY, 'Wedding Checklist PDF', '104 tasks · 13 printable pages', 'PRINTABLE + EDITABLE · $9'),
+        card_pin('wedding-checklist-pdf', 'product-images/merch/checklist-pdf-card.png', 360, IVORY, 'Wedding Checklist PDF', '13 printable pages · editable workbook', 'PRINTABLE + EDITABLE · $9'),
         card_pin('printable-wedding-checklist', 'product-images/checklist-pdf-hero.png', 360, BLUE_SOFT, 'Printable Wedding Checklist', 'From 12+ months out to wedding week', 'MONTH-BY-MONTH PLANNER'),
         card_pin('elopement-planning-checklist', 'product-images/merch/checklist-pdf-card.png', 430, CORAL_SOFT, 'Elopement\nPlanning Checklist', 'License, witnesses, permits, travel', 'FREE CHECKLIST'),
         card_pin('courthouse-wedding-checklist', 'product-images/checklist-pdf-hero.png', 430, BLUE_SOFT, 'Courthouse\nWedding Checklist', 'Appointment, license, ID, witnesses', 'FREE CHECKLIST'),

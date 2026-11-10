@@ -25,6 +25,8 @@ export interface WeddingPlan {
   guestCount: string;
   /** The wedding date, yyyy-mm-dd, or '' until the couple enters it. */
   weddingDate: string;
+  /** Optional, typed on the printable plan: printed at the top of the page. Stays in this browser. */
+  coupleNames: string;
   season: string;
   venueTypes: string[];
   fullBuyout: string;
@@ -113,6 +115,7 @@ export const emptyPlan: WeddingPlan = {
   travelTolerance: '',
   guestCount: '',
   weddingDate: '',
+  coupleNames: '',
   season: '',
   venueTypes: [],
   fullBuyout: '',
