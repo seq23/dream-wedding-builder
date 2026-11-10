@@ -7,6 +7,9 @@
 // (Workers observability) and is counted by undeliveredPaidOrders(), which the
 // admin page and /api/health/delivery surface.
 
+import { FULL_PLAN_PRODUCT_IDS } from './full-plan';
+import { productById } from './products';
+
 export const DEFAULT_FROM = 'Dream Wedding Builder <orders@mail.weddingchecklistpdf.com>';
 export const DEFAULT_REPLY_TO = 'info@weddingchecklistpdf.com';
 
@@ -28,9 +31,17 @@ function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 }
 
+/** The dated-plan link for a checklist or suite buyer: the same signed token as the download, opened on /full-plan. '' for other products. */
+export function planUrlFor(productName: string, downloadUrl: string) {
+  const entitled = FULL_PLAN_PRODUCT_IDS.some(id => productById(id)?.name === productName);
+  return entitled && downloadUrl.includes('/api/download/') ? downloadUrl.replace('/api/download/', '/full-plan?t=') : '';
+}
+
 export function deliveryEmailBody(productName: string, downloadUrl: string) {
   const name = escapeHtml(productName);
-  return `<div style="font-family:Arial,sans-serif;max-width:620px;margin:auto"><h1>Your wedding planning tool is ready.</h1><p>Thank you for purchasing <strong>${name}</strong>.</p><p><a href="${escapeHtml(downloadUrl)}" style="display:inline-block;background:#27231f;color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:700">Download ${name}</a></p><p>This secure link expires in 24 hours. You can return to your order success page to generate a fresh link.</p><p>Support: info@weddingchecklistpdf.com</p></div>`;
+  const planUrl = planUrlFor(productName, downloadUrl);
+  const plan = planUrl ? `<p><a href="${escapeHtml(planUrl)}" style="display:inline-block;background:#1f4fd8;color:#fff;padding:14px 22px;border-radius:14px;text-decoration:none;font-weight:700">Open my dated plan</a></p><p>Your full plan, with every task dated from your wedding date, ready to print. Open it on the phone or computer you plan on; it is then kept in that browser.</p>` : '';
+  return `<div style="font-family:Arial,sans-serif;max-width:620px;margin:auto"><h1>Your wedding planning tool is ready.</h1><p>Thank you for purchasing <strong>${name}</strong>.</p>${plan}<p><a href="${escapeHtml(downloadUrl)}" style="display:inline-block;background:#27231f;color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:700">Download ${name}</a></p><p>This secure link expires in 24 hours. You can return to your order success page to generate a fresh link.</p><p>Support: info@weddingchecklistpdf.com</p></div>`;
 }
 
 function reportFailure(orderId: string, email: string, status: string, error: string) {

@@ -19,7 +19,7 @@ export const KINDLE_SLASH_PATHS = ['/amazon/courthouse-wedding-planner', '/amazo
 
 export const ROUTE_SEGMENTS = [
   'about', 'admin', 'amazon', 'api', 'apple-touch-icon.png', 'backyard-wedding-planning',
-  'dashboard', 'disclaimer', 'editorial-policy', 'favicon.ico', 'free-wedding-planner', 'guides',
+  'dashboard', 'disclaimer', 'editorial-policy', 'favicon.ico', 'free-wedding-planner', 'full-plan', 'guides',
   'icon-192.png', 'icon-512.png', 'llms.txt', 'methodology', 'micro-wedding-planning',
   'og.png', 'order', 'pack', 'photos', 'pinfeed', 'pinfeed.xml',
   'printable-wedding-checklist', 'privacy', 'products', 'questions', 'readiness-score', 'refund-policy',
