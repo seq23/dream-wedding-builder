@@ -108,8 +108,12 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
    `test/offers.unit.ts`); screens never decide offers themselves. Prices come from the store at run time, never typed into the app.
    Printables are digital content, so in-app purchase only (Apple 3.1.1); download from
    our server after the store confirms; restorable.
+   **One purchase covers the couple and every plan they ever make** (hostile review 10 Nov
+   2026): a phone that joins a shared plan (task 7) sees that plan fully unlocked while it is
+   joined, with no second purchase; changing the date, deleting the plan and starting again,
+   or a new phone (Restore) never asks to pay again. One plan at a time on a phone.
    Tests: with no key every buy button is off and free features never check a purchase;
-   each product grants exactly its entitlements; `offersFor` keeps passing (full plan owners
+   each product grants exactly its entitlements; a joined phone with no purchase sees all 104 tasks of the shared plan and loses them when sharing stops; deleting the plan and setting a new date keeps every entitlement; `offersFor` keeps passing (full plan owners
    see the top-up, never the bundle; printables owners see nothing); restore brings back all three; printables download only after a
    confirmed purchase; no product, offering or price is created by code.
 9. **More, and delete.** Every row on screen 9; "Delete my plan from this phone" confirms
