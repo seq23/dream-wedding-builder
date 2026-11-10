@@ -125,6 +125,8 @@ test('outcome: steps open one at a time and never close the dated plan', async (
   await expect(page.getByTestId('fold-toggle-step-0')).toHaveAttribute('aria-expanded', 'false');
   await expect(page.locator('section[data-fold="open"]')).toHaveCount(2);
   await expect(page.getByTestId('wedding-date')).toBeVisible();
+  await page.getByTestId('wedding-date').fill('2027-10-15');
+  await expect(page.getByTestId('dated-plan')).toHaveAttribute('data-state', 'future');
   await expect(page.getByTestId('full-plan-card')).toBeVisible();
 });
 

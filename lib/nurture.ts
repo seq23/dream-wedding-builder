@@ -19,7 +19,7 @@
 // The Worker cron (worker.ts, hourly) calls runNurture(). Every send is recorded first-
 // time-only in email_sends (PRIMARY KEY (email_hash, kind)), so a re-run never resends.
 
-import { BUILDER_SIGNUPS_DDL } from './builder-signup';
+import { BUILDER_SIGNUPS_DDL, MARKETING_OK_SQL, ensureSignupTable } from './builder-signup';
 
 export const MAILING_ADDRESS = '2055 Lombard St #471024, San Francisco, CA 94147';
 export const SITE = 'https://weddingchecklistpdf.com';
@@ -277,6 +277,9 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
   if (stop) { console.error(JSON.stringify({ event: 'NURTURE_STOPPED', stop })); if (env.DB) await recordRun(env.DB, 0, 0, stop); return { stop, sent: 0, review_asks: 0, ceiling: false, failed: 0 }; }
   const db = env.DB!;
   await ensureTables(db);
+  // Marketing email goes only to addresses whose owner ticked the box (or signed up when
+  // the box was compulsory). An email given just to print a plan is never written to.
+  await ensureSignupTable(db as never);
   const optouts = new Set(((await db.prepare('SELECT email_hash FROM email_optouts').bind().all()).results ?? []).map((r) => String(r.email_hash)));
   const sends = (await db.prepare('SELECT email_hash, kind, sent_at FROM email_sends').bind().all()).results ?? [];
   const byHash = new Map<string, { kinds: Set<string>; last: number | null }>();
@@ -294,7 +297,7 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
   // The series is for people who asked for the sample: signed up from the sample form, or
   // already signed up elsewhere and then got the sample (step 0 recorded). A planner sign-up
   // outside the series gets the one welcome instead, which never starts the series.
-  const signups = (await db.prepare('SELECT email, source, created_at FROM builder_signups WHERE unsubscribed_at IS NULL ORDER BY created_at').bind().all()).results ?? [];
+  const signups = (await db.prepare(`SELECT email, source, created_at FROM builder_signups WHERE unsubscribed_at IS NULL AND ${MARKETING_OK_SQL} ORDER BY created_at`).bind().all()).results ?? [];
   for (const r of signups) {
     if (sent >= MAX_PER_RUN) break;
     const email = String(r.email); const hash = await emailHash(email);

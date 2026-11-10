@@ -64,13 +64,20 @@ test('switched off: no AI card at all', async ({ page }) => {
   await expect(page.getByTestId('ai-draft-card')).toHaveCount(0);
 });
 
-test('arriving at #ai-draft through the email gate: the card is on screen and already knows the email', async ({ page }) => {
-  await page.route('**/api/builder-signup', route => route.fulfill({ json: { ok: true } }));
-  await page.route('**/api/ai-draft', route => route.fulfill({ json: { enabled: true, maxLength: 400 } }));
+test('a new visitor gives her email in the AI card itself: stored first (marketing off unless ticked), then drafted', async ({ page }) => {
+  const calls: string[] = []; let signup: Record<string, unknown> | null = null;
+  await page.route('**/api/builder-signup', route => { calls.push('signup'); signup = route.request().postDataJSON(); return route.fulfill({ json: { ok: true } }); });
+  await page.route('**/api/ai-draft', route => { if (route.request().method() === 'GET') return route.fulfill({ json: { enabled: true, maxLength: 400 } }); calls.push('draft'); return route.fulfill({ json: { ok: true, draft: { ...draft, weddingDate: '2027-10-15' }, remaining: 0 } }); });
   await page.goto('/free-wedding-planner#ai-draft');
-  await page.getByTestId('builder-email').fill('couple@example.com');
-  await page.getByTestId('builder-consent').check();
-  await page.getByTestId('builder-email-submit').click();
   await expect(page.getByTestId('ai-draft-card')).toBeInViewport();
-  await expect(page.getByTestId('ai-email')).toHaveCount(0);
+  await page.getByTestId('ai-description').fill('200 guests, June in Memphis, small budget');
+  await page.getByTestId('ai-consent').check();
+  await page.getByTestId('ai-submit').click();
+  await expect(page.getByTestId('ai-message')).toContainText('Enter your email');
+  expect(calls).toEqual([]);
+  await page.getByTestId('ai-email').fill('couple@example.com');
+  await page.getByTestId('ai-submit').click();
+  await expect(page.getByTestId('ai-result')).toBeVisible();
+  expect(calls).toEqual(['signup', 'draft']);
+  expect(signup).toMatchObject({ email: 'couple@example.com', marketing: false });
 });

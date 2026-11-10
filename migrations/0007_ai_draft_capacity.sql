@@ -10,10 +10,3 @@ CREATE TABLE IF NOT EXISTS ai_route_usage (
   at INTEGER NOT NULL DEFAULT 0
 );
 CREATE INDEX IF NOT EXISTS ai_drafts_day_model ON ai_drafts (day, model);
-
--- Every migration from here on ends by recording itself.
-CREATE TABLE IF NOT EXISTS schema_version (
-  migration TEXT PRIMARY KEY,
-  applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-INSERT OR IGNORE INTO schema_version (migration) VALUES ('0007_ai_draft_capacity');

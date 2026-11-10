@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { BuilderEmailGate } from '@/components/BuilderEmailGate';
 import { Card, Badge } from '@/components/Card';
 import { TrendCard } from '@/components/TrendCard';
 import { trends } from '@/data/trends';
@@ -100,6 +99,10 @@ function BuildPage() {
       const named = (fields: (keyof WeddingPlan)[]) => fields.filter(field => seedFieldLabels[field]);
       if (named(result.applied).length || named(result.skipped).length) setSeedReport({ applied: named(result.applied), skipped: named(result.skipped) });
     } catch { /* an unreadable seed is dropped; the planner still opens */ }
+    // A date typed before this page finished loading is in the field but not yet in
+    // the plan: keep it rather than blanking the field she just filled.
+    const typed = (document.getElementById('wedding-date') as HTMLInputElement | null)?.value ?? '';
+    if (typed && !restored.weddingDate) restored = { ...restored, weddingDate: typed };
     setPlan(restored);
     setLoaded(true);
   }, []);
@@ -162,10 +165,21 @@ function BuildPage() {
     <header>
       <Badge>Free wedding planner</Badge>
       <h1 className="mt-4 font-serif text-[40px] leading-[42px] md:text-6xl md:leading-tight">Build the wedding around reality, not generic inspiration.</h1>
-      <p className="mt-4 text-lg leading-8 text-charcoal/70">Describe your wedding in a sentence, or add your date. You get a dated plan you can tick off, and everything you type saves in this browser by itself.</p>
+      <p data-testid="planner-promise" className="mt-4 text-lg leading-8 text-charcoal/70">No account, no app and no email needed to see your plan. Add your date and your dated checklist is on this page; it saves in this browser by itself.</p>
     </header>
 
-    <AiDraftCard plan={plan} onApply={setPlan} />
+    <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar.</p></div>}>
+      <Card data-testid="wedding-date-card">
+        <label className="grid gap-2 text-sm font-semibold" htmlFor="wedding-date">Wedding date
+          <input id="wedding-date" data-testid="wedding-date" type="date" value={plan.weddingDate} onChange={event => patch({ weddingDate: event.target.value })} className="min-h-11 max-w-xs rounded-2xl border border-charcoal/20 bg-white p-3 text-base" />
+        </label>
+        <p className="mt-2 text-xs text-charcoal/60">Not sure yet? Pick your best guess; you can change it any time. Saved in this browser only.</p>
+        <div className="mt-5 space-y-4"><AiDraftLabel plan={plan} /><DatedPlanView weddingDate={plan.weddingDate} /></div>
+        {plan.weddingDate ? <FullPlanCard /> : null}
+      </Card>
+    </StepFold>
+
+    <AiDraftCard plan={plan} onApply={next => { setPlan(next); requestAnimationFrame(() => document.getElementById('your-date')?.scrollIntoView({ block: 'start' })); }} />
 
     <Card className="bg-white" data-testid="canonical-plan-summary">
       <p className="font-mono text-xs uppercase tracking-[.12em] text-charcoal/60">Your plan so far</p>
@@ -183,17 +197,6 @@ function BuildPage() {
       <p data-testid="save-status" role="status" className={`mt-3 text-sm font-semibold ${saveState.status === 'failed' ? 'text-red-pen' : 'text-done'}`}>{saveState.status === 'failed' ? 'This browser is not letting us save (private window?). Print your plan before you close the page.' : saveState.status === 'saved' ? `Saved in this browser ✓ ${saveState.at}` : 'Saves in this browser by itself as you type.'}</p>
       <Link href="/pack" data-testid="open-packet" className="mt-4 flex min-h-12 items-center justify-center rounded-2xl border-2 border-charcoal bg-white px-5 py-3 text-center font-bold">Open your plan to print ›</Link>
     </Card>
-
-    <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar.</p></div>}>
-      <Card data-testid="wedding-date-card">
-        <label className="grid gap-2 text-sm font-semibold" htmlFor="wedding-date">Wedding date
-          <input id="wedding-date" data-testid="wedding-date" type="date" value={plan.weddingDate} onChange={event => patch({ weddingDate: event.target.value })} className="min-h-11 max-w-xs rounded-2xl border border-charcoal/20 bg-white p-3 text-base" />
-        </label>
-        <p className="mt-2 text-xs text-charcoal/60">Not sure yet? Pick your best guess; you can change it any time. Saved in this browser only.</p>
-        <div className="mt-5 space-y-4"><AiDraftLabel plan={plan} /><DatedPlanView weddingDate={plan.weddingDate} /></div>
-        <FullPlanCard />
-      </Card>
-    </StepFold>
 
     <section aria-labelledby="details-heading" className="space-y-5">
       <div><h2 id="details-heading" className="font-serif text-3xl">Plan the details.</h2><p className="mt-1 text-sm text-charcoal/65">Seven short steps, one open at a time. Skip any of them; your dated plan above does not depend on them.</p></div>
@@ -350,8 +353,8 @@ function BuildPage() {
   </div>;
 }
 
-export default function GatedBuildPage() {
-  // Nothing but her plan and our own two offers inside the planner: the third-party
-  // affiliate picks live on the guide pages, with their commission line (10 Nov 2026).
-  return <BuilderEmailGate><BuildPage /></BuilderEmailGate>;
+// No wall: the plan opens for everyone (owner, 10 Nov 2026). An email is asked only
+// where it buys her something: the free AI draft and the printable plan.
+export default function PlannerPage() {
+  return <BuildPage />;
 }
