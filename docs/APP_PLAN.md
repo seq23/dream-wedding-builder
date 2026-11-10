@@ -32,15 +32,45 @@ repo copy of what Codex builds, in order. When the two disagree, the page wins; 
 
 Run locally: `cd apps/mobile && npm ci && npm run check`.
 
+## Who we win, and what the paid plan sells (owner, 10 Nov 2026: "let's make sure we are doing what we can win")
+
+The bride we can honestly win wants a plan in a minute, with no account, nobody selling to her, and
+paper she can hand to her mother or the friend running the day. The app is built for her, not as
+"the checklist in an app" (source: the value review of 10 Nov 2026, `dw-value-review.md`).
+- **The free part mirrors the repaired website: plan first.** Date in, dated plan on screen. No
+  account and no email to see or use the plan; the email is asked only for the AI draft, and the
+  marketing tick is separate, optional and unticked (site PRs #124 to #128). The free plan opens on
+  "Do these next" (the next three unticked tasks with dates, and when the next set starts) and shows
+  two locked full-plan tasks per window with her dates, as the site does.
+- **What `full_plan` sells, in this order:** (1) the payments and final-payment schedule, (2) the
+  wedding-week sheet, (3) the dated hand-over packet she can print or send, (4) her partner joining
+  on a second phone at no extra cost. Screen 2, the paywall and the store listing lead with these.
+- **Reminders stay paid, but they are not the selling point.** One line why: the largest competitor
+  gives dated tasks, tradition tasks and reminders free, so reminders alone will not sell $14.99
+  (value review, section 2 and section 4). Store wording never leads with reminders or "checklist".
+- **Day-30 check (goes on the scorecard row, task 13).** If, 30 days after launch, unlocks per 100
+  people who reach the plan screen are under the row's day-30 floor, switch to **version B:
+  reminders free, payments + packet paid**. B is written now so the switch is a config change:
+  the reminder scheduler reads one flag (`remindersNeedFullPlan`), and nothing else about `full_plan`
+  moves. Prices and paid-once-per-event do not change in either version.
+- **Counts are never typed.** The full task list is one private file (the same one the website's $9
+  plan reads: R2 `plans/checklist-full-plan-v1.json`, 100 tasks on 10 Nov 2026, 10 of them payment
+  tasks). Screens and store text read the list's real length; "104" was the row count of an empty
+  workbook and is retired everywhere.
+
 ## Paid content is never in the public repo or the app bundle (10 Nov 2026; build it this way from the start)
 
 This repo is public and anything inside an app bundle can be read out of it, so paid content ships
 only after a confirmed purchase:
 - **Bundled in the app (free):** the 23 free tasks from `lib/dated-plan.ts`, each tradition pack's name and
   one example task (the preview), the screens, and short fake fixtures for tests.
-- **Delivered after purchase:** the other 81 dated tasks, the full tradition packs, the day-of handover
-  pack and the printables. Their sources live outside the repo (`~/.boss-os/dream-wedding/paid/`,
-  uploaded to the existing R2 bucket `dream-wedding-builder-products`), never committed.
+- **Delivered after purchase:** the rest of the full task list (every task beyond the free ones, with
+  its date offset, suggested owner and payment marker), the full tradition packs, the day-of handover
+  pack and the printables. Their sources live outside the repo (`~/.boss-os/dream-wedding/`; the task
+  list is `full-plan-tasks.json`, uploaded as `plans/checklist-full-plan-v1.json` to the existing R2
+  bucket `dream-wedding-builder-products`, the same object the website reads), never committed.
+  The only paid task names in the repo are the two per window the free plan shows locked
+  (`lib/full-plan-teaser.ts`, on main).
 - **The door:** a Worker route `/api/app-unlock` checks the purchase with RevenueCat's server API
   (secret on the Worker only) and returns short-lived signed links; the phone downloads once, keeps
   it, and works offline after. No RevenueCat secret yet = NAMED STOP [REVENUECAT_SECRET_MISSING]
@@ -102,17 +132,20 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    unticked tasks; rescheduled on every tick, task or date change; asked once on screen 2.
    **Reminders are paid** (owner, 10 Nov 2026: "If the apps are sending reminders and all of
    that it should charge for that stuff"): they need `full_plan`; the free plan schedules none,
-   and screen 2 offers them as part of the full plan.
+   and screen 2 offers them as part of the full plan, after payments, the wedding-week sheet, the
+   packet and partner joining, never as the headline. The scheduler reads one flag,
+   `remindersNeedFullPlan` (true at launch), so version B of the day-30 check is one change.
    Tests: 12 Jun 2027 seen on 6 Nov 2026 schedules 12 Dec, 12 Mar, 12 May, 5 Jun and the
-   day; a fully ticked window gets none; with no `full_plan` nothing is scheduled; nothing in the past; "Not now" never re-asks
+   day; a fully ticked window gets none; with no `full_plan` nothing is scheduled (and with `remindersNeedFullPlan` false the free plan schedules them); nothing in the past; "Not now" never re-asks
    until turned on in More.
 5. **Tradition packs.** Seven packs (Catholic, Jewish, Hindu, Muslim nikah, Nigerian
    traditional, Mexican, Chinese tea ceremony) as data files; each task has a window id,
    its words and a source link. Adding merges into own tasks, marked with the pack.
    Tests: every task has a source and a real window id; adding twice adds nothing;
    removing a pack keeps ticked or edited tasks. Claude reads every pack before it lands.
-6. **The AI draft.** Screen 7 calls `/api/builder-signup` (consent text from
-   lib/builder-signup, only if the email is new) and then `/api/ai-draft`; it shows the
+6. **The AI draft.** Screen 7 is the only place the app asks for an email. It calls
+   `/api/builder-signup` (only if the email is new; `marketing` is her own optional, unticked box,
+   sent as true only when she ticks it) and then `/api/ai-draft`; it shows the
    server's messages word for word. Nothing is sent until the "send to a free AI model" box
    is ticked (Apple 5.1.2).
    Tests (server mocked): disabled, busy, used, per-connection and daily-limit replies each
@@ -123,6 +156,12 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    (@noble/ciphers, as KeepMyProof); merge ticks by latest stamp.
    Tests: over 64 KB → 413; over the limit → 429; an unknown id and a wrong key answer the
    same; the key never reaches the server; two phones ticking different tasks keep both.
+   **Partner joining is a later task, not part of the first build.** It is sold as part of
+   `full_plan` from day one only if it ships; until it does, no screen or store text mentions
+   it. Accepted when: she taps "Invite my partner", sends one link, and the partner's phone shows
+   the same event fully unlocked with no account and no second purchase; a tick or a payment
+   marked on either phone shows on the other within a minute of both being online; stopping
+   sharing removes the paid tasks from the joined phone and nothing from hers.
 8. **The products, switched off.** RevenueCat wiring copied from KeepMyProof
    (`src/billing`) with no key; the screen says "Purchases are not set up yet".
    NAMED STOP [DW_STORE_NOT_SET_UP] until she has created the store accounts, the products
@@ -136,10 +175,12 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    | `dw_day_of_kit` | $9.99 | `day_of_kit` |
    | `dw_new_event` (consumable) | $14.99, the full-plan price of the day | `full_plan` for one new event |
 
-   `full_plan` unlocks: all 104 tasks dated, two phones (task 7), every window's
-   reminders (task 4), tradition packs (task 5), the day-of handover pack, PDF export.
-   Free (same as the website): the 24 core tasks, ticks, own tasks, 1 AI draft, the basic
-   packet; no reminders (owner, 10 Nov 2026). Offering `default`:
+   `full_plan` unlocks, in the order it is sold (see "Who we win"): the payments and
+   final-payment schedule, the wedding-week sheet, the dated hand-over packet (PDF export), a
+   partner joining on a second phone (task 7), every task in the full list dated (the count is
+   read from the list), tradition packs (task 5) and every window's reminders (task 4).
+   Free (same as the website): the free core tasks in `lib/dated-plan.ts` (23), ticks, own tasks,
+   "Do these next", the calendar file, 1 AI draft, the basic packet; no reminders (owner, 10 Nov 2026). Offering `default`:
    dw_planner_printables first (better value), then dw_full_plan; offering `after_unlock`
    (owns `full_plan`, not `printables`): dw_printables_topup, then dw_day_of_kit; owns
    `printables`: no offer. The rule is one pure function, `offersFor` in
@@ -166,9 +207,9 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
      restored by the store, so each paid event's unlock is recorded on the phone and inside the
      event's private shared-plan backup (task 7), and Restore reads both. Printables
      (`printables`, `day_of_kit`) stay once per person, every event.
-   - Reminders, two phones, traditions and the 104 tasks belong to the event that was paid for.
+   - Reminders, two phones, traditions, payments and the full task list belong to the event that was paid for.
    Tests: with no key every buy button is off and free features never check a purchase;
-   each product grants exactly its entitlements; a joined phone with no purchase sees all 104 tasks of the shared plan and loses them when sharing stops; the name cannot be edited after unlock; date moves 1 to 3 keep the unlock and the 4th is refused with the new-event offer; a new event without `dw_new_event` stays on the free plan; deleting and recreating never unlocks a new event; Restore brings back the first event and every recorded paid event; `offersFor` keeps passing (full plan owners
+   each product grants exactly its entitlements; a joined phone with no purchase sees every task of the shared plan (the full list's own count) and loses them when sharing stops; the name cannot be edited after unlock; date moves 1 to 3 keep the unlock and the 4th is refused with the new-event offer; a new event without `dw_new_event` stays on the free plan; deleting and recreating never unlocks a new event; Restore brings back the first event and every recorded paid event; `offersFor` keeps passing (full plan owners
    see the top-up, never the bundle; printables owners see nothing); restore brings back all three; printables download only after a
    confirmed purchase; no product, offering or price is created by code.
 9. **More, and delete.** Every row on screen 9; "Delete my plan from this phone" confirms
@@ -186,8 +227,8 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
     in the stores, never before. Its own site PR; every H1, H2, FAQ and link keeps its words.
     Tests: the line renders only when the store links are set in config; the page's search
     shape (title, H1, H2s, FAQ, schema) is unchanged.
-13. **Scorecard row** in Boss OS (result, day-30 and day-60 floors, version B from the plan
-    page) before the first store submission.
+13. **Scorecard row** in Boss OS (result, day-30 and day-60 floors, and version B: "reminders
+    free, payments + packet paid", from "Who we win" above) before the first store submission.
     The row also carries the price step (owner, 10 Nov 2026): at about 20 real ratings the
     full plan and `dw_new_event` go from $14.99 to $19.99 by a store price change.
 
