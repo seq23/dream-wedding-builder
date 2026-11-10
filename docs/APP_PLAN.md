@@ -65,8 +65,11 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
    with it set.
 4. **Reminders.** expo-notifications, local only: 9:00 on each future window start, listing
    unticked tasks; rescheduled on every tick, task or date change; asked once on screen 2.
+   **Reminders are paid** (owner, 10 Nov 2026: "If the apps are sending reminders and all of
+   that it should charge for that stuff"): they need `full_plan`; the free plan schedules none,
+   and screen 2 offers them as part of the full plan.
    Tests: 12 Jun 2027 seen on 6 Nov 2026 schedules 12 Dec, 12 Mar, 12 May, 5 Jun and the
-   day; a fully ticked window gets none; nothing in the past; "Not now" never re-asks
+   day; a fully ticked window gets none; with no `full_plan` nothing is scheduled; nothing in the past; "Not now" never re-asks
    until turned on in More.
 5. **Tradition packs.** Seven packs (Catholic, Jewish, Hindu, Muslim nikah, Nigerian
    traditional, Mexican, Chinese tea ceremony) as data files; each task has a window id,
@@ -100,7 +103,7 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
    `full_plan` unlocks: all 104 tasks dated, two phones (task 7), every window's
    reminders (task 4), tradition packs (task 5), the day-of handover pack, PDF export.
    Free (same as the website): the 24 core tasks, ticks, own tasks, 1 AI draft, the basic
-   packet, plus the reminder for the current window. Offering `default`:
+   packet; no reminders (owner, 10 Nov 2026). Offering `default`:
    dw_planner_printables first (better value), then dw_full_plan; offering `after_unlock`
    (owns `full_plan`, not `printables`): dw_printables_topup, then dw_day_of_kit; owns
    `printables`: no offer. The rule is one pure function, `offersFor` in

@@ -30,7 +30,7 @@ export const SCREENS: ScreenSpec[] = [
     coming: 'Pick the date (or "not set yet"); the dated plan is built from it. Codex task 1.' },
   { route: '/reminders', file: 'app/reminders.tsx', title: 'Reminders', kind: 'onboarding', back: '/welcome',
     links: [{ href: HOME, label: 'Turn on reminders ›' }, { href: HOME, label: 'Skip ›' }],
-    coming: 'Free: a reminder for the window you are in; the full plan adds every window. Codex task 4.' },
+    coming: 'Part of the full plan: a reminder at the start of every window. Codex task 4.' },
   { route: '/plan', file: 'app/(tabs)/plan/index.tsx', title: 'Your plan', kind: 'tab', tab: 'plan',
     links: [{ href: '/plan/add-task', label: '+ Add your own task' }, { href: '/plan/ai-draft', label: 'Draft my plan from a sentence ›' }],
     coming: 'The binder: window tabs, tick tasks, add your own. Codex task 2.' },
