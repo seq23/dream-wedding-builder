@@ -2,157 +2,19 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W46",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-09T12:22:33.733Z",
+  "generated_at": "2026-11-10T12:20:58.879Z",
   "state": "slow",
-  "published": 13,
+  "published": 4,
   "indexed": "not read: no page old enough to inspect yet (14 days)",
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 950,
+  "ai_bot_hits": 997,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
   "merged": 0,
   "held_by_cap": 0,
   "redirected": [
-    {
-      "query": "how to plan an elopement wedding",
-      "strengthen": "https://weddingchecklistpdf.com/questions/how-to-plan-a-elope-wedding",
-      "matched_by": "same wording",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free wedding planner templates",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free wedding planner checklist",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "same wording",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free wedding planner excel template",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-template",
-      "matched_by": "high token overlap (0.75 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free wedding table planner",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "wedding planner free budget",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free digital wedding planner",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free wedding planner download",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "downloadable wedding planner free",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "wedding planner to do list free",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "printable wedding checklist planner",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/elopement-checklist-printable-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "wedding to do checklist template",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-template",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "complete wedding checklist printable free",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.75 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "wedding checklist free printable word",
-      "strengthen": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "basic wedding checklist free printable",
-      "strengthen": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "detailed wedding checklist printable",
-      "strengthen": "https://weddingchecklistpdf.com/questions/best-wedding-checklist-printable-every-detail",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "detailed wedding checklist free and printable",
-      "strengthen": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "quick wedding checklist free printable",
-      "strengthen": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free printable wedding checklist template",
-      "strengthen": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "printable wedding planning checklist free",
-      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-planner-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "diy wedding checklist free printable",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.75 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "free wedding list checklist printable",
-      "strengthen": "https://weddingchecklistpdf.com/questions/printable-wedding-checklist-free",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
-    {
-      "query": "printable wedding planning checklist pdf",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/elopement-checklist-printable-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-03"
-    },
     {
       "query": "planning an elopement wedding",
       "strengthen": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
@@ -192,14 +54,14 @@
   ],
   "cap": {
     "max_live_pages": 25,
-    "live": 3,
-    "room": 22,
+    "live": 4,
+    "room": 21,
     "why": "up from 22 to 25: Google impressions 83 in the last 28 days beat 50 in the 28 before"
   },
   "notes": [
     "site config lowers the mode to slow",
-    "cap: up from 22 to 25: Google impressions 83 in the last 28 days beat 50 in the 28 before",
-    "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json"
+    "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json",
+    "CHECK runs weekly in mode=slow; last ran 2026-11-09"
   ],
   "lanes": {
     "ratio": {
@@ -207,7 +69,7 @@
       "striking": 1
     },
     "can_be_one": {
-      "pages": 1,
+      "pages": 2,
       "measured": 0,
       "top3": 0,
       "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
@@ -227,5 +89,5 @@
     "weight_changes": [],
     "competition": "ok: 15 top-10 read(s) via brave"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/42616463992"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/42814959115"
 }

@@ -127,6 +127,25 @@
           "DuckAssistBot": 16
         }
       }
+    },
+    "2026-11-10": {
+      "ai_visitors": {
+        "total": 0,
+        "by_engine": {},
+        "by_path": {},
+        "source": "web-analytics"
+      },
+      "ai_bot_hits": {
+        "total": 126,
+        "by_bot": {
+          "OAI-SearchBot (ChatGPT search)": 2,
+          "ClaudeBot": 15,
+          "Amazonbot": 28,
+          "Bytespider": 3,
+          "GPTBot (OpenAI training)": 77,
+          "ChatGPT-User (ChatGPT fetch)": 1
+        }
+      }
     }
   }
 }
