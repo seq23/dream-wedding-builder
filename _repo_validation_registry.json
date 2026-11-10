@@ -7,8 +7,8 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 25,
-    "STRONG_WARNING": 0,
+    "HARD_FAIL": 26,
+    "STRONG_WARNING": 1,
     "SOFT_WARNING": 1
   },
   "post_deploy_checks": [
@@ -119,6 +119,18 @@
       "composite": false
     },
     {
+      "id": "rendered-seo-contract",
+      "npmScript": "validate:rendered-seo",
+      "command": "node scripts/validators/validate_rendered_seo_contract.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "Bing Webmaster and the site audit of 2026-09-25 read these off the rendered pages: rules 113/117 on weddingseatingchartmaker.com/products/seating-chart-maker (the http:// copy answered 200 beside the https:// one on all four hosts), rule 118 on descriptions of 81-98 characters with 25 more past 160, and 94 internal links (21-27 /free-wedding-planner?... per product host, 22 /products/*, /guides/* and hub links on weddingchecklistpdf.com) that 308'd across hosts. The data files could not show any of it: the descriptions are assembled in templates, the redirects are decided by middleware, and the links by a dozen emitters. This gate boots the real build, fetches every sitemap URL on every host, and asserts title 30-70 characters (Bing Site Scan flags titles over 70; 29 pages were, almost all pushed over by the site-name suffix) and description 110-160 characters, no duplicate title or description across self-canonical pages, no network href answering 3XX, and a permanent redirect for a Cloudflare-marked http request. Requires a build and hard-fails without one, and on zero pages or zero links examined. Rule 6 added 31 Oct 2026 (Search Readiness e6/i8 and e9): a rendered page with a conversion form must run the Clarity loader as an enabled <script>, and a page without one must not reference it. ConversionAnalytics used next/script `afterInteractive`, which injects the tag from the client after hydration, so every form and buy page on all four hosts served only a <link rel=\"preload\"> - which executes nothing - and the first seconds of every session went unrecorded. The gate fails on zero conversion pages, so a crawl that never reached a checkout form cannot pass it. Length rule since 2 Nov 2026 (owner ruling, no petty validation): the b1/b2 bands are generator targets in lib/length-floor.mjs; lib/seo.ts trims titles and descriptions over the maximum, this gate notes over-length and fails a title or description only below 75% of its minimum.",
+      "composite": false,
+      "requires_build": true,
+      "manual_repair": "a description out of range: edit data/seo/guide_meta_descriptions.json (guides), data/seo/hub_pages.json, data/planner-landings.ts or the page's metadata; a redirecting link: route the emitter's href through hrefFrom() in lib/site-config.ts; an http 200: restore the scheme redirect in middleware.ts",
+      "repair_evidence": "proved negatively on 2026-09-25: at origin/main it failed with 60 descriptions out of range, 94 redirecting network links and 4 http 200s; after the fix it passes on 128 pages and 226 network links; the 30-70 title bound was proved the same way on 2026-09-25: 29 titles over 70 before lib/seo.ts documentTitle(), and restoring one 73-character source title fails the gate on exactly that page"
+    },
+    {
       "id": "product-reachability",
       "npmScript": "validate:product-reachability",
       "command": "node scripts/validators/validate_product_reachability.mjs",
@@ -141,7 +153,7 @@
     {
       "id": "structural",
       "npmScript": "validate:structural",
-      "command": "npm run validate:env && npm run validate:disclaimers && npm run validate:authority-registry && npm run validate:contracts && npm run validate:conversion-admin",
+      "command": "npm run validate:env && npm run validate:disclaimers && npm run validate:no-theater && npm run validate:authority-registry && npm run validate:contracts && npm run validate:conversion-admin",
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "composite: purity, hygiene, proof readiness, seo, authority",
@@ -275,6 +287,15 @@
       "severity": "SOFT_WARNING",
       "blocksRelease": false,
       "reason": "measurement honesty check; reports rather than blocks",
+      "composite": false
+    },
+    {
+      "id": "no-theater",
+      "npmScript": "validate:no-theater",
+      "command": "node scripts/validate-no-theater.mjs",
+      "severity": "STRONG_WARNING",
+      "blocksRelease": false,
+      "reason": "advisory copy-quality signal",
       "composite": false
     },
     {
