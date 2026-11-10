@@ -82,11 +82,11 @@ export const SEQUENCE: Step[] = [
     cta: { label: 'Download the sample (PDF)', url: SAMPLE_URL }
   },
   {
-    kind: 'seq1', subject: 'The full checklist: 13 printable pages and a workbook to fill in',
+    kind: 'seq1', subject: 'The full checklist: every task dated from your wedding date',
     heading: 'The full Wedding Checklist PDF, $9',
     paragraphs: [
-      'The sample has 3 of the 13 pages. The full checklist adds a worksheet for every planning window from 12+ months through wedding week, a wedding-week handoff tracker and a final-payments tracker.',
-      'It comes as an editable spreadsheet plus the printable PDF. You write in your own tasks and dates; each row has fields for owner, dependency, priority and status, so tasks are assigned instead of assumed.'
+      'The sample has 3 of the 13 pages. The full checklist opens as a dated plan: about 100 written tasks, each dated from your wedding date, from 12+ months out through wedding week, with final payments.',
+      'It also comes as the 13-page printable PDF and an editable spreadsheet for adding your own tasks; each row has fields for owner, dependency, priority and status, so tasks are assigned instead of assumed.'
     ],
     cta: { label: 'See the full checklist, $9', url: `${SITE}/products/checklist-pdf` }
   },
@@ -125,7 +125,7 @@ export const WELCOME: Step = {
   heading: 'Thanks for opening the free wedding planner.',
   paragraphs: [
     'Your plan is saved in the browser you used, not on our servers, so go back on the same phone or computer to pick up where you left off.',
-    'If you would like it on paper too, the Wedding Checklist PDF is $9: worksheets you fill in for every planning window from 12+ months out through wedding week, as a printable PDF and an editable spreadsheet.'
+    'If you would like the full plan, the Wedding Checklist PDF is $9: about 100 tasks dated from your wedding date, with final payments, ready to print, plus a 13-page printable PDF and an editable spreadsheet.'
   ],
   link: { label: 'Open the free wedding planner', url: `${SITE}/free-wedding-planner` },
   cta: { label: 'Get the Wedding Checklist PDF, $9', url: `${SITE}/products/checklist-pdf` },
