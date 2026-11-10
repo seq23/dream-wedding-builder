@@ -36,6 +36,15 @@ export const metadata: Metadata = seoMetadata({
   type: 'article'
 });
 
+// Plain words for the plan fields each check reads (hostile review, 10 Nov 2026: the
+// table printed code names such as "selectedVenueIds").
+const FIELD_WORDS: Record<string, string> = {
+  weddingDate: 'your wedding date', locations: 'your town or area', guestCount: 'your guest count',
+  budgetTarget: 'your budget', budgetMode: 'whether the budget is a hard limit', ownVibeWords: 'your own words for the feel',
+  colorsLoved: 'colours you love', priorities: 'what matters most', saveAreas: 'where you would save',
+  selectedVenueIds: 'at least one venue type', selectedVendorCategories: 'at least one vendor to hire'
+};
+
 export default function ReadinessScore() {
   const definedTerm = {
     '@context': 'https://schema.org',
@@ -65,7 +74,7 @@ export default function ReadinessScore() {
     <section className="rounded-[12px] bg-linen p-7 md:p-9">
       <h2 className="font-serif text-4xl">How it is calculated</h2>
       <p className="mt-4 text-base leading-7 text-charcoal/70">Count the answered inputs, divide by {READINESS_CHECK_COUNT}, multiply by 100, round to the nearest whole number. There is no other term in the formula. Every input carries the same weight — about {Math.round(READINESS_POINTS_PER_CHECK)} points — because weighting them would mean asserting that one input matters more for every couple, and that is exactly the assertion <Link href="/methodology" className="font-bold underline underline-offset-4">constraint-first planning</Link> refuses to make.</p>
-      <p className="mt-4 text-base leading-7 text-charcoal/70">The score is computed in your browser from values you typed. Nothing is sent anywhere, and no input is inferred on your behalf.</p>
+      <p className="mt-4 text-base leading-7 text-charcoal/70">The score is computed in your browser from values you typed. The score itself is worked out on your device and is not sent anywhere. If you used the free AI draft, the values it filled in count like any others, and you can change them.</p>
     </section>
 
     <section className="rounded-[12px] bg-white p-7 md:p-9">
@@ -81,7 +90,7 @@ export default function ReadinessScore() {
           <tbody>{readinessChecks.map((check) => <tr key={check.id}>
             <td className="border-b border-charcoal/10 p-3 font-bold">{check.label}</td>
             <td className="border-b border-charcoal/10 p-3">{check.question}</td>
-            <td className="border-b border-charcoal/10 p-3">{check.fields.join(' or ')}</td>
+            <td className="border-b border-charcoal/10 p-3">{check.fields.map(field => FIELD_WORDS[field] ?? field).join(' or ')}</td>
             <td className="border-b border-charcoal/10 p-3">{Math.round(READINESS_POINTS_PER_CHECK)}%</td>
           </tr>)}</tbody>
         </table>
@@ -120,7 +129,7 @@ export default function ReadinessScore() {
     </section>
     <PlannerCta label="See your readiness score →" seed={{}} />
 
-    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">This page is rendered directly from the same module the planner scores with, so the published rubric and the shipped calculation cannot drift apart. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
+    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">This page lists the same checks the planner uses, so what you read here is what the planner counts. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
     <JsonLd data={[definedTerm, faq]} />
   </article>;
 }
