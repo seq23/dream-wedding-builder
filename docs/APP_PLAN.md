@@ -153,6 +153,8 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
     shape (title, H1, H2s, FAQ, schema) is unchanged.
 13. **Scorecard row** in Boss OS (result, day-30 and day-60 floors, version B from the plan
     page) before the first store submission.
+    The row also carries the price step (owner, 10 Nov 2026): at about 20 real ratings the
+    full plan and `dw_new_event` go from $14.99 to $19.99 by a store price change.
 
 ## What needs her
 
