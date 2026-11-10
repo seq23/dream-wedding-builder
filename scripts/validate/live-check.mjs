@@ -272,6 +272,16 @@ for (const host of hosts) {
   process.stdout.write(failures.length === before ? ' ok\n' : ` ${failures.length - before} problem(s)\n`);
 }
 
+// Public pages must stay cacheable at the edge (lib/edge-cache.ts). Each host's home page
+// is fetched twice; the second answer must not be "no-store" or "private".
+for (const host of hosts) {
+  let control = '';
+  for (let i = 0; i < 2; i += 1) {
+    try { const res = await fetch(`https://${host}/`, { headers: { 'User-Agent': UA } }); control = res.headers.get('cache-control') ?? ''; await res.arrayBuffer(); } catch (error) { control = `unreachable: ${error?.message ?? error}`; }
+  }
+  assert(host, /public/.test(control) && !/no-store|private/.test(control), `home page is not edge-cacheable: cache-control is "${control}" (expected public; see lib/edge-cache.ts and the CF_VERSION_METADATA binding)`);
+}
+
 if (assertions === 0) {
   console.error('live check: zero assertions ran. A run that checked nothing has not passed.');
   process.exit(1);

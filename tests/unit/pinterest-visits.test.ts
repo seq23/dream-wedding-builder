@@ -66,7 +66,10 @@ describe('pinterest page-view log', () => {
   it('worker.ts routes every tagged request through the log', () => {
     const worker = readFileSync('worker.ts', 'utf8');
     expect(worker).toMatch(/recordPinterestVisit\(env\.DB/);
-    expect(worker).toMatch(/return handler\.fetch\(request, env, ctx\)/);
+    // The app is still what answers; public pages may come from the edge copy (lib/edge-cache.ts),
+    // and a tagged request always has a query string, which that cache never serves or stores
+    // (tests/unit/edge-cache.test.ts), so every tagged visit reaches the app and is counted.
+    expect(worker).toMatch(/handler\.fetch\(request, env, ctx\)/);
   });
 });
 

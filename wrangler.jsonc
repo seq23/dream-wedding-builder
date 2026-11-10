@@ -3,6 +3,9 @@
 	"main": "worker.ts",
 	// Hourly: retry paid orders whose delivery email never went out (lib/delivery-retry.ts).
 	"triggers": { "crons": ["0 * * * *"] },
+	// The deploy's version id keys the edge page cache (lib/edge-cache.ts), so a new deploy
+	// never serves a page cached from the previous one. No id, no caching.
+	"version_metadata": { "binding": "CF_VERSION_METADATA" },
 	"name": "dream-wedding-builder",
 	"compatibility_date": "2026-07-10",
 	// Workers Logs: DELIVERY_EMAIL_FAILED lines from lib/delivery-email.ts land here.
