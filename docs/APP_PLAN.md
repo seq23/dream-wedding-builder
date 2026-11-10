@@ -108,7 +108,7 @@ Run locally: `cd apps/mobile && npm ci && npm run check`.
    `test/offers.unit.ts`); screens never decide offers themselves. Prices come from the store at run time, never typed into the app.
    Printables are digital content, so in-app purchase only (Apple 3.1.1); download from
    our server after the store confirms; restorable.
-   **One purchase covers the couple and every plan they ever make** (hostile review 10 Nov
+   **One purchase covers the couple and every plan they ever make** (hostile review 10 Nov, wins over the page;
    2026): a phone that joins a shared plan (task 7) sees that plan fully unlocked while it is
    joined, with no second purchase; changing the date, deleting the plan and starting again,
    or a new phone (Restore) never asks to pay again. One plan at a time on a phone.
