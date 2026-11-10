@@ -282,6 +282,14 @@ for (const host of hosts) {
   assert(host, /public/.test(control) && !/no-store|private/.test(control), `home page is not edge-cacheable: cache-control is "${control}" (expected public; see lib/edge-cache.ts and the CF_VERSION_METADATA binding)`);
 }
 
+// The paid full plan's task list is a private object the Worker reads. If it is missing,
+// buyers quietly get only the zip, so its public counts route must answer with tasks.
+if (hosts.includes('weddingchecklistpdf.com')) {
+  const res = await fetchOnce('https://weddingchecklistpdf.com/api/health/full-plan');
+  let total = 0; try { total = JSON.parse(res.body).total ?? 0; } catch { /* reported below */ }
+  assert('weddingchecklistpdf.com', res.status === 200 && total > 0, `NAMED STOP [FULL_PLAN_LIST_MISSING] /api/health/full-plan answered ${res.status} with ${total} tasks; upload the task list to plans/checklist-full-plan-v1.json in the product bucket`);
+}
+
 if (assertions === 0) {
   console.error('live check: zero assertions ran. A run that checked nothing has not passed.');
   process.exit(1);

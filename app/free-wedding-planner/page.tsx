@@ -141,7 +141,7 @@ function BuildPage() {
   // The planner renders only on weddingchecklistpdf.com; the three sibling products
   // are linked at their own host so the click is not a cross-host 308.
   const workingFiles = [
-    { id: 'checklist-pdf', name: 'Wedding Checklist PDF', price: 9, route: '/products/checklist-pdf', reason: 'A 104-row checklist file you fill in, with a printable packet. Your dates from this page are not carried into it.' },
+    { id: 'checklist-pdf', name: 'Wedding Checklist PDF', price: 9, route: '/products/checklist-pdf', reason: 'Your full plan with every task dated from your wedding day, ready to print, plus the checklist files.' },
     { id: 'budget-spreadsheet', name: 'Wedding Budget Spreadsheet', price: 12, route: 'https://weddingbudgetspreadsheet.com/products/budget-spreadsheet', reason: budget.budget ? `A spreadsheet for tracking your ${money(Math.min(budget.budget, budget.limit))} against quotes, deposits and the fees venues leave off.` : 'A spreadsheet for tracking quotes, deposits and the fees venues leave off.' },
     { id: 'timeline-template', name: 'Wedding Timeline Template', price: 12, route: 'https://weddingtimelinetemplate.com/products/timeline-template', reason: 'The wedding day itself, hour by hour, with vendor arrival and pack-up times.' },
     { id: 'seating-chart-maker', name: 'Wedding Seating Chart Maker', price: 19, route: 'https://weddingseatingchartmaker.com/products/seating-chart-maker', reason: budget.guests ? `Your ${budget.guests} guests arranged into tables.` : 'Your guests arranged into tables, once you know the count.' }
