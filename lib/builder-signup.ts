@@ -17,6 +17,10 @@ export const CONSENT_TEXT =
 export const AI_CONSENT_TEXT =
   'Send my sentence to a free AI model from Google Gemini or OpenRouter, which may keep it. I have left out names and anything private.';
 
+/** Said by the server (429) and by the card on her own device once the free draft is used: one sentence, one source. */
+export const AI_DRAFT_USED_TEXT =
+  'You have used your free AI draft for this email. Your plan is yours to edit by hand below, and that stays free.';
+
 export const UNSUBSCRIBE_NOTE =
   'Every email includes an unsubscribe link, or write to info@weddingchecklistpdf.com and we remove your address.';
 

@@ -159,16 +159,13 @@ export function applySeed<T extends object>(plan: T, patch: Partial<WeddingPlan>
 /** Human-readable field names for the "seeded from" notice the planner shows. */
 export const seedFieldLabels: Partial<Record<keyof WeddingPlan, string>> = {
   guestCount: 'guest count',
-  budgetTarget: 'budget target',
-  budgetMode: 'budget position',
-  constraintMode: 'constraint mode',
-  constraints: 'timing constraint',
+  budgetTarget: 'budget',
+  budgetMode: 'how firm the budget is',
+  constraints: 'time until the wedding',
   locations: 'location',
   season: 'season',
   venueTypes: 'venue types',
-  priorities: 'protected priorities',
-  recommendationFocus: 'studio focus',
-  recommendationQuestion: 'studio question'
+  priorities: 'what matters most'
 };
 
 /** Build a planner URL carrying a seed. Used by every landing page and guide. */

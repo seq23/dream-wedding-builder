@@ -35,8 +35,7 @@ export const metadata: Metadata = seoMetadata({
 // The worked example is COMPUTED by the shipped planner, not transcribed. The
 // paragraph above makes a claim about what Step 3 does; rendering Step 3's real
 // output directly underneath is the only version of that claim that cannot
-// quietly become false. scripts/validators/validate_methodology_contrast.mjs
-// hard-fails if this page ever stops calling budgetReality.
+// quietly become false. tests/unit/budget-plan.test.ts pins what budgetReality returns for this plan.
 const EXAMPLE_PLAN = {
   ...emptyPlan,
   constraintMode: 'hard' as const,
@@ -105,7 +104,7 @@ export default function Methodology() {
       <h3 className="mt-8 font-serif text-3xl">What the tool actually returns for that question</h3>
       <p className="mt-3 text-base leading-7 text-charcoal/70">Being precise about this matters more than sounding impressive. Step 3 does not produce a revised budget, and it does not tell you the wedding is affordable. Given 80 guests, an $18,000 hard ceiling, and Food&nbsp;+&nbsp;Bar, Photography, and Guest Comfort marked as protected, this is the text it returns &mdash; generated here by the same function the planner runs, not copied from it:</p>
       <blockquote className="mt-4 rounded-2xl border-l-4 border-charcoal/30 bg-ivory p-5 leading-7" data-testid="methodology-worked-example">{budgetReality(EXAMPLE_PLAN)}</blockquote>
-      <p className="mt-4 text-base leading-7 text-charcoal/70">So the honest version of the claim is narrower than &ldquo;it tells you what to change&rdquo; sounds, and it is still the thing no calculator does: it flags that the per-guest figure is under what the plan needs, it names the three things to leave alone, and it names where the cutting starts instead. It orders the cuts. It does not make the money appear, and it does not pretend the number works.</p>
+      <p className="mt-4 text-base leading-7 text-charcoal/70">So the honest version of the claim is narrower than &ldquo;it tells you what to change&rdquo; sounds, and it is still the thing no calculator does: it works out what the number means per guest, it names the three things to leave alone, and it names where the cutting starts instead. It orders the cuts. It does not make the money appear, and it does not pretend the number works.</p>
       <p className="mt-4 text-sm leading-6 text-charcoal/60">The figures in that example are a worked illustration, not a saved plan and not a quote. The planner opens empty for everyone.</p>
     </section>
 
