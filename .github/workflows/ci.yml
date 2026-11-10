@@ -34,6 +34,9 @@ jobs:
         with: { node-version: '22', cache: npm }
       - run: npm ci
       - run: npm run validate:all
+      # A day of 3,000 AI drafts against the real handler with mocked providers:
+      # fails on any error, any passed ceiling, or any route that is not $0.
+      - run: npm run load:ai-draft
       - run: npm run build
       # Severity-aware pass: reports non-blocking warnings that validate:all would
       # either ignore or hard-fail on. See _repo_validation_registry.json.

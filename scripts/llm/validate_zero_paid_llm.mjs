@@ -20,7 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { policyErrors, readConfig, routeChat, loadPolicy, PaidCostError, describeKey } from './free_router.mjs';
+import { policyErrors, geminiPolicyErrors, readConfig, routeChat, loadPolicy, PaidCostError, describeKey } from './free_router.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const rel = (p) => path.relative(ROOT, p).split(path.sep).join('/');
@@ -30,6 +30,7 @@ const config = readConfig();
 
 // 1. Policy -------------------------------------------------------------------
 for (const e of policyErrors(config)) errors.push(`policy: ${e}`);
+for (const e of geminiPolicyErrors(config)) errors.push(`policy: ${e}`);
 const ROUTER = 'scripts/llm/free_router.mjs';
 const SELF = 'scripts/llm/validate_zero_paid_llm.mjs';
 const lanes = Array.isArray(config.paid_lanes) ? config.paid_lanes : [];

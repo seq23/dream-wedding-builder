@@ -12,7 +12,8 @@ Read `~/Brains/spry.md` before any work (business facts, priorities, voice, sett
 
 **Nothing paid.** Every model, search and enrichment call in this repository goes
 through the $0 router (`scripts/llm/free_router.mjs`) against OpenRouter's free
-models, with `max_cost_usd: 0` and no paid fallback. When no free model answers, the
+models (and, for the Builder's AI draft only, the Gemini API free tier behind a
+daily billing guard), with `max_cost_usd: 0` and no paid fallback. When no free model answers, the
 run makes a NAMED STOP with a receipt and generates nothing — it never falls back to
 a priced model, and it never "just this once" spends.
 
