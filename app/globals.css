@@ -53,3 +53,5 @@ footer .grid.gap-2 > a, footer li > a { display: inline-flex; min-height: 44px; 
 @media (min-width: 900px) {
   main h1.font-serif { font-size: clamp(44px, 4.4vw, 64px) !important; line-height: 1.04 !important; }
 }
+
+@keyframes dwb-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }

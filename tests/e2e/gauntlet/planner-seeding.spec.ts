@@ -56,8 +56,9 @@ test('every landing page opens the planner with its own constraint entered', asy
     if (landing.seed.guests) {
       await expect(page.getByTestId('guest-input')).toHaveValue(landing.seed.guests);
     }
-    if (landing.seed.mode) {
-      await expect(page.getByTestId('canonical-plan-summary')).toContainText(landing.seed.mode);
+    if (landing.seed.guests) {
+      // A seeded value is on screen in the plan summary, never only inside a closed step.
+      await expect(page.getByTestId('canonical-plan-summary')).toContainText(landing.seed.guests);
     }
   }
 });
@@ -70,10 +71,10 @@ test('a seed never overwrites a plan the reader already saved', async ({ page })
   await page.goto('/free-wedding-planner');
   await page.evaluate(() => window.localStorage.clear());
   await page.goto('/free-wedding-planner');
-  await page.getByTestId('constraint-mode-hard').click();
+  await page.getByTestId('fold-toggle-step-0').click();
   await page.getByTestId('location-input').fill('Sonoma');
   await page.getByTestId('guest-input').fill('140');
-  await page.getByTestId('save-guided-plan').click();
+  await expect(page.getByTestId('save-status')).toContainText('Saved in this browser');
 
   // Now arrive through a seeded link that disagrees with the saved plan.
   await page.goto(plannerHref(landing!.seed));
@@ -86,10 +87,10 @@ test('a malformed seed silently no-ops and the planner still works', async ({ pa
   await page.goto('/free-wedding-planner');
   await page.evaluate(() => window.localStorage.clear());
   await page.goto('/free-wedding-planner?guests=abc&focus=nonsense&venue=hogwarts&%%%');
-  await expect(page.getByTestId('canonical-plan-summary')).toContainText('Guest count unknown');
+  await expect(page.getByTestId('canonical-plan-summary').getByRole('link', { name: 'Add ›' })).toHaveCount(3);
   await expect(page.getByTestId('seed-notice')).toHaveCount(0);
   // The planner is still fully usable, which is the whole point of failing quietly.
-  await page.getByTestId('constraint-mode-hard').click();
+  await page.getByTestId('fold-toggle-step-0').click();
   await expect(page.getByTestId('constraint-fields')).toBeVisible();
 });
 
@@ -103,7 +104,10 @@ test('every guide hands off to the planner with its own seed', async ({ page }) 
   expect(href).toContain('/free-wedding-planner?');
   await page.evaluate(() => window.localStorage.clear());
   await page.getByTestId('guide-planner-link').click();
-  await expect(page.getByTestId('seed-notice')).toBeVisible();
+  await expect(page.getByTestId('canonical-plan-summary')).toBeVisible();
+  // The notice appears only when the link filled something she can see (a guest
+  // count or a timing); a link that fills nothing visible must not claim it did.
+  await expect(page.getByTestId('seed-notice')).toHaveCount(/[?&](guests|months)=/.test(href ?? '') ? 1 : 0);
 });
 
 test('the old /build URL redirects permanently and keeps its query string', async ({ page }) => {

@@ -33,7 +33,7 @@
 // - Prompt-injection safety: a model's answer (and the rules parser's) passes the
 //   same whitelist (parseDraft); it is never shown as markup.
 import { budgetModes, priorityOptions } from '@/data/planning';
-import { normalizeEmail } from '@/lib/builder-signup';
+import { AI_DRAFT_USED_TEXT, normalizeEmail } from '@/lib/builder-signup';
 import { daysBetween, parseDay } from '@/lib/dated-plan';
 import llmConfig from '@/config/llm_routing.json';
 // @ts-expect-error - plain ESM module without types; the repo's only door to a model.
@@ -74,7 +74,7 @@ export type DraftResult =
 export const MESSAGES = {
   disabled: 'AI drafting is switched off right now. You can still build your plan by hand below.',
   busy: 'AI drafting is busy. Please try again later; you can still build your plan by hand below.',
-  usedEmail: 'You have used your free AI draft for this email. Your plan is yours to edit by hand below, and that stays free.',
+  usedEmail: AI_DRAFT_USED_TEXT,
   ipCap: 'That is the most AI drafts this connection can make today. You can still build your plan by hand below.',
   notSignedUp: 'Use the email you opened the planner with.',
   badEmail: 'Enter the email you opened the planner with.',

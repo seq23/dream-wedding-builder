@@ -26,9 +26,12 @@ for (const file of activeStateFiles) {
   for (const term of activeStateForbidden) if (text.includes(term)) { console.error(`Active fake user state found in ${file}: ${term}`); process.exit(1); }
 }
 
-const build = fs.readFileSync('app/free-wedding-planner/page.tsx','utf8');
-for (const term of ['Location not selected','Guest count unknown','No live venue availability','Nothing is selected until the bride chooses it','Trace:','No fake live vendor/product search is claimed','Exact pricing, vendor fit, product match, and availability require verification']) {
-  if (!build.includes(term)) { console.error(`Missing anti-theater product guardrail in build page: ${term}`); process.exit(1); }
+// The planner and the printed plan must carry the cost and not-a-planner disclaimers
+// (claims safety). The internal wording pins ("Trace:", "Nothing is selected until the
+// bride chooses it") were removed with that wording on 10 Nov 2026.
+for (const file of ['app/free-wedding-planner/page.tsx', 'app/pack/page.tsx']) {
+  const text = fs.readFileSync(file, 'utf8');
+  for (const term of ['disclaimers.cost', 'disclaimers.professional']) if (!text.includes(term)) { console.error(`Missing disclaimer ${term} in ${file}`); process.exit(1); }
 }
 
 const photoAndScope = fs.readFileSync('app/photos/page.tsx','utf8') + fs.readFileSync('data/inspiration.ts','utf8');

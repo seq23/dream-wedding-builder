@@ -17,14 +17,22 @@ test('a draft fills the plan, is labelled AI-drafted, keeps the couple’s own a
     : route.fulfill({ json: { ok: true, draft, remaining: 0 } }));
   await page.goto('/free-wedding-planner');
   await page.getByTestId('ai-description').fill('200 guests, June in Memphis, small budget');
-  await expect(page.getByTestId('ai-submit')).toBeDisabled();
+  // Without the tick nothing is sent, and the card says why (a disabled button said nothing).
+  await page.getByTestId('ai-submit').click();
+  await expect(page.getByTestId('ai-message')).toContainText('Tick the box first');
   await page.getByTestId('ai-consent').check();
   await page.getByTestId('ai-submit').click();
-  await expect(page.getByTestId('ai-result')).toContainText('Kept your own answers for: guest count');
+  // The result shows the values themselves, and her own guest count was kept.
+  await expect(page.getByTestId('ai-result')).toContainText('Memphis, TN');
+  await expect(page.getByTestId('ai-result')).toContainText('Your own answers were kept');
+  await expect(page.getByTestId('ai-result')).not.toContainText('200');
   await expect(page.getByTestId('ai-drafted-label')).toContainText('AI-drafted');
   await expect(page.getByTestId('dated-plan')).toHaveAttribute('data-state', 'future');
-  await expect(page.getByTestId('ai-submit')).toBeDisabled();
+  // Used: no second run is possible, and the card says the server's own sentence.
+  await expect(page.getByTestId('ai-submit')).toHaveCount(0);
   await page.reload();
+  await expect(page.getByTestId('ai-submit')).toHaveCount(0);
+  await expect(page.getByTestId('ai-used-message')).toContainText('You have used your free AI draft for this email');
   await expect(page.getByTestId('ai-drafted-label')).toContainText('Memphis in June is hot');
   await page.goto('/pack');
   await expect(page.getByTestId('ai-drafted-label')).toBeVisible();
@@ -35,13 +43,15 @@ test('a busy model shows a calm try-again and leaves the plan as it was', async 
   await page.addInitScript(() => localStorage.setItem('dwb-builder-email', 'a@example.com'));
   await page.route('**/api/ai-draft', route => route.request().method() === 'GET'
     ? route.fulfill({ json: { enabled: true, maxLength: 400 } })
-    : route.fulfill({ status: 503, json: { ok: false, code: 'BUSY', error: 'AI drafting is busy. Please try again later; you can still build your plan by hand below.' } }));
+    : new Promise(r => setTimeout(r, 1200)).then(() => route.fulfill({ status: 503, json: { ok: false, code: 'BUSY', error: 'AI drafting is busy. Please try again later; you can still build your plan by hand below.' } })));
   await page.goto('/free-wedding-planner');
   await page.getByTestId('ai-description').fill('200 guests, June in Memphis, small budget');
-  await expect(page.getByTestId('ai-submit')).toBeDisabled();
   await page.getByTestId('ai-consent').check();
   await page.getByTestId('ai-submit').click();
+  // While it waits there is a visible progress state, not just a paler button.
+  await expect(page.getByTestId('ai-progress')).toContainText('Reading your sentence');
   await expect(page.getByTestId('ai-message')).toContainText('try again later');
+  await expect(page.getByTestId('ai-submit')).toBeVisible();
   await expect(page.getByTestId('ai-drafted-label')).toHaveCount(0);
   await expect(page.getByTestId('dated-plan')).toHaveAttribute('data-state', 'none');
 });

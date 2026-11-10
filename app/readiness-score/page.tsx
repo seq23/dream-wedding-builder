@@ -23,7 +23,7 @@ const META_DESCRIPTION = `How the wedding planning readiness score works: the sh
 
 const FAQS: Array<{ question: string; answer: string }> = [
   { question: 'Why does a brand-new plan already show 11%?', answer: 'The budget-position input opens on "I have no idea what weddings cost", which is a real, workable answer rather than a blank. One of nine inputs answered rounds to 11%. Nothing has been assumed on your behalf.' },
-  { question: 'What does 70% readiness mean?', answer: 'Roughly six or seven of nine inputs are answered. In practice that means location, guest count, budget position, protected priorities, and a recommendation are all on record - the point at which sending vendor inquiries stops wasting your time.' },
+  { question: 'What does 70% readiness mean?', answer: 'Roughly six or seven of nine inputs are answered. In practice that means location, guest count, budget position, protected priorities, and your first cuts are all on record - the point at which sending vendor inquiries stops wasting your time.' },
   { question: 'Does a higher readiness score mean a better wedding plan?', answer: 'No. The score counts answered inputs. It makes no judgement about whether the answers are good ones, and a fully answered plan built on an unrealistic guest count will score 100%.' },
   { question: 'Are the inputs weighted differently?', answer: 'No. All nine carry equal weight. Weighting them would require asserting that one input matters more for every couple, which contradicts the constraint-first method the score belongs to.' }
 ];

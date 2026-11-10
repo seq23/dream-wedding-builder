@@ -75,7 +75,7 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
       const custom = progress.custom.filter(c => c.windowId === window.id);
       const showTasks = !compact || window.timing === 'now';
       return <section key={window.id} className="rounded-2xl border border-charcoal/10 bg-white p-4" data-testid={`dated-window-${window.id}`}>
-        <h3 className="text-base font-semibold">{window.label}{window.timing === 'now' ? ' · now' : ''}</h3>
+        <h3 className="text-base font-semibold">{window.id === '12-plus' && (plan.daysToGo ?? 9999) < 365 ? 'From now to 9 months before' : `${window.label}${window.timing === 'now' ? ' · now' : ''}`}</h3>
         <p className="mt-1 text-sm text-charcoal/65">{plainDate(window.startsOn)} to {plainDate(window.endsOn)}</p>
         {showTasks ? <ul className="mt-2">
           {window.tasks.map(task => <Task key={task} windowId={window.id} text={task} />)}

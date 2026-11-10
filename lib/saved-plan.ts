@@ -66,3 +66,14 @@ export function loadSavedPlan(storage: StorageLike): WeddingPlan {
 export function loadSavedScope(storage: StorageLike): SavedScope {
   try { return parseScope(storage.getItem(SCOPE_KEY)); } catch { return {}; }
 }
+
+/**
+ * The one writer. The planner calls it after every change, so reload, the back button
+ * and the printed plan always show what she last typed (hostile review, 10 Nov 2026:
+ * edits were lost unless she found a Save button that confirmed nothing). Returns
+ * false when the browser refuses storage, so the page can say so instead of implying
+ * it saved.
+ */
+export function savePlan(storage: Pick<Storage, 'setItem'>, plan: WeddingPlan): boolean {
+  try { storage.setItem(PLAN_KEY, JSON.stringify(plan)); return true; } catch { return false; }
+}

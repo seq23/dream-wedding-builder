@@ -15,7 +15,9 @@ describe('product rules', () => {
   it('includes required disclaimers', () => {
     expect(disclaimers.cost).toContain('planning estimates');
     expect(disclaimers.retailer).toContain('not endorsements');
-    expect(disclaimers.upload).toContain('private, sensitive');
+    // No photo is ever uploaded (the upload control was removed 10 Nov 2026); the notice must say so and still warn about private details.
+    expect(disclaimers.upload).toContain('never uploaded');
+    expect(disclaimers.upload).toContain('anything private');
     expect(disclaimers.professional).toContain('not a substitute');
   });
 });
