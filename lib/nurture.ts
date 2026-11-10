@@ -5,6 +5,10 @@
 // paid product, and stops for good when the address buys, unsubscribes, or the steps
 // run out. Buyers get ONE polite review ask a few days after purchase, never again.
 //
+// FREE PLANNER -> ONE WELCOME (owner 10 Nov 2026). Someone who opens the free planner with
+// their email gets one welcome email (kind `welcome`) from the same hourly run, and nothing
+// after it: the product series above is only for people who asked for the sample.
+//
 // Playbook rules enforced here, not in a document:
 // - only addresses people typed themselves (builder_signups, consent text stored)
 // - every marketing email: one-click unsubscribe (List-Unsubscribe + link) and the
@@ -23,6 +27,12 @@ export const MARKETING_FROM = 'Dream Wedding Builder <hello@mail.weddingchecklis
 export const REPLY_TO = 'info@weddingchecklistpdf.com';
 export const SAMPLE_URL = `${SITE}/samples/wedding-checklist-sample.pdf`;
 export const SAMPLE_SOURCE = 'sample:checklist';
+// Planner sign-ups are stored as `free-wedding-planner` or `free-wedding-planner:<tool host>`
+// (components/BuilderEmailGate.tsx).
+export const PLANNER_SOURCE = 'free-wedding-planner';
+// The welcome goes out within this long of the sign-up or not at all: a welcome that arrives
+// days later (or to sign-ups from before the welcome existed) reads as a mistake.
+export const WELCOME_WINDOW_HOURS = 48;
 export const DAYS_BETWEEN = 3;
 export const REVIEW_ASK_AFTER_DAYS = 5;
 // Review asks go only to orders placed after the ask existed, never to past buyers.
@@ -51,7 +61,14 @@ export const NURTURE_DDL = [
   )`
 ];
 
-type Step = { kind: string; subject: string; heading: string; paragraphs: string[]; cta?: { label: string; url: string } };
+type Step = {
+  kind: string; subject: string; heading: string; paragraphs: string[];
+  /** A plain text link shown after the first paragraph. */
+  link?: { label: string; url: string };
+  cta?: { label: string; url: string };
+  /** Why this person is getting the email (footer line). Defaults to the sample/buyer wording. */
+  reason?: string;
+};
 
 // Step 0 delivers the sample; steps 1-4 each sell one product with what it really does.
 export const SEQUENCE: Step[] = [
@@ -102,6 +119,19 @@ export const SEQUENCE: Step[] = [
   }
 ];
 
+// The one email a free-planner sign-up gets. Facts and the price are the same as seq1 above.
+export const WELCOME: Step = {
+  kind: 'welcome', subject: 'Your free wedding planner is ready when you are',
+  heading: 'Thanks for opening the free wedding planner.',
+  paragraphs: [
+    'Your plan is saved in the browser you used, not on our servers, so go back on the same phone or computer to pick up where you left off.',
+    'If you would like it on paper too, the Wedding Checklist PDF is $9: 104 tasks from 12+ months out through wedding week, as a printable PDF and an editable spreadsheet.'
+  ],
+  link: { label: 'Open the free wedding planner', url: `${SITE}/free-wedding-planner` },
+  cta: { label: 'Get the Wedding Checklist PDF, $9', url: `${SITE}/products/checklist-pdf` },
+  reason: 'You are getting this because you opened the free wedding planner and agreed to emails from Dream Wedding Builder.'
+};
+
 export const REVIEW_ASK: Step = {
   kind: 'review_ask', subject: 'A quick question about your wedding planning files',
   heading: 'How is the planning going?',
@@ -136,9 +166,13 @@ const esc = (v: string) => v.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 
 /** One marketing email, html + text, with the unsubscribe link and the mailing address in both. */
 export function renderEmail(step: Step, unsubscribe: string) {
-  const footer = `You are getting this because you asked for a free sample or bought from Dream Wedding Builder.`;
-  const html = `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#27231f;line-height:1.55"><h1 style="font-size:22px">${esc(step.heading)}</h1>${step.paragraphs.map((p) => `<p>${esc(p)}</p>`).join('')}${step.cta ? `<p><a href="${esc(step.cta.url)}" style="display:inline-block;background:#27231f;color:#fff;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700">${esc(step.cta.label)}</a></p>` : ''}<hr style="border:none;border-top:1px solid #ddd;margin:28px 0 12px"><p style="font-size:12px;color:#777">${esc(footer)} <a href="${esc(unsubscribe)}">Unsubscribe</a> (one click).<br>Dream Wedding Builder, ${esc(MAILING_ADDRESS)}</p></div>`;
-  const text = `${step.heading}\n\n${step.paragraphs.join('\n\n')}${step.cta ? `\n\n${step.cta.label}: ${step.cta.url}` : ''}\n\n--\n${footer}\nUnsubscribe (one click): ${unsubscribe}\nDream Wedding Builder, ${MAILING_ADDRESS}\n`;
+  const footer = step.reason ?? `You are getting this because you asked for a free sample or bought from Dream Wedding Builder.`;
+  const [first, ...rest] = step.paragraphs;
+  const para = (p: string) => `<p>${esc(p)}</p>`;
+  const linkHtml = step.link ? `<p><a href="${esc(step.link.url)}" style="color:#2747D9;font-weight:700">${esc(step.link.label)} &rsaquo;</a></p>` : '';
+  const linkText = step.link ? `\n\n${step.link.label}: ${step.link.url}` : '';
+  const html = `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#1B1F3B;line-height:1.55"><h1 style="font-size:22px">${esc(step.heading)}</h1>${para(first)}${linkHtml}${rest.map(para).join('')}${step.cta ? `<p><a href="${esc(step.cta.url)}" style="display:inline-block;background:#2747D9;color:#fff;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700">${esc(step.cta.label)}</a></p>` : ''}<hr style="border:none;border-top:1px solid #ddd;margin:28px 0 12px"><p style="font-size:12px;color:#777">${esc(footer)} <a href="${esc(unsubscribe)}">Unsubscribe</a> (one click).<br>Dream Wedding Builder, ${esc(MAILING_ADDRESS)}</p></div>`;
+  const text = `${step.heading}\n\n${first}${linkText}${rest.length ? `\n\n${rest.join('\n\n')}` : ''}${step.cta ? `\n\n${step.cta.label}: ${step.cta.url}` : ''}\n\n--\n${footer}\nUnsubscribe (one click): ${unsubscribe}\nDream Wedding Builder, ${MAILING_ADDRESS}\n`;
   return { html, text };
 }
 
@@ -229,7 +263,15 @@ export async function sendSample(env: NurtureEnv, email: string, fetchImpl: type
   return { status: await sendOnce(env, email, hash, SEQUENCE[0], fetchImpl) };
 }
 
-/** The hourly run: due sequence steps, then due review asks. */
+/** The one welcome for a free-planner sign-up, if it is due now. Pure. Never a sequence step. */
+export function dueWelcome(source: string, sentKinds: Set<string>, lastSentAt: number | null, createdAt: number, now: number): Step | null {
+  if (!source.startsWith(PLANNER_SOURCE) || sentKinds.has(WELCOME.kind)) return null;
+  if (!(now - createdAt <= WELCOME_WINDOW_HOURS * 3_600_000)) return null; // also refuses an unreadable date
+  if (lastSentAt != null && now - lastSentAt < DAYS_BETWEEN * DAY) return null; // one email per 3 days
+  return WELCOME;
+}
+
+/** The hourly run: due sequence steps and planner welcomes, then due review asks. */
 export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: typeof fetch = fetch) {
   const stop = nurtureStop(env);
   if (stop) { console.error(JSON.stringify({ event: 'NURTURE_STOPPED', stop })); if (env.DB) await recordRun(env.DB, 0, 0, stop); return { stop, sent: 0, review_asks: 0, ceiling: false, failed: 0 }; }
@@ -242,7 +284,7 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
     const h = String(s.email_hash); const at = parseSql(s.sent_at);
     const e = byHash.get(h) ?? { kinds: new Set<string>(), last: null };
     e.kinds.add(String(s.kind));
-    if (String(s.kind).startsWith('seq') || s.kind === 'review_ask') e.last = Math.max(e.last ?? 0, at);
+    if (String(s.kind).startsWith('seq') || s.kind === 'review_ask' || s.kind === WELCOME.kind) e.last = Math.max(e.last ?? 0, at);
     byHash.set(h, e);
   }
   const buyers = new Set<string>();
@@ -250,15 +292,16 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
 
   let sent = 0; let failed = 0;
   // The series is for people who asked for the sample: signed up from the sample form, or
-  // already signed up elsewhere and then got the sample (step 0 recorded).
-  const signups = (await db.prepare('SELECT email, source FROM builder_signups WHERE unsubscribed_at IS NULL ORDER BY created_at').bind().all()).results ?? [];
+  // already signed up elsewhere and then got the sample (step 0 recorded). A planner sign-up
+  // outside the series gets the one welcome instead, which never starts the series.
+  const signups = (await db.prepare('SELECT email, source, created_at FROM builder_signups WHERE unsubscribed_at IS NULL ORDER BY created_at').bind().all()).results ?? [];
   for (const r of signups) {
     if (sent >= MAX_PER_RUN) break;
     const email = String(r.email); const hash = await emailHash(email);
     if (optouts.has(hash) || buyers.has(hash)) continue; // stop on unsubscribe or purchase
     const e = byHash.get(hash) ?? { kinds: new Set<string>(), last: null };
-    if (r.source !== SAMPLE_SOURCE && !e.kinds.has('seq0')) continue;
-    const step = dueStep(e.kinds, e.last, now);
+    const inSeries = r.source === SAMPLE_SOURCE || e.kinds.has('seq0');
+    const step = inSeries ? dueStep(e.kinds, e.last, now) : dueWelcome(String(r.source ?? ''), e.kinds, e.last, parseSql(r.created_at), now);
     if (!step) continue;
     const outcome = await sendOnce(env, email, hash, step, fetchImpl);
     if (outcome === 'CEILING') return finish(sent, 0, true);

@@ -17,7 +17,7 @@ export default {
     return handler.fetch(request, env, ctx);
   },
   async scheduled(_controller: unknown, env: RetryEnv & AlertEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
-    // Free-sample follow-ups and the one review ask (lib/nurture.ts); due emails only.
+    // Free-sample follow-ups, the one planner welcome and the one review ask (lib/nurture.ts); due emails only.
     ctx.waitUntil(runNurture(env as unknown as NurtureEnv).then(
       (run) => console.log(JSON.stringify({ event: 'NURTURE_RUN', ...run })),
       (error) => console.error(JSON.stringify({ event: 'NURTURE_RUN_FAILED', error: error instanceof Error ? error.message : String(error) }))
