@@ -7,7 +7,7 @@
     "SOFT_WARNING": "Reported, does not block. Observational."
   },
   "counts": {
-    "HARD_FAIL": 24,
+    "HARD_FAIL": 25,
     "STRONG_WARNING": 0,
     "SOFT_WARNING": 1
   },
@@ -141,7 +141,7 @@
     {
       "id": "structural",
       "npmScript": "validate:structural",
-      "command": "npm run validate:env && npm run validate:authority-registry && npm run validate:contracts && npm run validate:conversion-admin",
+      "command": "npm run validate:env && npm run validate:disclaimers && npm run validate:authority-registry && npm run validate:contracts && npm run validate:conversion-admin",
       "severity": "HARD_FAIL",
       "blocksRelease": true,
       "reason": "composite: purity, hygiene, proof readiness, seo, authority",
@@ -275,6 +275,15 @@
       "severity": "SOFT_WARNING",
       "blocksRelease": false,
       "reason": "measurement honesty check; reports rather than blocks",
+      "composite": false
+    },
+    {
+      "id": "disclaimers",
+      "npmScript": "validate:disclaimers",
+      "command": "node scripts/validate-disclaimers.mjs",
+      "severity": "HARD_FAIL",
+      "blocksRelease": true,
+      "reason": "legal disclaimers are non-negotiable on published pages",
       "composite": false
     }
   ],
