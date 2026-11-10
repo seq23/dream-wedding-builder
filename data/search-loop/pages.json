@@ -857,7 +857,7 @@
       "url": "https://weddingchecklistpdf.com/questions/can-you-plan-a-wedding-without-a-wedding-planner",
       "published_at": "2026-11-07",
       "status": "live",
-      "hash": "d3677dad595a074ba3425b065ce0cf251ef617a4919cee2760463ff6687c6857",
+      "hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d",
       "model": "free-route",
       "facts": [
         "https://www.census.gov/topics/families.html",
@@ -871,7 +871,12 @@
         "b5 FAQ answer is 37 words (aim 40-60): \"How can I keep my wedding costs down on my own?\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"Should I hire a day-of coordinator if I plan the w\""
       ],
-      "indexnow_at": "2026-11-08"
+      "indexnow_at": "2026-11-08",
+      "action_refreshed": {
+        "at": "2026-11-10",
+        "before_hash": "dcfdaf80084c8f2c21f93b0e27ff20ea69763d316a42e18837603546c9d2f9d4",
+        "after_hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d"
+      }
     },
     {
       "slug": "what-do-you-need-to-consider-when-planning-a-wedding",
