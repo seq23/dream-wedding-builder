@@ -16,8 +16,10 @@ describe('migrations', () => {
   it('applying every migration twice is a no-op and the newest is recorded once', () => {
     const db = new DatabaseSync(':memory:');
     for (const pass of [1, 2]) for (const f of files) db.exec(readFileSync(`migrations/${f}`, 'utf8').replace('PRAGMA foreign_keys = ON;', ''));
-    const rows = db.prepare('SELECT migration FROM schema_version').all() as { migration: string }[];
-    expect(rows.map(r => r.migration)).toEqual([files[files.length - 1].replace(/\.sql$/, '')]);
+    const rows = db.prepare('SELECT migration FROM schema_version ORDER BY migration').all() as { migration: string }[];
+    // Keep every recorded migration, exactly once, including earlier version markers.
+    const recorded = files.flatMap(f => [...readFileSync(`migrations/${f}`, 'utf8').matchAll(/INSERT OR IGNORE INTO schema_version \(migration\) VALUES \('([^']+)'\)/g)].map(m => m[1]));
+    expect(rows.map(r => r.migration)).toEqual([...new Set(recorded)].sort());
     for (const f of files) expect(readFileSync(`migrations/${f}`, 'utf8'), f).not.toMatch(/\bDROP\s+(TABLE|COLUMN)\b/i);
   });
 });

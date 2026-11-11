@@ -2,6 +2,7 @@ import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export type RuntimeEnv = {
   DB?: any;
+  APP_SHARING_ENABLED?: string;
   PRODUCT_RELEASES?: any;
   RESEND_API_KEY?: string;
   APP_FROM_EMAIL?: string;
