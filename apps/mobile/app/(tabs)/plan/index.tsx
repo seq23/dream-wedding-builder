@@ -1,16 +1,14 @@
+import { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { buildDatedPlan, localToday } from '@core/dated-plan';
+import { savedDate } from '../../../src/savedDate';
 import { PlannedScreen } from '../../../src/ui';
-import { color, type } from '../../../src/theme';
-
-// Scaffold proof that the app runs the live Builder's own date maths (lib/dated-plan.ts):
-// a sample date until Codex task 1 saves the couple's real one.
-const SAMPLE_DATE = '2027-06-12';
 export default function Plan() {
-  const plan = buildDatedPlan(SAMPLE_DATE, localToday());
-  return (
-    <PlannedScreen route="/plan">
-      <Text style={[type.sub, { color: color.midnightMuted }]}>Sample wedding date, Sat 12 Jun 2027: {plan.headline} {plan.windows.length} planning windows.</Text>
-    </PlannedScreen>
-  );
+  const [date, setDate] = useState('');
+  const [error, setError] = useState(false);
+  useEffect(() => { savedDate.read().then(d => setDate(d ?? '')).catch(() => setError(true)); }, []);
+  const plan = buildDatedPlan(date, localToday());
+  return <PlannedScreen route="/plan"><Text>{error ? 'Could not read your saved date. Please reopen the app.' : plan.headline}</Text>
+    {plan.windows.map(w => <Text key={w.id}>{w.label}</Text>)}
+  </PlannedScreen>;
 }

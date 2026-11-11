@@ -10,11 +10,11 @@ import { HOME } from './screens';
 // The shell every scaffold screen uses: what Codex builds here, and the screen's buttons
 // from the map. Inside a tab the header (src/nav.tsx) carries the title and Back or Close,
 // and the tab bar stays below. Onboarding has no header, so its Back and Skip are drawn here.
-export function PlannedScreen({ route, children }: { route: string; children?: React.ReactNode }) {
+export function PlannedScreen({ route, children, implemented = false }: { route: string; children?: React.ReactNode; implemented?: boolean }) {
   const s = byRoute(route);
   useBackKeys(route);
   const onboarding = s.kind === 'onboarding';
-  const skip = s.links.find(l => l.label === 'Skip ›');
+  const skip = implemented ? undefined : s.links.find(l => l.label === 'Skip ›');
   const body = (
     <ScrollView contentContainerStyle={{ padding: space[4], gap: space[4] }}>
       {onboarding ? (
@@ -26,12 +26,12 @@ export function PlannedScreen({ route, children }: { route: string; children?: R
         </View>
       ) : null}
       {onboarding ? <Text accessibilityRole="header" style={[type.title, { color: color.midnight }]}>{s.title}</Text> : null}
-      <View style={{ backgroundColor: color.ivoryRaised, borderColor: color.rule, borderWidth: 1, borderRadius: radius.md, padding: space[4] }}>
+      {!implemented ? <View style={{ backgroundColor: color.ivoryRaised, borderColor: color.rule, borderWidth: 1, borderRadius: radius.md, padding: space[4] }}>
         <Text style={[type.label, { color: color.midnightMuted, marginBottom: space[2] }]}>Coming next</Text>
         <Text style={[type.body, { color: color.midnight }]}>{s.coming}</Text>
-      </View>
+      </View> : null}
       {children}
-      {s.links.filter(l => l !== skip).map((l, i) => onboarding && l.href === HOME
+      {!implemented && s.links.filter(l => l !== skip).map((l, i) => onboarding && l.href === HOME
         ? <ActionButton key={l.label} label={l.label} primary={i === 0} onPress={goHome} />
         : <GoButton key={l.href + l.label} href={l.href} label={l.label} primary={i === 0} />)}
     </ScrollView>
