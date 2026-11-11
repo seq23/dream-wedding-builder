@@ -1,3 +1,10 @@
+import { sharingDetails } from '../../../src/sharing/details';
+import { SHARED_WEEK_KEY, SHARED_PAYMENTS_KEY } from '../../../src/sharing/active';
+import type { PaymentState } from '../../../src/payments';
+import { taskKey } from '@core/plan-progress';
+import { activePlan } from '../../../src/sharing/runtime';
+import { useSharingRevision } from '../../../src/sharing/useSharing';
+import type { SharedPlan } from '../../../src/sharing/session';
 import { useCallback, useState } from 'react';
 import { Text, TextInput, Pressable, View } from 'react-native';
 import { useFocusEffect } from 'expo-router';
@@ -13,19 +20,21 @@ import { color, type } from '../../../src/theme';
 const preview = process.env.EXPO_PUBLIC_DW_PREVIEW === '1';
 const store = weekStore(AsyncStorage,preview);
 export default function WeddingWeek() {
+  const sharingRevision = useSharingRevision();
+  const [shared, setShared] = useState<SharedPlan | null>(null);
   const [date,setDate] = useState(''); const [progress,setProgress] = useState<PlanProgress>(emptyProgress);
   const [details,setDetails] = useState<WeekDetails>({who:{},contacts:[]});
   const [payments,setPayments] = useState<Payment[]>([]); const [allowed,setAllowed] = useState(false);
   const [ready,setReady] = useState(false); const [busy,setBusy] = useState(false); const [error,setError] = useState('');
   const [contact,setContact] = useState<Contact|null>(null); const [who,setWho] = useState<Record<string,string>>({});
   useFocusEffect(useCallback(() => { let active=true;
-    Promise.all([savedDate.read(),savedProgress.read(),store.read(),hasFullPlan(),paymentsStore(AsyncStorage,preview ? 'dw.payments.preview.v1':'dw.payments.v1').read()]).then(([d,p,s,paid,m])=>{if(active){setDate(d??'');setProgress(p);setDetails(s);setWho(s.who);setAllowed(paid);setPayments(paymentRows(preview?SAMPLE_PAYMENTS:null,d??'',m.own,m.edits,preview));setReady(true);}}).catch(()=>{if(active)setError('Could not open your wedding week. Reopen to try again.');});
-    return ()=>{active=false;}; },[]));
-  async function save(next: WeekDetails) { setBusy(true); try {await store.save(next);setDetails(next);setContact(null);setError('');} catch {setError('Could not save. Try again.');} finally {setBusy(false);} }
+    Promise.all([savedDate.read(),savedProgress.read(),store.read(),activePlan(),paymentsStore(AsyncStorage,preview ? 'dw.payments.preview.v1':'dw.payments.v1').read()]).then(async ([d,p,s,paid,m])=> { if(paid) { s = await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,paid.event.id,()=>({who:{},contacts:[]} as WeekDetails)).read(); m = await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,paid.event.id,()=>({own:[],edits:{}} as PaymentState)).read(); } return [d,p,s,paid,m] as const; }).then(([d,p,s,paid,m])=>{if(active){setDate(d??'');setProgress(p);setDetails(s);setWho(s.who);setShared(paid);setAllowed(!!paid);setPayments(paymentRows(paid?.list ?? (preview?SAMPLE_PAYMENTS:null),d??'',m.own,m.edits,!!paid||preview).map(row=>{const t=paid?.list.tasks.find(t=>row.id===`task:${t.id}`);return t?{...row,paidOn:p.done[taskKey(t.window,t.text)]?.slice(0,10)}:row;}));setReady(true);}}).catch(()=>{if(active)setError('Could not open your wedding week. Reopen to try again.');});
+    return ()=>{active=false;}; },[sharingRevision]));
+  async function save(next: WeekDetails) { setBusy(true); try {if(shared) await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,shared.event.id,()=>({who:{},contacts:[]} as WeekDetails)).save(next); else await store.save(next);setDetails(next);setContact(null);setError('');} catch {setError('Could not save. Try again.');} finally {setBusy(false);} }
   async function tick(key:string) {setBusy(true);try {setProgress(await savedProgress.update(p=>toggleDone(p,key,new Date().toISOString())));}catch{setError('Could not save your tick. Try again.');}finally{setBusy(false);}}
   const button=(label:string,action:()=>void)=><Pressable accessibilityRole="button" disabled={busy} onPress={action} style={{minHeight:48,justifyContent:'center'}}><Text style={[type.button,{color:color.blue}]}>{label}</Text></Pressable>;
   const field=(label:string,value:string,change:(v:string)=>void)=><View><Text style={type.sub}>{label}</Text><TextInput accessibilityLabel={label} value={value} onChangeText={change} editable={!busy} maxLength={140} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12}]} /></View>;
-  const tasks=weekTasks(preview?SAMPLE_PAYMENTS:null,date,progress,allowed||preview);
+  const tasks=weekTasks(shared?.list ?? (preview?SAMPLE_PAYMENTS:null),date,progress,allowed||preview);
   return <PlannedScreen route="/plan/wedding-week" implemented>
     {error?<Text accessibilityRole="alert">{error}</Text>:null}
     {!ready?<Text style={type.body}>Opening your wedding week…</Text>:!date?<GoButton href="/welcome" label="Set your wedding date ›" />:!allowed&&!preview?<><Text style={type.body}>The full plan brings your final days, who to call and payment envelopes together.</Text><GoButton href="/more/full-plan" label="See the full plan ›" /></>:<>

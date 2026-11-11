@@ -1,5 +1,11 @@
+import { parseLedger } from '../billing/eventStore';
+import type { EventLedger } from '../billing/events';
 import { parseDay } from '@core/dated-plan';
 import { parseFullPlan, type FullPlanList } from '@core/full-plan';
+import { PLAN_WINDOWS } from '@core/dated-plan';
+import { parseTraditionPack, type TraditionPack, type TraditionCustomTask } from '../traditionPacks';
+import { ownTaskKey } from '../planTasks';
+import { emptyProgress, type PlanProgress } from '@core/plan-progress';
 import { taskKey } from '@core/plan-progress';
 import type { DateStorage } from '../weddingDate';
 import { ShareConflict, ShareMissing, type shareClient } from './client';
@@ -10,7 +16,8 @@ export const SHARE_SESSION_KEY = 'dw.sharing.session.v1';
 export interface SharedEvent { id: string; name: string; date: string }
 /** Payment amounts, purchase identities and download credentials never belong here.
  * Completion of payment tasks uses the same stamped ticks as every other task. */
-export interface SharedPlan { event: SharedEvent; list: FullPlanList; ticks: SharedTicks; joined: boolean }
+export interface SharedCustom { at: number; actor: string; value: PlanProgress['custom'][number] | null }
+export interface SharedPlan { history?: EventLedger; custom?: Record<string, SharedCustom>; packs?: TraditionPack[]; event: SharedEvent; list: FullPlanList; ticks: SharedTicks; joined: boolean }
 export interface ShareSession {
   version: 1; role: 'owner' | 'joined'; link: ShareLink; plan: SharedPlan;
   revision: number; syncedAt: number;
@@ -30,9 +37,49 @@ export function sharedPlan(value: unknown): SharedPlan {
   // both the encrypted document and the local shared-access cache.
   const keys = new Set(list.tasks.map(t => taskKey(t.window, t.text)));
   if (keys.size !== list.tasks.length) throw Error(SHARE_UNAVAILABLE);
+  const custom: Record<string, SharedCustom> = Object.create(null);
+  if (raw.custom !== undefined) for (const [id, entry] of Object.entries(record(raw.custom))) {
+    const item = record(entry);
+    mergeTicks({}, { [id]: { at: Number(item.at), actor: String(item.actor), done: true } });
+    let value: PlanProgress['custom'][number] | null = null;
+    if (item.value !== null) {
+      const task = record(item.value);
+      if (task.id !== id || typeof task.text !== 'string' || !task.text.trim() || task.text.length > 140
+        || !PLAN_WINDOWS.some(w => w.id === task.windowId)) throw Error(SHARE_UNAVAILABLE);
+      value = { id, text: task.text, windowId: String(task.windowId) };
+      if (task.tradition !== undefined) {
+        const tradition = record(task.tradition);
+        if (typeof tradition.packId !== 'string' || typeof tradition.taskId !== 'string' || typeof tradition.text !== 'string'
+          || typeof tradition.windowId !== 'string' || typeof tradition.source !== 'string') throw Error(SHARE_UNAVAILABLE);
+        if (!parseTraditionPack({ id: tradition.packId, tasks: [{ id: tradition.taskId, windowId: tradition.windowId, text: tradition.text, source: tradition.source }] })) throw Error(SHARE_UNAVAILABLE);
+        value = { ...value, tradition: { packId: tradition.packId, taskId: tradition.taskId, text: tradition.text, windowId: tradition.windowId, source: tradition.source } } as TraditionCustomTask;
+      }
+      keys.add(ownTaskKey(id));
+    } else keys.add(ownTaskKey(id)); // tombstones may retain completion history
+    custom[id] = { at: Number(item.at), actor: String(item.actor), value };
+  }
+  let packs: TraditionPack[] | undefined;
+  if (raw.packs !== undefined) {
+    if (!Array.isArray(raw.packs)) throw Error(SHARE_UNAVAILABLE);
+    packs = raw.packs.map(p => { const pack = parseTraditionPack(p); if (!pack) throw Error(SHARE_UNAVAILABLE); return pack; });
+  }
   const ticks = mergeTicks({}, record(raw.ticks) as SharedTicks);
   if (Object.keys(ticks).some(key => !keys.has(key))) throw Error(SHARE_UNAVAILABLE);
-  return { event: { id: event.id, name: event.name, date: event.date }, list, ticks, joined: raw.joined };
+  return { event: { id: event.id, name: event.name, date: event.date }, list, ticks, joined: raw.joined, ...(raw.custom !== undefined ? { custom } : {}), ...(packs ? { packs } : {}), ...(raw.history !== undefined ? { history: (() => { const h = parseLedger(JSON.stringify(raw.history)); return { firstEventId: h.firstEventId, extras: h.extras, events: h.events.map(e => ({ id:e.id,name:e.name,date:e.date,dateChanges:e.dateChanges,fullPlan:e.fullPlan })) }; })() } : {}) };
+}
+export function sharedProgress(plan: SharedPlan): PlanProgress {
+  const progress = emptyProgress();
+  progress.custom = Object.values(plan.custom ?? {}).flatMap(row => row.value ? [row.value] : []);
+  for (const [key, tick] of Object.entries(plan.ticks)) if (tick.done) progress.done[key] = new Date(tick.at).toISOString();
+  return progress;
+}
+function mergeCustom(a: SharedPlan['custom'] = {}, b: SharedPlan['custom'] = {}) {
+  const result = { ...a };
+  for (const [id, row] of Object.entries(b)) {
+    const old = result[id];
+    if (!old || row.at > old.at || (row.at === old.at && (row.actor > old.actor || (row.actor === old.actor && JSON.stringify(row.value) > JSON.stringify(old.value))))) result[id] = row;
+  }
+  return result;
 }
 function parseSession(raw: string | null): ShareSession | null {
   if (raw === null) return null;
@@ -85,7 +132,8 @@ export function sharingSession(storage: DateStorage, client: Client, actor: stri
         // separate verified-event update, never accepted from the joined phone.
         const base = local.role === 'owner' ? local.plan : remote;
         const ticks = mergeTicks(local.plan.ticks, remote.ticks);
-        const plan = sharedPlan({ ...base, ticks, joined: local.role === 'joined' || local.plan.joined || remote.joined });
+        const custom = mergeCustom(local.plan.custom, remote.custom);
+        const plan = sharedPlan({ ...base, ticks, ...(Object.keys(custom).length ? { custom } : {}), joined: local.role === 'joined' || local.plan.joined || remote.joined });
         let revision = latest.revision;
         if (JSON.stringify(plan) !== JSON.stringify(remote)) {
           try { revision = await client.write(local.link, JSON.stringify(plan), latest.revision); }
@@ -104,6 +152,7 @@ export function sharingSession(storage: DateStorage, client: Client, actor: stri
   }
   return {
     read: current,
+    drain: () => serial(current),
     invite: () => serial(async () => {
       if (await current()) throw Error('Leave or stop the current shared plan first.');
       const verified = await verifiedOwnerPlan();
@@ -135,10 +184,31 @@ export function sharingSession(storage: DateStorage, client: Client, actor: stri
       await save({ ...session, plan });
       return plan;
     }),
+    updateOwnerEvent: (event: SharedEvent) => serial(async () => {
+      const session = await requireSession();
+      if (session.role !== 'owner' || event.id !== session.plan.event.id) throw Error(SHARE_UNAVAILABLE);
+      await save({ ...session, plan: sharedPlan({ ...session.plan, event }) });
+    }),
+    updateProgress: (change: (p: PlanProgress) => PlanProgress) => serial(async () => {
+      const session = await requireSession(), before = sharedProgress(session.plan), after = change(before);
+      const custom = { ...session.plan.custom };
+      for (const id of new Set([...before.custom.map(t => t.id), ...after.custom.map(t => t.id)])) {
+        const value = after.custom.find(t => t.id === id) ?? null;
+        if (JSON.stringify(value) !== JSON.stringify(before.custom.find(t => t.id === id) ?? null))
+          custom[id] = { value, actor, at: Math.max(now(), (custom[id]?.at ?? -1) + 1) };
+      }
+      let ticks = session.plan.ticks;
+      for (const key of new Set([...Object.keys(before.done), ...Object.keys(after.done)]))
+        if (!!before.done[key] !== !!after.done[key]) ticks = stampTick(ticks, key, !!after.done[key], actor, now());
+      const plan = sharedPlan({ ...session.plan, custom, ticks });
+      await save({ ...session, plan });
+      return sharedProgress(plan);
+    }),
     sync: () => serial(synchronize),
-    stop: () => serial(async () => {
+    stop: (preserve?: (plan: SharedPlan) => Promise<void>) => serial(async () => {
       const session = await requireSession();
       if (session.role !== 'owner') throw Error('Only the inviting phone can stop sharing.');
+      if (preserve) await preserve(session.plan);
       await client.stop(session.link);
       await save(null);
     }),

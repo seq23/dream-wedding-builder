@@ -1,3 +1,5 @@
+import { activePlan } from './sharing/runtime';
+import { sharedProgress } from './sharing/session';
 import { dateStore } from './weddingDate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
@@ -7,7 +9,7 @@ import { canRemind, reminderSchedule, replaceReminders, type ReminderChoice, typ
 const CHOICE = 'dw.reminders.choice.v1';
 const ERROR = 'dw.reminders.error.v1';
 // Task 8 replaces this with the verified current event entitlement. Never trust a preview flag.
-export async function hasFullPlan() { return false; }
+export async function hasFullPlan() { return !!await activePlan(); }
 export async function reminderChoice(): Promise<ReminderChoice> {
   const choice = await AsyncStorage.getItem(CHOICE);
   return choice === 'enabled' || choice === 'off' ? choice : 'unasked';
@@ -26,8 +28,8 @@ let queue: Promise<void> = Promise.resolve();
 export function syncReminders(): Promise<void> {
   const job = queue.then(async () => {
     if (Platform.OS === 'web') return;
-    const [date, raw, choice, fullPlan] = await Promise.all([dateStore(AsyncStorage).read(), AsyncStorage.getItem('dw-plan-progress'), reminderChoice(), hasFullPlan()]);
-    await replaceReminders(await nativeDriver(), reminderSchedule(date ?? '', parseProgress(raw), new Date(), fullPlan), choice === 'enabled');
+    const [date, raw, choice, shared] = await Promise.all([dateStore(AsyncStorage).read(), AsyncStorage.getItem('dw-plan-progress'), reminderChoice(), activePlan()]);
+    await replaceReminders(await nativeDriver(), reminderSchedule(shared?.event.date ?? date ?? '', shared ? sharedProgress(shared) : parseProgress(raw), new Date(), !!shared, undefined, shared?.list), choice === 'enabled');
     await AsyncStorage.removeItem(ERROR);
   }).catch(async () => { await AsyncStorage.setItem(ERROR, 'Your plan is saved, but reminders could not be updated. Open Reminders to try again.'); });
   queue = job;

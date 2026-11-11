@@ -63,9 +63,12 @@ test('no dead ends: every screen says what is coming and is drawn by the shell f
   }
 });
 
-test('unfinished partner sharing is absent from navigation and Expo routes', () => {
+test('partner sharing is a reachable sub-screen without adding a tab', () => {
   assert.ok(TABS.length <= 5);
   assert.ok(!TABS.some(t => t.route === '/two-phones'));
-  assert.ok(!SCREENS.some(s => s.route === '/two-phones' || s.links.some(l => l.href === '/two-phones')));
+  const sharing = byRoute('/more/sharing');
+  assert.equal(sharing.kind, 'sub');
+  assert.equal(sharing.back, '/more');
+  assert.ok(byRoute('/more').links.some(l => l.href === sharing.route));
   assert.equal(existsSync(join(root, 'app/(tabs)/two-phones')), false);
 });

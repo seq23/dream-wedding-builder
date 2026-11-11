@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { phoneSharing, sharingChanged, activePlan } from './sharing/runtime';
 import { dateStore } from './weddingDate';
 import { syncReminders } from './localReminders';
 const store = dateStore(AsyncStorage);
-export const savedDate = { read: store.read, async save(...args: Parameters<typeof store.save>) { await store.save(...args); await syncReminders(); } };
+export const savedDate = { read: async () => (await activePlan())?.event.date ?? store.read(), async save(...args: Parameters<typeof store.save>) { const session = await (await phoneSharing()).read();
+  if (session?.role === 'joined') throw Error('Only your partner can change the shared wedding date.');
+  await store.save(...args);
+  if (session?.role === 'owner') await (await phoneSharing()).updateOwnerEvent({ ...session.plan.event, date: (await store.read())! });
+  sharingChanged(); await syncReminders(); } };

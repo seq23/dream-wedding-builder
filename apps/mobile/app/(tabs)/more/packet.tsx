@@ -1,3 +1,7 @@
+import { sharingDetails } from '../../../src/sharing/details';
+import { SHARED_WEEK_KEY, SHARED_PAYMENTS_KEY } from '../../../src/sharing/active';
+import type { PaymentState } from '../../../src/payments';
+import { activePlan } from '../../../src/sharing/runtime';
 import { useState } from 'react';
 import { Platform, Pressable, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,14 +24,16 @@ export default function Packet() {
     let output: ReturnType<typeof preparePacketOutput> | undefined;
     try {
       output = preparePacketOutput();
-      const [date, progress, payments, rawWeek] = await Promise.all([
+      const [date, progress, payments, rawWeek, shared] = await Promise.all([
         savedDate.read(), savedProgress.read(),
         paymentsStore(AsyncStorage, preview ? 'dw.payments.preview.v1' : 'dw.payments.v1').read(),
-        AsyncStorage.getItem(preview ? 'dw.week.preview.v1' : 'dw.week.v1'),
+        AsyncStorage.getItem(preview ? 'dw.week.preview.v1' : 'dw.week.v1'), activePlan(),
       ]);
-      const week: PacketWeek = rawWeek ? JSON.parse(rawWeek) : { who: {}, contacts: [] };
+      let week: PacketWeek = rawWeek ? JSON.parse(rawWeek) : { who: {}, contacts: [] };
+      const localPayments = shared ? await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,shared.event.id,()=>({own:[],edits:{}} as PaymentState)).read() : payments;
+      if (shared) week = await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,shared.event.id,()=>({who:{},contacts:[]} as PacketWeek)).read();
       // The verified purchase door is closed. Only the isolated preview gets fictional data.
-      const input: PacketInput = { names, date: date ?? '', progress, payments, week, unlocked: preview, list: preview ? SAMPLE_PAYMENTS : null };
+      const input: PacketInput = { names, date: date ?? '', progress, payments: localPayments, week, unlocked: !!shared || preview, list: shared?.list ?? (preview ? SAMPLE_PAYMENTS : null) };
       await output.write(input, paper);
     } catch (e) { output?.cancel(); setError(e instanceof Error ? e.message : 'Could not prepare your plan. Try again.'); }
     finally { setBusy(false); }
