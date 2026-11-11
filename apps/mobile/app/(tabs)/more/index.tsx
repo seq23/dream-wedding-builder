@@ -9,6 +9,8 @@ import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import { reminderChoice, stopPlanReminders } from '../../../src/localReminders';
 import { deleteLocalPlan } from '../../../src/deletePlan';
+import { calendarFile } from '../../../src/calendar';
+import { saveCalendar } from '../../../src/calendarOutput';
 import { color, space, type } from '../../../src/theme';
 
 export default function More() {
@@ -17,6 +19,16 @@ export default function More() {
   const [confirm, setConfirm] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [exporting, setExporting] = useState(false);
+  async function calendar() {
+    if (exporting) return;
+    setExporting(true); setError('');
+    try {
+      const [date, progress] = await Promise.all([savedDate.read(), savedProgress.read()]);
+      await saveCalendar(calendarFile(date, progress));
+    } catch (e) { setError(e instanceof Error ? e.message : 'Could not save your calendar. Please try again.'); }
+    finally { setExporting(false); }
+  }
   useFocusEffect(useCallback(() => {
     let active = true;
     Promise.all([savedDate.read(), reminderChoice()]).then(([d, choice]) => {
@@ -45,6 +57,8 @@ export default function More() {
       <Text style={type.sub}>Reminders: {reminders}</Text>
       <GoButton href="/reminders" label="Reminders ›" />
       <GoButton href="/more/packet" label="Print or send my plan ›" />
+      <Pressable accessibilityRole="button" disabled={exporting} accessibilityState={{ disabled: exporting }} onPress={() => { void calendar(); }} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{exporting ? 'Preparing calendar…' : 'Save my calendar file ›'}</Text></Pressable>
+      <Text style={type.sub}>Free calendar reminders for your unfinished tasks and wedding day. Made on this phone. Save a new file after changing your plan.</Text>
       <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
       <GoButton href="/more/full-plan" label="The full plan ›" />
       {button('Privacy policy ›', () => { void open('privacy'); })}
