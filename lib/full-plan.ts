@@ -7,7 +7,8 @@
 // Only its counts are public, so every number on the site comes from the list's real
 // length and is never typed. If the object is missing or unreadable the buyer still
 // gets the zip she always got, and the Worker logs FULL_PLAN_LIST_MISSING.
-import { addDays, isoDay, parseDay } from '@/lib/dated-plan';
+import { addDays, buildDatedPlan, isoDay, parseDay } from '@/lib/dated-plan';
+import { taskKey, type PlanProgress } from '@/lib/plan-progress';
 
 export const FULL_PLAN_KEY = 'plans/checklist-full-plan-v1.json';
 /** Products whose buyers get the dated plan: the checklist, and the suite that contains it. */
@@ -57,6 +58,27 @@ export function datedFullPlan(list: FullPlanList, weddingDate: string, today: st
       .map(task => { const date = taskDate(weddingDate, task.daysBefore)!; return { ...task, date, overdue: date < today }; })
       .sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0))
   })).filter(section => section.tasks.length > 0);
+}
+
+/** The buyer's displayed and printed plan includes the tasks saved in the free planner. */
+export function fullPlanView(list: FullPlanList, weddingDate: string, today: string, progress: PlanProgress) {
+  const sections = datedFullPlan(list, weddingDate, today);
+  const windows = buildDatedPlan(weddingDate, today).windows;
+  for (const custom of progress.custom) {
+    const window = list.windows.find(w => w.id === custom.windowId);
+    if (!window) continue;
+    let section = sections.find(s => s.id === window.id);
+    if (!section) {
+      if (!parseDay(weddingDate)) continue;
+      section = { ...window, tasks: [] };
+      sections.push(section);
+    }
+    const date = windows.find(w => w.id === window.id)?.endsOn ?? weddingDate;
+    section.tasks.push({ id: `custom:${custom.id}`, window: window.id, text: custom.text, daysBefore: 0, owner: '', kind: 'task', date, overdue: date < today });
+  }
+  sections.sort((a, b) => list.windows.findIndex(w => w.id === a.id) - list.windows.findIndex(w => w.id === b.id));
+  const tasks = [...list.tasks, ...progress.custom.filter(c => list.windows.some(w => w.id === c.windowId)).map(c => ({ window: c.windowId, text: c.text }))];
+  return { sections, total: tasks.length, done: tasks.filter(t => progress.done[taskKey(t.window, t.text)]).length };
 }
 
 type Bucket = { get(key: string): Promise<{ text(): Promise<string> } | null> };

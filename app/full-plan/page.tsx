@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PrintButton } from '@/components/PrintButton';
 import { emptyPlan, type WeddingPlan } from '@/data/planning';
 import { localToday, parseDay, plainDate } from '@/lib/dated-plan';
-import { datedFullPlan, parseFullPlan, type FullPlanList } from '@/lib/full-plan';
+import { fullPlanView, parseFullPlan, type FullPlanList } from '@/lib/full-plan';
 import { emptyProgress, loadProgress, saveProgress, taskKey, toggleDone, type PlanProgress } from '@/lib/plan-progress';
 import { loadSavedPlan, savePlan } from '@/lib/saved-plan';
 
@@ -50,9 +50,7 @@ export default function FullPlanPage() {
   if (state === 'stopped' || !list) return <div className="mx-auto max-w-3xl" data-testid="full-plan-stopped"><h1 className="font-serif text-4xl">Your full wedding plan</h1><p role="alert" className="mt-3 leading-7">{message}</p>{download ? <a href={download} data-testid="full-plan-download" className="mt-5 inline-flex min-h-12 items-center rounded-2xl bg-charcoal px-6 py-3 font-bold text-linen">Download your checklist files ↓</a> : null}</div>;
 
   const validDate = Boolean(plan.weddingDate && parseDay(plan.weddingDate));
-  const sections = validDate ? datedFullPlan(list, plan.weddingDate, today) : [];
-  const total = list.tasks.length;
-  const done = list.tasks.filter(task => progress.done[taskKey(task.window, task.text)]).length;
+  const { sections, total, done } = fullPlanView(list, plan.weddingDate, today, progress);
 
   return <div className="mx-auto max-w-3xl space-y-6" data-testid="full-plan-page">
     <section className="no-print">
