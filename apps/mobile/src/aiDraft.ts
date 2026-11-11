@@ -18,13 +18,17 @@ export function aiDraftClient(storage: DateStorage, send: Transport = fetch) {
       if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return { ok: false, message: 'Enter a valid email address.' };
       pending = true;
       const post = async (path: string, body: unknown) => {
-        const response = await send(ORIGIN + path, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
-          signal: AbortSignal.timeout(60000),
-        });
-        const value: unknown = await response.json();
-        if (!value || typeof value !== 'object') throw new Error('Invalid reply');
-        return { response, body: value as Record<string, unknown> };
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 60000);
+        try {
+          const response = await send(ORIGIN + path, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+            signal: controller.signal,
+          });
+          const value: unknown = await response.json();
+          if (!value || typeof value !== 'object') throw new Error('Invalid reply');
+          return { response, body: value as Record<string, unknown> };
+        } finally { clearTimeout(timer); }
       };
       const failure = (body: Record<string, unknown>): DraftReply => ({ ok: false, message: typeof body.error === 'string' ? body.error : 'Please try again later. You can still fill in your plan by hand.' });
       try {

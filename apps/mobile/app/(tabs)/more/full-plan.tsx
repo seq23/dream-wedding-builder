@@ -14,11 +14,10 @@ export default function FullPlan() {
     <Text accessibilityRole="status" style={type.body}>Purchases are not set up yet.</Text>
     <View style={{ gap: space[2] }}>
       <Text style={type.sub}>Payments and final-payment schedule</Text>
-      <Text style={type.sub}>Not in this build yet.</Text>
       <Text style={type.sub}>Wedding-week sheet</Text>
-      <Text style={type.sub}>Not in this build yet.</Text>
       <Text style={type.sub}>Printable hand-over packet</Text>
-      <Text style={type.sub}>Not in this build yet.</Text>
+      <Text style={type.sub}>Tradition packs</Text>
+      <Text style={type.sub}>Reminders for your dated tasks</Text>
     </View>
     {offers.map((id, i) => <Pressable key={id} accessibilityRole="radio" accessibilityState={{ checked: selected === id }} onPress={() => setSelected(id)}
       style={{ minHeight: 64, padding: space[3], borderRadius: radius.md, borderWidth: selected === id ? 2 : 1, borderColor: selected === id ? color.blue : color.rule, gap: space[1] }}>
