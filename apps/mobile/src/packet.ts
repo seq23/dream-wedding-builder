@@ -20,7 +20,8 @@ export function packetModel(input: PacketInput) {
   // An early reference date keeps past windows and their original dates in the packet.
   const day = parseDay(date);
   const windows = buildDatedPlan(date, day ? isoDay(monthsBefore(day, 24)) : '1900-01-01').windows;
-  const sections = paid ? datedFullPlan(input.list!, date, date).map(s => ({ ...s, tasks: s.tasks.map(t => ({
+  const delivered = paid ? (day ? datedFullPlan(input.list!, date, date) : input.list!.windows.map(w => ({ ...w, tasks: input.list!.tasks.filter(t => t.window === w.id).map(t => ({ ...t, date: '' })) }))) : [];
+  const sections = paid ? delivered.map(s => ({ ...s, tasks: s.tasks.map(t => ({
     text: t.text, date: t.date, owner: t.owner, key: taskKey(t.window, t.text), done: !!progress.done[taskKey(t.window, t.text)], week: t.daysBefore >= 0 && t.daysBefore <= 7,
   })) })) : PLAN_WINDOWS.map(w => ({ id: w.id, label: w.label, tasks: w.tasks.map(text => ({
     text, date: windows.find(d => d.id === w.id)?.endsOn ?? '', owner: '', key: taskKey(w.id, text), done: !!progress.done[taskKey(w.id, text)], week: false,

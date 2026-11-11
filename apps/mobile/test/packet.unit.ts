@@ -23,6 +23,7 @@ test('paid packet includes every delivered task, dates, ticks, assignment, payme
   const model = packetModel(data); assert.equal(model.total,data.list!.tasks.length);
   assert.equal(model.sections.flatMap(s=>s.tasks).filter(t=>t.done).length,1); assert.equal(model.week.length,1); assert.equal(model.week[0].date,'2027-06-05');
   const html = packetHtml(data,'A4'); for (const task of data.list!.tasks) assert.ok(html.includes(task.text));
+  const undated = packetModel({ ...data, date: '' }); assert.equal(undated.total, data.list!.tasks.length);
   for (const value of ['My helper','Sample payee','$123.45','Sample contact','Envelope']) assert.ok(html.includes(value));
 });
 test('both paper sizes create and share the local file; export failure never shares', async () => {
