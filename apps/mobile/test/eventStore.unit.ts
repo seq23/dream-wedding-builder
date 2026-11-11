@@ -47,3 +47,15 @@ test('corrupt event history and dangling active ids fail visibly without resetti
   const storage = { async getItem(key: string) { return key === ACTIVE_EVENT_KEY ? 'missing' : null; }, async setItem() { assert.fail('must not write'); } };
   await assert.rejects(dateStore(storage).save('2028-06-12', '2026-11-11'), /could not be found/);
 });
+
+
+test('an unpaid active event keeps free date edits and not-set reads on the same storage path', async () => {
+  const ledger = addEvent(emptyLedger(), 'free', 'Our wedding', '2028-06-12');
+  const data = new Map([[EVENT_LEDGER_KEY, JSON.stringify(ledger)], [ACTIVE_EVENT_KEY, 'free']]);
+  const storage = { async getItem(key: string) { return data.get(key) ?? null; }, async setItem(key: string, value: string) { data.set(key, value); } };
+  await dateStore(storage).save('2028-07-12', '2026-11-11');
+  assert.equal(await dateStore(storage).read(), '2028-07-12');
+  await dateStore(storage).save('', '2026-11-11');
+  assert.equal(await dateStore(storage).read(), '');
+  assert.equal((await eventStore(storage).active())?.dateChanges, 0);
+});
