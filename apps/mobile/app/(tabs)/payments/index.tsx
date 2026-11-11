@@ -16,7 +16,7 @@ import { PlannedScreen, GoButton } from '../../../src/ui';
 import { WeddingDatePicker } from '../../../src/WeddingDatePicker';
 import { savedDate } from '../../../src/savedDate';
 import { color, type, space } from '../../../src/theme';
-import { amountCents, paymentRows, paymentSummary, paymentGroup, paymentsStore, validatePayment, SAMPLE_PAYMENTS, type Payment, type PaymentState } from '../../../src/payments';
+import { refreshPaymentDraft, type PaymentDraft, amountCents, paymentRows, paymentSummary, paymentGroup, paymentsStore, validatePayment, SAMPLE_PAYMENTS, type Payment, type PaymentState } from '../../../src/payments';
 const preview = process.env.EXPO_PUBLIC_DW_PREVIEW === '1';
 const store = paymentsStore(AsyncStorage, preview ? 'dw.payments.preview.v1' : 'dw.payments.v1');
 const money = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n/100);
@@ -27,9 +27,12 @@ export default function Payments() {
   const [date,setDate] = useState<string|null>(null);
   const [state,setState] = useState<PaymentState>({ own: [], edits: {} });
   const [ready,setReady] = useState(false); const [busy,setBusy] = useState(false);
-  const [editing,setEditing] = useState<Payment|null>(null); const [amount,setAmount] = useState('');
+  const [draft,setDraft] = useState<PaymentDraft>({ context: null, editing: null, amount: '' });
+  const { editing, amount } = draft;
+  const setEditing = (editing: Payment | null) => setDraft(current => ({ ...current, editing }));
+  const setAmount = (amount: string) => setDraft(current => ({ ...current, amount }));
   const [error,setError] = useState('');
-  useFocusEffect(useCallback(() => { let active=true; setReady(false); Promise.all([savedDate.read(),activePlan(),savedProgress.read()]).then(async ([d,plan,progress]) => { const s = plan ? await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,plan.event.id,()=>({own:[],edits:{}} as PaymentState)).read() : await store.read(); return [d,s,plan,progress] as const; }).then(([d,s,plan,progress]) => { if(active) {setEditing(null);setShared(plan);setDate(d);setState(s);setDone(progress.done);setReady(true);} }).catch(() => { if(active) setError('Could not load payments. Reopen this tab to try again.'); }); return () => {active=false;}; },[sharingRevision]));
+  useFocusEffect(useCallback(() => { let active=true; setReady(false); Promise.all([savedDate.read(),activePlan(),savedProgress.read()]).then(async ([d,plan,progress]) => { const s = plan ? await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,plan.event.id,()=>({own:[],edits:{}} as PaymentState)).read() : await store.read(); return [d,s,plan,progress] as const; }).then(([d,s,plan,progress]) => { if(active) {setDraft(current => refreshPaymentDraft(current, plan ? `shared:${plan.event.id}` : 'local'));setShared(plan);setDate(d);setState(s);setDone(progress.done);setReady(true);} }).catch(() => { if(active) setError('Could not load payments. Reopen this tab to try again.'); }); return () => {active=false;}; },[sharingRevision]));
   // Purchase delivery remains closed. Preview data is isolated from real records.
   const rows = paymentRows(shared?.list ?? (preview ? SAMPLE_PAYMENTS : null), date ?? '', state.own, state.edits, !!shared || preview).map(row => { const task = shared?.list.tasks.find(t => row.id === `task:${t.id}`); return task ? { ...row, paidOn: done[taskKey(task.window,task.text)]?.slice(0,10) } : row; });
   const summary = paymentSummary(rows); const today = localToday();

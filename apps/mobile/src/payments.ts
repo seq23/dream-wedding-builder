@@ -40,3 +40,10 @@ export const SAMPLE_PAYMENTS: FullPlanList = { windows: [{ id: 'sample', label: 
   { id: 'sample-a', window: 'sample', text: 'Example vendor deposit', owner: 'Sample vendor A', kind: 'payment', daysBefore: 30 },
   { id: 'sample-b', window: 'sample', text: 'Example vendor balance', owner: 'Sample vendor B', kind: 'payment', daysBefore: 7 }
 ] };
+
+export interface PaymentDraft { context: string | null; editing: Payment | null; amount: string }
+/** A background refresh must not discard unsaved input. A different event or
+ * revoked shared access must discard it so it cannot be saved to another plan. */
+export function refreshPaymentDraft(draft: PaymentDraft, context: string): PaymentDraft {
+  return draft.context === context ? draft : { context, editing: null, amount: '' };
+}
