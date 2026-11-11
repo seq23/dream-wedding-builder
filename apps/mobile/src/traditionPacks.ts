@@ -59,3 +59,16 @@ export function removeTraditionPack(progress: PlanProgress, packId: string): Pla
     return removeCustomTask(next, custom.id);
   }, progress);
 }
+
+/** The only pack content available without a verified purchase is this bundled example. */
+export function addTraditionExample(progress: PlanProgress, packId: string): PlanProgress {
+  const preview = TRADITION_PREVIEWS.find(p => p.id === packId);
+  return preview ? addTraditionPack(progress, { id: preview.id, tasks: [preview.example] }, true) : progress;
+}
+export function hasTraditionPack(progress: PlanProgress, packId: string) {
+  return progress.custom.some((t: TraditionCustomTask) => t.tradition?.packId === packId);
+}
+/** Undo restores only removed rows; edits and ticks made since removal survive. */
+export function restoreTraditionTasks(progress: PlanProgress, removed: PlanProgress['custom']): PlanProgress {
+  return { ...progress, custom: [...progress.custom, ...removed.filter(t => !progress.custom.some(current => current.id === t.id))] };
+}
