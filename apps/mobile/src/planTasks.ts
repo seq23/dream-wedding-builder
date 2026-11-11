@@ -66,3 +66,14 @@ export function progressStore(storage: { getItem(key: string): Promise<string | 
     },
   };
 }
+
+export function nextTaskRows(progress: PlanProgress) {
+  return taskRows(progress).filter(row => !row.doneAt).slice(0, 3);
+}
+export function completionDay(stamp: string) {
+  return new Date(stamp).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
+export function initialTaskWindow(requested?: string) {
+  return PLAN_WINDOWS.find(w => w.id === requested)?.id ?? PLAN_WINDOWS[0].id;
+}
