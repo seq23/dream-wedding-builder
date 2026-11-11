@@ -10,3 +10,18 @@ Coordinator reviews and lands the PRs; agents never merge.
 
 NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 (store files) and 12 (website line)
 wait for the owner's launch plan after 13 Nov. Release gates remain in scope.
+
+Task 4: local reminders implemented in its own PR, based on open PR #136
+(tasks 1a, 2, 3, including #134). Future window starts and wedding day use 9:00
+local time. Ticks, own-task edits and date saves replace the schedule. Permission
+and event entitlement are checked before scheduling; remindersNeedFullPlan supports
+version B. Not now is saved and More exposes the settings again.
+The entitlement adapter returns false until task 8 wires verified event access;
+no preview flag grants paid access and no notification permission is requested free.
+Native delivery still needs a device check; no Appetize minutes were used.
+Next task: 5 (tradition packs), alone.
+
+NAMED STOP [PATTERN_NOTES_MISSING] welcome/date, plan first view, full-plan paywall,
+Payments. No Screen patterns section exists in the current scaffold plan. Existing
+first views were not redesigned; task 4 adds scheduler plumbing and reminder settings.
+Tasks 8 and 8a wait for their pattern notes.
