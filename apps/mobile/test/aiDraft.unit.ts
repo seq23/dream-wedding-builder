@@ -108,3 +108,31 @@ test('opening details and saving an unrelated field preserves the onboarding dat
   assert.equal(await dates.read(), '2027-06-12');
   assert.equal((await details.read()).guestCount, '90');
 });
+
+
+test('requests use phone-compatible cancellation and clear settled deadlines', async (t) => {
+  t.mock.method(AbortSignal, 'timeout', () => { throw new Error('Unavailable on phone'); });
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const storage = { async getItem() { return null; }, async setItem() {} };
+  const signals: AbortSignal[] = [];
+  const client = aiDraftClient(storage, async (_url, init) => {
+    signals.push(init.signal as AbortSignal);
+    return { ok: true, async json() { return { ok: true, draft: {}, note: 'Ready' }; } };
+  });
+  assert.equal((await client.request(input)).ok, true);
+  t.mock.timers.tick(60000);
+  assert.equal(signals.length, 2);
+  assert.ok(signals.every(signal => !signal.aborted));
+  let started!: () => void;
+  const ready = new Promise<void>(resolve => { started = resolve; });
+  const stalled = aiDraftClient(storage, async (_url, init) => {
+    started();
+    return new Promise((_resolve, reject) => {
+      init.signal!.addEventListener('abort', () => reject(new Error('aborted')), { once: true });
+    });
+  });
+  const request = stalled.request(input);
+  await ready;
+  t.mock.timers.tick(60000);
+  assert.equal((await request).ok, false);
+});
