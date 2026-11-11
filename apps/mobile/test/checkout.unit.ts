@@ -62,3 +62,48 @@ test('checkout verifies before binding; Restore preserves all recorded events; r
   release(); await new Promise(r => setTimeout(r, 0));
   assert.equal(slow.data.size, 0); assert.deepEqual(slow.calls, []);
 });
+
+test('bundle and owner extras require verified files; Restore recovers all grants without trusting the SDK', async () => {
+  const s = setup();
+  const archives = { printables: 'verified-printables', 'day-of-kit': 'verified-kit' };
+  const delivered = { async refresh() { return { list: { windows: [], tasks: [] }, packs: [], archives }; } };
+  const flow = checkout(s.storage, s.provider, delivered, () => 'bundle');
+  await flow.purchase('Our wedding', '2027-06-12', 'dw_planner_printables');
+  assert.deepEqual(s.calls, ['dw_planner_printables']);
+  assert.deepEqual(entitlementsFor(await eventStore(s.storage).read(), 'bundle'), ['printables', 'day_of_kit', 'full_plan']);
+  const before = s.data.get(EVENT_LEDGER_KEY);
+  await assert.rejects(flow.purchase('Ignored', '2027-06-12', 'dw_printables_topup'), /already included/);
+  assert.deepEqual(JSON.parse(s.data.get(EVENT_LEDGER_KEY)!), JSON.parse(before!));
+  s.data.delete(ACTIVE_EVENT_KEY);
+  await flow.restore('Ignored', '2030-06-12');
+  assert.deepEqual(JSON.parse(s.data.get(EVENT_LEDGER_KEY)!), JSON.parse(before!));
+  assert.equal(await s.storage.getItem(ACTIVE_EVENT_KEY), 'bundle');
+
+  for (const product of ['dw_printables_topup', 'dw_day_of_kit'] as const) {
+    const owner = setup();
+    const basic = checkout(owner.storage, owner.provider, owner.downloads, () => 'first');
+    await assert.rejects(basic.purchase('Free', '2027-06-12', product), /Restore your full plan/);
+    assert.deepEqual(owner.calls, []);
+    await basic.purchase('Our event', '2027-06-12');
+    let history = await eventStore(owner.storage).read();
+    history = recordVerifiedPurchase(addEvent(history, 'second', 'Second', '2028-06-12'), 'second', 'dw_new_event');
+    owner.data.set(EVENT_LEDGER_KEY, JSON.stringify(history));
+    owner.data.set(ACTIVE_EVENT_KEY, 'second');
+    owner.provider.purchase = async id => { owner.calls.push(id); return { userId: 'identity', active: ['full_plan', 'printables', 'day_of_kit'] }; };
+    await assert.rejects(basic.purchase('Ignored', '2028-06-12', product), /files could not be confirmed/);
+    assert.deepEqual(await eventStore(owner.storage).read(), history);
+    const extra = product === 'dw_printables_topup' ? { printables: 'verified' } : { 'day-of-kit': 'verified' };
+    const extras = checkout(owner.storage, owner.provider, { async refresh() { return { list: { windows: [], tasks: [] }, packs: [], archives: extra }; } }, () => assert.fail('extras must not create an event'));
+    await extras.purchase('Ignored', '2028-06-12', product);
+    const updated = await eventStore(owner.storage).read();
+    assert.deepEqual(updated.events, history.events);
+    assert.equal(updated.firstEventId, 'first');
+    assert.equal(await owner.storage.getItem(ACTIVE_EVENT_KEY), 'second');
+    assert.deepEqual(updated.extras, [product === 'dw_printables_topup' ? 'printables' : 'day_of_kit']);
+    await assert.rejects(extras.purchase('Another', '2029-06-12', 'dw_new_event'), /not available/);
+  }
+  const refused = setup();
+  refused.provider.purchase = async () => ({ userId: 'forged', active: ['full_plan', 'printables', 'day_of_kit'] });
+  await assert.rejects(checkout(refused.storage, refused.provider, refused.downloads, () => 'refused').purchase('Our event', '2027-06-12', 'dw_planner_printables'), /files could not be confirmed/);
+  assert.equal(refused.data.size, 0);
+});
