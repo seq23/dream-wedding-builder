@@ -8,3 +8,5 @@ run summary. Download, unzip and serve with `python3 -m http.server 8080`.
 No Appetize uploads or minutes. This is a downloadable preview, not hosted hosting.
 
 NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 (store files) and 12 (website line) wait for the owner's launch plan after 13 Nov. Release gates remain in scope.
+
+Task 1a: CI publishes a noindex Cloudflare Pages web preview and posts its link in the summary and PR. Missing credentials, refused deploys and missing URLs fail with NAMED STOP [PREVIEW_HOST_FAILED]. Next: task 3, after the open task 2 PR is reviewed.
