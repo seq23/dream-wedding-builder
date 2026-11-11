@@ -65,6 +65,7 @@ export default function More() {
       <Text style={type.sub}>Free calendar reminders for your unfinished tasks and wedding day. Made on this phone. Save a new file after changing your plan.</Text>
       <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
       <GoButton href="/more/full-plan" label="The full plan ›" />
+      <GoButton href="/more/full-plan?newEvent=1" label="Start a new event ›" />
       {button('Privacy policy ›', () => { void open('privacy'); })}
       {button('Terms ›', () => { void open('terms'); })}
       {confirm ? <View style={{ gap: space[3], borderWidth: 1, borderColor: color.rule, padding: space[4] }}>
