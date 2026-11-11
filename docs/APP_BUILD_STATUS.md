@@ -7,7 +7,8 @@ Native delivery remains unverified; web preview schedules no notifications.
 
 All three listed review issues are fixed in scaffold: independent personal-task
 keys, confirmed preview deployment status, and overdue personal-task due dates.
-Existing regression tests cover each; no review-fix PR is needed.
+Confirmed at source; no review-fix PR is needed.
+Validation: mobile typecheck and all 34 unit tests pass.
 
 Next task: 5 (tradition packs), alone. Coordinator reviews and merges.
 NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 and 12.
