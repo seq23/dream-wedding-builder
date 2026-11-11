@@ -27,3 +27,16 @@ test('payment schedule uses delivered markers and dates, keeps money local, and 
   assert.throws(()=>validatePayment({...own,date:'2027-02-30'}));
   for (const path of ['src/payments.ts','app/(tabs)/payments/index.tsx']) assert.doesNotMatch(readFileSync(path,'utf8'),/\bfetch\s*\(|\bXMLHttpRequest\b|\baxios\b/);
 });
+
+ test('padded payment dates persist as ISO days and keep chronological order and urgency', async () => {
+  const row = validatePayment({ id: 'own:padded', payee: 'Example', detail: '', cents: 100, date: ' 2027-06-10 ', method: '' });
+  assert.equal(row.date, '2027-06-10');
+  const memory = new Map<string, string>();
+  const store = paymentsStore({ getItem: async key => memory.get(key) ?? null, setItem: async (key, value) => { memory.set(key, value); } }, 'dates');
+  await store.save({ own: [row], edits: {} });
+  const saved = (await store.read()).own;
+  assert.equal(saved[0].date, '2027-06-10');
+  assert.deepEqual(paymentRows(SAMPLE_PAYMENTS, '2027-06-12', saved, {}, true).map(r => r.date), ['2027-05-13', '2027-06-05', '2027-06-10']);
+  assert.equal(paymentGroup(saved[0], '2027-06-01'), 'Due in the next 30 days');
+  assert.equal(paymentGroup(saved[0], '2027-06-11'), 'Past due');
+});

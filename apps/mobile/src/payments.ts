@@ -1,4 +1,4 @@
-import { parseDay } from '@core/dated-plan';
+import { isoDay, parseDay } from '@core/dated-plan';
 import { type FullPlanList, datedFullPlan } from '@core/full-plan';
 export interface Payment { id: string; payee: string; detail: string; cents: number; date: string; method: string; paidOn?: string }
 export function amountCents(value: string): number {
@@ -24,8 +24,9 @@ export function paymentGroup(row: Payment, today: string) {
   return row.date <= end.toISOString().slice(0,10) ? 'Due in the next 30 days' : 'Later';
 }
 export function validatePayment(row: Payment) {
-  if (!row.payee.trim() || !parseDay(row.date) || !Number.isSafeInteger(row.cents) || row.cents < 0) throw new Error('Add a payee, valid date and amount.');
-  return row;
+  const date = parseDay(row.date);
+  if (!row.payee.trim() || !date || !Number.isSafeInteger(row.cents) || row.cents < 0) throw new Error('Add a payee, valid date and amount.');
+  return { ...row, date: isoDay(date) };
 }
 export interface PaymentState { own: Payment[]; edits: Record<string, Payment> }
 export function paymentsStore(storage: { getItem(k: string): Promise<string|null>; setItem(k: string,v:string): Promise<void> }, key: string) {

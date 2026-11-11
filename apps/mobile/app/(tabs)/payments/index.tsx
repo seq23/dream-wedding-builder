@@ -24,7 +24,7 @@ export default function Payments() {
   const summary = paymentSummary(rows); const today = localToday();
   async function save(row: Payment) {
     setBusy(true); setError('');
-    try { validatePayment(row); const next = row.id.startsWith('task:') ? { ...state, edits: { ...state.edits, [row.id]: row } } : { ...state, own: [...state.own.filter(r=>r.id!==row.id),row] };
+    try { row = validatePayment(row); const next = row.id.startsWith('task:') ? { ...state, edits: { ...state.edits, [row.id]: row } } : { ...state, own: [...state.own.filter(r=>r.id!==row.id),row] };
       await store.save(next); setState(next); setEditing(null);
     } catch(e) { setError(e instanceof Error ? e.message : 'Could not save. Try again.'); } finally {setBusy(false);}
   }
