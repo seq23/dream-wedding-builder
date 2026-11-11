@@ -43,3 +43,14 @@ test('rescheduling cancels stale reminders, respects permission and cleans parti
   await assert.rejects(replaceReminders({ ...driver, schedule: async r => { pending.push(r); throw Error('OS refused'); } }, schedule(), true));
   assert.deepEqual(pending, []);
 });
+
+test('start morning keeps the pending 9am reminder without a catch-up after 9am', async () => {
+  const before = reminderSchedule('2027-06-12', emptyProgress(), new Date(2026, 11, 12, 8), true);
+  assert.equal(before.filter(r => r.id === 'dw-window-6-months').length, 1);
+  let pending: Reminder[] = [];
+  await replaceReminders({ cancel: async () => { pending = []; }, allowed: async () => true, schedule: async r => { pending.push(r); } }, before, true);
+  assert.equal(pending.find(r => r.id === 'dw-window-6-months')?.at.getHours(), 9);
+  for (const when of [new Date(2026, 11, 12, 9), new Date(2026, 11, 12, 10), new Date(2026, 11, 13, 8)]) {
+    assert.ok(!reminderSchedule('2027-06-12', emptyProgress(), when, true).some(r => r.id === 'dw-window-6-months'));
+  }
+});

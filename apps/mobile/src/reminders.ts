@@ -1,4 +1,4 @@
-import { buildDatedPlan, localToday, parseDay } from '@core/dated-plan';
+import { buildDatedPlan, localToday, parseDay, PLAN_WINDOWS, monthsBefore, addDays, isoDay } from '@core/dated-plan';
 import type { PlanProgress } from '@core/plan-progress';
 import { taskRows } from './planTasks';
 
@@ -16,9 +16,12 @@ export function reminderSchedule(date: string, progress: PlanProgress, now: Date
   if (plan.state !== 'future' && plan.state !== 'today') return [];
   const atNine = (iso: string) => { const d = parseDay(iso)!; return new Date(d.y, d.m - 1, d.d, 9); };
   const rows = taskRows(progress);
-  const reminders = plan.windows.filter(w => w.timing === 'later').flatMap(w => {
+  const wedding = parseDay(date)!;
+  // Display windows clamp their start to today; reminders need the original edge.
+  const reminders = PLAN_WINDOWS.filter(w => Number.isFinite(w.fromMonths)).flatMap(w => {
+    const startsOn = isoDay(w.fromMonths === 0.25 ? addDays(wedding, -7) : monthsBefore(wedding, w.fromMonths));
     const open = rows.filter(r => r.windowId === w.id && !r.doneAt);
-    return open.length ? [{ id: `dw-window-${w.id}`, title: w.label, body: open.map(r => r.text).join('\n'), at: atNine(w.startsOn) }] : [];
+    return open.length ? [{ id: `dw-window-${w.id}`, title: w.label, body: open.map(r => r.text).join('\n'), at: atNine(startsOn) }] : [];
   });
   reminders.push({ id: 'dw-wedding-day', title: 'Your wedding day', body: 'Enjoy your day.', at: atNine(date) });
   return reminders.filter(r => r.at.getTime() > now.getTime());
