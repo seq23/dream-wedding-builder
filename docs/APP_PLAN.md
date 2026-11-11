@@ -14,7 +14,7 @@ repo copy of what Codex builds, in order. When the two disagree, the page wins; 
   https://claude.ai/artifact/6ncBMWsGoHNHP16FzbmM9o); Instrument Serif, Instrument Sans
   and DM Mono are bundled. `scripts/make-icons.mjs` draws the icon, adaptive icon and
   splash from the tab mark (`npm run icons`).
-- Screens: `src/screens.ts` lists the nine screens of the plan; each has an empty route
+- Screens: `src/screens.ts` lists the nine screens of the first plan (tasks 8a to 8c add Payments, Wedding week and the packet; add them to the list); each has an empty route
   in `app/`. `test/screens.unit.ts` fails if the list and the routes drift apart.
 - Shared logic: the app imports the live Builder's own `lib/dated-plan.ts`,
   `lib/plan-progress.ts` and `lib/plan-ics.ts` through `@core/*` (tsconfig paths +
@@ -212,6 +212,35 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    each product grants exactly its entitlements; a joined phone with no purchase sees every task of the shared plan (the full list's own count) and loses them when sharing stops; the name cannot be edited after unlock; date moves 1 to 3 keep the unlock and the 4th is refused with the new-event offer; a new event without `dw_new_event` stays on the free plan; deleting and recreating never unlocks a new event; Restore brings back the first event and every recorded paid event; `offersFor` keeps passing (full plan owners
    see the top-up, never the bundle; printables owners see nothing); restore brings back all three; printables download only after a
    confirmed purchase; no product, offering or price is created by code.
+1a. **A preview link she can open (coordinator, 10 Nov 2026; do this before task 2).** The owner
+   sees every build from a link, never a download. The preview job publishes the web export to
+   Cloudflare Pages (project `dream-wedding-app-preview`, created by the job if missing; repo secrets
+   `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` already exist; free plan only) with
+   `npx wrangler pages deploy <export dir> --project-name dream-wedding-app-preview --branch <pr branch>`
+   and prints the URL as the first line of the run summary and as a PR comment. The page carries
+   `noindex`. No token or a refused deploy: NAMED STOP [PREVIEW_HOST_FAILED], and the job fails.
+   Tests: the workflow fails when the deploy step prints no URL.
+8a. **Payments and the final-payment schedule (the first thing `full_plan` sells; coordinator,
+   10 Nov 2026: the plan sold these with no task to build them).** A "Payments" tab: every payment
+   task from the full list (its `kind` is `payment`) dated from her date, plus her own payments:
+   who is paid, amount, due date, paid or not, how it is paid. Line 1 is the count and total still
+   owed ("3 payments left · $4,200"). Marking paid stamps the day. Amounts live on the phone only.
+   Free plan: the tab shows the two locked payment tasks with her dates and what the full plan adds.
+   Tests: totals equal the unpaid rows; a paid row leaves the total; with no `full_plan` no paid
+   task text is on the phone; amounts never leave the phone (no network call in this screen).
+8b. **The wedding-week sheet.** One screen for the last seven days: the wedding-week tasks from the
+   full list by day, each with its suggested owner and a "Who" she can set, the vendor contact sheet
+   (name, phone, arrival time, who calls if late) and the envelopes list from the payment tasks.
+   Tests: tasks sort by day; a task ticked here is ticked on the plan; needs `full_plan`.
+8c. **The hand-over packet.** "Print or send my plan": one PDF (expo-print) built on the phone:
+   names and date on top, every task with date, owner and a "Who" blank, the payments schedule, the
+   wedding-week sheet and the contact sheet; black on white; Letter and A4. Shared by the system
+   share sheet; nothing is uploaded. The free plan keeps the basic packet (the 23 free tasks).
+   Tests: the paid packet holds every task of the delivered list (the list's own count); the free
+   packet holds no paid task; both page sizes produce a file.
+   Tasks 8a to 8c read the delivered full list (see "Paid content is never in the public repo");
+   until the purchase door exists they are built and tested against a short fake fixture, and the
+   preview build (task 3) loads that fixture so she can see them.
 9. **More, and delete.** Every row on screen 9; "Delete my plan from this phone" confirms
    on the page first.
    Tests: delete clears the plan and reminders; each change shows on the plan screen.
