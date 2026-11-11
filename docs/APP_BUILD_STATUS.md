@@ -1,27 +1,22 @@
-# App build queue — 10 Nov 2026
+# Dream Wedding app build status
 
-Task 1 is merged. Task 2 is implemented in open PR #134 and included as a dependency here.
-Task 1a publishes the web export to the free Cloudflare Pages preview project, with a
-noindex header and a link in the CI summary and PR. Missing credentials, refused deploys
-and missing URLs fail with NAMED STOP [PREVIEW_HOST_FAILED]. No Appetize use.
+Tasks 1, 1a, 2 and 3 are merged. Tasks 4 and 5 remain in PRs #139 and #147.
+Both review findings in this run are already fixed on the scaffold branch.
 
-Task 3 is implemented: the preview-only welcome shortcut saves the sample date, two ticks and one own task. Next task: 4 (reminders), alone. Tasks 8a to 8c (payments, wedding week, packet) are in the fresh plan.
-Coordinator reviews and lands the PRs; agents never merge.
+NAMED STOP [PATTERN_NOTES_MISSING] Task 6 AI draft: the plan has no shipped-screen
+patterns for this screen. Skipped; no AI screen built.
 
-NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 (store files) and 12 (website line)
-wait for the owner's launch plan after 13 Nov. Release gates remain in scope.
+Task 7 server portion: disabled-by-default /api/plan-share, opaque ciphertext storage,
+64 KB streamed request limit, hashed per-IP limit, global daily request/write ceilings,
+90-day expiry, revocation and revision conflicts. Additive migration 0009 is included.
+No phone sharing or paid unlock is enabled; no production migration was run.
 
-Review follow-up: the purchased-plan personal-task fix now keeps the original window
-end date after a window expires, for both the screen and print. Regression covers
-before/after expiry and the reported 20 Jan 2027 wedding. Supersedes PR #143.
-Task 4 remains in open PR #139 (including its start-morning reminder regression).
-Next new tasks: Dream Wedding 5; ApprovalPrep 4. Launch stops remain unchanged.
-
-Preview fixes: web is centred at 430 px; welcome has one question, a native/web date
-picker, one filled save button and small secondary links. The next card fills three
-unfinished slots; completion labels show the day only. Based on the fresh scaffold,
-without the open task-4 branch (#139). Next new task remains 5.
-
-Preview follow-up: unfinished screens show plain customer text, guarded against builder
-notes. No Appetize use. Next new task: 5 (tradition packs, alone).
-New personal tasks now start in the window selected on the plan.
+Task 7 remains unfinished: client encryption with fragment-only key, stamp merge,
+one-minute sync, partner entitlement verification and revocation, target-day load check,
+and preview deployment/migration proof. Keep APP_SHARING_ENABLED unset until those pass.
+Sharing ciphertext is never proof of a purchase. The server PR remains draft.
+NAMED STOP [PATTERN_NOTES_MISSING] Task 7 invitation/join controls need screen patterns.
+NAMED STOP [PRIVATE_WRITE_NEEDED] Task 5 full private packs await private authoring/review.
+NAMED STOP [PATTERN_NOTES_MISSING] Task 5 traditions picker.
+NAMED STOP [WAITS_FOR_LAUNCH_PLAN] Tasks 10 and 12.
+Next task: 6 when patterns are supplied; task 7 server PR must be completed in place.
