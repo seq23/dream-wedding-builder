@@ -1,3 +1,4 @@
+import { Platform, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
@@ -14,7 +15,9 @@ export default function Layout() {
   if (!loaded && !fontError) return null;
   return (
     <SafeAreaProvider>
+      <View style={{ flex: 1, ...(Platform.OS === 'web' ? { width: '100%' as const, maxWidth: 430, alignSelf: 'center' as const } : {}) }}>
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: color.ivory } }} />
+    </View>
     </SafeAreaProvider>
   );
 }

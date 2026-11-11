@@ -5,7 +5,7 @@ import { PLAN_WINDOWS, buildDatedPlan, localToday, plainDate } from '@core/dated
 import { emptyProgress, toggleDone, type PlanProgress } from '@core/plan-progress';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
-import { catchUpRows, taskCount, taskRows } from '../../../src/planTasks';
+import { nextTaskRows, completionDay, taskCount, taskRows } from '../../../src/planTasks';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { color, space, type } from '../../../src/theme';
 export default function Plan() {
@@ -26,7 +26,7 @@ export default function Plan() {
   const plan = buildDatedPlan(date, localToday());
   const rows = taskRows(progress);
   const count = taskCount(progress);
-  const catchUp = catchUpRows(progress, plan);
+  const catchUp = nextTaskRows(progress);
   async function tick(key: string) {
     setSaving(true);
     try { setProgress(await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()))); setError(''); }
@@ -36,7 +36,7 @@ export default function Plan() {
   const row = (r: ReturnType<typeof taskRows>[number]) => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
     <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
-      {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {new Date(r.doneAt).toLocaleString()}</Text> : null}
+      {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {completionDay(r.doneAt)}</Text> : null}
     </Pressable>
     {r.ownId ? <Pressable accessibilityRole="button" onPress={() => router.push({ pathname: '/plan/add-task', params: { id: r.ownId } })} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={{ color: color.blue }}>Edit your task ›</Text></Pressable> : null}
   </View>;
