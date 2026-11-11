@@ -129,7 +129,10 @@ export function downloadStore(storage: DateStorage, transport: typeof fetch = fe
       for (let i = 0; i < content.packs.length; i++) if (content.packs[i].id !== TRADITION_PREVIEWS[i].id) throw Error(MESSAGE);
       const cache: Cache = { version: 1, userId, ...content };
       // One write only after every asset passes: a failed download keeps the old cache.
-      await storage.setItem(DOWNLOAD_CACHE_KEY, JSON.stringify(cache));
+      const serialized = JSON.stringify(cache);
+      // Keep the single atomic entry small enough for native storage reads too.
+      if (new TextEncoder().encode(serialized).length > LIMIT) throw Error(MESSAGE);
+      await storage.setItem(DOWNLOAD_CACHE_KEY, serialized);
       return content;
     });
     queue = job.catch(() => {});

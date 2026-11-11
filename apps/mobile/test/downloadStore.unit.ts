@@ -186,7 +186,7 @@ test('verified extras download atomically, survive offline restart, and never fe
     if (!extraIds.includes(asset)) return s.transport(url, init);
     fetched.push(asset);
     if (broken === 'stall') return new Promise<Response>(() => {});
-    const bytes = broken === 'large' ? new Uint8Array(2 * 1024 * 1024 + 1) : broken === 'invalid' ? new Uint8Array(22) : zip;
+    const bytes = broken === 'cache-large' ? (() => { const b = new Uint8Array(600000); b.set(zip); return b; })() : broken === 'large' ? new Uint8Array(2 * 1024 * 1024 + 1) : broken === 'invalid' ? new Uint8Array(22) : zip;
     const response = new Response(bytes, { status: broken === 'refused' ? 403 : 200 });
     return native ? { ok: response.ok, body: null, arrayBuffer: () => response.arrayBuffer() } as Response : response;
   };
@@ -197,7 +197,7 @@ test('verified extras download atomically, survive offline restart, and never fe
     assert.equal(content.archives!.printables, Buffer.from(zip).toString('hex'));
     assert.deepEqual(await downloadStore(s.storage, async () => assert.fail('offline read')).read(id), content);
     const saved = s.data.get(DOWNLOAD_CACHE_KEY);
-    for (const failure of ['refused', 'large', 'invalid', 'stall']) {
+    for (const failure of ['refused', 'large', 'cache-large', 'invalid', 'stall']) {
       broken = failure;
       await assert.rejects(downloadStore(s.storage, transport, 10).refresh(id));
       assert.equal(s.data.get(DOWNLOAD_CACHE_KEY), saved);
