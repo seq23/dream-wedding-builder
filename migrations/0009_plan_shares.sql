@@ -11,3 +11,8 @@ CREATE TABLE IF NOT EXISTS app_share_capacity (
   requests INTEGER NOT NULL DEFAULT 0,
   writes INTEGER NOT NULL DEFAULT 0
 );
+CREATE TABLE IF NOT EXISTS schema_version (
+  migration TEXT PRIMARY KEY,
+  applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+INSERT OR IGNORE INTO schema_version (migration) VALUES ('0009_plan_shares');
