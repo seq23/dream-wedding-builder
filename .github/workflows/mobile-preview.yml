@@ -2,10 +2,7 @@ name: App preview
 on:
   workflow_dispatch:
   push:
-    branches: [main]
-    paths: ['apps/mobile/**', 'lib/**', '.github/workflows/mobile-preview.yml']
-  pull_request:
-    paths: ['apps/mobile/**', 'lib/**', '.github/workflows/mobile-preview.yml']
+  pull_request: {}
 permissions:
   contents: read
   pull-requests: write

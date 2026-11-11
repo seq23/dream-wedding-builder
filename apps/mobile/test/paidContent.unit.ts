@@ -1,7 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { repositoryLeaks } from '../scripts/content/repository';
 import { resolve } from 'node:path';
 import { fingerprint, leaks } from '../scripts/content/leaks';
 import manifest from '../scripts/content/fingerprints.json';
@@ -23,13 +25,25 @@ test('tracked repository files contain no fingerprinted private task or pack tex
     assert.ok(Number.isInteger(entry.length) && entry.length >= 4);
   }
   const root = resolve(__dirname, '../../..');
-  const files = execFileSync('git', ['ls-files', '-z'], { cwd: root }).toString().split('\0').filter(Boolean);
-  assert.ok(files.length > 0, 'No repository files checked');
-  const found: string[] = [];
-  for (const file of files) {
-    const bytes = readFileSync(resolve(root, file));
-    if (!bytes.includes(0) && leaks(bytes.toString('utf8'), manifest.entries)) found.push(file);
-  }
+  const { files, found } = repositoryLeaks(root, manifest.entries);
   assert.deepEqual(found, [], 'Private content found in repository files (text withheld)');
   console.info(`Paid-content check: ${files.length} files; ${manifest.entries.length} private fingerprints. Printables/day-of ZIP text: NOT RUN — private files not supplied.`);
+});
+
+test('repository scan rejects copied content outside mobile, including app, data, public and docs', () => {
+  const root = mkdtempSync(resolve(tmpdir(), 'dw-leak-'));
+  const text = 'Fictional apricot satellites decorate silver tables at dawn.';
+  try {
+    execFileSync('git', ['init', '--quiet'], { cwd: root });
+    assert.throws(() => repositoryLeaks(root, [fingerprint(text)]), /No repository files/);
+    const paths = ['app/page.tsx', 'data/pack.json', 'public/packet.txt', 'docs/guide.md'];
+    for (const file of paths) {
+      mkdirSync(resolve(root, file, '..'), { recursive: true });
+      writeFileSync(resolve(root, file), text);
+    }
+    execFileSync('git', ['add', '.'], { cwd: root });
+    assert.deepEqual(repositoryLeaks(root, [fingerprint(text)]).found.sort(), paths.sort());
+    for (const file of paths) writeFileSync(resolve(root, file), 'Only freely available example content.');
+    assert.deepEqual(repositoryLeaks(root, [fingerprint(text)]).found, []);
+  } finally { rmSync(root, { recursive: true, force: true }); }
 });
