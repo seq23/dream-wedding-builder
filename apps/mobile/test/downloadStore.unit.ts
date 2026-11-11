@@ -168,3 +168,47 @@ test('verified owner who never shared opens every paid view offline and retains 
   s.data.delete(ACTIVE_EVENT_KEY);
   assert.equal(await makeAccess().plan(), null);
 });
+
+test('verified extras download atomically, survive offline restart, and never fetch without the server grant', async () => {
+  const s = setup();
+  // An empty fictional ZIP, no paid content. Exercise the native no-stream transport too.
+  const zip = new Uint8Array(22); zip.set([0x50, 0x4b, 5, 6]);
+  const extraIds = ['printables', 'day-of-kit'];
+  let active = ['full_plan', 'printables', 'day_of_kit'];
+  let broken = '';
+  let native = false;
+  const fetched: string[] = [];
+  const transport: typeof fetch = async (url, init) => {
+    if (init?.method === 'POST') return Response.json({ ...manifest(), active, downloads: [
+      ...manifest().downloads, ...extraIds.map(id => ({ id, path: `/api/app-unlock?token=${id}` })),
+    ] });
+    const asset = new URL(String(url)).searchParams.get('token')!;
+    if (!extraIds.includes(asset)) return s.transport(url, init);
+    fetched.push(asset);
+    if (broken === 'stall') return new Promise<Response>(() => {});
+    const bytes = broken === 'large' ? new Uint8Array(2 * 1024 * 1024 + 1) : broken === 'invalid' ? new Uint8Array(22) : zip;
+    const response = new Response(bytes, { status: broken === 'refused' ? 403 : 200 });
+    return native ? { ok: response.ok, body: null, arrayBuffer: () => response.arrayBuffer() } as Response : response;
+  };
+  for (const phone of [false, true]) {
+    native = phone;
+    const content = await downloadStore(s.storage, transport).refresh(id);
+    assert.deepEqual(Object.keys(content.archives!), extraIds);
+    assert.equal(content.archives!.printables, Buffer.from(zip).toString('hex'));
+    assert.deepEqual(await downloadStore(s.storage, async () => assert.fail('offline read')).read(id), content);
+    const saved = s.data.get(DOWNLOAD_CACHE_KEY);
+    for (const failure of ['refused', 'large', 'invalid', 'stall']) {
+      broken = failure;
+      await assert.rejects(downloadStore(s.storage, transport, 10).refresh(id));
+      assert.equal(s.data.get(DOWNLOAD_CACHE_KEY), saved);
+    }
+    broken = '';
+  }
+  active = ['full_plan']; fetched.length = 0;
+  const plain = await downloadStore(s.storage, transport).refresh(id);
+  assert.equal(plain.archives, undefined);
+  assert.deepEqual(fetched, []);
+  active = []; fetched.length = 0;
+  await assert.rejects(downloadStore(s.storage, transport).refresh(id));
+  assert.deepEqual(fetched, []);
+});
