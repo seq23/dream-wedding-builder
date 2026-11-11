@@ -221,8 +221,9 @@ test('active shared access drives full list, payments, packet and week, then res
   assert.equal(Object.keys(progress.done).length,1);
   assert.equal(paymentRows(plan.list,plan.event.date,[],{},true).length,1);
   assert.equal(weekTasks(plan.list,plan.event.date,progress,true).length,list.tasks.length);
-  const model=packetModel({names:plan.event.name,date:plan.event.date,progress,unlocked:true,list:plan.list,payments:{own:[],edits:{}},week:{who:{},contacts:[]}});
+  const model=packetModel({shared:true,names:plan.event.name,date:plan.event.date,progress,unlocked:true,list:plan.list,payments:{own:[],edits:{}},week:{who:{},contacts:[]}});
   assert.equal(model.total,list.tasks.length);
+  assert.equal(model.payments[0].paidOn,progress.done[keys[1]].slice(0,10));
   assert.ok(reminderSchedule(plan.event.date,progress,new Date(2027,0,1),true,undefined,plan.list).some(r=>r.body.includes(list.tasks[0].text)));
   await b.sync(); await a.sync();
   await ownerAccess.stop();

@@ -33,7 +33,7 @@ export default function Packet() {
       const localPayments = shared ? await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,shared.event.id,()=>({own:[],edits:{}} as PaymentState)).read() : payments;
       if (shared) week = await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,shared.event.id,()=>({who:{},contacts:[]} as PacketWeek)).read();
       // The verified purchase door is closed. Only the isolated preview gets fictional data.
-      const input: PacketInput = { names, date: date ?? '', progress, payments: localPayments, week, unlocked: !!shared || preview, list: shared?.list ?? (preview ? SAMPLE_PAYMENTS : null) };
+      const input: PacketInput = { shared: !!shared, names, date: date ?? '', progress, payments: localPayments, week, unlocked: !!shared || preview, list: shared?.list ?? (preview ? SAMPLE_PAYMENTS : null) };
       await output.write(input, paper);
     } catch (e) { output?.cancel(); setError(e instanceof Error ? e.message : 'Could not prepare your plan. Try again.'); }
     finally { setBusy(false); }
