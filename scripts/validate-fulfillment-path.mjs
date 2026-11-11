@@ -45,14 +45,15 @@ const fail = (msg) => failures.push(msg);
 // ---------------------------------------------------------------------------
 // 1. Every leg of the money path exists as a file.
 //
-// These four are the whole path: take money, turn a paid session into an
-// entitlement, turn an entitlement into a file, and re-issue an expired link.
+// These five are the whole path: take money, turn a paid session into an
+// entitlement, turn an entitlement into a file, re-issue a link on the success page, and email fresh links later.
 // Remove any one and a paying customer gets nothing.
 const REQUIRED_ROUTES = [
   ['app/api/checkout/route.ts', 'creates the Stripe Checkout Session'],
   ['app/api/stripe-webhook/route.ts', 'turns a paid session into an order + entitlement and emails the link'],
   ['app/api/download/[token]/route.ts', 'turns a signed token into the purchased file from R2'],
   ['app/api/order-status/route.ts', 're-issues a download link after the first one expires'],
+  ['app/api/fresh-link/route.ts', 'emails a buyer fresh links once the emailed ones have timed out'],
 ];
 if (!REQUIRED_ROUTES.length) {
   console.error('fulfillment path: no routes to examine - this validator would pass having checked nothing');

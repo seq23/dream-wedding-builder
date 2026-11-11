@@ -72,7 +72,9 @@ describe('delivery retry', () => {
     ]);
     const token = sends[0].html.match(/\/api\/download\/([A-Za-z0-9_-]+)/)[1];
     expect(verifyDownloadToken(token, SECRET, NOW)).toMatchObject({ entitlementId: 'ent-stuck' });
-    expect(verifyDownloadToken(token, SECRET, NOW + 25 * 60 * MIN)).toBeNull();
+    // Emailed links work for 7 days (EMAIL_LINK_TTL_MS), then run out.
+    expect(verifyDownloadToken(token, SECRET, NOW + 6 * 24 * 60 * MIN)).toMatchObject({ entitlementId: 'ent-stuck' });
+    expect(verifyDownloadToken(token, SECRET, NOW + 7 * 24 * 60 * MIN + 1)).toBeNull();
     expect(await undeliveredPaidOrders(DB)).toEqual([]);
   });
 

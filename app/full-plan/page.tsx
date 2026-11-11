@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { FreshLinkForm } from '@/components/FreshLinkForm';
 import { PrintButton } from '@/components/PrintButton';
 import { emptyPlan, type WeddingPlan } from '@/data/planning';
 import { localToday, parseDay, plainDate } from '@/lib/dated-plan';
@@ -18,7 +19,7 @@ const LIST_KEY = 'dwb-full-plan';
 
 export default function FullPlanPage() {
   const [list, setList] = useState<FullPlanList | null>(null);
-  const [state, setState] = useState<'loading' | 'ready' | 'no-link' | 'stopped'>('loading');
+  const [state, setState] = useState<'loading' | 'ready' | 'no-link' | 'stopped' | 'expired'>('loading');
   const [message, setMessage] = useState('');
   const [download, setDownload] = useState('');
   const [plan, setPlan] = useState<WeddingPlan>(emptyPlan);
@@ -33,11 +34,12 @@ export default function FullPlanPage() {
     const token = new URLSearchParams(window.location.search).get('t') ?? '';
     if (!token) { if (stored) { setList(stored); setState('ready'); } else setState('no-link'); return; }
     fetch(`/api/full-plan/${encodeURIComponent(token)}`, { cache: 'no-store' }).then(async res => {
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; download_url?: string };
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; expired?: boolean; error?: string; download_url?: string };
       if (data.download_url) setDownload(data.download_url);
       const fresh = res.ok && data.ok ? parseFullPlan(data) : null;
       if (fresh) { try { localStorage.setItem(LIST_KEY, JSON.stringify(fresh)); } catch { /* shown for this visit */ } setList(fresh); setState('ready'); return; }
       if (stored) { setList(stored); setState('ready'); return; }
+      if (data.expired) { setState('expired'); return; }
       setMessage(data.error ?? 'We could not open your plan just now.'); setState('stopped');
     }).catch(() => { if (stored) { setList(stored); setState('ready'); } else { setMessage('We could not reach the server. Check your connection and open the link again.'); setState('stopped'); } });
   }, []);
@@ -46,8 +48,9 @@ export default function FullPlanPage() {
   const tick = (key: string) => setProgress(current => { const next = toggleDone(current, key, new Date().toISOString()); saveProgress(localStorage, next); return next; });
 
   if (state === 'loading') return <p className="mx-auto max-w-3xl text-charcoal/70" data-testid="full-plan-loading">Opening your plan…</p>;
-  if (state === 'no-link') return <div className="mx-auto max-w-3xl" data-testid="full-plan-no-link"><h1 className="font-serif text-4xl">Your full wedding plan</h1><p className="mt-3 leading-7 text-charcoal/70">This page opens from the link in your order email. If you have not bought the Wedding Checklist PDF yet, the free planner dates your core tasks at no cost.</p><Link href="/free-wedding-planner" className="mt-4 inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">Open the free wedding planner ›</Link></div>;
-  if (state === 'stopped' || !list) return <div className="mx-auto max-w-3xl" data-testid="full-plan-stopped"><h1 className="font-serif text-4xl">Your full wedding plan</h1><p role="alert" className="mt-3 leading-7">{message}</p>{download ? <a href={download} data-testid="full-plan-download" className="mt-5 inline-flex min-h-12 items-center rounded-2xl bg-charcoal px-6 py-3 font-bold text-linen">Download your checklist files ↓</a> : null}</div>;
+  if (state === 'no-link') return <div className="mx-auto max-w-3xl" data-testid="full-plan-no-link"><h1 className="font-serif text-4xl">Your full wedding plan</h1><p className="mt-3 leading-7 text-charcoal/70">This page opens from the link in your order email. If you have not bought the Wedding Checklist PDF yet, the free planner dates your core tasks at no cost.</p><p className="mt-3"><Link href="/order/link" data-testid="full-plan-fresh-link" className="inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">Already bought? Get your link again. ›</Link></p><Link href="/free-wedding-planner" className="mt-4 inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">Open the free wedding planner ›</Link></div>;
+  if (state === 'expired') return <div className="mx-auto max-w-3xl" data-testid="full-plan-expired"><h1 className="font-serif text-4xl">This link has timed out</h1><p className="mt-3 leading-7 text-charcoal/70">Your plan is safe. Links in the order email work for 7 days. Type the email you bought with and we will send you a fresh one.</p><FreshLinkForm /></div>;
+  if (state === 'stopped' || !list) return <div className="mx-auto max-w-3xl" data-testid="full-plan-stopped"><h1 className="font-serif text-4xl">Your full wedding plan</h1><p role="alert" className="mt-3 leading-7">{message}</p>{download ? <a href={download} data-testid="full-plan-download" className="mt-5 inline-flex min-h-12 items-center rounded-2xl bg-charcoal px-6 py-3 font-bold text-linen">Download your checklist files ↓</a> : null}<p className="mt-5"><Link href="/order/link" className="inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">Already bought? Get your link again. ›</Link></p></div>;
 
   const validDate = Boolean(plan.weddingDate && parseDay(plan.weddingDate));
   const { sections, total, done } = fullPlanView(list, plan.weddingDate, today, progress);

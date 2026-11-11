@@ -131,8 +131,11 @@ const paid = sessionEvent();
 }
 {
   const expired = downloadToken(randomUUID(), Date.now() - 1000);
-  const r = await fetch(`${BASE}/api/download/${expired}`);
-  check('expired download token is refused', r.status === 401, `HTTP ${r.status}`);
+  // A link we issued that has run out serves no file: it sends her to the page
+  // where she gets a fresh one by email.
+  const r = await fetch(`${BASE}/api/download/${expired}`, { redirect: 'manual' });
+  check('expired download token serves no file and sends her to get a fresh link',
+    r.status === 303 && (r.headers.get('location') || '').includes('/order/link'), `HTTP ${r.status}`);
 }
 
 const failures = results.filter((r) => !r.pass);

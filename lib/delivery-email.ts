@@ -37,11 +37,16 @@ export function planUrlFor(productName: string, downloadUrl: string) {
   return entitled && downloadUrl.includes('/api/download/') ? downloadUrl.replace('/api/download/', '/full-plan?t=') : '';
 }
 
+/** Where a buyer asks for her links again (app/order/link), on the same site as her download link. */
+export function freshLinkUrl(downloadUrl: string) {
+  try { return `${new URL(downloadUrl).origin}/order/link`; } catch { return 'https://weddingchecklistpdf.com/order/link'; }
+}
+
 export function deliveryEmailBody(productName: string, downloadUrl: string) {
   const name = escapeHtml(productName);
   const planUrl = planUrlFor(productName, downloadUrl);
   const plan = planUrl ? `<p><a href="${escapeHtml(planUrl)}" style="display:inline-block;background:#1f4fd8;color:#fff;padding:14px 22px;border-radius:14px;text-decoration:none;font-weight:700">Open my dated plan</a></p><p>Your full plan, with every task dated from your wedding date, ready to print. Open it on the phone or computer you plan on; it is then kept in that browser.</p>` : '';
-  return `<div style="font-family:Arial,sans-serif;max-width:620px;margin:auto"><h1>Your wedding planning tool is ready.</h1><p>Thank you for purchasing <strong>${name}</strong>.</p>${plan}<p><a href="${escapeHtml(downloadUrl)}" style="display:inline-block;background:#27231f;color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:700">Download ${name}</a></p><p>This secure link expires in 24 hours. You can return to your order success page to generate a fresh link.</p><p>Support: info@weddingchecklistpdf.com</p></div>`;
+  return `<div style="font-family:Arial,sans-serif;max-width:620px;margin:auto"><h1>Your wedding planning tool is ready.</h1><p>Thank you for purchasing <strong>${name}</strong>.</p>${plan}<p><a href="${escapeHtml(downloadUrl)}" style="display:inline-block;background:#27231f;color:#fff;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:700">Download ${name}</a></p><p>These links work for 7 days. After that, get a fresh one any time at <a href="${escapeHtml(freshLinkUrl(downloadUrl))}">${escapeHtml(freshLinkUrl(downloadUrl).replace(/^https?:\/\//, ''))}</a>: type the email you bought with and we send it again.</p><p>Support: info@weddingchecklistpdf.com</p></div>`;
 }
 
 function reportFailure(orderId: string, email: string, status: string, error: string) {

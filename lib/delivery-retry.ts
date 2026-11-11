@@ -5,7 +5,7 @@
 // event_id, so the order sat undelivered. The Worker's cron trigger (worker.ts,
 // wrangler.jsonc "triggers") now calls runDeliveryRetry() hourly: every paid order
 // with no SENT delivery attempt is re-sent through sendDeliveryEmail() with a fresh
-// 24-hour download token, at most MAX_RETRIES times with backoff. An order that
+// 7-day download token, at most MAX_RETRIES times with backoff. An order that
 // exhausts its retries stays on the /admin red panel and keeps
 // /api/health/delivery at 503 instead of looping. The /admin "Resend delivery
 // email" button calls resendDeliveryEmail() for one order, outside the cap.
@@ -13,7 +13,7 @@
 // The guard that matters: an order with ANY SENT attempt is never sent again. It is
 // enforced twice, in the candidate query and again per order right before sending.
 
-import { createDownloadToken } from './fulfillment';
+import { EMAIL_LINK_TTL_MS, createDownloadToken } from './fulfillment';
 import { productBySku } from './products';
 import { sendDeliveryEmail, type DeliveryEnv } from './delivery-email';
 
@@ -25,7 +25,6 @@ export const BACKOFF_MINUTES = [0, 60, 180, 720, 1440];
 // Leave a just-created order to the webhook that is still sending its first email.
 export const MIN_ORDER_AGE_MINUTES = 15;
 export const DEFAULT_BASE_URL = 'https://weddingchecklistpdf.com';
-const TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
 
 export type RetryEnv = DeliveryEnv & { DOWNLOAD_SIGNING_SECRET?: string; APP_BASE_URL?: string };
 
@@ -87,7 +86,7 @@ async function sendOne(env: RetryEnv, c: RetryCandidate, channel: string, now: n
     console.error(JSON.stringify({ event: 'DELIVERY_EMAIL_FAILED', order_id: c.order_id, status: 'NOT_SENDABLE', error: problem }));
     return { ...base, outcome: 'NOT_SENDABLE', error: problem };
   }
-  const token = createDownloadToken(c.entitlement_id!, now + TOKEN_TTL_MS, secret!);
+  const token = createDownloadToken(c.entitlement_id!, now + EMAIL_LINK_TTL_MS, secret!);
   const url = `${(env.APP_BASE_URL || DEFAULT_BASE_URL).replace(/\/$/, '')}/api/download/${token}`;
   try {
     // sendDeliveryEmail records the attempt row (any outcome) and logs failures.
