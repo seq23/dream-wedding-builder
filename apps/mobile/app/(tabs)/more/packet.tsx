@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Platform, Pressable, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Print from 'expo-print';
-import * as Sharing from 'expo-sharing';
 import { PlannedScreen } from '../../../src/ui';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import { paymentsStore, SAMPLE_PAYMENTS } from '../../../src/payments';
-import { packetHtml, sharePacket, type Paper, type PacketInput, type PacketWeek } from '../../../src/packet';
+import { type Paper, type PacketInput, type PacketWeek } from '../../../src/packet';
+import { preparePacketOutput } from '../../../src/packetOutput';
 import { color, space, type } from '../../../src/theme';
 const preview = process.env.EXPO_PUBLIC_DW_PREVIEW === '1';
 
@@ -18,7 +17,9 @@ export default function Packet() {
   const [error, setError] = useState('');
   async function send() {
     setBusy(true); setError('');
+    let output: ReturnType<typeof preparePacketOutput> | undefined;
     try {
+      output = preparePacketOutput();
       const [date, progress, payments, rawWeek] = await Promise.all([
         savedDate.read(), savedProgress.read(),
         paymentsStore(AsyncStorage, preview ? 'dw.payments.preview.v1' : 'dw.payments.v1').read(),
@@ -27,13 +28,8 @@ export default function Packet() {
       const week: PacketWeek = rawWeek ? JSON.parse(rawWeek) : { who: {}, contacts: [] };
       // The verified purchase door is closed. Only the isolated preview gets fictional data.
       const input: PacketInput = { names, date: date ?? '', progress, payments, week, unlocked: preview, list: preview ? SAMPLE_PAYMENTS : null };
-      if (Platform.OS === 'web') {
-        await Print.printAsync({ html: packetHtml(input, paper) });
-      } else {
-        if (!await Sharing.isAvailableAsync()) throw new Error('Sharing is unavailable on this phone. Try again when sharing is available.');
-        await sharePacket(input, paper, { print: Print.printToFileAsync, share: uri => Sharing.shareAsync(uri, { mimeType: 'application/pdf', UTI: 'com.adobe.pdf', dialogTitle: 'Print or send my plan' }) });
-      }
-    } catch (e) { setError(e instanceof Error ? e.message : 'Could not prepare your plan. Try again.'); }
+      await output.write(input, paper);
+    } catch (e) { output?.cancel(); setError(e instanceof Error ? e.message : 'Could not prepare your plan. Try again.'); }
     finally { setBusy(false); }
   }
   return <PlannedScreen route="/more/packet" implemented>

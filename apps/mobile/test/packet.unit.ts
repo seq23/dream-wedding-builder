@@ -34,3 +34,18 @@ test('both paper sizes create and share the local file; export failure never sha
   await assert.rejects(sharePacket(input(),'Letter',{ print:async()=>({uri:''}),share:async()=>{assert.fail('must not share');} }));
   await assert.rejects(sharePacket(input(),'A4',{ print:async()=>{throw new Error('Disk full');},share:async()=>{assert.fail('must not share');} }),/Disk full/);
 });
+
+test('web printing opens on the gesture, writes the packet before printing, and reports popup blocking', async () => {
+  const { preparePacketOutput } = await import('../src/packetOutput.web');
+  const original = Object.getOwnPropertyDescriptor(globalThis,'window');
+  const calls: string[] = []; let html = '';
+  try {
+    Object.defineProperty(globalThis,'window',{ configurable:true, value: { open: () => { calls.push('open'); return { opener:{}, document:{open(){calls.push('document');},write(value:string){html=value;calls.push('write');},close(){calls.push('ready');}},focus(){calls.push('focus');},print(){calls.push('print');},close(){calls.push('close');} }; } } });
+    const output = preparePacketOutput(); assert.deepEqual(calls,['open']);
+    await output.write(input(),'A4'); assert.deepEqual(calls,['open','document','write','ready','focus','print']);
+    assert.ok(html.includes('Example vendor balance')); assert.ok(html.includes('size: A4'));
+    output.cancel(); assert.equal(calls.at(-1),'close');
+    Object.defineProperty(globalThis,'window',{ configurable:true, value: { open:()=>null } });
+    assert.throws(()=>preparePacketOutput(),/print window/);
+  } finally { if(original) Object.defineProperty(globalThis,'window',original); else Reflect.deleteProperty(globalThis,'window'); }
+});
