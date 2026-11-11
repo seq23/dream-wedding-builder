@@ -1,4 +1,5 @@
-import { PLAN_WINDOWS, buildDatedPlan, type DatedPlan } from '@core/dated-plan';
+import { FULL_PLAN_TEASER } from '@core/full-plan-teaser';
+import { addDays, isoDay, parseDay, PLAN_WINDOWS, buildDatedPlan, type DatedPlan } from '@core/dated-plan';
 import { addCustomTask, emptyProgress, parseProgress, taskKey, type PlanProgress } from '@core/plan-progress';
 
 export function taskRows(progress: PlanProgress) {
@@ -76,4 +77,21 @@ export function completionDay(stamp: string) {
 
 export function initialTaskWindow(requested?: string) {
   return PLAN_WINDOWS.find(w => w.id === requested)?.id ?? PLAN_WINDOWS[0].id;
+}
+
+// Public sample names only; these rows never enter progress or completion totals.
+export function lockedPlanRows(date: string, windowId: string) {
+  const wedding = parseDay(date);
+  if (!wedding) return [];
+  return (FULL_PLAN_TEASER[windowId] ?? []).map(task => ({
+    text: task.text, dueOn: isoDay(addDays(wedding, -task.daysBefore)),
+    href: '/more/full-plan' as const,
+  }));
+}
+export function planOverview(progress: PlanProgress, plan: DatedPlan) {
+  return {
+    next: nextTaskRows(progress),
+    overdue: catchUpRows(progress, plan),
+    nextStartsOn: plan.windows.find(w => w.timing === 'later')?.startsOn ?? null,
+  };
 }
