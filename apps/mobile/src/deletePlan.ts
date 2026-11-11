@@ -1,6 +1,6 @@
 // Explicit content keys: never erase store receipts or paid-event history.
 export const planContentKeys = [
-  'dw.wedding-date.v1', 'dw-plan-progress',
+  'dw.week.v1', 'dw.week.preview.v1', 'dw.wedding-date.v1', 'dw-plan-progress',
   'dw.payments.v1', 'dw.payments.preview.v1', 'dw.reminders.error.v1',
 ];
 
