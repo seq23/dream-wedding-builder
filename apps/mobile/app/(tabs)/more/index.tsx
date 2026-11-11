@@ -1,3 +1,4 @@
+import release from '../../../release/config.json';
 import { useCallback, useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -33,7 +34,7 @@ export default function More() {
   }
   const button = (label: string, action: () => void) => <Pressable accessibilityRole="button" disabled={busy} accessibilityState={{ disabled: busy }} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{label}</Text></Pressable>;
   async function open(path: string) {
-    try { await Linking.openURL(`https://www.weddingchecklistpdf.com/${path}`); }
+    try { await Linking.openURL(path === 'privacy' ? release.privacyUrl : release.termsUrl); }
     catch { setError('Could not open the page. Please try again.'); }
   }
   return <PlannedScreen route="/more" implemented>
