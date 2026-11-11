@@ -499,3 +499,21 @@ Never:
 - Never put a model address or key in the app, and never name a model the server did not name.
 
 Honest limits: 5 seen, 1 read. Only the Le Chat screen shows a real consent step before an AI model, and it is an accept button, not a tick box; no shipped screen with an unticked AI consent box inside a form was found on a free, no-account source. No example shows a review step before a draft is applied, or server messages shown word for word; both come from this plan's rules, not from an example. The email with an optional box is one help-page screenshot of a web checkout, not a phone app. Hitched's box looked ticked in a single capture; it was not clicked to check.
+
+### (g) Wedding-week sheet and (h) hand-over packet: no outside examples needed (coordinator, 11 Nov 2026)
+
+The shipped-examples rule covers the first screen, onboarding, the paywall, the main list and payments.
+Tasks 8b and 8c are neither: one is a second view of lists already patterned, the other is paper. So
+there is no NAMED STOP [PATTERN_NOTES_MISSING] for them. Build them from what is already here:
+- **8b, wedding-week sheet:** the same rows as the plan screen (pattern b), grouped under day headings
+  ("7 days before" down to "Wedding day") instead of windows. Under the tasks, two plain sections:
+  "Who to call" (one row per vendor: name, phone, arrival time, who calls if late; add and edit like a
+  payment row in pattern d) and "Envelopes" (the payment rows due this week, read from Payments, not
+  typed twice). No new tab: it opens from the plan screen and from More.
+- **8c, hand-over packet:** copy the structure of the website's printable packet (the planner's
+  "Print my plan" page on main): names and date on top, tasks by window with a tick box, date, owner
+  and a "Who" blank, then payments, then the wedding-week sheet and contacts. Black on white, no
+  colour blocks, nothing that needs a colour printer. One main button, "Print or send my plan", which
+  opens the phone's share sheet.
+- Never: a new tab, a typed date, a count that is not read from the list the phone holds, or any paid
+  task in the free packet.
