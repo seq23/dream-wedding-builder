@@ -106,5 +106,16 @@ export function downloadStore(storage: DateStorage, transport: typeof fetch = fe
     queue = job.catch(() => {});
     return job;
   }
-  return { read, refresh };
+  // The identity was recorded only after the server door verified the download.
+  // This reads content offline; callers must separately authorize the active event.
+  async function saved(): Promise<DownloadedPlan | null> {
+    const raw = await storage.getItem(DOWNLOAD_CACHE_KEY);
+    if (raw === null) return null;
+    try {
+      const cache = object(JSON.parse(raw));
+      if (cache.version !== 1 || typeof cache.userId !== 'string' || !validId(cache.userId)) throw Error(MESSAGE);
+      return parseContent(cache);
+    } catch { throw Error(MESSAGE); }
+  }
+  return { read, refresh, saved };
 }

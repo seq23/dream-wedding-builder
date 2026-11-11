@@ -5,6 +5,7 @@ import { taskKey } from '@core/plan-progress';
 import { eventStore } from '../billing/eventStore';
 import { downloadStore } from '../billing/downloadStore';
 import { purchases } from '../billing/current';
+import { downloadedOwnerPlan } from '../billing/ownerPlan';
 import { progressStore } from '../planTasks';
 import { sharingDeadline } from './deadline';
 import { shareClient } from './client';
@@ -41,7 +42,7 @@ export function phoneSharing() {
 }
 let access: ReturnType<typeof activeSharing> | undefined;
 export async function activePlan() { return (await sharedAccess()).plan(); }
-export async function sharedAccess() { return access ??= activeSharing(AsyncStorage, await phoneSharing(), events.active); }
+export async function sharedAccess() { return access ??= activeSharing(AsyncStorage, await phoneSharing(), events.active, () => downloadedOwnerPlan(AsyncStorage)); }
 let syncing: Promise<void> | undefined;
 let paused = false;
 export async function pauseSharing() {
