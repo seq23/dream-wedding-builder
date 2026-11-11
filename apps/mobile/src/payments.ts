@@ -40,3 +40,22 @@ export const SAMPLE_PAYMENTS: FullPlanList = { windows: [{ id: 'sample', label: 
   { id: 'sample-a', window: 'sample', text: 'Example vendor deposit', owner: 'Sample vendor A', kind: 'payment', daysBefore: 30 },
   { id: 'sample-b', window: 'sample', text: 'Example vendor balance', owner: 'Sample vendor B', kind: 'payment', daysBefore: 7 }
 ] };
+
+export interface PaymentDraft { context: string | null; editing: Payment | null; amount: string }
+/** A background refresh must not discard unsaved input. A different event or
+ * revoked shared access must discard it so it cannot be saved to another plan. */
+export function refreshPaymentDraft(draft: PaymentDraft, context: string): PaymentDraft {
+  return draft.context === context ? draft : { context, editing: null, amount: '' };
+}
+
+/** Native storage may never settle. Late refresh results cannot replace the
+ * editor after the timeout, and callers can show a way back to the plan. */
+export async function loadPayments<T>(read: () => Promise<T>, timeoutMs = 10000): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      Promise.resolve().then(read),
+      new Promise<never>((_, reject) => { timer = setTimeout(() => reject(Error('PAYMENTS_LOAD_TIMEOUT')), timeoutMs); }),
+    ]);
+  } finally { clearTimeout(timer); }
+}

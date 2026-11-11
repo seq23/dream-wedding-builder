@@ -1,3 +1,4 @@
+import { loadPayments, refreshPaymentDraft } from '../src/payments';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -39,4 +40,31 @@ test('payment schedule uses delivered markers and dates, keeps money local, and 
   assert.deepEqual(paymentRows(SAMPLE_PAYMENTS, '2027-06-12', saved, {}, true).map(r => r.date), ['2027-05-13', '2027-06-05', '2027-06-10']);
   assert.equal(paymentGroup(saved[0], '2027-06-01'), 'Due in the next 30 days');
   assert.equal(paymentGroup(saved[0], '2027-06-11'), 'Past due');
+});
+
+
+test('sharing refresh preserves unsaved payment fields and amount until event or access changes', () => {
+  const editing = { id: 'own:draft', payee: 'Example florist', detail: 'Flowers', date: '2027-06-10', cents: 0, method: 'Transfer' };
+  const draft = { context: 'shared:event-one', editing, amount: '123.45' };
+  const refreshed = refreshPaymentDraft(draft, 'shared:event-one');
+  assert.deepEqual(refreshed.editing, editing);
+  assert.equal(refreshed.amount, '123.45');
+  assert.equal(amountCents(refreshed.amount), 12345);
+  for (const context of ['shared:event-two', 'local']) {
+    assert.deepEqual(refreshPaymentDraft(refreshed, context), { context, editing: null, amount: '' });
+  }
+});
+
+test('payment loading ends failed or stalled refreshes and ignores late storage results', async () => {
+  const state = { own: [], edits: {} };
+  assert.equal(await loadPayments(async () => state), state);
+  await assert.rejects(loadPayments(async () => { throw Error('storage unavailable'); }), /storage unavailable/);
+  let finish!: (value: typeof state) => void;
+  const stalled = new Promise<typeof state>(resolve => { finish = resolve; });
+  let applied = false;
+  const result = loadPayments(() => stalled, 5).then(value => { applied = true; return value; });
+  await assert.rejects(result, /PAYMENTS_LOAD_TIMEOUT/);
+  finish(state);
+  await assert.rejects(result, /PAYMENTS_LOAD_TIMEOUT/);
+  assert.equal(applied, false);
 });
