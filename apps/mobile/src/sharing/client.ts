@@ -2,6 +2,11 @@ import { decryptPlan, encryptPlan, newShareKey, SHARE_ORIGIN, SHARE_UNAVAILABLE,
 
 const MAX_BYTES = 64 * 1024;
 export class ShareConflict extends Error {}
+/** A confirmed missing capability, distinct from a temporary server/network failure.
+ * Keep the public message identical to wrong-key failures. */
+export class ShareMissing extends Error {
+  constructor() { super(SHARE_UNAVAILABLE); }
+}
 export interface SharedRevision { plaintext: string; revision: number }
 /** Ciphertext is not proof of purchase. The join coordinator must keep shared
  * access separate from personal purchases, and revoke it on a missing share. */
@@ -25,6 +30,7 @@ export function shareClient(rng: SecureRandom, transport: typeof fetch = fetch, 
           const url = `${SHARE_ORIGIN}/api/plan-share${id ? `?id=${id}` : ''}`;
           const response = await transport(url, { method, body, headers: { 'content-type': 'application/json' }, signal: controller.signal, redirect: 'error', credentials: 'omit' });
           if (response.status === 409) throw new ShareConflict('Read the latest plan and merge before trying again.');
+          if (response.status === 404 || response.status === 410) throw new ShareMissing();
           if (!response.ok) throw Error(SHARE_UNAVAILABLE);
           let text = ''; let size = 0;
           const decoder = new TextDecoder();
