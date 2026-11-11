@@ -34,6 +34,15 @@ const token = () => createDownloadToken('e1', Date.now() + 60_000, SECRET);
 const sku = (id: string) => productById(id)!.sku;
 
 describe('the full plan a buyer gets', () => {
+  it('keeps personal deadlines stable when their planning window expires', () => {
+    const progress = addCustomTask(emptyProgress(), '12-plus', 'Call our friend', 'friend');
+    const list = { windows: [{ id: '12-plus', label: 'Early planning' }], tasks: [] };
+    const row = (today: string) => fullPlanView(list, '2027-01-20', today, progress).sections[0].tasks[0];
+    expect(row('2026-04-18')).toMatchObject({ date: '2026-04-19', overdue: false });
+    expect(row('2026-04-20')).toMatchObject({ date: '2026-04-19', overdue: true });
+    expect(row('2026-11-10')).toMatchObject({ date: '2026-04-19', overdue: true });
+  });
+
   it('keeps saved personal tasks and their ticks in the displayed and printable sections and totals', () => {
     const list = parseFullPlan(LIST)!;
     const window = PLAN_WINDOWS[0].id;

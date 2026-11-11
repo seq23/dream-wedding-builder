@@ -7,7 +7,7 @@
 // Only its counts are public, so every number on the site comes from the list's real
 // length and is never typed. If the object is missing or unreadable the buyer still
 // gets the zip she always got, and the Worker logs FULL_PLAN_LIST_MISSING.
-import { addDays, buildDatedPlan, isoDay, parseDay } from '@/lib/dated-plan';
+import { addDays, buildDatedPlan, isoDay, monthsBefore, parseDay } from '@/lib/dated-plan';
 import { taskKey, type PlanProgress } from '@/lib/plan-progress';
 
 export const FULL_PLAN_KEY = 'plans/checklist-full-plan-v1.json';
@@ -63,7 +63,10 @@ export function datedFullPlan(list: FullPlanList, weddingDate: string, today: st
 /** The buyer's displayed and printed plan includes the tasks saved in the free planner. */
 export function fullPlanView(list: FullPlanList, weddingDate: string, today: string, progress: PlanProgress) {
   const sections = datedFullPlan(list, weddingDate, today);
-  const windows = buildDatedPlan(weddingDate, today).windows;
+  // Use a reference day before every finite window so expired windows keep
+  // their original end dates instead of disappearing from the display filter.
+  const wedding = parseDay(weddingDate);
+  const windows = wedding ? buildDatedPlan(weddingDate, isoDay(monthsBefore(wedding, 12))).windows : [];
   for (const custom of progress.custom) {
     const window = list.windows.find(w => w.id === custom.windowId);
     if (!window) continue;
