@@ -15,7 +15,7 @@ const config: ExpoConfig = {
     blockedPermissions: ['android.permission.RECORD_AUDIO', 'android.permission.ACCESS_FINE_LOCATION', 'android.permission.READ_CONTACTS'] },
   updates: { enabled: false },
   experiments: { tsconfigPaths: true },
-  plugins: ['expo-router', 'expo-font',
+  plugins: ['expo-router', 'expo-font', 'expo-notifications',
     ['expo-splash-screen', { image: './assets/splash.png', imageWidth: 120, backgroundColor: '#FAF7F2' }]],
 };
 export default config;
