@@ -1,10 +1,25 @@
 import { spawnSync } from 'node:child_process';
-import { writeFileSync, appendFileSync, existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { writeFileSync, appendFileSync, existsSync, renameSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { resolve, join } from 'node:path';
+
+// Cloudflare Pages never uploads a folder named node_modules, and Expo's web export puts every
+// bundled font and picture under assets/node_modules/. On 10 Nov 2026 that left the preview a
+// blank page: the fonts answered with the home page, so the app never drew. Move the folder to
+// assets/nm and point the bundles at it. Returns how many files were rewritten.
+export function moveBundledAssets(directory) {
+  const from = resolve(directory, 'assets', 'node_modules');
+  if (!existsSync(from)) return 0;
+  renameSync(from, resolve(directory, 'assets', 'nm'));
+  let changed = 0;
+  const walk = (dir) => { for (const name of readdirSync(dir)) { const path = join(dir, name); if (statSync(path).isDirectory()) walk(path); else if (/\.(js|html|json|map)$/.test(name)) { const text = readFileSync(path, 'utf8'); if (text.includes('/assets/node_modules/')) { writeFileSync(path, text.replaceAll('/assets/node_modules/', '/assets/nm/')); changed++; } } } };
+  walk(resolve(directory));
+  return changed;
+}
 
 export function publish({ project, branch, directory = 'dist', env = process.env, run = spawnSync }) {
   const stop = () => { throw new Error('NAMED STOP [PREVIEW_HOST_FAILED]'); };
   if (!env.CLOUDFLARE_API_TOKEN || !env.CLOUDFLARE_ACCOUNT_ID || !branch || !existsSync(resolve(directory, 'index.html'))) stop();
+  moveBundledAssets(directory);
   writeFileSync(resolve(directory, '_headers'), '/*\n  X-Robots-Tag: noindex, nofollow, noarchive\n');
   writeFileSync(resolve(directory, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
   const invoke = (args) => run('npx', ['--yes', 'wrangler@4.110.0', 'pages', ...args], { env: { ...env, NO_COLOR: '1' }, encoding: 'utf8', timeout: 120000 });

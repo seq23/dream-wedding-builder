@@ -25,3 +25,10 @@ Screen pattern hold cleared: coordinator PR #138 merged into the scaffold during
 this run; its new APP_PLAN.md is merged into this branch. Pattern notes now exist
 for welcome/date, plan first view, full-plan paywall and Payments.
 Next task remains 5 (tradition packs), alone.
+Review follow-up: the purchased-plan personal-task fix now keeps the original window
+end date after a window expires, for both the screen and print. Regression covers
+before/after expiry and the reported 20 Jan 2027 wedding. Supersedes PR #143.
+Task 4 remains in open PR #139 (including its start-morning reminder regression).
+Next new tasks: Dream Wedding 5; ApprovalPrep 4. Launch stops remain unchanged.
+
+PR #139 refreshed from the scaffold on 10 Nov: status conflict resolved by preserving reminder implementation notes and the purchased-plan regression record. No open dependency remains.
