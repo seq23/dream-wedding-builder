@@ -5,7 +5,7 @@
 // screen reaches the plan in one tap, every sub-screen has Back inside its own tab, every
 // sheet has Close, nothing is orphaned, and the route files match both ways.
 export type Kind = 'onboarding' | 'tab' | 'sub' | 'sheet';
-export type Tab = 'plan' | 'traditions' | 'two-phones' | 'more';
+export type Tab = 'plan' | 'traditions' | 'two-phones' | 'payments' | 'more';
 export interface ScreenSpec {
   route: string; file: string; title: string; kind: Kind;
   /** The tab whose bar stays visible under this screen (not for onboarding). */
@@ -22,9 +22,11 @@ export const TABS: { tab: Tab; route: string; label: string }[] = [
   { tab: 'plan', route: '/plan', label: 'Plan' },
   { tab: 'traditions', route: '/traditions', label: 'Traditions' },
   { tab: 'two-phones', route: '/two-phones', label: 'Two phones' },
+  { tab: 'payments', route: '/payments', label: 'Payments' },
   { tab: 'more', route: '/more', label: '☰ More' },
 ];
 export const SCREENS: ScreenSpec[] = [
+  { route: '/payments', file: 'app/(tabs)/payments/index.tsx', title: 'Payments', kind: 'tab', tab: 'payments', links: [], coming: 'Not in this build yet.' },
   { route: '/welcome', file: 'app/welcome.tsx', title: 'When is the wedding?', kind: 'onboarding',
     links: [{ href: '/reminders', label: 'Make my dated plan ›' }, { href: HOME, label: 'Skip ›' }],
     coming: 'Not in this build yet.' },
