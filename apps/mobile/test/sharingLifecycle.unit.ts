@@ -7,7 +7,7 @@ import { SHARED_PAYMENTS_KEY } from '../src/sharing/active';
 
 test('foreground and reconnect retries run within a minute, never overlap, and stop on unmount', async()=>{
   let calls=0, release=()=>{}, timer=()=>{}, cancelled=false;
-  const lifecycle=sharingLifecycle(async()=>{calls++;await new Promise<void>(r=>{release=r;});},(run,ms)=>{assert.ok(ms<=20000);timer=run;return()=>{cancelled=true;};});
+  const lifecycle=sharingLifecycle(async()=>{calls++;await new Promise<void>(r=>{release=r;});},(run,ms)=>{assert.ok(ms===60000);timer=run;return()=>{cancelled=true;};});
   assert.equal(calls,1);
   timer(); await lifecycle.foreground(); assert.equal(calls,1);
   release(); await Promise.resolve(); await Promise.resolve();

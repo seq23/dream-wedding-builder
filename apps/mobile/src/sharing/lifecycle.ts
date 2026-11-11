@@ -8,7 +8,7 @@ export function sharingLifecycle(sync: () => Promise<void>, interval: (run: () =
     try { await sync(); } catch { /* runtime retains the error for the sharing screen */ }
     finally { running = false; }
   };
-  const cancel = interval(() => { void refresh(); }, 20000);
+  const cancel = interval(() => { void refresh(); }, 60000); // once a minute: each phone's syncs count against the server's shared daily limit
   void refresh();
   return { foreground: refresh, stop() { stopped = true; cancel(); } };
 }

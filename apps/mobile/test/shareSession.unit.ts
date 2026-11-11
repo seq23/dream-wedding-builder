@@ -237,7 +237,7 @@ test('active shared access drives full list, payments, packet and week, then res
   assert.equal(partner.data.get('dw-plan-progress'),'personal ticks');
 });
 
-test('only the owner updates event metadata and every recorded event can be backed up without granting the partner a purchase', async()=>{
+test('only the owner updates event metadata and only the shared event's unlock record is backed up without granting the partner a purchase', async()=>{
   const s=server(), owner=phone(), partner=phone();
   const history={firstEventId:'event-1',extras:[],events:[{...fixture().event,fullPlan:true,dateChanges:0},{id:'event-2',name:'Fictional second robot event',date:'2029-06-12',fullPlan:true,dateChanges:1}]};
   const a=sharingSession(owner.storage,s.client,'a'.repeat(32),async()=>({...fixture(),history}));
@@ -246,7 +246,7 @@ test('only the owner updates event metadata and every recorded event can be back
   await assert.rejects(b.updateOwnerEvent({...fixture().event,date:'2028-06-13'}));
   await a.updateOwnerEvent({...fixture().event,date:'2028-06-13'}); await a.sync(); await b.sync();
   assert.equal((await b.read())?.plan.event.date,'2028-06-13');
-  assert.equal((await b.read())?.plan.history?.events.length,2);
+  assert.deepEqual((await b.read())?.plan.history?.events.map(e=>e.id),['event-1']); // her other events never reach the partner
   assert.equal(partner.data.get('dw.billing.events.v1'),'personal purchase history');
 });
 

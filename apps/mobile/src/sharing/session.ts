@@ -65,7 +65,7 @@ export function sharedPlan(value: unknown): SharedPlan {
   }
   const ticks = mergeTicks({}, record(raw.ticks) as SharedTicks);
   if (Object.keys(ticks).some(key => !keys.has(key))) throw Error(SHARE_UNAVAILABLE);
-  return { event: { id: event.id, name: event.name, date: event.date }, list, ticks, joined: raw.joined, ...(raw.custom !== undefined ? { custom } : {}), ...(packs ? { packs } : {}), ...(raw.history !== undefined ? { history: (() => { const h = parseLedger(JSON.stringify(raw.history)); return { firstEventId: h.firstEventId, extras: h.extras, events: h.events.map(e => ({ id:e.id,name:e.name,date:e.date,dateChanges:e.dateChanges,fullPlan:e.fullPlan })) }; })() } : {}) };
+  return { event: { id: event.id, name: event.name, date: event.date }, list, ticks, joined: raw.joined, ...(raw.custom !== undefined ? { custom } : {}), ...(packs ? { packs } : {}), ...(raw.history !== undefined ? { history: (() => { const h = parseLedger(JSON.stringify(raw.history)); /* Only this event's unlock record travels (plan: 'inside the event's private shared-plan backup'). Her other events and per-person extras stay on her phone. */ return { firstEventId: h.firstEventId === event.id ? h.firstEventId : null, extras: [], events: h.events.filter(e => e.id === event.id).map(e => ({ id:e.id,name:e.name,date:e.date,dateChanges:e.dateChanges,fullPlan:e.fullPlan })) }; })() } : {}) };
 }
 export function sharedProgress(plan: SharedPlan): PlanProgress {
   const progress = emptyProgress();
