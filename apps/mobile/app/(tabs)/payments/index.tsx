@@ -6,6 +6,7 @@ import { localToday } from '@core/dated-plan';
 import { FULL_PLAN_TEASER } from '@core/full-plan-teaser';
 import { datedFullPlan } from '@core/full-plan';
 import { PlannedScreen, GoButton } from '../../../src/ui';
+import { WeddingDatePicker } from '../../../src/WeddingDatePicker';
 import { savedDate } from '../../../src/savedDate';
 import { color, type, space } from '../../../src/theme';
 import { amountCents, paymentRows, paymentSummary, paymentGroup, paymentsStore, validatePayment, SAMPLE_PAYMENTS, type Payment, type PaymentState } from '../../../src/payments';
@@ -53,7 +54,7 @@ export default function Payments() {
         {field('Who is paid',editing.payee,v=>setEditing({...editing,payee:v}))}
         {!editing.id.startsWith('task:') ? field('What the payment is for',editing.detail,v=>setEditing({...editing,detail:v})) : null}
         {field('Amount in USD',amount,setAmount)}
-        {!editing.id.startsWith('task:') ? field('Due date YYYY-MM-DD',editing.date,v=>setEditing({...editing,date:v})) : null}
+        {!editing.id.startsWith('task:') ? <WeddingDatePicker label="Payment due date" value={editing.date} onChange={v=>setEditing({...editing,date:v})} /> : null}
         {field('How it is paid',editing.method,v=>setEditing({...editing,method:v}))}
         {button('Save payment',()=>{try {void save({...editing,cents:amountCents(amount)});} catch(e) {setError((e as Error).message);}})}
         {button('Cancel',()=>setEditing(null))}
