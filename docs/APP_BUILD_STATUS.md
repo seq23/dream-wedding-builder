@@ -21,3 +21,7 @@ Preview fixes: web is centred at 430 px; welcome has one question, a native/web 
 picker, one filled save button and small secondary links. The next card fills three
 unfinished slots; completion labels show the day only. Based on the fresh scaffold,
 without the open task-4 branch (#139). Next new task remains 5.
+
+Preview follow-up: unfinished screens show plain customer text, guarded against builder
+notes. No Appetize use. Next new task: 5 (tradition packs, alone).
+New personal tasks now start in the window selected on the plan.

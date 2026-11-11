@@ -27,7 +27,6 @@ export function PlannedScreen({ route, children, implemented = false }: { route:
       ) : null}
       {onboarding && !implemented ? <Text accessibilityRole="header" style={[type.title, { color: color.midnight }]}>{s.title}</Text> : null}
       {!implemented ? <View style={{ backgroundColor: color.ivoryRaised, borderColor: color.rule, borderWidth: 1, borderRadius: radius.md, padding: space[4] }}>
-        <Text style={[type.label, { color: color.midnightMuted, marginBottom: space[2] }]}>Coming next</Text>
         <Text style={[type.body, { color: color.midnight }]}>{s.coming}</Text>
       </View> : null}
       {children}

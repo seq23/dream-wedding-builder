@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Pressable, Text, TextInput } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { PLAN_WINDOWS } from '@core/dated-plan';
-import { addOwnTask, editOwnTask, removeCustomTask } from '../../../src/planTasks';
+import { addOwnTask, editOwnTask, removeCustomTask, initialTaskWindow } from '../../../src/planTasks';
 import { savedProgress } from '../../../src/savedProgress';
 import { PlannedScreen } from '../../../src/ui';
 import { color, space, type } from '../../../src/theme';
 export default function AddTask() {
-  const { id } = useLocalSearchParams<{ id?: string }>();
+  const { id, window: requestedWindow } = useLocalSearchParams<{ id?: string; window?: string }>();
   const [text, setText] = useState('');
-  const [windowId, setWindow] = useState(PLAN_WINDOWS[0].id);
+  const [windowId, setWindow] = useState(() => initialTaskWindow(requestedWindow));
   const [ready, setReady] = useState(!id);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');

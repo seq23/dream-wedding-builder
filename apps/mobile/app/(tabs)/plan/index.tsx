@@ -52,7 +52,7 @@ export default function Plan() {
       </ScrollView>
       {plan.windows.filter(w => w.id === windowId).map(w => <Text key={w.id} style={type.sub}>{plainDate(w.startsOn)} – {plainDate(w.endsOn)}</Text>)}
       {rows.filter(r => r.windowId === windowId).map(row)}
-      <GoButton href="/plan/add-task" label="+ Add your own task" primary />
+      <GoButton href={`/plan/add-task?window=${windowId}`} label="+ Add your own task" primary />
       <GoButton href="/plan/ai-draft" label="Draft my plan from a sentence ›" />
     </>}
   </PlannedScreen>;
