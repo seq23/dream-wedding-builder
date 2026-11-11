@@ -14,7 +14,8 @@ export const PRODUCTS: Record<ProductId, { priceUsd: number; grants: Entitlement
 };
 
 /** In display order: the first one is the better-value choice. */
-export function offersFor(owned: Iterable<Entitlement>): ProductId[] {
+export function offersFor(owned: Iterable<Entitlement>, newPaidEvent = false): ProductId[] {
+  if (newPaidEvent) return ['dw_new_event'];
   const has = new Set(owned);
   // The printables already hold the timeline pages the Day-of kit sells.
   if (has.has('printables')) return [];
