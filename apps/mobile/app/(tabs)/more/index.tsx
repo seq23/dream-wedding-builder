@@ -10,6 +10,7 @@ import { GoButton, PlannedScreen } from '../../../src/ui';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import { reminderChoice, stopPlanReminders } from '../../../src/localReminders';
+import { phoneArchives } from '../../../src/billing/archiveFiles';
 import { deleteLocalPlan } from '../../../src/deletePlan';
 import { eventStore } from '../../../src/billing/eventStore';
 import type { PaidEvent } from '../../../src/billing/events';
@@ -50,7 +51,7 @@ export default function More() {
     let resume: (() => void) | undefined;
     try {
       resume = await pauseSharing();
-      await deleteLocalPlan(AsyncStorage, stopPlanReminders, savedProgress.drain);
+      await deleteLocalPlan(AsyncStorage, stopPlanReminders, savedProgress.drain, () => phoneArchives.clear());
       router.replace('/welcome');
     } catch { setError('Deletion could not finish. Please try again.'); }
     finally { resume?.(); setBusy(false); }
@@ -80,7 +81,7 @@ export default function More() {
       {button('Terms ›', () => { void open('terms'); })}
       {confirm ? <View style={{ gap: space[3], borderWidth: 1, borderColor: color.rule, padding: space[4] }}>
         <Text accessibilityRole="header" style={type.section}>Delete this plan from this phone?</Text>
-        <Text style={type.body}>This removes the date, task ticks, your own tasks, tradition tasks saved payments, planning details and saved AI signup and marketing choices from this phone, and turns off its reminders. It cannot be undone. Purchases are kept. Copies on other phones and signups already sent to the website stay there.</Text>
+        <Text style={type.body}>This removes the date, task ticks, your own tasks, tradition tasks, saved payments, downloaded files, planning details and saved AI signup and marketing choices from this phone, and turns off its reminders. It cannot be undone. Purchases are kept. Copies on other phones and signups already sent to the website stay there.</Text>
         {button('Keep my plan', () => setConfirm(false))}
         {button('Yes, delete from this phone', () => { void remove(); })}
       </View> : button('Delete my plan from this phone', () => setConfirm(true))}

@@ -62,7 +62,9 @@ export default function FullPlan() {
         await phoneCheckout.purchase(name, date, selected);
       }
       sharingChanged();
-      setLocked(true); setMessage('Your full plan is saved on this phone.');
+      setLocked(true);
+      const downloaded = await checkoutRead(() => downloadStore(AsyncStorage).saved());
+      setMessage(downloaded?.warning ?? 'Your full plan is saved on this phone.');
       const [event, ledger] = await checkoutRead(() => Promise.all([eventStore(AsyncStorage).active(), eventStore(AsyncStorage).read()]));
       if (event) setName(event.name);
       setOffers(offersFor(entitlementsFor(ledger, event?.id ?? '')));

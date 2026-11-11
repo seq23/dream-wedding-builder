@@ -84,9 +84,10 @@ test('checkout verifies before binding; Restore preserves all recorded events; r
   assert.equal(slow.data.size, 0); assert.deepEqual(slow.calls, []);
 });
 
-test('bundle and owner extras require verified files; Restore recovers all grants without trusting the SDK', async () => {
+test('bundle and owner extras grant only verified files; incomplete extras keep the full plan and Restore recovers grants', async () => {
   const s = setup();
-  const archives = { printables: 'verified-printables', 'day-of-kit': 'verified-kit' };
+  const record = (id: 'printables' | 'day-of-kit') => ({ id, byteLength: 22, sha256: 'a'.repeat(64) });
+  const archives = { printables: record('printables'), 'day-of-kit': record('day-of-kit') };
   const delivered = { async refresh() { return { list: { windows: [], tasks: [] }, packs: [], archives }; } };
   const flow = checkout(s.storage, s.provider, delivered, () => 'bundle');
   await flow.purchase('Our wedding', '2027-06-12', 'dw_planner_printables');
@@ -111,9 +112,9 @@ test('bundle and owner extras require verified files; Restore recovers all grant
     owner.data.set(EVENT_LEDGER_KEY, JSON.stringify(history));
     owner.data.set(ACTIVE_EVENT_KEY, 'second');
     owner.provider.purchase = async id => { owner.calls.push(id); return { userId: 'identity', active: ['full_plan', 'printables', 'day_of_kit'] }; };
-    await assert.rejects(basic.purchase('Ignored', '2028-06-12', product), /files could not be confirmed/);
+    await basic.purchase('Ignored', '2028-06-12', product);
     assert.deepEqual(await eventStore(owner.storage).read(), history);
-    const extra = product === 'dw_printables_topup' ? { printables: 'verified' } : { 'day-of-kit': 'verified' };
+    const extra = product === 'dw_printables_topup' ? { printables: record('printables') } : { 'day-of-kit': record('day-of-kit') };
     const extras = checkout(owner.storage, owner.provider, { async refresh() { return { list: { windows: [], tasks: [] }, packs: [], archives: extra }; } }, () => assert.fail('extras must not create an event'));
     await extras.purchase('Ignored', '2028-06-12', product);
     const updated = await eventStore(owner.storage).read();
@@ -125,6 +126,6 @@ test('bundle and owner extras require verified files; Restore recovers all grant
   }
   const refused = setup();
   refused.provider.purchase = async () => ({ userId: 'forged', active: ['full_plan', 'printables', 'day_of_kit'] });
-  await assert.rejects(checkout(refused.storage, refused.provider, refused.downloads, () => 'refused').purchase('Our event', '2027-06-12', 'dw_planner_printables'), /files could not be confirmed/);
-  assert.equal(refused.data.size, 0);
+  await checkout(refused.storage, refused.provider, refused.downloads, () => 'refused').purchase('Our event', '2027-06-12', 'dw_planner_printables');
+  assert.deepEqual(entitlementsFor(await eventStore(refused.storage).read(), 'refused'), ['full_plan']);
 });

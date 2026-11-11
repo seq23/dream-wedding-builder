@@ -26,7 +26,7 @@ export async function checkoutRead<T>(read: () => Promise<T>, ms = 10000): Promi
   } finally { clearTimeout(timer); }
 }
 
-type CheckoutContent = DownloadedPlan & { archives?: Partial<Record<'printables' | 'day-of-kit', string>> };
+type CheckoutContent = DownloadedPlan;
 /** SDK claims never authorize an event or an extra: only delivered server assets
  * do. Consumable event bindings remain a separate gate. */
 export function checkout(storage: DateStorage, provider: PurchasesProvider,
@@ -59,15 +59,11 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
           event = next.events[next.events.length - 1];
         }
         const snapshot = await (mode === 'purchase' ? provider.purchase(product) : provider.restore()); check();
-        // refresh checks the server, downloads every full-plan asset, and commits
-        // the cache only after all succeed. snapshot.active is deliberately ignored.
+        // refresh verifies the full plan and keeps it if an optional archive fails.
+        // Only successfully saved files grant extras; snapshot.active is ignored.
         const content = await downloads.refresh(snapshot.userId); check();
         const printables = !!content.archives?.printables;
         const kit = !!content.archives?.['day-of-kit'];
-        if (mode === 'purchase' && (((product === 'dw_planner_printables' || product === 'dw_printables_topup') && !printables)
-          || ((product === 'dw_planner_printables' || product === 'dw_day_of_kit') && !kit))) {
-          throw Error('Your purchased files could not be confirmed. Restore your purchase and try again.');
-        }
         // A store sheet can remain open while the app changes elsewhere. Re-read
         // after verification so Restore cannot overwrite date moves or other events.
         const current = await eventStore(storage).read(); check();
