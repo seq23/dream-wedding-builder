@@ -71,3 +71,13 @@ test('phone source contains no direct model endpoints or provider credentials', 
   await scan('src'); await scan('app');
   assert.ok(count > 0);
 });
+
+test('review accepts actual API fields, drops invented tasks and saves only selected details', async () => {
+  const { reviewFields, detailStore } = await import('../src/draftReview');
+  const reviewed = reviewFields({ weddingDate: '2027-06-12', guestCount: '80', priorities: ['Food', 'Music'], tasks: [{ text: 'invented' }] });
+  assert.deepEqual(reviewed, { weddingDate: '2027-06-12', guestCount: '80', priorities: 'Food, Music' });
+  const h = harness([]);
+  const store = detailStore(h.storage);
+  await store.save({ guestCount: reviewed.guestCount });
+  assert.deepEqual(await store.read(), { guestCount: '80' });
+});
