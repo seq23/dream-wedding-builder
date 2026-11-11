@@ -5,6 +5,16 @@ import { STORE_STOP } from './provider';
 import type { downloadStore } from './downloadStore';
 import type { DateStorage } from '../weddingDate';
 
+/** Catalog availability affects buying only; Restore verifies independently. */
+export async function checkoutCatalog(provider: PurchasesProvider, offering: string, ms = 10000) {
+  try {
+    const products = provider.available ? await checkoutRead(() => provider.products(offering), ms) : [];
+    return { products, error: '' };
+  } catch {
+    return { products: [], error: 'Could not load store prices. You can still restore your purchase.' };
+  }
+}
+
 /** Read-only native storage calls also need an end on a stalled device. */
 export async function checkoutRead<T>(read: () => Promise<T>, ms = 10000): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;

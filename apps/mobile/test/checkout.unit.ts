@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { checkout, checkoutRead } from '../src/billing/checkout';
+import { checkout, checkoutRead, checkoutCatalog } from '../src/billing/checkout';
 import { DisabledPurchases, type PurchasesProvider } from '../src/billing/provider';
 import { ACTIVE_EVENT_KEY, EVENT_LEDGER_KEY, eventStore } from '../src/billing/eventStore';
 import { addEvent, recordVerifiedPurchase, entitlementsFor } from '../src/billing/events';
@@ -13,6 +13,27 @@ function setup() {
   const downloads = { async refresh(id: string) { calls.push(id); return { list: { windows: [], tasks: [] }, packs: [] }; } };
   return { data, calls, storage, provider, downloads };
 }
+test('rejected and stalled catalogs end without blocking verified Restore', async () => {
+  for (const stalled of [false, true]) {
+    const s = setup();
+    let finish!: (value: []) => void;
+    s.provider.products = async () => {
+      if (stalled) return new Promise<[]>(resolve => { finish = resolve; });
+      throw Error('store unavailable');
+    };
+    const catalog = await checkoutCatalog(s.provider, 'default', 5);
+    assert.deepEqual(catalog.products, []);
+    assert.ok(catalog.error);
+    await checkout(s.storage, s.provider, s.downloads, () => 'restored').restore('Our event', '2027-06-12');
+    assert.equal((await eventStore(s.storage).active())?.fullPlan, true);
+    assert.deepEqual(s.calls, ['restore', 'identity']);
+    if (stalled) finish([]);
+    assert.deepEqual(catalog.products, []);
+  }
+  const s = setup();
+  s.provider.products = async () => [{ id: 'dw_full_plan', price: '$1.00' }];
+  assert.equal((await checkoutCatalog(s.provider, 'default')).products[0].id, 'dw_full_plan');
+});
 test('checkout verifies before binding; Restore preserves all recorded events; refusal and late SDK results never unlock', async () => {
   await assert.rejects(checkoutRead(() => new Promise(() => {}), 10), /too long/);
   const s = setup(), flow = checkout(s.storage, s.provider, s.downloads, () => 'first');
