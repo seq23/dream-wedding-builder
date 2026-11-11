@@ -51,7 +51,7 @@ export default function More() {
       {button('Terms ›', () => { void open('terms'); })}
       {confirm ? <View style={{ gap: space[3], borderWidth: 1, borderColor: color.rule, padding: space[4] }}>
         <Text accessibilityRole="header" style={type.section}>Delete this plan from this phone?</Text>
-        <Text style={type.body}>This removes the date, task ticks, your own tasks, tradition tasks and saved payments from this phone, and turns off its reminders. It cannot be undone. Purchases are kept. Copies on other phones stay there.</Text>
+        <Text style={type.body}>This removes the date, task ticks, your own tasks, tradition tasks saved payments, planning details and saved AI signup and marketing choices from this phone, and turns off its reminders. It cannot be undone. Purchases are kept. Copies on other phones and signups already sent to the website stay there.</Text>
         {button('Keep my plan', () => setConfirm(false))}
         {button('Yes, delete from this phone', () => { void remove(); })}
       </View> : button('Delete my plan from this phone', () => setConfirm(true))}
