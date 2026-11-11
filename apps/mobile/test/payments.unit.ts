@@ -1,4 +1,4 @@
-import { refreshPaymentDraft } from '../src/payments';
+import { loadPayments, refreshPaymentDraft } from '../src/payments';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -53,4 +53,18 @@ test('sharing refresh preserves unsaved payment fields and amount until event or
   for (const context of ['shared:event-two', 'local']) {
     assert.deepEqual(refreshPaymentDraft(refreshed, context), { context, editing: null, amount: '' });
   }
+});
+
+test('payment loading ends failed or stalled refreshes and ignores late storage results', async () => {
+  const state = { own: [], edits: {} };
+  assert.equal(await loadPayments(async () => state), state);
+  await assert.rejects(loadPayments(async () => { throw Error('storage unavailable'); }), /storage unavailable/);
+  let finish!: (value: typeof state) => void;
+  const stalled = new Promise<typeof state>(resolve => { finish = resolve; });
+  let applied = false;
+  const result = loadPayments(() => stalled, 5).then(value => { applied = true; return value; });
+  await assert.rejects(result, /PAYMENTS_LOAD_TIMEOUT/);
+  finish(state);
+  await assert.rejects(result, /PAYMENTS_LOAD_TIMEOUT/);
+  assert.equal(applied, false);
 });

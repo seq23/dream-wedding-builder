@@ -16,7 +16,7 @@ import { PlannedScreen, GoButton } from '../../../src/ui';
 import { WeddingDatePicker } from '../../../src/WeddingDatePicker';
 import { savedDate } from '../../../src/savedDate';
 import { color, type, space } from '../../../src/theme';
-import { refreshPaymentDraft, type PaymentDraft, amountCents, paymentRows, paymentSummary, paymentGroup, paymentsStore, validatePayment, SAMPLE_PAYMENTS, type Payment, type PaymentState } from '../../../src/payments';
+import { loadPayments, refreshPaymentDraft, type PaymentDraft, amountCents, paymentRows, paymentSummary, paymentGroup, paymentsStore, validatePayment, SAMPLE_PAYMENTS, type Payment, type PaymentState } from '../../../src/payments';
 const preview = process.env.EXPO_PUBLIC_DW_PREVIEW === '1';
 const store = paymentsStore(AsyncStorage, preview ? 'dw.payments.preview.v1' : 'dw.payments.v1');
 const money = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n/100);
@@ -32,7 +32,26 @@ export default function Payments() {
   const setEditing = (editing: Payment | null) => setDraft(current => ({ ...current, editing }));
   const setAmount = (amount: string) => setDraft(current => ({ ...current, amount }));
   const [error,setError] = useState('');
-  useFocusEffect(useCallback(() => { let active=true; setReady(false); Promise.all([savedDate.read(),activePlan(),savedProgress.read()]).then(async ([d,plan,progress]) => { const s = plan ? await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,plan.event.id,()=>({own:[],edits:{}} as PaymentState)).read() : await store.read(); return [d,s,plan,progress] as const; }).then(([d,s,plan,progress]) => { if(active) {setDraft(current => refreshPaymentDraft(current, plan ? `shared:${plan.event.id}` : 'local'));setShared(plan);setDate(d);setState(s);setDone(progress.done);setReady(true);} }).catch(() => { if(active) setError('Could not load payments. Reopen this tab to try again.'); }); return () => {active=false;}; },[sharingRevision]));
+  const [loadFailed,setLoadFailed] = useState(false);
+  useFocusEffect(useCallback(() => {
+    let active = true;
+    setReady(false); setLoadFailed(false); setError('');
+    loadPayments(async () => {
+      const [d,plan,progress] = await Promise.all([savedDate.read(),activePlan(),savedProgress.read()]);
+      const s = plan
+        ? await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,plan.event.id,()=>({own:[],edits:{}} as PaymentState)).read()
+        : await store.read();
+      return { d,plan,progress,s };
+    }).then(({d,plan,progress,s}) => {
+      if (active) {
+        setDraft(current => refreshPaymentDraft(current, plan ? `shared:${plan.event.id}` : 'local'));
+        setShared(plan); setDate(d); setState(s); setDone(progress.done); setReady(true);
+      }
+    }).catch(() => {
+      if (active) { setLoadFailed(true); setError('Could not load payments. Reopen this tab to try again.'); }
+    });
+    return () => { active = false; };
+  },[sharingRevision]));
   // Purchase delivery remains closed. Preview data is isolated from real records.
   const rows = paymentRows(shared?.list ?? (preview ? SAMPLE_PAYMENTS : null), date ?? '', state.own, state.edits, !!shared || preview).map(row => { const task = shared?.list.tasks.find(t => row.id === `task:${t.id}`); return task ? { ...row, paidOn: done[taskKey(task.window,task.text)]?.slice(0,10) } : row; });
   const summary = paymentSummary(rows); const today = localToday();
@@ -56,7 +75,7 @@ export default function Payments() {
   const locked = datedFullPlan({ windows:[{id:'locked',label:'Payments'}], tasks:[FULL_PLAN_TEASER['12-plus'][1],FULL_PLAN_TEASER['3-months'][1]].map((t,i)=>({...t,id:String(i),window:'locked',owner:'',kind:'payment' as const})) },date ?? '',today).flatMap(s=>s.tasks);
   return <PlannedScreen route="/payments" implemented>
     {error ? <Text accessibilityRole="alert" style={[type.body,{color:color.redPen}]}>{error}</Text> : null}
-    {!ready ? <Text style={type.body}>Loading payments…</Text> : !date ? <GoButton href="/welcome" label="Set your wedding date ›" /> : !preview && !shared ? <>
+    {loadFailed ? <GoButton href="/plan" label="Back to my plan ›" /> : !ready ? <Text style={type.body}>Loading payments…</Text> : !date ? <GoButton href="/welcome" label="Set your wedding date ›" /> : !preview && !shared ? <>
       <Text style={type.title}>Your payment schedule</Text><Text style={type.body}>The full plan adds dated payments, your own payments, and a running total still owed.</Text>
       {locked.map(r=><Text key={r.id} style={type.body}>🔒 {r.text} · {r.date}</Text>)}
       <GoButton href="/more/full-plan" label="See the full plan ›" />
