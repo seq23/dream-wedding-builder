@@ -1,10 +1,12 @@
 # App build queue — 10 Nov 2026
 
-Task 1 PR prepared against the scaffold branch; coordinator reviews and merges.
-Next task: 2, after task 1 lands. Tasks are grouped into PRs by risk (owner, 10 Nov 2026 evening); see the queue brief. Task 1a (a hosted preview link) comes before task 2; tasks 8a to 8c (payments, wedding week, packet) were added to the plan on 10 Nov.
+Task 1 is merged. Task 2 is implemented in open PR #134 and included as a dependency here.
+Task 1a publishes the web export to the free Cloudflare Pages preview project, with a
+noindex header and a link in the CI summary and PR. Missing credentials, refused deploys
+and missing URLs fail with NAMED STOP [PREVIEW_HOST_FAILED]. No Appetize use.
 
-Preview: CI exports the app for the web and puts a free download shortcut in its
-run summary. Download, unzip and serve with `python3 -m http.server 8080`.
-No Appetize uploads or minutes. This is a downloadable preview, not hosted hosting.
+Task 3 is implemented: the preview-only welcome shortcut saves the sample date, two ticks and one own task. Next task: 4 (reminders), alone. Tasks 8a to 8c (payments, wedding week, packet) are in the fresh plan.
+Coordinator reviews and lands the PRs; agents never merge.
 
-NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 (store files) and 12 (website line) wait for the owner's launch plan after 13 Nov. Release gates remain in scope.
+NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 (store files) and 12 (website line)
+wait for the owner's launch plan after 13 Nov. Release gates remain in scope.
