@@ -21,7 +21,7 @@ no preview flag grants paid access and no notification permission is requested f
 Native delivery still needs a device check; no Appetize minutes were used.
 Next task: 5 (tradition packs), alone.
 
-NAMED STOP [PATTERN_NOTES_MISSING] welcome/date, plan first view, full-plan paywall,
-Payments. No Screen patterns section exists in the current scaffold plan. Existing
-first views were not redesigned; task 4 adds scheduler plumbing and reminder settings.
-Tasks 8 and 8a wait for their pattern notes.
+Screen pattern hold cleared: coordinator PR #138 merged into the scaffold during
+this run; its new APP_PLAN.md is merged into this branch. Pattern notes now exist
+for welcome/date, plan first view, full-plan paywall and Payments.
+Next task remains 5 (tradition packs), alone.
