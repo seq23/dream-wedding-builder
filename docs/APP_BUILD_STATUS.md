@@ -2,7 +2,10 @@
 
 Task 1 is merged into the scaffold branch.
 Task 2 is implemented in open PR #134, awaiting coordinator review.
-Task 1a is implemented here; next task: 3.
+Task 1a hosted preview passed in CI (run 42943643528).
+Task-2 review repair: custom tasks use stable ids for completion; duplicate text
+cannot steal or erase another task’s tick. Legacy preview ticks migrate once.
+Next task: 3 (welcome screen needs the missing pattern notes).
 Tasks 8a to 8c were added to the plan on 10 Nov.
 
 Task 1a: CI publishes the web export to the app's separate free Cloudflare Pages
