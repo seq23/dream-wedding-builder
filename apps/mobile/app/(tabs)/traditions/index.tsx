@@ -6,21 +6,24 @@ import { emptyProgress, type PlanProgress } from '@core/plan-progress';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { savedProgress } from '../../../src/savedProgress';
 import { TRADITION_PREVIEWS, addTraditionExample, hasTraditionPack, removeTraditionPack, restoreTraditionTasks } from '../../../src/traditionPacks';
+import { purchases } from '../../../src/billing/current';
+import { loadTraditions } from '../../../src/traditionView';
 import { color, radius, space, type } from '../../../src/theme';
 
 export default function Traditions() {
   const [progress, setProgress] = useState<PlanProgress>(emptyProgress);
   const [selected, setSelected] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [confirm, setConfirm] = useState(false);
   const [removed, setRemoved] = useState<PlanProgress['custom'] | null>(null);
   useFocusEffect(useCallback(() => {
     let active = true;
-    setReady(false);
-    savedProgress.read().then(p => { if (active) { setProgress(p); setReady(true); setError(''); } })
-      .catch(() => { if (active) setError('Could not read your plan. Reopen Traditions to try again.'); });
+    setReady(false); setLoadFailed(false);
+    loadTraditions(savedProgress.read).then(p => { if (active) { setProgress(p); setReady(true); setError(''); } })
+      .catch(() => { if (active) { setLoadFailed(true); setReady(true); setError('Could not read your plan. Return to your plan and try again.'); } });
     return () => { active = false; };
   }, []));
   const pack = TRADITION_PREVIEWS.find(p => p.id === selected);
@@ -48,7 +51,7 @@ export default function Traditions() {
   </Pressable>;
   return <PlannedScreen route="/traditions" implemented>
     {error ? <Text accessibilityRole="alert" style={type.body}>{error}</Text> : null}
-    {!ready ? <Text style={type.body}>Opening your traditions…</Text> : pack ? <>
+    {loadFailed ? <GoButton href="/plan" label="Back to my plan ›" /> : !ready ? <Text style={type.body}>Opening your traditions…</Text> : pack ? <>
       {button('← Back to traditions', () => { setSelected(null); setConfirm(false); setRemoved(null); })}
       <Text accessibilityRole="header" style={type.title}>{pack.name}</Text>
       <Text style={type.body}>Use this optional starting point to discuss the traditions you want to include.</Text>
@@ -60,7 +63,7 @@ export default function Traditions() {
       </View>
       <Text style={type.body}>The rest of this pack comes with the full plan. Purchases are not set up yet.</Text>
       {button(added ? 'Added' : 'Add free example to my plan', () => { void change('add'); }, !added, added)}
-      {added ? <GoButton href="/plan" label="See tasks in my plan ›" /> : <GoButton href="/more/full-plan" label="See the full plan ›" />}
+      {added ? <GoButton href="/plan" label="See tasks in my plan ›" /> : purchases.available ? <GoButton href="/more/full-plan" label="See the full plan ›" /> : null}
       {added && !confirm ? button('Remove this pack', () => setConfirm(true)) : null}
       {confirm ? <View style={{ gap: space[2] }}>
         <Text style={type.body}>Remove this pack? Tasks you have ticked or edited stay in your plan. Untouched tasks are removed.</Text>
