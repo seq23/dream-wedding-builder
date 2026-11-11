@@ -1029,6 +1029,71 @@
         "b5 FAQ answer is 37 words (aim 40-60): \"What is the alternative to hiring a full-service p\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"How early should I start planning independently?\"",
         "b5 FAQ answer is 34 words (aim 40-60): \"Where can I find a reliable task list for independ\""
+      ],
+      "indexnow_at": "2026-11-11"
+    },
+    {
+      "slug": "beach-wedding-checklist-pdf",
+      "query": "beach wedding checklist pdf",
+      "lane": "can_be_one",
+      "score": 22.4,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 22.4
+      },
+      "reasons": [
+        "weak top 10 (0.31): 0 directories, 0 forums, 0 off-target national, 3 thin or old, 0 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.31,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 3,
+            "exact_answer": 0
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 3 thin or old, 0 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/beach-wedding-checklist-pdf.html",
+      "route": "/questions/beach-wedding-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/beach-wedding-checklist-pdf",
+      "published_at": "2026-11-11",
+      "status": "live",
+      "hash": "a5a28f4efd7c1fa13a21cb560ba17cdfdfbda406e083200a0005e6692183861a",
+      "model": "free-route",
+      "facts": [
+        "https://www.noaa.gov/",
+        "https://www.nps.gov/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+          "route": "/public/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+          "before_hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d",
+          "after_hash": "d112de08ece2a798677a48283d2d7db487e7a9db1f1da22725816f4e3b2064a1"
+        },
+        {
+          "rel": "public/questions/is-a-wedding-planner-worth-it.html",
+          "route": "/public/questions/is-a-wedding-planner-worth-it",
+          "before_hash": "dcc5cc9695b9c9757027e7076b987feeffbd5b725557430fb512f3a4dcf2a702",
+          "after_hash": "a11cc405e2c3a41d638a0fdefaeb890166472522fc33e36d55c2e979cb8ea8c5"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b1 title does not put the search first",
+        "b5 FAQ answer is 39 words (aim 40-60): \"How do I keep guests cool during an outdoor beach \""
       ]
     }
   ],
@@ -1209,6 +1274,14 @@
     {
       "query": "printable wedding checklist free pdf",
       "at": "2026-11-07",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "how much does full wedding planning cost",
+      "at": "2026-11-11",
       "gate": 2,
       "reason": [
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
@@ -1504,6 +1577,16 @@
       "kind": "sitemap",
       "matched_by": "same wording",
       "matched_text": "printable wedding checklist",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner printables pdf",
+      "at": "2026-11-11",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "route": "/free-wedding-planner",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner",
       "stage": "search"
     }
   ]

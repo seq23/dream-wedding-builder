@@ -1032,5 +1032,15 @@
       ]
     }
   ],
-  "strengthen": []
+  "strengthen": [
+    {
+      "query": "free wedding planner printables pdf",
+      "page": "/free-wedding-planner",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "score": 22.4,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-11"
+    }
+  ]
 }
