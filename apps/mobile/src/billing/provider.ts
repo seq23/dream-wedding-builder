@@ -16,7 +16,7 @@ export interface PurchasesProvider {
 /** No simulated sale or entitlement when stores are absent, including the web preview. */
 export class DisabledPurchases implements PurchasesProvider {
   readonly available = false;
-  async products(): Promise<StoreProduct[]> { return []; }
+  async products(_offering?: string): Promise<StoreProduct[]> { return []; }
   async purchase(_id: ProductId): Promise<PurchaseSnapshot> { throw new Error(STORE_STOP); }
   async restore(): Promise<PurchaseSnapshot> { throw new Error(STORE_STOP); }
 }
