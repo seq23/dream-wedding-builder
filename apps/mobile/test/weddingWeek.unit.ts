@@ -1,0 +1,22 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { emptyProgress, toggleDone, taskKey } from '@core/plan-progress';
+import { type FullPlanList } from '@core/full-plan';
+import { weekTasks, weekEnvelopes, weekStore } from '../src/weddingWeek';
+test('week sorts only final days, shares tick identity, gates content and persists isolated local details', async () => {
+ const list: FullPlanList={windows:[{id:'day',label:'Example'}],tasks:[0,8,7,-1,3].map((daysBefore,i)=>({id:String(i),window:'day',text:`Fictional item ${i}`,daysBefore,owner:'Example',kind:'task'}))};
+ const progress=toggleDone(emptyProgress(),taskKey('day','Fictional item 4'),'2027-06-01T12:00:00Z');
+ const rows=weekTasks(list,'2027-06-12',progress,true);
+ assert.deepEqual(rows.map(t=>t.date),['2027-06-05','2027-06-09','2027-06-12']);
+ assert.equal(rows[1].doneAt,progress.done[rows[1].key]);
+ assert.equal(weekTasks(list,'2027-06-12',progress,false).length,0);
+ assert.equal(weekTasks(list,'invalid',progress,true).length,0);
+ const payments=['2027-06-04','2027-06-05','2027-06-12','2027-06-13'].map((date,i)=>({id:String(i),date,cents:100,payee:'Example',detail:'Example',method:'Cash'}));
+ assert.deepEqual(weekEnvelopes(payments,'2027-06-12',true).map(p=>p.id),['1','2']);
+ assert.deepEqual(weekEnvelopes(payments,'2027-06-12',false),[]);
+ const data=new Map<string,string>();const storage={async getItem(k:string){return data.get(k)??null;},async setItem(k:string,v:string){data.set(k,v);}};
+ const details={who:{[rows[1].key]:'Example helper'},contacts:[{id:'a',name:'Example vendor',phone:'555',arrival:'9 am',caller:'Example helper'}]};
+ await weekStore(storage,true).save(details);
+ assert.deepEqual(await weekStore(storage,true).read(),details);
+ assert.deepEqual(await weekStore(storage,false).read(),{who:{},contacts:[]});
+});
