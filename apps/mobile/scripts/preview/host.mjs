@@ -18,7 +18,11 @@ export function publish({ project, branch, directory = 'dist', env = process.env
   }
   const deployed = invoke(['deploy', directory, '--project-name', project, '--branch', branch]);
   if (deployed.status !== 0) stop();
-  const urls = (deployed.stdout ?? '').match(/https:\/\/[a-z0-9-]+\.[a-z0-9-]+\.pages\.dev\b/g) ?? [];
+  // Wrangler 4.110 can exit zero with an unconfirmed status and a URL.
+  // Only its confirmed-success branch emits this result line.
+  const confirmed = (deployed.stdout ?? '').match(/Deployment complete! Take a peek over at (https:\/\/[a-z0-9.-]+\.pages\.dev)\b/);
+  if (!confirmed) stop();
+  const urls = confirmed[1].match(/https:\/\/[a-z0-9-]+\.[a-z0-9-]+\.pages\.dev\b/g) ?? [];
   const url = urls.find(value => new URL(value).hostname.endsWith('.' + project + '.pages.dev'));
   if (!url) stop();
   if (env.GITHUB_OUTPUT) appendFileSync(env.GITHUB_OUTPUT, `url=${url}\n`);
