@@ -9,6 +9,12 @@ export function shareClient(rng: SecureRandom, transport: typeof fetch = fetch, 
   async function request(method: string, id?: string, payload?: object): Promise<Record<string, unknown>> {
     const body = payload ? JSON.stringify(payload) : undefined;
     if (body && new TextEncoder().encode(body).length > MAX_BYTES) throw Error('Shared plan is too large.');
+    // A create must also fit later reads and updates, including the largest
+    // supported revision, rather than only the smaller POST envelope.
+    if (payload && 'ciphertext' in payload) {
+      const envelope = JSON.stringify({ ciphertext: payload.ciphertext, revision: Number.MAX_SAFE_INTEGER });
+      if (new TextEncoder().encode(envelope).length > MAX_BYTES) throw Error('Shared plan is too large.');
+    }
     const controller = new AbortController();
     let timer: ReturnType<typeof setTimeout> | undefined;
     let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;

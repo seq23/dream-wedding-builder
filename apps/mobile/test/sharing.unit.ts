@@ -105,6 +105,23 @@ test('latest untick survives stale snapshots, clock rollback, and equal-time con
   assert.throws(() => mergeTicks({}, { task: { at: NaN, actor: alice, done: true } }), /Invalid shared tick/);
 });
 
+test('accepted boundary plans remain readable and writable; oversized envelopes never leave the phone', async () => {
+  const fake = server(), client = shareClient(rng, fake.transport);
+  const limit = 64 * 1024;
+  const overhead = JSON.stringify({ ciphertext: '', revision: Number.MAX_SAFE_INTEGER }).length;
+  // XChaCha20-Poly1305: 24-byte nonce + 16-byte tag, then base64.
+  const size = Math.floor((limit - overhead) / 4) * 3 - 40;
+  const text = 'x'.repeat(size);
+  const link = await client.create(text);
+  assert.equal((await client.read(link)).plaintext, text);
+  assert.equal(await client.write(link, text, 1), 2);
+  assert.equal((await client.read(link)).plaintext, text);
+  const sent = fake.requests.length;
+  await assert.rejects(client.create(text + 'x'), /too large/);
+  await assert.rejects(client.write(link, text + 'x', 2), /too large/);
+  assert.equal(fake.requests.length, sent);
+});
+
 test('oversized writes never leave the phone, and stalled headers or bodies time out', async () => {
   const fake = server(), client = shareClient(rng, fake.transport);
   await assert.rejects(client.create('x'.repeat(64 * 1024)), /too large/);
