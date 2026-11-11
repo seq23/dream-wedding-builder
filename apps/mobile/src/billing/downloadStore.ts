@@ -31,7 +31,14 @@ async function jsonRequest(transport: typeof fetch, path: string, init: RequestI
     return await Promise.race([
       (async () => {
         const response = await transport(`${ORIGIN}${path}`, { ...init, signal: controller.signal, redirect: 'error' });
-        if (!response.ok || !response.body) throw Error(MESSAGE);
+        if (!response.ok) throw Error(MESSAGE);
+        // React Native fetch exposes text() without a response stream. Keep the
+        // same UTF-8 byte cap and overall deadline on that transport as well.
+        if (!response.body) {
+          const text = await response.text();
+          if (new TextEncoder().encode(text).length > LIMIT) throw Error(MESSAGE);
+          return JSON.parse(text);
+        }
         reader = response.body.getReader();
         const chunks: Uint8Array[] = [];
         let length = 0;

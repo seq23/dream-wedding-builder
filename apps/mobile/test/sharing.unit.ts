@@ -136,3 +136,23 @@ test('oversized writes never leave the phone, and stalled headers or bodies time
   const oversized: typeof fetch = async () => new Response('x'.repeat(64 * 1024 + 1));
   await assert.rejects(shareClient(rng, oversized).read(link), { message: SHARE_UNAVAILABLE });
 });
+
+
+test('phone responses without streams support sharing and still enforce size and timeout limits', async () => {
+  const fake = server();
+  const phone: typeof fetch = async (url, init) => {
+    const response = await fake.transport(url, init);
+    return { ok: response.ok, status: response.status, body: null, text: () => response.text() } as Response;
+  };
+  const client = shareClient(rng, phone);
+  const link = await client.create('Fictional robot wedding');
+  assert.equal((await client.read(link)).plaintext, 'Fictional robot wedding');
+  assert.equal(await client.write(link, 'Updated fictional wedding', 1), 2);
+  assert.equal((await client.read(link)).plaintext, 'Updated fictional wedding');
+  const oversized: typeof fetch = async () => ({ ok: true, status: 200, body: null, text: async () => '🌸'.repeat(17000) } as Response);
+  await assert.rejects(shareClient(rng, oversized).read(link), { message: SHARE_UNAVAILABLE });
+  const stalled: typeof fetch = async () => ({ ok: true, status: 200, body: null, text: () => new Promise<string>(() => {}) } as Response);
+  await assert.rejects(shareClient(rng, stalled, 5).read(link), /No connection/);
+  await client.stop(link);
+  await assert.rejects(client.read(link), { message: SHARE_UNAVAILABLE });
+});

@@ -43,6 +43,31 @@ test('verified JSON downloads survive restart offline; Restore rechecks the door
   assert.equal(s.calls.filter(c => c.init?.method === 'POST').length, 2);
 });
 
+test('phone downloads without response streams remain verified, bounded and atomic', async () => {
+  const s = setup();
+  const phone: typeof fetch = async (url, init) => {
+    const response = await s.transport(url, init);
+    return { ok: response.ok, body: null, text: () => response.text() } as Response;
+  };
+  const content = await downloadStore(s.storage, phone).refresh(id);
+  assert.deepEqual(content.packs, packs);
+  assert.equal(content.list.tasks[0].id, 'sample');
+  assert.equal(s.calls.length, 2 + packs.length);
+  const original = s.data.get(DOWNLOAD_CACHE_KEY);
+  for (const broken of [
+    { ok: false, body: null, text: async () => JSON.stringify(manifest()) },
+    { ok: true, body: null, text: async () => '🌸'.repeat(524289) },
+    { ok: true, body: null, text: async () => '{bad' },
+    { ok: true, body: null, text: () => new Promise<string>(() => {}) },
+  ]) {
+    // Exercise the asset download too: a valid manifest alone must never replace the cache.
+    const transport: typeof fetch = async (url, init) => init?.method === 'POST' ? phone(url, init) : broken as Response;
+    await assert.rejects(downloadStore(s.storage, transport, 20).refresh(id));
+    assert.equal(s.data.get(DOWNLOAD_CACHE_KEY), original);
+  }
+  assert.deepEqual(await downloadStore(s.storage, async () => { throw Error('offline'); }).read(id), content);
+});
+
 test('refused verification, malformed manifests, redirects and incomplete packs never replace saved downloads', async () => {
   const s = setup();
   await downloadStore(s.storage, s.transport).refresh(id);
