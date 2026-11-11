@@ -11,7 +11,14 @@ export const LIMITS = {
   // The builder email gate only stores the address (nothing is sent): 10 an hour from one IP.
   builderSignup: { max: 10, windowS: 3600 },
   // Admin login: 10 wrong passwords in 15 minutes locks that IP out for the rest of the window.
-  adminLoginFail: { max: 10, windowS: 900 }
+  adminLoginFail: { max: 10, windowS: 900 },
+  // "Email me a fresh link" (lib/fresh-link.ts): 5 asks an hour from one IP, and one
+  // address is emailed at most 3 times a day whoever asks.
+  freshLink: { max: 5, windowS: 3600 },
+  freshLinkEmail: { max: 3, windowS: 86400 },
+  // All fresh-link emails together: 50 a day, so the form can never use up the mail
+  // allowance the first order emails need (risk brain: every sender has a daily ceiling).
+  freshLinkDaily: { max: 50, windowS: 86400 }
 } as const;
 
 export const RATE_EVENTS_DDL = `CREATE TABLE IF NOT EXISTS rate_events (
@@ -35,6 +42,11 @@ async function sha256(value: string): Promise<string> {
 export async function callerKey(headers: Headers): Promise<string> {
   const ip = headers.get('cf-connecting-ip') ?? headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   return sha256(`ip:${ip}`);
+}
+
+/** A limiter key for an email address, hashed like the IP. The address itself is never stored. */
+export async function emailKey(email: string): Promise<string> {
+  return sha256(`email:${email}`);
 }
 
 async function ensure(db: LimitDB) {

@@ -40,18 +40,37 @@ export function createDownloadToken(entitlementId: string, expiresAt: number, se
   return Buffer.from(`${payload}.${signature}`).toString('base64url');
 }
 
-export function verifyDownloadToken(token: string, secret: string, now = Date.now()) {
+// How long the links in an order email work. The first version used 24 hours with no
+// recorded reason; a buyer who opened the email on day 3 was locked out of what she
+// paid for (test purchase, 11 Nov 2026). A longer life is safe because every use
+// re-checks that the purchase is still ACTIVE, so a refund ends the link at once.
+// After it runs out she asks for a fresh one with her email (lib/fresh-link.ts).
+export const EMAIL_LINK_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
+/** The token's contents when we signed it, whatever its age. null for a forged or broken one. */
+function readDownloadToken(token: string, secret: string) {
   try {
     const decoded = Buffer.from(token, 'base64url').toString('utf8');
     const [entitlementId, expiresRaw, signature] = decoded.split('.');
     const expiresAt = Number(expiresRaw);
-    if (!entitlementId || !signature || !Number.isFinite(expiresAt) || expiresAt <= now) return null;
+    if (!entitlementId || !signature || !Number.isFinite(expiresAt)) return null;
     const expected = createHmac('sha256', secret).update(`${entitlementId}.${expiresAt}`).digest('base64url');
     if (!timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) return null;
     return { entitlementId, expiresAt };
   } catch {
     return null;
   }
+}
+
+export function verifyDownloadToken(token: string, secret: string, now = Date.now()) {
+  const read = readDownloadToken(token, secret);
+  return read && read.expiresAt > now ? read : null;
+}
+
+/** True only for a link we really issued that has run out: she is offered a fresh one. A forged link is never "expired". */
+export function isExpiredDownloadToken(token: string, secret: string, now = Date.now()) {
+  const read = readDownloadToken(token, secret);
+  return Boolean(read && read.expiresAt <= now);
 }
 
 export function safeEmail(value?: string | null) {

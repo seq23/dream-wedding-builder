@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { runtimeEnv } from '@/lib/cloudflare-runtime';
-import { createDownloadToken, releaseKeyForSku, safeEmail, verifyStripeSignature, type StripeSession } from '@/lib/fulfillment';
+import { EMAIL_LINK_TTL_MS, createDownloadToken, releaseKeyForSku, safeEmail, verifyStripeSignature, type StripeSession } from '@/lib/fulfillment';
 import { productBySku } from '@/lib/products';
 import { sendDeliveryEmail } from '@/lib/delivery-email';
 import { recordPinterestConversion } from '@/lib/pinterest-conversions';
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     const savedEntitlement = await (env.DB.prepare('SELECT id FROM entitlements WHERE order_id = ?').bind(savedOrder!.id).first() as Promise<{ id: string } | null>);
     const signingSecret = process.env.DOWNLOAD_SIGNING_SECRET || env.DOWNLOAD_SIGNING_SECRET;
     if (!signingSecret) throw new Error('DOWNLOAD_SIGNING_SECRET is not configured');
-    const token = createDownloadToken(savedEntitlement!.id, Date.now() + 24 * 60 * 60 * 1000, signingSecret);
+    const token = createDownloadToken(savedEntitlement!.id, Date.now() + EMAIL_LINK_TTL_MS, signingSecret);
     const base = process.env.APP_BASE_URL || env.APP_BASE_URL || req.nextUrl.origin;
     await sendDeliveryEmail(env, savedOrder!.id, email, product.name, `${base}/api/download/${token}`);
     await recordPinterestConversion(env.DB as never, { kind: 'sale', pinRef: session.metadata?.pin_ref, ref: savedOrder!.id });

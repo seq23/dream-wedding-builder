@@ -7,7 +7,7 @@
 3. The Worker verifies the Stripe signature and ignores replayed event IDs.
 4. D1 records the Stripe event, order, and entitlement.
 5. The entitlement points to `products/<product-id>/current.zip` in the private `PRODUCT_RELEASES` R2 bucket.
-6. The system creates a 24-hour signed download URL and sends it through Resend.
+6. The system creates a 7-day signed download URL (`EMAIL_LINK_TTL_MS` in `lib/fulfillment.ts`) and sends it through Resend.
 7. `/order/success` verifies the Stripe Checkout Session and creates a fresh one-hour download link when the entitlement and R2 object are available.
 8. `/api/download/[token]` verifies expiry, entitlement status, and R2 object presence before streaming the private file.
 
@@ -108,7 +108,7 @@ is a Worker cron trigger, not a replay.
 - `wrangler.jsonc` `main` is `worker.ts`, a thin wrapper that forwards `fetch` to OpenNext's
   `.open-next/worker.js` and adds `scheduled`. `triggers.crons` runs it hourly (`0 * * * *`).
 - `lib/delivery-retry.ts` `runDeliveryRetry()` picks paid orders with **no SENT attempt at all**, older
-  than 15 minutes, and re-sends through `sendDeliveryEmail()` with a fresh 24-hour download token.
+  than 15 minutes, and re-sends through `sendDeliveryEmail()` with a fresh 7-day download token.
   Each retry records a `delivery_attempts` row with channel `email_retry`.
 - Cap: 5 retries, backoff 0 / 1 h / 3 h / 12 h / 24 h. An order that exhausts them stays on the
   `/admin` red panel marked "automatic retries exhausted" and keeps `/api/health/delivery` at 503.
@@ -122,3 +122,24 @@ is a Worker cron trigger, not a replay.
 - `tests/unit/delivery-retry.test.ts` runs the real queries on SQLite (sql.js) against
   `migrations/0001_fulfillment.sql` and pins: only undelivered paid orders, no double send, the cap,
   backoff, and the wiring.
+
+## A buyer can always get her links again (2026-11-11)
+
+Found by a test purchase: the emailed links died after 24 hours and the only way back was the order
+success page, which no buyer keeps. The 24 hours had no recorded reason (it came with the first
+snapshot). Every use of a link re-checks that the purchase is still `ACTIVE`, so a refund ends a link
+at once whatever its age.
+
+- Emailed links now work for 7 days (`EMAIL_LINK_TTL_MS`).
+- `/order/link` ("Already bought? Get your link again." in the footer, and one sentence in the order
+  email) has one field, the email she bought with, and one button. `POST /api/fresh-link` sends the
+  same order email again, through `sendDeliveryEmail()` with channel `email_fresh_link`, for every
+  `ACTIVE` purchase under that address (`lib/fresh-link.ts`).
+- The answer is the same sentence whether or not a purchase was found. Limits (`lib/abuse-limits.ts`):
+  5 asks an hour per caller (then HTTP 429), 3 emails a day per address (then the same answer, nothing
+  sent). Keys are hashes; no address is stored or logged by this path.
+- A link we issued that has run out: `/full-plan` shows the same form, and `/api/download/<token>`
+  answers 303 to `/order/link?expired=1`. A forged or broken link still gets 401 and no form.
+- It is order mail, not marketing: no opt-out list and no marketing ceiling apply, as for the first
+  order email.
+- `tests/unit/fresh-link.test.ts` runs the real routes and SQL and pins all of the above.
