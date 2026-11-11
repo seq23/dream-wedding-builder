@@ -419,3 +419,83 @@ Do not:
 - Do not colour anything red except past-due amounts.
 
 Honest limits: 6 seen. The 2 bill apps show the due-date grouping; the 4 wedding apps show budget by category and do not group by due date. A wedding app with a true final-payment schedule screen was not found.
+
+### (e) Traditions tab (optional packs: a list, what a pack adds, add it, remove it)
+
+Examples looked at on 11 Nov 2026 (each opened; phone-width captures of public pages and store screenshots):
+- PackPoint: https://apps.apple.com/us/app/id896337401 : free app. Store screenshots show the pack picker and the list it produces. SEEN
+- Productive, habit tracker: https://apps.apple.com/us/app/id983826477 : free app with paid extras. Store screenshots show a "pick a ready-made set" list and a programs list. SEEN
+- Todoist, wedding planning template page: https://www.todoist.com/templates/wedding-planning : public page, one ready-made list. SEEN (the page itself; copying the list into an account was not tried)
+- Riwaya wedding planner: https://riwaya.riwaya.co.uk/online-muslim-wedding-planner : public product page with two screenshots of the planner (choosing a cultural preset, and one tradition's tasks). SEEN (the two screenshots on the page; the planner itself sits behind a sign-up and was not opened)
+
+What they share:
+1. The packs are one plain list or grid on their own screen, reached from the plan, never forced on the way in. Each pack is one row or tile: its name and at most one short line. No prices and no long text in the list.
+2. A pack that is already in use is marked in place (a tick on the tile in PackPoint, an outline and progress line on the current programme in Productive). The others carry one small button or nothing.
+3. Tapping a pack shows what it is before anything changes: a title, a few sentences, and one main button that adds it (Todoist: a preview button and a copy button; Riwaya: one plain sentence explaining the tradition above its tasks).
+4. Added items land in the normal list, grouped under the pack's name with a small count (PackPoint: a header per activity with "1 of 12"), and look like every other row: a tick box and the item.
+5. Added items can be changed or taken out one by one (Riwaya: a small x on each task and an "add a task" row under them; PackPoint: a customise button).
+6. There is always a way to skip packs and write your own (Productive: a "create your own" button under the list).
+
+Build it like this (top to bottom, 390 px wide):
+1. Title, then one line: these are optional, and a pack adds its tasks to your plan in the right time windows.
+2. Seven rows, one per pack, in the order the data files list them. Each row: pack name, then its one free example task in small type under the name. A row whose pack is already in the plan shows a small "Added" mark on the right instead of the arrow.
+3. Tap a row to open that pack. Top: pack name and a back control. Next: one or two plain sentences on what the pack covers. Next: the free example task shown in full, with its time window and its source link.
+4. Under the example, one line saying the rest of the pack comes with the full plan. Before purchase the phone holds only the name and the example, so show no task names, no count and no blurred rows for the rest.
+5. One main button at the bottom, full width.
+   - Without the full plan: it adds the one free example task to her plan, and a text link under it opens the paywall (pattern c).
+   - With the full plan: "Add to my plan" merges every task in the pack into her plan, each in its own window and marked with the pack's name. Tapping it a second time adds nothing.
+6. After adding, stay on the pack screen: the button becomes a quiet "Added" state, with one text link to see the tasks in the plan and one text link "Remove this pack".
+7. Remove asks once, in plain words, and says what stays: tasks she has ticked or edited are kept, the untouched ones go. Offer undo.
+8. In the plan itself, pack tasks are normal rows in their real place by date with a small pack label. They do not get their own tab or colour.
+
+Never:
+- Never let several packs be ticked at once and added in one go, as the PackPoint grid does. One pack is read, then added.
+- Never ask for an account, an email or a cultural question at setup to reach the packs. Riwaya picks the preset during sign-up; this plan forbids that (no account, no email to see or use the plan).
+- Never put paid pack content in the app before purchase, and never fake it with blurred or greyed rows. PackPoint and Todoist give the whole list free; the plan rule wins here: name and one example free, the full pack only after a confirmed purchase.
+- Never type a task count. A count is shown only when it is read from a pack the phone actually holds.
+- Never use joined counters, timers or "start" pressure as the Productive challenge cards do (brand do-not list).
+- Never describe a tradition in a way the pack's sources do not support, and never drop the source link from a task.
+
+Honest limits: 4 seen. None of the four sells part of a pack and gives one sample free; that split comes from this plan, not from an example. None shows a "remove the whole pack" control; Riwaya shows removal task by task only. Riwaya is two marketing screenshots, not the live planner. No wedding app with a tradition-pack picker was visible on a store page.
+
+### (f) The AI draft (short form, consent before sending, the one email, review before applying)
+
+Examples looked at on 11 Nov 2026 (each opened; phone-width captures of public pages):
+- AIFreeForever wedding vow generator: https://aifreeforever.com/tools/ai-wedding-vow-generator : free, no account. The form itself. SEEN
+- Mistral Le Chat, first visit: https://chat.mistral.ai/chat : no account needed to reach the screen. An accept step that blocks the AI until it is agreed. SEEN
+- Duck.ai, first visit: https://duck.ai/ : free, no account. Consent given by a line of small print under the box. SEEN, used as a contrast.
+- WooCommerce Memberships help page, checkout opt-in screenshot: https://woocommerce.com/document/mailchimp-for-woocommerce/ : the email field with a separate optional box under it. SEEN (the screenshot on the vendor's help page)
+- Hitched sign-up form: https://www.hitched.co.uk/users-signup.php : free wedding site. Email inside an account form with one agreement box. SEEN, used as a contrast.
+- Day One, AI features guide: https://dayoneapp.com/guides/labs/ai-features/ : the vendor's help page says a privacy notice appears the first time an AI feature is tapped, with one agree button, and that it can be switched off later in settings. TEXT ONLY (the page has no picture of the notice).
+
+What they share:
+1. The form is one screen with a handful of fields (the vow form: two pick-lists, one required text box, two optional fields, one more pick-list). Required fields are marked; optional ones say so in the label.
+2. The main button sits straight under the last field and looks switched off until the required fields are filled.
+3. Where the AI step is gated, the gate is its own small block: a short title, one sentence with links to the terms and privacy pages, and one button. Nothing behind it can be used until it is accepted (Le Chat; Day One by its own description).
+4. The weaker pattern is consent by small print: one grey line under the box saying that pressing the button means you agree (Duck.ai). No tick, no separate step.
+5. A marketing choice done properly is a single tick box directly under the email field, unticked, with the word "optional" in its label, and the form sends without it (WooCommerce screenshot).
+6. The contrast: Hitched puts the email inside a full account form (name, password, role, date, town) with one agreement box that appears already ticked and no separate marketing choice.
+
+Build it like this (top to bottom, 390 px wide):
+1. Title, then one line: what the draft is (a first version of her plan written by a free AI model, which she checks before anything changes).
+2. The wedding fields: only the ones `/api/ai-draft` accepts, each with a plain label above it, pick-lists where the answer is one of a few choices. Optional fields say "optional" in the label. No field asks for anything the draft does not use.
+3. Email field, with one line under it saying this is the only place the app asks for it and what it is used for.
+4. Marketing box directly under the email: unticked, labelled optional, her own words for what she would receive. The form works the same with it left empty. `marketing` is sent as true only when she ticks it.
+5. Consent box, set apart from the marketing box by space or a rule: unticked, required. Its label says in plain words what is sent (the answers above), where (a free AI model, outside the app) and that nothing is sent until she ticks it. Link to the privacy page beside it.
+6. Main button, full width, under the consent box. It stays off until the required fields are filled and the consent box is ticked. Pressing it is the first moment anything leaves the phone.
+7. While waiting: the button shows it is working and the fields stay as she typed them.
+8. If the server answers with a message (switched off, busy, already used, too many from this connection, daily limit), show the server's sentence word for word in a plain block above the button. Her answers stay on screen. No extra wording from the app.
+9. If a draft comes back: a review screen. Top line says nothing has changed yet. Then the draft as a list of tasks in their time windows, each with a tick so she can leave any out. Two buttons at the bottom: one adds the ticked ones to her plan, one discards the draft. Her saved plan is touched only by the first button.
+10. After adding: back to the plan, with the new tasks marked as coming from the draft and one undo.
+
+Never:
+- Never pre-tick either box. Hitched's agreement box appears already ticked; that is forbidden here.
+- Never fold consent into small print under the button, as Duck.ai does. Apple guideline 5.1.2 and this plan need a clear yes before personal details go to an AI model, so it is a tick she makes herself.
+- Never join the consent box and the marketing box into one tick, and never make the marketing box required.
+- Never ask for a password, a name, a town or an account, as the Hitched form does. The email is the only personal field, and it is asked on this screen only.
+- Never send anything, including the email, before the consent box is ticked and the button is pressed.
+- Never reword, shorten or decorate the server's messages, and never show an app-made error in their place.
+- Never apply a draft to her saved plan without the review step, and never replace her existing tasks or ticks with it.
+- Never put a model address or key in the app, and never name a model the server did not name.
+
+Honest limits: 5 seen, 1 read. Only the Le Chat screen shows a real consent step before an AI model, and it is an accept button, not a tick box; no shipped screen with an unticked AI consent box inside a form was found on a free, no-account source. No example shows a review step before a draft is applied, or server messages shown word for word; both come from this plan's rules, not from an example. The email with an optional box is one help-page screenshot of a web checkout, not a phone app. Hitched's box looked ticked in a single capture; it was not clicked to check.
