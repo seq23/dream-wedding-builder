@@ -8,6 +8,19 @@ import { budgetHeadline, budgetPlan, budgetSubline, parseMoney } from '@/lib/bud
 const draft: WeddingPlan = { ...emptyPlan, guestCount: '120', locations: 'Memphis', budgetTarget: '$30,000', budgetMode: 'hard', priorities: ['Party Energy', 'Food + Bar'] };
 
 describe('her stated budget drives every number', () => {
+  it('absorbs rounding overflow without changing her own amounts or exceeding the limit', () => {
+    for (const input of [
+      { budgetTarget: '381' },
+      { budgetTarget: '30000', venueBudget: '29807' },
+      ...Array.from({ length: 500 }, (_, i) => ({ budgetTarget: String(i + 1) }))
+    ]) {
+      const result = budgetPlan(input);
+      expect(result.lines.reduce((sum, line) => sum + line.amount, 0)).toBe(result.limit);
+      expect(result.lines.every(line => line.amount >= 0)).toBe(true);
+      if ('venueBudget' in input) expect(result.lines.find(line => line.id === 'venue-food-drink')?.amount).toBe(29807);
+      expect(result.over).toBe(0);
+    }
+  });
   it('reads the budget however she or the AI draft wrote it', () => {
     expect(parseMoney('$30,000')).toBe(30000);
     expect(parseMoney('about 30k')).toBe(30000);

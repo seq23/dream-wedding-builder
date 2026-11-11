@@ -115,7 +115,21 @@ export function budgetPlan(plan: BudgetInput): BudgetPlan {
     });
     // Rounding to $50 can leave a few dollars; the cushion line absorbs them so the split adds up to her number.
     const cushion = lines.find(line => line.id === 'cushion' && !line.yours);
-    if (cushion && yourTotal <= base) cushion.amount = Math.max(0, cushion.amount + (left - assigned));
+    if (cushion && yourTotal <= base) {
+      const adjustment = left - assigned;
+      cushion.amount = Math.max(0, cushion.amount + adjustment);
+      // A small remainder can round several lines upward by more than the
+      // cushion contains. Reduce generated lines only; her own amounts stay put.
+      let excess = lines.reduce((sum, line) => sum + line.amount, 0) - base;
+      const generated = lines.filter(line => !line.yours && line.id !== 'cushion')
+        .sort((a, b) => Number(a.protectedLine) - Number(b.protectedLine) || b.amount - a.amount);
+      for (const line of generated) {
+        if (excess <= 0) break;
+        const reduction = Math.min(line.amount, excess);
+        line.amount -= reduction;
+        excess -= reduction;
+      }
+    }
 
     if (target && ceiling && target > ceiling) {
       over = target - ceiling;
