@@ -1,27 +1,17 @@
-# App build queue — 10 Nov 2026
+# Dream Wedding app build status
 
-Task 1 is merged. Task 2 is implemented in open PR #134 and included as a dependency here.
-Task 1a publishes the web export to the free Cloudflare Pages preview project, with a
-noindex header and a link in the CI summary and PR. Missing credentials, refused deploys
-and missing URLs fail with NAMED STOP [PREVIEW_HOST_FAILED]. No Appetize use.
+Tasks 1, 1a, 2 and 3 are merged; reminders (4) remain in PR #139.
+All three review comments listed in the run are fixed on the scaffold branch.
 
-Task 3 is implemented: the preview-only welcome shortcut saves the sample date, two ticks and one own task. Next task: 4 (reminders), alone. Tasks 8a to 8c (payments, wedding week, packet) are in the fresh plan.
-Coordinator reviews and lands the PRs; agents never merge.
+Task 5: seven public pack names with one sourced free example each; delivered-pack
+validation, paid-only merge, idempotent identities and removal preserving ticked or
+edited tasks are implemented and tested. Provenance survives edits and reopening.
+No full paid pack text is bundled. The traditions route retains its placeholder.
 
-NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 (store files) and 12 (website line)
-wait for the owner's launch plan after 13 Nov. Release gates remain in scope.
-
-Review follow-up: the purchased-plan personal-task fix now keeps the original window
-end date after a window expires, for both the screen and print. Regression covers
-before/after expiry and the reported 20 Jan 2027 wedding. Supersedes PR #143.
-Task 4 remains in open PR #139 (including its start-morning reminder regression).
-Next new tasks: Dream Wedding 5; ApprovalPrep 4. Launch stops remain unchanged.
-
-Preview fixes: web is centred at 430 px; welcome has one question, a native/web date
-picker, one filled save button and small secondary links. The next card fills three
-unfinished slots; completion labels show the day only. Based on the fresh scaffold,
-without the open task-4 branch (#139). Next new task remains 5.
-
-Preview follow-up: unfinished screens show plain customer text, guarded against builder
-notes. No Appetize use. Next new task: 5 (tradition packs, alone).
-New personal tasks now start in the window selected on the plan.
+NAMED STOP [PRIVATE_WRITE_NEEDED] Task 5 full packs must be authored in
+~/.boss-os/dream-wedding/, reviewed by Claude and uploaded privately. This run cannot
+write outside ~/GitHub. No full packs were authored or uploaded.
+NAMED STOP [PATTERN_NOTES_MISSING] Traditions screen: add shipped screen patterns
+before implementing the picker. Task 5 remains unfinished; purchase delivery awaits 8.
+NAMED STOP [WAITS_FOR_LAUNCH_PLAN] Tasks 10 and 12.
+Next task: 6 (AI draft, alone); task 5's named stops remain visible above.

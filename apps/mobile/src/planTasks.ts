@@ -20,7 +20,7 @@ export function editOwnTask(progress: PlanProgress, id: string, windowId: string
   const old = progress.custom.find(t => t.id === id);
   if (!old || !PLAN_WINDOWS.some(w => w.id === windowId) || !text.trim()) return progress;
   const changed = addCustomTask(emptyProgress(), windowId, text, id).custom[0];
-  const next = { done: { ...progress.done }, custom: progress.custom.map(t => t.id === id ? changed : t) };
+  const next = { done: { ...progress.done }, custom: progress.custom.map(t => t.id === id ? { ...t, ...changed } : t) };
   return next;
 }
 export function addOwnTask(progress: PlanProgress, windowId: string, text: string, id: string) {
