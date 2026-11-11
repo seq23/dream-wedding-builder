@@ -270,3 +270,152 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
   to build or preview.
 - Her yes to switch the AI draft on for the live hosts (`AI_DRAFT_ENABLED`); until then the
   app shows the server's "switched off" message.
+
+## Screen patterns (shipped examples first; owner, 10 Nov 2026)
+
+These notes come from real shipped screens looked at on 10 Nov 2026 (free, no-account sources; nothing copied). They are evidence, not test results. **Where a note disagrees with a rule, a test or a ruling elsewhere in this plan (for example "rows never move", the offers order in `offersFor`, the two locked tasks per window, or any money or claims rule), the plan wins and the note is ignored on that point.** Colours, type and words come from `src/theme.ts` and this plan.
+
+# Dream Wedding: screen patterns from shipped apps
+
+Read this first:
+- These are notes on shipped screens seen on 10 Nov 2026. They are not test results. Nobody measured which layout sells more.
+- SEEN = I looked at the screenshot. TEXT ONLY = I read a description and did not see it.
+- Sources: Adapty paywall library (a paywall capture per app) and App Store web pages (store screenshots, which are marketing frames around real screens).
+- Structure only. No competitor words, colours or art are to be reused.
+
+
+### (c) One-time-purchase paywall, two offers (bundle first, then single)
+
+Examples looked at:
+- Structured, "lifetime only" variant: https://adapty.io/paywall-library/structured/ : one-time ($4.99 once), one offer. SEEN
+- Structured, three-plan variant (same page): monthly, yearly, lifetime rows : mixed; lifetime row is one-time. SEEN
+- Up Ahead: https://adapty.io/paywall-library/up-ahead-countdown-widgets/ : mixed; monthly, yearly, then a separate lifetime row. SEEN
+- Subscription Manager: https://adapty.io/paywall-library/subscription-manager/ : one-time, two price tiers side by side. SEEN
+- Packing List Checklist: https://adapty.io/paywall-library/packing-list-checklist/ : one-time, one offer. SEEN
+- Bills Organizer & Reminder: https://adapty.io/paywall-library/bills-organizer-reminder/ : two separate one-time unlocks stacked. SEEN
+- Tripsy: https://adapty.io/paywall-library/tripsy/ : mixed; yearly, monthly, lifetime rows. SEEN
+- Wedding Seating Chart Planner: https://adapty.io/paywall-library/wedding-seating-chart-planner/ : SUBSCRIPTION (free week, annual and monthly). SEEN, used only as a contrast.
+- Wedding apps that sell once, seen on the store price list only (their paywall screen was not visible): Wedding Planner: Harmony ($29.99 premium, $19.99 discount) https://apps.apple.com/us/app/id6756780549 ; Marrigo (lifetime $39.99 beside monthly and yearly) https://apps.apple.com/us/app/id6769004240 ; MyWed ("Premium for Wedding" items beside monthly plans) https://apps.apple.com/us/app/id1475606210 . TEXT ONLY for the paywall layout.
+
+What they share:
+- One screen, no scrolling needed to reach the button. Order is: short title, a list of 4 to 7 things you get (icon or tick plus a few words each), the offers, one main button, small links.
+- Every one-time screen says in plain words that it is paid once. The phrase sits next to the price, not in the small print.
+- Each offer is one row or card: name on the left, price on the right, one short line under it. Two or three offers at most.
+- When there is more than one offer, one is already selected and outlined. Only one carries a small label.
+- One filled main button at the bottom. "Restore purchase" is a small text link. A close or cancel control is in a top corner and is visible straight away.
+- The one-time screens are shorter than the subscription ones: no trial wording, no renewal paragraph.
+
+Build it like this:
+- Top bar: a visible close (X or "Not now") in a corner. Nothing else.
+- Title: one line saying what unlocks. Under it one line that says it is paid once for this wedding and is not a subscription.
+- What you get: 4 rows in the selling order (payments and final-payment schedule, wedding-week sheet, printable hand-over packet, partner on a second phone). One icon and under 8 words per row.
+- Offers: two cards stacked. Bundle card first, already selected, with the one small label and one line saying what it adds (the printables). Single "full plan" card second. Name left, price right, same type size on both.
+- Main button: one, full width, under the cards. Its wording follows the selected card and includes the price (kind: "Get the <selected offer>, $X once").
+- Under the button: "Restore purchase" as a text link, then terms and privacy links. Nothing more.
+- Leave out: monthly or yearly rows, trial wording, a toggle, a comparison table, a carousel, reviews, a second button.
+
+Do not:
+- Do not use a countdown timer, a struck-through "was" price that was never charged, or "only N left".
+- Do not hide, delay or shrink the close control, and do not pre-select anything beyond the one visible offer card.
+- Do not show more than two offers. No shipped one-time screen seen here used more than three rows, and those with three were mixing in subscriptions.
+
+Honest limits: 7 paywalls seen; 5 sell once or include a pay-once row. Only 2 show exactly two pay-once offers on one screen (Subscription Manager, Bills Organizer & Reminder). None is a wedding app with a bundle plus single layout; that exact pairing was not found.
+
+### (a) Welcome / "when is the wedding?" first screen
+
+Examples looked at (none shows the date-entry screen itself; each shows the first screen the date produces):
+- The Knot: https://apps.apple.com/us/app/id457941553 : free, no in-app price list shown. SEEN (home only)
+- Zola: https://apps.apple.com/us/app/id852691916 : free with one-time add-ons. SEEN (home only)
+- WeddingWire: https://apps.apple.com/us/app/id316565575 : free. SEEN (home only)
+- Wedding Planner: Harmony: https://apps.apple.com/us/app/id6756780549 : one-time. SEEN (home only)
+- Marrigo: https://apps.apple.com/us/app/id6769004240 : mixed, has lifetime. SEEN (home only)
+- MyWed: https://apps.apple.com/us/app/id1475606210 : mixed. SEEN (home only); its store text says tasks are generated from the wedding date. TEXT ONLY for that claim.
+
+What they share:
+- Every app's first real screen is built from two inputs only: the wedding date and the couple's names. Nothing else is needed to draw it.
+- The date comes back at once as a big "N days to go" number at the top of the home screen, with the names and the date in small type under it.
+- The next thing under the countdown is the plan or task summary, not a feature tour.
+- No store page shows a sign-in screen as its first frame.
+
+Build it like this:
+- One question on the screen: the wedding date. A native date picker, set to a sensible future default.
+- One line above it saying what the date is used for (it builds the dated plan).
+- One main button at the bottom (kind: "Build my plan").
+- One small text link under it for people with no date yet (kind: "We have not picked a date"). It should still build a plan from an estimated date they can change.
+- Names are optional and can be asked on the same screen as two small fields, or later. Do not make them required.
+- The very next screen is the plan with the countdown at the top. No tour, no paywall, no account screen in between.
+- Leave out: email field, sign-in, budget question, guest-count question, notification prompt, feature carousel.
+
+Do not:
+- Do not ask for anything the plan does not need to draw its first view.
+- Do not show the paywall before the person has seen their own dated plan.
+
+Honest limits: 0 date-entry screens were seen. Store pages do not show onboarding, and the libraries that do (Mobbin, Page Flows) need an account, so they were not used. These notes are inferred from 6 home screens. Treat this block as the weakest in the file.
+
+### (b) Plan screen, first view (dated checklist with a "do these next" card)
+
+Examples looked at:
+- The Knot: https://apps.apple.com/us/app/id457941553 : free. SEEN
+- Wedding Planner: Harmony: https://apps.apple.com/us/app/id6756780549 : one-time. SEEN
+- MyWed: https://apps.apple.com/us/app/id1475606210 : mixed. SEEN
+- Marrigo: https://apps.apple.com/us/app/id6769004240 : mixed, has lifetime. SEEN
+- Wedding Planner Tracker: https://apps.apple.com/us/app/id6736427896 : mixed ($44.99 one-time beside monthly and annual). SEEN
+- Wedding Planner (Sevenlogics): https://apps.apple.com/us/app/id1236966921 : one-time ($0.99 premium). SEEN
+
+What they share:
+- Top of the screen: the countdown or a progress figure (a "done of total" count or a percent). One number, large.
+- Tasks are grouped by time, not by topic first: by months-before bands (The Knot: 4 numbered stages), by month tabs (MyWed, Sevenlogics "This Month"), or by Overdue / Upcoming / Later (Harmony, Marrigo filter chips).
+- Each task row is: a round tick box on the left, the task name, and one small line under it with category and due date.
+- Overdue tasks sit first and are marked in a warning colour. Done tasks are struck through and stay visible.
+- Two apps put a short "what needs attention next" block above the full list (Wedding Planner Tracker "tasks coming up" with one button; Marrigo one alert row on Home).
+- A small round "+" to add a task sits in a top or bottom corner. It is never the main thing on the screen.
+
+Build it like this:
+- Top: countdown line ("N days to go", date under it) and one progress figure ("9 of 18 done").
+- Next: the "do these next" card. 3 tasks only, each with a tick box and due date. One text link at the bottom of the card to see the whole list.
+- Under the card: the full list in time bands, newest band open, later bands collapsed. Band header shows its name and a count.
+- Task row: tick box left, name, one small line (category, due date). Tap the box to tick; tap the row to open.
+- Overdue: one band at the very top, only when it has items.
+- Paid items appear in the list as normal rows with a small lock, in their real place by date. Tapping one opens the paywall.
+- Leave out: charts, four-tile dashboards, vendor ads, tips feed, a banner selling the upgrade above the tasks.
+
+Do not:
+- Do not show the whole list ungrouped. Every app seen groups by time.
+- Do not put more than 3 items in the "do these next" card.
+- Do not hide ticked tasks by default.
+
+Honest limits: 6 seen. Only 2 of the 6 have a clear "next" block above the list, so the card is a less common pattern than the time-banded list.
+
+### (d) Payments / bills schedule (who is paid, amount, due date, paid or not, total left)
+
+Examples looked at:
+- Chronicle (bills): https://apps.apple.com/us/app/id572561420 : store lists one "Chronicle Pro $14.99" item; the Adapty capture shows a $9.99 yearly subscription, so treat as mixed. SEEN
+- Bills Manager: https://apps.apple.com/us/app/id834370671 : one-time ($5.99 remove ads). SEEN
+- MyWed, Budget and Vendors screens: https://apps.apple.com/us/app/id1475606210 : mixed. SEEN
+- Wedding Planner: Harmony, Budget: https://apps.apple.com/us/app/id6756780549 : one-time. SEEN
+- WeddingWire, Budget: https://apps.apple.com/us/app/id316565575 : free. SEEN
+- Wedding Planner Tracker, Budget: https://apps.apple.com/us/app/id6736427896 : mixed. SEEN
+
+What they share:
+- A summary block at the top with 2 or 3 money figures and nothing else: total, paid, and left to pay (worded as unpaid, pending, awaiting payment or remaining).
+- Under it, one row per payee. Left side: who is paid, with a small second line. Right side: the amount, right-aligned, with the due date under or beside it.
+- The two bill apps group rows by urgency, each group with its own subtotal in the header: past due, due soon (within 7 days), due later, paid.
+- Paid or not is one control per row: a tick box on the row (Bills Manager) or a "log payment" button on the detail screen (Chronicle). Paid rows move to a Paid group and stay visible.
+- Wedding apps show paid and still-owed as two small figures on each row (deposit paid, balance pending), because a vendor is paid in parts.
+- Past-due amounts are the only thing in a warning colour.
+
+Build it like this:
+- Top summary: three figures in one block: total agreed, paid so far, left to pay. "Left to pay" is the largest.
+- Under it, one line: the next payment (who, how much, when).
+- List grouped by due date with a subtotal in each header: Past due (only if any), Due in the next 30 days, Later, Paid.
+- Row: payee name left with a small line under it (what the payment is: deposit, second payment, final payment). Amount right-aligned, due date under the amount. A tick box at the far right marks it paid.
+- Ticking a row moves it to Paid, updates the three top figures at once, and offers undo.
+- One "+" to add a payment. A vendor paid in parts is several rows under one vendor name, not one row with a formula.
+- Leave out: pie charts, category percentages, typical-cost advice, bank linking, calendar grid on this screen.
+
+Do not:
+- Do not show only a total budget without the per-payment due dates; the dated rows are what this screen is for.
+- Do not delete or hide paid rows.
+- Do not colour anything red except past-due amounts.
+
+Honest limits: 6 seen. The 2 bill apps show the due-date grouping; the 4 wedding apps show budget by category and do not group by due date. A wedding app with a true final-payment schedule screen was not found.
