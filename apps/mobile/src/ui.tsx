@@ -38,7 +38,11 @@ export function PlannedScreen({ route, children, implemented = false }: { route:
   );
   return onboarding
     ? <SafeAreaView style={{ flex: 1, backgroundColor: color.ivory }}>{body}</SafeAreaView>
-    : <View style={{ flex: 1, backgroundColor: color.ivory }}>{body}</View>;
+    : s.kind === 'sheet'
+      ? <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: color.ivory }}>
+          <View style={{ height: '90%', backgroundColor: color.ivoryRaised, borderTopWidth: 1, borderColor: color.rule, borderTopLeftRadius: radius.md, borderTopRightRadius: radius.md }}>{body}</View>
+        </View>
+      : <View style={{ flex: 1, backgroundColor: color.ivory }}>{body}</View>;
 }
 
 function TextButton({ label, onPress }: { label: string; onPress: () => void }) {
