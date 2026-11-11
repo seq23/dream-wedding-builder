@@ -3,7 +3,7 @@
 // bar from src/screens.ts, so the map being right is the app being navigable.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { HOME, SCREENS, TABS, byRoute } from '../src/screens';
 
@@ -61,4 +61,11 @@ test('no dead ends: every screen says what is coming and is drawn by the shell f
     const src = readFileSync(join(root, s.file), 'utf8');
     assert.ok(src.includes(`<PlannedScreen route="${s.route}"`), `${s.file} does not render the shell for ${s.route}`);
   }
+});
+
+test('unfinished partner sharing is absent from navigation and Expo routes', () => {
+  assert.ok(TABS.length <= 5);
+  assert.ok(!TABS.some(t => t.route === '/two-phones'));
+  assert.ok(!SCREENS.some(s => s.route === '/two-phones' || s.links.some(l => l.href === '/two-phones')));
+  assert.equal(existsSync(join(root, 'app/(tabs)/two-phones')), false);
 });

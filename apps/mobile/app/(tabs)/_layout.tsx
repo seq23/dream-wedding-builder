@@ -2,7 +2,7 @@ import { Tabs } from 'expo-router';
 import { color, font } from '../../src/theme';
 import { TABS } from '../../src/screens';
 
-// The four tabs are always there: Plan (home) · Traditions · Two phones · ☰ More
+// The shipped tabs: Plan (home) · Traditions · Payments · ☰ More
 // (make-it-calm section 7). Android back from another tab's root returns to Plan.
 export default function TabsLayout() {
   return (

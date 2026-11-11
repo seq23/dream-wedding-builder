@@ -5,7 +5,7 @@
 // screen reaches the plan in one tap, every sub-screen has Back inside its own tab, every
 // sheet has Close, nothing is orphaned, and the route files match both ways.
 export type Kind = 'onboarding' | 'tab' | 'sub' | 'sheet';
-export type Tab = 'plan' | 'traditions' | 'two-phones' | 'payments' | 'more';
+export type Tab = 'plan' | 'traditions' | 'payments' | 'more';
 export interface ScreenSpec {
   route: string; file: string; title: string; kind: Kind;
   /** The tab whose bar stays visible under this screen (not for onboarding). */
@@ -21,7 +21,6 @@ export const HOME = '/plan';
 export const TABS: { tab: Tab; route: string; label: string }[] = [
   { tab: 'plan', route: '/plan', label: 'Plan' },
   { tab: 'traditions', route: '/traditions', label: 'Traditions' },
-  { tab: 'two-phones', route: '/two-phones', label: 'Two phones' },
   { tab: 'payments', route: '/payments', label: 'Payments' },
   { tab: 'more', route: '/more', label: '☰ More' },
 ];
@@ -43,8 +42,6 @@ export const SCREENS: ScreenSpec[] = [
   { route: '/plan/ai-draft', file: 'app/(tabs)/plan/ai-draft.tsx', title: 'Draft my plan', kind: 'sub', tab: 'plan', back: '/plan',
     links: [], coming: 'Not in this build yet.' },
   { route: '/traditions', file: 'app/(tabs)/traditions/index.tsx', title: 'Your traditions', kind: 'tab', tab: 'traditions',
-    links: [], coming: 'Not in this build yet.' },
-  { route: '/two-phones', file: 'app/(tabs)/two-phones/index.tsx', title: 'Plan on two phones', kind: 'tab', tab: 'two-phones',
     links: [], coming: 'Not in this build yet.' },
   { route: '/more', file: 'app/(tabs)/more/index.tsx', title: 'More', kind: 'tab', tab: 'more',
     links: [{ href: '/more/packet', label: 'Print or send my plan ›' }, { href: '/more/full-plan', label: 'The full plan ›' }, { href: '/welcome', label: 'Change the wedding date ›' }],
