@@ -45,6 +45,7 @@ export default function More() {
       <Text style={type.sub}>Reminders: {reminders}</Text>
       <GoButton href="/reminders" label="Reminders ›" />
       <GoButton href="/more/packet" label="Print or send my plan ›" />
+      <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
       <GoButton href="/more/full-plan" label="The full plan ›" />
       {button('Privacy policy ›', () => { void open('privacy'); })}
       {button('Terms ›', () => { void open('terms'); })}

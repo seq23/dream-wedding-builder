@@ -44,3 +44,26 @@ test('free example source links avoid competing wedding planners', () => {
     assert.ok(!competitors.some(domain => host === domain || host.endsWith(`.${domain}`)), pack.id);
   }
 });
+
+test('free picker adds only its example, persists once, and removal undo preserves other changes', async () => {
+  const { addTraditionExample, hasTraditionPack, restoreTraditionTasks } = await import('../src/traditionPacks');
+  let raw: string | null = null;
+  const storage = { getItem: async () => raw, setItem: async (_key: string, value: string) => { raw = value; } };
+  const store = progressStore(storage);
+  assert.equal(addTraditionExample(emptyProgress(), 'unknown').custom.length, 0);
+  for (const preview of TRADITION_PREVIEWS) {
+    await store.update(p => addTraditionExample(addTraditionExample(p, preview.id), preview.id));
+    const reopened = await progressStore(storage).read();
+    assert.ok(hasTraditionPack(reopened, preview.id));
+    assert.deepEqual(reopened.custom.filter((t: TraditionCustomTask) => t.tradition?.packId === preview.id).map(t => t.text), [preview.example.text]);
+  }
+  const before = await store.read();
+  const after = await store.update(p => removeTraditionPack(p, 'catholic'));
+  assert.equal(hasTraditionPack(after, 'catholic'), false);
+  const removed = before.custom.filter(t => !after.custom.some(k => k.id === t.id));
+  await store.update(p => addOwnTask(p, '9-months', 'My new task', 'new'));
+  const undone = await store.update(p => restoreTraditionTasks(p, removed));
+  assert.equal(undone.custom.length, TRADITION_PREVIEWS.length + 1);
+  assert.ok(hasTraditionPack(undone, 'catholic'));
+  assert.equal(restoreTraditionTasks(undone, removed).custom.length, undone.custom.length);
+});

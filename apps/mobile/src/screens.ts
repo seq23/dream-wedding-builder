@@ -27,6 +27,7 @@ export const TABS: { tab: Tab; route: string; label: string }[] = [
 ];
 export const SCREENS: ScreenSpec[] = [
   { route: '/more/packet', file: 'app/(tabs)/more/packet.tsx', title: 'Print or send my plan', kind: 'sub', tab: 'more', back: '/more', links: [], coming: 'Not in this build yet.' },
+  { route: '/plan/wedding-week', file: 'app/(tabs)/plan/wedding-week.tsx', title: 'Your wedding week', kind: 'sub', tab: 'plan', back: '/plan', links: [], coming: 'Not in this build yet.' },
   { route: '/payments', file: 'app/(tabs)/payments/index.tsx', title: 'Payments', kind: 'tab', tab: 'payments', links: [], coming: 'Not in this build yet.' },
   { route: '/welcome', file: 'app/welcome.tsx', title: 'When is the wedding?', kind: 'onboarding',
     links: [{ href: '/reminders', label: 'Make my dated plan ›' }, { href: HOME, label: 'Skip ›' }],
@@ -35,7 +36,7 @@ export const SCREENS: ScreenSpec[] = [
     links: [{ href: HOME, label: 'Turn on reminders ›' }, { href: HOME, label: 'Skip ›' }],
     coming: 'Not in this build yet.' },
   { route: '/plan', file: 'app/(tabs)/plan/index.tsx', title: 'Your plan', kind: 'tab', tab: 'plan',
-    links: [{ href: '/plan/add-task', label: '+ Add your own task' }, { href: '/plan/ai-draft', label: 'Draft my plan from a sentence ›' }],
+    links: [{ href: '/plan/wedding-week', label: 'Your wedding week ›' }, { href: '/plan/add-task', label: '+ Add your own task' }, { href: '/plan/ai-draft', label: 'Draft my plan from a sentence ›' }],
     coming: 'Not in this build yet.' },
   { route: '/plan/add-task', file: 'app/(tabs)/plan/add-task.tsx', title: 'Add your own task', kind: 'sheet', tab: 'plan', back: '/plan',
     links: [], coming: 'Not in this build yet.' },
