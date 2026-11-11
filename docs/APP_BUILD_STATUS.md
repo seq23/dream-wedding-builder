@@ -1,7 +1,8 @@
 # App build queue — 10 Nov 2026
 
-Task 1 PR prepared against the scaffold branch; coordinator reviews and merges.
-Next task: 2, after task 1 lands. Each subsequent task needs its own PR.
+Task 1 PR is green and awaits coordinator review.
+Task 2 is implemented in its own dependent PR against the scaffold branch.
+Next task: 3. Coordinator lands task 1 before task 2; agents never merge.
 
 Preview: CI exports the app for the web and puts a free download shortcut in its
 run summary. Download, unzip and serve with `python3 -m http.server 8080`.

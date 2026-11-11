@@ -46,7 +46,7 @@ export const SCREENS: ScreenSpec[] = [
     links: [{ href: '/more/full-plan', label: 'The full plan ›' }, { href: '/welcome', label: 'Change the wedding date ›' }],
     coming: 'Date, reminders, AI draft, full plan, printables, privacy, restore, delete. Codex task 9.' },
   { route: '/more/full-plan', file: 'app/(tabs)/more/full-plan.tsx', title: 'The full plan', kind: 'sub', tab: 'more', back: '/more',
-    links: [], coming: 'One payment, no subscription: 104 dated tasks, two phones, every reminder, traditions, handover pack, PDF; Planner + Printables as the better value. Built switched off. Codex task 8.' },
+    links: [], coming: 'One payment per event: payments, wedding week, the handover packet and a partner joining, with reminders and traditions. Built switched off. Codex task 8.' },
 ];
 export const byRoute = (route: string) => {
   const s = SCREENS.find(x => x.route === route);
