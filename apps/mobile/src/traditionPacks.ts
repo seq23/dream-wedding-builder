@@ -9,7 +9,7 @@ export const TRADITION_PREVIEWS = [
   { id: 'jewish', name: 'Jewish', example: { id: 'officiant', windowId: '9-months', text: 'Discuss the ceremony you want with your rabbi or cantor.', source: 'https://www.myjewishlearning.com/article/planning-your-jewish-wedding/' } },
   { id: 'hindu', name: 'Hindu', example: { id: 'priest', windowId: '9-months', text: 'Discuss your ceremony and its items with your chosen priest.', source: 'https://www.dfwhindutemple.org/services/priest-services/' } },
   { id: 'muslim-nikah', name: 'Muslim nikah', example: { id: 'imam', windowId: '9-months', text: 'Ask your imam about arranging your nikah.', source: 'https://icorlando.org/service/marriage-nikah/' } },
-  { id: 'nigerian', name: 'Nigerian traditional', example: { id: 'family', windowId: '9-months', text: 'Talk with both families about the traditions you want to include.', source: 'https://folklore.usc.edu/inyo-uno-nigerian-igbo-marriage-tradition/' } },
+  { id: 'nigerian', name: 'Nigerian traditional', example: { id: 'family', windowId: '9-months', text: 'Talk with both families about the traditions you want to include.', source: 'https://www.laits.utexas.edu/africa/2004/database/adejola.html' } },
   { id: 'mexican', name: 'Mexican', example: { id: 'rituals', windowId: '9-months', text: 'Decide together whether to include the lazo or arras.', source: 'https://folklore.usc.edu/the-lazo-and-arras-in-mexican-wedding-tradition/' } },
   { id: 'chinese-tea', name: 'Chinese tea ceremony', example: { id: 'elders', windowId: '9-months', text: 'Agree with your families which elders you will serve tea to.', source: 'https://archive.chcp.org/virtual-museum-library/qa-chinese-wedding-tea-ceremony/' } },
 ] as const;
