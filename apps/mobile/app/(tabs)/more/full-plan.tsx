@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { getRandomBytes } from 'expo-crypto';
 import { bytesToHex } from '@noble/ciphers/utils.js';
-import { checkout, checkoutRead } from '../../../src/billing/checkout';
+import { checkout, checkoutRead, checkoutCatalog } from '../../../src/billing/checkout';
 import { downloadStore } from '../../../src/billing/downloadStore';
 import { dateStore } from '../../../src/weddingDate';
 import { sharingChanged } from '../../../src/sharing/runtime';
@@ -32,7 +32,7 @@ export default function FullPlan() {
   const [error, setError] = useState('');
   useFocusEffect(useCallback(() => {
     let active = true;
-    setLoaded(false); setError(''); setMessage('');
+    setLoaded(false); setProducts([]); setError(''); setMessage('');
     const timeout = setTimeout(() => {
       active = false;
       setError('Your event took too long to load. Close this screen and try again.');
@@ -40,11 +40,14 @@ export default function FullPlan() {
     Promise.all([eventNameStore(AsyncStorage, newEvent).read(), eventStore(AsyncStorage).read(), eventStore(AsyncStorage).active()])
       .then(async ([draft, ledger, event]) => {
         if (!active) return;
-        const catalog = purchases.available ? await purchases.products(event?.fullPlan ? 'after_unlock' : 'default') : [];
-        if (!active) return;
-        clearTimeout(timeout); setProducts(catalog);
+        clearTimeout(timeout);
         const next = offersFor(entitlementsFor(ledger, event?.id ?? ''), newEvent && ledger.firstEventId !== null);
         setName(draft.name); setLocked(draft.locked); setOffers(next); setSelected(next[0]); setLoaded(true);
+        // Event details are ready: Restore does not depend on store prices.
+        const catalog = await checkoutCatalog(purchases, event?.fullPlan ? 'after_unlock' : 'default');
+        if (!active) return;
+        setProducts(catalog.products);
+        if (catalog.error) setError(catalog.error);
       }).catch(() => { clearTimeout(timeout); if (active) setError('Could not read your event. Close this screen and try again.'); });
     return () => { active = false; clearTimeout(timeout); };
   }, [newEvent]));
