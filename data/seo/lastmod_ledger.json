@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "52e6fc584d52947f067c727c7909b601f6be7da9",
+  "generated_from_commit": "4135ecd092a60062c6ff6583ef05d73901ddc9ed",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
-      "lastmod": "2026-11-06",
+      "lastmod": "2026-11-10",
       "source": "app/page.tsx"
     },
     "/about": {
@@ -14,7 +14,7 @@
       "source": "app/about/page.tsx"
     },
     "/amazon/courthouse-wedding-planner": {
-      "lastmod": "2026-11-08",
+      "lastmod": "2026-11-10",
       "source": "data/seo/editorial_page_shape.json#amazon/courthouse-wedding-planner"
     },
     "/amazon/maid-of-honor-handbook": {
@@ -58,7 +58,7 @@
       "source": "app/editorial-policy/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-11-07",
+      "lastmod": "2026-11-10",
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
@@ -130,7 +130,7 @@
       "source": "data/seo/consolidated_decisions.json#/guides/wedding-seating-chart-template"
     },
     "/methodology": {
-      "lastmod": "2026-09-02",
+      "lastmod": "2026-11-10",
       "source": "app/methodology/page.tsx"
     },
     "/micro-wedding-planning": {
@@ -138,7 +138,7 @@
       "source": "app/micro-wedding-planning/page.tsx"
     },
     "/photos": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-11-10",
       "source": "app/photos/page.tsx"
     },
     "/printable-wedding-checklist": {
@@ -146,15 +146,15 @@
       "source": "data/seo/editorial_page_shape.json#printable-wedding-checklist"
     },
     "/privacy": {
-      "lastmod": "2026-11-01",
+      "lastmod": "2026-11-10",
       "source": "app/privacy/page.tsx"
     },
     "/products/budget-spreadsheet": {
-      "lastmod": "2026-11-02",
+      "lastmod": "2026-11-10",
       "source": "data/seo/budget_page_shape.json#wedding-budget-spreadsheet + product record"
     },
     "/products/checklist-pdf": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-11-10",
       "source": "data/products/product_catalog.json#products[id=checklist-pdf]"
     },
     "/products/courthouse-wedding-kit": {
@@ -166,15 +166,15 @@
       "source": "data/products/product_catalog.json#products[id=maid-of-honor-kit]"
     },
     "/products/operations-suite": {
-      "lastmod": "2026-10-27",
+      "lastmod": "2026-11-10",
       "source": "app/products/operations-suite/page.tsx"
     },
     "/products/seating-chart-maker": {
-      "lastmod": "2026-08-26",
+      "lastmod": "2026-11-10",
       "source": "data/products/product_catalog.json#products[id=seating-chart-maker]"
     },
     "/products/timeline-template": {
-      "lastmod": "2026-10-25",
+      "lastmod": "2026-11-10",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/products/wedding-vows-workbook": {
@@ -186,7 +186,7 @@
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {
-      "lastmod": "2026-10-25",
+      "lastmod": "2026-11-10",
       "source": "app/readiness-score/page.tsx"
     },
     "/refund-policy": {
@@ -194,15 +194,15 @@
       "source": "app/refund-policy/page.tsx"
     },
     "/shop": {
-      "lastmod": "2026-11-05",
+      "lastmod": "2026-11-10",
       "source": "app/shop/page.tsx"
     },
     "/shop/compare": {
-      "lastmod": "2026-09-25",
+      "lastmod": "2026-11-10",
       "source": "app/shop/compare/page.tsx"
     },
     "/terms": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-11-10",
       "source": "app/terms/page.tsx"
     },
     "/trends": {
@@ -222,7 +222,7 @@
       "source": "data/seo/editorial_page_shape.json#wedding-checklist"
     },
     "/wedding-checklist-pdf": {
-      "lastmod": "2026-11-04",
+      "lastmod": "2026-11-10",
       "source": "data/seo/editorial_page_shape.json#wedding-checklist-pdf"
     },
     "/wedding-cost-per-guest": {
