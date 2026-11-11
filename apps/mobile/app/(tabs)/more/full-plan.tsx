@@ -57,17 +57,23 @@ export default function FullPlan() {
       const date = await checkoutRead(() => dateStore(AsyncStorage).read());
       if (!date) throw Error('Set your wedding date on the plan first.');
       if (restore) await phoneCheckout.restore(name, date);
-      else await phoneCheckout.purchase(name, date);
+      else {
+        if (!selected) throw Error('Choose a product first.');
+        await phoneCheckout.purchase(name, date, selected);
+      }
       sharingChanged();
       setLocked(true); setMessage('Your full plan is saved on this phone.');
       const [event, ledger] = await checkoutRead(() => Promise.all([eventStore(AsyncStorage).active(), eventStore(AsyncStorage).read()]));
       if (event) setName(event.name);
       setOffers(offersFor(entitlementsFor(ledger, event?.id ?? '')));
       setSelected(undefined);
+      setProducts([]);
+      try { setProducts(await checkoutRead(() => purchases.products('after_unlock'))); }
+      catch { setMessage('Your full plan is saved. Reopen this screen to load store prices for extras.'); }
     } catch (e) { setError(e instanceof Error ? e.message : 'Could not check your purchase. Restore and try again.'); }
     finally { setSaving(false); }
   }
-  const canBuy = purchases.available && loaded && !saving && !newEvent && !locked && selected === 'dw_full_plan' && !!name.trim() && products.some(p => p.id === selected);
+  const canBuy = purchases.available && loaded && !saving && !newEvent && !!selected && offers.includes(selected) && !!name.trim() && products.some(p => p.id === selected);
   async function saveName() {
     setSaving(true); setError(''); setMessage('');
     try { setName(await eventNameStore(AsyncStorage, newEvent).save(name)); setMessage('Event name saved on this phone.'); }
@@ -85,8 +91,8 @@ export default function FullPlan() {
       <TextInput accessibilityLabel="Event name" value={name} onChangeText={value => { setName(value); setMessage(''); }} maxLength={140} editable={!saving} style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
       <Text style={type.sub}>This name locks after purchase. Saving a name keeps your current plan as it is.</Text>
       <Pressable accessibilityRole="button" disabled={saving || !name.trim()} onPress={() => { void saveName(); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Save event name</Text></Pressable>
-      {message ? <Text accessibilityRole="status" style={type.sub}>{message}</Text> : null}
     </View> : null}
+    {message ? <Text accessibilityRole="status" style={type.sub}>{message}</Text> : null}
     <View style={{ gap: space[2] }}>
       <Text style={type.sub}>Payments and final-payment schedule</Text>
       <Text style={type.sub}>Wedding-week sheet</Text>
@@ -102,7 +108,7 @@ export default function FullPlan() {
     </Pressable>)}
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !canBuy }} disabled={!canBuy} onPress={() => { void transact(); }}
       style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: radius.md, opacity: canBuy ? 1 : 0.5 }}>
-      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? 'Unlock full plan' : 'Purchases unavailable'}</Text>
+      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? locked ? 'Add to my plan' : 'Unlock full plan' : 'Purchases unavailable'}</Text>
     </Pressable>
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !purchases.available || saving || !loaded }} disabled={!purchases.available || saving || !loaded} onPress={() => { void transact(true); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={type.sub}>{purchases.available ? 'Restore purchase' : 'Restore purchase · unavailable'}</Text></Pressable>
     <View style={{ flexDirection: 'row', gap: space[4] }}>
