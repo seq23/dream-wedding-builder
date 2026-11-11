@@ -5,15 +5,15 @@ export const OWNER_PLAN_KEY = 'dw.sharing.owner-plan.v1';
 export const SHARED_PAYMENTS_KEY = 'dw.sharing.payments.v1';
 export const SHARED_WEEK_KEY = 'dw.sharing.week.v1';
 /** Shared access is an overlay. Stopping/Leaving never writes personal purchase history. */
-export function activeSharing(storage: DateStorage, session: ReturnType<typeof sharingSession>, activeEvent: () => Promise<{id: string; date?: string; name?: string} | null>) {
+export function activeSharing(storage: DateStorage, session: ReturnType<typeof sharingSession>, activeEvent: () => Promise<{id: string; date?: string; name?: string} | null>, ownerPlan: () => Promise<SharedPlan | null> = async () => null) {
   async function plan(): Promise<SharedPlan | null> {
     const current = await session.read();
     if (current) return current.plan;
     const raw = await storage.getItem(OWNER_PLAN_KEY);
-    if (!raw) return null;
+    if (!raw) return ownerPlan();
     const owner = sharedPlan(JSON.parse(raw));
     const active = await activeEvent();
-    return active?.id === owner.event.id ? { ...owner, event: { ...owner.event, date: active.date ?? owner.event.date, name: active.name ?? owner.event.name } } : null;
+    return active?.id === owner.event.id ? { ...owner, event: { ...owner.event, date: active.date ?? owner.event.date, name: active.name ?? owner.event.name } } : ownerPlan();
   }
   return {
     plan,

@@ -119,3 +119,52 @@ test('stalled transport or body, oversized data, corrupt cache and failed writes
   await store.refresh(id);
   assert.equal((await store.read(id))?.list.tasks[0].id, 'sample');
 });
+
+test('verified owner who never shared opens every paid view offline and retains edits across restart', async () => {
+  const { downloadedOwnerPlan } = await import('../src/billing/ownerPlan');
+  const { ACTIVE_EVENT_KEY, EVENT_LEDGER_KEY, eventStore } = await import('../src/billing/eventStore');
+  const { activeSharing } = await import('../src/sharing/active');
+  const { sharingSession, SHARE_SESSION_KEY } = await import('../src/sharing/session');
+  const { taskKey, toggleDone } = await import('@core/plan-progress');
+  const { datedFullPlan } = await import('@core/full-plan');
+  const { paymentRows } = await import('../src/payments');
+  const { weekTasks } = await import('../src/weddingWeek');
+  const { packetModel } = await import('../src/packet');
+  const { reminderSchedule } = await import('../src/reminders');
+  const { addTraditionPack } = await import('../src/traditionPacks');
+  const s = setup();
+  const event = { id: 'owner-event', name: 'Fictional robot wedding', date: '2028-06-12', dateChanges: 0, fullPlan: true };
+  s.data.set(EVENT_LEDGER_KEY, JSON.stringify({ firstEventId: event.id, extras: [], events: [event] }));
+  s.data.set(ACTIVE_EVENT_KEY, event.id);
+  assert.equal(await downloadedOwnerPlan(s.storage), null); // A ledger flag alone grants no content.
+  const payment = { ...list.tasks[0], id: 'sample-payment', text: 'Fictional robot payment', kind: 'payment' };
+  const full = { ...list, tasks: [...list.tasks, payment] };
+  const transport: typeof fetch = async (url, init) => String(url).endsWith('fixture-0') ? Response.json(full) : s.transport(url, init);
+  await downloadStore(s.storage, transport).refresh(id);
+  const calls = s.calls.length;
+  const makeAccess = () => {
+    const noNetwork = async (): Promise<never> => assert.fail('owner views must not contact sharing');
+    const session = sharingSession(s.storage, { create: noNetwork, read: noNetwork, write: noNetwork, stop: noNetwork }, 'a'.repeat(32), noNetwork);
+    return activeSharing(s.storage, session, eventStore(s.storage).active, () => downloadedOwnerPlan(s.storage));
+  };
+  const access = makeAccess();
+  const plan = (await access.plan())!;
+  const progress = await access.progress(async () => assert.fail('owner must have full-plan progress'));
+  assert.deepEqual(datedFullPlan(plan.list, event.date, event.date).flatMap(w => w.tasks).map(t => t.id), full.tasks.map(t => t.id));
+  assert.equal(paymentRows(plan.list, event.date, [], {}, true).length, 1);
+  assert.equal(weekTasks(plan.list, event.date, progress, true).length, full.tasks.length);
+  assert.equal(packetModel({ shared: true, names: event.name, date: event.date, progress, unlocked: true, list: plan.list, payments: { own: [], edits: {} }, week: { who: {}, contacts: [] } }).total, full.tasks.length);
+  assert.ok(reminderSchedule(event.date, progress, new Date(2028, 0, 1), true, undefined, plan.list).some(r => r.body.includes(full.tasks[0].text)));
+  assert.equal(addTraditionPack(progress, plan.packs![0], true).custom.length, 1);
+  const key = taskKey(full.tasks[0].window, full.tasks[0].text);
+  await access.update(p => toggleDone(p, key, '2028-01-01T00:00:00.000Z'), async () => assert.fail('must update paid progress'));
+  assert.equal((await makeAccess().progress(async () => assert.fail('must retain paid progress'))).done[key], '2028-01-01T00:00:00.000Z');
+  assert.equal(s.data.has(SHARE_SESSION_KEY), false);
+  assert.equal(s.calls.length, calls);
+  // Downloaded content cannot unlock an unpaid or deleted/recreated event.
+  s.data.set(ACTIVE_EVENT_KEY, 'new-event');
+  s.data.set(EVENT_LEDGER_KEY, JSON.stringify({ firstEventId: event.id, extras: [], events: [event, { ...event, id: 'new-event', fullPlan: false }] }));
+  assert.equal(await makeAccess().plan(), null);
+  s.data.delete(ACTIVE_EVENT_KEY);
+  assert.equal(await makeAccess().plan(), null);
+});
