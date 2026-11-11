@@ -1,19 +1,12 @@
 # Dream Wedding app — 11 Nov 2026
 
-Review #143 is already fixed in scaffold #144: personal deadlines use the original
-window end; tests/unit/full-plan-card.test.ts covers expiry. No duplicate fix.
-
-Task 8 is partial (draft PR): disabled purchase screen, native RevenueCat adapter,
-and tested event-policy reducers. No SDK is configured at runtime; no sale,
-restore, download, store account or product was created. No paid content added.
-
-Unfinished: server-verified /api/app-unlock and signed delivery, durable event-bound
-purchase ledger/restore (including consumables), integration with date/name edits,
-new-event flow, printables delivery, and verified shared-event entitlement/revocation.
-The reducers alone do not implement or authorize those flows. Task 7 remains draft
-#148; task 8 cannot claim joined-phone or restore acceptance until they are wired.
-NAMED STOP [DW_STORE_NOT_SET_UP]: store accounts/products and RevenueCat are absent.
-NAMED STOP [REVENUECAT_SECRET_MISSING]: keep purchase/download activation closed.
-
-Tasks 4–7 remain in open PRs #139/#147/#149/#148. Next: finish task 8, then 8a.
+Tasks 1–5 are merged. Tasks 6–8 and 8a sit in #149/#148/#150/#151.
+Review #143 is fixed by #144 with its expired-window regression test.
+Review fix in #151 normalizes payment dates before saving; one regression covers
+persistence, chronological order and urgency. Task 8a uses fictional preview rows.
+NAMED STOP [REVENUECAT_SECRET_MISSING]: real paid delivery remains closed.
+NAMED STOP [PRIVATE_WRITE_NEEDED]: task 5 full packs need private authoring,
+Claude review and private upload outside ~/GitHub; none were authored here.
+NAMED STOP [PATTERN_NOTES_MISSING]: traditions picker needs shipped examples.
+Next: 8b, then 8c; screen pattern notes are required before building those screens.
 NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 and 12.

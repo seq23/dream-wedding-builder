@@ -1,6 +1,11 @@
-import type { Entitlement, ProductId } from './offers';
+import { PRODUCTS, type Entitlement, type ProductId } from './offers';
 export const STORE_STOP = 'DW_STORE_NOT_SET_UP';
 export interface StoreProduct { id: ProductId; price: string }
+/** Only actual catalog entries with a one-time, positive store price can be sold. */
+export function storeProduct(product: { identifier: string; subscriptionPeriod: string | null; priceString: string; price: number }): StoreProduct | null {
+  if (!Object.hasOwn(PRODUCTS, product.identifier) || product.subscriptionPeriod !== null || !product.priceString.trim() || !Number.isFinite(product.price) || product.price <= 0) return null;
+  return { id: product.identifier as ProductId, price: product.priceString };
+}
 export interface PurchaseSnapshot { userId: string; active: Entitlement[] }
 export interface PurchasesProvider {
   readonly available: boolean;

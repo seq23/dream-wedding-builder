@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { DisabledPurchases, acceptedKey } from '../src/billing/provider';
+import { DisabledPurchases, acceptedKey, storeProduct } from '../src/billing/provider';
 import { purchases } from '../src/billing/current';
 import { addEvent, emptyLedger, entitlementsFor, moveEvent, recordVerifiedPurchase, renameEvent } from '../src/billing/events';
 import { PRODUCTS } from '../src/billing/offers';
@@ -19,6 +19,14 @@ test('absent stores cannot simulate purchases or restore; production entry remai
   assert.equal(acceptedKey('ios', 'appl_example'), true);
 });
 const initial = () => addEvent(emptyLedger(), 'first', 'Our wedding', '2027-06-12');
+test('store catalog rejects subscriptions and invalid products and preserves localized store prices', () => {
+  const product = { identifier: 'dw_full_plan', subscriptionPeriod: null, priceString: '19,99 €', price: 19.99 };
+  assert.deepEqual(storeProduct(product), { id: 'dw_full_plan', price: '19,99 €' });
+  for (const identifier of ['toString', '__proto__', 'unknown']) assert.equal(storeProduct({ ...product, identifier }), null);
+  assert.equal(storeProduct({ ...product, subscriptionPeriod: 'P1M' }), null);
+  for (const price of [0, -1, NaN, Infinity]) assert.equal(storeProduct({ ...product, price }), null);
+  assert.equal(storeProduct({ ...product, priceString: ' ' }), null);
+});
 test('each product has its exact grants and extra content stays separate from the event', () => {
   for (const id of ['dw_full_plan', 'dw_planner_printables', 'dw_day_of_kit'] as const) {
     const paid = recordVerifiedPurchase(initial(), 'first', id);
