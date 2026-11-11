@@ -2,12 +2,12 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { emptyProgress, toggleDone, taskKey } from '@core/plan-progress';
 import { buildDatedPlan } from '@core/dated-plan';
-import { addOwnTask, catchUpRows, editOwnTask, progressStore, removeCustomTask, taskCount, taskRows } from '../src/planTasks';
+import { addOwnTask, catchUpRows, editOwnTask, ownTaskKey, progressStore, removeCustomTask, taskCount, taskRows } from '../src/planTasks';
 
 test('tick stamps and untick clears without moving rows; totals include own tasks only once', () => {
   let p = addOwnTask(emptyProgress(), '9-months', 'Our task', 'a');
   const keys = taskRows(p).map(r => r.key);
-  const key = taskKey('9-months', 'Our task');
+  const key = ownTaskKey('a');
   p = toggleDone(p, key, '2026-11-10T09:00:00Z');
   assert.deepEqual(taskRows(p).map(r => r.key), keys);
   assert.equal(taskRows(p).find(r => r.key === key)?.doneAt, '2026-11-10T09:00:00Z');
@@ -20,10 +20,10 @@ test('own tasks trim to site limit, edit in place keeping stamp, remove their ti
   let p = addOwnTask(emptyProgress(), '12-plus', 'x'.repeat(160), 'a');
   assert.equal(p.custom[0].text.length, 140);
   p = addOwnTask(p, '12-plus', 'Second task', 'b');
-  p = toggleDone(p, taskKey('12-plus', p.custom[0].text), 'stamp');
+  p = toggleDone(p, ownTaskKey('a'), 'stamp');
   p = editOwnTask(p, 'a', '9-months', 'New words');
   assert.deepEqual(p.custom.map(t => t.id), ['a', 'b']);
-  assert.equal(p.done[taskKey('9-months', 'New words')], 'stamp');
+  assert.equal(p.done[ownTaskKey('a')], 'stamp');
   assert.equal(Object.keys(p.done).length, 1);
   assert.equal(editOwnTask(p, 'a', 'unknown', 'x'), p);
   assert.equal(editOwnTask(p, 'a', '9-months', '  '), p);
@@ -35,7 +35,7 @@ test('catch-up includes own tasks from closed windows and excludes completed one
   let p = addOwnTask(emptyProgress(), '12-plus', 'Call our families', 'a');
   const plan = buildDatedPlan('2027-06-12', '2026-11-06');
   assert.equal(catchUpRows(p, plan).length, 5);
-  p = toggleDone(p, taskKey('12-plus', 'Call our families'), 'stamp');
+  p = toggleDone(p, ownTaskKey('a'), 'stamp');
   assert.equal(catchUpRows(p, plan).length, 4);
   assert.equal(catchUpRows(p, buildDatedPlan('')).length, 0);
 });
@@ -50,4 +50,35 @@ test('serialized phone writes survive restart; failed writes reject without brea
   await assert.rejects(store.update(p => removeCustomTask(p, 'a')));
   fails = false;
   assert.equal((await store.update(p => removeCustomTask(p, 'a'))).custom.length, 1);
+});
+
+test('identical custom and built-in task text keep independent completion through edit and removal', async () => {
+  const { PLAN_WINDOWS } = await import('@core/dated-plan');
+  const window = PLAN_WINDOWS[0]; const text = window.tasks[0];
+  const builtIn = taskKey(window.id, text);
+  let p = toggleDone(emptyProgress(), builtIn, 'original');
+  p = addOwnTask(p, window.id, text, 'a');
+  p = addOwnTask(p, window.id, text, 'b');
+  assert.equal(taskRows(p).filter(row => row.doneAt).length, 1);
+  p = toggleDone(p, ownTaskKey('a'), 'custom');
+  p = editOwnTask(p, 'a', window.id, 'Changed task');
+  assert.equal(p.done[builtIn], 'original');
+  assert.equal(p.done[ownTaskKey('a')], 'custom');
+  assert.equal(p.done[ownTaskKey('b')], undefined);
+  p = removeCustomTask(p, 'a');
+  assert.equal(p.done[builtIn], 'original');
+  assert.equal(p.done[ownTaskKey('a')], undefined);
+});
+
+test('legacy ticks migrate once, so unticking a duplicate never resurrects its completion', async () => {
+  const { PLAN_WINDOWS } = await import('@core/dated-plan');
+  const window = PLAN_WINDOWS[0]; const text = window.tasks[0];
+  const builtIn = taskKey(window.id, text);
+  let raw = JSON.stringify({ done: { [builtIn]: 'legacy' }, custom: [{ id: 'a', windowId: window.id, text }] });
+  const store = progressStore({ getItem: async () => raw, setItem: async (_key, value) => { raw = value; } });
+  assert.equal((await store.read()).done[ownTaskKey('a')], 'legacy');
+  await store.update(p => toggleDone(p, ownTaskKey('a'), 'unused'));
+  const reopened = await store.read();
+  assert.equal(reopened.done[ownTaskKey('a')], undefined);
+  assert.equal(reopened.done[builtIn], 'legacy');
 });
