@@ -25,18 +25,25 @@ export function shareClient(rng: SecureRandom, transport: typeof fetch = fetch, 
           const url = `${SHARE_ORIGIN}/api/plan-share${id ? `?id=${id}` : ''}`;
           const response = await transport(url, { method, body, headers: { 'content-type': 'application/json' }, signal: controller.signal, redirect: 'error', credentials: 'omit' });
           if (response.status === 409) throw new ShareConflict('Read the latest plan and merge before trying again.');
-          if (!response.ok || !response.body) throw Error(SHARE_UNAVAILABLE);
-          reader = response.body.getReader();
+          if (!response.ok) throw Error(SHARE_UNAVAILABLE);
           let text = ''; let size = 0;
           const decoder = new TextDecoder();
-          for (;;) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            size += value.byteLength;
-            if (size > MAX_BYTES) throw Error(SHARE_UNAVAILABLE);
-            text += decoder.decode(value, { stream: true });
+          if (!response.body) {
+            // React Native's built-in fetch exposes text(), but no body stream.
+            text = await response.text();
+            if (new TextEncoder().encode(text).length > MAX_BYTES) throw Error(SHARE_UNAVAILABLE);
+          } else {
+            reader = response.body.getReader();
+            for (;;) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              size += value.byteLength;
+              if (size > MAX_BYTES) throw Error(SHARE_UNAVAILABLE);
+              text += decoder.decode(value, { stream: true });
+            }
+            text += decoder.decode();
           }
-          const data = JSON.parse(text + decoder.decode());
+          const data = JSON.parse(text);
           if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error(SHARE_UNAVAILABLE);
           return data;
         })(),
