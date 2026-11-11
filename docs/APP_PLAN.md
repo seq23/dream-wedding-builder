@@ -517,3 +517,66 @@ there is no NAMED STOP [PATTERN_NOTES_MISSING] for them. Build them from what is
   opens the phone's share sheet.
 - Never: a new tab, a typed date, a count that is not read from the list the phone holds, or any paid
   task in the free packet.
+
+# Dream Wedding: screen patterns from shipped apps (additions, 11 Nov 2026)
+
+Read this first:
+- Notes on shipped screens looked at on 11 Nov 2026. Not test results. Where a note disagrees with the plan, the plan wins.
+- SEEN = I loaded the page and looked at the screenshot, or read the steps on the app's own help page. TEXT ONLY = I read a description and did not see the screen.
+- Sources: App Store web pages (store screenshots) and the apps' own help pages. No sign-in, no trial. Structure only.
+
+### (i) "Invite my partner", the partner's "Join this plan", sharing on, and "Stop sharing"
+
+Examples looked at:
+- Futari, wedding planner: https://apps.apple.com/us/app/id6760993827 : a "Partner Sync" sheet: icon, title, two lines of why, then two rows ("share a code" / "enter a code"), Done in the top corner. SEEN
+- Packing List Checklist: https://apps.apple.com/us/app/id1235121075 : a share control and a two-people control in the list's top bar; a "My / Shared" switch on the home list; shared rows carry a two-people mark and "updated 4 min ago". SEEN
+- Apple Reminders, share a list: https://support.apple.com/en-gb/guide/reminders/remnd509c0d9 : share from the list's top bar; the other person must accept; a people screen lists who is in, with "Remove access" per person and one "Stop sharing" that asks once ("Continue") and says the list leaves their devices. SEEN (help page steps, no screenshot)
+- AnyList, share a list: https://help.anylist.com/articles/share-list/ : share from the list menu by typing an email; the other person must make an account with that email. SEEN (help page steps; its two images were not viewable). Used as a contrast: this is the account wall our plan forbids.
+- Marrigo, wedding planner: https://apps.apple.com/us/app/id6769004240 : store text says "no account required" and partner sharing by a private link. TEXT ONLY (6 store screenshots looked at; none shows the sharing screen)
+- WePlan Wedding: https://apps.apple.com/us/app/id6762328579 : store text says one private invite link, but the partner signs in. TEXT ONLY (6 screenshots looked at; none shows it)
+- tricount: https://apps.apple.com/us/app/id349866256 : said to let people join by link with no sign-up. TEXT ONLY (search summary only; its help pages returned 404 and its 8 store screenshots show no share screen)
+
+What they have in common:
+- Sharing is reached from the plan itself (a top-bar control or a row in settings), never forced during setup.
+- The invite screen is short: one line of why, then one action that hands off to the phone's own share sheet. The sender types nothing about the partner.
+- The joining side has one job: accept. Where an account is asked for (AnyList, WePlan), it is the only extra step, and it is the step to leave out.
+- Sharing on is shown quietly in place: a two-people mark and a "last updated" time. No banner.
+- Stopping is on the same screen as inviting, asks once, and says plainly what the other person loses.
+
+For our screen (top to bottom):
+1. Invite (her phone, owner of the full plan). Title "Invite my partner". One line: both phones show the same plan; no account; nothing more to pay. One line on privacy: anyone with the link can open the plan, so send it only to your partner. One main button, full width, at the bottom: "Send the link" (opens the share sheet). Nothing else to choose.
+2. After sending: same screen, now "Sharing is on". Shows "Link sent" and, once the partner has opened it, "Your partner joined" with the last-updated time. A text link "Send the link again". A text link "Stop sharing" at the bottom, apart from the rest.
+3. Join (partner's phone, opened from the link). Title "Join this plan". The event's name (locked, read-only) and the wedding date. One line: you will see the same tasks and payments; ticks show on both phones. One main button: "Join this plan". A small "Not now". No email, no name, no account, no price.
+4. Joined state: the plan opens fully unlocked. A two-people mark in the plan's top bar; tapping it shows "Shared with you" and "Leave this plan".
+5. Stop sharing (her phone): asks once. Says what happens: your partner's phone goes back to the free plan; nothing is removed from yours. Two buttons: "Stop sharing" and "Keep sharing". After: the screen returns to state 1 and the old link no longer opens the plan.
+6. Other states: no connection (say the link needs a connection once, ticks catch up later); link no longer works (same plain sentence for a stopped link and a wrong link, with "Ask your partner for a new link"); she does not own the full plan (the row opens the paywall, pattern c, not this screen).
+
+Must NOT be there:
+- No account, email, phone number or code to type. No second purchase or price on the partner's side.
+- No "invite family / friends" list, roles or permissions. One partner, one link.
+- No pressure wording, no badge count nagging her to invite, no pre-sent messages.
+- No mention of this screen anywhere until task 7 ships (plan rule).
+
+Honest limits: 4 seen, 3 text only. Only Futari shows a wedding partner-invite screen, and it uses a typed code, not a link. No example seen joins by link with no account AND unlocks paid content on the second phone; that part comes from the plan, not from an example.
+
+### (e) Traditions tab: already covered, small additions only
+
+The plan already has this pattern: section "(e) Traditions tab" in `docs/APP_PLAN.md` (4 examples seen on 11 Nov: PackPoint, Productive, Todoist template, Riwaya). It covers the list of seven rows, the pack screen, add, the "Added" state, remove with undo, and the locked split (name plus one free example; no blurred rows). Nothing there needs changing.
+
+Extra examples looked at for the gaps:
+- Packr: https://apps.apple.com/us/app/id1208312901 : a grid of optional lists grouped under three headings; chosen tiles are coloured, the rest grey; one button under the grid; the result is a list grouped by pack with "4/17 items" counts. SEEN
+- Packing List Checklist: https://apps.apple.com/us/app/id1235121075 : "pick items from another list" as one button under the list; no pack picker shown. SEEN
+
+What they have in common (adds to (e), does not replace it):
+- A chosen pack is told apart by one mark only (colour or tick). No shipped picker seen puts a lock, a price or a "premium" label on each row.
+- Seven rows fit one screen; headings and groups are only used at 30 or more.
+
+For our screen (only what (e) does not already say):
+- Nothing added yet: the seven rows and the one intro line. No empty-state picture, no "start here" prompt.
+- All seven added: every row shows "Added"; the screen stays the same otherwise.
+- Locked mark: none on the rows. The paid line appears once, on the pack screen, as (e) step 4 says. This keeps the list calm and matches every example seen.
+- Partner's phone while joined (pattern i): packs she added show "Added"; add and remove work the same. After sharing stops, the joined phone shows the free view again.
+- Sales switched off (`DW_STORE_NOT_SET_UP`): the text link to the paywall is hidden; the free example still adds.
+- Must NOT be there: a multi-select grid with one "add all" button (Packr does this; (e) already forbids it), a lock on every row, a typed task count.
+
+Honest limits: 2 more seen (6 in all with (e)). No example seen marks some packs as paid inside the picker, so "no lock on the rows" is a judgement from their absence, not from a tested screen.

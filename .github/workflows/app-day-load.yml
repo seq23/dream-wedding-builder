@@ -1,0 +1,26 @@
+name: App target-day preview load
+on:
+  workflow_dispatch:
+    inputs:
+      preview_origin:
+        description: Isolated workers.dev preview with sharing enabled and migrations applied (never production)
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: app-day-preview-load
+  cancel-in-progress: false
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Replay 3000 shared-plan opens and 1000 ciphertext writes
+        env:
+          APP_LOAD_PREVIEW_ORIGIN: ${{ inputs.preview_origin }}
+        run: node scripts/load/app-day.mjs
