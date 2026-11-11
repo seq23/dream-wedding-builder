@@ -35,3 +35,12 @@ test('paid packs merge once, survive restart, and removal preserves ticked, edit
   assert.equal(addedAgain.custom.find(t => t.id === 'tradition:catholic:two')?.text, 'Our version');
   assert.equal(addedAgain.done[ownTaskKey(key)], '2026-11-10T09:00:00Z');
 });
+
+test('free example source links avoid competing wedding planners', () => {
+  assert.ok(TRADITION_PREVIEWS.length > 0);
+  const competitors = ['theknot.com', 'zola.com', 'weddingwire.com'];
+  for (const pack of TRADITION_PREVIEWS) {
+    const host = new URL(pack.example.source).hostname;
+    assert.ok(!competitors.some(domain => host === domain || host.endsWith(`.${domain}`)), pack.id);
+  }
+});
