@@ -9,7 +9,7 @@ export const paperSize = { Letter: { width: 612, height: 792 }, A4: { width: 595
 // This is the local record written by the wedding-week sheet (task 8b).
 export interface PacketWeek { who: Record<string, string>; contacts: { id: string; name: string; phone: string; arrival: string; caller: string }[] }
 export interface PacketInput {
-  names: string; date: string; progress: PlanProgress; unlocked: boolean; list: FullPlanList | null;
+  shared?: boolean; names: string; date: string; progress: PlanProgress; unlocked: boolean; list: FullPlanList | null;
   payments: PaymentState; week: PacketWeek;
 }
 const escape = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -32,7 +32,10 @@ export function packetModel(input: PacketInput) {
     section.tasks.push({ text: own.text, date: windows.find(w => w.id === own.windowId)?.endsOn ?? '', owner: '', key: ownTaskKey(own.id), done: !!progress.done[ownTaskKey(own.id)], week: false });
   }
   const tasks = sections.flatMap(s => s.tasks);
-  const payments = paymentRows(paid ? input.list : null, date, input.payments.own, input.payments.edits, paid);
+  const payments = paymentRows(paid ? input.list : null, date, input.payments.own, input.payments.edits, paid).map(row => {
+    const task = input.shared ? input.list?.tasks.find(t => row.id === `task:${t.id}`) : null;
+    return task ? { ...row, paidOn: progress.done[taskKey(task.window, task.text)]?.slice(0,10) } : row;
+  });
   return { paid, sections, total: tasks.length, payments, week: tasks.filter(t => t.week).sort((a,b) => a.date.localeCompare(b.date)), contacts: paid ? input.week.contacts : [] };
 }
 export function packetHtml(input: PacketInput, paper: Paper) {

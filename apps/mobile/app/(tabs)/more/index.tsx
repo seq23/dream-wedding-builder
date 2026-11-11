@@ -1,3 +1,5 @@
+import { phoneSharing, pauseSharing, activePlan } from '../../../src/sharing/runtime';
+import { useSharingRevision } from '../../../src/sharing/useSharing';
 import release from '../../../release/config.json';
 import { useCallback, useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
@@ -16,6 +18,10 @@ import { saveCalendar } from '../../../src/calendarOutput';
 import { color, space, type } from '../../../src/theme';
 
 export default function More() {
+  const sharingRevision = useSharingRevision();
+  const [sharing, setSharing] = useState(false);
+  const [sharedName, setSharedName] = useState('');
+  const [joined, setJoined] = useState(false);
   const [event, setEvent] = useState<PaidEvent | null>(null);
   const [date, setDate] = useState<string | null>(null);
   const [reminders, setReminders] = useState('');
@@ -34,18 +40,20 @@ export default function More() {
   }
   useFocusEffect(useCallback(() => {
     let active = true;
-    Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active()]).then(([d, choice, current]) => {
-      if (active) { setDate(d); setEvent(current); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
+    Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active(), activePlan(), phoneSharing().then(api => api.read())]).then(([d, choice, current, shared, session]) => {
+      if (active) { setSharing(!!shared); setSharedName(shared?.event.name ?? ''); setJoined(session?.role === 'joined'); setDate(d); setEvent(current); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
     }).catch(() => { if (active) setError('Could not read your settings. Reopen this screen to try again.'); });
     return () => { active = false; };
-  }, []));
+  }, [sharingRevision]));
   async function remove() {
     setBusy(true); setError('');
+    let resume: (() => void) | undefined;
     try {
-      await deleteLocalPlan(AsyncStorage, stopPlanReminders, () => savedProgress.update(() => emptyProgress()));
+      resume = await pauseSharing();
+      await deleteLocalPlan(AsyncStorage, stopPlanReminders, savedProgress.drain);
       router.replace('/welcome');
     } catch { setError('Deletion could not finish. Please try again.'); }
-    finally { setBusy(false); }
+    finally { resume?.(); setBusy(false); }
   }
   const button = (label: string, action: () => void) => <Pressable accessibilityRole="button" disabled={busy} accessibilityState={{ disabled: busy }} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{label}</Text></Pressable>;
   async function open(path: string) {
@@ -56,10 +64,12 @@ export default function More() {
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {busy ? <Text style={type.body}>Deleting your plan…</Text> : <>
       <Text style={type.body}>Wedding date: {date ? new Date(`${date}T12:00:00`).toLocaleDateString() : 'Not set yet'}</Text>
-      {event?.fullPlan ? <><Text style={type.body}>🔒 {event.name}</Text><Text style={type.sub}>{3 - event.dateChanges} date changes left for this event</Text></> : null}
-      <GoButton href="/welcome" label="Change the wedding date ›" />
+      {sharedName || event?.fullPlan ? <Text style={type.body}>🔒 {sharedName || event?.name}</Text> : null}
+      {!joined && event?.fullPlan ? <Text style={type.sub}>{3 - event.dateChanges} date changes left for this event</Text> : null}
+      {joined ? <Text style={type.sub}>Your partner manages the shared wedding date.</Text> : <GoButton href="/welcome" label="Change the wedding date ›" />}
       <Text style={type.sub}>Reminders: {reminders}</Text>
       <GoButton href="/reminders" label="Reminders ›" />
+      <GoButton href={sharing || event?.fullPlan ? "/more/sharing" : "/more/full-plan"} label="Two phones ›" />
       <GoButton href="/more/packet" label="Print or send my plan ›" />
       <Pressable accessibilityRole="button" disabled={exporting} accessibilityState={{ disabled: exporting }} onPress={() => { void calendar(); }} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{exporting ? 'Preparing calendar…' : 'Save my calendar file ›'}</Text></Pressable>
       <Text style={type.sub}>Free calendar reminders for your unfinished tasks and wedding day. Made on this phone. Save a new file after changing your plan.</Text>

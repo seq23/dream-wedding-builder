@@ -1,3 +1,6 @@
+import { activePlan } from '../../../src/sharing/runtime';
+import { useSharingRevision } from '../../../src/sharing/useSharing';
+import type { SharedPlan } from '../../../src/sharing/session';
 import { useCallback, useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 import { useFocusEffect } from 'expo-router';
@@ -5,12 +8,14 @@ import { PLAN_WINDOWS } from '@core/dated-plan';
 import { emptyProgress, type PlanProgress } from '@core/plan-progress';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { savedProgress } from '../../../src/savedProgress';
-import { TRADITION_PREVIEWS, addTraditionExample, hasTraditionPack, removeTraditionPack, restoreTraditionTasks } from '../../../src/traditionPacks';
+import { TRADITION_PREVIEWS, addTraditionPack, addTraditionExample, hasTraditionPack, removeTraditionPack, restoreTraditionTasks } from '../../../src/traditionPacks';
 import { purchases } from '../../../src/billing/current';
 import { loadTraditions } from '../../../src/traditionView';
 import { color, radius, space, type } from '../../../src/theme';
 
 export default function Traditions() {
+  const sharingRevision = useSharingRevision();
+  const [shared, setShared] = useState<SharedPlan | null>(null);
   const [progress, setProgress] = useState<PlanProgress>(emptyProgress);
   const [selected, setSelected] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
@@ -22,19 +27,20 @@ export default function Traditions() {
   useFocusEffect(useCallback(() => {
     let active = true;
     setReady(false); setLoadFailed(false);
-    loadTraditions(savedProgress.read).then(p => { if (active) { setProgress(p); setReady(true); setError(''); } })
+    Promise.all([loadTraditions(savedProgress.read), activePlan()]).then(([p, plan]) => { if (active) { setShared(plan); setProgress(p); setReady(true); setError(''); } })
       .catch(() => { if (active) { setLoadFailed(true); setReady(true); setError('Could not read your plan. Return to your plan and try again.'); } });
     return () => { active = false; };
-  }, []));
+  }, [sharingRevision]));
   const pack = TRADITION_PREVIEWS.find(p => p.id === selected);
-  const added = !!pack && hasTraditionPack(progress, pack.id);
+  const fullPack = shared?.packs?.find(p => p.id === pack?.id);
+  const added = !!pack && (fullPack ? fullPack.tasks.every(t => progress.custom.some(c => c.id === `tradition:${fullPack.id}:${t.id}`)) : hasTraditionPack(progress, pack.id));
   async function change(action: 'add' | 'remove' | 'undo') {
     if (!pack || busy) return;
     setBusy(true);
     try {
       let deleted: PlanProgress['custom'] = [];
       const next = await savedProgress.update(p => {
-        if (action === 'add') return addTraditionExample(p, pack.id);
+        if (action === 'add') { const full = shared?.packs?.find(p => p.id === pack.id); return full ? addTraditionPack(p, full, true) : addTraditionExample(p, pack.id); }
         if (action === 'undo') return restoreTraditionTasks(p, removed ?? []);
         const result = removeTraditionPack(p, pack.id);
         deleted = p.custom.filter(t => !result.custom.some(kept => kept.id === t.id));
@@ -61,8 +67,8 @@ export default function Traditions() {
         <Text style={type.sub}>{PLAN_WINDOWS.find(w => w.id === pack.example.windowId)?.label}</Text>
         {button('Read the source ›', () => { Linking.openURL(pack.example.source).catch(() => setError('Could not open the source. Try again.')); })}
       </View>
-      <Text style={type.body}>The rest of this pack comes with the full plan. Purchases are not set up yet.</Text>
-      {button(added ? 'Added' : 'Add free example to my plan', () => { void change('add'); }, !added, added)}
+      <Text style={type.body}>{shared ? 'This pack is included in your shared full plan.' : 'The rest of this pack comes with the full plan. Purchases are not set up yet.'}</Text>
+      {button(added ? 'Added' : shared?.packs?.some(p => p.id === pack.id) ? 'Add to my plan' : 'Add free example to my plan', () => { void change('add'); }, !added, added)}
       {added ? <GoButton href="/plan" label="See tasks in my plan ›" /> : purchases.available ? <GoButton href="/more/full-plan" label="See the full plan ›" /> : null}
       {added && !confirm ? button('Remove this pack', () => setConfirm(true)) : null}
       {confirm ? <View style={{ gap: space[2] }}>

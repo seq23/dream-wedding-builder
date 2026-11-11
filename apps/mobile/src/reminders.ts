@@ -1,5 +1,7 @@
 import { buildDatedPlan, localToday, parseDay, PLAN_WINDOWS, monthsBefore, addDays, isoDay } from '@core/dated-plan';
 import type { PlanProgress } from '@core/plan-progress';
+import type { FullPlanList } from '@core/full-plan';
+import { taskKey } from '@core/plan-progress';
 import { taskRows } from './planTasks';
 
 // Version B changes only this flag. Entitlements still belong to the paid event.
@@ -10,12 +12,12 @@ export function canRemind(fullPlan: boolean, needsFullPlan = remindersNeedFullPl
 export function shouldOffer(choice: ReminderChoice, fullPlan: boolean, needsFullPlan = remindersNeedFullPlan) {
   return choice === 'unasked' && canRemind(fullPlan, needsFullPlan);
 }
-export function reminderSchedule(date: string, progress: PlanProgress, now: Date, fullPlan: boolean, needsFullPlan = remindersNeedFullPlan): Reminder[] {
+export function reminderSchedule(date: string, progress: PlanProgress, now: Date, fullPlan: boolean, needsFullPlan = remindersNeedFullPlan, list?: FullPlanList): Reminder[] {
   if (!canRemind(fullPlan, needsFullPlan)) return [];
   const plan = buildDatedPlan(date, localToday(now));
   if (plan.state !== 'future' && plan.state !== 'today') return [];
   const atNine = (iso: string) => { const d = parseDay(iso)!; return new Date(d.y, d.m - 1, d.d, 9); };
-  const rows = taskRows(progress);
+  const rows = list ? [...list.tasks.map(t => ({ windowId: t.window, text: t.text, doneAt: progress.done[taskKey(t.window, t.text)] })), ...taskRows(progress).filter(r => r.ownId)] : taskRows(progress);
   const wedding = parseDay(date)!;
   // Display windows clamp their start to today; reminders need the original edge.
   const reminders = PLAN_WINDOWS.filter(w => Number.isFinite(w.fromMonths)).flatMap(w => {

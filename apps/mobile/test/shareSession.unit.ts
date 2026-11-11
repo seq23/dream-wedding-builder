@@ -176,3 +176,114 @@ test('deleting local plan removes the shared-access cache and key while retainin
   assert.equal(owner.data.has(SHARE_SESSION_KEY), false);
   assert.equal(owner.data.get('dw.billing.events.v1'), 'personal purchase history');
 });
+
+test('shared own-task additions, edits, removals and ticks merge offline without resurrecting deleted tasks', async () => {
+  const s = server(), owner = phone(), partner = phone();
+  let at = 100;
+  const a = sharingSession(owner.storage,s.client,'a'.repeat(32),async()=>fixture(),()=>at);
+  const b = sharingSession(partner.storage,s.client,'b'.repeat(32),async()=>null,()=>at);
+  await b.join(inviteLink((await a.invite()).link));
+  s.offline(true);
+  await a.updateProgress(p=>({...p,custom:[...p.custom,{id:'a',windowId:'wedding-week',text:'Fictional violet robots rehearse'}]}));
+  await b.updateProgress(p=>({...p,custom:[...p.custom,{id:'b',windowId:'wedding-week',text:'Fictional orange robots rehearse'}]}));
+  s.offline(false);
+  await a.sync(); await b.sync(); await a.sync();
+  assert.equal((await a.read())?.plan.custom?.a.value?.text,'Fictional violet robots rehearse');
+  assert.equal((await b.read())?.plan.custom?.b.value?.text,'Fictional orange robots rehearse');
+  at++;
+  await b.updateProgress(p=>({...p,custom:p.custom.map(t=>t.id==='a'?{...t,text:'Fictional violet robots dance'}:t),done:{...p.done,'own::a':new Date(at).toISOString()}}));
+  await b.sync(); await a.sync();
+  assert.equal((await a.read())?.plan.custom?.a.value?.text,'Fictional violet robots dance');
+  assert.equal((await a.read())?.plan.ticks['own::a'].done,true);
+  at++;
+  await a.updateProgress(p=>({...p,custom:p.custom.filter(t=>t.id!=='a')}));
+  await a.sync(); await b.sync(); await a.sync();
+  assert.equal((await b.read())?.plan.custom?.a.value,null);
+  assert.equal((await a.read())?.plan.custom?.a.value,null);
+});
+
+test('active shared access drives full list, payments, packet and week, then restores the personal plan after revocation', async () => {
+  const { activeSharing, OWNER_PLAN_KEY } = await import('../src/sharing/active');
+  const { sharedProgress } = await import('../src/sharing/session');
+  const { paymentRows } = await import('../src/payments');
+  const { packetModel } = await import('../src/packet');
+  const { weekTasks } = await import('../src/weddingWeek');
+  const { reminderSchedule } = await import('../src/reminders');
+  const s=server(), owner=phone(), partner=phone();
+  const a=sharingSession(owner.storage,s.client,'a'.repeat(32),async()=>fixture());
+  const b=sharingSession(partner.storage,s.client,'b'.repeat(32),async()=>null);
+  const ownerAccess=activeSharing(owner.storage,a,async()=>({id:'event-1'}));
+  const joinedAccess=activeSharing(partner.storage,b,async()=>null);
+  await b.join(inviteLink((await a.invite()).link));
+  await b.tick(keys[1],true);
+  const plan=(await joinedAccess.plan())!;
+  const progress=await joinedAccess.progress(async()=>assert.fail('must use shared overlay'));
+  assert.equal(Object.keys(progress.done).length,1);
+  assert.equal(paymentRows(plan.list,plan.event.date,[],{},true).length,1);
+  assert.equal(weekTasks(plan.list,plan.event.date,progress,true).length,list.tasks.length);
+  const model=packetModel({shared:true,names:plan.event.name,date:plan.event.date,progress,unlocked:true,list:plan.list,payments:{own:[],edits:{}},week:{who:{},contacts:[]}});
+  assert.equal(model.total,list.tasks.length);
+  assert.equal(model.payments[0].paidOn,progress.done[keys[1]].slice(0,10));
+  assert.ok(reminderSchedule(plan.event.date,progress,new Date(2027,0,1),true,undefined,plan.list).some(r=>r.body.includes(list.tasks[0].text)));
+  await b.sync(); await a.sync();
+  await ownerAccess.stop();
+  assert.ok(owner.data.has(OWNER_PLAN_KEY));
+  assert.equal((await ownerAccess.plan())?.list.tasks.length,list.tasks.length);
+  assert.ok(sharedProgress((await ownerAccess.plan())!).done[keys[1]]);
+  await b.sync();
+  assert.equal(await joinedAccess.plan(),null);
+  const personal={done:{personal:'2020-01-01'},custom:[]};
+  assert.deepEqual(await joinedAccess.progress(async()=>personal),personal);
+  assert.equal(partner.data.get('dw.billing.events.v1'),'personal purchase history');
+  assert.equal(partner.data.get('dw-plan-progress'),'personal ticks');
+});
+
+test("only the owner updates event metadata and only the shared event's unlock record is backed up without granting the partner a purchase", async()=>{
+  const s=server(), owner=phone(), partner=phone();
+  const history={firstEventId:'event-1',extras:[],events:[{...fixture().event,fullPlan:true,dateChanges:0},{id:'event-2',name:'Fictional second robot event',date:'2029-06-12',fullPlan:true,dateChanges:1}]};
+  const a=sharingSession(owner.storage,s.client,'a'.repeat(32),async()=>({...fixture(),history}));
+  const b=sharingSession(partner.storage,s.client,'b'.repeat(32),async()=>null);
+  await b.join(inviteLink((await a.invite()).link));
+  await assert.rejects(b.updateOwnerEvent({...fixture().event,date:'2028-06-13'}));
+  await a.updateOwnerEvent({...fixture().event,date:'2028-06-13'}); await a.sync(); await b.sync();
+  assert.equal((await b.read())?.plan.event.date,'2028-06-13');
+  assert.deepEqual((await b.read())?.plan.history?.events.map(e=>e.id),['event-1']); // her other events never reach the partner
+  assert.equal(partner.data.get('dw.billing.events.v1'),'personal purchase history');
+});
+
+test('shared full-pack provenance survives joining, removal and undo',async()=>{
+  const {addTraditionPack,removeTraditionPack,restoreTraditionTasks}=await import('../src/traditionPacks');
+  const {sharedProgress}=await import('../src/sharing/session');
+  const pack={id:'catholic',tasks:[{id:'robots',windowId:'wedding-week',text:'Fictional robots carry violet umbrellas',source:'https://example.com/fictional'}]};
+  const s=server(),owner=phone(),partner=phone();
+  const a=sharingSession(owner.storage,s.client,'a'.repeat(32),async()=>({...fixture(),packs:[pack]}));
+  const b=sharingSession(partner.storage,s.client,'b'.repeat(32),async()=>null);
+  await b.join(inviteLink((await a.invite()).link));
+  await b.updateProgress(p=>addTraditionPack(p,pack,true));await b.sync();await a.sync();
+  const before=sharedProgress((await a.read())!.plan);
+  assert.equal(before.custom.length,1);
+  await a.updateProgress(p=>removeTraditionPack(p,'catholic'));await a.sync();await b.sync();
+  assert.equal(sharedProgress((await b.read())!.plan).custom.length,0);
+  await b.updateProgress(p=>restoreTraditionTasks(p,before.custom));await b.sync();await a.sync();
+  assert.deepEqual(sharedProgress((await a.read())!.plan).custom,before.custom);
+});
+
+test('stopping drains pending writes before preserving the owner; local deletion never clears remote ticks',async()=>{
+  const {activeSharing}=await import('../src/sharing/active');
+  const s=server(),owner=phone(),partner=phone();
+  const a=sharingSession(owner.storage,s.client,'a'.repeat(32),async()=>fixture());
+  const b=sharingSession(partner.storage,s.client,'b'.repeat(32),async()=>null);
+  await b.join(inviteLink((await a.invite()).link));
+  const pending=a.tick(keys[0],true);
+  const access=activeSharing(owner.storage,a,async()=>({id:'event-1',date:'2028-06-13'}));
+  await access.stop();await pending;
+  assert.equal((await access.plan())?.ticks[keys[0]].done,true);
+  assert.equal((await access.plan())?.event.date,'2028-06-13');
+  // A second independent share proves deleting one phone does not publish an empty plan.
+  const fresh=sharingSession(phone().storage,s.client,'c'.repeat(32),async()=>fixture());
+  await fresh.invite();await fresh.tick(keys[0],true);await fresh.sync();
+  const snapshot=JSON.stringify([...s.documents]);
+  await a.drain();
+  await deleteLocalPlan(owner.storage,async()=>{},a.drain);
+  assert.equal(JSON.stringify([...s.documents]),snapshot);
+});

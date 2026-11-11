@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const rawHost = apexHost(requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host'));
   const siteHost = isCanonicalHost(rawHost) ? rawHost : PARENT_HOST;
   // Only real canonical hosts report: previews and localhost would pollute production numbers.
-  const beaconToken = isCanonicalHost(rawHost) ? webAnalyticsToken(rawHost) : null;
+  const beaconToken = requestHeaders.get(PATHNAME_HEADER) === '/two-phones' ? null : isCanonicalHost(rawHost) ? webAnalyticsToken(rawHost) : null;
   // The structured-data frame for whatever page this is: the one Organization, this
   // page's WebPage and its breadcrumb trail (lib/page-frame.ts). It lives here
   // because a frame each template has to remember is a frame the next page will be
@@ -53,7 +53,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // @id, so the nodes merge rather than contradict. Skipped on the noindex surfaces
   // (admin, checkout, dashboard, the download pack), which no engine reads.
   const pathname = requestHeaders.get(PATHNAME_HEADER) ?? '/';
-  const indexable = !['/admin', '/api', '/order', '/dashboard', '/pack'].some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
+  const indexable = !['/admin', '/api', '/order', '/dashboard', '/pack', '/two-phones'].some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
   const pageName = pageNameFor(pathname) ?? siteHome(siteHost).name;
   const frame = indexable ? pageFrameNodes({
     host: siteHost, path: pathname, name: pageName,
