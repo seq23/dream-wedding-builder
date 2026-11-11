@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-10-12",
-        "end": "2026-11-08"
+        "start": "2026-10-13",
+        "end": "2026-11-09"
       },
-      "collected_at": "2026-11-10T12:42:24.550Z",
+      "collected_at": "2026-11-11T12:42:21.364Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -70,10 +70,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-10-12",
-        "end": "2026-11-08"
+        "start": "2026-10-13",
+        "end": "2026-11-09"
       },
-      "collected_at": "2026-11-10T12:42:26.139Z",
+      "collected_at": "2026-11-11T12:42:22.401Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -124,24 +124,24 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-10-12",
-        "end": "2026-11-08"
+        "start": "2026-10-13",
+        "end": "2026-11-09"
       },
-      "collected_at": "2026-11-10T12:42:27.971Z",
+      "collected_at": "2026-11-11T12:42:23.621Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 13,
+        "impressions": 20,
         "ctr": 0,
-        "position": 52.53846153846154
+        "position": 51.2
       },
       "queries": [
         {
           "query": "wedding timeline template",
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 0,
-          "impressions": 4,
-          "position": 71.5
+          "impressions": 5,
+          "position": 70.6
         },
         {
           "query": "wedding ceremony timeline template",
@@ -151,6 +151,20 @@
           "position": 65.66666666666667
         },
         {
+          "query": "wedding day timeline template",
+          "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 72.5
+        },
+        {
+          "query": "wedding schedule template",
+          "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 67
+        },
+        {
           "query": "wedding day of timeline template",
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 0,
@@ -158,11 +172,11 @@
           "position": 60
         },
         {
-          "query": "wedding day timeline template",
+          "query": "wedding day schedule template",
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 0,
           "impressions": 1,
-          "position": 72
+          "position": 65
         },
         {
           "query": "wedding timelines templates",
@@ -176,32 +190,56 @@
         {
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 0,
-          "impressions": 13,
-          "position": 52.8
+          "impressions": 20,
+          "position": 51.6
         },
         {
           "page": "https://weddingtimelinetemplate.com/guides",
           "clicks": 0,
-          "impressions": 3,
+          "impressions": 5,
           "position": 1
         },
         {
           "page": "https://weddingtimelinetemplate.com/guides/backyard-wedding-timeline",
           "clicks": 0,
-          "impressions": 3,
-          "position": 7
+          "impressions": 5,
+          "position": 7.4
         },
         {
           "page": "https://weddingtimelinetemplate.com/guides/brunch-wedding-timeline",
           "clicks": 0,
-          "impressions": 3,
-          "position": 5
+          "impressions": 5,
+          "position": 5.4
         },
         {
           "page": "https://weddingtimelinetemplate.com/guides/evening-wedding-timeline",
           "clicks": 0,
-          "impressions": 3,
-          "position": 8
+          "impressions": 5,
+          "position": 8.4
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+          "clicks": 0,
+          "impressions": 5,
+          "position": 9.4
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
+          "clicks": 0,
+          "impressions": 5,
+          "position": 4.4
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
+          "clicks": 0,
+          "impressions": 5,
+          "position": 6.4
+        },
+        {
+          "page": "https://weddingtimelinetemplate.com/products/timeline-template",
+          "clicks": 0,
+          "impressions": 5,
+          "position": 3.4
         },
         {
           "page": "https://weddingtimelinetemplate.com/guides/two-venue-wedding-timeline",
@@ -210,52 +248,34 @@
           "position": 10
         },
         {
-          "page": "https://weddingtimelinetemplate.com/guides/wedding-day-timeline",
+          "page": "https://weddingtimelinetemplate.com/editorial-policy",
           "clicks": 0,
-          "impressions": 3,
-          "position": 9
-        },
-        {
-          "page": "https://weddingtimelinetemplate.com/guides/wedding-party-timeline",
-          "clicks": 0,
-          "impressions": 3,
-          "position": 4
-        },
-        {
-          "page": "https://weddingtimelinetemplate.com/guides/wedding-photography-timeline",
-          "clicks": 0,
-          "impressions": 3,
-          "position": 6
-        },
-        {
-          "page": "https://weddingtimelinetemplate.com/products/timeline-template",
-          "clicks": 0,
-          "impressions": 3,
-          "position": 3
+          "impressions": 2,
+          "position": 2
         }
       ]
     },
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-10-12",
-        "end": "2026-11-08"
+        "start": "2026-10-13",
+        "end": "2026-11-09"
       },
-      "collected_at": "2026-11-10T12:42:29.227Z",
+      "collected_at": "2026-11-11T12:42:32.694Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 87,
+        "impressions": 91,
         "ctr": 0,
-        "position": 59.701149425287355
+        "position": 59.81318681318681
       },
       "queries": [
         {
           "query": "free wedding planner",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 20,
-          "position": 73.85
+          "impressions": 21,
+          "position": 73.95238095238095
         },
         {
           "query": "wedding planner free",
@@ -277,6 +297,13 @@
           "clicks": 0,
           "impressions": 3,
           "position": 60
+        },
+        {
+          "query": "free wedding planner pdf",
+          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 86
         },
         {
           "query": "wedding planner checklist pdf",
@@ -321,11 +348,11 @@
           "position": 91
         },
         {
-          "query": "free wedding planner pdf",
+          "query": "free wedding planners",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
           "impressions": 1,
-          "position": 80
+          "position": 75
         },
         {
           "query": "planning a wedding checklist pdf",
@@ -377,20 +404,6 @@
           "position": 96
         },
         {
-          "query": "wedding planning checklist pdf",
-          "page": "https://weddingchecklistpdf.com/",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 100
-        },
-        {
-          "query": "wedding planning checklist pdf",
-          "page": "https://weddingchecklistpdf.com/wedding-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 95
-        },
-        {
           "query": "wedding planning free",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
@@ -409,38 +422,38 @@
         {
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 32,
-          "position": 73.3
+          "impressions": 35,
+          "position": 74
         },
         {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 22,
-          "position": 77.1
+          "impressions": 23,
+          "position": 74
         },
         {
           "page": "https://weddingchecklistpdf.com/privacy",
           "clicks": 0,
-          "impressions": 12,
+          "impressions": 13,
           "position": 2.5
         },
         {
           "page": "https://weddingchecklistpdf.com/disclaimer",
           "clicks": 0,
-          "impressions": 10,
-          "position": 3.9
+          "impressions": 11,
+          "position": 4.1
         },
         {
           "page": "https://weddingchecklistpdf.com/refund-policy",
           "clicks": 0,
-          "impressions": 10,
-          "position": 6.6
+          "impressions": 11,
+          "position": 6.9
         },
         {
           "page": "https://weddingchecklistpdf.com/methodology",
           "clicks": 0,
-          "impressions": 8,
-          "position": 7.1
+          "impressions": 9,
+          "position": 6.6
         },
         {
           "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
@@ -457,20 +470,20 @@
         {
           "page": "https://weddingchecklistpdf.com/terms",
           "clicks": 0,
+          "impressions": 5,
+          "position": 5.2
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
           "impressions": 4,
-          "position": 4.8
+          "position": 66.5
         },
         {
           "page": "https://weddingchecklistpdf.com/",
           "clicks": 0,
           "impressions": 3,
-          "position": 36.7
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
-          "clicks": 0,
-          "impressions": 3,
-          "position": 55.3
+          "position": 3.7
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/18-month-wedding-checklist",
@@ -485,10 +498,22 @@
           "position": 6.5
         },
         {
+          "page": "https://weddingchecklistpdf.com/photos",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 4
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/readiness-score",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 8
+        },
+        {
           "page": "https://weddingchecklistpdf.com/wedding-checklist",
           "clicks": 0,
           "impressions": 2,
-          "position": 52
+          "position": 9
         },
         {
           "page": "https://weddingchecklistpdf.com/wedding-cost-per-guest",
@@ -527,18 +552,6 @@
           "position": 40
         },
         {
-          "page": "https://weddingchecklistpdf.com/photos",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 4
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/readiness-score",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 8
-        },
-        {
           "page": "https://weddingchecklistpdf.com/wedding-checklist-pdf",
           "clicks": 0,
           "impressions": 1,
@@ -555,5 +568,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-11-10T12:42:29.228Z"
+  "updated_at": "2026-11-11T12:42:32.695Z"
 }

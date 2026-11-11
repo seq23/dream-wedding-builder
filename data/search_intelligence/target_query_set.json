@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-10T12:42:29.446Z",
+  "generated_at": "2026-11-11T12:42:32.875Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-12",
-          "end": "2026-11-08"
+          "start": "2026-10-13",
+          "end": "2026-11-09"
         },
         "totals": {
           "clicks": 0,
@@ -111,8 +111,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-12",
-          "end": "2026-11-08"
+          "start": "2026-10-13",
+          "end": "2026-11-09"
         },
         "totals": {
           "clicks": 0,
@@ -208,20 +208,20 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-12",
-          "end": "2026-11-08"
+          "start": "2026-10-13",
+          "end": "2026-11-09"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 13,
+          "impressions": 20,
           "ctr": 0,
-          "position": 52.53846153846154
+          "position": 51.2
         }
       },
-      "target_count": 7,
+      "target_count": 9,
       "dropped_count": 5,
       "by_source": {
-        "google_search_console": 5,
+        "google_search_console": 7,
         "semrush_keyword_magic": 2
       },
       "targets": [
@@ -229,8 +229,8 @@
           "query": "wedding timeline template",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 4,
-          "position": 71.5,
+          "number": 5,
+          "position": 70.6,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
@@ -239,12 +239,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 4,
+              "number": 5,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
-              "position": 71.5,
+              "position": 70.6,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -273,10 +273,68 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 65.7,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding day timeline template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 72.5,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": "/guides/wedding-day-timeline-template",
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-13",
+                "end": "2026-11-09"
+              },
+              "position": 72.5,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
+            },
+            {
+              "source": "semrush_keyword_magic",
+              "metric": "monthly_search_volume",
+              "number": 1300,
+              "file": "data/authority_scale/query_atlas.json"
+            }
+          ]
+        },
+        {
+          "query": "wedding schedule template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 67,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-13",
+                "end": "2026-11-09"
+              },
+              "position": 67,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -299,8 +357,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 60,
               "pages": [
@@ -310,34 +368,28 @@
           ]
         },
         {
-          "query": "wedding day timeline template",
+          "query": "wedding day schedule template",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 1,
-          "position": 72,
+          "position": 65,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
-          "route": "/guides/wedding-day-timeline-template",
+          "route": null,
           "measurements": [
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
-              "position": 72,
+              "position": 65,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
-            },
-            {
-              "source": "semrush_keyword_magic",
-              "metric": "monthly_search_volume",
-              "number": 1300,
-              "file": "data/authority_scale/query_atlas.json"
             }
           ]
         },
@@ -357,8 +409,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 65,
               "pages": [
@@ -440,20 +492,20 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-12",
-          "end": "2026-11-08"
+          "start": "2026-10-13",
+          "end": "2026-11-09"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 87,
+          "impressions": 91,
           "ctr": 0,
-          "position": 59.701149425287355
+          "position": 59.81318681318681
         }
       },
-      "target_count": 20,
+      "target_count": 21,
       "dropped_count": 22,
       "by_source": {
-        "google_search_console": 19,
+        "google_search_console": 20,
         "semrush_keyword_magic": 1
       },
       "targets": [
@@ -461,8 +513,8 @@
           "query": "free wedding planner",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 20,
-          "position": 73.9,
+          "number": 21,
+          "position": 74,
           "pages": [
             "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
@@ -471,44 +523,14 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 20,
+              "number": 21,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
-              "position": 73.9,
+              "position": 74,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding planning checklist pdf",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 6,
-          "position": 97,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides",
-            "https://weddingchecklistpdf.com/",
-            "https://weddingchecklistpdf.com/wedding-checklist"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 6,
-              "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
-              },
-              "position": 97,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides",
-                "https://weddingchecklistpdf.com/",
-                "https://weddingchecklistpdf.com/wedding-checklist"
               ]
             }
           ]
@@ -529,8 +551,8 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 73.8,
               "pages": [
@@ -556,13 +578,65 @@
               "metric": "impressions_28d",
               "number": 4,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 62.3,
               "pages": [
                 "https://weddingchecklistpdf.com/guides",
                 "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding planning checklist pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 4,
+          "position": 96.8,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 4,
+              "period": {
+                "start": "2026-10-13",
+                "end": "2026-11-09"
+              },
+              "position": 96.8,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "free wedding planner pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 86,
+          "pages": [
+            "https://weddingchecklistpdf.com/free-wedding-planner"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-13",
+                "end": "2026-11-09"
+              },
+              "position": 86,
+              "pages": [
+                "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
             }
           ]
@@ -583,8 +657,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 86.5,
               "pages": [
@@ -609,8 +683,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 94.5,
               "pages": [
@@ -635,8 +709,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 54,
               "pages": [
@@ -661,8 +735,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 62,
               "pages": [
@@ -687,8 +761,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 91,
               "pages": [
@@ -698,11 +772,11 @@
           ]
         },
         {
-          "query": "free wedding planner pdf",
+          "query": "free wedding planners",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 1,
-          "position": 80,
+          "position": 75,
           "pages": [
             "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
@@ -713,10 +787,10 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
-              "position": 80,
+              "position": 75,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
@@ -739,8 +813,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 89,
               "pages": [
@@ -765,8 +839,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 59,
               "pages": [
@@ -791,8 +865,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 83,
               "pages": [
@@ -823,8 +897,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 78,
               "pages": [
@@ -849,8 +923,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 63,
               "pages": [
@@ -881,8 +955,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 82,
               "pages": [
@@ -907,8 +981,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 96,
               "pages": [
@@ -933,8 +1007,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 74,
               "pages": [
@@ -959,8 +1033,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-12",
-                "end": "2026-11-08"
+                "start": "2026-10-13",
+                "end": "2026-11-09"
               },
               "position": 93,
               "pages": [
