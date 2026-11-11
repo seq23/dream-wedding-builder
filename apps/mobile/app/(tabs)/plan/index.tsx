@@ -7,6 +7,8 @@ import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import { nextTaskRows, completionDay, taskCount, taskRows } from '../../../src/planTasks';
 import { GoButton, PlannedScreen } from '../../../src/ui';
+import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
+import { shouldOffer } from '../../../src/reminders';
 import { color, space, type } from '../../../src/theme';
 export default function Plan() {
   const [date, setDate] = useState('');
@@ -20,9 +22,17 @@ export default function Plan() {
     setReady(false);
     Promise.all([savedDate.read(), savedProgress.read()]).then(([d, p]) => {
       if (active) { setDate(d ?? ''); setProgress(p); setReady(true); setError(''); }
+      awaitReminderOffer();
     }).catch(() => { if (active) setError('Could not read your plan. Reopen this screen to try again.'); });
     return () => { active = false; };
   }, []));
+  async function awaitReminderOffer() {
+    try {
+      await syncReminders();
+      const [choice, paid] = await Promise.all([reminderChoice(), hasFullPlan()]);
+      if (shouldOffer(choice, paid)) router.push('/reminders');
+    } catch { setError('Could not read reminder settings.'); }
+  }
   const plan = buildDatedPlan(date, localToday());
   const rows = taskRows(progress);
   const count = taskCount(progress);
