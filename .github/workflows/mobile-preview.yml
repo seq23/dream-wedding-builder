@@ -8,6 +8,7 @@ on:
     paths: ['apps/mobile/**', 'lib/**', '.github/workflows/mobile-preview.yml']
 permissions:
   contents: read
+  pull-requests: write
 concurrency:
   group: app-preview-${{ github.ref }}
   cancel-in-progress: true
@@ -38,6 +39,19 @@ jobs:
           name: phone-web-preview
           path: apps/mobile/dist
           if-no-files-found: error
-      - name: Free preview shortcut
-        run: |
-          echo "[Download the phone web preview](${{ steps.preview.outputs.artifact-url }}). Unzip, run python3 -m http.server 8080 inside it, then open http://localhost:8080 in a phone-sized browser. No Appetize minutes or store account required." >> "$GITHUB_STEP_SUMMARY"
+      - name: Host free phone preview
+        id: hosted
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PREVIEW_PROJECT: dream-wedding-app-preview
+          PREVIEW_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: bash scripts/preview/host.sh
+      - name: Link preview on the PR
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PREVIEW_URL: ${{ steps.hosted.outputs.url }}
+        run: gh pr comment "$PR_NUMBER" --body "Phone preview for $GITHUB_SHA: $PREVIEW_URL"
