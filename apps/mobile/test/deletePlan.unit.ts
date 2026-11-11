@@ -10,6 +10,7 @@ test('delete clears content and reminders, preserves purchases, and refuses sile
   // Seed these independently so an omitted deletion key fails this regression.
   const privateKeys = ['dw.planning-details.v1', 'dw.ai-signups.v1', 'dw.ai-marketing.v1'];
   for (const key of privateKeys) data.set(key, 'private details');
+  data.set('dw.billing.active-event.v1', '');
   data.set('dw.billing.events.v1', 'paid event history');
   data.set('unrelated', 'keep');
   const storage = {

@@ -1,3 +1,4 @@
+import { dateStore } from './weddingDate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import { parseProgress } from '@core/plan-progress';
@@ -25,7 +26,7 @@ let queue: Promise<void> = Promise.resolve();
 export function syncReminders(): Promise<void> {
   const job = queue.then(async () => {
     if (Platform.OS === 'web') return;
-    const [date, raw, choice, fullPlan] = await Promise.all([AsyncStorage.getItem('dw.wedding-date.v1'), AsyncStorage.getItem('dw-plan-progress'), reminderChoice(), hasFullPlan()]);
+    const [date, raw, choice, fullPlan] = await Promise.all([dateStore(AsyncStorage).read(), AsyncStorage.getItem('dw-plan-progress'), reminderChoice(), hasFullPlan()]);
     await replaceReminders(await nativeDriver(), reminderSchedule(date ?? '', parseProgress(raw), new Date(), fullPlan), choice === 'enabled');
     await AsyncStorage.removeItem(ERROR);
   }).catch(async () => { await AsyncStorage.setItem(ERROR, 'Your plan is saved, but reminders could not be updated. Open Reminders to try again.'); });
