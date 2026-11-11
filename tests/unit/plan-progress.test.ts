@@ -42,6 +42,6 @@ describe('calendar reminders', () => {
   });
 
   it('escapes calendar text', () => {
-    expect(icsText('a,b;c\\d\ne')).toBe('a\\,b\;c\\\\d\\ne');
+    expect(icsText('a,b;c\\d\ne')).toBe('a\\,b\\;c\\\\d\\ne');
   });
 });
