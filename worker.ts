@@ -8,6 +8,7 @@ import { runDeliveryRetry, type RetryEnv } from './lib/delivery-retry';
 import { recordPinterestVisit } from './lib/pinterest-visits';
 import { alertOwnerIfFailed, type AlertEnv } from './lib/delivery-alert';
 import { runNurture, type NurtureEnv } from './lib/nurture';
+import { purgeExpiredShares } from './lib/plan-share';
 import { serveWithEdgeCache } from './lib/edge-cache';
 
 export default {
@@ -22,6 +23,10 @@ export default {
     return serveWithEdgeCache(request, version, cache, ctx, () => handler.fetch(request, env, ctx));
   },
   async scheduled(_controller: unknown, env: RetryEnv & AlertEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
+    ctx.waitUntil(purgeExpiredShares(env.DB).then(
+      run => console.log(JSON.stringify({ event: 'APP_SHARE_PURGE', ...run })),
+      () => console.error(JSON.stringify({ event: 'APP_SHARE_PURGE_FAILED', stop: 'NAMED STOP [APP_SHARE_RETENTION_FAILED]' }))
+    ));
     // Free-sample follow-ups, the one planner welcome and the one review ask (lib/nurture.ts); due emails only.
     ctx.waitUntil(runNurture(env as unknown as NurtureEnv).then(
       (run) => console.log(JSON.stringify({ event: 'NURTURE_RUN', ...run })),

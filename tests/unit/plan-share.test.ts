@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { afterEach, beforeEach, expect, it } from 'vitest';
-import { planShare, SHARE_MAX_BYTES, SHARE_DAILY_REQUESTS, SHARE_DAILY_WRITES, SHARE_IP_LIMIT } from '@/lib/plan-share';
+import { planShare, purgeExpiredShares, SHARE_MAX_BYTES, SHARE_DAILY_REQUESTS, SHARE_DAILY_WRITES, SHARE_IP_LIMIT } from '@/lib/plan-share';
 
 let raw: DatabaseSync;
 const now = Date.parse('2026-11-11T06:00:00Z');
@@ -71,4 +71,20 @@ it('caps each connection and each global day; the next day reopens', async () =>
   raw.prepare('UPDATE app_share_capacity SET requests = 0, writes = ?').run(SHARE_DAILY_WRITES);
   expect((await call(request('POST', '', { ciphertext: cipher }, '203.0.113.2'))).status).toBe(429);
   expect((await call(request('POST', '', { ciphertext: cipher }), now + 86400000)).status).toBe(201);
+});
+
+it('caller refusal leaves both daily counters unchanged', async () => {
+  for (let i = 0; i < SHARE_IP_LIMIT.max; i++) await call(request('GET', 'f'.repeat(64)));
+  const before = raw.prepare('SELECT * FROM app_share_capacity').get();
+  expect((await call(request())).status).toBe(429);
+  expect(raw.prepare('SELECT * FROM app_share_capacity').get()).toEqual(before);
+});
+it('retention sweep removes expired ciphertext without any new request and keeps live shares', async () => {
+  const expired = await create();
+  const live = await create();
+  raw.prepare('UPDATE app_plan_shares SET expires_at = ? WHERE id = ?').run(now, expired.id);
+  raw.prepare('INSERT INTO app_share_capacity VALUES (?, 1, 1)').run('2026-11-08');
+  expect(await purgeExpiredShares(db(), now)).toEqual({ deleted: 1 });
+  expect(raw.prepare('SELECT id FROM app_plan_shares').all()).toEqual([{ id: live.id }]);
+  expect(raw.prepare('SELECT day FROM app_share_capacity').all()).toEqual([{ day: '2026-11-11' }]);
 });
