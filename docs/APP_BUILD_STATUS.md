@@ -1,17 +1,12 @@
-# Dream Wedding app build status
+# Dream Wedding app — 11 Nov 2026
 
-Tasks 1, 1a, 2 and 3 are merged; reminders (4) remain in PR #139.
-All three review comments listed in the run are fixed on the scaffold branch.
-
-Task 5: seven public pack names with one sourced free example each; delivered-pack
-validation, paid-only merge, idempotent identities and removal preserving ticked or
-edited tasks are implemented and tested. Provenance survives edits and reopening.
-No full paid pack text is bundled. The traditions route retains its placeholder.
-
-NAMED STOP [PRIVATE_WRITE_NEEDED] Task 5 full packs must be authored in
-~/.boss-os/dream-wedding/, reviewed by Claude and uploaded privately. This run cannot
-write outside ~/GitHub. No full packs were authored or uploaded.
-NAMED STOP [PATTERN_NOTES_MISSING] Traditions screen: add shipped screen patterns
-before implementing the picker. Task 5 remains unfinished; purchase delivery awaits 8.
-NAMED STOP [WAITS_FOR_LAUNCH_PLAN] Tasks 10 and 12.
-Next task: 6 (AI draft, alone); task 5's named stops remain visible above.
+Tasks 1–5 are merged. Tasks 6–8 and 8a sit in #149/#148/#150/#151.
+Review #143 is fixed by #144 with its expired-window regression test.
+Review fix in #151 normalizes payment dates before saving; one regression covers
+persistence, chronological order and urgency. Task 8a uses fictional preview rows.
+NAMED STOP [REVENUECAT_SECRET_MISSING]: real paid delivery remains closed.
+NAMED STOP [PRIVATE_WRITE_NEEDED]: task 5 full packs need private authoring,
+Claude review and private upload outside ~/GitHub; none were authored here.
+NAMED STOP [PATTERN_NOTES_MISSING]: traditions picker needs shipped examples.
+Next: 8b, then 8c; screen pattern notes are required before building those screens.
+NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 and 12.
