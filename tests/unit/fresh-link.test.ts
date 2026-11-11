@@ -118,7 +118,8 @@ describe('a buyer can always get back to what she paid for', () => {
     // The limiter stores hashes, never an address.
     const keys = (await d1(raw).prepare('SELECT key FROM rate_events').all()).results.map((r: any) => r.key);
     expect(keys.length).toBeGreaterThan(0);
-    for (const key of keys) expect(key).toMatch(/^[0-9a-f]{64}$/);
+    // ('all' is the one fixed key of the daily ceiling; every per-person key is a hash.)
+    for (const key of keys) expect(key).toMatch(/^([0-9a-f]{64}|all)$/);
   });
 
   it('a forged or broken link gets 401 and is never offered a fresh one', async () => {
@@ -148,5 +149,15 @@ describe('a buyer can always get back to what she paid for', () => {
       expect(await res.json()).toEqual({ ok: true, message: FRESH_LINK_ANSWER });
     }
     expect(sends).toHaveLength(LIMITS.freshLinkEmail.max);
+  });
+
+  it('all fresh-link emails together stop at the daily ceiling, with the same answer', async () => {
+    purchase('o1', BUYER);
+    const at = Math.floor(Date.now() / 1000);
+    raw.exec(readFileSync('migrations/0006_rate_events.sql', 'utf8'));
+    for (let i = 0; i < LIMITS.freshLinkDaily.max; i++) raw.run(`INSERT INTO rate_events (bucket, key, at) VALUES ('freshLinkDaily', 'all', ?)`, [at]);
+    const res = await ask(BUYER);
+    expect(await res.json()).toEqual({ ok: true, message: FRESH_LINK_ANSWER });
+    expect(sends).toHaveLength(0);
   });
 });

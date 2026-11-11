@@ -15,7 +15,10 @@ export const LIMITS = {
   // "Email me a fresh link" (lib/fresh-link.ts): 5 asks an hour from one IP, and one
   // address is emailed at most 3 times a day whoever asks.
   freshLink: { max: 5, windowS: 3600 },
-  freshLinkEmail: { max: 3, windowS: 86400 }
+  freshLinkEmail: { max: 3, windowS: 86400 },
+  // All fresh-link emails together: 50 a day, so the form can never use up the mail
+  // allowance the first order emails need (risk brain: every sender has a daily ceiling).
+  freshLinkDaily: { max: 50, windowS: 86400 }
 } as const;
 
 export const RATE_EVENTS_DDL = `CREATE TABLE IF NOT EXISTS rate_events (

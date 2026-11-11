@@ -9,12 +9,15 @@
 //  - a revoked or refunded purchase gets no email;
 //  - one caller gets 5 asks an hour and one address 3 emails a day (lib/abuse-limits.ts),
 //    so the form cannot be used to flood a buyer's inbox;
+//  - all fresh-link emails together stop at 50 a day (NAMED STOP FRESH_LINK_DAILY_CEILING),
+//    so the first order emails always keep their share of the mail allowance;
 //  - it is order mail, sent through the one order-email path (lib/delivery-email.ts):
 //    not marketing, so no opt-out list and no marketing ceiling apply to it.
 import { EMAIL_LINK_TTL_MS, createDownloadToken } from './fulfillment';
 import { productBySku } from './products';
 import { sendDeliveryEmail, type DeliveryEnv } from './delivery-email';
 import { DEFAULT_BASE_URL } from './delivery-retry';
+import { LIMITS, takeSlot, type LimitDB } from './abuse-limits';
 
 export const FRESH_LINK_CHANNEL = 'email_fresh_link';
 /** Said for every well-formed ask, found or not. */
@@ -40,6 +43,10 @@ export async function sendFreshLinks(env: FreshLinkEnv, email: string, now = Dat
     const product = productBySku(row.sku);
     if (!product || seen.has(row.sku)) continue;
     seen.add(row.sku);
+    if (!(await takeSlot(env.DB as LimitDB, 'freshLinkDaily', 'all', LIMITS.freshLinkDaily))) {
+      console.error(JSON.stringify({ event: 'NAMED_STOP', stop: 'FRESH_LINK_DAILY_CEILING', reason: `${LIMITS.freshLinkDaily.max} fresh-link emails already sent in 24 hours; this one was not sent` }));
+      failed++; continue;
+    }
     const token = createDownloadToken(row.entitlement_id, now + EMAIL_LINK_TTL_MS, secret);
     try {
       // Records the attempt row and logs DELIVERY_EMAIL_FAILED on any failure.
