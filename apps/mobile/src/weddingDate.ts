@@ -5,7 +5,7 @@ const KEY = 'dw.wedding-date.v1';
 export function dateStore(storage: DateStorage) {
   const events = eventStore(storage);
   return {
-    async read(): Promise<string | null> { return (await events.active())?.date ?? storage.getItem(KEY); },
+    async read(): Promise<string | null> { const event = await events.active(); return event?.fullPlan ? event.date : storage.getItem(KEY); },
     async save(date: string, today = localToday()) {
       const plan = buildDatedPlan(date, today);
       if (plan.state === 'invalid' || plan.state === 'past') throw new Error(plan.headline);
