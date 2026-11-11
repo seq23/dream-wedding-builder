@@ -9,11 +9,14 @@ import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import { reminderChoice, stopPlanReminders } from '../../../src/localReminders';
 import { deleteLocalPlan } from '../../../src/deletePlan';
+import { eventStore } from '../../../src/billing/eventStore';
+import type { PaidEvent } from '../../../src/billing/events';
 import { calendarFile } from '../../../src/calendar';
 import { saveCalendar } from '../../../src/calendarOutput';
 import { color, space, type } from '../../../src/theme';
 
 export default function More() {
+  const [event, setEvent] = useState<PaidEvent | null>(null);
   const [date, setDate] = useState<string | null>(null);
   const [reminders, setReminders] = useState('');
   const [confirm, setConfirm] = useState(false);
@@ -31,8 +34,8 @@ export default function More() {
   }
   useFocusEffect(useCallback(() => {
     let active = true;
-    Promise.all([savedDate.read(), reminderChoice()]).then(([d, choice]) => {
-      if (active) { setDate(d); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
+    Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active()]).then(([d, choice, current]) => {
+      if (active) { setDate(d); setEvent(current); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
     }).catch(() => { if (active) setError('Could not read your settings. Reopen this screen to try again.'); });
     return () => { active = false; };
   }, []));
@@ -53,6 +56,7 @@ export default function More() {
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {busy ? <Text style={type.body}>Deleting your plan…</Text> : <>
       <Text style={type.body}>Wedding date: {date ? new Date(`${date}T12:00:00`).toLocaleDateString() : 'Not set yet'}</Text>
+      {event?.fullPlan ? <><Text style={type.body}>🔒 {event.name}</Text><Text style={type.sub}>{3 - event.dateChanges} date changes left for this event</Text></> : null}
       <GoButton href="/welcome" label="Change the wedding date ›" />
       <Text style={type.sub}>Reminders: {reminders}</Text>
       <GoButton href="/reminders" label="Reminders ›" />
