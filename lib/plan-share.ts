@@ -17,12 +17,12 @@ export async function planShare(req: Request, db: LimitDB | undefined, enabled: 
   if (!write && req.method !== 'GET') return reply(405, { error: 'Method unavailable.' });
   if (Number(req.headers.get('content-length')) > SHARE_MAX_BYTES) return reply(413, { error: 'Shared plan is too large.' });
   try {
+    if (!(await takeSlot(db, 'app-share', await callerKey(req.headers), SHARE_IP_LIMIT, Math.floor(now / 1000)))) return limited();
     const day = new Date(now).toISOString().slice(0, 10);
     const capacity = await db.prepare(`INSERT INTO app_share_capacity(day, requests, writes) VALUES (?1, 1, ?2)
       ON CONFLICT(day) DO UPDATE SET requests = requests + 1, writes = writes + ?2
       WHERE requests < ?3 AND writes + ?2 <= ?4`).bind(day, write ? 1 : 0, SHARE_DAILY_REQUESTS, SHARE_DAILY_WRITES).run() as { meta?: { changes?: number } };
     if (capacity.meta?.changes !== 1) return limited();
-    if (!(await takeSlot(db, 'app-share', await callerKey(req.headers), SHARE_IP_LIMIT, Math.floor(now / 1000)))) return limited();
     const id = new URL(req.url).searchParams.get('id') ?? '';
     if (req.method !== 'POST' && !ID.test(id)) return missing();
     if (req.method === 'GET') {
@@ -58,9 +58,6 @@ export async function planShare(req: Request, db: LimitDB | undefined, enabled: 
     if (req.method === 'POST') {
       const random = crypto.getRandomValues(new Uint8Array(32));
       const created = Array.from(random, b => b.toString(16).padStart(2, '0')).join('');
-      // Bounded cleanup, using the expiry index; capacity rows retain only two days.
-      await db.prepare('DELETE FROM app_plan_shares WHERE id IN (SELECT id FROM app_plan_shares WHERE expires_at <= ? LIMIT 100)').bind(now).run();
-      await db.prepare('DELETE FROM app_share_capacity WHERE day < ?').bind(new Date(now - 86400000).toISOString().slice(0, 10)).run();
       await db.prepare('INSERT INTO app_plan_shares(id, ciphertext, revision, expires_at) VALUES (?, ?, 1, ?)').bind(created, body.ciphertext, now + 90 * 86400000).run();
       return reply(201, { id: created, revision: 1 });
     }
@@ -74,4 +71,11 @@ export async function planShare(req: Request, db: LimitDB | undefined, enabled: 
     // Missing migration or storage failure fails closed, without echoing private payloads.
     return reply(503, { error: 'Sharing is temporarily unavailable.' });
   }
+}
+
+/** Hourly retention sweep, independent of traffic or whether sharing is enabled. */
+export async function purgeExpiredShares(db: LimitDB, now = Date.now()) {
+  const result = await db.prepare('DELETE FROM app_plan_shares WHERE expires_at <= ?').bind(now).run() as { meta?: { changes?: number } };
+  await db.prepare('DELETE FROM app_share_capacity WHERE day < ?').bind(new Date(now - 86400000).toISOString().slice(0, 10)).run();
+  return { deleted: result.meta?.changes ?? 0 };
 }

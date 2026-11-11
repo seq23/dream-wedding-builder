@@ -485,8 +485,8 @@ Build it like this (top to bottom, 390 px wide):
 6. Main button, full width, under the consent box. It stays off until the required fields are filled and the consent box is ticked. Pressing it is the first moment anything leaves the phone.
 7. While waiting: the button shows it is working and the fields stay as she typed them.
 8. If the server answers with a message (switched off, busy, already used, too many from this connection, daily limit), show the server's sentence word for word in a plain block above the button. Her answers stay on screen. No extra wording from the app.
-9. If a draft comes back: a review screen. Top line says nothing has changed yet. Then the draft as a list of tasks in their time windows, each with a tick so she can leave any out. Two buttons at the bottom: one adds the ticked ones to her plan, one discards the draft. Her saved plan is touched only by the first button.
-10. After adding: back to the plan, with the new tasks marked as coming from the draft and one undo.
+9. If a draft comes back: a review screen. Top line says nothing has changed yet. Then the planning fields returned by `/api/ai-draft` (date, guests, locations, season, budget, budget mode, priorities and notes), each with a tick so she can leave any out. The API returns fields, not tasks. Two buttons at the bottom: one saves the selected details, one discards the draft. Her saved plan is touched only by the first button.
+10. After saving: show the saved planning details and one undo; an accepted wedding date updates the dated plan. Existing tasks and ticks stay intact.
 
 Never:
 - Never pre-tick either box. Hitched's agreement box appears already ticked; that is forbidden here.
