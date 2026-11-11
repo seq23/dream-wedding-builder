@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { emptyProgress, toggleDone, taskKey } from '@core/plan-progress';
 import { buildDatedPlan } from '@core/dated-plan';
-import { addOwnTask, catchUpRows, editOwnTask, ownTaskKey, progressStore, removeCustomTask, taskCount, taskRows } from '../src/planTasks';
+import { lockedPlanRows, planOverview, addOwnTask, catchUpRows, editOwnTask, ownTaskKey, progressStore, removeCustomTask, taskCount, taskRows } from '../src/planTasks';
 
 test('tick stamps and untick clears without moving rows; totals include own tasks only once', () => {
   let p = addOwnTask(emptyProgress(), '9-months', 'Our task', 'a');
@@ -81,4 +81,32 @@ test('legacy ticks migrate once, so unticking a duplicate never resurrects its c
   const reopened = await store.read();
   assert.equal(reopened.done[ownTaskKey('a')], undefined);
   assert.equal(reopened.done[builtIn], 'legacy');
+});
+
+test('plan overview dates public locked rows, routes to upgrade and keeps overdue work out of totals duplication', async () => {
+  const { PLAN_WINDOWS, addDays, isoDay, parseDay } = await import('@core/dated-plan');
+  const { FULL_PLAN_TEASER } = await import('@core/full-plan-teaser');
+  const wedding = '2027-06-12';
+  for (const window of PLAN_WINDOWS) {
+    const rows = lockedPlanRows(wedding, window.id);
+    assert.equal(rows.length, 2);
+    assert.deepEqual(rows.map(r => r.text), FULL_PLAN_TEASER[window.id].map(r => r.text));
+    rows.forEach((row, i) => {
+      assert.equal(row.dueOn, isoDay(addDays(parseDay(wedding)!, -FULL_PLAN_TEASER[window.id][i].daysBefore)));
+      assert.equal(row.href, '/more/full-plan');
+    });
+    assert.notEqual(lockedPlanRows('2028-06-12', window.id)[0].dueOn, rows[0].dueOn);
+  }
+  assert.deepEqual(lockedPlanRows('', '12-plus'), []);
+  let progress = addOwnTask(emptyProgress(), '12-plus', 'Call family', 'overdue');
+  const plan = buildDatedPlan(wedding, '2026-11-06');
+  const overview = planOverview(progress, plan);
+  assert.equal(overview.overdue.length, 5);
+  assert.equal(overview.next.length, 3);
+  assert.equal(overview.nextStartsOn, '2026-12-12');
+  const before = taskCount(progress);
+  progress = toggleDone(progress, ownTaskKey('overdue'), '2026-11-06T10:00:00Z');
+  assert.equal(planOverview(progress, plan).overdue.length, 4);
+  assert.equal(taskCount(progress).total, before.total);
+  assert.equal(planOverview(progress, buildDatedPlan('')).nextStartsOn, null);
 });

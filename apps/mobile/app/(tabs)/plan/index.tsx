@@ -6,7 +6,7 @@ import { emptyProgress, toggleDone, type PlanProgress } from '@core/plan-progres
 import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/traditionPacks';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
-import { nextTaskRows, completionDay, taskCount, taskRows } from '../../../src/planTasks';
+import { lockedPlanRows, planOverview, completionDay, taskCount, taskRows } from '../../../src/planTasks';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
 import { shouldOffer } from '../../../src/reminders';
@@ -37,7 +37,8 @@ export default function Plan() {
   const plan = buildDatedPlan(date, localToday());
   const rows = taskRows(progress);
   const count = taskCount(progress);
-  const catchUp = nextTaskRows(progress);
+  const overview = planOverview(progress, plan);
+  const catchUp = overview.next;
   async function tick(key: string) {
     setSaving(true);
     try { setProgress(await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()))); setError(''); }
@@ -47,6 +48,7 @@ export default function Plan() {
   const row = (r: ReturnType<typeof taskRows>[number]) => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
     <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
+      <Text style={type.sub}>{PLAN_WINDOWS.find(w => w.id === r.windowId)?.label}{plan.windows.find(w => w.id === r.windowId) ? ` · By ${plainDate(plan.windows.find(w => w.id === r.windowId)!.endsOn)}` : ' · Catch up'}</Text>
       {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {completionDay(r.doneAt)}</Text> : null}
     </Pressable>
     {r.ownId && (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask | undefined)?.tradition ? <Text style={type.sub}>{TRADITION_PREVIEWS.find(p => p.id === (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask).tradition?.packId)?.name}</Text> : null}
@@ -58,12 +60,17 @@ export default function Plan() {
       <Text style={type.body}>{plan.headline}</Text>
       {plan.warning ? <Text style={type.body}>{plan.warning}</Text> : null}
       <Text style={type.section}>{count.done} / {count.total} tasks done</Text>
-      {catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Do these next · {catchUp.length}</Text>{catchUp.map(row)}</View> : null}
+      {catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Do these next · {catchUp.length}</Text>{catchUp.map(row)}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
+      {overview.overdue.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {overview.overdue.length}</Text>{overview.overdue.map(row)}</View> : null}
       <ScrollView horizontal accessibilityRole="tablist" contentContainerStyle={{ gap: space[2] }}>
         {PLAN_WINDOWS.map(w => <Pressable key={w.id} accessibilityRole="tab" accessibilityState={{ selected: windowId === w.id }} onPress={() => setWindow(w.id)} style={{ minHeight: 48, padding: space[3], backgroundColor: windowId === w.id ? color.blueSoft : color.coralSoft }}><Text style={type.button}>{w.label}</Text></Pressable>)}
       </ScrollView>
       {plan.windows.filter(w => w.id === windowId).map(w => <Text key={w.id} style={type.sub}>{plainDate(w.startsOn)} – {plainDate(w.endsOn)}</Text>)}
       {rows.filter(r => r.windowId === windowId).map(row)}
+      {lockedPlanRows(date, windowId).map(r => <Pressable key={r.text} accessibilityRole="button" onPress={() => router.push(r.href)} style={{ minHeight: 64, paddingVertical: space[2], borderBottomWidth: 1, borderColor: color.rule }}>
+        <Text style={[type.body, { color: color.midnightMuted }]}>🔒 {r.text}</Text>
+        <Text style={type.sub}>{plainDate(r.dueOn)} · Full plan ›</Text>
+      </Pressable>)}
       <GoButton href={`/plan/add-task?window=${windowId}`} label="+ Add your own task" primary />
       <GoButton href="/more/packet" label="Print or send my plan ›" />
       <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
