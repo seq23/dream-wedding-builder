@@ -9,8 +9,9 @@ import { color } from '../src/theme';
 // Onboarding (welcome, reminders) draws its own Back and Skip; the tabs carry their own
 // stacks with headers (app/(tabs)/*/_layout.tsx). Fonts are OFL and bundled.
 export default function Layout() {
-  const [loaded] = useFonts({ InstrumentSerif_400Regular, InstrumentSerif_400Regular_Italic, InstrumentSans_400Regular, InstrumentSans_600SemiBold, DMMono_500Medium });
-  if (!loaded) return null;
+  const [loaded, fontError] = useFonts({ InstrumentSerif_400Regular, InstrumentSerif_400Regular_Italic, InstrumentSans_400Regular, InstrumentSans_600SemiBold, DMMono_500Medium });
+  // A font that cannot load must never leave a blank app: draw with the system font instead.
+  if (!loaded && !fontError) return null;
   return (
     <SafeAreaProvider>
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: color.ivory } }} />
