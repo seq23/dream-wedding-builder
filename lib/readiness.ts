@@ -11,7 +11,8 @@
 // type below is the narrow contract: any object carrying these fields scores.
 
 export type ReadinessInput = {
-  constraintMode?: string;
+  weddingDate?: string;
+  saveAreas?: string;
   locations?: string;
   guestCount?: string;
   budgetTarget?: string;
@@ -19,7 +20,6 @@ export type ReadinessInput = {
   ownVibeWords?: string;
   colorsLoved?: string;
   priorities?: string[];
-  recommendationResult?: unknown;
   selectedVenueIds?: string[];
   selectedVendorCategories?: string[];
 };
@@ -40,12 +40,12 @@ export interface ReadinessCheck {
 // Order is the order the planner asks for them, and the order the rubric prints.
 export const readinessChecks: ReadinessCheck[] = [
   {
-    id: 'constraint-mode',
-    label: 'Constraint mode chosen',
-    question: 'Are your requirements hard, flexible, or still being discovered?',
-    fields: ['constraintMode'],
-    why: 'Every later tradeoff is scored against this. Without it the planner cannot tell a preference from a requirement.',
-    met: (plan) => Boolean(plan.constraintMode)
+    id: 'date',
+    label: 'Date set',
+    question: 'What is your date, or your best-guess month?',
+    fields: ['weddingDate'],
+    why: 'Every task in the plan is dated from it, and venues quote by date. A best guess is enough to start.',
+    met: (plan) => Boolean(plan.weddingDate)
   },
   {
     id: 'location',
@@ -91,12 +91,12 @@ export const readinessChecks: ReadinessCheck[] = [
     met: (plan) => (plan.priorities ?? []).length >= 1
   },
   {
-    id: 'recommendation',
-    label: 'Recommendation run',
-    question: 'Have you put one real question through the Recommendation Studio?',
-    fields: ['recommendationResult'],
-    why: 'The recommendation is where your constraints get read back to you, including the conflicts you did not notice you had entered.',
-    met: (plan) => Boolean(plan.recommendationResult)
+    id: 'savings',
+    label: 'First cuts named',
+    question: 'What would you drop first if a quote comes in high?',
+    fields: ['saveAreas'],
+    why: 'Naming the cuts before a quote arrives is what keeps the things you care about out of the firing line.',
+    met: (plan) => Boolean(plan.saveAreas?.trim())
   },
   {
     id: 'venue-shortlist',
@@ -138,7 +138,7 @@ export const readinessBands = [
   { min: 0, max: 22, name: 'Blank', meaning: 'Nothing is decided yet. A new plan opens at 11% because admitting the budget is unknown already counts as a stated position.' },
   { min: 23, max: 44, name: 'Sketched', meaning: 'You have a place and a size. Enough to reject obviously wrong venues, not enough to price anything.' },
   { min: 45, max: 66, name: 'Costed', meaning: 'Location, count, budget position, and what you refuse to cut are all on record. Quotes can now be compared against something.' },
-  { min: 67, max: 88, name: 'Actionable', meaning: 'A recommendation has been run against your real constraints and a shortlist exists. This is the point where sending inquiries stops wasting your time.' },
+  { min: 67, max: 88, name: 'Actionable', meaning: 'Your first cuts are named and a venue shortlist exists. This is the point where sending inquiries stops wasting your time.' },
   { min: 89, max: 100, name: 'Complete', meaning: 'Every input the planner scores has been answered. Completeness of inputs, not a verdict on the plan.' }
 ] as const;
 

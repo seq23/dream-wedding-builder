@@ -4,6 +4,10 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { buildDatedPlan, localToday, plainDate } from '@/lib/dated-plan';
 import { addCustomTask, emptyProgress, loadProgress, removeCustomTask, saveProgress, taskKey, toggleDone, type PlanProgress } from '@/lib/plan-progress';
 import { buildIcs } from '@/lib/plan-ics';
+import { thisWeek } from '@/lib/this-week';
+import { taskDate } from '@/lib/full-plan';
+import { FULL_PLAN_TEASER } from '@/lib/full-plan-teaser';
+import { useFullPlanCounts } from '@/components/FullPlanCard';
 
 // One view of the dated plan, used by the planner, the dashboard and the packet so
 // the three can never disagree. "today" is read after mount: the server does not
@@ -18,6 +22,7 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
   const [progress, setProgress] = useState<PlanProgress>(emptyProgress());
   const [adding, setAdding] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
+  const fullCounts = useFullPlanCounts();
   useEffect(() => {
     setToday(localToday());
     setProgress(loadProgress(localStorage));
@@ -43,6 +48,8 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
+  const week = thisWeek(plan, tasksFor, (windowId, text) => Boolean(progress.done[taskKey(windowId, text)]));
+
   const Task = ({ windowId, text, customId }: { windowId: string; text: string; customId?: string }) => {
     const key = taskKey(windowId, text);
     const done = Boolean(progress.done[key]);
@@ -52,6 +59,7 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
           <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border text-sm ${done ? 'border-emerald-700 bg-emerald-700 text-white' : 'border-charcoal/40 bg-white'}`}>{done ? '✓' : ''}</span>
         </button>}
       <span className={`pt-0.5 text-sm leading-6 ${done ? 'text-charcoal/50 line-through' : ''}`} data-testid="dated-task-text">{text}</span>
+      {readOnly ? <span data-testid="dated-task-owner" className="ml-auto shrink-0 whitespace-nowrap pt-0.5 text-xs text-charcoal/70">Who: <span aria-hidden="true" className="inline-block w-24 border-b border-charcoal/60 align-baseline">&nbsp;</span></span> : null}
       {customId && !readOnly ? <button type="button" data-testid="dated-task-remove" onClick={() => update(removeCustomTask(progress, customId))} className="ml-auto min-h-11 shrink-0 px-2 text-xs font-semibold text-charcoal/60 underline">Remove</button> : null}
     </li>;
   };
@@ -66,7 +74,13 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
     <p className="font-serif text-2xl leading-snug" data-testid="dated-plan-headline">{plan.headline}</p>
     {allKeys.length ? <p className="text-sm text-charcoal/70" data-testid="dated-plan-progress">{doneCount} of {allKeys.length} done{readOnly ? '' : ' · saved in this browser'}</p> : null}
     {plan.warning ? <p className="rounded-2xl bg-amber-50 p-3 text-sm" data-testid="dated-plan-warning">{plan.warning}</p> : null}
-    {plan.state === 'future' && !readOnly ? <button type="button" data-testid="dated-plan-ics" onClick={downloadIcs} className="min-h-11 rounded-full border border-charcoal/20 bg-white px-4 py-2 text-sm font-bold">Add reminders to my calendar ↓</button> : null}
+    {plan.state === 'future' && !readOnly ? <section data-testid="this-week" className="rounded-2xl border-2 border-charcoal bg-white p-4">
+      <h3 className="font-serif text-2xl leading-tight">{week.tasks.length ? 'Do these next' : 'Everything so far is ticked'}</h3>
+      {week.tasks.length ? <ul className="mt-2 grid gap-2">{week.tasks.map(task => <li key={`${task.windowId}:${task.text}`} data-testid="this-week-task" className="text-sm leading-6"><span className="font-semibold">{task.text}</span><span className="block text-charcoal/65">{task.by ? `by ${plainDate(task.by)}` : 'usually done by now'}</span></li>)}</ul> : null}
+      {week.nextWindow ? <p data-testid="this-week-next" className="mt-3 text-sm text-charcoal/70">Your next set of tasks ({week.nextWindow.label.toLowerCase()}) starts {plainDate(week.nextWindow.opensOn)}.</p> : null}
+      <button type="button" data-testid="dated-plan-ics" onClick={downloadIcs} className="mt-4 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-blue px-5 py-3 text-center text-base font-bold text-white">Put these dates in my calendar ↓</button>
+      <p className="mt-2 text-xs leading-5 text-charcoal/60">Downloads a calendar file for your phone or computer with every task you have not ticked. We do not send reminders ourselves.</p>
+    </section> : null}
     {plan.catchUp.length > 0 ? <section className="rounded-2xl border border-charcoal/10 bg-white p-4" data-testid="dated-plan-catch-up">
       <h3 className="text-base font-semibold">Check these are done (they usually happen earlier)</h3>
       <ul className="mt-2">{plan.catchUp.map(task => <Task key={task} windowId="catch-up" text={task} />)}</ul>
@@ -74,13 +88,22 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
     {plan.windows.map(window => {
       const custom = progress.custom.filter(c => c.windowId === window.id);
       const showTasks = !compact || window.timing === 'now';
-      return <section key={window.id} className="rounded-2xl border border-charcoal/10 bg-white p-4" data-testid={`dated-window-${window.id}`}>
-        <h3 className="text-base font-semibold">{window.label}{window.timing === 'now' ? ' · now' : ''}</h3>
+      return <section key={window.id} className="print-window rounded-2xl border border-charcoal/10 bg-white p-4" data-testid={`dated-window-${window.id}`}>
+        <h3 className="text-base font-semibold">{window.id === '12-plus' && (plan.daysToGo ?? 9999) < 365 ? 'From now to 9 months before' : `${window.label}${window.timing === 'now' ? ' · now' : ''}`}</h3>
         <p className="mt-1 text-sm text-charcoal/65">{plainDate(window.startsOn)} to {plainDate(window.endsOn)}</p>
         {showTasks ? <ul className="mt-2">
           {window.tasks.map(task => <Task key={task} windowId={window.id} text={task} />)}
           {custom.map(c => <Task key={c.id} windowId={window.id} text={c.text} customId={c.id} />)}
         </ul> : null}
+        {showTasks && !readOnly && !compact && FULL_PLAN_TEASER[window.id] ? (() => {
+          // What the full plan adds to this window: two of its tasks with her dates, greyed.
+          // The count is the paid list's real count for this window; without it, no number is shown.
+          const more = fullCounts?.byWindow[window.id] ? fullCounts.byWindow[window.id] - window.tasks.length : 0;
+          return <div data-testid="full-plan-locked" className="no-print mt-2 rounded-xl border border-dashed border-charcoal/25 p-3 text-sm text-charcoal/55">
+            <p className="font-semibold text-charcoal/75">{more > 0 ? `+${more} more in the full plan` : 'More in the full plan'}, such as:</p>
+            <ul className="mt-1 grid gap-1">{FULL_PLAN_TEASER[window.id].map(task => <li key={task.text} data-testid="full-plan-locked-task"><span aria-hidden="true">🔒 </span>{(() => { const date = taskDate(weddingDate, task.daysBefore) ?? window.endsOn; return date < today ? 'Now' : plainDate(date); })()}: {task.text}</li>)}</ul>
+          </div>;
+        })() : null}
         {showTasks && !readOnly ? (adding === window.id
           ? <form onSubmit={e => addTask(e, window.id)} className="mt-2 flex flex-wrap gap-2">
               <label className="sr-only" htmlFor={`add-${window.id}`}>Your own task</label>
@@ -91,6 +114,6 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
           : <button type="button" data-testid={`dated-task-add-${window.id}`} onClick={() => { setAdding(window.id); setDraft(''); }} className="mt-1 min-h-11 text-sm font-semibold text-charcoal/70 underline underline-offset-4">+ Add your own task</button>) : null}
       </section>;
     })}
-    {plan.windows.length ? <p className="text-xs text-charcoal/55">General planning timing, not vendor deadlines. Your contracts and your county’s licence rules win.</p> : null}
+    {plan.windows.length ? <p className="text-xs text-charcoal/55">General planning timing, not vendor deadlines. Your contracts and your county’s license rules win.</p> : null}
   </div>;
 }

@@ -36,7 +36,7 @@ const CRAWLERS = [
 
 // Repeated in every group: naming the agents must open the content without
 // opening the admin, API, and purchase surfaces.
-const DISALLOW = ['/admin', '/api', '/order', '/dashboard', '/pack'] as const;
+const DISALLOW = ['/admin', '/api', '/order', '/dashboard', '/pack', '/full-plan'] as const;
 
 const HEADER = [
   '# Citation-first crawl policy.',

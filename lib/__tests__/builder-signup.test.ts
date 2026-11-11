@@ -5,7 +5,7 @@ const state: { db: any } = { db: undefined };
 vi.mock('@/lib/cloudflare-runtime', () => ({ runtimeEnv: async () => ({ DB: state.db }) }));
 
 import { POST } from '@/app/api/builder-signup/route';
-import { CONSENT_TEXT, normalizeEmail } from '@/lib/builder-signup';
+import { CONSENT_TEXT, NO_MARKETING_TEXT, normalizeEmail } from '@/lib/builder-signup';
 
 function fakeDb() {
   const calls: { sql: string; binds: unknown[] }[] = [];
@@ -29,20 +29,28 @@ describe('builder signup', () => {
     expect(normalizeEmail('nope')).toBeNull();
   });
 
-  it('stores a consented email with the consent wording', async () => {
+  it('stores a ticked email with the consent wording and marketing on', async () => {
     const db = fakeDb(); state.db = db;
-    const res = await POST(req({ email: 'Ana@example.com', consent: true }));
+    const res = await POST(req({ email: 'Ana@example.com', marketing: true }));
     expect(res.status).toBe(200);
     const insert = db.calls.find((c) => c.sql.startsWith('INSERT INTO builder_signups'));
-    expect(insert?.binds).toEqual(['ana@example.com', CONSENT_TEXT, 'free-wedding-planner', 'weddingchecklistpdf.com']);
+    expect(insert?.binds).toEqual(['ana@example.com', CONSENT_TEXT, 'free-wedding-planner', 'weddingchecklistpdf.com', 1]);
     expect(db.calls.findIndex((c) => c.sql.includes('CREATE TABLE IF NOT EXISTS builder_signups'))).toBeLessThan(db.calls.findIndex((c) => c.sql.startsWith('INSERT INTO builder_signups')));
   });
 
-  it('refuses without consent and stores nothing', async () => {
+  it('an email without the tick is stored as no-marketing, never as consented', async () => {
     const db = fakeDb(); state.db = db;
     const res = await POST(req({ email: 'ana@example.com' }));
-    expect(res.status).toBe(400);
-    expect(db.calls).toHaveLength(0);
+    expect(res.status).toBe(200);
+    const insert = db.calls.find((c) => c.sql.startsWith('INSERT INTO builder_signups'));
+    expect(insert?.binds).toEqual(['ana@example.com', NO_MARKETING_TEXT, 'free-wedding-planner', 'weddingchecklistpdf.com', 0]);
+    expect(NO_MARKETING_TEXT).not.toBe(CONSENT_TEXT);
+  });
+
+  it('the old gate\'s compulsory tick (consent: true) still counts as a tick', async () => {
+    const db = fakeDb(); state.db = db;
+    await POST(req({ email: 'ana@example.com', consent: true }));
+    expect(db.calls.find((c) => c.sql.startsWith('INSERT INTO builder_signups'))?.binds?.[4]).toBe(1);
   });
 
   it('is a 503, not a silent success, when storage is missing', async () => {

@@ -23,7 +23,7 @@ const META_DESCRIPTION = `How the wedding planning readiness score works: the sh
 
 const FAQS: Array<{ question: string; answer: string }> = [
   { question: 'Why does a brand-new plan already show 11%?', answer: 'The budget-position input opens on "I have no idea what weddings cost", which is a real, workable answer rather than a blank. One of nine inputs answered rounds to 11%. Nothing has been assumed on your behalf.' },
-  { question: 'What does 70% readiness mean?', answer: 'Roughly six or seven of nine inputs are answered. In practice that means location, guest count, budget position, protected priorities, and a recommendation are all on record - the point at which sending vendor inquiries stops wasting your time.' },
+  { question: 'What does 70% readiness mean?', answer: 'Roughly six or seven of nine inputs are answered. In practice that means location, guest count, budget position, protected priorities, and your first cuts are all on record - the point at which sending vendor inquiries stops wasting your time.' },
   { question: 'Does a higher readiness score mean a better wedding plan?', answer: 'No. The score counts answered inputs. It makes no judgement about whether the answers are good ones, and a fully answered plan built on an unrealistic guest count will score 100%.' },
   { question: 'Are the inputs weighted differently?', answer: 'No. All nine carry equal weight. Weighting them would require asserting that one input matters more for every couple, which contradicts the constraint-first method the score belongs to.' }
 ];
@@ -35,6 +35,15 @@ export const metadata: Metadata = seoMetadata({
   path: '/readiness-score',
   type: 'article'
 });
+
+// Plain words for the plan fields each check reads (hostile review, 10 Nov 2026: the
+// table printed code names such as "selectedVenueIds").
+const FIELD_WORDS: Record<string, string> = {
+  weddingDate: 'your wedding date', locations: 'your town or area', guestCount: 'your guest count',
+  budgetTarget: 'your budget', budgetMode: 'whether the budget is a hard limit', ownVibeWords: 'your own words for the feel',
+  colorsLoved: 'colours you love', priorities: 'what matters most', saveAreas: 'where you would save',
+  selectedVenueIds: 'at least one venue type', selectedVendorCategories: 'at least one vendor to hire'
+};
 
 export default function ReadinessScore() {
   const definedTerm = {
@@ -65,7 +74,7 @@ export default function ReadinessScore() {
     <section className="rounded-[12px] bg-linen p-7 md:p-9">
       <h2 className="font-serif text-4xl">How it is calculated</h2>
       <p className="mt-4 text-base leading-7 text-charcoal/70">Count the answered inputs, divide by {READINESS_CHECK_COUNT}, multiply by 100, round to the nearest whole number. There is no other term in the formula. Every input carries the same weight — about {Math.round(READINESS_POINTS_PER_CHECK)} points — because weighting them would mean asserting that one input matters more for every couple, and that is exactly the assertion <Link href="/methodology" className="font-bold underline underline-offset-4">constraint-first planning</Link> refuses to make.</p>
-      <p className="mt-4 text-base leading-7 text-charcoal/70">The score is computed in your browser from values you typed. Nothing is sent anywhere, and no input is inferred on your behalf.</p>
+      <p className="mt-4 text-base leading-7 text-charcoal/70">The score is computed in your browser from values you typed. The score itself is worked out on your device and is not sent anywhere. If you used the free AI draft, the values it filled in count like any others, and you can change them.</p>
     </section>
 
     <section className="rounded-[12px] bg-white p-7 md:p-9">
@@ -81,7 +90,7 @@ export default function ReadinessScore() {
           <tbody>{readinessChecks.map((check) => <tr key={check.id}>
             <td className="border-b border-charcoal/10 p-3 font-bold">{check.label}</td>
             <td className="border-b border-charcoal/10 p-3">{check.question}</td>
-            <td className="border-b border-charcoal/10 p-3">{check.fields.join(' or ')}</td>
+            <td className="border-b border-charcoal/10 p-3">{check.fields.map(field => FIELD_WORDS[field] ?? field).join(' or ')}</td>
             <td className="border-b border-charcoal/10 p-3">{Math.round(READINESS_POINTS_PER_CHECK)}%</td>
           </tr>)}</tbody>
         </table>
@@ -115,12 +124,12 @@ export default function ReadinessScore() {
 
     <section className="no-print rounded-[12px] border border-charcoal/15 bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl">See your own score</h2>
-      <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">The planner shows your readiness score, which inputs are still unanswered, and what answering each one would change. Free with your email, and your plan stays in your browser.</p>
+      <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">The planner shows your readiness score, which inputs are still unanswered, and what answering each one would change. No account and no email needed, and your plan stays in your browser.</p>
       <Link href={plannerHref({})} className="mt-6 inline-flex rounded-2xl bg-charcoal px-6 py-4 font-bold text-linen">Open the free wedding planner →</Link>
     </section>
     <PlannerCta label="See your readiness score →" seed={{}} />
 
-    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">This page is rendered directly from the same module the planner scores with, so the published rubric and the shipped calculation cannot drift apart. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
+    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">This page lists the same checks the planner uses, so what you read here is what the planner counts. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
     <JsonLd data={[definedTerm, faq]} />
   </article>;
 }

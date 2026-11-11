@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Card, Badge } from './Card';
 import type { Trend } from '@/data/types';
 
@@ -14,9 +15,10 @@ function saveTrendToPlan(trend: Trend) {
 }
 
 export function TrendCard({ trend, compact = false }: { trend: Trend; compact?: boolean }) {
+  const [added, setAdded] = useState(false);
   const add = () => {
     saveTrendToPlan(trend);
-    alert(`${trend.name} added to your planner packet.`);
+    setAdded(true);
   };
 
   return <Card id={trend.id} data-testid={`trend-${trend.id}`} className={`flex h-full flex-col ${compact ? 'p-4 shadow-none' : ''}`}>
@@ -36,9 +38,7 @@ export function TrendCard({ trend, compact = false }: { trend: Trend; compact?: 
     <div className="mt-3 flex flex-wrap gap-2">{trend.labels.map(label => <Badge key={label} tone={label.includes('Verify') ? 'warning' : 'neutral'}>{label}</Badge>)}</div>
     <p className="mt-3 text-xs leading-5 text-charcoal/55"><strong>Support needed:</strong> {trend.supportNeeded || trend.vendorType}</p>
     <p className="mt-2 text-xs leading-5 text-charcoal/55"><strong>Verify:</strong> {trend.verificationNote || trend.plannerWarning}</p>
-    <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-      <button onClick={add} className="rounded-full bg-charcoal px-4 py-3 text-sm font-bold text-linen">Add to Planner Packet</button>
-      <a href={`/free-wedding-planner#step-1`} className="rounded-full border border-charcoal/20 px-4 py-3 text-center text-sm font-bold">Use in Recommendation Studio</a>
-    </div>
+    {/* In the planner (compact) the step's own button adds and removes the idea. */}
+    {!compact && <div className="mt-4"><button type="button" onClick={add} aria-pressed={added} className="min-h-11 w-full rounded-2xl border border-charcoal/25 bg-white px-4 py-3 text-sm font-bold">{added ? '✓ Added to your plan' : '+ Add to your plan'}</button></div>}
   </Card>;
 }

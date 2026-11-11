@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import clarity from '@/data/clarity_projects.json';
 import { CheckoutButton } from '@/components/CheckoutButton';
-import { BuilderEmailGate } from '@/components/BuilderEmailGate';
+import PlannerPage from '@/app/free-wedding-planner/page';
 import TrendSubmitForm from '@/app/trends/trend-submit-form';
 import { HOSTS, renderHome } from './helpers/site-homes';
 
@@ -109,7 +109,6 @@ describe('conversion-only session recording (e9)', () => {
 
   for (const [name, element] of [
     ['checkout', createElement(CheckoutButton, { sku: 'test-sku', price: 9 })],
-    ['builder signup', createElement(BuilderEmailGate, { children: 'Planner' })],
     ['idea submission', createElement(TrendSubmitForm)]
   ] as const) {
     it(`${name} renders a marked form and an EXECUTABLE loader script`, () => {
@@ -123,6 +122,14 @@ describe('conversion-only session recording (e9)', () => {
       expect(html.replace(/<link\b[^>]*>/gi, '')).toContain('/assets/clarity-loader.js');
     });
   }
+
+  it('the planner, where her plan is on screen, loads no session recording', () => {
+    const html = renderToStaticMarkup(createElement(PlannerPage));
+    expect(html).toContain('data-testid="wedding-date"');
+    expect(loadsClarity(html)).toBe(false);
+    expect(html).not.toContain('data-session-recording');
+    expect(html).not.toContain('clarity-loader');
+  });
 
   for (const host of HOSTS) {
     it(`${host} homepage runs the loader exactly when it renders a conversion form`, () => {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { runtimeEnv } from '@/lib/cloudflare-runtime';
 import { createDownloadToken } from '@/lib/fulfillment';
 import { productBySku } from '@/lib/products';
+import { FULL_PLAN_PRODUCT_IDS, loadFullPlan } from '@/lib/full-plan';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,11 +26,15 @@ export async function GET(req: NextRequest) {
   const token = createDownloadToken(row.entitlement_id, Date.now() + 60 * 60 * 1000, signingSecret);
   const product = productBySku(row.sku);
   const asset = env.PRODUCT_RELEASES ? await env.PRODUCT_RELEASES.head(row.release_key) : null;
+  // Checklist and suite buyers also get their plan dated from their wedding date. If the
+  // task list cannot be read they still get the files, and loadFullPlan logs the named stop.
+  const planReady = Boolean(product && FULL_PLAN_PRODUCT_IDS.includes(product.id) && (await loadFullPlan(env.PRODUCT_RELEASES as never, 'api/order-status')));
   return NextResponse.json({
     status: asset ? 'READY' : 'AWAITING_ASSET',
     product_name: product?.name || row.sku,
     email: row.customer_email.replace(/^(.{2}).+(@.+)$/, '$1•••$2'),
     download_url: asset ? `/api/download/${token}` : null,
+    plan_url: planReady ? `/full-plan?t=${token}` : null,
     message: asset ? 'Your secure download is ready.' : 'Your payment is verified. The product release has not yet been uploaded.'
   });
 }

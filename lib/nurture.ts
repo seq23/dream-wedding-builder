@@ -19,7 +19,7 @@
 // The Worker cron (worker.ts, hourly) calls runNurture(). Every send is recorded first-
 // time-only in email_sends (PRIMARY KEY (email_hash, kind)), so a re-run never resends.
 
-import { BUILDER_SIGNUPS_DDL } from './builder-signup';
+import { BUILDER_SIGNUPS_DDL, MARKETING_OK_SQL, ensureSignupTable } from './builder-signup';
 
 export const MAILING_ADDRESS = '2055 Lombard St #471024, San Francisco, CA 94147';
 export const SITE = 'https://weddingchecklistpdf.com';
@@ -82,11 +82,11 @@ export const SEQUENCE: Step[] = [
     cta: { label: 'Download the sample (PDF)', url: SAMPLE_URL }
   },
   {
-    kind: 'seq1', subject: 'The full checklist: 104 tasks, each with an owner',
+    kind: 'seq1', subject: 'The full checklist: every task dated from your wedding date',
     heading: 'The full Wedding Checklist PDF, $9',
     paragraphs: [
-      'The sample has 3 of the 13 pages. The full checklist adds every planning window from 12+ months through wedding week, a wedding-week handoff tracker and a final-payments tracker.',
-      'It comes as a 104-row editable spreadsheet plus the printable PDF, with fields for owner, dependency, priority and status, so tasks are assigned instead of assumed.'
+      'The sample has 3 of the 13 pages. The full checklist opens as a dated plan: about 100 written tasks, each dated from your wedding date, from 12+ months out through wedding week, with final payments.',
+      'It also comes as the 13-page printable PDF and an editable spreadsheet for adding your own tasks; each row has fields for owner, dependency, priority and status, so tasks are assigned instead of assumed.'
     ],
     cta: { label: 'See the full checklist, $9', url: `${SITE}/products/checklist-pdf` }
   },
@@ -125,7 +125,7 @@ export const WELCOME: Step = {
   heading: 'Thanks for opening the free wedding planner.',
   paragraphs: [
     'Your plan is saved in the browser you used, not on our servers, so go back on the same phone or computer to pick up where you left off.',
-    'If you would like it on paper too, the Wedding Checklist PDF is $9: 104 tasks from 12+ months out through wedding week, as a printable PDF and an editable spreadsheet.'
+    'If you would like the full plan, the Wedding Checklist PDF is $9: about 100 tasks dated from your wedding date, with final payments, ready to print, plus a 13-page printable PDF and an editable spreadsheet.'
   ],
   link: { label: 'Open the free wedding planner', url: `${SITE}/free-wedding-planner` },
   cta: { label: 'Get the Wedding Checklist PDF, $9', url: `${SITE}/products/checklist-pdf` },
@@ -277,6 +277,9 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
   if (stop) { console.error(JSON.stringify({ event: 'NURTURE_STOPPED', stop })); if (env.DB) await recordRun(env.DB, 0, 0, stop); return { stop, sent: 0, review_asks: 0, ceiling: false, failed: 0 }; }
   const db = env.DB!;
   await ensureTables(db);
+  // Marketing email goes only to addresses whose owner ticked the box (or signed up when
+  // the box was compulsory). An email given just to print a plan is never written to.
+  await ensureSignupTable(db as never);
   const optouts = new Set(((await db.prepare('SELECT email_hash FROM email_optouts').bind().all()).results ?? []).map((r) => String(r.email_hash)));
   const sends = (await db.prepare('SELECT email_hash, kind, sent_at FROM email_sends').bind().all()).results ?? [];
   const byHash = new Map<string, { kinds: Set<string>; last: number | null }>();
@@ -294,7 +297,7 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
   // The series is for people who asked for the sample: signed up from the sample form, or
   // already signed up elsewhere and then got the sample (step 0 recorded). A planner sign-up
   // outside the series gets the one welcome instead, which never starts the series.
-  const signups = (await db.prepare('SELECT email, source, created_at FROM builder_signups WHERE unsubscribed_at IS NULL ORDER BY created_at').bind().all()).results ?? [];
+  const signups = (await db.prepare(`SELECT email, source, created_at FROM builder_signups WHERE unsubscribed_at IS NULL AND ${MARKETING_OK_SQL} ORDER BY created_at`).bind().all()).results ?? [];
   for (const r of signups) {
     if (sent >= MAX_PER_RUN) break;
     const email = String(r.email); const hash = await emailHash(email);

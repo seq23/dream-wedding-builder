@@ -17,7 +17,9 @@ export function parseProgress(text: string | null): PlanProgress {
     const raw = JSON.parse(text) as Record<string, unknown>;
     const done: Record<string, string> = {};
     if (raw && typeof raw.done === 'object' && raw.done && !Array.isArray(raw.done)) {
-      for (const [k, v] of Object.entries(raw.done as Record<string, unknown>)) if (typeof v === 'string') done[k] = v;
+      // A tick is keyed by the task's words. One task was respelled (licence -> license,
+      // 10 Nov 2026), so a tick made under the old spelling is kept under the new one.
+      for (const [k, v] of Object.entries(raw.done as Record<string, unknown>)) if (typeof v === 'string') done[k.replace('marriage licence', 'marriage license')] = v;
     }
     const custom = Array.isArray(raw?.custom) ? (raw.custom as unknown[]).filter((c): c is CustomTask => !!c && typeof c === 'object' && typeof (c as CustomTask).id === 'string' && typeof (c as CustomTask).windowId === 'string' && typeof (c as CustomTask).text === 'string').map(c => ({ ...c, text: c.text.slice(0, 140) })) : [];
     return { done, custom };

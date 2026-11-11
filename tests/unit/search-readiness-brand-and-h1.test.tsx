@@ -10,28 +10,23 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import ownership from '@/data/seo/route_ownership.json';
-import { BuilderEmailGate } from '@/components/BuilderEmailGate';
+import PlannerPage from '@/app/free-wedding-planner/page';
 import { hubBySlug } from '@/lib/seo';
 import { HOSTS } from './helpers/site-homes';
 
 describe('one H1 per page (checklist b3)', () => {
   const countH1 = (html: string) => (html.match(/<h1[\s>]/g) ?? []).length;
 
-  it('the locked builder gate adds no second h1 over the page it covers', () => {
-    const html = renderToStaticMarkup(
-      <BuilderEmailGate><h1>Build the wedding around reality, not generic inspiration.</h1></BuilderEmailGate>
-    );
-    // The gate is showing (no unlock in this environment) and the covered page is
-    // still in the markup, so this is the exact two-h1 shape that failed live.
-    expect(html).toContain('data-testid="builder-email-gate"');
+  // 10 Nov 2026: the email wall is gone. The planner renders for everyone, so the
+  // server HTML is the planner itself, with its one h1 and the date field, and no
+  // email form in front of it.
+  it('the planner renders its one h1 and the date field with no email wall', () => {
+    const html = renderToStaticMarkup(<PlannerPage />);
     expect(html).toContain('Build the wedding around reality');
     expect(countH1(html)).toBe(1);
-  });
-
-  it('the gate itself declares no h1', () => {
-    const html = renderToStaticMarkup(<BuilderEmailGate><p>covered page</p></BuilderEmailGate>);
-    expect(html).toContain('Enter your email to open the builder.');
-    expect(countH1(html)).toBe(0);
+    expect(html).toContain('data-testid="wedding-date"');
+    expect(html).not.toContain('data-testid="builder-email-gate"');
+    expect(html).not.toContain('type="email"');
   });
 
   for (const host of HOSTS) {

@@ -30,8 +30,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 @media print {
   .no-print { display: none !important; }
-  body { background: white !important; }
-  .print-card { box-shadow: none !important; border: 1px solid #ddd !important; break-inside: avoid; }
+  /* Paper first: black on white, no tinted panels, margins that suit Letter and A4. */
+  @page { margin: 14mm; }
+  html, body { background: white !important; color: #000 !important; }
+  main { padding: 0 !important; max-width: none !important; }
+  .print-card { box-shadow: none !important; border: 1px solid #999 !important; background: white !important; color: #000 !important; }
+  .print-card * { color: #000 !important; background: transparent !important; }
+  /* A long card may run over a page, but a heading never sits alone at the foot of one
+     and one planning window is never split across two pages. */
+  .print-card h2, .print-card h3 { break-after: avoid; }
+  .print-window, .print-card li, .print-card dl > div { break-inside: avoid; }
+  .print-window { border: 1px solid #999 !important; }
   .page-break { break-before: page; }
 }
 
@@ -53,3 +62,5 @@ footer .grid.gap-2 > a, footer li > a { display: inline-flex; min-height: 44px; 
 @media (min-width: 900px) {
   main h1.font-serif { font-size: clamp(44px, 4.4vw, 64px) !important; line-height: 1.04 !important; }
 }
+
+@keyframes dwb-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }

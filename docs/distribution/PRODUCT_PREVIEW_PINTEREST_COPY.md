@@ -4,9 +4,9 @@ Use these only with the watermarked paid-product preview images. Do not call the
 
 ## Wedding Checklist PDF
 
-**Title:** Look Inside a 104-Row Wedding Checklist Workbook
+**Title:** Look Inside the Wedding Checklist PDF Workbook
 
-**Description:** See actual watermarked previews from the paid Wedding Checklist PDF and editable workbook, including the master checklist, wedding-week handoff, final-payment tracker, planning profile, and critical path.
+**Description:** See actual watermarked previews from the paid Wedding Checklist PDF and editable workbook, including the editable spreadsheet (blank rows for your own tasks), wedding-week handoff, final-payment tracker, planning profile, and critical path.
 
 **Destination:** `https://weddingchecklistpdf.com/products/checklist-pdf#look-inside`
 

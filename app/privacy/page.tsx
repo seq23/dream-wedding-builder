@@ -36,26 +36,33 @@ export default function Privacy() {
       <h1 className="mt-4 font-serif text-6xl">Privacy</h1>
       <p className="mt-6 text-lg leading-8 text-charcoal/70">
         This page describes what the four Dream Wedding Builder sites actually store and send. There are no accounts and no
-        login for the planning tools; the builder asks only for an email address. Where something leaves your browser, it is named below along with the service that
+        login for the planning tools. The planner opens without an email; it asks for one only to print your plan or to use the free AI draft. Where something leaves your browser, it is named below along with the service that
         receives it.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Planning data stays in your browser</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        The planning builder, the dashboard, and the starter pack keep your plan in your own browser&rsquo;s local storage,
+        The free wedding planner, the dashboard, and the printable plan keep your plan in your own browser&rsquo;s local storage,
         under the keys <code>dwb-plan</code>, <code>dwb-scope</code>, and <code>dwb-trends</code>. That data is not sent to a
         server, is not attached to a profile, and is visible only in the browser that created it. Clearing your browser
         storage deletes it, and it does not travel with you to another device.
       </p>
 
-      <h2 className="mt-12 font-serif text-4xl">Your email, when you open the planning builder</h2>
+      <h2 className="mt-12 font-serif text-4xl">Your email, when you print your plan or use the AI draft</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        The planning builder is free and opens after you enter an email address and agree to planning emails. We store that
-        address, the wording you agreed to, the site you signed up on, and the date, in this site&rsquo;s Cloudflare D1
-        database. Your plan itself still stays in your browser. We send one welcome email, through Resend, with a link back to
-        the planner. Every email we send includes an unsubscribe link, and you can
+        The planner is free and shows your dated plan without an email. We ask for an email address in two places: to open the
+        printable copy of your plan, and to use the free AI draft (one per address). We store that address, whether you
+        ticked the optional box for planning emails, the site you were on, and the date, in this site&rsquo;s Cloudflare D1
+        database. Your plan itself still stays in your browser. If you leave the box unticked we send you no marketing
+        email. If you tick it we send one welcome email, through Resend, with a link back to the planner. Every email we
+        send includes an unsubscribe link, and you can
         also write to <a className="underline underline-offset-4" href={`mailto:${supportEmail}`}>{supportEmail}</a> to have
         the address removed.
+      </p>
+      <p className="mt-4 leading-7 text-charcoal/70">
+        If you use the AI draft, the sentence you type is sent to a free AI model from Google Gemini or OpenRouter, which
+        may keep it; nothing is sent until you tick the box beside it. We keep a one-way hash of your address to record that it has used its one
+        draft; we do not store the sentence. The planner page itself loads no session recording.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70">
         The free checklist sample works the same way: the address you type is stored with the wording you agreed to, the
@@ -66,14 +73,13 @@ export default function Privacy() {
 
       <h2 className="mt-12 font-serif text-4xl">Inspiration photos are not uploaded</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        When you choose a photo on the inspiration page, the page reads the file name so it can show you what you selected.
-        The image itself is not placed on the network by this site. The scope breakdown you get back is produced from the
+        The inspiration page has no photo upload. The scope breakdown you get back is produced from the
         category and description you type, in your browser.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Analytics</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        Public signup, idea-submission, and checkout forms on all four domains load Microsoft Clarity, a behavioural analytics
+        The free-sample, idea-submission, and checkout forms on all four domains load Microsoft Clarity, a behavioural analytics
         service, through this site&rsquo;s own loader. Reading guides, browsing informational hubs, and choosing an inspiration
         photo do not load session recording. Recording stops when you leave a form page. Each domain reports into its own Clarity project. Clarity records how pages are used — page views, clicks,
         scrolling, and session replay — and that data is processed by Microsoft under Microsoft&rsquo;s terms, not held here.
