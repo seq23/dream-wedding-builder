@@ -1,7 +1,9 @@
 # App build queue — 10 Nov 2026
 
-Task 1 PR prepared against the scaffold branch; coordinator reviews and merges.
-Next task: 2, after task 1 lands. Tasks are grouped into PRs by risk (owner, 10 Nov 2026 evening); see the queue brief. Task 1a (a hosted preview link) comes before task 2; tasks 8a to 8c (payments, wedding week, packet) were added to the plan on 10 Nov.
+Task 1 is merged into the scaffold branch.
+Task 2 is implemented in open PR #134, awaiting coordinator review.
+Next prerequisite: task 1a (hosted preview), then task 3.
+Tasks 8a to 8c were added to the plan on 10 Nov.
 
 Preview: CI exports the app for the web and puts a free download shortcut in its
 run summary. Download, unzip and serve with `python3 -m http.server 8080`.
