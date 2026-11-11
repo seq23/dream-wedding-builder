@@ -228,11 +228,22 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    Free plan: the tab shows the two locked payment tasks with her dates and what the full plan adds.
    Tests: totals equal the unpaid rows; a paid row leaves the total; with no `full_plan` no paid
    task text is on the phone; amounts never leave the phone (no network call in this screen).
-8b. **The wedding-week sheet.** One screen for the last seven days: the wedding-week tasks from the
+8b. **The wedding-week sheet.**
+   **NAMED STOP [PATTERN_NOTES_MISSING] Wedding-week sheet.** The Screen patterns
+   section has no entry for this screen. Implementation is skipped until the coordinator
+   supplies the required shipped-example notes; this stop does not ship the feature.
+
+   One screen for the last seven days: the wedding-week tasks from the
    full list by day, each with its suggested owner and a "Who" she can set, the vendor contact sheet
    (name, phone, arrival time, who calls if late) and the envelopes list from the payment tasks.
    Tests: tasks sort by day; a task ticked here is ticked on the plan; needs `full_plan`.
-8c. **The hand-over packet.** "Print or send my plan": one PDF (expo-print) built on the phone:
+8c. **The hand-over packet.**
+   **NAMED STOP [PATTERN_NOTES_MISSING] Hand-over packet.** The Screen patterns
+   section has no entry for this screen or its print/share controls. Implementation is
+   skipped until the coordinator supplies the required shipped-example notes; this stop
+   does not ship the feature.
+
+   "Print or send my plan": one PDF (expo-print) built on the phone:
    names and date on top, every task with date, owner and a "Who" blank, the payments schedule, the
    wedding-week sheet and the contact sheet; black on white; Letter and A4. Shared by the system
    share sheet; nothing is uploaded. The free plan keeps the basic packet (the 23 free tasks).
