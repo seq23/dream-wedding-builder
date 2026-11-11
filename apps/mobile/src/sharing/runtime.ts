@@ -6,6 +6,7 @@ import { eventStore } from '../billing/eventStore';
 import { downloadStore } from '../billing/downloadStore';
 import { purchases } from '../billing/current';
 import { progressStore } from '../planTasks';
+import { sharingDeadline } from './deadline';
 import { shareClient } from './client';
 import { sharedPlan, sharingSession, type SharedPlan } from './session';
 import { OWNER_PLAN_KEY, activeSharing } from './active';
@@ -23,7 +24,7 @@ export function phoneSharing() {
       if (!event?.fullPlan || !purchases.available) return null;
       // SDK metadata never grants access. Fetch all content through the verified
       // server door before constructing an invite; failure leaves the phone alone.
-      const snapshot = await purchases.restore();
+      const snapshot = await sharingDeadline(() => purchases.restore());
       const content = await downloadStore(AsyncStorage).refresh(snapshot.userId);
       const progress = await progressStore(AsyncStorage).read();
       const keys = new Set([...content.list.tasks.map(t => taskKey(t.window, t.text)), ...progress.custom.map(t => `own::${t.id}`)]);

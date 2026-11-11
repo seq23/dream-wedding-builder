@@ -37,3 +37,11 @@ test('shared payment details are isolated by event and never overwrite personal 
   assert.equal((await a.read()).amount,123);assert.equal((await b.read()).amount,0);
   assert.equal(data.get('dw.payments.v1'),'personal');
 });
+
+test('an unresponsive native purchase restore ends visibly without proceeding to invite',async()=>{
+  const {sharingDeadline}=await import('../src/sharing/deadline');
+  let invited=false;
+  await assert.rejects((async()=>{await sharingDeadline(()=>new Promise<void>(()=>{}),5);invited=true;})(),/No connection/);
+  assert.equal(invited,false);
+  assert.equal(await sharingDeadline(async()=>7,5),7);
+});

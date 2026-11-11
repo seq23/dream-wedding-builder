@@ -1,4 +1,4 @@
-import { pauseSharing, activePlan } from '../../../src/sharing/runtime';
+import { phoneSharing, pauseSharing, activePlan } from '../../../src/sharing/runtime';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
 import release from '../../../release/config.json';
 import { useCallback, useState } from 'react';
@@ -20,6 +20,8 @@ import { color, space, type } from '../../../src/theme';
 export default function More() {
   const sharingRevision = useSharingRevision();
   const [sharing, setSharing] = useState(false);
+  const [sharedName, setSharedName] = useState('');
+  const [joined, setJoined] = useState(false);
   const [event, setEvent] = useState<PaidEvent | null>(null);
   const [date, setDate] = useState<string | null>(null);
   const [reminders, setReminders] = useState('');
@@ -38,8 +40,8 @@ export default function More() {
   }
   useFocusEffect(useCallback(() => {
     let active = true;
-    Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active(), activePlan()]).then(([d, choice, current, shared]) => {
-      if (active) { setSharing(!!shared); setDate(d); setEvent(current); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
+    Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active(), activePlan(), phoneSharing().then(api => api.read())]).then(([d, choice, current, shared, session]) => {
+      if (active) { setSharing(!!shared); setSharedName(shared?.event.name ?? ''); setJoined(session?.role === 'joined'); setDate(d); setEvent(current); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
     }).catch(() => { if (active) setError('Could not read your settings. Reopen this screen to try again.'); });
     return () => { active = false; };
   }, [sharingRevision]));
@@ -62,8 +64,9 @@ export default function More() {
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {busy ? <Text style={type.body}>Deleting your plan…</Text> : <>
       <Text style={type.body}>Wedding date: {date ? new Date(`${date}T12:00:00`).toLocaleDateString() : 'Not set yet'}</Text>
-      {event?.fullPlan ? <><Text style={type.body}>🔒 {event.name}</Text><Text style={type.sub}>{3 - event.dateChanges} date changes left for this event</Text></> : null}
-      <GoButton href="/welcome" label="Change the wedding date ›" />
+      {sharedName || event?.fullPlan ? <Text style={type.body}>🔒 {sharedName || event?.name}</Text> : null}
+      {!joined && event?.fullPlan ? <Text style={type.sub}>{3 - event.dateChanges} date changes left for this event</Text> : null}
+      {joined ? <Text style={type.sub}>Your partner manages the shared wedding date.</Text> : <GoButton href="/welcome" label="Change the wedding date ›" />}
       <Text style={type.sub}>Reminders: {reminders}</Text>
       <GoButton href="/reminders" label="Reminders ›" />
       <GoButton href={sharing || event?.fullPlan ? "/more/sharing" : "/more/full-plan"} label="Two phones ›" />
