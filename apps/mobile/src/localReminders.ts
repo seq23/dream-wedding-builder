@@ -33,6 +33,14 @@ export function syncReminders(): Promise<void> {
   return job;
 }
 export async function turnRemindersOff() { await AsyncStorage.setItem(CHOICE, 'off'); await syncReminders(); }
+export function stopPlanReminders(): Promise<void> {
+  const job = queue.then(async () => {
+    await AsyncStorage.setItem(CHOICE, 'off');
+    if (Platform.OS !== 'web') await (await nativeDriver()).cancel();
+  });
+  queue = job.catch(() => {});
+  return job;
+}
 export async function turnRemindersOn() {
   if (!canRemind(await hasFullPlan())) throw Error('Reminders are part of the full plan. Purchases are not set up yet.');
   if (Platform.OS === 'web') throw Error('Local reminders need the phone app.');
