@@ -54,4 +54,5 @@ jobs:
           GH_REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PREVIEW_URL: ${{ steps.hosted.outputs.url }}
-        run: gh pr comment "$PR_NUMBER" --body "Phone preview for $GITHUB_SHA: $PREVIEW_URL"
+        run: |
+          gh pr comment "$PR_NUMBER" --body "Phone preview for $GITHUB_SHA: $PREVIEW_URL"
