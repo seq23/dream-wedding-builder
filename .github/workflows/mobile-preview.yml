@@ -32,7 +32,7 @@ jobs:
           cache-dependency-path: apps/mobile/package-lock.json
       - run: npm ci --no-audit --no-fund
       - run: npm run check
-      - run: node --test scripts/preview/host.test.mjs
+      - run: node --test scripts/preview/host.unit.mjs
       - run: npm run preview:web
       - uses: actions/upload-artifact@v4
         id: preview
