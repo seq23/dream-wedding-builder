@@ -10,3 +10,9 @@ Coordinator reviews and lands the PRs; agents never merge.
 
 NAMED STOP [WAITS_FOR_LAUNCH_PLAN]: tasks 10 (store files) and 12 (website line)
 wait for the owner's launch plan after 13 Nov. Release gates remain in scope.
+
+Review follow-up: the purchased-plan personal-task fix now keeps the original window
+end date after a window expires, for both the screen and print. Regression covers
+before/after expiry and the reported 20 Jan 2027 wedding. Supersedes PR #143.
+Task 4 remains in open PR #139 (including its start-morning reminder regression).
+Next new tasks: Dream Wedding 5; ApprovalPrep 4. Launch stops remain unchanged.
