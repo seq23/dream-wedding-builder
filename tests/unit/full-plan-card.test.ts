@@ -11,7 +11,8 @@ import { GET as getCounts } from '@/app/api/health/full-plan/route';
 import { deliveryEmailBody } from '@/lib/delivery-email';
 import { PLAN_WINDOWS, plainDate } from '@/lib/dated-plan';
 import { createDownloadToken } from '@/lib/fulfillment';
-import { FULL_PLAN_KEY, datedFullPlan, parseFullPlan, taskDate } from '@/lib/full-plan';
+import { FULL_PLAN_KEY, datedFullPlan, fullPlanView, parseFullPlan, taskDate } from '@/lib/full-plan';
+import { addCustomTask, emptyProgress, taskKey, toggleDone } from '@/lib/plan-progress';
 import { FULL_PLAN_TEASER } from '@/lib/full-plan-teaser';
 import { productById } from '@/lib/products';
 
@@ -33,6 +34,26 @@ const token = () => createDownloadToken('e1', Date.now() + 60_000, SECRET);
 const sku = (id: string) => productById(id)!.sku;
 
 describe('the full plan a buyer gets', () => {
+  it('keeps personal deadlines stable when their planning window expires', () => {
+    const progress = addCustomTask(emptyProgress(), '12-plus', 'Call our friend', 'friend');
+    const list = { windows: [{ id: '12-plus', label: 'Early planning' }], tasks: [] };
+    const row = (today: string) => fullPlanView(list, '2027-01-20', today, progress).sections[0].tasks[0];
+    expect(row('2026-04-18')).toMatchObject({ date: '2026-04-19', overdue: false });
+    expect(row('2026-04-20')).toMatchObject({ date: '2026-04-19', overdue: true });
+    expect(row('2026-11-10')).toMatchObject({ date: '2026-04-19', overdue: true });
+  });
+
+  it('keeps saved personal tasks and their ticks in the displayed and printable sections and totals', () => {
+    const list = parseFullPlan(LIST)!;
+    const window = PLAN_WINDOWS[0].id;
+    const progress = toggleDone(addCustomTask(emptyProgress(), window, 'Call our friend', 'friend'), taskKey(window, 'Call our friend'), '2026-11-10T12:00:00Z');
+    const view = fullPlanView(list, '2027-10-15', '2026-11-10', progress);
+    expect(view.total).toBe(list.tasks.length + 1);
+    expect(view.done).toBe(1);
+    expect(view.sections.find(s => s.id === window)?.tasks.find(t => t.id === 'custom:friend')).toMatchObject({ text: 'Call our friend', window });
+    expect(fullPlanView(list, '', '2026-11-10', progress).sections).toEqual([]);
+    expect(progress.custom).toHaveLength(1);
+  });
   it('a buyer with a wedding date gets EVERY task dated from it, payments and after-wedding tasks included', () => {
     const list = parseFullPlan(LIST)!;
     const dated = datedFullPlan(list, '2027-10-15', '2026-11-10').flatMap(s => s.tasks);
