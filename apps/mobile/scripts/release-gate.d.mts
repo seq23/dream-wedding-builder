@@ -1,0 +1,1 @@
+export function stops(config: { bundleId?: string; privacyUrl?: string; termsUrl?: string }, env: Record<string, string | undefined>, scorecard: { bossOsRowId?: string | null; recordedAt?: string | null } | null): string[];
