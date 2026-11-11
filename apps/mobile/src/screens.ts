@@ -26,6 +26,7 @@ export const TABS: { tab: Tab; route: string; label: string }[] = [
   { tab: 'more', route: '/more', label: '☰ More' },
 ];
 export const SCREENS: ScreenSpec[] = [
+  { route: '/more/packet', file: 'app/(tabs)/more/packet.tsx', title: 'Print or send my plan', kind: 'sub', tab: 'more', back: '/more', links: [], coming: 'Not in this build yet.' },
   { route: '/payments', file: 'app/(tabs)/payments/index.tsx', title: 'Payments', kind: 'tab', tab: 'payments', links: [], coming: 'Not in this build yet.' },
   { route: '/welcome', file: 'app/welcome.tsx', title: 'When is the wedding?', kind: 'onboarding',
     links: [{ href: '/reminders', label: 'Make my dated plan ›' }, { href: HOME, label: 'Skip ›' }],
@@ -45,7 +46,7 @@ export const SCREENS: ScreenSpec[] = [
   { route: '/two-phones', file: 'app/(tabs)/two-phones/index.tsx', title: 'Plan on two phones', kind: 'tab', tab: 'two-phones',
     links: [], coming: 'Not in this build yet.' },
   { route: '/more', file: 'app/(tabs)/more/index.tsx', title: 'More', kind: 'tab', tab: 'more',
-    links: [{ href: '/more/full-plan', label: 'The full plan ›' }, { href: '/welcome', label: 'Change the wedding date ›' }],
+    links: [{ href: '/more/packet', label: 'Print or send my plan ›' }, { href: '/more/full-plan', label: 'The full plan ›' }, { href: '/welcome', label: 'Change the wedding date ›' }],
     coming: 'Not in this build yet.' },
   { route: '/more/full-plan', file: 'app/(tabs)/more/full-plan.tsx', title: 'The full plan', kind: 'sub', tab: 'more', back: '/more',
     links: [], coming: 'Not in this build yet.' },
