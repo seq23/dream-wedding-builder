@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-// @ts-expect-error plain .mjs script
 import { moveBundledAssets } from '../scripts/preview/host.mjs';
 
 // Cloudflare Pages drops any folder named node_modules, which blanked the preview (10 Nov 2026).
