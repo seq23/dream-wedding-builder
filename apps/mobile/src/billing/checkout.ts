@@ -43,7 +43,13 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
         // refresh checks the server, downloads every full-plan asset, and commits
         // the cache only after all succeed. snapshot.active is deliberately ignored.
         await downloads.refresh(snapshot.userId); check();
-        if (!event.fullPlan) next = recordVerifiedPurchase(next, event.id, 'dw_full_plan');
+        // A store sheet can remain open while the app changes elsewhere. Re-read
+        // after verification so Restore cannot overwrite date moves or other events.
+        const current = await eventStore(storage).read(); check();
+        if (current.firstEventId && current.firstEventId !== event.id) throw Error('Your event changed during checkout. Restore and try again.');
+        const latest = current.events.find(e => e.id === event.id);
+        next = latest ? current : addEvent(current, event.id, event.name, event.date);
+        if (!latest?.fullPlan) next = recordVerifiedPurchase(next, event.id, 'dw_full_plan');
         await storage.setItem(EVENT_LEDGER_KEY, JSON.stringify(next)); check();
         await storage.setItem(ACTIVE_EVENT_KEY, event.id);
         return event.id;

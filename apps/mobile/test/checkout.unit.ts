@@ -35,6 +35,13 @@ test('checkout verifies before binding; Restore preserves all recorded events; r
     await assert.rejects(restore ? refused.restore('Event', '2027-06-12') : refused.purchase('Event', '2027-06-12'), /verification refused/);
     assert.equal(fresh.data.size, 0);
   }
+  s.downloads.refresh = async id => {
+    await eventStore(s.storage).moveDate('2027-06-13');
+    return { list: { windows: [], tasks: [] }, packs: [] };
+  };
+  await flow.restore('Ignored', '2030-06-12');
+  assert.equal((await eventStore(s.storage).active())?.date, '2027-06-13');
+  assert.equal((await eventStore(s.storage).active())?.dateChanges, 1);
   const restored = setup();
   await checkout(restored.storage, restored.provider, restored.downloads, () => 'restored').restore('Restored event', '2027-06-12');
   assert.deepEqual(restored.calls, ['restore', 'identity']);
