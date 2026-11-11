@@ -81,3 +81,30 @@ test('review accepts actual API fields, drops invented tasks and saves only sele
   await store.save({ guestCount: reviewed.guestCount });
   assert.deepEqual(await store.read(), { guestCount: '80' });
 });
+
+test('remembered email can opt into marketing on retry and the choice survives reopening', async () => {
+  const h = harness([{ ok: true }, { ok: false }, { ok: true }, { ok: true, draft: {}, note: 'Ready' }]);
+  await h.client.request(input);
+  assert.equal((await h.client.request({ ...input, marketing: true })).ok, true);
+  assert.deepEqual(h.calls.map(c => new URL(c.url).pathname), ['/api/builder-signup', '/api/ai-draft', '/api/builder-signup', '/api/ai-draft']);
+  assert.equal(h.calls[2].body.marketing, true);
+  const reopened = aiDraftClient(h.storage, async url => {
+    assert.equal(new URL(url).pathname, '/api/ai-draft');
+    return { ok: true, async json() { return { ok: true, draft: {}, note: 'Ready' }; } };
+  });
+  assert.equal((await reopened.request({ ...input, marketing: true })).ok, true);
+});
+test('opening details and saving an unrelated field preserves the onboarding date', async () => {
+  const { initialDetails, detailStore } = await import('../src/draftReview');
+  const { dateStore } = await import('../src/weddingDate');
+  const h = harness([]);
+  const dates = dateStore(h.storage);
+  const details = detailStore(h.storage);
+  await dates.save('2027-06-12', '2026-11-11');
+  await details.save({ weddingDate: '2027-07-01', guestCount: '80' });
+  const fields = await initialDetails(details, dates);
+  await dates.save(fields.weddingDate!, '2026-11-11');
+  await details.save({ ...fields, guestCount: '90' });
+  assert.equal(await dates.read(), '2027-06-12');
+  assert.equal((await details.read()).guestCount, '90');
+});

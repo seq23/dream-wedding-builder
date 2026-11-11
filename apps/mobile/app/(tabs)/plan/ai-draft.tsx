@@ -3,7 +3,7 @@ import { Linking, Pressable, Text, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { localToday } from '@core/dated-plan';
 import { aiDraftClient } from '../../../src/aiDraft';
-import { detailLabels, detailStore, reviewFields, type Details } from '../../../src/draftReview';
+import { detailLabels, detailStore, initialDetails, reviewFields, type Details } from '../../../src/draftReview';
 import { savedDate } from '../../../src/savedDate';
 import { WeddingDatePicker } from '../../../src/WeddingDatePicker';
 import { PlannedScreen } from '../../../src/ui';
@@ -23,7 +23,7 @@ export default function AiDraft() {
   const [review, setReview] = useState<Details | null>(null);
   const [excluded, setExcluded] = useState<string[]>([]);
   const [undo, setUndo] = useState<{ fields: Details; date: string } | null>(null);
-  useEffect(() => { store.read().then(setFields).then(() => setReady(true)).catch(() => setMessage('Could not read your details. Close and try again.')); }, []);
+  useEffect(() => { initialDetails(store, savedDate).then(setFields).then(() => setReady(true)).catch(() => setMessage('Could not read your details. Close and try again.')); }, []);
   async function request() {
     setBusy(true);
     try {

@@ -17,3 +17,9 @@ export function detailStore(storage: DateStorage) {
     async save(details: Details) { await storage.setItem(KEY, JSON.stringify(details)); },
   };
 }
+
+/** The saved plan date is authoritative, including an explicitly unset date. */
+export async function initialDetails(store: ReturnType<typeof detailStore>, date: { read(): Promise<string | null> }): Promise<Details> {
+  const [details, weddingDate] = await Promise.all([store.read(), date.read()]);
+  return weddingDate === null ? details : { ...details, weddingDate };
+}

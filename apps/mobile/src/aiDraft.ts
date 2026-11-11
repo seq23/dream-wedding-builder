@@ -2,6 +2,7 @@ import type { DateStorage } from './weddingDate';
 
 const ORIGIN = 'https://weddingchecklistpdf.com';
 const KEY = 'dw.ai-signups.v1';
+const MARKETING_KEY = 'dw.ai-marketing.v1';
 export interface DraftInput { email: string; description: string; consent: boolean; marketing: boolean }
 export type DraftReply = { ok: boolean; message: string; draft?: Record<string, unknown> };
 type Transport = (url: string, init: RequestInit) => Promise<Pick<Response, 'ok' | 'json'>>;
@@ -29,11 +30,14 @@ export function aiDraftClient(storage: DateStorage, send: Transport = fetch) {
       try {
         const raw: unknown = JSON.parse(await storage.getItem(KEY) ?? '[]');
         const known = Array.isArray(raw) ? raw.filter((v): v is string => typeof v === 'string') : [];
-        if (!known.includes(email)) {
+        const remembered: unknown = JSON.parse(await storage.getItem(MARKETING_KEY) ?? '[]');
+        const optedIn = Array.isArray(remembered) ? remembered.filter((v): v is string => typeof v === 'string') : [];
+        if (!known.includes(email) || (input.marketing && !optedIn.includes(email))) {
           // Legacy signup consent means marketing; never send the AI consent field here.
           const signup = await post('/api/builder-signup', { email, marketing: input.marketing === true, source: 'phone-ai-draft' });
           if (!signup.response.ok || signup.body.ok !== true) return failure(signup.body);
-          await storage.setItem(KEY, JSON.stringify([...known, email]));
+          await storage.setItem(KEY, JSON.stringify([...new Set([...known, email])]));
+          if (input.marketing) await storage.setItem(MARKETING_KEY, JSON.stringify([...new Set([...optedIn, email])]));
         }
         const result = await post('/api/ai-draft', { email, description: input.description, consent: true });
         if (!result.response.ok || result.body.ok !== true) return failure(result.body);
