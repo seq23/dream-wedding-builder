@@ -1,0 +1,15 @@
+node_modules
+.expo/
+dist/
+coverage/
+.env*
+!.env.example
+*.jks
+*.p8
+*.p12
+*.mobileprovision
+ios/
+android/
+*.db
+*.sqlite
+.DS_Store

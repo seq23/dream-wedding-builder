@@ -1,0 +1,26 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@core/*": [
+        "../../lib/*"
+      ],
+      "@/lib/*": [
+        "../../lib/*"
+      ]
+    }
+  },
+  "include": [
+    "app/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "app.config.ts"
+  ]
+}
