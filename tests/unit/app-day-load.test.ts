@@ -51,3 +51,25 @@ it('refuses a failed free path and reports a missing preview instead of passing 
   })).rejects.toThrow('Expected 201, received 429');
   expect(calls).toBe(1);
 });
+
+it('rejects updates that advance revisions but retain the initial ciphertext, then deletes the share', async () => {
+  let ciphertext = ''; let revision = 1; let deleted = false; let updates = 0;
+  await expect(replayAppDay({
+    origin: 'https://app-load-isolated.example.workers.dev',
+    pause: async () => {},
+    fetcher: async (_url: string, init: RequestInit) => {
+      if (init.method === 'POST') {
+        ciphertext = JSON.parse(String(init.body)).ciphertext;
+        return Response.json({ id: 'a'.repeat(64), revision }, { status: 201 });
+      }
+      if (init.method === 'PUT') {
+        updates++;
+        return Response.json({ revision: ++revision });
+      }
+      if (init.method === 'DELETE') { deleted = true; return Response.json({ ok: true }); }
+      return deleted ? Response.json({}, { status: 404 }) : Response.json({ ciphertext, revision });
+    },
+  })).rejects.toThrow('Plan read lost content or revision');
+  expect(updates).toBe(1);
+  expect(deleted).toBe(true);
+});

@@ -14,7 +14,10 @@ export function previewOrigin(value) {
 export async function replayAppDay({ origin, fetcher = fetch, pause = ms => new Promise(resolve => setTimeout(resolve, ms)) }) {
   origin = previewOrigin(origin);
   let opens = 0; let writes = 0; let id; let revision = 1;
-  const ciphertext = Buffer.alloc(24000, 17).toString('base64'); // synthetic opaque fixture, no paid text
+  // Keep the payload size stable while making every persisted version distinct.
+  const fixture = Buffer.alloc(24000, 17); // synthetic opaque fixture, no paid text
+  const ciphertextFor = revision => { fixture.writeUInt32BE(revision, 0); return fixture.toString('base64'); };
+  let ciphertext = ciphertextFor(revision);
   async function call(method, expected, body) {
     // A single CI caller stays below the per-IP ceiling, including cleanup.
     await pause(550);
@@ -36,9 +39,11 @@ export async function replayAppDay({ origin, fetcher = fetch, pause = ms => new 
       const plan = await call('GET', 200); opens++;
       if (plan.ciphertext !== ciphertext || plan.revision !== revision) throw Error('Plan read lost content or revision.');
       if (i < 999) {
-        const updated = await call('PUT', 200, { ciphertext, revision }); writes++;
+        const nextCiphertext = ciphertextFor(revision + 1);
+        const updated = await call('PUT', 200, { ciphertext: nextCiphertext, revision }); writes++;
         if (updated.revision !== revision + 1) throw Error('Plan write lost its revision.');
         revision++;
+        ciphertext = nextCiphertext;
       }
     }
     return { opens, writes };
