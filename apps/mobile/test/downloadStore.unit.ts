@@ -169,46 +169,92 @@ test('verified owner who never shared opens every paid view offline and retains 
   assert.equal(await makeAccess().plan(), null);
 });
 
-test('verified extras download atomically, survive offline restart, and never fetch without the server grant', async () => {
+test('5 MB archives survive restart as files; failed extras preserve full plan, and deletion removes files', async () => {
+  const { createHash } = await import('node:crypto');
+  const { deleteLocalPlan } = await import('../src/deletePlan');
   const s = setup();
-  // An empty fictional ZIP, no paid content. Exercise the native no-stream transport too.
-  const zip = new Uint8Array(22); zip.set([0x50, 0x4b, 5, 6]);
-  const extraIds = ['printables', 'day-of-kit'];
+  const disk = new Map<string, Uint8Array>();
+  const hash = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex');
+  const files: import('../src/billing/archiveFiles').ArchiveFiles = {
+    async write(id, bytes) {
+      const record = { id, byteLength: bytes.length, sha256: hash(bytes) };
+      disk.set(`${id}-${record.sha256}`, bytes.slice());
+      return record;
+    },
+    async has(record) {
+      const bytes = disk.get(`${record.id}-${record.sha256}`);
+      return !!bytes && bytes.length === record.byteLength && hash(bytes) === record.sha256;
+    },
+    async clear() { disk.clear(); },
+  };
+  const zip = new Uint8Array(5 * 1024 * 1024); zip.set([0x50, 0x4b, 3, 4]);
   let active = ['full_plan', 'printables', 'day_of_kit'];
   let broken = '';
   let native = false;
   const fetched: string[] = [];
   const transport: typeof fetch = async (url, init) => {
     if (init?.method === 'POST') return Response.json({ ...manifest(), active, downloads: [
-      ...manifest().downloads, ...extraIds.map(id => ({ id, path: `/api/app-unlock?token=${id}` })),
+      ...manifest().downloads, ...['printables', 'day-of-kit'].map(id => ({ id, path: `/api/app-unlock?token=${id}` })),
     ] });
     const asset = new URL(String(url)).searchParams.get('token')!;
-    if (!extraIds.includes(asset)) return s.transport(url, init);
+    if (!['printables', 'day-of-kit'].includes(asset)) return s.transport(url, init);
     fetched.push(asset);
+    if (broken === 'one' && asset === 'printables') return new Response(null, { status: 503 });
     if (broken === 'stall') return new Promise<Response>(() => {});
-    const bytes = broken === 'cache-large' ? (() => { const b = new Uint8Array(600000); b.set(zip); return b; })() : broken === 'large' ? new Uint8Array(2 * 1024 * 1024 + 1) : broken === 'invalid' ? new Uint8Array(22) : zip;
+    const bytes = broken === 'large' ? new Uint8Array(25 * 1024 * 1024 + 1) : broken === 'invalid' ? new Uint8Array(22) : zip;
     const response = new Response(bytes, { status: broken === 'refused' ? 403 : 200 });
     return native ? { ok: response.ok, body: null, arrayBuffer: () => response.arrayBuffer() } as Response : response;
   };
   for (const phone of [false, true]) {
     native = phone;
-    const content = await downloadStore(s.storage, transport).refresh(id);
-    assert.deepEqual(Object.keys(content.archives!), extraIds);
-    assert.equal(content.archives!.printables, Buffer.from(zip).toString('hex'));
-    assert.deepEqual(await downloadStore(s.storage, async () => assert.fail('offline read')).read(id), content);
-    const saved = s.data.get(DOWNLOAD_CACHE_KEY);
-    for (const failure of ['refused', 'large', 'cache-large', 'invalid', 'stall']) {
+    const content = await downloadStore(s.storage, transport, 1000, files).refresh(id);
+    assert.deepEqual(Object.keys(content.archives!), ['printables', 'day-of-kit']);
+    assert.equal(content.archives!.printables!.byteLength, zip.length);
+    assert.equal(content.archives!.printables!.sha256, hash(zip));
+    assert.ok(s.data.get(DOWNLOAD_CACHE_KEY)!.length < 10000);
+    assert.deepEqual(await downloadStore(s.storage, async () => assert.fail('offline read'), 1000, files).read(id), content);
+    for (const failure of ['refused', 'large', 'invalid', 'stall']) {
       broken = failure;
-      await assert.rejects(downloadStore(s.storage, transport, 10).refresh(id));
-      assert.equal(s.data.get(DOWNLOAD_CACHE_KEY), saved);
+      const partial = await downloadStore(s.storage, transport, failure === 'stall' ? 10 : 1000, files).refresh(id);
+      assert.equal(partial.list.tasks[0].id, 'sample');
+      assert.equal(partial.packs.length, packs.length);
+      assert.equal(partial.archives, undefined);
+      assert.ok(partial.warning);
+      assert.deepEqual(await downloadStore(s.storage, transport, 1000, files).saved(), partial);
     }
     broken = '';
   }
+  broken = 'one';
+  const partial = await downloadStore(s.storage, transport, 1000, files).refresh(id);
+  assert.equal(partial.archives?.printables, undefined);
+  assert.ok(partial.archives?.['day-of-kit']);
+  assert.ok(partial.warning);
+  broken = '';
+  // Missing files lose only their grants on an offline reopen.
+  disk.clear();
+  const missing = await downloadStore(s.storage, transport, 1000, files).saved();
+  assert.equal(missing?.list.tasks.length, list.tasks.length);
+  assert.equal(missing?.archives?.['day-of-kit'], undefined);
+  assert.ok(missing?.warning);
+  // Old inline caches also retain the full plan while requesting Restore.
+  const old = JSON.parse(s.data.get(DOWNLOAD_CACHE_KEY)!);
+  old.archives = { printables: '504b0506' };
+  s.data.set(DOWNLOAD_CACHE_KEY, JSON.stringify(old));
+  assert.ok((await downloadStore(s.storage, transport, 1000, files).saved())?.warning);
+  await downloadStore(s.storage, transport, 1000, files).refresh(id);
+  // A file failure also leaves the paid plan usable, with no extra grant.
+  const failed = await downloadStore(s.storage, transport, 1000, { ...files, async write() { throw Error('disk full'); } }).refresh(id);
+  assert.equal(failed.list.tasks.length, list.tasks.length);
+  assert.equal(failed.archives, undefined);
   active = ['full_plan']; fetched.length = 0;
-  const plain = await downloadStore(s.storage, transport).refresh(id);
+  const plain = await downloadStore(s.storage, transport, 1000, files).refresh(id);
   assert.equal(plain.archives, undefined);
   assert.deepEqual(fetched, []);
   active = []; fetched.length = 0;
-  await assert.rejects(downloadStore(s.storage, transport).refresh(id));
+  await assert.rejects(downloadStore(s.storage, transport, 1000, files).refresh(id));
   assert.deepEqual(fetched, []);
+  assert.ok(disk.size);
+  await deleteLocalPlan({ async removeMany(keys) { keys.forEach(k => s.data.delete(k)); } }, async () => {}, async () => {}, () => files.clear());
+  assert.equal(disk.size, 0);
+  assert.equal(s.data.has(DOWNLOAD_CACHE_KEY), false);
 });
