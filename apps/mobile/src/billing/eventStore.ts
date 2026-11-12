@@ -21,7 +21,8 @@ export function parseLedger(raw: string | null): EventLedger {
     }
     if (value.firstEventId !== null && !value.events.some(e => e.id === value.firstEventId && e.fullPlan)) throw Error();
     if (value.extras.some(e => e !== 'printables' && e !== 'day_of_kit') || new Set(value.extras).size !== value.extras.length) throw Error();
-    return { firstEventId: value.firstEventId, events: value.events, extras: value.extras };
+    if (value.purchasedExtras !== undefined && (!Array.isArray(value.purchasedExtras) || value.purchasedExtras.some(e => e !== 'printables' && e !== 'day_of_kit'))) throw Error();
+    return { firstEventId: value.firstEventId, events: value.events, extras: value.extras, ...(value.purchasedExtras?.length ? { purchasedExtras: value.purchasedExtras } : {}) };
   } catch { throw Error('Your saved event history could not be read. Your plan has not been changed.'); }
 }
 export function eventStore(storage: DateStorage) {

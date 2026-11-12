@@ -219,6 +219,7 @@ test('5 MB archives survive restart as files; failed extras preserve full plan, 
       assert.equal(partial.list.tasks[0].id, 'sample');
       assert.equal(partial.packs.length, packs.length);
       assert.equal(partial.archives, undefined);
+      assert.deepEqual(partial.purchasedExtras, ['printables', 'day_of_kit']);
       assert.ok(partial.warning);
       assert.deepEqual(await downloadStore(s.storage, transport, 1000, files).saved(), partial);
     }
@@ -257,4 +258,23 @@ test('5 MB archives survive restart as files; failed extras preserve full plan, 
   await deleteLocalPlan({ async removeMany(keys) { keys.forEach(k => s.data.delete(k)); } }, async () => {}, async () => {}, () => files.clear());
   assert.equal(disk.size, 0);
   assert.equal(s.data.has(DOWNLOAD_CACHE_KEY), false);
+});
+
+
+test('ordinary archive checks use metadata without reading bytes; writes verify the saved hash', async () => {
+  const { archiveFiles } = await import('../src/billing/archiveFiles');
+  let reads = 0;
+  let corrupt = false;
+  const bytes = new Uint8Array([80, 75, 3, 4]);
+  const saved = { exists: true, size: bytes.length, write() {}, async bytes() { reads++; return corrupt ? new Uint8Array([0]) : bytes; } };
+  const files = archiveFiles(async () => ({ directory: { create() {}, exists: true, delete() {} }, file: () => saved, digest: async (value: Uint8Array) => value.length === 4 ? 'a'.repeat(64) : 'b'.repeat(64) } as never));
+  const record = await files.write('printables', bytes);
+  assert.equal(reads, 1);
+  assert.equal(await files.has(record), true);
+  assert.equal(reads, 1);
+  saved.size = 0;
+  assert.equal(await files.has(record), false);
+  assert.equal(reads, 1);
+  saved.size = bytes.length; corrupt = true;
+  await assert.rejects(files.write('printables', bytes), /Could not save/);
 });
