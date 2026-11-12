@@ -10,3 +10,8 @@ CREATE TABLE IF NOT EXISTS app_confirmed_unlocks (
   purchased_at INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS app_confirmed_unlocks_at ON app_confirmed_unlocks (purchased_at);
+CREATE TABLE IF NOT EXISTS schema_version (
+  migration TEXT PRIMARY KEY,
+  applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+INSERT OR IGNORE INTO schema_version (migration) VALUES ('0010_app_metrics');
