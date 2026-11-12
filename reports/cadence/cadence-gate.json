@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11",
+  "generated_at": "2026-11-12",
   "policy_source": "data/cadence/policy.json",
   "lane": "publish",
   "urls": 57,
@@ -8,7 +8,7 @@
   "stale_over_window": 0,
   "stale_pct": 0,
   "fresh_within_30d": 50,
-  "lastmod_within_7d": 44,
+  "lastmod_within_7d": 26,
   "new_since_last_run": 0,
   "ledger_initialised": true,
   "maintainable_ceiling": 13,
