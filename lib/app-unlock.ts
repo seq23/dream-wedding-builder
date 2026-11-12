@@ -1,6 +1,7 @@
 import { callerKey, takeSlot, type LimitDB } from './abuse-limits';
 import { createDownloadToken, verifyDownloadToken } from './fulfillment';
 import { FULL_PLAN_KEY } from './full-plan';
+import { metricsEnabled, recordAppUnlock } from './app-metrics';
 
 type Entitlement = 'full_plan' | 'printables' | 'day_of_kit';
 const grants: Record<string, Entitlement[]> = {
@@ -17,6 +18,7 @@ export const APP_ASSETS = [
 ] as const;
 export interface UnlockEnv {
   APP_PURCHASES_ENABLED?: string;
+  APP_METRICS_ENABLED?: string;
   REVENUECAT_SECRET?: string;
   DOWNLOAD_SIGNING_SECRET?: string;
   DB?: LimitDB;
@@ -104,8 +106,23 @@ export async function appUnlock(req: Request, env: UnlockEnv, upstream: typeof f
     });
     if (response.status === 404) return refused();
     if (!response.ok) return reply(503, { error: 'Could not check your purchase. Please try again.' });
-    const active = confirmedEntitlements(await customerJson(response), now);
+    const customer = await customerJson(response);
+    const active = confirmedEntitlements(customer, now);
     if (!active.length) return refused();
+    if (active.includes('full_plan') && metricsEnabled(req, env)) {
+      // Use the exact qualifying transaction; never accept a client sales event.
+      const subscriber = record(record(customer).subscriber);
+      const entitlement = record(record(subscriber.entitlements).full_plan);
+      const product = String(entitlement.product_identifier);
+      const transactions = record(subscriber.non_subscriptions)[product];
+      const transaction = Array.isArray(transactions) ? transactions.map(record).find(t =>
+        t.is_sandbox === false && (t.store === 'app_store' || t.store === 'play_store') &&
+        typeof t.id === 'string' && !!t.id && t.purchase_date === entitlement.purchase_date && !t.refunded_at) : undefined;
+      if (transaction) {
+        try { await recordAppUnlock(env.DB, { store: String(transaction.store), product, id: String(transaction.id), purchasedAt: Date.parse(String(transaction.purchase_date)) }); }
+        catch { console.error(JSON.stringify({ event: 'APP_METRICS_FAILED', stop: 'APP_METRICS_STORAGE_UNAVAILABLE', kind: 'unlock' })); }
+      }
+    }
     const expiresAt = now + 5 * 60000;
     // Relative URLs avoid trusting a request Host header for delivery destinations.
     const downloads = APP_ASSETS.filter(a => active.includes(a.entitlement as Entitlement)).map(a => ({
