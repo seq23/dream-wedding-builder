@@ -2,25 +2,19 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W46",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-11T12:21:58.148Z",
+  "generated_at": "2026-11-12T12:22:20.558Z",
   "state": "slow",
-  "published": 5,
+  "published": 6,
   "indexed": "not read: no page old enough to inspect yet (14 days)",
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 1064,
+  "ai_bot_hits": 1121,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
   "merged": 0,
   "held_by_cap": 0,
   "redirected": [
-    {
-      "query": "planning an elopement wedding",
-      "strengthen": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
-      "matched_by": "same wording",
-      "at": "2026-11-05"
-    },
     {
       "query": "free wedding planner printable",
       "strengthen": "https://weddingchecklistpdf.com/free-wedding-planner",
@@ -60,13 +54,12 @@
   ],
   "cap": {
     "max_live_pages": 25,
-    "live": 5,
-    "room": 20,
+    "live": 6,
+    "room": 19,
     "why": "up from 22 to 25: Google impressions 83 in the last 28 days beat 50 in the 28 before"
   },
   "notes": [
     "site config lowers the mode to slow",
-    "BUILD distinct gate: 1 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
     "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json",
     "CHECK runs weekly in mode=slow; last ran 2026-11-09"
   ],
@@ -76,7 +69,7 @@
       "striking": 1
     },
     "can_be_one": {
-      "pages": 3,
+      "pages": 4,
       "measured": 0,
       "top3": 0,
       "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
@@ -96,5 +89,5 @@
     "weight_changes": [],
     "competition": "ok: 15 top-10 read(s) via brave"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/43019675304"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/43217258009"
 }

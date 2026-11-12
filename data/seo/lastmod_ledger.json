@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "8138654ad033af8957aa794866688d4b631afb72",
+  "generated_from_commit": "1a21428fec4bf9a6dc5d6884ec52316db0a680c8",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -182,7 +182,7 @@
       "source": "data/products/product_catalog.json#products[id=wedding-vows-workbook]"
     },
     "/questions": {
-      "lastmod": "2026-11-11",
+      "lastmod": "2026-11-12",
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {

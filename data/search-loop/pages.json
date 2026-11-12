@@ -1094,6 +1094,72 @@
       "gate_notes": [
         "b1 title does not put the search first",
         "b5 FAQ answer is 39 words (aim 40-60): \"How do I keep guests cool during an outdoor beach \""
+      ],
+      "indexnow_at": "2026-11-12"
+    },
+    {
+      "slug": "free-printable-wedding-planning-checklist-and-timeline",
+      "query": "free printable wedding planning checklist and timeline",
+      "lane": "can_be_one",
+      "score": 19.2,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 19.2
+      },
+      "reasons": [
+        "weak top 10 (0.23): 1 directories, 0 forums, 0 off-target national, 2 thin or old, 3 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 7,
+        "question": false,
+        "google_suggest": true,
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.23,
+          "counts": {
+            "results": 10,
+            "directories": 1,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 2,
+            "exact_answer": 3
+          },
+          "reasons": [
+            "top 10: 1 directories, 0 forums, 0 off-target national, 2 thin or old, 3 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/free-printable-wedding-planning-checklist-and-timeline.html",
+      "route": "/questions/free-printable-wedding-planning-checklist-and-timeline",
+      "url": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+      "published_at": "2026-11-12",
+      "status": "live",
+      "hash": "5110298758d9ef227a8283a7d11a67af0dff561e82670b9bb77f4a415aa8980a",
+      "model": "free-route",
+      "facts": [
+        "https://www.gov.uk/marriages-civil-partnerships/giving-notice",
+        "https://en.wikipedia.org/wiki/Wedding_invitation"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/what-do-you-need-to-consider-when-planning-a-wedding.html",
+          "route": "/public/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+          "before_hash": "0bc977c0ff1ad606ec238b8dfeea6242c41e7f6a5d6d61be84d6929a7bc1604f",
+          "after_hash": "893cd4b0e571dcd554655a2e5439be14a65fb7e14459adc4612f4ddadf93bf4c"
+        },
+        {
+          "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+          "route": "/public/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+          "before_hash": "d112de08ece2a798677a48283d2d7db487e7a9db1f1da22725816f4e3b2064a1",
+          "after_hash": "1e02a2faf17c278b3de6b8f2d7dead5958634310d157b7f6990632b814735eee"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 38 words (aim 40-60): \"How do I handle a wedding budget without a planner\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"What is the most important part of a wedding timel\"",
+        "b5 FAQ answer is 35 words (aim 40-60): \"Can I plan a wedding in less than six months?\""
       ]
     }
   ],
