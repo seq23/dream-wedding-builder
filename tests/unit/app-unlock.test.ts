@@ -1,4 +1,5 @@
 import { DatabaseSync } from 'node:sqlite';
+import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
 import { appUnlock, confirmedEntitlements, APP_ASSETS, type UnlockEnv } from '@/lib/app-unlock';
 import { createDownloadToken } from '@/lib/fulfillment';
@@ -30,6 +31,28 @@ beforeEach(() => {
   };
 });
 afterEach(() => { raw.close(); vi.restoreAllMocks(); });
+
+it('counts only verified production full-plan transactions once across Restore and phones, without blocking delivery on metric failure', async () => {
+  raw.exec(readFileSync('migrations/0010_app_metrics.sql', 'utf8'));
+  const count = () => raw.prepare('SELECT COUNT(*) n FROM app_confirmed_unlocks').get()?.n;
+  expect((await call(post())).status).toBe(200);
+  expect(count()).toBe(0); // off by default
+  env.APP_METRICS_ENABLED = 'true';
+  for (const id of [identity, identity, '$RCAnonymousID:' + 'b'.repeat(32)]) expect((await call(post(id))).status).toBe(200);
+  expect(count()).toBe(1);
+  const row = raw.prepare('SELECT * FROM app_confirmed_unlocks').get()!;
+  expect(row.purchased_at).toBe(Date.parse(bought));
+  expect(row.transaction_hash).toMatch(/^[a-f0-9]{64}$/);
+  expect(JSON.stringify(row)).not.toContain('fictional-transaction');
+  expect((await call(post(), source(customer('dw_full_plan', ['full_plan'], true)))).status).toBe(403);
+  expect((await call(post(), source(customer('dw_printables_topup', ['printables'])))).status).toBe(200);
+  expect((await call(new Request('https://preview.example/api/app-unlock', post()))).status).toBe(200);
+  expect(count()).toBe(1);
+  raw.exec('DROP TABLE app_confirmed_unlocks');
+  const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+  expect((await call(post())).status).toBe(200);
+  expect(log).toHaveBeenCalledWith(expect.stringContaining('APP_METRICS_STORAGE_UNAVAILABLE'));
+});
 
 it('fails closed with a named stop before contacting RevenueCat when secrets or the switch are absent', async () => {
   const log = vi.spyOn(console, 'error').mockImplementation(() => {});

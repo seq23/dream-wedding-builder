@@ -15,6 +15,7 @@ import { GoButton, PlannedScreen } from '../../../src/ui';
 import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
 import { shouldOffer } from '../../../src/reminders';
 import { color, space, type } from '../../../src/theme';
+import { phoneMetrics } from '../../../src/phoneMetrics';
 export default function Plan() {
   const sharingRevision = useSharingRevision();
   const [shared, setShared] = useState<SharedPlan | null>(null);
@@ -28,7 +29,7 @@ export default function Plan() {
     let active = true;
     setReady(false);
     Promise.all([savedDate.read(), savedProgress.read(), activePlan()]).then(([d, p, shared]) => {
-      if (active) { setShared(shared); setDate(d ?? ''); setProgress(p); setReady(true); setError(''); }
+      if (active) { setShared(shared); setDate(d ?? ''); setProgress(p); setReady(true); setError(''); void phoneMetrics.record(); }
       awaitReminderOffer();
     }).catch(() => { if (active) setError('Could not read your plan. Reopen this screen to try again.'); });
     return () => { active = false; };
