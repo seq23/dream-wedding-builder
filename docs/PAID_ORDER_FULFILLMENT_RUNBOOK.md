@@ -80,12 +80,12 @@ npm run release:upload -- checklist-pdf    # checks, then uploads that one produ
   if any paid product file is tracked in git again.
 - Commit the changed `release_manifest.json` with the upload.
 
-Read back on 13 Nov 2026 (`~/.boss-os/dream-wedding/readback/products-2026-11-13/`):
-the three book kits in R2 are byte-identical to the packaged copies. The other five
-R2 objects were uploaded on 11 Jul 2026, before `release:package` existed. Four hold
-the same three inner files in a different zip container. `operations-suite` in R2 is
-the eight-file `DWB-SUITE-001_complete` zip itself, without the suite PDF and starter
-CSV that the packaged copy adds. Nothing was re-uploaded.
+Read back and re-uploaded on 13 Nov 2026: all eight R2 objects are now the packaged
+copies in `release_manifest.json` (same bytes, same sha256). Before that day five objects
+dated from 11 Jul 2026; `operations-suite` held only the four tools and lacked the suite
+PDF (venue comparison, vendor register, responsibility matrix, wedding-week handoff,
+emergency contacts) that the shop page promises. The older objects are kept in
+`~/.boss-os/dream-wedding/readback/products-2026-11-13/`.
 
 Until an object exists, a paying customer with a valid entitlement and a valid signed token receives HTTP 404 from `/api/download/[token]`.
 
