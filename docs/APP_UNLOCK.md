@@ -33,6 +33,10 @@ provider stays disabled. Runtime bindings/secrets:
 - `REVENUECAT_SECRET`: missing gives `NAMED STOP [REVENUECAT_SECRET_MISSING]`.
 - `APP_PURCHASES_ENABLED=true`: absent gives `NAMED STOP [DW_STORE_NOT_SET_UP]`.
   Leave absent until store setup and end-to-end purchase review are complete.
+- `APP_SANDBOX_PURCHASES=true`: accepts store sandbox transactions as well. Apple and
+  Google reviewers buy in the sandbox, so set it for the review period (and for her own
+  test purchase); otherwise their purchase is refused and the app fails review. Sandbox
+  purchases are never counted on the scorecard. Leave absent at all other times.
 - `DOWNLOAD_SIGNING_SECRET`, `DB`, `PRODUCT_RELEASES`: missing gives
   `NAMED STOP [APP_DELIVERY_NOT_CONFIGURED]`.
 - Missing private objects give `NAMED STOP [APP_PAID_ASSET_MISSING]`, never an

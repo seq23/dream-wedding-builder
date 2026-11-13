@@ -11,5 +11,12 @@ export default function PartnerInvite() {
     }
     window.location.href = `dreamwedding://two-phones?id=${id}#${key}`;
   }
-  return <main style={{maxWidth:430, margin:'4rem auto',padding:24}}><h1>Join this plan</h1><p>Open the Dream Wedding phone app to review your partner’s plan before joining. No account and nothing more to pay.</p><button type="button" onClick={open}>Open Dream Wedding</button><p>If the app does not open, install it first and open this same link again.</p>{error ? <p role="alert">{error}</p> : null}<a href="/">Back to Dream Wedding</a></main>;
+  return <article data-testid="two-phones-page" className="mx-auto max-w-md rounded-[12px] bg-linen p-6 text-center md:p-10">
+    <h1 className="font-serif text-4xl">Join this plan</h1>
+    <p className="mt-4 leading-7">Open the Dream Wedding phone app to see your partner’s plan before you join. No account, and nothing more to pay.</p>
+    <button type="button" onClick={open} className="mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-charcoal px-6 py-3 font-bold text-linen">Open Dream Wedding</button>
+    {error ? <p role="alert" className="mt-4 font-bold leading-7">{error}</p> : null}
+    <p className="mt-4 text-sm leading-6 text-charcoal/70">If the app does not open, install it first, then open this same link again.</p>
+    <a href="/" className="mt-6 inline-flex min-h-12 items-center underline">Back to Dream Wedding</a>
+  </article>;
 }

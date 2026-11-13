@@ -18,6 +18,9 @@ export const APP_ASSETS = [
 ] as const;
 export interface UnlockEnv {
   APP_PURCHASES_ENABLED?: string;
+  /** 'true' only while Apple or Google review the app, or for her own test purchase:
+   * store reviewers buy in the sandbox, and a refused sandbox purchase fails review. */
+  APP_SANDBOX_PURCHASES?: string;
   APP_METRICS_ENABLED?: string;
   REVENUECAT_SECRET?: string;
   DOWNLOAD_SIGNING_SECRET?: string;
@@ -54,7 +57,7 @@ async function customerJson(response: Response): Promise<unknown> {
 
 /** Only current entitlements backed by a real one-time store transaction qualify.
  * RevenueCat's server reply is the authority; client CustomerInfo is never accepted. */
-export function confirmedEntitlements(raw: unknown, now: number): Entitlement[] {
+export function confirmedEntitlements(raw: unknown, now: number, allowSandbox = false): Entitlement[] {
   const subscriber = record(record(raw).subscriber);
   const entitlements = record(subscriber.entitlements);
   const transactions = record(subscriber.non_subscriptions);
@@ -66,7 +69,7 @@ export function confirmedEntitlements(raw: unknown, now: number): Entitlement[] 
     const purchases = transactions[product];
     return Array.isArray(purchases) && purchases.some(value => {
       const t = record(value);
-      return t.is_sandbox === false && (t.store === 'app_store' || t.store === 'play_store') &&
+      return (t.is_sandbox === false || (allowSandbox && t.is_sandbox === true)) && (t.store === 'app_store' || t.store === 'play_store') &&
         typeof t.id === 'string' && !!t.id && t.purchase_date === e.purchase_date && !t.refunded_at;
     });
   });
@@ -107,7 +110,7 @@ export async function appUnlock(req: Request, env: UnlockEnv, upstream: typeof f
     if (response.status === 404) return refused();
     if (!response.ok) return reply(503, { error: 'Could not check your purchase. Please try again.' });
     const customer = await customerJson(response);
-    const active = confirmedEntitlements(customer, now);
+    const active = confirmedEntitlements(customer, now, env.APP_SANDBOX_PURCHASES === 'true');
     if (!active.length) return refused();
     if (active.includes('full_plan') && metricsEnabled(req, env)) {
       // Use the exact qualifying transaction; never accept a client sales event.

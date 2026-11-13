@@ -114,6 +114,19 @@ it('sandbox, expired, malformed, refunded, promotional and unsupported transacti
   }
   expect(confirmedEntitlements(null, now)).toEqual([]);
 });
+it('the sandbox purchase of a store reviewer unlocks only while the review switch is on, and is never counted as a sale', async () => {
+  const sandbox = () => source(customer('dw_full_plan', ['full_plan'], true));
+  expect((await call(post(), sandbox())).status).toBe(403);
+  raw.exec(readFileSync('migrations/0010_app_metrics.sql', 'utf8'));
+  env.APP_SANDBOX_PURCHASES = 'true'; env.APP_METRICS_ENABLED = 'true';
+  const reviewed = await call(post(), sandbox());
+  expect(reviewed.status).toBe(200);
+  expect((await reviewed.json()).active).toEqual(['full_plan']);
+  expect(raw.prepare('SELECT COUNT(*) AS n FROM app_confirmed_unlocks').get()?.n).toBe(0);
+  // Promotional grants stay refused even with the switch on.
+  const promo = customer('dw_full_plan', ['full_plan'], true); Object.assign(promo.subscriber.non_subscriptions.dw_full_plan[0], { store: 'promotional' });
+  expect((await call(post(), source(promo))).status).toBe(403);
+});
 it('expired, tampered, unsigned, cross-purpose and unknown-asset links never read R2', async () => {
   const body = await (await call(post())).json();
   const original = body.downloads[0].path;
