@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { GoButton, PlannedScreen } from '../src/ui';
@@ -12,6 +12,9 @@ export default function Welcome() {
   const [error, setError] = useState('');
   const [needsNewEvent, setNeedsNewEvent] = useState(false);
   const [busy, setBusy] = useState(false);
+  // A brand-new person is starting her plan; someone who came back to change the date is saving it.
+  const [returning, setReturning] = useState(false);
+  useEffect(() => { savedDate.read().then((saved) => setReturning(saved !== null)).catch(() => {}); }, []);
   async function save(value: string) {
     setBusy(true); setError(''); setNeedsNewEvent(false);
     try { await savedDate.save(value); router.replace('/plan'); }
@@ -29,8 +32,8 @@ export default function Welcome() {
     <Text style={type.body}>Your date builds your dated wedding plan.</Text>
     <WeddingDatePicker value={date} onChange={setDate} />
     {error ? <><Text accessibilityRole="alert">{error}</Text>{needsNewEvent ? <GoButton href={`/more/full-plan?newEvent=1&date=${encodeURIComponent(date)}`} label="Start a new event ›" /> : null}<GoButton href="/more" label="Back to settings ›" /></> : null}
-    <Pressable accessibilityRole="button" disabled={busy || !date} onPress={() => save(date)} style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: 10, opacity: busy ? 0.5 : 1 }}><Text style={[type.button, { color: color.onBlue }]}>Save and see my plan</Text></Pressable>
-    <Pressable accessibilityRole="button" disabled={busy} onPress={() => save('')} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={type.sub}>Not set yet</Text></Pressable>
+    <Pressable accessibilityRole="button" disabled={busy || !date} onPress={() => save(date)} style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: 10, opacity: busy ? 0.5 : 1 }}><Text style={[type.button, { color: color.onBlue }]}>{returning ? 'Save this date ›' : 'Start my wedding plan ›'}</Text></Pressable>
+    <Pressable accessibilityRole="button" disabled={busy} onPress={() => save('')} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={type.sub}>I don’t have a date yet ›</Text></Pressable>
     {process.env.EXPO_PUBLIC_DW_PREVIEW === '1' ? <Pressable accessibilityRole="button" disabled={busy} onPress={openSample} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.sub, { fontSize: 11 }]}>Preview only: open a sample plan ›</Text></Pressable> : null}
   </View></PlannedScreen>;
 }
