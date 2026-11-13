@@ -27,6 +27,8 @@ export const SCREENS: ScreenSpec[] = [
   { route: '/more/packet', file: 'app/(tabs)/more/packet.tsx', title: 'Printable copy', kind: 'sub', tab: 'more', back: '/more', links: [] },
   { route: '/plan/wedding-week', file: 'app/(tabs)/plan/wedding-week.tsx', title: 'Your wedding week', kind: 'sub', tab: 'plan', back: '/plan', links: [] },
   { route: '/payments', file: 'app/(tabs)/payments/index.tsx', title: 'Payments', kind: 'tab', tab: 'payments', links: [] },
+  { route: '/feel', file: 'app/feel.tsx', title: 'What should your wedding feel like?', kind: 'onboarding',
+    links: [{ href: '/welcome', label: 'Continue to my date ›' }, { href: '/welcome', label: 'I already know what I want. Just give me my plan ›' }, { href: HOME, label: 'Skip ›' }] },
   { route: '/welcome', file: 'app/welcome.tsx', title: 'When is your wedding?', kind: 'onboarding',
     links: [{ href: '/reminders', label: 'Make my dated plan ›' }, { href: HOME, label: 'Skip ›' }] },
   { route: '/reminders', file: 'app/reminders.tsx', title: 'Reminders', kind: 'onboarding', back: '/welcome',
@@ -40,7 +42,7 @@ export const SCREENS: ScreenSpec[] = [
   { route: '/traditions', file: 'app/(tabs)/traditions/index.tsx', title: 'Your traditions', kind: 'tab', tab: 'traditions',
     links: [] },
   { route: '/more', file: 'app/(tabs)/more/index.tsx', title: 'More', kind: 'tab', tab: 'more',
-    links: [{ href: '/more/sharing', label: 'Two phones ›' }, { href: '/more/packet', label: 'Print or send my plan ›' }, { href: '/more/full-plan', label: 'The full plan ›' }, { href: '/welcome', label: 'Change the wedding date ›' }] },
+    links: [{ href: '/more/sharing', label: 'Two phones ›' }, { href: '/more/packet', label: 'Print or send my plan ›' }, { href: '/more/full-plan', label: 'The full plan ›' }, { href: '/welcome', label: 'Change the wedding date ›' }, { href: '/feel', label: 'Describe my wedding ›' }] },
   { route: '/more/full-plan', file: 'app/(tabs)/more/full-plan.tsx', title: 'The full plan', kind: 'sub', tab: 'more', back: '/more',
     links: [] },
 ];

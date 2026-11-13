@@ -8,5 +8,5 @@ export default function Start() {
   useEffect(() => { savedDate.read().then(setDate).catch(() => setError(true)); }, []);
   if (error) return <Text>Could not read your saved plan. Please reopen the app.</Text>;
   if (date === undefined) return <Text>Opening your plan…</Text>;
-  return <Redirect href={date === null ? '/welcome' : '/plan'} />;
+  return <Redirect href={date === null ? '/feel' : '/plan'} />;
 }

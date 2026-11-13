@@ -37,16 +37,20 @@ test('every sub-screen and sheet has Back inside its own tab, so Android back ne
   for (const t of SCREENS.filter(x => x.kind === 'tab')) assert.equal(t.back, undefined, `${t.route}: a tab root has no Back`);
 });
 
-test('onboarding: step 2 has Back to step 1, and both steps have Skip to the plan', () => {
+test('onboarding: the journey, then the date, then reminders; each later step can go back, and every step has Skip to the plan', () => {
   const steps = SCREENS.filter(s => s.kind === 'onboarding');
-  assert.equal(steps.length, 2);
-  assert.equal(steps[1].back, steps[0].route);
+  assert.deepEqual(steps.map(s => s.route), ['/feel', '/welcome', '/reminders']);
+  assert.equal(steps[0].back, undefined, 'the first screen has nowhere to go back to');
+  assert.ok(steps[0].links.some(l => l.href === '/welcome'), 'the journey leads to the date');
+  // The date screen is opened from the journey and from More, so its Back is the stack's own (src/ui.tsx), never a fixed route.
+  assert.equal(steps[1].back, undefined);
+  assert.equal(steps[2].back, steps[1].route);
   for (const s of steps) assert.ok(s.links.some(l => l.label === 'Skip ›' && l.href === HOME), `${s.route} has no Skip ›`);
 });
 
 test('no orphan screens: everything is reachable from the first screen', () => {
-  const seen = new Set<string>(['/welcome']);
-  const queue = ['/welcome'];
+  const seen = new Set<string>(['/feel']);
+  const queue = ['/feel'];
   while (queue.length) {
     const s = byRoute(queue.shift()!);
     const next = [...s.links.map(l => l.href), ...(s.back ? [s.back] : []), ...(s.tab ? TABS.map(t => t.route) : [])];

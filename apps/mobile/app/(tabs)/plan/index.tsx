@@ -20,6 +20,7 @@ import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
 import { shouldOffer } from '../../../src/reminders';
 import { color, space, type } from '../../../src/theme';
+import { isPick } from '../../../src/journey';
 import { phoneMetrics } from '../../../src/phoneMetrics';
 export default function Plan() {
   const sharingRevision = useSharingRevision();
@@ -72,6 +73,7 @@ export default function Plan() {
     <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
       <Text style={type.sub}>{(shared?.list.windows ?? PLAN_WINDOWS).find(w => w.id === r.windowId)?.label}{r.dueOn ? ` · By ${plainDate(r.dueOn)}` : plan.windows.find(w => w.id === r.windowId) ? ` · By ${plainDate(plan.windows.find(w => w.id === r.windowId)!.endsOn)}` : undated}</Text>
+      {isPick(r.ownId) ? <Text style={[type.label, { color: color.blue }]}>Your pick</Text> : null}
       {notes[r.key] ? <Text style={[type.sub, { color: color.midnightMuted }]}>{notes[r.key]}</Text> : null}
       {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {completionDay(r.doneAt)}</Text> : null}
     </Pressable>
