@@ -18,8 +18,8 @@ PR numbers below are in seq23/dream-wedding-builder unless qualified.
 | 4 Reminders | #139, #144, #183 | `reminders.unit.ts`; `localReminders.ts` reads verified owner or joined access |
 | 5 Tradition packs | #147, #153, #172, #178, #181 | `traditionPacks.unit.ts`, `traditionView.unit.ts`: full-pack add, repeated add, removal preservation, failure and sales-off states; coordinator confirms seven private R2 uploads |
 | 6 AI draft | #149, #154 | `aiDraft.unit.ts`: consent and server replies; bounded requests and manual form fallback |
-| 7 Two phones | #148, #176, #180, #181, #182 | `sharing.unit.ts`, `shareSession.unit.ts`, `sharingLifecycle.unit.ts`, server `plan-share.test.ts`: fragment-key encryption, stamps, join/revoke, native response fallback, deletion, isolated event backup, minute sync |
-| 8 Products and event rules | #150, #169–#174, #183–#189 | `billing.unit.ts`, `offers.unit.ts`, `eventStore.unit.ts`, `checkout.unit.ts`, `downloadStore.unit.ts`: verified checkout/Restore, locked name/date allowance, event ledger, extras, independent owner access; #189 is OPEN, green, coordinator review pending |
+| 7 Two phones | #148, #176, #180, #181, #182, #192 | `sharing.unit.ts`, `shareSession.unit.ts`, `sharingLifecycle.unit.ts`, server `plan-share.test.ts`: fragment-key encryption, stamps, join/revoke, native response fallback, deletion, isolated event backup, minute sync |
+| 8 Products and event rules | #150, #169–#174, #183–#189 | `billing.unit.ts`, `offers.unit.ts`, `eventStore.unit.ts`, `checkout.unit.ts`, `downloadStore.unit.ts`: verified checkout/Restore, locked name/date allowance, event ledger, extras, independent owner access; purchased files open from More (#195) |
 | 8a Payments | #151, #181, #183, #185 | `payments.unit.ts`, `paymentDatePicker.unit.ts`, `downloadStore.unit.ts`: delivered list, persisted drafts, dates and totals |
 | 8b Wedding week | #161, #181, #183 | `weddingWeek.unit.ts`, `downloadStore.unit.ts`: delivered owner/joined list |
 | 8c Hand-over packet | #162, #181, #183 | `packet.unit.ts`, `downloadStore.unit.ts`: every delivered task, free-content boundary, A4/Letter |
@@ -28,8 +28,8 @@ PR numbers below are in seq23/dream-wedding-builder unless qualified.
 | 11 Store-build gate | #157, #159 | `releaseGate.unit.ts`; submission still refuses placeholder identity and absent registration receipt |
 | 12 Website app line | NAMED STOP [WAITS_FOR_LAUNCH_PLAN] | Deliberately deferred by owner |
 | 13 Scorecard | #157, #190; seq23/boss-os#386 OPEN, all checks green | Reach and server-verified transaction source, SQL reader; Boss OS row, launch clock, 3/6 floors and version B tested in its registration PR |
-| Purchase door | #169, #172, #183–#189 | Server `app-unlock.test.ts`; phone `downloadStore.unit.ts`, `checkout.unit.ts`; verification precedes downloads, unknown/refused answers match |
-| Paid-content leak check | #174 | `paidContent.unit.ts`: tracked-repository fingerprint scan, negative copy fixtures, zero-input refusal; missing ZIP text explicitly NOT RUN |
+| Purchase door | #169, #172, #183–#189, #194 | Server `app-unlock.test.ts`; phone `downloadStore.unit.ts`, `checkout.unit.ts`; verification precedes downloads, unknown/refused answers match |
+| Paid-content leak check | #174, #193 | `paidContent.unit.ts`: tracked-repository fingerprint scan, negative copy fixtures, zero-input refusal; missing ZIP text explicitly NOT RUN |
 | Target-day load check | #179 | `scripts/load/app-day.mjs`, `app-day-load.test.ts`, `.github/workflows/app-day-load.yml`: 3,000 opens and 1,000 writes; separate AI replay covers 3,000 mocked requests; remote execution requires isolated preview |
 | Free calendar file | #167 | `calendar.unit.ts`; More exports through shared `lib/plan-ics.ts` |
 
@@ -41,10 +41,9 @@ the full route map. No new screen patterns are needed in this documentation PR.
 
 ## Open PRs and release setup
 
-- App #189 preserves verified ownership when extras fail, suppresses repeat
-  offers, retries delivery through Restore, and avoids ZIP byte reads on normal
-  plan opens. It contains the interrupted run's billing edits. Do not duplicate
-  or merge it here; money-path coordinator review remains required.
+- App #189 (merged 13 Nov after coordinator review) preserves verified ownership
+  when extras fail, suppresses repeat offers, retries delivery through Restore, and
+  avoids ZIP byte reads on normal plan opens.
 - Boss OS #386 registers `dw-phone-app` using its existing D1 reader. Once it
   merges, record the actual merge receipt in `release/scorecard.json`
   (`bossOsRowId` and `recordedAt`). Both remain null until that receipt exists;
@@ -71,3 +70,29 @@ The obsolete PATTERN_NOTES_MISSING and PRIVATE_WRITE_NEEDED implementation stops
 are retired: supplied patterns and fixture-tested code paths cover those rows.
 Real-device purchase/delivery validation and production load execution are not
 claimed by unit tests or the free web preview.
+
+## Coordinator review, 13 Nov 2026
+
+Merged into the build branch after review: #189, #191, and four fix PRs.
+
+- #192: the share cap is 256 KB on the server and the phone (the real list, packs
+  and ticks pass 64 KB once encrypted); deleting the plan on the inviting phone
+  stops sharing first, best effort.
+- #193: the leak-check manifest stores an 8-character filter per task, never a
+  full hash of its first four words.
+- #194: `APP_SANDBOX_PURCHASES=true` (off by default) lets a store reviewer's
+  sandbox purchase unlock during review; the `/two-phones` join page is styled.
+- #195: More opens purchased printables and the day-of kit; a failed retry keeps
+  a file already delivered; Restore with no event name says what to do.
+
+Still open before the store is switched on:
+
+- NAMED STOP [NEW_EVENT_PURCHASE_NOT_BUILT]: `dw_new_event` cannot be bought. The
+  phone refuses it and the server grants nothing for it; the row in More and the
+  fourth-date-change message lead to a paywall that cannot sell it. Needs a
+  server-verified count of new-event purchases bound to events.
+- NAMED STOP [APP_PAID_ASSET_MISSING]: `app/printables-v1.zip` and
+  `app/day-of-kit-v1.zip` do not exist in the private bucket, and their contents
+  have not been decided.
+- The RevenueCat reply shape (`non_subscriptions`, matching purchase dates) is
+  taken from its documentation and has not been checked against a real purchase.
