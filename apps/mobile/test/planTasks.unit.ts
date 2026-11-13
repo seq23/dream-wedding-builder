@@ -154,3 +154,34 @@ test('a task is listed once: late tasks sit under Catch up and never also under 
   // With nothing late, the next block is simply the first three open tasks.
   assert.deepEqual(planBlocks(taskRows(emptyProgress()), []).next.map(r => r.key), taskRows(emptyProgress()).slice(0, 3).map(r => r.key));
 });
+
+test('tasks already due on the day she began are Start here; tasks that fall due later are Catch up', async () => {
+  const { dueBeforeStart } = await import('../src/planTasks');
+  const { planStartStore } = await import('../src/planStart');
+  const date = '2027-06-12', progress = emptyProgress();
+  const rows = () => taskRows(progress);
+  // She begins on 6 Nov 2026 with one window already closed: all of it is Start here, none is Catch up.
+  let plan = buildDatedPlan(date, '2026-11-06');
+  let blocks = planBlocks(rows(), catchUpRows(progress, plan), dueBeforeStart(rows(), date, '2026-11-06'));
+  assert.equal(blocks.startHere.length, 4);
+  assert.equal(blocks.catchUp.length, 0);
+  // Months later a second window has closed: only the new lateness is Catch up, and nothing is listed twice.
+  plan = buildDatedPlan(date, '2027-03-20');
+  const late = catchUpRows(progress, plan);
+  blocks = planBlocks(rows(), late, dueBeforeStart(rows(), date, '2026-11-06'));
+  assert.equal(blocks.startHere.length, 4);
+  assert.ok(blocks.catchUp.length > 0);
+  assert.equal(blocks.startHere.length + blocks.catchUp.length, late.length);
+  assert.equal(new Set([...blocks.startHere, ...blocks.catchUp, ...blocks.next].map(r => r.key)).size, late.length + blocks.next.length);
+  // Dated rows go by their own date.
+  const dated = [{ key: 'a', windowId: 'x', dueOn: '2026-10-01' }, { key: 'b', windowId: 'x', dueOn: '2026-12-01' }];
+  assert.deepEqual([...dueBeforeStart(dated, date, '2026-11-06')], ['a']);
+  // The start day is remembered per wedding date; a moved date begins again; no date stores nothing.
+  const mem = new Map<string, string>();
+  const store = planStartStore({ getItem: async k => mem.get(k) ?? null, setItem: async (k, v) => { mem.set(k, v); } });
+  assert.equal(await store.read('', '2026-11-06'), '2026-11-06');
+  assert.equal(mem.size, 0);
+  assert.equal(await store.read(date, '2026-11-06'), '2026-11-06');
+  assert.equal(await store.read(date, '2027-03-20'), '2026-11-06');
+  assert.equal(await store.read('2027-09-01', '2027-03-20'), '2027-03-20');
+});
