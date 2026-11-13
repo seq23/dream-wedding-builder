@@ -4,13 +4,14 @@
 Purpose:
 - Replaces the old blush-and-gold storefront renders (florals, a "DWB" monogram)
   with flat mock-ups of the actual product: pages rendered from the released PDFs
-  in product-builds/releases/, and the free Builder's dated plan as captured at
+  in the private product folder (DW_PRODUCTS_DIR), and the free Builder's dated plan as captured at
   390px (data/brand/builder-dated-plan-390.png). No stock, no AI imagery, no
   invented names (Dream Wedding design system, approved 6 Nov 2026).
 - Overwrites the existing files in place at their existing sizes, so every src,
   alt text and schema image URL stays exactly as it was.
 
-Inputs: product-builds/releases/DWB-*-001_v2.0.0.pdf, data/brand/builder-dated-plan-390.png,
+Inputs: $DW_PRODUCTS_DIR/product-builds/releases/DWB-*-001_v2.0.0.pdf (private, default
+~/.boss-os/dream-wedding/products; absent = [PRODUCTS_DIR_MISSING]), data/brand/builder-dated-plan-390.png,
 fonts named by DW_FONT_DIR (Instrument Serif, Instrument Sans, DM Mono; OFL, from
 google/fonts). Needs pdftoppm (poppler) and Pillow. CI never runs this; the PNG/WebP
 files it writes are committed.
@@ -21,7 +22,10 @@ import os, subprocess, sys, tempfile
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-REL = os.path.join(ROOT, 'product-builds', 'releases')
+PRODUCTS_DIR = os.environ.get('DW_PRODUCTS_DIR') or os.path.expanduser('~/.boss-os/dream-wedding/products')
+REL = os.path.join(PRODUCTS_DIR, 'product-builds', 'releases')
+if not os.path.isdir(REL):
+    sys.exit(f'[PRODUCTS_DIR_MISSING] generate_product_mockups: the paid product files are not at {REL}. They are private and never in this repo. Set DW_PRODUCTS_DIR, then run this again. Nothing was written.')
 PUB = os.path.join(ROOT, 'public', 'product-images')
 FONT_DIR = os.environ.get('DW_FONT_DIR', '')
 IVORY, RAISED, MIDNIGHT, MUTED, RULE = '#FAF7F2', '#FFFFFF', '#1B1F3B', '#555A73', '#E3DCCF'

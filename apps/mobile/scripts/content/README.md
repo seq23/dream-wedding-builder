@@ -4,6 +4,10 @@
 file, including the mobile source and assets. It fails on a complete private task
 match after normalizing case, punctuation, whitespace and escaped line breaks.
 Binary files are excluded; this is a text-copy guard, not OCR or archive inspection.
+The same check fails when a paid product FILE is tracked: anything under
+`product-builds/releases/` or `product-builds/r2/products/`, or any zip, PDF, workbook,
+CSV or DOCX named after a catalog product id or SKU (those files live in
+`DW_PRODUCTS_DIR`, default `~/.boss-os/dream-wedding/products`).
 Tests use fictional text to prove both refusal and acceptance. A missing, empty or
 malformed fingerprint manifest fails the check.
 

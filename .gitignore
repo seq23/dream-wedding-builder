@@ -34,6 +34,10 @@ tsconfig.tsbuildinfo
 .dev.vars*
 !.dev.vars.example
 
+# Paid product files are private (DW_PRODUCTS_DIR, default ~/.boss-os/dream-wedding/products)
+product-builds/releases/
+product-builds/r2/products/
+
 # shared search engine (seq23/search-loop) checkout and run log
 .search-loop-engine/
 .search-loop-run.log

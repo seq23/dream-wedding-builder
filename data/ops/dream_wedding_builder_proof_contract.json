@@ -35,7 +35,7 @@
       "npm run authority:sitemaps"
     ],
     "product_generation": [
-      "python scripts/generate_product_downloads.py"
+      "npm run release:package"
     ],
     "build": [
       "npm run build"

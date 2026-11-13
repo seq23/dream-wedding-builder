@@ -17,8 +17,7 @@
  * Usage:
  *   npx wrangler d1 execute dream-wedding-builder --local --file=migrations/0001_fulfillment.sql
  *   node scripts/providers/package-product-releases.mjs
- *   npx wrangler r2 object put dream-wedding-builder-products/products/checklist-pdf/current.zip \
- *     --file=product-builds/r2/products/checklist-pdf/current.zip --local
+ *   npm run release:upload -- checklist-pdf --local
  *   npx wrangler dev --port 8788 --local
  *   BASE_URL=http://localhost:8788 STRIPE_WEBHOOK_SECRET=... DOWNLOAD_SIGNING_SECRET=... \
  *     node scripts/verify-fulfillment-e2e.mjs
