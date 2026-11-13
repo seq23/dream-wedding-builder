@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { runtimeEnv } from '@/lib/cloudflare-runtime';
 import { aiDraftEnabled, centralDay, type D1Like } from '@/lib/ai-draft';
 import { BODY_MAX_BYTES, weddingRead } from '@/lib/wedding-read';
+import { appCorsHeaders } from '@/lib/app-cors';
 
 // Step 2 of the free journey. Limits, checks and the $0-only rule live in
 // lib/wedding-read.ts; this route only reads the request and the Worker's env.
@@ -11,9 +12,13 @@ type Env = { DB?: D1Like; OPENROUTER_API_KEY?: string; GEMINI_API_KEY?: string; 
 
 const hostOf = (req: NextRequest) => (req.headers.get('x-forwarded-host') ?? req.headers.get('host') ?? '').slice(0, 120);
 async function env(): Promise<Env> { try { return (await runtimeEnv()) as unknown as Env; } catch { return {}; } }
-const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers: { 'cache-control': 'no-store' } });
+export async function OPTIONS(req: NextRequest) {
+  return new NextResponse(null, { status: 204, headers: appCorsHeaders(req.headers.get('origin')) });
+}
 
 export async function POST(req: NextRequest) {
+  const cors = appCorsHeaders(req.headers.get('origin'));
+  const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers: { 'cache-control': 'no-store', ...cors } });
   if (Number(req.headers.get('content-length') ?? 0) > BODY_MAX_BYTES) return json({ ok: false, code: 'TOO_LARGE', error: 'Those photos are too large. Try one fewer.' }, 413);
   const raw = await req.text().catch(() => '');
   if (raw.length > BODY_MAX_BYTES) return json({ ok: false, code: 'TOO_LARGE', error: 'Those photos are too large. Try one fewer.' }, 413);
