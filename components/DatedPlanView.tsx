@@ -8,6 +8,7 @@ import { thisWeek } from '@/lib/this-week';
 import { taskDate } from '@/lib/full-plan';
 import { FULL_PLAN_TEASER } from '@/lib/full-plan-teaser';
 import { useFullPlanCounts } from '@/components/FullPlanCard';
+import { JOURNEY_EVENT, NO_PICKS, loadJourneyPlan, type JourneyPlanInput } from '@/lib/journey-picks';
 
 // One view of the dated plan, used by the planner, the dashboard and the packet so
 // the three can never disagree. "today" is read after mount: the server does not
@@ -23,15 +24,20 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
   const [adding, setAdding] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
   const fullCounts = useFullPlanCounts();
+  // Her picks from the free journey (steps 3 and 4) and a booked venue, kept in this browser.
+  const [extras, setExtras] = useState<JourneyPlanInput>(NO_PICKS);
   useEffect(() => {
     setToday(localToday());
     setProgress(loadProgress(localStorage));
-    const sync = () => setProgress(loadProgress(localStorage));
+    setExtras(loadJourneyPlan(localStorage));
+    const sync = () => { setProgress(loadProgress(localStorage)); setExtras(loadJourneyPlan(localStorage)); };
     window.addEventListener('storage', sync);
-    return () => window.removeEventListener('storage', sync);
+    window.addEventListener(JOURNEY_EVENT, sync);
+    return () => { window.removeEventListener('storage', sync); window.removeEventListener(JOURNEY_EVENT, sync); };
   }, []);
   if (!today) return <p className="text-sm text-charcoal/60" data-testid="dated-plan-loading">Working out your dates…</p>;
-  const plan = buildDatedPlan(weddingDate, today);
+  const plan = buildDatedPlan(weddingDate, today, extras);
+  const isPick = (text: string) => plan.picks.includes(text);
 
   const update = (next: PlanProgress) => { setProgress(next); saveProgress(localStorage, next); };
   const tasksFor = (windowId: string, base: string[]) => [...base, ...progress.custom.filter(c => c.windowId === windowId).map(c => c.text)];
@@ -58,7 +64,7 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
         : <button type="button" data-testid="dated-task-toggle" aria-pressed={done} aria-label={done ? `Mark not done: ${text}` : `Mark done: ${text}`} onClick={() => update(toggleDone(progress, key, new Date().toISOString()))} className="-m-2 inline-flex h-11 w-11 shrink-0 items-center justify-center">
           <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border text-sm ${done ? 'border-emerald-700 bg-emerald-700 text-white' : 'border-charcoal/40 bg-white'}`}>{done ? '✓' : ''}</span>
         </button>}
-      <span className={`pt-0.5 text-sm leading-6 ${done ? 'text-charcoal/50 line-through' : ''}`} data-testid="dated-task-text">{text}</span>
+      <span className={`pt-0.5 text-sm leading-6 ${done ? 'text-charcoal/50 line-through' : ''}`} data-testid="dated-task-text">{text}{isPick(text) ? <span data-testid="dated-task-pick" className="ml-2 whitespace-nowrap font-mono text-[.68rem] uppercase tracking-[.05em] text-blue">Your pick</span> : null}</span>
       {readOnly ? <span data-testid="dated-task-owner" className="ml-auto shrink-0 whitespace-nowrap pt-0.5 text-xs text-charcoal/70">Who: <span aria-hidden="true" className="inline-block w-24 border-b border-charcoal/60 align-baseline">&nbsp;</span></span> : null}
       {customId && !readOnly ? <button type="button" data-testid="dated-task-remove" onClick={() => update(removeCustomTask(progress, customId))} className="ml-auto min-h-11 shrink-0 px-2 text-xs font-semibold text-charcoal/60 underline">Remove</button> : null}
     </li>;

@@ -172,7 +172,7 @@ function BuildPage() {
 
     {/* The free journey leads (owner, 13 Nov 2026): what should it feel like, then her
         wedding described. The dated plan below stays one tap away ("I already know"). */}
-    <WeddingJourney onFacts={fillFromJourney} />
+    <WeddingJourney onFacts={fillFromJourney} weddingDate={plan.weddingDate} onDate={weddingDate => patch({ weddingDate })} />
 
     <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar. No account, no app and no email needed; it saves in this browser by itself.</p></div>}>
       <Card data-testid="wedding-date-card">

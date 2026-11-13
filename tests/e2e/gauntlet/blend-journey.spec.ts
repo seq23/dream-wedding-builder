@@ -12,7 +12,7 @@ const read = (by: 'ai' | 'fixed', venueTypes = [{ id: 'public-park-garden', name
   directions: [{ name: 'Garden layers', what: 'Potted greenery.' }, { name: 'Warm light', what: 'String lights.' }],
   colours: [{ name: 'Amber', hex: '#d9822b' }, { name: 'Olive', hex: '#556b2f' }, { name: 'Cream', hex: '#fdfbf7' }],
   venueTypes, ideas: [{ id: 'dinner-party-layout', name: 'Dinner-Party Reception Layout', cost: 'Medium cost', why: 'Easy and talkative.' }],
-  details: [], ask: ['Ask the caterer how food stays warm outdoors.'], honest: '', photoNotes: []
+  details: ['Pillar candles in clear glass down every table'], ask: ['Ask the caterer how food stays warm outdoors.'], honest: '', photoNotes: []
 });
 
 // A real JPEG-shaped file is not needed to prove the flow: a 2x2 PNG is read for colours like any photo.
@@ -45,9 +45,9 @@ test('step 1 asks nothing until she chooses, needs no email, and shows her weddi
   expect(JSON.stringify(posted)).not.toContain('"image"');
   await expect(page.getByTestId('read-label')).toContainText('Written by an AI planner, not a person');
   await expect(page.getByTestId('read-venues')).toBeVisible();
+  // No place given: no "near you".
+  await expect(page.getByTestId('read-venues')).toContainText('Kinds of place that carry this feel');
   await expect(page.getByTestId('journey-change')).toContainText('2 of 3 left today');
-  await page.getByTestId('journey-to-plan').click();
-  await expect(page.getByTestId('wedding-date')).toBeInViewport();
   expect(errors).toEqual([]);
 });
 
@@ -77,4 +77,34 @@ test('"I already know what I want" goes straight to the dated plan', async ({ pa
   await page.goto('/free-wedding-planner');
   await page.getByTestId('journey-skip').click();
   await expect(page.getByTestId('wedding-date')).toBeInViewport();
+});
+
+test('kept picks become dated tasks marked "Your pick", a booked venue drops the venue task, and the printable page carries them', async ({ page }) => {
+  let reached = 0;
+  await page.route('**/api/journey-reach', route => { reached++; return route.fulfill({ json: { ok: true } }); });
+  await page.route('**/api/wedding-read', route => route.fulfill({ json: { ok: true, read: read('ai', []), remaining: 2, limit: 3, reason: 'ai' } }));
+  await page.route('**/api/builder-signup', route => route.fulfill({ json: { ok: true } }));
+  await page.goto('/free-wedding-planner');
+  await page.getByTestId('fork-dk').click();
+  await page.getByTestId('journey-facts').locator('summary').click();
+  await page.getByTestId('fact-venue-booked').check();
+  await page.getByTestId('journey-continue').click();
+  await page.getByTestId('journey-continue-2').click();
+  await expect(page.getByTestId('journey-step-3')).toBeVisible();
+  await expect(page.getByText('The kind of place')).toHaveCount(0);
+  await page.getByTestId('journey-pick').filter({ hasText: 'Dinner-Party Reception Layout' }).click();
+  await page.getByTestId('journey-pick').filter({ hasText: 'Pillar candles' }).click();
+  await page.getByTestId('journey-continue-3').click();
+  await expect(page.locator('input[type="email"]')).toHaveCount(0);
+  const d = new Date(); d.setMonth(d.getMonth() + 14);
+  await page.getByTestId('journey-date').fill(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-15`);
+  await expect(page.getByTestId('journey-dated')).toContainText('2 of your picks');
+  expect(reached).toBe(1);
+  await page.getByTestId('journey-to-plan').click();
+  await expect(page.getByTestId('dated-task-pick')).toHaveCount(2);
+  await expect(page.getByTestId('dated-plan')).not.toContainText('Book the venue (it decides');
+  await page.getByTestId('journey-printable').click();
+  await page.getByTestId('builder-email').fill('couple@example.com');
+  await page.getByTestId('builder-email-submit').click();
+  await expect(page.getByTestId('pack-page')).toContainText('Plan this idea with the vendor it needs: Dinner-Party Reception Layout');
 });
