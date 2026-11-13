@@ -1,6 +1,5 @@
 import { activePlan } from '../../../src/sharing/runtime';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
-import { taskDate } from '@core/full-plan';
 import type { SharedPlan } from '../../../src/sharing/session';
 import { useCallback, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
@@ -10,7 +9,7 @@ import { taskKey, emptyProgress, toggleDone, type PlanProgress } from '@core/pla
 import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/traditionPacks';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
-import { lockedPlanRows, planOverview, completionDay, taskCount, taskRows } from '../../../src/planTasks';
+import { fullPlanRows, lockedPlanRows, planOverview, completionDay, taskRows } from '../../../src/planTasks';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
 import { shouldOffer } from '../../../src/reminders';
@@ -41,14 +40,17 @@ export default function Plan() {
       if (shouldOffer(choice, paid)) router.push('/reminders');
     } catch { setError('Could not read reminder settings.'); }
   }
-  const plan = buildDatedPlan(date, localToday());
-  const rows = shared ? [
-    ...shared.list.tasks.map(t => ({ key: taskKey(t.window, t.text), windowId: t.window, text: t.text, ownId: undefined as string | undefined, doneAt: progress.done[taskKey(t.window, t.text)] })),
+  const today = localToday();
+  const plan = buildDatedPlan(date, today);
+  type Row = ReturnType<typeof taskRows>[number] & { dueOn?: string | null; late?: boolean };
+  const rows: Row[] = shared ? [
+    ...fullPlanRows(shared.list, progress, date, today),
     ...taskRows(progress).filter(t => t.ownId),
   ] : taskRows(progress);
   const count = { done: rows.filter(r => r.doneAt).length, total: rows.length };
   const overview = planOverview(progress, plan);
-  const overdue = shared ? rows.filter(r => !r.doneAt && !plan.windows.some(w => w.id === r.windowId)) : overview.overdue;
+  // Full-list tasks are late by their own date; her own tasks, by their window having passed.
+  const overdue = shared ? rows.filter(r => r.ownId ? !r.doneAt && !plan.windows.some(w => w.id === r.windowId) : r.late) : overview.overdue;
   const catchUp = rows.filter(r => !r.doneAt).slice(0, 3);
   async function tick(key: string) {
     setSaving(true);
@@ -56,10 +58,10 @@ export default function Plan() {
     catch { setError('Your change could not be saved. Try again.'); }
     finally { setSaving(false); }
   }
-  const row = (r: ReturnType<typeof taskRows>[number]) => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
+  const row = (r: Row) => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
     <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
-      <Text style={type.sub}>{PLAN_WINDOWS.find(w => w.id === r.windowId)?.label}{shared?.list.tasks.find(t => taskKey(t.window,t.text) === r.key) ? ` · By ${plainDate(taskDate(date,shared.list.tasks.find(t => taskKey(t.window,t.text) === r.key)!.daysBefore)! )}` : plan.windows.find(w => w.id === r.windowId) ? ` · By ${plainDate(plan.windows.find(w => w.id === r.windowId)!.endsOn)}` : ' · Catch up'}</Text>
+      <Text style={type.sub}>{(shared?.list.windows ?? PLAN_WINDOWS).find(w => w.id === r.windowId)?.label}{r.dueOn ? ` · By ${plainDate(r.dueOn)}` : plan.windows.find(w => w.id === r.windowId) ? ` · By ${plainDate(plan.windows.find(w => w.id === r.windowId)!.endsOn)}` : ' · Catch up'}</Text>
       {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {completionDay(r.doneAt)}</Text> : null}
     </Pressable>
     {r.ownId && (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask | undefined)?.tradition ? <Text style={type.sub}>{TRADITION_PREVIEWS.find(p => p.id === (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask).tradition?.packId)?.name}</Text> : null}

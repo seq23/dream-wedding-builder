@@ -1,6 +1,7 @@
 import { FULL_PLAN_TEASER } from '@core/full-plan-teaser';
 import { addDays, isoDay, parseDay, PLAN_WINDOWS, buildDatedPlan, type DatedPlan } from '@core/dated-plan';
 import { addCustomTask, emptyProgress, parseProgress, taskKey, type PlanProgress } from '@core/plan-progress';
+import { taskDate, type FullPlanList } from '@core/full-plan';
 
 export function taskRows(progress: PlanProgress) {
   return PLAN_WINDOWS.flatMap(w => [
@@ -94,4 +95,14 @@ export function planOverview(progress: PlanProgress, plan: DatedPlan) {
     overdue: catchUpRows(progress, plan),
     nextStartsOn: plan.windows.find(w => w.timing === 'later')?.startsOn ?? null,
   };
+}
+
+/** Rows of the delivered full list. A task is late when its own date has passed and it is
+ * not ticked. Never by window: the list has an after-the-wedding window the free plan does
+ * not, and those tasks are not "catch up" before the wedding. */
+export function fullPlanRows(list: FullPlanList, progress: PlanProgress, date: string, today: string) {
+  return list.tasks.map(t => {
+    const key = taskKey(t.window, t.text), dueOn = taskDate(date, t.daysBefore), doneAt = progress.done[key];
+    return { key, windowId: t.window, text: t.text, ownId: undefined as string | undefined, doneAt, dueOn, late: !doneAt && !!dueOn && dueOn < today };
+  });
 }
