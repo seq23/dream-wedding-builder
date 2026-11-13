@@ -1160,6 +1160,73 @@
         "b5 FAQ answer is 38 words (aim 40-60): \"How do I handle a wedding budget without a planner\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"What is the most important part of a wedding timel\"",
         "b5 FAQ answer is 35 words (aim 40-60): \"Can I plan a wedding in less than six months?\""
+      ],
+      "indexnow_at": "2026-11-13"
+    },
+    {
+      "slug": "wedding-coordinator-checklist-pdf",
+      "query": "wedding coordinator checklist pdf",
+      "lane": "striking",
+      "score": 25,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 13.2
+      },
+      "reasons": [
+        "autocomplete demand (google/bing)",
+        "can-be-#1 evidence too thin (13.2 < 15)"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.08,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 1,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 6
+          },
+          "reasons": [
+            "top 10: 0 directories, 1 forums, 0 off-target national, 1 thin or old, 6 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/wedding-coordinator-checklist-pdf.html",
+      "route": "/questions/wedding-coordinator-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-coordinator-checklist-pdf",
+      "published_at": "2026-11-13",
+      "status": "live",
+      "hash": "a81e27e14b5eb8e4f899447ef073d8c1331db8aabd597e2e114b24be1f954c72",
+      "model": "free-route",
+      "facts": [
+        "https://www.census.gov/topics/families/marriage-and-divorce.html",
+        "https://www.loc.gov/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/beach-wedding-checklist-pdf.html",
+          "route": "/public/questions/beach-wedding-checklist-pdf",
+          "before_hash": "59a7510579c592a84b044c2fc0113f10b4a2adb038c7b0cda9e1576f019bc44e",
+          "after_hash": "cd6d5a4125a92ee873c03cf368adfd9216750c9edec1cb5a21a6fdb112d3e971"
+        },
+        {
+          "rel": "public/questions/can-you-plan-a-wedding-without-a-wedding-planner.html",
+          "route": "/public/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+          "before_hash": "1e02a2faf17c278b3de6b8f2d7dead5958634310d157b7f6990632b814735eee",
+          "after_hash": "411ae03ad3896d5e9b21c07ad4e9ba46cb5dc1d2f27f46b8e4ea08c9125c5167"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 39 words (aim 40-60): \"How many copies of the coordinator checklist shoul\"",
+        "b5 FAQ answer is 35 words (aim 40-60): \"When should I finalize the wedding day schedule?\"",
+        "b5 FAQ answer is 34 words (aim 40-60): \"Can a printed PDF completely replace a professiona\"",
+        "b5 FAQ answer is 32 words (aim 40-60): \"What should I do if a vendor arrives late on the w\""
       ]
     }
   ],
@@ -1351,6 +1418,26 @@
       "gate": 2,
       "reason": [
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "destination wedding checklist printable",
+      "at": "2026-11-13",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 27 words (aim 40-60): \"How far in advance should guests receive destinati\"",
+        "b5 FAQ answer is 28 words (aim 40-60): \"Should we get legally married at home before trave\"",
+        "b5 FAQ answer is 28 words (aim 40-60): \"What belongs in guest welcome bags?\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "planning a destination wedding checklist",
+      "at": "2026-11-13",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 28 words (aim 40-60): \"Should I hire a local wedding coordinator at the d\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0)"
       ]
     }
   ],
@@ -1653,6 +1740,26 @@
       "kind": "sitemap",
       "matched_by": "high token overlap (0.67 >= 0.6)",
       "matched_text": "free wedding planner",
+      "stage": "search"
+    },
+    {
+      "query": "destination wedding checklist pdf",
+      "at": "2026-11-13",
+      "url": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+      "route": "/guides/destination-wedding-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "destination wedding checklist",
+      "stage": "search"
+    },
+    {
+      "query": "checklist for destination wedding",
+      "at": "2026-11-13",
+      "url": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+      "route": "/guides/destination-wedding-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "destination wedding checklist",
       "stage": "search"
     }
   ]
