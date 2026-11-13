@@ -4,16 +4,16 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-10-14",
-        "end": "2026-11-10"
+        "start": "2026-10-15",
+        "end": "2026-11-11"
       },
-      "collected_at": "2026-11-12T12:43:00.922Z",
+      "collected_at": "2026-11-13T12:42:59.322Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 5,
+        "impressions": 4,
         "ctr": 0,
-        "position": 11.2
+        "position": 2.75
       },
       "queries": [],
       "pages": [
@@ -54,12 +54,6 @@
           "position": 6
         },
         {
-          "page": "https://weddingseatingchartmaker.com/guides/long-table-wedding-seating",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 45
-        },
-        {
           "page": "https://weddingseatingchartmaker.com/guides/wedding-meal-count-dietary-tracking",
           "clicks": 0,
           "impressions": 1,
@@ -70,10 +64,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-10-14",
-        "end": "2026-11-10"
+        "start": "2026-10-15",
+        "end": "2026-11-11"
       },
-      "collected_at": "2026-11-12T12:43:01.827Z",
+      "collected_at": "2026-11-13T12:42:59.997Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -124,10 +118,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-10-14",
-        "end": "2026-11-10"
+        "start": "2026-10-15",
+        "end": "2026-11-11"
       },
-      "collected_at": "2026-11-12T12:43:02.576Z",
+      "collected_at": "2026-11-13T12:43:00.912Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -258,38 +252,31 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-10-14",
-        "end": "2026-11-10"
+        "start": "2026-10-15",
+        "end": "2026-11-11"
       },
-      "collected_at": "2026-11-12T12:43:03.259Z",
+      "collected_at": "2026-11-13T12:43:01.756Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 92,
+        "impressions": 83,
         "ctr": 0,
-        "position": 60.65217391304348
+        "position": 60.096385542168676
       },
       "queries": [
         {
           "query": "free wedding planner",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 21,
-          "position": 74.0952380952381
+          "impressions": 18,
+          "position": 74.66666666666667
         },
         {
           "query": "wedding planner free",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 5,
-          "position": 73.8
-        },
-        {
-          "query": "wedding planning checklist pdf",
-          "page": "https://weddingchecklistpdf.com/guides",
-          "clicks": 0,
           "impressions": 4,
-          "position": 96.75
+          "position": 74.5
         },
         {
           "query": "destination wedding checklist pdf",
@@ -297,6 +284,13 @@
           "clicks": 0,
           "impressions": 3,
           "position": 60
+        },
+        {
+          "query": "wedding planning checklist pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 96.33333333333333
         },
         {
           "query": "free wedding planner pdf",
@@ -339,13 +333,6 @@
           "clicks": 0,
           "impressions": 1,
           "position": 62
-        },
-        {
-          "query": "free wedding planner online",
-          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 91
         },
         {
           "query": "free wedding planners",
@@ -411,13 +398,6 @@
           "position": 96
         },
         {
-          "query": "wedding planning free",
-          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 74
-        },
-        {
           "query": "wedding preparation checklist pdf",
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
@@ -429,14 +409,14 @@
         {
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 35,
-          "position": 74.1
+          "impressions": 29,
+          "position": 74
         },
         {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 23,
-          "position": 74
+          "impressions": 22,
+          "position": 72.9
         },
         {
           "page": "https://weddingchecklistpdf.com/privacy",
@@ -465,8 +445,8 @@
         {
           "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
           "clicks": 0,
-          "impressions": 7,
-          "position": 8.4
+          "impressions": 6,
+          "position": 8.8
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
@@ -559,12 +539,6 @@
           "position": 69
         },
         {
-          "page": "https://weddingchecklistpdf.com/guides/wedding-emergency-kit",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 40
-        },
-        {
           "page": "https://weddingchecklistpdf.com/wedding-checklist-pdf",
           "clicks": 0,
           "impressions": 1,
@@ -575,5 +549,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-11-12T12:43:03.260Z"
+  "updated_at": "2026-11-13T12:43:01.756Z"
 }
