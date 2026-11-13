@@ -11,11 +11,11 @@ approval or proof of live purchase, delivery or sharing readiness.
 - `LEGAL_LINKS_MISSING`: configure the canonical HTTPS privacy/terms URLs.
   More reads the same configuration. This checks configuration, not legal-page
   readiness; task 10 remains part of the launch plan.
-- `SCORECARD_NOT_REGISTERED`: app measurement source and SQL reader merged in
-  Dream Wedding #190. Boss OS registration is in
-  [seq23/boss-os#386](https://github.com/seq23/boss-os/pull/386), currently open
-  with green checks. After merge, record the real `dw-phone-app` row ID and merge
-  timestamp in `scorecard.json`. Do not fill a receipt for an unmerged PR.
+- `SCORECARD_NOT_REGISTERED`: cleared. The app measurement source and SQL reader merged
+  in Dream Wedding #190; the Boss OS row `dw-phone-app` was registered by
+  [seq23/boss-os#386](https://github.com/seq23/boss-os/pull/386), merged
+  2026-11-13T13:43:51Z, and `scorecard.json` records it. The stop returns if the row id
+  or date is ever removed.
 
 The row reads deduplicated production full-plan transactions per 100 installation
 first reaches in a rolling 30-day window. Zero reach is unmeasured, not 0%

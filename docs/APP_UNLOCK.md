@@ -59,8 +59,9 @@ Existing objects: `plans/checklist-full-plan-v1.json` and
 `packs/traditions/<id>-v1.json` in `dream-wedding-builder-products`.
 The full-plan entitlement authorizes those eight JSON assets.
 
-Coordinator must supply these private files (fictional bytes exercise delivery
-in tests; no paid text is committed):
+These private files were uploaded on 13 Nov 2026 and read back byte for byte
+(contents: `docs/APP_PLAN.md`, "Paid content is never in the public repo"; fictional
+bytes exercise delivery in tests; no paid text is committed):
 
 | Private source | Key in `dream-wedding-builder-products` | Entitlement |
 | --- | --- | --- |

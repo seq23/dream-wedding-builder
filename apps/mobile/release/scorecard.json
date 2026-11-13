@@ -1,12 +1,12 @@
 {
   "id": "dw-phone-app",
-  "bossOsRowId": null,
-  "recordedAt": null,
+  "bossOsRowId": "dw-phone-app",
+  "recordedAt": "2026-11-13",
   "result": "Confirmed full-plan event unlocks per 100 people reaching the plan screen",
   "day30Floor": 3,
   "day60Floor": 6,
   "versionB": "reminders free, payments + packet paid",
   "versionBFlag": "remindersNeedFullPlan",
   "priceStep": "At about 20 real ratings, change full plan and dw_new_event from $14.99 to $19.99 in the stores. Never hardcode these prices in the app.",
-  "measurement": "Launch blocked until Boss OS has a reader for deduplicated confirmed unlocks and plan-screen reach. Exclude preview and test events; zero reach is unmeasured, never zero conversion."
+  "measurement": "Boss OS row dw-phone-app reads deduplicated confirmed unlocks and plan-screen reach. Exclude preview and test events; zero reach is unmeasured, never zero conversion."
 }
