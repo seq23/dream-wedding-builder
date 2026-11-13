@@ -13,10 +13,23 @@ body, product selection or client entitlement list is trusted.
 The Worker reads RevenueCat v1 Customer Info with its server secret. Only a
 non-expiring supported entitlement backed by a matching production one-time
 Apple/Google transaction qualifies. Sandbox, promotional, malformed, refunded and
-unsupported records fail closed. Consumable new events deliberately do not grant
-a global entitlement; they need the event-bound ledger in task 8.
+unsupported records fail closed.
 
-Successful replies contain `active`, `expiresAt` and `downloads` (`id`, relative
+**New events (`dw_new_event`, consumable).** A consumable never grants a global
+entitlement. For a buyer whose first full plan is confirmed, the reply also carries
+`newEvents`: one opaque token per verified `dw_new_event` store transaction (a hash of
+the store and transaction id; production only unless the sandbox switch is on; refunded,
+future-dated and malformed transactions are left out). RevenueCat's reply is the count,
+so the door stores nothing and no table is needed. The same transaction always gives the
+same token: asking again, Restore, or a replayed transaction cannot add an event. The
+phone binds each token to exactly one event in its purchase record
+(`apps/mobile/src/billing/events.ts`), which "Delete my plan" keeps, so a used purchase
+never pays for another event. Restore records every confirmed token; a paid event not
+yet started on that phone is started from "Start a new event" at no charge. A consumable
+without a confirmed first full plan answers exactly like an unknown buyer.
+RevenueCat offering for this screen: `new_event`, holding `dw_new_event` only.
+
+Successful replies contain `active`, `expiresAt`, `newEvents` and `downloads` (`id`, relative
 `path`). Links last five minutes and authorize one allowlisted asset each, using
 the existing download-token helper with a separate app signing domain. `GET` on
 the link streams that asset from the private R2 binding. Links are bearer

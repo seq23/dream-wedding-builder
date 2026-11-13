@@ -1,4 +1,4 @@
-import { addEvent, offerEntitlementsFor, recordVerifiedPurchase } from './events';
+import { addEvent, offerEntitlementsFor, recordVerifiedPurchase, unusedNewEvents, withPaidNewEvents } from './events';
 import { offersFor, type ProductId } from './offers';
 import { ACTIVE_EVENT_KEY, EVENT_LEDGER_KEY, eventStore } from './eventStore';
 import type { PurchasesProvider } from './provider';
@@ -27,8 +27,9 @@ export async function checkoutRead<T>(read: () => Promise<T>, ms = 10000): Promi
 }
 
 type CheckoutContent = DownloadedPlan;
+export const NEW_EVENT_NOT_CONFIRMED = 'Your new event could not be confirmed yet. Your current event has not changed. Tap Restore purchase, then start the new event again: you will not be charged twice.';
 /** SDK claims never authorize an event or an extra: only delivered server assets
- * do. Consumable event bindings remain a separate gate. */
+ * do. A new event needs a server-confirmed `dw_new_event` token no event has used. */
 export function checkout(storage: DateStorage, provider: PurchasesProvider,
   downloads: { refresh(userId: string): Promise<CheckoutContent> }, makeId: () => string, timeoutMs = 120000) {
   let busy = false;
@@ -44,9 +45,31 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
         const ledger = await eventStore(storage).read(); check();
         const extra = product === 'dw_printables_topup' || product === 'dw_day_of_kit';
         const active = extra && mode === 'purchase' ? await eventStore(storage).active() : null; check();
+        if (mode === 'purchase' && product === 'dw_new_event') {
+          // The first event is always the restorable full plan; a new event comes after it.
+          if (!ledger.firstEventId) throw Error('Unlock or restore your first full plan before starting a new event.');
+          if (!name.trim()) throw Error('Type a name for your new event above first, then try again.');
+          // An event she already paid for and has not started is used first: no second charge.
+          let current = ledger;
+          if (!unusedNewEvents(current).length) {
+            const snapshot = await provider.purchase(product); check();
+            const content = await downloads.refresh(snapshot.userId); check();
+            // Re-read after the store sheet, then record every token the server confirmed.
+            current = withPaidNewEvents(await eventStore(storage).read(), content.newEvents); check();
+          }
+          const grant = unusedNewEvents(current)[0];
+          if (!grant) {
+            await storage.setItem(EVENT_LEDGER_KEY, JSON.stringify(current));
+            throw Error(NEW_EVENT_NOT_CONFIRMED);
+          }
+          const id = makeId();
+          const next = recordVerifiedPurchase(addEvent(current, id, name, date), id, product, grant);
+          await storage.setItem(EVENT_LEDGER_KEY, JSON.stringify(next)); check();
+          await storage.setItem(ACTIVE_EVENT_KEY, id);
+          return id;
+        }
         // Never sell the first non-consumable twice, or turn it into a new event.
         if (mode === 'purchase') {
-          if (product === 'dw_new_event') throw Error('New-event purchases are not available yet. Your current event has not changed.');
           if (!extra && ledger.firstEventId) throw Error('Restore your existing event. A new event needs its own purchase.');
           if (extra && !active?.fullPlan) throw Error('Restore your full plan before adding extras.');
           if (!offersFor(offerEntitlementsFor(ledger, active?.id ?? '')).includes(product)) throw Error('This product is already included in your plan.');
@@ -77,9 +100,16 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
         // These per-person grants come from the verified cache, never snapshot.active.
         const purchasedExtras = [...new Set([...(current.purchasedExtras ?? []), ...(content.purchasedExtras ?? [])])];
         next = { ...next, ...(purchasedExtras.length ? { purchasedExtras } : {}), extras: [...(printables ? ['printables' as const] : []), ...(kit ? ['day_of_kit' as const] : [])] };
+        // Restore also brings back every new event the server confirms she paid for.
+        next = withPaidNewEvents(next, content.newEvents);
         await storage.setItem(EVENT_LEDGER_KEY, JSON.stringify(next)); check();
-        await storage.setItem(ACTIVE_EVENT_KEY, event.id);
-        return event.id;
+        // Restore returns her to the event she was on; after "Delete my plan" that is
+        // the newest event she paid for, never an older one in its place.
+        const paid = next.events.filter(e => e.fullPlan);
+        const open = mode === 'restore' ? await storage.getItem(ACTIVE_EVENT_KEY) : null;
+        const target = mode === 'restore' ? (paid.find(e => e.id === open) ?? paid[paid.length - 1] ?? event).id : event.id;
+        await storage.setItem(ACTIVE_EVENT_KEY, target);
+        return target;
       })(), new Promise<never>((_, reject) => {
         timer = setTimeout(() => { expired = true; reject(Error('Purchase check took too long. Restore your purchase and try again.')); }, timeoutMs);
       })]);

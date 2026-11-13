@@ -1,13 +1,13 @@
 import { callerKey, takeSlot, type LimitDB } from './abuse-limits';
 import { createDownloadToken, verifyDownloadToken } from './fulfillment';
 import { FULL_PLAN_KEY } from './full-plan';
-import { metricsEnabled, recordAppUnlock } from './app-metrics';
+import { metricHash, metricsEnabled, recordAppUnlock } from './app-metrics';
 
 type Entitlement = 'full_plan' | 'printables' | 'day_of_kit';
 const grants: Record<string, Entitlement[]> = {
   dw_full_plan: ['full_plan'], dw_planner_printables: ['full_plan', 'printables', 'day_of_kit'],
   dw_printables_topup: ['printables'], dw_day_of_kit: ['day_of_kit'],
-  // Consumables are bound to new events by the ledger, never a global entitlement.
+  // dw_new_event is a consumable: it never grants a global entitlement (see confirmedNewEvents).
 };
 const traditions = ['catholic', 'chinese-tea', 'hindu', 'jewish', 'mexican', 'muslim-nikah', 'nigerian'];
 export const APP_ASSETS = [
@@ -75,6 +75,23 @@ export function confirmedEntitlements(raw: unknown, now: number, allowSandbox = 
   });
 }
 
+/** One opaque, stable token per verified `dw_new_event` store transaction. RevenueCat's
+ * server reply is the per-buyer count; the token is a hash of the store transaction, so
+ * a replayed, repeated or restored transaction always yields the same token and the
+ * phone can bind it to one event only. No request input is read. */
+export async function confirmedNewEvents(raw: unknown, now: number, allowSandbox = false): Promise<string[]> {
+  const purchases = record(record(record(raw).subscriber).non_subscriptions).dw_new_event;
+  const tokens = new Set<string>();
+  for (const value of Array.isArray(purchases) ? purchases.slice(0, 200) : []) {
+    const t = record(value);
+    if (!(t.is_sandbox === false || (allowSandbox && t.is_sandbox === true)) || (t.store !== 'app_store' && t.store !== 'play_store') ||
+      typeof t.id !== 'string' || !t.id || t.refunded_at ||
+      typeof t.purchase_date !== 'string' || !Number.isFinite(Date.parse(t.purchase_date)) || Date.parse(t.purchase_date) > now) continue;
+    tokens.add(await metricHash(JSON.stringify(['dw-new-event', t.store, t.id])));
+  }
+  return [...tokens];
+}
+
 /** Anonymous SDK IDs are random bearer capabilities. Never accept emails or custom
  * predictable IDs, put them in URLs, log them, or accept entitlement names from a phone. */
 export async function appUnlock(req: Request, env: UnlockEnv, upstream: typeof fetch = fetch, now = Date.now()): Promise<Response> {
@@ -131,6 +148,9 @@ export async function appUnlock(req: Request, env: UnlockEnv, upstream: typeof f
     const downloads = APP_ASSETS.filter(a => active.includes(a.entitlement as Entitlement)).map(a => ({
       id: a.id, path: `/api/app-unlock?token=${encodeURIComponent(createDownloadToken(`dwapp:${a.id}`, expiresAt, secret))}`,
     }));
-    return reply(200, { active, expiresAt, downloads });
+    // A new event is an extra event for a buyer whose first (non-consumable) full plan
+    // is confirmed; on its own a consumable changes nothing in this reply.
+    const newEvents = active.includes('full_plan') ? await confirmedNewEvents(customer, now, env.APP_SANDBOX_PURCHASES === 'true') : [];
+    return reply(200, { active, expiresAt, downloads, newEvents });
   } catch { return reply(503, { error: 'Could not check your purchase. Please try again.' }); }
 }
