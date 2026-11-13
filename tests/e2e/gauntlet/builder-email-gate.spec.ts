@@ -9,6 +9,8 @@ test('a stranger sees her dated plan from one field, with no email asked', async
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/free-wedding-planner');
   await expect(page.getByTestId('builder-email-gate')).toHaveCount(0);
+  // 13 Nov 2026: the free journey leads; the dated plan is one tap away.
+  await page.getByTestId('journey-skip').click();
   await expect(page.getByTestId('wedding-date')).toBeInViewport();
   const d = new Date(); d.setMonth(d.getMonth() + 10);
   await page.getByTestId('wedding-date').fill(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-15`);

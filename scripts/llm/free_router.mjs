@@ -177,7 +177,9 @@ const geminiText = (messages) => messages.map((m) => String(m.content)).join('\n
 // One Gemini model, once. Never retries: a 429 is returned at once so the caller
 // moves to the next step. outcome: answered | rate_limited | quota_day |
 // credential_refused | no_answer.
-export async function callGemini({ model, messages, apiKey, maxTokens = 1024, temperature = 0, fetchImpl = globalThis.fetch, config = readConfig(), timeoutMs = 20000 }) {
+// `images`: optional photos the bride chose to let the AI planner see, as
+// [{ mimeType: 'image/jpeg', data: <base64> }]; sent inline, never stored. Free tier only, as every call here.
+export async function callGemini({ model, messages, apiKey, maxTokens = 1024, temperature = 0, fetchImpl = globalThis.fetch, config = readConfig(), timeoutMs = 20000, images = [] }) {
   const errs = geminiPolicyErrors(config);
   if (errs.length) { const err = new Error(`gemini policy refused: ${errs.join('; ')}`); err.code = 'POLICY_REFUSED'; throw err; }
   if (!config.gemini.models.some((m) => m.id === model)) throw new Error(`callGemini: ${model} is not on the gemini free list`);
@@ -193,7 +195,7 @@ export async function callGemini({ model, messages, apiKey, maxTokens = 1024, te
       method: 'POST',
       signal: ctrl.signal,
       headers: { 'x-goog-api-key': apiKey, 'content-type': 'application/json' },
-      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: geminiText(messages) }] }], generationConfig: { temperature, maxOutputTokens: maxTokens } }),
+      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: geminiText(messages) }, ...images.filter((i) => /^image\/(jpeg|png|webp)$/.test(i?.mimeType || '') && typeof i?.data === 'string').map((i) => ({ inline_data: { mime_type: i.mimeType, data: i.data } }))] }], generationConfig: { temperature, maxOutputTokens: maxTokens } }),
     });
     json = await res.json().catch(() => null);
   } catch (err) {

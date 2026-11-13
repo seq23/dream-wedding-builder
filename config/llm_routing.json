@@ -51,7 +51,7 @@
     }
   ],
   "gemini": {
-    "purpose": "Builder AI draft only (lib/ai-draft.ts), first step of the $0 chain. Called only through scripts/llm/free_router.mjs.",
+    "purpose": "Builder AI draft (lib/ai-draft.ts) and the free journey's read, including photos she chose to share (lib/wedding-read.ts); first step of the $0 chain, sharing the same pools and ceilings. Called only through scripts/llm/free_router.mjs.",
     "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
     "key_env": "GEMINI_API_KEY",
     "key_header": "x-goog-api-key",

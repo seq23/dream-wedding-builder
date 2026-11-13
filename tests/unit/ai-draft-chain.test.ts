@@ -156,6 +156,7 @@ describe('No model key or model URL in any client bundle', () => {
     const clients = ['app', 'components'].flatMap(d => walk(path.join(ROOT, d))).filter(f => /^\s*['"]use client['"]/.test(readFileSync(f, 'utf8')));
     expect(clients.length).toBeGreaterThan(5);
     expect(clients.some(f => f.endsWith('components/AiDraftCard.tsx'))).toBe(true);
+    expect(clients.some(f => f.endsWith('components/WeddingJourney.tsx'))).toBe(true);
     const seen = new Set<string>();
     const queue = [...clients];
     while (queue.length) {
