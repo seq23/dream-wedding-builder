@@ -68,7 +68,7 @@ test('checkout verifies before binding; Restore preserves all recorded events; r
   assert.deepEqual(restored.calls, ['restore', 'identity']);
   assert.equal((await eventStore(restored.storage).active())?.fullPlan, true);
   const invalid = setup();
-  await assert.rejects(checkout(invalid.storage, invalid.provider, invalid.downloads, () => 'invalid').purchase('', '2027-06-12'), /INVALID_EVENT/);
+  await assert.rejects(checkout(invalid.storage, invalid.provider, invalid.downloads, () => 'invalid').purchase('', '2027-06-12'), /Type a name for your event/);
   assert.deepEqual(invalid.calls, []);
   const disabled = setup(), off = checkout(disabled.storage, new DisabledPurchases(), disabled.downloads, () => 'off');
   await assert.rejects(off.purchase('Event', '2027-06-12'), /DW_STORE_NOT_SET_UP/);
@@ -146,4 +146,12 @@ test('verified but undelivered extras suppress repeat sales across restart and R
   delivered = true;
   await restarted.restore('Ignored', '2027-06-12');
   assert.deepEqual(entitlementsFor(await eventStore(s.storage).read(), 'bundle'), ['printables', 'day_of_kit', 'full_plan']);
+});
+
+test('Restore on a new phone with no event name asks for the name in plain words and never reaches the store', async () => {
+  const s = setup();
+  const downloads = { async refresh() { return assert.fail('no download without a name'); } };
+  await assert.rejects(checkout(s.storage, s.provider, downloads, () => 'new-phone').restore('  ', '2027-06-12'), /Type a name for your event/);
+  assert.deepEqual(s.calls, []);
+  assert.equal(s.data.has(EVENT_LEDGER_KEY), false);
 });

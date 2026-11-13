@@ -4,6 +4,8 @@ export interface ArchiveRecord { id: ArchiveId; byteLength: number; sha256: stri
 export interface ArchiveFiles {
   write(id: ArchiveId, bytes: Uint8Array): Promise<ArchiveRecord>;
   has(record: ArchiveRecord): Promise<boolean>;
+  /** Where the saved file is, for the phone's share sheet; null when it is not on this phone. */
+  uri(record: ArchiveRecord): Promise<string | null>;
   clear(): Promise<void>;
 }
 async function native() {
@@ -28,6 +30,11 @@ export function archiveFiles(load: typeof native = native): ArchiveFiles { retur
     const { file } = await load();
     const saved = file(record);
     return saved.exists && saved.size === record.byteLength;
+  },
+  async uri(record) {
+    const { file } = await load();
+    const saved = file(record);
+    return saved.exists && saved.size === record.byteLength ? saved.uri : null;
   },
   async clear() {
     const { directory } = await load();

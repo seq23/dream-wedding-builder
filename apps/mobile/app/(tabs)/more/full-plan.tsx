@@ -5,7 +5,7 @@ import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { getRandomBytes } from 'expo-crypto';
 import { bytesToHex } from '@noble/ciphers/utils.js';
 import { checkout, checkoutRead, checkoutCatalog } from '../../../src/billing/checkout';
-import { downloadStore } from '../../../src/billing/downloadStore';
+import { downloadStore, EXTRA_DOWNLOAD_MESSAGE } from '../../../src/billing/downloadStore';
 import { dateStore } from '../../../src/weddingDate';
 import { sharingChanged } from '../../../src/sharing/runtime';
 import { PlannedScreen } from '../../../src/ui';
@@ -43,6 +43,7 @@ export default function FullPlan() {
         clearTimeout(timeout);
         const next = offersFor(offerEntitlementsFor(ledger, event?.id ?? ''), newEvent && ledger.firstEventId !== null);
         setName(draft.name); setLocked(draft.locked); setOffers(next); setSelected(next[0]); setLoaded(true);
+        if (ledger.purchasedExtras?.some(extra => !ledger.extras.includes(extra))) setMessage(EXTRA_DOWNLOAD_MESSAGE);
         // Event details are ready: Restore does not depend on store prices.
         const catalog = await checkoutCatalog(purchases, event?.fullPlan ? 'after_unlock' : 'default');
         if (!active) return;

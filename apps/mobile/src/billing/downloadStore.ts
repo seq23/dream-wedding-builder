@@ -122,6 +122,12 @@ export function downloadStore(storage: DateStorage, transport: typeof fetch = fe
       if (!Array.isArray(manifest.active) || !manifest.active.includes('full_plan') || !Array.isArray(manifest.downloads)
         || typeof manifest.expiresAt !== 'number' || !Number.isFinite(manifest.expiresAt) || manifest.expiresAt <= Date.now()) throw Error(MESSAGE);
       const active = manifest.active;
+      // A file this buyer already received stays hers when a later retry fails.
+      let previous: DownloadedPlan | null = null;
+      try {
+        const old = object(JSON.parse(await storage.getItem(DOWNLOAD_CACHE_KEY) ?? 'null'));
+        if (old.version === 1 && old.userId === userId) previous = parseContent(old);
+      } catch { previous = null; }
       const assets = ['full-plan', ...TRADITION_PREVIEWS.map(p => `tradition-${p.id}`)];
       const archiveIds = (['printables', 'day-of-kit'] as const).filter(id => active.includes(id === 'day-of-kit' ? 'day_of_kit' : id));
       const payloads: unknown[] = [];
@@ -143,7 +149,9 @@ export function downloadStore(storage: DateStorage, transport: typeof fetch = fe
           } else payloads.push(payload);
         } catch (error) {
           if (!binary) throw error;
-          warning = EXTRA_DOWNLOAD_MESSAGE;
+          const kept = previous?.archives?.[id as ArchiveId];
+          if (kept && await files.has(kept).catch(() => false)) archives[id as ArchiveId] = kept;
+          else warning = EXTRA_DOWNLOAD_MESSAGE;
         }
       }
       const content = parseContent({ list: payloads[0], packs: payloads.slice(1), archives, warning, purchasedExtras: active.filter(e => e === 'printables' || e === 'day_of_kit') });

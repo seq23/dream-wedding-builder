@@ -13,6 +13,8 @@ import { savedProgress } from '../../../src/savedProgress';
 import { reminderChoice, stopPlanReminders } from '../../../src/localReminders';
 import { phoneArchives } from '../../../src/billing/archiveFiles';
 import { deleteLocalPlan } from '../../../src/deletePlan';
+import { downloadStore } from '../../../src/billing/downloadStore';
+import { openPurchasedFile, purchasedFiles, FILE_MISSING_MESSAGE, type PurchasedFile } from '../../../src/billing/purchasedFiles';
 import { eventStore } from '../../../src/billing/eventStore';
 import type { PaidEvent } from '../../../src/billing/events';
 import { calendarFile } from '../../../src/calendar';
@@ -31,6 +33,12 @@ export default function More() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [exporting, setExporting] = useState(false);
+  const [files, setFiles] = useState<{ ready: PurchasedFile[]; missing: boolean }>({ ready: [], missing: false });
+  async function openFile(file: PurchasedFile) {
+    setError('');
+    try { await openPurchasedFile(phoneArchives, file); }
+    catch (e) { setError(e instanceof Error ? e.message : FILE_MISSING_MESSAGE); }
+  }
   async function calendar() {
     if (exporting) return;
     setExporting(true); setError('');
@@ -42,8 +50,8 @@ export default function More() {
   }
   useFocusEffect(useCallback(() => {
     let active = true;
-    Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active(), activePlan(), phoneSharing().then(api => api.read())]).then(([d, choice, current, shared, session]) => {
-      if (active) { setSharing(!!shared); setSharedName(shared?.event.name ?? ''); setJoined(session?.role === 'joined'); setDate(d); setEvent(current); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
+    Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active(), activePlan(), phoneSharing().then(api => api.read()), eventStore(AsyncStorage).read(), downloadStore(AsyncStorage).saved().catch(() => null)]).then(([d, choice, current, shared, session, ledger, content]) => {
+      if (active) { setFiles(purchasedFiles(ledger, content)); setSharing(!!shared); setSharedName(shared?.event.name ?? ''); setJoined(session?.role === 'joined'); setDate(d); setEvent(current); setReminders(choice === 'enabled' ? 'On' : 'Off'); }
     }).catch(() => { if (active) setError('Could not read your settings. Reopen this screen to try again.'); });
     return () => { active = false; };
   }, [sharingRevision]));
@@ -79,6 +87,8 @@ export default function More() {
       <Pressable accessibilityRole="button" disabled={exporting} accessibilityState={{ disabled: exporting }} onPress={() => { void calendar(); }} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{exporting ? 'Preparing calendar…' : 'Save my calendar file ›'}</Text></Pressable>
       <Text style={type.sub}>Free calendar reminders for your unfinished tasks and wedding day. Made on this phone. Save a new file after changing your plan.</Text>
       <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
+      {files.ready.map(file => <View key={file.id}>{button(file.label, () => { void openFile(file); })}</View>)}
+      {files.missing ? <><Text style={type.sub}>{FILE_MISSING_MESSAGE}</Text><GoButton href="/more/full-plan" label="Restore my purchase ›" /></> : null}
       <GoButton href="/more/full-plan" label="The full plan ›" />
       <GoButton href="/more/full-plan?newEvent=1" label="Start a new event ›" />
       {button('Privacy policy ›', () => { void open('privacy'); })}
