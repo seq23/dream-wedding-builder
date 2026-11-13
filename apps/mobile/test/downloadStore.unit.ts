@@ -185,6 +185,7 @@ test('5 MB archives survive restart as files; failed extras preserve full plan, 
       const bytes = disk.get(`${record.id}-${record.sha256}`);
       return !!bytes && bytes.length === record.byteLength && hash(bytes) === record.sha256;
     },
+    async uri(record) { return await this.has(record) ? `file:///archives/${record.id}-${record.sha256}.zip` : null; },
     async clear() { disk.clear(); },
   };
   const zip = new Uint8Array(5 * 1024 * 1024); zip.set([0x50, 0x4b, 3, 4]);
@@ -214,7 +215,16 @@ test('5 MB archives survive restart as files; failed extras preserve full plan, 
     assert.ok(s.data.get(DOWNLOAD_CACHE_KEY)!.length < 10000);
     assert.deepEqual(await downloadStore(s.storage, async () => assert.fail('offline read'), 1000, files).read(id), content);
     for (const failure of ['refused', 'large', 'invalid', 'stall']) {
+      // A retry that fails keeps the files she already received, with no warning.
+      broken = '';
+      const good = await downloadStore(s.storage, transport, 1000, files).refresh(id);
       broken = failure;
+      const retried = await downloadStore(s.storage, transport, failure === 'stall' ? 10 : 1000, files).refresh(id);
+      assert.deepEqual(retried.archives, good.archives);
+      assert.equal(retried.warning, undefined);
+      assert.deepEqual(await downloadStore(s.storage, transport, 1000, files).saved(), retried);
+      // A first delivery that fails grants no file and still delivers the full plan.
+      disk.clear(); s.data.delete(DOWNLOAD_CACHE_KEY);
       const partial = await downloadStore(s.storage, transport, failure === 'stall' ? 10 : 1000, files).refresh(id);
       assert.equal(partial.list.tasks[0].id, 'sample');
       assert.equal(partial.packs.length, packs.length);
@@ -226,6 +236,7 @@ test('5 MB archives survive restart as files; failed extras preserve full plan, 
     broken = '';
   }
   broken = 'one';
+  disk.clear(); s.data.delete(DOWNLOAD_CACHE_KEY);
   const partial = await downloadStore(s.storage, transport, 1000, files).refresh(id);
   assert.equal(partial.archives?.printables, undefined);
   assert.ok(partial.archives?.['day-of-kit']);
@@ -244,9 +255,12 @@ test('5 MB archives survive restart as files; failed extras preserve full plan, 
   assert.ok((await downloadStore(s.storage, transport, 1000, files).saved())?.warning);
   await downloadStore(s.storage, transport, 1000, files).refresh(id);
   // A file failure also leaves the paid plan usable, with no extra grant.
+  disk.clear(); s.data.delete(DOWNLOAD_CACHE_KEY);
   const failed = await downloadStore(s.storage, transport, 1000, { ...files, async write() { throw Error('disk full'); } }).refresh(id);
   assert.equal(failed.list.tasks.length, list.tasks.length);
   assert.equal(failed.archives, undefined);
+  // An entitlement the server no longer confirms drops its file, even one saved earlier.
+  assert.ok((await downloadStore(s.storage, transport, 1000, files).refresh(id)).archives?.printables);
   active = ['full_plan']; fetched.length = 0;
   const plain = await downloadStore(s.storage, transport, 1000, files).refresh(id);
   assert.equal(plain.archives, undefined);

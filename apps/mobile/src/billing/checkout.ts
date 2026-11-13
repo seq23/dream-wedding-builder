@@ -55,6 +55,7 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
         let next = ledger;
         let event = active ?? first;
         if (!event) {
+          if (!name.trim()) throw Error('Type a name for your event above first, then try again.');
           next = addEvent(ledger, makeId(), name, date);
           event = next.events[next.events.length - 1];
         }
