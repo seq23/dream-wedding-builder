@@ -20,7 +20,8 @@ test('tracked repository files contain no fingerprinted private task or pack tex
   assert.ok(manifest.entries.length > 0, 'No private content checked');
   assert.equal(manifest.sources.length, 8, 'Expected full plan and seven tradition packs');
   for (const entry of manifest.entries) {
-    assert.match(entry.prefix, /^[a-f0-9]{64}$/);
+    // Never a full hash of the first four words: that could be guessed back into paid wording.
+    assert.match(entry.prefix, /^[a-f0-9]{8}$/);
     assert.match(entry.digest, /^[a-f0-9]{64}$/);
     assert.ok(Number.isInteger(entry.length) && entry.length >= 4);
   }

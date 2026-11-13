@@ -7,7 +7,7 @@ Binary files are excluded; this is a text-copy guard, not OCR or archive inspect
 Tests use fictional text to prove both refusal and acceptance. A missing, empty or
 malformed fingerprint manifest fails the check.
 
-`fingerprints.json` contains SHA-256 fingerprints of the private full-plan tasks
+`fingerprints.json` contains fingerprints of the private full-plan tasks (an 8-character filter and a SHA-256 of the whole task; never a full hash of its first words)
 and seven tradition packs. It contains no paid wording. The free core tasks,
 locked-row teasers and each pack's one bundled example are excluded during
 generation from their actual source modules. No runtime download is affected.
