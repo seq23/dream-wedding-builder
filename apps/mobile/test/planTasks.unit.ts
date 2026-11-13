@@ -110,3 +110,23 @@ test('plan overview dates public locked rows, routes to upgrade and keeps overdu
   assert.equal(taskCount(progress).total, before.total);
   assert.equal(planOverview(progress, buildDatedPlan('')).nextStartsOn, null);
 });
+
+test('full-plan tasks are late by their own date; after-the-wedding tasks are never catch-up before the wedding', async () => {
+  const { fullPlanRows } = await import('../src/planTasks');
+  const list = { windows: [{ id: '9-months', label: 'Example' }, { id: 'after', label: 'After the wedding' }], tasks: [
+    { id: 'a', window: '9-months', text: 'Fictional robots book a hall', daysBefore: 270, owner: '', kind: 'task' as const },
+    { id: 'b', window: '9-months', text: 'Fictional robots taste marmalade', daysBefore: 250, owner: '', kind: 'task' as const },
+    { id: 'c', window: '9-months', text: 'Fictional robots choose chairs', daysBefore: 30, owner: '', kind: 'task' as const },
+    { id: 'd', window: 'after', text: 'Fictional robots send thank-you cards', daysBefore: -14, owner: '', kind: 'task' as const },
+  ] };
+  const ticked = toggleDone(emptyProgress(), 'x', 'x');
+  const progress = { ...ticked, done: { [`9-months::${list.tasks[1].text}`]: '2027-01-01T09:00:00.000Z' } };
+  const late = (today: string) => fullPlanRows(list, progress, '2027-06-12', today).filter(r => r.late).map(r => r.text);
+  // Six months out: only the unticked task whose date has passed.
+  assert.deepEqual(late('2027-01-10'), ['Fictional robots book a hall']);
+  assert.equal(fullPlanRows(list, progress, '2027-06-12', '2027-01-10')[3].dueOn, '2027-06-26');
+  // After its own date, the after-the-wedding task is late like any other.
+  assert.deepEqual(late('2027-07-01'), ['Fictional robots book a hall', 'Fictional robots choose chairs', 'Fictional robots send thank-you cards']);
+  // No date set: nothing can be late.
+  assert.deepEqual(fullPlanRows(list, progress, '', '2027-01-10').filter(r => r.late), []);
+});
