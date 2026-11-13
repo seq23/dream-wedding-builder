@@ -36,7 +36,7 @@ export default function Privacy() {
       <h1 className="mt-4 font-serif text-6xl">Privacy</h1>
       <p className="mt-6 text-lg leading-8 text-charcoal/70">
         This page describes what the four Dream Wedding sites actually store and send. There are no accounts and no
-        login for the planning tools. The planner opens without an email; it asks for one only to print your plan or to use the free AI draft. Where something leaves your browser, it is named below along with the service that
+        login for the planning tools. The planner opens without an email, and its AI answers need none; it asks for an email only to print your plan. Where something leaves your browser, it is named below along with the service that
         receives it.
       </p>
 
@@ -48,10 +48,10 @@ export default function Privacy() {
         storage deletes it, and it does not travel with you to another device.
       </p>
 
-      <h2 className="mt-12 font-serif text-4xl">Your email, when you print your plan or use the AI draft</h2>
+      <h2 className="mt-12 font-serif text-4xl">Your email, when you print your plan</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        The planner is free and shows your dated plan without an email. We ask for an email address in two places: to open the
-        printable copy of your plan, and to use the free AI draft (one per address). We store that address, whether you
+        The planner is free and shows your dated plan without an email. We ask for an email address to open the
+        printable copy of your plan. We store that address, whether you
         ticked the optional box for planning emails, the site you were on, and the date, in this site&rsquo;s Cloudflare D1
         database. Your plan itself still stays in your browser. If you leave the box unticked we send you no marketing
         email. If you tick it we send one welcome email, through Resend, with a link back to the planner. Every email we
@@ -60,9 +60,9 @@ export default function Privacy() {
         the address removed.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70">
-        If you use the AI draft, the sentence you type is sent to a free AI model from Google Gemini or OpenRouter, which
-        may keep it; nothing is sent until you tick the box beside it. We keep a one-way hash of your address to record that it has used its one
-        draft; we do not store the sentence. The planner page itself loads no session recording.
+        When you ask the planner to describe your wedding, what you wrote and tapped is sent to a free AI model from Google
+        Gemini or OpenRouter, which may use it to improve its products. We do not store it; we keep only a one-way hash of
+        your connection&rsquo;s address and the day, to count the three free answers a day. The planner page itself loads no session recording.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70">
         The free checklist sample works the same way: the address you type is stored with the wording you agreed to, the
@@ -75,6 +75,9 @@ export default function Privacy() {
       <p className="mt-4 leading-7 text-charcoal/70">
         The inspiration page has no photo upload. The scope breakdown you get back is produced from the
         category and description you type, in your browser.
+      </p>
+      <p className="mt-4 leading-7 text-charcoal/70" data-testid="privacy-photos">
+        In the free planner, a photo you add is read for its colours in your browser, and nothing is sent. When you choose to let the AI planner look at a photo, the photo is sent to an AI provider that may use it to improve its products, and we do not store it.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Analytics</h2>

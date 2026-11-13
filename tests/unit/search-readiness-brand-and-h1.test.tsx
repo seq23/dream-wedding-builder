@@ -22,7 +22,7 @@ describe('one H1 per page (checklist b3)', () => {
   // email form in front of it.
   it('the planner renders its one h1 and the date field with no email wall', () => {
     const html = renderToStaticMarkup(<PlannerPage />);
-    expect(html).toContain('Build the wedding around reality');
+    expect(html).toContain('What should your wedding feel like?');
     expect(countH1(html)).toBe(1);
     expect(html).toContain('data-testid="wedding-date"');
     expect(html).not.toContain('data-testid="builder-email-gate"');

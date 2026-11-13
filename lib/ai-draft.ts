@@ -172,7 +172,7 @@ export function parseDraft(content: string, today: string): AiDraftFields | null
   return filled > 0 ? draft : null;
 }
 
-async function sha256(value: string): Promise<string> {
+export async function sha256(value: string): Promise<string> {
   const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
   return [...new Uint8Array(bytes)].map(b => b.toString(16).padStart(2, '0')).join('');
 }
@@ -202,10 +202,10 @@ export function dayIn(timeZone: string, now: Date): string {
 }
 const minuteOf = (now: Date) => now.toISOString().slice(0, 16);
 
-type Claim = 'ok' | 'minute' | 'day' | 'spent';
+export type Claim = 'ok' | 'minute' | 'day' | 'spent';
 
 /** Counts one call against a pool, atomically, only while it is under both ceilings. */
-async function claimCall(db: D1Like, poolId: string, now: Date): Promise<Claim> {
+export async function claimCall(db: D1Like, poolId: string, now: Date): Promise<Claim> {
   const pool = POOLS[poolId];
   if (!pool) return 'day';
   const day = dayIn(pool.resets_tz, now);
@@ -218,7 +218,7 @@ async function claimCall(db: D1Like, poolId: string, now: Date): Promise<Claim> 
   return 'ok';
 }
 
-async function markSpent(db: D1Like, poolId: string, now: Date, note: string) {
+export async function markSpent(db: D1Like, poolId: string, now: Date, note: string) {
   const day = dayIn(POOLS[poolId]?.resets_tz ?? 'UTC', now);
   await db.prepare('INSERT INTO ai_route_usage (key, n, note, at) VALUES (?, 1, ?, ?) ON CONFLICT(key) DO NOTHING').bind(`spent|${poolId}|${day}`, note.slice(0, 120), now.getTime()).run();
 }
@@ -231,7 +231,7 @@ const GUARD_CLAIM_MS = 60 * 1000;
  * free tier. One probe per Central day, shared through D1; a request that finds
  * another one mid-probe skips Gemini rather than probing twice.
  */
-async function geminiProvedFree(db: D1Like, apiKey: string, fetchImpl: typeof fetch, today: string, now: Date, log: (l: string) => void, notes: string[]): Promise<boolean> {
+export async function geminiProvedFree(db: D1Like, apiKey: string, fetchImpl: typeof fetch, today: string, now: Date, log: (l: string) => void, notes: string[]): Promise<boolean> {
   const key = `billing|gemini|${today}`;
   const row = await db.prepare('SELECT note, at FROM ai_route_usage WHERE key = ?').bind(key).first<{ note: string; at: number }>();
   if (row?.note === 'FREE') return true;

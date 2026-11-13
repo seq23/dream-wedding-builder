@@ -32,7 +32,8 @@ import { loadSavedPlan, savePlan } from '@/lib/saved-plan';
 import { plainDate } from '@/lib/dated-plan';
 import { DatedPlanView } from '@/components/DatedPlanView';
 import { FullPlanCard } from '@/components/FullPlanCard';
-import { AiDraftCard, AiDraftLabel } from '@/components/AiDraftCard';
+import { AiDraftLabel } from '@/components/AiDraftCard';
+import { WeddingJourney, type JourneyFacts } from '@/components/WeddingJourney';
 import { StepFold } from '@/components/StepFold';
 
 // One job per screen (hostile review, 10 Nov 2026): the sentence or the date, the
@@ -148,6 +149,13 @@ function BuildPage() {
   ];
 
   const patch = (partial: Partial<WeddingPlan>) => setPlan(current => ({ ...current, ...partial }));
+  // What she already knows on step 1 fills the plan's empty fields; her own answers are never overwritten.
+  const fillFromJourney = (facts: JourneyFacts) => setPlan(current => ({
+    ...current,
+    locations: current.locations || facts.where,
+    guestCount: current.guestCount || facts.guests,
+    budgetTarget: current.budgetTarget || facts.budget
+  }));
   const toggle = (key: keyof WeddingPlan, value: string) => setPlan(current => ({ ...current, [key]: updateArray(current[key] as string[], value) }));
   const toggleTrend = (id: string) => patch({ selectedTrends: updateArray(plan.selectedTrends, id) });
   const toggleVenue = (id: string) => patch({ selectedVenueIds: updateArray(plan.selectedVenueIds, id) });
@@ -162,13 +170,11 @@ function BuildPage() {
       <p className="mt-2 text-xs text-charcoal/60">These are example starting values, not quotes. Change any of them below.</p>
     </section>}
 
-    <header>
-      <Badge>Free wedding planner</Badge>
-      <h1 className="mt-4 font-serif text-[40px] leading-[42px] md:text-6xl md:leading-tight">Build the wedding around reality, not generic inspiration.</h1>
-      <p data-testid="planner-promise" className="mt-4 text-lg leading-8 text-charcoal/70">No account, no app and no email needed to see your plan. Add your date and your dated checklist is on this page; it saves in this browser by itself. Email is asked in two places only: the free AI draft (one draft per email) and the printable copy of your plan.</p>
-    </header>
+    {/* The free journey leads (owner, 13 Nov 2026): what should it feel like, then her
+        wedding described. The dated plan below stays one tap away ("I already know"). */}
+    <WeddingJourney onFacts={fillFromJourney} />
 
-    <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar.</p></div>}>
+    <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar. No account, no app and no email needed; it saves in this browser by itself.</p></div>}>
       <Card data-testid="wedding-date-card">
         <label className="grid gap-2 text-sm font-semibold" htmlFor="wedding-date">Wedding date
           <input id="wedding-date" data-testid="wedding-date" type="date" value={plan.weddingDate} onChange={event => patch({ weddingDate: event.target.value })} className="min-h-11 max-w-xs rounded-2xl border border-charcoal/20 bg-white p-3 text-base" />
@@ -178,8 +184,6 @@ function BuildPage() {
         {plan.weddingDate ? <FullPlanCard /> : null}
       </Card>
     </StepFold>
-
-    <AiDraftCard plan={plan} onApply={next => { setPlan(next); requestAnimationFrame(() => document.getElementById('your-date')?.scrollIntoView({ block: 'start' })); }} />
 
     <Card className="bg-white" data-testid="canonical-plan-summary">
       <p className="font-mono text-xs uppercase tracking-[.12em] text-charcoal/60">Your plan so far</p>
@@ -232,7 +236,7 @@ function BuildPage() {
         </Card>
       </StepFold>
 
-      <StepFold id="step-1" group="details" className={STEP_CLASS} header={<StepHeader number={2} title="Questions to settle next" sub="Worked out from your answers by fixed rules. Not a person, and not AI." />}>
+      <StepFold id="step-1" group="details" className={STEP_CLASS} header={<StepHeader number={2} title="Questions to settle next" sub="Worked out from your answers by fixed rules." />}>
         <Card data-testid="next-questions">
           {questions.length ? <ol className="grid gap-3">{questions.map((q, index) => <li key={q.id} data-testid={`next-question-${q.id}`} className="rounded-2xl bg-ivory p-4">
             <p className="font-semibold">{index + 1}. {q.question}</p>
@@ -354,7 +358,7 @@ function BuildPage() {
 }
 
 // No wall: the plan opens for everyone (owner, 10 Nov 2026). An email is asked only
-// where it buys her something: the free AI draft and the printable plan.
+// where it buys her something: the printable plan. No email before her first AI answer (13 Nov 2026).
 export default function PlannerPage() {
   return <BuildPage />;
 }
