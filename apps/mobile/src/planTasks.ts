@@ -81,13 +81,15 @@ export function initialTaskWindow(requested?: string) {
 }
 
 // Public sample names only; these rows never enter progress or completion totals.
-export function lockedPlanRows(date: string, windowId: string) {
+/** `startedOn` is the day she began (src/planStart.ts). A task whose date fell before that day
+ * carries no date: it is "Start here", so a brand-new plan never shows a locked task dated in the past. */
+export function lockedPlanRows(date: string, windowId: string, startedOn: string) {
   const wedding = parseDay(date);
   if (!wedding) return [];
-  return (FULL_PLAN_TEASER[windowId] ?? []).map(task => ({
-    text: task.text, dueOn: isoDay(addDays(wedding, -task.daysBefore)),
-    href: '/more/full-plan' as const,
-  }));
+  return (FULL_PLAN_TEASER[windowId] ?? []).map(task => {
+    const due = isoDay(addDays(wedding, -task.daysBefore));
+    return { text: task.text, dueOn: due < startedOn ? null : due, startHere: due < startedOn, href: '/more/full-plan' as const };
+  });
 }
 export function planOverview(progress: PlanProgress, plan: DatedPlan) {
   return {

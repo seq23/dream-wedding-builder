@@ -53,7 +53,7 @@ test('date edits from settings are read afresh by the plan without losing tasks 
   // Same reads and shared date projection used when the plan regains focus.
   async function openPlan() {
     const [date, tasks] = await Promise.all([dates.read(), progress.read()]);
-    return { plan: buildDatedPlan(date ?? '', '2026-11-11'), locked: lockedPlanRows(date ?? '', '9-months'), tasks };
+    return { plan: buildDatedPlan(date ?? '', '2026-11-11'), locked: lockedPlanRows(date ?? '', '9-months', '2026-11-11'), tasks };
   }
   await dates.save('2028-06-12', '2026-11-11');
   const before = await openPlan();

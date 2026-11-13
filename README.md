@@ -3,7 +3,7 @@
 Dream Wedding Builder is the only free product in a shared five-domain wedding planning platform. The paid portfolio is Wedding Seating Chart Maker, Wedding Budget Spreadsheet, Wedding Timeline Template, Wedding Checklist PDF, and the Dream Wedding Operations Suite.
 
 ## Preserved free journey
-`/build` remains the guided no-login Builder and Starter Pack experience.
+`/free-wedding-planner` is the guided no-login free planner (the Builder); `/build` only redirects there, and `/pack` is its printable copy.
 
 ## Paid commerce routes
 - `/products/seating-chart-maker`

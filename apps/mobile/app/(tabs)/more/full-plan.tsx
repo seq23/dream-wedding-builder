@@ -19,6 +19,8 @@ import { newEventDate } from '../../../src/billing/newEvent';
 import { phoneSharing } from '../../../src/sharing/runtime';
 import { syncReminders } from '../../../src/localReminders';
 import { color, type, space, radius } from '../../../src/theme';
+import { PREVIEW, PREVIEW_NOTE, STORE_AWAY } from '../../../src/build';
+import { PRODUCTS } from '../../../src/billing/offers';
 const phoneCheckout = checkout(AsyncStorage, purchases, downloadStore(AsyncStorage), () => bytesToHex(getRandomBytes(16)));
 const names: Record<ProductId, string> = { dw_planner_printables: 'Planner + printables', dw_full_plan: 'Full plan', dw_printables_topup: 'Printables', dw_day_of_kit: 'Day-of kit', dw_new_event: 'Full plan for a new event' };
 export default function FullPlan() {
@@ -107,38 +109,34 @@ export default function FullPlan() {
     catch (e) { setError(e instanceof Error ? e.message : 'Could not save your event name. Please try again.'); }
     finally { setSaving(false); }
   }
-  return <PlannedScreen route="/more/full-plan" implemented>
-    <Text accessibilityRole="header" style={type.title}>{newEvent ? 'A new wedding event' : 'Your full wedding plan'}</Text>
-    <Text style={type.body}>Paid once for this wedding. No subscription.</Text>
-    {!purchases.available ? <Text accessibilityRole="status" style={type.body}>Purchases are not set up yet.</Text> : null}
-    {newEvent ? <Text style={type.body}>A new event is a new full plan, paid once, with its own name and date. Everything you have ticked and added stays on this phone. The store price will appear here before you can buy.</Text> : null}
+  return <PlannedScreen route="/more/full-plan">
+    <Text accessibilityRole="header" style={type.title}>{newEvent ? 'A new wedding event' : 'The full plan'}</Text>
+    <Text style={type.body}>Your free plan stays free. The full plan is paid once for this wedding, with no subscription, and adds:</Text>
+    <View style={{ gap: space[2] }}>
+      {['Payments and the final-payment schedule', 'Your wedding-week sheet, with who to call', 'The printable hand-over packet with payments and contacts', 'Every tradition pack', 'Reminders for your dated tasks', 'A second phone for your partner'].map(line => <Text key={line} style={type.body}>• {line}</Text>)}
+    </View>
+    {!purchases.available ? <Text accessibilityRole="status" style={type.sub}>{PREVIEW ? PREVIEW_NOTE : STORE_AWAY}</Text> : null}
+    {newEvent ? <Text style={type.body}>A new event is a new full plan, paid once, with its own name and date. Everything you have ticked and added stays on this phone.</Text> : null}
     {newEvent && paidUnused > 0 ? <Text accessibilityRole="status" style={type.body}>You have already paid for this event. Starting it costs nothing more.</Text> : null}
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {loaded ? locked ? <Text style={type.body}>🔒 {name}</Text> : <View style={{ gap: space[2] }}>
-      <Text style={type.sub}>Event name</Text>
-      <TextInput accessibilityLabel="Event name" value={name} onChangeText={value => { setName(value); setMessage(''); }} maxLength={140} editable={!saving} style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
-      <Text style={type.sub}>This name locks after purchase. Saving a name keeps your current plan as it is.</Text>
-      <Pressable accessibilityRole="button" disabled={saving || !name.trim()} onPress={() => { void saveName(); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Save event name</Text></Pressable>
+      <Text style={type.subhead}>Name this wedding</Text>
+      <TextInput accessibilityLabel="Name this wedding" placeholder="For example: Sam and Alex, June 2027" placeholderTextColor={color.midnightMuted} value={name} onChangeText={value => { setName(value); setMessage(''); }} maxLength={140} editable={!saving} style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
+      <Text style={type.sub}>The name goes on your full plan. You can change it until you buy; after that it stays with this wedding. Naming it changes nothing in your free plan.</Text>
+      {name.trim() ? <Pressable accessibilityRole="button" disabled={saving} onPress={() => { void saveName(); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Save this name ›</Text></Pressable> : null}
     </View> : null}
     {message ? <Text accessibilityRole="status" style={type.sub}>{message}</Text> : null}
-    <View style={{ gap: space[2] }}>
-      <Text style={type.sub}>Payments and final-payment schedule</Text>
-      <Text style={type.sub}>Wedding-week sheet</Text>
-      <Text style={type.sub}>Printable hand-over packet</Text>
-      <Text style={type.sub}>Tradition packs</Text>
-      <Text style={type.sub}>Reminders for your dated tasks</Text>
-    </View>
     {offers.map(id => <Pressable key={id} accessibilityRole="radio" accessibilityState={{ checked: selected === id }} onPress={() => setSelected(id)}
       style={{ minHeight: 64, padding: space[3], borderRadius: radius.md, borderWidth: selected === id ? 2 : 1, borderColor: selected === id ? color.blue : color.rule, gap: space[1] }}>
       <Text style={type.button}>{names[id]}</Text>
       <Text style={type.sub}>{id === 'dw_planner_printables' ? 'Includes printables' : id === 'dw_new_event' ? 'One new event, paid once' : 'For this wedding'}</Text>
-      <Text style={type.sub}>{id === 'dw_new_event' && paidUnused > 0 ? 'Already paid' : products.find(p => p.id === id)?.price ?? 'Price available when the store is ready'}</Text>
+      <Text style={type.sub}>{id === 'dw_new_event' && paidUnused > 0 ? 'Already paid' : products.find(p => p.id === id)?.price ?? (PREVIEW ? `$${PRODUCTS[id].priceUsd.toFixed(2)}, paid once` : 'Loading the price…')}</Text>
     </Pressable>)}
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !canBuy }} disabled={!canBuy} onPress={() => { void transact(); }}
       style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: radius.md, opacity: canBuy ? 1 : 0.5 }}>
-      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? selected === 'dw_new_event' ? 'Start my new event' : locked ? 'Add to my plan' : 'Unlock full plan' : 'Purchases unavailable'}</Text>
+      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? selected === 'dw_new_event' ? 'Start my new event ›' : locked ? 'Add to my plan ›' : 'Get the full plan ›' : !purchases.available ? (PREVIEW ? 'Buying is off in this preview' : 'The store is not answering') : !name.trim() ? 'Name this wedding first' : 'Choose one above'}</Text>
     </Pressable>
-    <Pressable accessibilityRole="button" accessibilityState={{ disabled: !purchases.available || saving || !loaded }} disabled={!purchases.available || saving || !loaded} onPress={() => { void transact(true); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={type.sub}>{purchases.available ? 'Restore purchase' : 'Restore purchase · unavailable'}</Text></Pressable>
+    {purchases.available ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: saving || !loaded }} disabled={saving || !loaded} onPress={() => { void transact(true); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>I already bought this: restore it ›</Text></Pressable> : null}
     <View style={{ flexDirection: 'row', gap: space[4] }}>
       <Pressable accessibilityRole="link" onPress={() => Linking.openURL('https://weddingchecklistpdf.com/terms')} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={type.sub}>Terms</Text></Pressable>
       <Pressable accessibilityRole="link" onPress={() => Linking.openURL('https://weddingchecklistpdf.com/privacy')} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={type.sub}>Privacy</Text></Pressable>

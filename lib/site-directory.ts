@@ -57,7 +57,7 @@ const COVERED_PREFIXES = ['/guides/', '/products/'];
 // without a name here, a hub record, or a landing record produces no link and so
 // produces an orphan - which is what the link-graph gate fails on.
 const PARENT_LABELS: Record<string, string> = {
-  '/photos': 'Real wedding photo library',
+  '/photos': 'Describe an idea, get its scope',
   '/trends': 'Wedding trend catalogue',
   '/methodology': 'Constraint-first planning: the method',
   '/readiness-score': 'How the readiness score is calculated'

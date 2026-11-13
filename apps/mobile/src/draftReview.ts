@@ -1,5 +1,6 @@
 import type { DateStorage } from './weddingDate';
-export const detailLabels = { weddingDate: 'Wedding date', guestCount: 'Guests', locations: 'Place', season: 'Season', budgetTarget: 'Budget', budgetMode: 'Budget approach', priorities: 'What matters most', notes: 'Notes' };
+// Only details the plan uses (src/planDetails.ts): a detail that changes nothing is not asked for or kept.
+export const detailLabels = { weddingDate: 'Wedding date', guestCount: 'Guests', locations: 'Place', budgetTarget: 'Budget', budgetMode: 'Budget approach', priorities: 'What matters most' };
 export type Details = Partial<Record<keyof typeof detailLabels, string>>;
 export function reviewFields(draft: Record<string, unknown>): Details {
   const result: Details = {};

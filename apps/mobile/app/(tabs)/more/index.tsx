@@ -20,6 +20,9 @@ import type { PaidEvent } from '../../../src/billing/events';
 import { calendarFile } from '../../../src/calendar';
 import { saveCalendar } from '../../../src/calendarOutput';
 import { color, space, type } from '../../../src/theme';
+import { partOfFullPlan } from '../../../src/build';
+import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
+import { plainDate } from '@core/dated-plan';
 
 export default function More() {
   const sharingRevision = useSharingRevision();
@@ -32,6 +35,8 @@ export default function More() {
   const [confirm, setConfirm] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const price = useFullPlanPrice();
+  const paid = sharing || !!event?.fullPlan;
   const [exporting, setExporting] = useState(false);
   const [files, setFiles] = useState<{ ready: PurchasedFile[]; missing: boolean }>({ ready: [], missing: false });
   async function openFile(file: PurchasedFile) {
@@ -73,23 +78,26 @@ export default function More() {
     try { await Linking.openURL(path === 'privacy' ? release.privacyUrl : release.termsUrl); }
     catch { setError('Could not open the page. Please try again.'); }
   }
-  return <PlannedScreen route="/more" implemented>
+  return <PlannedScreen route="/more">
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {busy ? <Text style={type.body}>Deleting your plan…</Text> : <>
-      <Text style={type.body}>Wedding date: {date ? new Date(`${date}T12:00:00`).toLocaleDateString() : 'Not set yet'}</Text>
+      <Text style={type.body}>{date ? `Wedding date: ${plainDate(date)}` : 'You have not chosen a wedding date yet.'}</Text>
       {sharedName || event?.fullPlan ? <Text style={type.body}>🔒 {sharedName || event?.name}</Text> : null}
       {!joined && event?.fullPlan ? <Text style={type.sub}>{3 - event.dateChanges} date changes left for this event</Text> : null}
-      {joined ? <Text style={type.sub}>Your partner manages the shared wedding date.</Text> : <GoButton href="/welcome" label="Change the wedding date ›" />}
-      <Text style={type.sub}>Reminders: {reminders}</Text>
-      <GoButton href="/reminders" label="Reminders ›" />
-      <GoButton href={sharing || event?.fullPlan ? "/more/sharing" : "/more/full-plan"} label="Two phones ›" />
+      {joined ? <Text style={type.sub}>Your partner manages the shared wedding date.</Text> : <GoButton href="/welcome" label={date ? 'Change the wedding date ›' : 'Choose my wedding date ›'} />}
       <GoButton href="/more/packet" label="Print or send my plan ›" />
       <Pressable accessibilityRole="button" disabled={exporting} accessibilityState={{ disabled: exporting }} onPress={() => { void calendar(); }} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{exporting ? 'Preparing calendar…' : 'Save my calendar file ›'}</Text></Pressable>
       <Text style={type.sub}>Free calendar reminders for your unfinished tasks and wedding day. Made on this phone. Save a new file after changing your plan.</Text>
-      <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
       {files.ready.map(file => <View key={file.id}>{button(file.label, () => { void openFile(file); })}</View>)}
       {files.missing ? <><Text style={type.sub}>{FILE_MISSING_MESSAGE}</Text><GoButton href="/more/full-plan" label="Restore my purchase ›" /></> : null}
-      <GoButton href="/more/full-plan" label="The full plan ›" />
+      <Text accessibilityRole="header" style={type.section}>{paid ? 'Your full plan' : 'The full plan'}</Text>
+      {paid ? null : <Text style={type.sub}>{partOfFullPlan(price)}: payments, your wedding week, reminders and a second phone for your partner.</Text>}
+      {paid ? null : <GoButton href="/more/full-plan" label="See the full plan ›" />}
+      <GoButton href="/payments" label="Payments ›" />
+      <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
+      <GoButton href="/reminders" label={paid ? `Reminders: ${reminders} ›` : 'Reminders ›'} />
+      <GoButton href={paid ? '/more/sharing' : '/more/full-plan'} label={paid ? 'Two phones: share with my partner ›' : 'Two phones ›'} />
+      {paid ? <GoButton href="/more/full-plan" label="Add printables to my plan ›" /> : null}
       <GoButton href="/more/full-plan?newEvent=1" label="Start a new event ›" />
       {button('Privacy policy ›', () => { void open('privacy'); })}
       {button('Terms ›', () => { void open('terms'); })}

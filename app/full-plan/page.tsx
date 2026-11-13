@@ -94,7 +94,7 @@ export default function FullPlanPage() {
         })}</ul>
       </section>)}
       <p className="text-xs leading-5 text-charcoal/60">General planning timing, not legal, tax or vendor advice. Your contracts and your county’s license rules win.</p>
-      <p className="hidden text-xs print:block">Dream Wedding Builder · weddingchecklistpdf.com</p>
+      <p className="hidden text-xs print:block">Dream Wedding · weddingchecklistpdf.com</p>
     </>}
   </div>;
 }

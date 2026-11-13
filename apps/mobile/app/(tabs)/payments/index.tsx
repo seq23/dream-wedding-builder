@@ -9,7 +9,9 @@ import { useState, useCallback } from 'react';
 import { Text, TextInput, Pressable, View } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { localToday } from '@core/dated-plan';
+import { localToday, plainDate } from '@core/dated-plan';
+import { partOfFullPlan } from '../../../src/build';
+import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 import { FULL_PLAN_TEASER } from '@core/full-plan-teaser';
 import { datedFullPlan } from '@core/full-plan';
 import { PlannedScreen, GoButton } from '../../../src/ui';
@@ -32,6 +34,8 @@ export default function Payments() {
   const setEditing = (editing: Payment | null) => setDraft(current => ({ ...current, editing }));
   const setAmount = (amount: string) => setDraft(current => ({ ...current, amount }));
   const [error,setError] = useState('');
+  const price = useFullPlanPrice();
+  const owed = (cents: number) => cents ? money(cents) : 'amount not added yet';
   const [loadFailed,setLoadFailed] = useState(false);
   useFocusEffect(useCallback(() => {
     let active = true;
@@ -73,21 +77,22 @@ export default function Payments() {
   function button(label:string, action:()=>void) { return <Pressable accessibilityRole="button" disabled={busy} onPress={action} style={{ minHeight:48, justifyContent:'center' }}><Text style={[type.button,{color:color.blue}]}>{label}</Text></Pressable>; }
   function field(label:string, value:string, change:(s:string)=>void) { return <TextInput accessibilityLabel={label} placeholder={label} value={value} onChangeText={change} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12,color:color.midnight}]} />; }
   const locked = datedFullPlan({ windows:[{id:'locked',label:'Payments'}], tasks:[FULL_PLAN_TEASER['12-plus'][1],FULL_PLAN_TEASER['3-months'][1]].map((t,i)=>({...t,id:String(i),window:'locked',owner:'',kind:'payment' as const})) },date ?? '',today).flatMap(s=>s.tasks);
-  return <PlannedScreen route="/payments" implemented>
+  return <PlannedScreen route="/payments">
     {error ? <Text accessibilityRole="alert" style={[type.body,{color:color.redPen}]}>{error}</Text> : null}
     {loadFailed ? <GoButton href="/plan" label="Back to my plan ›" /> : !ready ? <Text style={type.body}>Loading payments…</Text> : !date ? <GoButton href="/welcome" label="Set your wedding date ›" /> : !preview && !shared ? <>
-      <Text style={type.title}>Your payment schedule</Text><Text style={type.body}>The full plan adds dated payments, your own payments, and a running total still owed.</Text>
-      {locked.map(r=><Text key={r.id} style={type.body}>🔒 {r.text} · {r.date}</Text>)}
+      <Text style={type.title}>Your payment schedule</Text><Text style={type.body}>{partOfFullPlan(price)}. It adds every payment with its date, your own payments, and a running total still owed.</Text>
+      {locked.map(r=><Text key={r.id} style={type.body}>🔒 {r.text} · {plainDate(r.date)}</Text>)}
       <GoButton href="/more/full-plan" label="See the full plan ›" />
     </> : <>
-      <Text style={type.sub}>{shared ? 'Payment amounts saved on this phone' : 'Sample payments · saved on this phone'}</Text>
-      <Text style={type.title}>{summary.count} payments left · {money(summary.left)}</Text>
-      <Text style={type.body}>Total agreed {money(summary.total)} · Paid so far {money(summary.paid)}</Text>
-      {rows.find(r=>!r.paidOn) ? <Text style={type.body}>Next: {rows.find(r=>!r.paidOn)!.payee} · {money(rows.find(r=>!r.paidOn)!.cents)} · {rows.find(r=>!r.paidOn)!.date}</Text> : null}
-      {['Past due','Due in the next 30 days','Later','Paid'].map(group=> { const items=rows.filter(r=>paymentGroup(r,today)===group); return items.length ? <View key={group} style={{gap:space[2]}}><Text style={type.section}>{group} · {money(items.reduce((n,r)=>n+r.cents,0))}</Text>{items.map(r=><View key={r.id} style={{borderBottomWidth:1,borderColor:color.rule,paddingVertical:8}}>
-        {button(`${r.payee} · ${money(r.cents)}`,()=>{setEditing(r);setAmount((r.cents/100).toFixed(2));})}
-        <Text style={type.sub}>{r.detail} · {r.date} · {r.method || 'Payment method not set'}</Text>
-        {r.paidOn ? <Text style={type.sub}>Paid {r.paidOn}</Text> : null}
+      {shared ? <Text style={type.sub}>Payment amounts saved on this phone</Text> : <Text style={type.body}>Sample of a paid screen. Payments are {partOfFullPlan(price, 'part')}. The two vendors below are made up so you can try it.</Text>}
+      {!shared ? <GoButton href="/more/full-plan" label="See the full plan ›" /> : null}
+      <Text style={type.title}>{summary.count === 1 ? '1 payment left' : `${summary.count} payments left`}{summary.total ? ` · ${money(summary.left)}` : ''}</Text>
+      {summary.total ? <Text style={type.body}>Total agreed {money(summary.total)} · Paid so far {money(summary.paid)}</Text> : <Text style={type.sub}>Tap a payment to add its amount and see the total still owed.</Text>}
+      {rows.find(r=>!r.paidOn) ? <Text style={type.body}>Next: {rows.find(r=>!r.paidOn)!.payee} · {owed(rows.find(r=>!r.paidOn)!.cents)} · {plainDate(rows.find(r=>!r.paidOn)!.date)}</Text> : null}
+      {['Past due','Due in the next 30 days','Later','Paid'].map(group=> { const items=rows.filter(r=>paymentGroup(r,today)===group); return items.length ? <View key={group} style={{gap:space[2]}}><Text style={type.section}>{group}{items.some(r=>r.cents) ? ` · ${money(items.reduce((n,r)=>n+r.cents,0))}` : ''}</Text>{items.map(r=><View key={r.id} style={{borderBottomWidth:1,borderColor:color.rule,paddingVertical:8}}>
+        {button(`${r.payee} · ${owed(r.cents)} ✎`,()=>{setEditing(r);setAmount((r.cents/100).toFixed(2));})}
+        <Text style={type.sub}>{r.detail} · {plainDate(r.date)} · {r.method || 'how it is paid: not added yet'}</Text>
+        {r.paidOn ? <Text style={type.sub}>Paid {plainDate(r.paidOn)}</Text> : null}
         {button(r.paidOn ? 'Undo paid' : 'Mark paid',()=>{void complete(r);})}
       </View>)}</View> : null; })}
       {button('+ Add a payment',()=>{setEditing({id:`own:${Date.now()}`,payee:'',detail:'',date,cents:0,method:''});setAmount('');})}

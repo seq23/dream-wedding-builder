@@ -9,9 +9,10 @@ import { emptyProgress, type PlanProgress } from '@core/plan-progress';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { savedProgress } from '../../../src/savedProgress';
 import { TRADITION_PREVIEWS, addTraditionPack, addTraditionExample, hasTraditionPack, removeTraditionPack, restoreTraditionTasks } from '../../../src/traditionPacks';
-import { purchases } from '../../../src/billing/current';
 import { loadTraditions } from '../../../src/traditionView';
 import { color, radius, space, type } from '../../../src/theme';
+import { partOfFullPlan } from '../../../src/build';
+import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 
 export default function Traditions() {
   const sharingRevision = useSharingRevision();
@@ -24,6 +25,7 @@ export default function Traditions() {
   const [error, setError] = useState('');
   const [confirm, setConfirm] = useState(false);
   const [removed, setRemoved] = useState<PlanProgress['custom'] | null>(null);
+  const price = useFullPlanPrice();
   useFocusEffect(useCallback(() => {
     let active = true;
     setReady(false); setLoadFailed(false);
@@ -55,7 +57,7 @@ export default function Traditions() {
     style={{ minHeight: 48, justifyContent: 'center', padding: space[3], borderRadius: radius.md, backgroundColor: primary ? color.blue : color.ivory, opacity: busy || disabled ? 0.5 : 1 }}>
     <Text style={[type.button, { color: primary ? color.onBlue : color.blue }]}>{label}</Text>
   </Pressable>;
-  return <PlannedScreen route="/traditions" implemented>
+  return <PlannedScreen route="/traditions">
     {error ? <Text accessibilityRole="alert" style={type.body}>{error}</Text> : null}
     {loadFailed ? <GoButton href="/plan" label="Back to my plan ›" /> : !ready ? <Text style={type.body}>Opening your traditions…</Text> : pack ? <>
       {button('← Back to traditions', () => { setSelected(null); setConfirm(false); setRemoved(null); })}
@@ -67,9 +69,10 @@ export default function Traditions() {
         <Text style={type.sub}>{PLAN_WINDOWS.find(w => w.id === pack.example.windowId)?.label}</Text>
         {button('Read the source ›', () => { Linking.openURL(pack.example.source).catch(() => setError('Could not open the source. Try again.')); })}
       </View>
-      <Text style={type.body}>{shared ? 'This pack is included in your shared full plan.' : 'The rest of this pack comes with the full plan. Purchases are not set up yet.'}</Text>
+      <Text style={type.body}>{shared ? 'This pack is included in your shared full plan.' : `This example is free. The rest of this pack is ${partOfFullPlan(price, 'part')}.`}</Text>
       {button(added ? 'Added' : shared?.packs?.some(p => p.id === pack.id) ? 'Add to my plan' : 'Add free example to my plan', () => { void change('add'); }, !added, added)}
-      {added ? <GoButton href="/plan" label="See tasks in my plan ›" /> : purchases.available ? <GoButton href="/more/full-plan" label="See the full plan ›" /> : null}
+      {added ? <GoButton href="/plan" label="See tasks in my plan ›" /> : null}
+      {!shared ? <GoButton href="/more/full-plan" label="See the full plan ›" /> : null}
       {added && !confirm ? button('Remove this pack', () => setConfirm(true)) : null}
       {confirm ? <View style={{ gap: space[2] }}>
         <Text style={type.body}>Remove this pack? Tasks you have ticked or edited stay in your plan. Untouched tasks are removed.</Text>
@@ -79,7 +82,8 @@ export default function Traditions() {
       {removed ? <View><Text accessibilityRole="status" style={type.body}>Untouched tasks removed. Ticked or edited tasks stay.</Text>{removed.length ? button('Undo removal', () => { void change('undo'); }) : null}</View> : null}
     </> : <>
       <Text accessibilityRole="header" style={type.title}>Traditions</Text>
-      <Text style={type.body}>These packs are optional. Add their tasks to your plan in the right time windows.</Text>
+      <Text style={type.body}>These packs are optional. Add their tasks to your plan at the right time.</Text>
+      {!shared ? <Text style={type.sub}>One example from each pack is free. The full packs are {partOfFullPlan(price, 'part')}.</Text> : null}
       {TRADITION_PREVIEWS.map(p => <Pressable key={p.id} accessibilityRole="button" onPress={() => { setSelected(p.id); setConfirm(false); setRemoved(null); }} style={{ minHeight: 64, paddingVertical: space[3], borderBottomWidth: 1, borderColor: color.rule, gap: space[1] }}>
         <Text style={type.section}>{p.name} {hasTraditionPack(progress, p.id) ? '✓ Added' : '›'}</Text>
         <Text style={type.sub}>{p.example.text}</Text>

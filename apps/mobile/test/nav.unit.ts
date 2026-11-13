@@ -55,9 +55,11 @@ test('no orphan screens: everything is reachable from the first screen', () => {
   assert.deepEqual([...seen].sort(), SCREENS.map(s => s.route).sort());
 });
 
-test('no dead ends: every screen says what is coming and is drawn by the shell for its own route', () => {
+test('no dead ends: every screen is drawn by the shell for its own route, and an unknown address has a page with a way home', () => {
+  const lost = readFileSync(join(root, 'app/+not-found.tsx'), 'utf8');
+  assert.match(lost, /export default function/);
+  assert.match(lost, /<GoButton href=\{HOME\}/, 'the unknown-address page links to the plan');
   for (const s of SCREENS) {
-    assert.ok(s.coming.length > 20, `${s.route}: no "coming next" line`);
     const src = readFileSync(join(root, s.file), 'utf8');
     assert.ok(src.includes(`<PlannedScreen route="${s.route}"`), `${s.file} does not render the shell for ${s.route}`);
   }

@@ -16,8 +16,8 @@ import { products, suite, supportEmail } from '@/lib/products';
 // not. Nothing claims a credential, an endorsement or a person.
 
 const CANONICAL = canonicalUrl(PARENT_HOST, '/about');
-const TITLE = 'About Dream Wedding Builder';
-const DESCRIPTION = 'Who publishes Dream Wedding Builder, how its wedding planning guides and paid files are produced and checked, and what its figures are and are not.';
+const TITLE = 'About Dream Wedding';
+const DESCRIPTION = 'Who publishes Dream Wedding, how its wedding planning guides and paid files are produced and checked, and what its figures are and are not.';
 
 export const metadata: Metadata = seoMetadata({ title: TITLE, description: DESCRIPTION, host: PARENT_HOST, path: '/about' });
 
@@ -33,8 +33,8 @@ export default function About() {
 
     <header className="rounded-[12px] bg-white p-7 shadow-soft md:p-12">
       <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">The publisher</p>
-      <h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">About Dream Wedding Builder</h1>
-      <p className="mt-6 max-w-3xl text-xl leading-9 text-charcoal/70">Dream Wedding Builder publishes wedding planning guides and sells {products.length} editable planning files. It is an independent digital publisher: it takes no vendor commissions for placement, it does not broker introductions to venues or suppliers, and nothing on these sites is a paid listing.</p>
+      <h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">About Dream Wedding</h1>
+      <p className="mt-6 max-w-3xl text-xl leading-9 text-charcoal/70">Dream Wedding publishes wedding planning guides and sells {products.length} editable planning files. It is an independent digital publisher: it takes no vendor commissions for placement, it does not broker introductions to venues or suppliers, and nothing on these sites is a paid listing.</p>
     </header>
 
     <section className="rounded-[12px] bg-linen p-7 md:p-9">

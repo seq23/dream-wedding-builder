@@ -10,7 +10,7 @@ export function BookKitPage({ kit }: { kit: BookKit }) {
   const buy = () => <CheckoutButton sku={kit.sku} price={kit.price} label={`Get ${kit.short} — $${kit.price}`} />;
   return <div className="space-y-14 pb-24">
     <section className="rounded-[12px] border border-charcoal/10 bg-white p-6 shadow-soft md:p-10">
-      <p className="text-xs font-bold uppercase tracking-[.28em] text-charcoal/50">A Dream Wedding Builder printable kit</p>
+      <p className="text-xs font-bold uppercase tracking-[.28em] text-charcoal/50">A Dream Wedding printable kit</p>
       <h1 className="mt-4 font-serif text-5xl leading-[1.02] md:text-6xl">{kit.name}</h1>
       <p className="mt-3 font-serif text-2xl italic">{kit.headline}</p>
       <p className="definition mt-5 max-w-2xl text-lg leading-8 text-charcoal/75">{kit.promise}</p>

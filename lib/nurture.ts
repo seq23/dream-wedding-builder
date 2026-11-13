@@ -125,11 +125,11 @@ export const WELCOME: Step = {
   heading: 'Thanks for opening the free wedding planner.',
   paragraphs: [
     'Your plan is saved in the browser you used, not on our servers, so go back on the same phone or computer to pick up where you left off.',
-    'If you would like the full plan, the Wedding Checklist PDF is $9: about 100 tasks dated from your wedding date, with final payments, ready to print, plus a 13-page printable PDF and an editable spreadsheet.'
+    'If you would like every task, the Wedding Checklist PDF is $9: about 100 tasks dated from your wedding date, with final payments, ready to print, plus a 13-page printable PDF and an editable spreadsheet.'
   ],
   link: { label: 'Open the free wedding planner', url: `${SITE}/free-wedding-planner` },
   cta: { label: 'Get the Wedding Checklist PDF, $9', url: `${SITE}/products/checklist-pdf` },
-  reason: 'You are getting this because you opened the free wedding planner and agreed to emails from Dream Wedding Builder.'
+  reason: 'You are getting this because you opened the free wedding planner and agreed to emails from Dream Wedding.'
 };
 
 export const REVIEW_ASK: Step = {
@@ -166,7 +166,7 @@ const esc = (v: string) => v.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 
 /** One marketing email, html + text, with the unsubscribe link and the mailing address in both. */
 export function renderEmail(step: Step, unsubscribe: string) {
-  const footer = step.reason ?? `You are getting this because you asked for a free sample or bought from Dream Wedding Builder.`;
+  const footer = step.reason ?? `You are getting this because you asked for a free sample or bought from Dream Wedding.`;
   const [first, ...rest] = step.paragraphs;
   const para = (p: string) => `<p>${esc(p)}</p>`;
   const linkHtml = step.link ? `<p><a href="${esc(step.link.url)}" style="color:#2747D9;font-weight:700">${esc(step.link.label)} &rsaquo;</a></p>` : '';

@@ -32,10 +32,10 @@ export const metadata = seoMetadata({
 export default function Privacy() {
   return (
     <article className="mx-auto max-w-3xl">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/50">Dream Wedding Builder product family</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/50">Dream Wedding product family</p>
       <h1 className="mt-4 font-serif text-6xl">Privacy</h1>
       <p className="mt-6 text-lg leading-8 text-charcoal/70">
-        This page describes what the four Dream Wedding Builder sites actually store and send. There are no accounts and no
+        This page describes what the four Dream Wedding sites actually store and send. There are no accounts and no
         login for the planning tools. The planner opens without an email; it asks for one only to print your plan or to use the free AI draft. Where something leaves your browser, it is named below along with the service that
         receives it.
       </p>
