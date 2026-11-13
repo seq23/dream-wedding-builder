@@ -58,6 +58,8 @@ export function wishText(plan: VenueFitInput): string {
 }
 
 const DESTINATION = /\bdestination\b|\babroad\b|\boverseas\b|\bitaly\b|\btuscany\b|\bamalfi\b|\blake como\b|\bfrance\b|\bprovence\b|\bspain\b|\bportugal\b|\bgreece\b|\beurope\b|\bmexico\b|\bcaribbean\b|\bjamaica\b|\bbahamas\b|\bhawaii\b|\bbali\b/;
+/** True when her own words name a destination wedding or a place the rule counts as one. */
+export function isDestination(text: string): boolean { return DESTINATION.test(text.toLowerCase()); }
 const OUTDOOR = /\boutdoors?\b|\boutside\b|\bgarden\b|\bbackyard\b|\bpark\b|\bfarm\b|\branch\b|\bbeach\b|\bvineyard\b|\btent(ed)?\b|\bopen[- ]air\b|\bunder the stars\b/;
 const INDOOR = /\bindoors?\b|\bballroom\b|\binside\b|\bloft\b|\bhall\b|\bmuseum\b|\bgallery\b/;
 const LIVE_MUSIC = /\bband\b|\blive music\b|\bdj\b|\bdance floor\b|\bdancing\b/;
@@ -74,7 +76,7 @@ export function rankVenueTypes(plan: VenueFitInput, types: VenueType[]): VenueRa
   const shown: (VenueFit & { score: number })[] = [];
   const hidden: VenueRanking['hidden'] = [];
   for (const venue of types) {
-    if (venue.destination && !destination) { hidden.push({ venue, reason: 'for destination weddings; you have not said yours is one' }); continue; }
+    if (venue.destination && !destination) { hidden.push({ venue, reason: 'for destination weddings; if yours is one, add the word “destination” to your town or area' }); continue; }
     if (guests && guests > venue.maxGuests) { hidden.push({ venue, reason: `most hold up to ${venue.maxGuests} guests; you have ${guests}` }); continue; }
     const reasons: string[] = [];
     let level: VenueFit['level'] = 'fits';

@@ -141,7 +141,7 @@ function BuildPage() {
   // The planner renders only on weddingchecklistpdf.com; the three sibling products
   // are linked at their own host so the click is not a cross-host 308.
   const workingFiles = [
-    { id: 'checklist-pdf', name: 'Wedding Checklist PDF', price: 9, route: '/products/checklist-pdf', reason: 'Your full plan with every task dated from your wedding day, ready to print, plus the checklist files.' },
+    { id: 'checklist-pdf', name: 'Wedding Checklist PDF', price: 9, route: '/products/checklist-pdf', reason: 'Every task dated from your wedding day, ready to print, plus the checklist files.' },
     { id: 'budget-spreadsheet', name: 'Wedding Budget Spreadsheet', price: 12, route: 'https://weddingbudgetspreadsheet.com/products/budget-spreadsheet', reason: budget.budget ? `A spreadsheet for tracking your ${money(Math.min(budget.budget, budget.limit))} against quotes, deposits and the fees venues leave off.` : 'A spreadsheet for tracking quotes, deposits and the fees venues leave off.' },
     { id: 'timeline-template', name: 'Wedding Timeline Template', price: 12, route: 'https://weddingtimelinetemplate.com/products/timeline-template', reason: 'The wedding day itself, hour by hour, with vendor arrival and pack-up times.' },
     { id: 'seating-chart-maker', name: 'Wedding Seating Chart Maker', price: 19, route: 'https://weddingseatingchartmaker.com/products/seating-chart-maker', reason: budget.guests ? `Your ${budget.guests} guests arranged into tables.` : 'Your guests arranged into tables, once you know the count.' }
@@ -165,7 +165,7 @@ function BuildPage() {
     <header>
       <Badge>Free wedding planner</Badge>
       <h1 className="mt-4 font-serif text-[40px] leading-[42px] md:text-6xl md:leading-tight">Build the wedding around reality, not generic inspiration.</h1>
-      <p data-testid="planner-promise" className="mt-4 text-lg leading-8 text-charcoal/70">No account, no app and no email needed to see your plan. Add your date and your dated checklist is on this page; it saves in this browser by itself.</p>
+      <p data-testid="planner-promise" className="mt-4 text-lg leading-8 text-charcoal/70">No account, no app and no email needed to see your plan. Add your date and your dated checklist is on this page; it saves in this browser by itself. Email is asked in two places only: the free AI draft (one draft per email) and the printable copy of your plan.</p>
     </header>
 
     <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar.</p></div>}>
@@ -257,7 +257,7 @@ function BuildPage() {
               <button type="button" data-testid={`select-venue-${venue.id}`} aria-pressed={active} onClick={() => toggleVenue(venue.id)} className="mt-3 min-h-11 w-full rounded-2xl border border-charcoal/25 bg-white px-4 py-2 text-sm font-bold">{active ? '✓ On your shortlist (tap to remove)' : '+ Add to your shortlist'}</button>
             </div>;
           })}</div>
-          {ranking.hidden.length > 0 && <p data-testid="venue-hidden" className="mt-4 text-sm leading-6 text-charcoal/70">Left out: {ranking.hidden.map(item => `${item.venue.name} (${item.reason})`).join('; ')}.</p>}
+          {ranking.hidden.length > 0 && <p data-testid="venue-hidden" className="mt-4 text-sm leading-6 text-charcoal/70">Not shown yet: {ranking.hidden.map(item => `${item.venue.name} (${item.reason})`).join('; ')}.</p>}
           <div data-testid="selected-venue-summary" className="mt-4 rounded-2xl bg-ivory p-4 text-sm font-semibold">Your shortlist: {chosenVenues.length ? chosenVenues.map(v => v.name).join(' · ') : 'Not decided yet'}</div>
           <p className="mt-3 text-xs leading-5 text-charcoal/60">These are kinds of venue, not named venues, and sizes are typical for the kind. Nothing here checks prices or open dates.</p>
         </Card>
@@ -309,8 +309,8 @@ function BuildPage() {
             })}
           </More>
           {(design.use.length > 0 || design.avoid.length > 0) && <div data-testid="vibe-translator-output" className="rounded-2xl bg-ivory p-4 text-sm leading-6">
-            {design.use.length > 0 && <p>Tell your vendors: {design.use.join(' · ')}.</p>}
-            {design.avoid.length > 0 && <p>Ask them to avoid: {design.avoid.join(' · ')}.</p>}
+            {design.use.length > 0 && <p>Your words, ready to copy into a message to a florist, venue or photographer: {design.use.join(' · ')}.</p>}
+            {design.avoid.length > 0 && <p>And what to ask them to avoid: {design.avoid.join(' · ')}.</p>}
           </div>}
         </Card>
       </StepFold>

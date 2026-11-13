@@ -88,16 +88,16 @@ test('plan overview dates public locked rows, routes to upgrade and keeps overdu
   const { FULL_PLAN_TEASER } = await import('@core/full-plan-teaser');
   const wedding = '2027-06-12';
   for (const window of PLAN_WINDOWS) {
-    const rows = lockedPlanRows(wedding, window.id);
+    const rows = lockedPlanRows(wedding, window.id, '2025-01-01');
     assert.equal(rows.length, 2);
     assert.deepEqual(rows.map(r => r.text), FULL_PLAN_TEASER[window.id].map(r => r.text));
     rows.forEach((row, i) => {
       assert.equal(row.dueOn, isoDay(addDays(parseDay(wedding)!, -FULL_PLAN_TEASER[window.id][i].daysBefore)));
       assert.equal(row.href, '/more/full-plan');
     });
-    assert.notEqual(lockedPlanRows('2028-06-12', window.id)[0].dueOn, rows[0].dueOn);
+    assert.notEqual(lockedPlanRows('2028-06-12', window.id, '2025-01-01')[0].dueOn, rows[0].dueOn);
   }
-  assert.deepEqual(lockedPlanRows('', '12-plus'), []);
+  assert.deepEqual(lockedPlanRows('', '12-plus', '2025-01-01'), []);
   let progress = addOwnTask(emptyProgress(), '12-plus', 'Call family', 'overdue');
   const plan = buildDatedPlan(wedding, '2026-11-06');
   const overview = planOverview(progress, plan);

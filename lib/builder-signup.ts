@@ -7,7 +7,7 @@ export const BUILDER_ACCESS_KEY = 'dwb-builder-access';
 export const BUILDER_EMAIL_KEY = 'dwb-builder-email';
 
 export const CONSENT_TEXT =
-  'Email me wedding planning tips and occasional offers from Dream Wedding Builder. I can unsubscribe at any time.';
+  'Email me wedding planning tips and occasional offers from Dream Wedding. I can unsubscribe at any time.';
 
 /**
  * What the couple agrees to before their sentence leaves the site (Apple 5.1.2:

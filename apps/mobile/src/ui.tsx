@@ -4,17 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router, type Href } from 'expo-router';
 import { color, radius, space, type } from './theme';
 import { byRoute } from './screens';
-import { BackButton, goHome, useBackKeys } from './nav';
-import { HOME } from './screens';
+import { BackButton, useBackKeys } from './nav';
 
-// The shell every scaffold screen uses: what Codex builds here, and the screen's buttons
-// from the map. Inside a tab the header (src/nav.tsx) carries the title and Back or Close,
+// The shell every screen uses. Inside a tab the header (src/nav.tsx) carries the title and Back or Close,
 // and the tab bar stays below. Onboarding has no header, so its Back and Skip are drawn here.
-export function PlannedScreen({ route, children, implemented = false }: { route: string; children?: React.ReactNode; implemented?: boolean }) {
+export function PlannedScreen({ route, children }: { route: string; children?: React.ReactNode }) {
   const s = byRoute(route);
   useBackKeys(route);
   const onboarding = s.kind === 'onboarding';
-  const skip = implemented ? undefined : s.links.find(l => l.label === 'Skip ›');
   const body = (
     <ScrollView contentContainerStyle={{ padding: space[4], gap: space[4] }}>
       {onboarding ? (
@@ -22,17 +19,9 @@ export function PlannedScreen({ route, children, implemented = false }: { route:
           {s.back ? <BackButton route={route} />
             : router.canGoBack() ? <TextButton label="← Back" onPress={() => router.back()} />
             : <Text style={[type.label, { color: color.midnightMuted }]}>Dream Wedding</Text>}
-          {skip ? <TextButton label={skip.label} onPress={goHome} /> : null}
         </View>
       ) : null}
-      {onboarding && !implemented ? <Text accessibilityRole="header" style={[type.title, { color: color.midnight }]}>{s.title}</Text> : null}
-      {!implemented ? <View style={{ backgroundColor: color.ivoryRaised, borderColor: color.rule, borderWidth: 1, borderRadius: radius.md, padding: space[4] }}>
-        <Text style={[type.body, { color: color.midnight }]}>{s.coming}</Text>
-      </View> : null}
       {children}
-      {!implemented && s.links.filter(l => l !== skip).map((l, i) => onboarding && l.href === HOME
-        ? <ActionButton key={l.label} label={l.label} primary={i === 0} onPress={goHome} />
-        : <GoButton key={l.href + l.label} href={l.href} label={l.label} primary={i === 0} />)}
     </ScrollView>
   );
   return onboarding
@@ -54,14 +43,6 @@ function TextButton({ label, onPress }: { label: string; onPress: () => void }) 
 
 const buttonStyle = (primary: boolean) => ({ minHeight: 48, borderRadius: radius.md, borderWidth: 1.5, borderColor: primary ? color.blue : color.midnight,
   backgroundColor: primary ? color.blue : color.ivoryRaised, alignItems: 'center' as const, justifyContent: 'center' as const, paddingHorizontal: space[5] });
-
-function ActionButton({ label, primary = false, onPress }: { label: string; primary?: boolean; onPress: () => void }) {
-  return (
-    <Pressable accessibilityRole="button" onPress={onPress} style={buttonStyle(primary)}>
-      <Text style={[type.button, { color: primary ? color.onBlue : color.midnight }]}>{label}</Text>
-    </Pressable>
-  );
-}
 
 export function GoButton({ href, label, primary = false }: { href: string; label: string; primary?: boolean }) {
   return (

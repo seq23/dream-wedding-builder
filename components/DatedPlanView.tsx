@@ -100,7 +100,7 @@ export function DatedPlanView({ weddingDate, compact = false, readOnly = false }
           // The count is the paid list's real count for this window; without it, no number is shown.
           const more = fullCounts?.byWindow[window.id] ? fullCounts.byWindow[window.id] - window.tasks.length : 0;
           return <div data-testid="full-plan-locked" className="no-print mt-2 rounded-xl border border-dashed border-charcoal/25 p-3 text-sm text-charcoal/55">
-            <p className="font-semibold text-charcoal/75">{more > 0 ? `+${more} more in the full plan` : 'More in the full plan'}, such as:</p>
+            <p className="font-semibold text-charcoal/75">{more > 0 ? `+${more} more in the $9 Wedding Checklist` : 'More in the $9 Wedding Checklist'}, such as:</p>
             <ul className="mt-1 grid gap-1">{FULL_PLAN_TEASER[window.id].map(task => <li key={task.text} data-testid="full-plan-locked-task"><span aria-hidden="true">🔒 </span>{(() => { const date = taskDate(weddingDate, task.daysBefore) ?? window.endsOn; return date < today ? 'Now' : plainDate(date); })()}: {task.text}</li>)}</ul>
           </div>;
         })() : null}

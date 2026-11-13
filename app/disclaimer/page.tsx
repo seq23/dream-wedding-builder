@@ -4,7 +4,7 @@ import { PARENT_HOST } from '@/lib/site-config';
 import { Card } from '@/components/Card'; import { disclaimers } from '@/data/disclaimers';
 export const metadata = seoMetadata({
   title: 'Disclaimer',
-  description: 'What Dream Wedding Builder guides and products can and cannot tell you: estimates and templates organize a plan; they are not legal, dietary, or safety advice.',
+  description: 'What Dream Wedding guides and products can and cannot tell you: estimates and templates organize a plan; they are not legal, dietary, or safety advice.',
   host: PARENT_HOST,
   path: '/disclaimer'
 });

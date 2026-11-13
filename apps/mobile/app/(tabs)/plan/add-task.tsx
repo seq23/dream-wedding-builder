@@ -30,7 +30,7 @@ export default function AddTask() {
     } catch { setError('Could not save your task. Try again.'); }
     finally { setBusy(false); }
   }
-  return <PlannedScreen route="/plan/add-task" implemented>
+  return <PlannedScreen route="/plan/add-task">
     <Text style={type.section}>{id ? 'Edit your task' : 'Add your own task'}</Text>
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     <Text nativeID="task-label" style={type.label}>Task · {text.length}/140</Text>

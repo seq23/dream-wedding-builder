@@ -22,7 +22,7 @@ function loadTurnstile(): Promise<TurnstileApi> {
 }
 
 const SAMPLE_PDF = '/samples/wedding-checklist-sample.pdf';
-const SAMPLE_CONSENT = 'Email me the free sample, then a few short planning emails about the Dream Wedding Builder tools (one every few days at most). I can unsubscribe at any time.';
+const SAMPLE_CONSENT = 'Email me the free sample, then a few short planning emails about the Dream Wedding tools (one every few days at most). I can unsubscribe at any time.';
 
 // Free sample -> email -> paid (lib/nurture.ts). Three real pages of the Wedding
 // Checklist PDF for a typed-in address. The page also shows the PDF link once the

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Linking, Pressable, Text, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { localToday } from '@core/dated-plan';
 import { aiDraftClient } from '../../../src/aiDraft';
 import { detailLabels, detailStore, initialDetails, reviewFields, type Details } from '../../../src/draftReview';
 import { savedDate } from '../../../src/savedDate';
@@ -39,27 +38,27 @@ export default function AiDraft() {
       const next = { ...fields, ...selected };
       if (selected.weddingDate !== undefined) await savedDate.save(selected.weddingDate);
       await store.save(next);
-      setFields(next); setUndo(previous); setReview(null); setMessage('Your planning details are saved. Your dated plan uses the wedding date.');
+      setFields(next); setUndo(previous); setReview(null); setMessage('Saved. Go back to your plan to see them on your tasks.');
     } catch (error) { setMessage(error instanceof Error ? error.message : 'Could not save your details. Try again.'); }
     finally { setBusy(false); }
   }
   const button = (label: string, action: () => void, disabled = false) => <Pressable accessibilityRole="button" accessibilityState={{ disabled }} disabled={disabled || busy} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: disabled || busy ? color.midnightMuted : color.blue }]}>{label}</Text></Pressable>;
   const box = (label: string, checked: boolean, action: () => void) => <Pressable accessibilityRole="checkbox" accessibilityState={{ checked }} disabled={busy} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={type.body}>{checked ? '☑' : '☐'} {label}</Text></Pressable>;
-  return <PlannedScreen route="/plan/ai-draft" implemented>
-    <Text style={type.title}>{review ? 'Check your draft' : 'Your planning details'}</Text>
+  return <PlannedScreen route="/plan/ai-draft">
+    <Text style={type.title}>{review ? 'Check your draft' : 'Guests, place and budget'}</Text>
     {review ? <>
       <Text style={type.body}>Nothing has changed yet. Choose the details you want to keep.</Text>
       {(Object.keys(review) as (keyof Details)[]).map(key => <Pressable key={key} accessibilityRole="checkbox" accessibilityState={{ checked: !excluded.includes(key) }} disabled={busy} onPress={() => setExcluded(old => old.includes(key) ? old.filter(k => k !== key) : [...old, key])} style={{ minHeight: 48 }}><Text style={type.body}>{excluded.includes(key) ? '☐' : '☑'} {detailLabels[key]}: {review[key]}</Text></Pressable>)}
-      {button('Save selected details', () => save(Object.fromEntries(Object.entries(review).filter(([key]) => !excluded.includes(key)))), Object.keys(review).every(key => excluded.includes(key)))}
+      {button('Save the ticked details ›', () => save(Object.fromEntries(Object.entries(review).filter(([key]) => !excluded.includes(key)))), Object.keys(review).every(key => excluded.includes(key)))}
       {button('Discard draft', () => { setReview(null); setMessage(''); })}
     </> : <>
-      <Text style={type.body}>Fill in the form, or ask a free AI model for a first version you check before anything changes. Details stay on this phone unless you send a sentence.</Text>
+      <Text style={type.body}>What you add here shows on the tasks it affects: your guest count on the venue and caterer tasks, your place on the venue and license tasks, and your budget shared out across what you book. Everything is optional and stays on this phone.</Text>
       <Text style={type.label}>Wedding date (optional)</Text>
-      <WeddingDatePicker value={fields.weddingDate || localToday()} onChange={weddingDate => setFields(old => ({ ...old, weddingDate }))} />
-      {button('Date not set yet', () => setFields(old => ({ ...old, weddingDate: '' })))}
+      <WeddingDatePicker value={fields.weddingDate ?? ''} onChange={weddingDate => setFields(old => ({ ...old, weddingDate }))} />
+      {fields.weddingDate ? button('I don’t have a date yet: clear it ›', () => setFields(old => ({ ...old, weddingDate: '' }))) : null}
       {(['guestCount', 'locations', 'budgetTarget', 'priorities'] as const).map(key => <TextInput key={key} accessibilityLabel={`${detailLabels[key]} (optional)`} placeholder={`${detailLabels[key]} (optional)`} value={fields[key] ?? ''} editable={ready && !busy} maxLength={200} onChangeText={value => setFields(old => ({ ...old, [key]: value }))} style={{ minHeight: 48, borderWidth: 1, borderColor: color.rule, padding: space[3], color: color.midnight }} />)}
-      {button('Save details on this phone', () => save(fields), !ready)}
-      {button('Fill it from a sentence (free AI) ›', () => setHelper(!helper))}
+      {button('Save and show on my plan ›', () => save(fields), !ready)}
+      {button(helper ? 'Fill it in from a sentence (free AI) ▴' : 'Fill it in from a sentence (free AI) ▾', () => setHelper(!helper))}
       {helper ? <>
         <TextInput accessibilityLabel="Describe your wedding" placeholder="Describe your wedding" value={sentence} onChangeText={setSentence} editable={!busy} multiline maxLength={1600} style={{ minHeight: 96, borderColor: color.rule, borderWidth: 1, padding: space[3] }} />
         <TextInput accessibilityLabel="Email for the AI draft" placeholder="Email" value={email} onChangeText={setEmail} editable={!busy} keyboardType="email-address" autoCapitalize="none" style={{ minHeight: 48, borderColor: color.rule, borderWidth: 1, padding: space[3] }} />

@@ -13,12 +13,15 @@ import { type Paper, type PacketInput, type PacketWeek } from '../../../src/pack
 import { preparePacketOutput } from '../../../src/packetOutput';
 import { color, space, type } from '../../../src/theme';
 const preview = process.env.EXPO_PUBLIC_DW_PREVIEW === '1';
+import { partOfFullPlan } from '../../../src/build';
+import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 
 export default function Packet() {
   const [paper, setPaper] = useState<Paper>('Letter');
   const [names, setNames] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const price = useFullPlanPrice();
   async function send() {
     setBusy(true); setError('');
     let output: ReturnType<typeof preparePacketOutput> | undefined;
@@ -38,9 +41,11 @@ export default function Packet() {
     } catch (e) { output?.cancel(); setError(e instanceof Error ? e.message : 'Could not prepare your plan. Try again.'); }
     finally { setBusy(false); }
   }
-  return <PlannedScreen route="/more/packet" implemented>
-    <Text accessibilityRole="header" style={type.title}>Print or send my plan</Text>
-    <Text style={type.body}>{preview ? 'Sample full packet with fictional payment tasks.' : 'Your basic packet includes your free tasks and the tasks you have added. The full plan adds payments, wedding week and contacts.'}</Text>
+  return <PlannedScreen route="/more/packet">
+    <Text accessibilityRole="header" style={type.title}>A copy to print or send</Text>
+    <Text style={type.body}>Free: your dated tasks and the tasks you added, on paper or as a PDF.</Text>
+    <Text style={type.sub}>{partOfFullPlan(price)}: payments, your wedding week and vendor contacts on the same copy.</Text>
+    {preview ? <Text style={type.sub}>Sample: this preview prints the full-plan copy, with made-up payments, so you can see it.</Text> : null}
     <Text style={type.sub}>Made on this device. Nothing is uploaded. Choose who receives it in the share sheet.</Text>
     <Text style={type.body}>Names on the packet (optional)</Text>
     <TextInput accessibilityLabel="Names on the packet (optional)" maxLength={140} value={names} onChangeText={setNames} editable={!busy} style={[type.body,{ borderWidth: 1, borderColor: color.rule, padding: space[3] }]} />
@@ -49,6 +54,6 @@ export default function Packet() {
     </View>
     {Platform.OS === 'web' ? <Text style={type.sub}>Your browser opens printing. Choose Save as PDF to keep a file, and match the paper size above.</Text> : null}
     {error ? <Text accessibilityRole="alert" style={{color:color.redPen}}>{error}</Text> : null}
-    <Pressable accessibilityRole="button" accessibilityState={{ disabled: busy }} disabled={busy} onPress={() => { void send(); }} style={{ minHeight:48, alignItems:'center', justifyContent:'center', backgroundColor:color.blue, opacity:busy ? 0.5 : 1 }}><Text style={[type.button,{color:color.onBlue}]}>{busy ? 'Preparing your plan…' : 'Print or send my plan'}</Text></Pressable>
+    <Pressable accessibilityRole="button" accessibilityState={{ disabled: busy }} disabled={busy} onPress={() => { void send(); }} style={{ minHeight:48, alignItems:'center', justifyContent:'center', backgroundColor:color.blue, opacity:busy ? 0.5 : 1 }}><Text style={[type.button,{color:color.onBlue}]}>{busy ? 'Preparing your copy…' : 'Print or send ›'}</Text></Pressable>
   </PlannedScreen>;
 }

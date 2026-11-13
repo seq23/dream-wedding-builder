@@ -32,8 +32,8 @@ export function FullPlanCard() {
   const bundle = productById('operations-suite');
   if (!pdf || !bundle) return null;
   return <div data-testid="full-plan-card" className="no-print mt-6 rounded-[12px] border-2 border-charcoal bg-white p-5">
-    <p className="font-serif text-2xl leading-tight">Your full plan, dated and ready to print</p>
-    <p className="mt-2 text-sm leading-6 text-charcoal/70" data-testid="full-plan-line">The free plan dates {FREE_TASK_COUNT} core tasks. The full plan dates {counts ? `${counts.total} tasks` : 'every task'} from your wedding day, with wedding week{counts?.payments ? ` and ${counts.payments} payment tasks` : ' and final payments'}, and a suggested owner for each. It opens right after you pay, with the checklist files.</p>
+    <p className="font-serif text-2xl leading-tight">The Wedding Checklist: every task, dated and ready to print</p>
+    <p className="mt-2 text-sm leading-6 text-charcoal/70" data-testid="full-plan-line">Your free plan dates {FREE_TASK_COUNT} core tasks. The Wedding Checklist (${pdf.price}) dates {counts ? `${counts.total} tasks` : 'every task'} from your wedding day, with wedding week{counts?.payments ? ` and ${counts.payments} payment tasks` : ' and final payments'}, and a suggested owner for each. It opens right after you pay, with the checklist files.</p>
     <div className="mt-4 grid gap-3">
       <Link href={pdf.route} className="rounded-2xl bg-blue px-6 py-4 text-center font-bold text-white">Get the {pdf.name} — ${pdf.price} ›</Link>
       <Link href={bundle.route} className="rounded-2xl border-2 border-charcoal px-6 py-3 text-center font-bold">Get the {bundle.name} — ${bundle.price} ›</Link>

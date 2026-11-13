@@ -18,7 +18,7 @@ test('every planned screen has its route file', () => {
 });
 
 test('every route file is a planned screen (layouts and the start redirect aside)', () => {
-  const files = routes(join(root, 'app')).filter(f => !/(^|\/)_layout\.tsx$/.test(f) && f !== 'app/index.tsx' && f !== 'app/+native-intent.ts');
+  const files = routes(join(root, 'app')).filter(f => !/(^|\/)_layout\.tsx$/.test(f) && f !== 'app/index.tsx' && f !== 'app/+native-intent.ts' && f !== 'app/+not-found.tsx');
   assert.ok(files.length > 0, 'found route files');
   const planned = new Set(SCREENS.map(s => s.file));
   for (const f of files) assert.ok(planned.has(f), `${f} is not in src/screens.ts`);

@@ -8,6 +8,7 @@ import { useSharingRevision } from '../../../src/sharing/useSharing';
 import { inviteLink, SHARE_UNAVAILABLE } from '../../../src/sharing/crypto';
 import type { SharedEvent, ShareSession } from '../../../src/sharing/session';
 import { color, type, space } from '../../../src/theme';
+import { plainDate } from '@core/dated-plan';
 export default function Sharing() {
   const { invite } = useLocalSearchParams<{ invite?: string }>();
   const revision = useSharingRevision();
@@ -43,11 +44,11 @@ export default function Sharing() {
     finally { setBusy(false); sharingChanged(); }
   }
   const button = (label: string, run: () => void, primary = false) => <Pressable accessibilityRole="button" accessibilityState={{ disabled: busy }} disabled={busy} onPress={run} style={{ minHeight: 48, padding: space[3], justifyContent: 'center', backgroundColor: primary ? color.blue : color.ivory }}><Text style={[type.button, { color: primary ? color.onBlue : color.blue }]}>{label}</Text></Pressable>;
-  return <PlannedScreen route="/more/sharing" implemented>
+  return <PlannedScreen route="/more/sharing">
     {error ? <Text accessibilityRole="alert" style={type.body}>{error}</Text> : null}
     {!ready ? <Text style={type.body}>Opening sharing…</Text> : session ? <>
       <Text style={type.title}>{session.role === 'owner' ? 'Sharing is on' : 'Shared with you'}</Text>
-      <Text style={type.body}>🔒 {session.plan.event.name} · {session.plan.event.date}</Text>
+      <Text style={type.body}>🔒 {session.plan.event.name} · {plainDate(session.plan.event.date)}</Text>
       <Text style={type.sub}>{session.plan.joined ? 'Your partner joined' : 'Link ready to send'} · Last updated {new Date(session.syncedAt).toLocaleTimeString()}</Text>
       <Text style={type.body}>Ticks catch up when both phones are online. Payment amounts stay on each phone.</Text>
       {button('Sync now', () => void action('sync'))}
@@ -57,7 +58,7 @@ export default function Sharing() {
       </> : button('Leave this plan', () => void action('leave'))}
       <GoButton href="/plan" label="Back to my plan ›" />
     </> : event ? <>
-      <Text style={type.title}>Join this plan</Text><Text style={type.body}>🔒 {event.name}</Text><Text style={type.body}>{event.date}</Text>
+      <Text style={type.title}>Join this plan</Text><Text style={type.body}>🔒 {event.name}</Text><Text style={type.body}>{plainDate(event.date)}</Text>
       <Text style={type.body}>You will see the same tasks and payments. Ticks show on both phones. No account and nothing more to pay.</Text>
       {button('Join this plan', () => void action('join'), true)}
       {button('Not now', () => router.replace('/plan'))}
