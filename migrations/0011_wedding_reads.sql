@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS wedding_reads (
   outcome TEXT NOT NULL,
   model TEXT,
   photos INTEGER NOT NULL DEFAULT 0,
+  is_test INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS wedding_reads_ip_day ON wedding_reads (ip_hash, day);

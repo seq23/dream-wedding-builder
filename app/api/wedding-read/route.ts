@@ -28,7 +28,8 @@ export async function POST(req: NextRequest) {
     body,
     ip: req.headers.get('cf-connecting-ip') ?? req.headers.get('x-real-ip') ?? '',
     today: centralDay(),
-    salt: e.AI_DRAFT_SALT || e.DOWNLOAD_SIGNING_SECRET || ''
+    salt: e.AI_DRAFT_SALT || e.DOWNLOAD_SIGNING_SECRET || '',
+    isTest: req.headers.get('x-dw-test') === '1'
   });
   return json(result.body, result.status);
 }

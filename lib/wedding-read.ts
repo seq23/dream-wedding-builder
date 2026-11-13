@@ -49,6 +49,7 @@ export const WEDDING_READS_DDL = `CREATE TABLE IF NOT EXISTS wedding_reads (
   outcome TEXT NOT NULL,
   model TEXT,
   photos INTEGER NOT NULL DEFAULT 0,
+  is_test INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 )`;
 
@@ -412,6 +413,8 @@ export interface ReadInput {
   log?: (line: string) => void;
   /** Total time the model steps may take, so the page never hangs. */
   budgetMs?: number;
+  /** Our own checks (header x-dw-test: 1): counted like anyone, but left out of the scorecard. */
+  isTest?: boolean;
 }
 
 export type ReadResult = { status: 200; body: { ok: true; read: WeddingRead; /** null when the count was not read (switched off, no database). */ remaining: number | null; limit: number; reason: 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed' } };
@@ -485,7 +488,7 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
   const modelCallsToday = await count(`SELECT COUNT(*) AS n FROM wedding_reads WHERE day = ? AND (model LIKE 'gemini:%' OR model LIKE 'openrouter:%')`, input.today)
     + await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE day = ? AND (model LIKE 'gemini:%' OR model LIKE 'openrouter:%')`, input.today);
   // Reserve first, so two tabs at once cannot both spend the third answer.
-  const reserved = await db.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, photos) VALUES (?, ?, 'pending', ?) RETURNING id`).bind(ipHash, input.today, a.photos.filter(p => p.image).length).first<{ id: number }>();
+  const reserved = await db.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, photos, is_test) VALUES (?, ?, 'pending', ?, ?) RETURNING id`).bind(ipHash, input.today, a.photos.filter(p => p.image).length, input.isTest ? 1 : 0).first<{ id: number }>();
   const settle = (outcome: string, model: string | null) => db.prepare('UPDATE wedding_reads SET outcome = ?, model = ? WHERE id = ?').bind(outcome, model, reserved?.id ?? -1).run();
   const remaining = ANSWERS_PER_VISITOR_PER_DAY - used - 1;
   if (modelCallsToday >= MODEL_CALLS_PER_DAY_GLOBAL) {

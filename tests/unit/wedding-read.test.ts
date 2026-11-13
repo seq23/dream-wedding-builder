@@ -109,7 +109,7 @@ describe('the journey endpoint', () => {
 
   it('past the global daily ceiling: the fixed-list answer, no model asked', async () => {
     const { db, sqlite } = fakeD1();
-    sqlite.exec(`CREATE TABLE IF NOT EXISTS wedding_reads (id INTEGER PRIMARY KEY AUTOINCREMENT, ip_hash TEXT NOT NULL, day TEXT NOT NULL, outcome TEXT NOT NULL, model TEXT, photos INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`);
+    sqlite.exec(`CREATE TABLE IF NOT EXISTS wedding_reads (id INTEGER PRIMARY KEY AUTOINCREMENT, ip_hash TEXT NOT NULL, day TEXT NOT NULL, outcome TEXT NOT NULL, model TEXT, photos INTEGER NOT NULL DEFAULT 0, is_test INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`);
     const ins = sqlite.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, model) VALUES ('h', ?, 'ok', 'gemini:x')`);
     for (let i = 0; i < MODEL_CALLS_PER_DAY_GLOBAL; i++) ins.run(TODAY);
     const net = fakeNet({ gemini: () => geminiAnswer(good()) });
