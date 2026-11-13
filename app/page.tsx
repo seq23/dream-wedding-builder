@@ -46,14 +46,21 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
   <section className="overflow-hidden rounded-[12px] border border-charcoal/10 bg-white shadow-soft">
     <div className="grid min-[900px]:grid-cols-[1.05fr_.95fr]">
       <div className="flex flex-col p-5 md:p-8 xl:p-12">
-        <p className="inline-flex w-fit rounded-full bg-rose/20 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/70">The Wedding Checklist PDF · $9</p>
+        <p className="inline-flex w-fit rounded-full bg-rose/20 px-4 py-2 text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/70">Free planner · no email</p>
         <h1 className="mt-3 font-serif text-[40px] leading-[42px] sm:text-[52px] sm:leading-[1.02] min-[900px]:text-[48px] xl:text-[60px] xl:leading-[1.0]">The wedding checklist<br/>built around<br/><em className="font-normal">your actual date.</em></h1>
         <SiteDefinition host={HOST} className="mt-4 max-w-xl text-[15px] leading-[23px] sm:text-base sm:leading-7 text-charcoal/80" />
-        {/* The free planner button and the promise in one line sit straight after the answer paragraph, on a phone's first screen (hostile review, 10 Nov 2026: the button was under the fold at 390px). */}
-        {/* Design system order: the free planner is the one blue button, the $9 PDF second. */}
-        <a data-testid="home-planner-cta" href={PLANNER_ROUTE} className="mt-4 inline-flex min-h-12 w-full max-w-md items-center justify-center rounded-2xl bg-charcoal px-5 py-3.5 text-center text-base font-bold text-linen">Open the free wedding planner ›</a>
-        <p data-testid="home-planner-free-line" className="mt-2 max-w-md text-center text-[13px] font-semibold text-charcoal/70">Type your wedding date and your dated plan is on the page. No account, no app, no email.</p>
-        <div className="mt-4 max-w-md" data-testid="home-primary-cta"><CheckoutButton tone="secondary" sku={checklist.sku} price={checklist.price} label={`Get the Wedding Checklist PDF — $${checklist.price}`} productName={checklist.name}/></div>
+        {/* The free journey leads (owner, 13 Nov 2026: "the free journey leads; the $9 PDF moves below it"). Step 1's fork is here, on a phone's first screen; each card opens the planner on that fork. The H1 stays (Brand note). */}
+        <div data-testid="home-journey" className="mt-5 grid max-w-md gap-3 rounded-[12px] border border-rule bg-ivory p-4">
+          <p className="font-serif text-[1.65rem] leading-tight">What should your wedding feel like?</p>
+          <p className="text-sm text-charcoal/75">Free, with no account and no email. An AI planner describes your wedding, then what you keep becomes your dated plan.</p>
+          <div className="grid grid-cols-2 gap-2.5">
+            <a data-testid="home-fork-idea" href={`${PLANNER_ROUTE}#feel-idea`} className="flex min-w-0 flex-col gap-1 rounded-xl border-[1.5px] border-blue bg-white p-3.5 text-left"><b className="font-semibold">I have an idea</b><span className="text-sm text-midnight-muted">Say it in your own words ›</span></a>
+            <a data-testid="home-fork-dk" href={`${PLANNER_ROUTE}#feel-dk`} className="flex min-w-0 flex-col gap-1 rounded-xl border-[1.5px] border-blue bg-white p-3.5 text-left"><b className="font-semibold">I don’t know yet</b><span className="text-sm text-midnight-muted">Tap a few things you like ›</span></a>
+          </div>
+          <a data-testid="home-planner-cta" href={`${PLANNER_ROUTE}#your-date`} className="min-h-11 content-center text-sm font-semibold underline underline-offset-4">I already know what I want. Just give me my plan ›</a>
+        </div>
+        <p className="mt-6 text-xs font-bold uppercase tracking-[.2em] text-charcoal/45">Or get every task on paper</p>
+        <div className="mt-2 max-w-md" data-testid="home-primary-cta"><CheckoutButton tone="secondary" sku={checklist.sku} price={checklist.price} label={`Get the Wedding Checklist PDF — $${checklist.price}`} productName={checklist.name}/></div>
         <p className="mt-3 text-sm text-charcoal/55">{checklist.value_note}. Secure checkout by Stripe.</p>
         <p className="mt-6 max-w-xl text-[15px] leading-[23px] text-charcoal/70 sm:text-base sm:leading-7 md:text-lg md:leading-8">{checklist.promise}</p>
         <ul className="mt-5 grid gap-2 text-sm font-semibold text-charcoal/75">{checklist.features.slice(0, 4).map((f) => <li key={f}>✓ {f}</li>)}</ul>

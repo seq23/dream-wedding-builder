@@ -104,6 +104,9 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate }: { onFacts?
       if (Array.isArray(saved.picks)) setPicks(saved.picks);
       if (saved.answer?.read) { setAnswer(saved.answer); setStep(2); }
     }
+    // The home page's fork cards open the planner on that fork (#feel-idea, #feel-dk).
+    const fork = window.location.hash === '#feel-idea' ? 'idea' : window.location.hash === '#feel-dk' ? 'dk' : null;
+    if (fork) { setPath(fork); setStep(1); requestAnimationFrame(() => top.current?.scrollIntoView({ block: 'start' })); }
     loaded.current = true;
   }, []);
   useEffect(() => {

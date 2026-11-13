@@ -42,7 +42,16 @@ test('the printable plan asks for an email once, with an optional unticked marke
   await expect(page.getByTestId('pack-page')).toBeVisible();
 });
 
-test('homepage leads with the $9 checklist and its checkout form', async ({ page }) => {
+test('homepage leads with the free journey, and the $9 checklist and its checkout form sit below it', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await expect(page.getByTestId('home-journey')).toBeInViewport();
+  const journeyTop = (await page.getByTestId('home-journey').boundingBox())!.y;
+  expect((await page.getByTestId('home-primary-cta').boundingBox())!.y).toBeGreaterThan(journeyTop);
+  await page.getByTestId('home-fork-dk').click();
+  await expect(page).toHaveURL(/free-wedding-planner#feel-dk/);
+  await expect(page.getByTestId('fork-dk')).toHaveAttribute('aria-checked', 'true');
+  await expect(page.getByTestId('journey-picks')).toBeVisible();
   await page.goto('/');
   await expect(page).toHaveTitle(/Wedding Checklist PDF \(\$9\)/);
   const cta = page.getByTestId('home-primary-cta');
