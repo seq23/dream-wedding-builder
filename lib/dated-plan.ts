@@ -26,6 +26,8 @@ export interface PlanWindow {
 
 export interface DatedPlan {
   state: DateState;
+  /** Tasks that came from her picks in the free journey, shown as "Your pick". */
+  picks: string[];
   /** One plain line for the top of the plan. */
   headline: string;
   daysToGo: number | null;
@@ -133,8 +135,25 @@ function countdown(days: number): string {
   return `${days} days to go (about ${months} months).`;
 }
 
-export function buildDatedPlan(weddingDate: unknown, today: string = localToday()): DatedPlan {
-  const empty = { daysToGo: null, catchUp: [], windows: [], warning: null };
+/** Her picks and what she has already decided (lib/journey-picks.ts). */
+export interface PlanExtras { picks: { text: string; windowId: string }[]; venueBooked: boolean }
+
+/** A window's tasks once her journey is in: the venue task goes when the venue is booked, her picks are added at the end. */
+export function windowTasks(windowId: string, base: string[], extras?: PlanExtras): string[] {
+  const kept = extras?.venueBooked ? base.filter(t => t !== VENUE_BOOK_TASK) : base;
+  const mine = (extras?.picks ?? []).filter(p => p.windowId === windowId).map(p => p.text).filter(t => !kept.includes(t));
+  return [...kept, ...new Set(mine)];
+}
+// Read from the list itself, so renaming the task cannot leave a booked venue's task behind.
+const VENUE_BOOK_TASK = PLAN_WINDOWS.flatMap(w => w.tasks).find(t => /^Book the venue\b/.test(t)) ?? '';
+
+/** No date yet: the same windows and tasks, without dates. */
+export function undatedPlan(extras?: PlanExtras) {
+  return PLAN_WINDOWS.map(w => ({ id: w.id, label: w.label, tasks: windowTasks(w.id, w.tasks, extras) }));
+}
+
+export function buildDatedPlan(weddingDate: unknown, today: string = localToday(), extras?: PlanExtras): DatedPlan {
+  const empty = { daysToGo: null, catchUp: [], windows: [], warning: null, picks: (extras?.picks ?? []).map(p => p.text) };
   const raw = String(weddingDate ?? '').trim();
   if (!raw) return { state: 'none', headline: 'Add your wedding date to see this plan with real dates.', ...empty };
   const wedding = parseDay(raw);
@@ -152,12 +171,13 @@ export function buildDatedPlan(weddingDate: unknown, today: string = localToday(
     const start = w.fromMonths === Infinity ? null : edge(wedding, w.fromMonths);
     const endN = dayNumber(end);
     const todayN = dayNumber(now);
-    if (endN < todayN) { catchUp.push(...w.tasks); continue; }
+    const tasks = windowTasks(w.id, w.tasks, extras);
+    if (endN < todayN) { catchUp.push(...tasks); continue; }
     const startDay = start && dayNumber(start) > todayN ? start : now;
     const timing: PlanWindow['timing'] = dayNumber(startDay) <= todayN ? 'now' : 'later';
-    windows.push({ id: w.id, label: w.label, startsOn: isoDay(startDay), endsOn: isoDay(end), timing, tasks: w.tasks });
+    windows.push({ id: w.id, label: w.label, startsOn: isoDay(startDay), endsOn: isoDay(end), timing, tasks });
   }
   const warning = days > 3 * 366 ? `That is more than 3 years away (${plainDate(raw)}). If that is right, the first steps can wait; if not, check the year.` : null;
   const headline = countdown(days);
-  return { state: 'future', headline, daysToGo: days, catchUp, windows, warning };
+  return { state: 'future', headline, daysToGo: days, catchUp, windows, warning, picks: empty.picks };
 }

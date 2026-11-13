@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { BUDGETS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, type WeddingRead } from '@/lib/wedding-read-shared';
+import { JOURNEY_EVENT, JOURNEY_KEY, pickable, type JourneyPick } from '@/lib/journey-picks';
+import { undatedPlan } from '@/lib/dated-plan';
 
 // The free journey's steps 1 and 2 (approved sample, 13 Nov 2026): what should your
 // wedding feel like, then your wedding described. No account and no email. Photos are
@@ -9,7 +11,6 @@ import { BUDGETS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, type WeddingRead 
 // planner look at this photo", shrunk first, and is never stored by us. Everything
 // the server returns is rendered as plain React text, never as HTML.
 
-export const JOURNEY_KEY = 'dwb-blend';
 const STEPS = ['Tell us', 'See it', 'Keep', 'Plan'];
 const PHOTO_SIDE = 640;
 
@@ -19,7 +20,7 @@ interface Facts { where: string; guests: string; budget: string; tradition: stri
 interface Answer { read: WeddingRead; remaining: number | null; limit: number; reason: string }
 export interface JourneyFacts { where: string; guests: string; budget: string }
 
-function readSaved(): { path: Path; wish: string; season: string; setting: string; moods: string[]; facts: Facts; answer: Answer | null } | null {
+function readSaved(): { path: Path; wish: string; season: string; setting: string; moods: string[]; facts: Facts; answer: Answer | null; picks?: JourneyPick[] } | null {
   try { const raw = localStorage.getItem(JOURNEY_KEY); return raw ? JSON.parse(raw) : null; } catch { return null; }
 }
 
@@ -64,8 +65,24 @@ function Swatches({ colours }: { colours: { name?: string; hex: string }[] }) {
 const MONO = 'font-mono text-xs uppercase tracking-[.08em] text-midnight-muted';
 const INPUT = 'min-h-11 w-full rounded-xl border border-rule bg-white p-3 text-base';
 
-export function WeddingJourney({ onFacts }: { onFacts?: (facts: JourneyFacts) => void }) {
-  const [step, setStep] = useState<1 | 2>(1);
+const REACH_KEY = 'dwb-blend-reach';
+/** Counts, once a day per browser, that a bride who began at step 1 reached her plan (the scorecard's result). */
+function countReach(via: 'date' | 'no_date') {
+  try { const day = new Date().toISOString().slice(0, 10); if (localStorage.getItem(REACH_KEY) === day) return; localStorage.setItem(REACH_KEY, day); } catch { /* still count */ }
+  void fetch('/api/journey-reach', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ via }), keepalive: true }).catch(() => undefined);
+}
+
+function PickButton({ on, label, sub, onClick }: { on: boolean; label: string; sub: string; onClick: () => void }) {
+  return <button type="button" data-testid="journey-pick" aria-pressed={on} onClick={onClick} className={`flex w-full flex-col gap-1 rounded-xl border bg-white p-3 text-left ${on ? 'border-blue shadow-[inset_0_0_0_1px_#2747D9]' : 'border-rule'}`}>
+    {label ? <b className="font-semibold">{label}</b> : null}<span className="text-[.94rem]">{sub}</span>
+    {on ? <span className="font-mono text-[.72rem] uppercase tracking-[.06em] text-done">✓ Kept</span> : null}
+  </button>;
+}
+
+export function WeddingJourney({ onFacts, weddingDate = '', onDate }: { onFacts?: (facts: JourneyFacts) => void; weddingDate?: string; onDate?: (date: string) => void }) {
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [picks, setPicks] = useState<JourneyPick[]>([]);
+  const [noDate, setNoDate] = useState(false);
   const [path, setPath] = useState<Path>(null);
   const [wish, setWish] = useState('');
   const [season, setSeason] = useState('');
@@ -84,14 +101,16 @@ export function WeddingJourney({ onFacts }: { onFacts?: (facts: JourneyFacts) =>
     if (saved) {
       setPath(saved.path ?? null); setWish(saved.wish ?? ''); setSeason(saved.season ?? ''); setSetting(saved.setting ?? ''); setMoods(Array.isArray(saved.moods) ? saved.moods : []);
       if (saved.facts) setFacts(f => ({ ...f, ...saved.facts }));
+      if (Array.isArray(saved.picks)) setPicks(saved.picks);
       if (saved.answer?.read) { setAnswer(saved.answer); setStep(2); }
     }
     loaded.current = true;
   }, []);
   useEffect(() => {
     if (!loaded.current) return;
-    try { localStorage.setItem(JOURNEY_KEY, JSON.stringify({ path, wish, season, setting, moods, facts, answer })); } catch { /* a private window: the journey still works, it just is not kept */ }
-  }, [path, wish, season, setting, moods, facts, answer]);
+    try { localStorage.setItem(JOURNEY_KEY, JSON.stringify({ path, wish, season, setting, moods, facts, answer, picks })); } catch { /* a private window: the journey still works, it just is not kept */ }
+    window.dispatchEvent(new Event(JOURNEY_EVENT));
+  }, [path, wish, season, setting, moods, facts, answer, picks]);
 
   const addPhoto = async (file: File | undefined) => {
     if (!file || photos.length >= 3 || !file.type.startsWith('image/')) return;
@@ -114,6 +133,7 @@ export function WeddingJourney({ onFacts }: { onFacts?: (facts: JourneyFacts) =>
       const body = await res.json().catch(() => null);
       if (!res.ok || !body?.ok) { setProblem(body?.error ?? 'That did not go through. Please try again.'); return; }
       setAnswer({ read: body.read, remaining: body.remaining, limit: body.limit, reason: body.reason });
+      setPicks([]);
       setStep(2);
       requestAnimationFrame(() => top.current?.scrollIntoView({ block: 'start' }));
     } catch {
@@ -121,9 +141,14 @@ export function WeddingJourney({ onFacts }: { onFacts?: (facts: JourneyFacts) =>
     } finally { setBusy(false); }
   };
 
-  const toPlan = () => document.getElementById('your-date')?.scrollIntoView({ block: 'start' });
-  const photoSwatches = photos.flatMap(p => p.colours).slice(0, 8).map(hex => ({ hex }));
   const read = answer?.read;
+  const toPlan = () => document.getElementById('your-date')?.scrollIntoView({ block: 'start' });
+  const goTo = (n: 1 | 2 | 3 | 4) => { setStep(n); requestAnimationFrame(() => top.current?.scrollIntoView({ block: 'start' })); };
+  const togglePick = (p: JourneyPick) => setPicks(list => list.some(x => x.key === p.key) ? list.filter(x => x.key !== p.key) : [...list, p]);
+  const chooseDate = (date: string) => { onDate?.(date); setNoDate(false); if (date && answer) countReach('date'); };
+  const chooseNoDate = () => { setNoDate(true); if (answer) countReach('no_date'); };
+  const groups = read ? pickable(read, facts.venueBooked) : null;
+  const photoSwatches = photos.flatMap(p => p.colours).slice(0, 8).map(hex => ({ hex }));
 
   return <section id="ai-draft" ref={top} data-testid="journey" data-step={step} className="scroll-mt-24 grid gap-5">
     <div aria-hidden className="grid gap-1.5">
@@ -199,7 +224,7 @@ export function WeddingJourney({ onFacts }: { onFacts?: (facts: JourneyFacts) =>
       <h2 className="font-serif text-2xl">Two directions</h2>
       <div className="grid gap-2">{read.directions.map(d => <div key={d.name} className="rounded-xl border border-rule bg-white p-3"><b>{d.name}</b><br />{d.what}</div>)}</div>
       {facts.venueBooked ? <p data-testid="read-venue-booked" className="rounded-xl border border-rule bg-white p-3">You said your venue is booked, so no venue types are suggested.</p>
-        : read.venueTypes.length > 0 && <div data-testid="read-venues"><h2 className="font-serif text-2xl">Places near you that carry this feel</h2><ul className="mt-2 grid list-disc gap-2 pl-5">{read.venueTypes.map(v => <li key={v.id}><b>{v.name}.</b> {v.why}</li>)}</ul><p className="mt-2 text-sm text-midnight-muted">Kinds of place to look for, not named venues.</p></div>}
+        : read.venueTypes.length > 0 && <div data-testid="read-venues"><h2 className="font-serif text-2xl">{facts.where.trim() ? 'Places near you that carry this feel' : 'Kinds of place that carry this feel'}</h2><ul className="mt-2 grid list-disc gap-2 pl-5">{read.venueTypes.map(v => <li key={v.id}><b>{v.name}.</b> {v.why}</li>)}</ul><p className="mt-2 text-sm text-midnight-muted">Kinds of place to look for, not named venues.</p></div>}
       {read.ideas.length > 0 && <div data-testid="read-ideas"><h2 className="font-serif text-2xl">Ideas that fit</h2><p className="text-sm text-midnight-muted">Chosen from our 175 standout ideas, from what you told us.</p>
         <ul className="mt-2 grid list-disc gap-2 pl-5">{read.ideas.map(i => <li key={i.id} data-testid={`read-idea-${i.id}`}><b>{i.name}</b> <span className="font-mono text-[.68rem] uppercase tracking-[.05em] text-midnight-muted">{i.cost}</span><br />{i.why}</li>)}</ul></div>}
       {read.ask.length > 0 && <div><h2 className="font-serif text-2xl">What to ask</h2><ul className="mt-2 grid list-disc gap-2 pl-5">{read.ask.map(q => <li key={q}>{q}</li>)}</ul></div>}
@@ -209,8 +234,46 @@ export function WeddingJourney({ onFacts }: { onFacts?: (facts: JourneyFacts) =>
         : answer?.reason === 'visitor_limit'
           ? 'You have used today’s three AI answers, so this one comes from our fixed lists, without AI. More tomorrow.'
           : 'The free AI planner could not answer just now, so this comes from our fixed lists, without AI.'}</p>
-      <button type="button" data-testid="journey-to-plan" onClick={toPlan} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">Continue to your dated plan ›</button>
-      <button type="button" data-testid="journey-change" onClick={() => { setStep(1); requestAnimationFrame(() => top.current?.scrollIntoView({ block: 'start' })); }} className="min-h-11 justify-self-start font-medium underline underline-offset-4">‹ Change my answers{typeof answer?.remaining === 'number' ? ` (${answer.remaining} of ${answer.limit} left today)` : ''}</button>
+      <button type="button" data-testid="journey-continue-2" onClick={() => goTo(3)} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">Continue · step 2 of 4 ›</button>
+      <button type="button" data-testid="journey-change" onClick={() => goTo(1)} className="min-h-11 justify-self-start font-medium underline underline-offset-4">‹ Change my answers{typeof answer?.remaining === 'number' ? ` (${answer.remaining} of ${answer.limit} left today)` : ''}</button>
+    </div>}
+
+    {step === 3 && read && groups && <div className="grid gap-5" data-testid="journey-step-3">
+      <p className={MONO}>Keep what you love</p>
+      <h1 className="font-serif text-[2.05rem] leading-[1.12] md:text-5xl">Tap what belongs in your wedding.</h1>
+      {([['The direction', groups.directions], ['The kind of place', groups.venues], ['The ideas', groups.ideas], ['The details', groups.details]] as const).map(([title, items]) => items.length > 0 && <div key={title} className="grid gap-2">
+        <h2 className="font-serif text-2xl">{title}</h2>
+        {items.map(item => <PickButton key={item.pick.key} on={picks.some(p => p.key === item.pick.key)} label={item.label} sub={item.sub} onClick={() => togglePick(item.pick)} />)}
+      </div>)}
+      <p className="text-sm text-midnight-muted">Each one you keep becomes a dated task in your plan, marked “Your pick”.{facts.venueBooked ? ' Your venue is booked, so the venue task comes off your plan.' : ''}</p>
+      <button type="button" data-testid="journey-continue-3" onClick={() => goTo(4)} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">Continue · step 3 of 4 ›</button>
+      <button type="button" onClick={() => goTo(2)} className="min-h-11 justify-self-start font-medium underline underline-offset-4">‹ Back to my wedding</button>
+    </div>}
+
+    {step === 4 && read && <div className="grid gap-5" data-testid="journey-step-4">
+      <p className={MONO}>Your dated plan</p>
+      <h1 className="font-serif text-[2.05rem] leading-[1.12] md:text-5xl">When is it?</h1>
+      <label className="grid gap-2 font-medium" htmlFor="journey-date">Wedding date
+        <input id="journey-date" data-testid="journey-date" type="date" value={weddingDate} onChange={e => chooseDate(e.target.value)} className={`${INPUT} max-w-xs`} />
+      </label>
+      {!weddingDate && <button type="button" data-testid="journey-no-date" onClick={chooseNoDate} className="min-h-11 justify-self-start font-medium underline underline-offset-4">I don’t have a date yet ›</button>}
+      {weddingDate ? <div className="grid gap-3" data-testid="journey-dated">
+        <h2 className="font-serif text-2xl">{picks.length ? `Your plan, with ${picks.length} of your picks in it` : 'Your plan'}</h2>
+        <p>Every task is placed on your calendar below{picks.length ? ', with your picks marked “Your pick”' : ''}. It saves in this browser by itself.</p>
+        <button type="button" data-testid="journey-to-plan" onClick={toPlan} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">See my dated plan ›</button>
+      </div> : noDate ? <div className="grid gap-3" data-testid="journey-undated">
+        <h2 className="font-serif text-2xl">{picks.length ? `Your plan, with ${picks.length} of your picks in it` : 'Your plan'}</h2>
+        <p className="text-sm text-midnight-muted">Without a date, each task shows how long before the wedding it usually happens. Add the date any time to see real dates.</p>
+        {undatedPlan({ picks, venueBooked: facts.venueBooked }).map(w => <div key={w.id} className="rounded-xl border border-rule bg-white p-3">
+          <h3 className="font-semibold">{w.label}</h3>
+          <ul className="mt-1 grid gap-1.5">{w.tasks.map(t => <li key={t} className="text-sm leading-6">○ {t}{picks.some(p => p.text === t) ? <span className="ml-2 font-mono text-[.68rem] uppercase tracking-[.05em] text-blue">Your pick</span> : null}</li>)}</ul>
+        </div>)}
+      </div> : null}
+      {(weddingDate || noDate) && <div className="grid gap-2 rounded-xl border border-rule bg-white p-3" data-testid="journey-email-offer">
+        <p><b>Want it on paper, or a copy for your inbox?</b> The printable page asks for your email once, and only for that.</p>
+        <a href="/pack" data-testid="journey-printable" className="min-h-11 content-center font-medium underline underline-offset-4">Open my printable plan ›</a>
+      </div>}
+      <button type="button" onClick={() => goTo(3)} className="min-h-11 justify-self-start font-medium underline underline-offset-4">‹ Change what I kept</button>
     </div>}
   </section>;
 }
