@@ -54,10 +54,16 @@ test('a fresh plan cannot reuse the first unlock and new-event purchases unlock 
   assert.deepEqual(entitlementsFor(ledger, 'second'), []);
   assert.throws(() => recordVerifiedPurchase(ledger, 'second', 'dw_full_plan'), /NEW_EVENT_REQUIRED/);
   assert.throws(() => recordVerifiedPurchase(ledger, 'second', 'dw_planner_printables'), /NEW_EVENT_REQUIRED/);
-  ledger = recordVerifiedPurchase(ledger, 'second', 'dw_new_event');
+  const grant = 'a'.repeat(64);
+  assert.throws(() => recordVerifiedPurchase(ledger, 'second', 'dw_new_event'), /NEW_EVENT_NOT_CONFIRMED/);
+  assert.throws(() => recordVerifiedPurchase(ledger, 'second', 'dw_new_event', 'not-a-token'), /NEW_EVENT_NOT_CONFIRMED/);
+  ledger = recordVerifiedPurchase(ledger, 'second', 'dw_new_event', grant);
   assert.equal(ledger.events.filter(e => e.fullPlan).length, 2);
-  assert.throws(() => recordVerifiedPurchase(ledger, 'second', 'dw_new_event'), /EVENT_ALREADY_PAID/);
+  assert.throws(() => recordVerifiedPurchase(ledger, 'second', 'dw_new_event', 'b'.repeat(64)), /EVENT_ALREADY_PAID/);
   ledger = addEvent(ledger, 'third', 'Fresh plan after deletion', '2029-06-12');
   assert.deepEqual(entitlementsFor(ledger, 'third'), []);
-  assert.throws(() => recordVerifiedPurchase(initial(), 'first', 'dw_new_event'), /FIRST_EVENT_REQUIRED/);
+  // The purchase that paid for the second event can never pay for a third.
+  assert.throws(() => recordVerifiedPurchase(ledger, 'third', 'dw_new_event', grant), /NEW_EVENT_ALREADY_USED/);
+  assert.deepEqual(entitlementsFor(ledger, 'third'), []);
+  assert.throws(() => recordVerifiedPurchase(initial(), 'first', 'dw_new_event', grant), /FIRST_EVENT_REQUIRED/);
 });

@@ -1,7 +1,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
-import { appUnlock, confirmedEntitlements, APP_ASSETS, type UnlockEnv } from '@/lib/app-unlock';
+import { appUnlock, confirmedEntitlements, confirmedNewEvents, APP_ASSETS, type UnlockEnv } from '@/lib/app-unlock';
 import { createDownloadToken } from '@/lib/fulfillment';
 
 const now = Date.parse('2026-11-11T16:00:00Z');
@@ -175,4 +175,52 @@ it('oversized streamed verification replies fail closed without downloading anyt
   expect((await call(post(), upstream)).status).toBe(503);
   expect(cancelled).toHaveBeenCalledOnce();
   expect(env.PRODUCT_RELEASES!.get).not.toHaveBeenCalled();
+});
+
+it('each verified new-event transaction is one extra event: replays, Restore on another phone, refunds and forgeries never add a second', async () => {
+  const event = (id: string, extra: object = {}) => ({ id, purchase_date: bought, is_sandbox: false, store: 'app_store', ...extra });
+  const withEvents = (events: unknown[], base = customer()) => ({ subscriber: { ...base.subscriber, non_subscriptions: { ...base.subscriber.non_subscriptions, dw_new_event: events } } });
+  const events = async (value: unknown, id = identity) => {
+    const result = await call(post(id), source(value));
+    return { status: result.status, body: await result.json() as { newEvents?: string[]; active?: string[]; error?: string } };
+  };
+  // The first event alone: no extra event, the same grants as before.
+  expect((await events(customer())).body).toMatchObject({ active: ['full_plan'], newEvents: [] });
+  // One purchase = one event; asking again, or from a restored phone, gives the same one.
+  const one = await events(withEvents([event('fictional-new-1')]));
+  expect(one.body.newEvents).toHaveLength(1);
+  expect(one.body.newEvents![0]).toMatch(/^[a-f0-9]{64}$/);
+  expect(JSON.stringify(one.body)).not.toContain('fictional-new-1');
+  expect((await events(withEvents([event('fictional-new-1')]))).body.newEvents).toEqual(one.body.newEvents);
+  expect((await events(withEvents([event('fictional-new-1')]), '$RCAnonymousID:' + 'b'.repeat(32))).body.newEvents).toEqual(one.body.newEvents);
+  // The same transaction listed twice (a replay) is still one event.
+  expect((await events(withEvents([event('fictional-new-1'), event('fictional-new-1')]))).body.newEvents).toEqual(one.body.newEvents);
+  // A second real purchase is a second event, and only that.
+  const two = (await events(withEvents([event('fictional-new-1'), event('fictional-new-2')]))).body.newEvents!;
+  expect(two).toHaveLength(2);
+  expect(two).toContain(one.body.newEvents![0]);
+  // Sandbox, refunded, future-dated, wrong-store and malformed transactions add nothing.
+  const bad = [event('s', { is_sandbox: true }), event('r', { refunded_at: bought }), event('f', { purchase_date: '2027-01-01T00:00:00Z' }),
+    event('p', { store: 'promotional' }), event(''), { purchase_date: bought }, null, 'fictional-new-1'];
+  expect((await events(withEvents([event('fictional-new-1'), ...bad]))).body.newEvents).toEqual(one.body.newEvents);
+  expect(await confirmedNewEvents(withEvents(bad), now)).toEqual([]);
+  expect(await confirmedNewEvents(withEvents({ id: 'not-a-list' } as never), now)).toEqual([]);
+  // The sandbox switch (store review only) admits sandbox transactions and nothing else.
+  expect(await confirmedNewEvents(withEvents(bad), now, true)).toHaveLength(1);
+  // A consumable with no confirmed first full plan answers exactly like an unknown buyer.
+  const unknown = await events({ subscriber: { entitlements: {}, non_subscriptions: {} } });
+  const alone = await events({ subscriber: { entitlements: {}, non_subscriptions: { dw_new_event: [event('fictional-new-1')] } } });
+  expect(alone).toEqual(unknown);
+  expect(alone.status).toBe(403);
+  // A printables-only buyer gets no event from a consumable either.
+  expect((await events(withEvents([event('fictional-new-1')], customer('dw_printables_topup', ['printables'])))).body.newEvents).toEqual([]);
+  // Store off: the same named stop as every other purchase, before RevenueCat is asked.
+  const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+  const upstream = source(withEvents([event('fictional-new-1')]));
+  delete env.APP_PURCHASES_ENABLED;
+  const off = await appUnlock(post(), env, upstream, now);
+  expect(off.status).toBe(503);
+  expect(await off.json()).toMatchObject({ stop: 'DW_STORE_NOT_SET_UP' });
+  expect(upstream).not.toHaveBeenCalled();
+  expect(log).toHaveBeenCalled();
 });

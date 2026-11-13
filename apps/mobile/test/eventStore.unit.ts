@@ -7,7 +7,7 @@ import { deleteLocalPlan } from '../src/deletePlan';
 
 test('paid date policy survives restart, rapid edits, failed writes and deletion without reusing an unlock', async () => {
   let ledger = recordVerifiedPurchase(addEvent(emptyLedger(), 'first', 'Our wedding', '2028-06-12'), 'first', 'dw_full_plan');
-  for (const id of ['second', 'third']) ledger = recordVerifiedPurchase(addEvent(ledger, id, 'Another event', '2029-06-12'), id, 'dw_new_event');
+  for (const id of ['second', 'third']) ledger = recordVerifiedPurchase(addEvent(ledger, id, 'Another event', '2029-06-12'), id, 'dw_new_event', (id === 'second' ? '2' : '3').repeat(64));
   const data = new Map([[EVENT_LEDGER_KEY, JSON.stringify(ledger)], [ACTIVE_EVENT_KEY, 'first']]);
   let fail = false;
   const storage = {

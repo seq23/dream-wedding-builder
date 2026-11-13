@@ -304,3 +304,13 @@ test('ordinary archive checks use metadata without reading bytes; writes verify 
   saved.size = bytes.length; corrupt = true;
   await assert.rejects(files.write('printables', bytes), /Could not save/);
 });
+
+test('new-event tokens come only from the server door: well-formed ones pass through once, nothing is cached or invented', async () => {
+  const s = setup(), token = 'c'.repeat(64);
+  const door: typeof fetch = async (input, init) => init?.method === 'POST'
+    ? Response.json({ ...manifest(), newEvents: [token, token, 'short', 7, null] }) : s.transport(input, init);
+  assert.deepEqual((await downloadStore(s.storage, door).refresh(id)).newEvents, [token]);
+  assert.ok(!s.data.get(DOWNLOAD_CACHE_KEY)!.includes(token));
+  assert.equal((await downloadStore(s.storage, door).saved())?.newEvents, undefined);
+  assert.equal((await downloadStore(s.storage, s.transport).refresh(id)).newEvents, undefined);
+});

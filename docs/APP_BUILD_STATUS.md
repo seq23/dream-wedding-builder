@@ -87,10 +87,12 @@ Merged into the build branch after review: #189, #191, and four fix PRs.
 
 Still open before the store is switched on:
 
-- NAMED STOP [NEW_EVENT_PURCHASE_NOT_BUILT]: `dw_new_event` cannot be bought. The
-  phone refuses it and the server grants nothing for it; the row in More and the
-  fourth-date-change message lead to a paywall that cannot sell it. Needs a
-  server-verified count of new-event purchases bound to events.
+- A new event can be bought (built with the store mocked; see `docs/APP_UNLOCK.md`,
+  "New events"). To check on the first sandbox purchase: that RevenueCat lists the
+  consumable under `non_subscriptions.dw_new_event` and still lists it for the new
+  anonymous id after Restore on a second phone. The phone has one plan at a time: a new
+  event takes over the name and date, ticks and own tasks carry over, and an earlier
+  event cannot be reopened.
 - NAMED STOP [APP_PAID_ASSET_MISSING]: `app/printables-v1.zip` and
   `app/day-of-kit-v1.zip` do not exist in the private bucket, and their contents
   have not been decided.

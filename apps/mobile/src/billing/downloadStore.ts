@@ -10,7 +10,8 @@ const LIMIT = 2 * 1024 * 1024;
 const MESSAGE = 'Could not download your full plan. Your saved plan has not changed. Restore your purchase and try again.';
 export type ArchiveId = 'printables' | 'day-of-kit';
 export const EXTRA_DOWNLOAD_MESSAGE = 'Your printables could not be downloaded. Restore to try again.';
-export interface DownloadedPlan { list: FullPlanList; packs: TraditionPack[]; archives?: Partial<Record<ArchiveId, ArchiveRecord>>; warning?: string; purchasedExtras?: ('printables' | 'day_of_kit')[] }
+/** `newEvents` comes only from the server door's reply and is never cached here. */
+export interface DownloadedPlan { newEvents?: string[]; list: FullPlanList; packs: TraditionPack[]; archives?: Partial<Record<ArchiveId, ArchiveRecord>>; warning?: string; purchasedExtras?: ('printables' | 'day_of_kit')[] }
 interface Cache extends DownloadedPlan { version: 1; userId: string }
 const validId = (id: string) => /^\$RCAnonymousID:[a-f0-9]{32}$/.test(id);
 const object = (raw: unknown): Record<string, unknown> => raw !== null && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : {};
@@ -162,7 +163,9 @@ export function downloadStore(storage: DateStorage, transport: typeof fetch = fe
       // Keep the single atomic entry small enough for native storage reads too.
       if (new TextEncoder().encode(serialized).length > LIMIT) throw Error(MESSAGE);
       await storage.setItem(DOWNLOAD_CACHE_KEY, serialized);
-      return content;
+      // One token per new-event purchase the server confirmed for this buyer.
+      const newEvents = Array.isArray(manifest.newEvents) ? [...new Set(manifest.newEvents.filter((t): t is string => typeof t === 'string' && /^[a-f0-9]{64}$/.test(t)))].slice(0, 200) : [];
+      return newEvents.length ? { ...content, newEvents } : content;
     });
     queue = job.catch(() => {});
     return job;

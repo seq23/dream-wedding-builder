@@ -183,7 +183,7 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    "Do these next", the calendar file, 1 AI draft, the basic packet; no reminders (owner, 10 Nov 2026). Offering `default`:
    dw_planner_printables first (better value), then dw_full_plan; offering `after_unlock`
    (owns `full_plan`, not `printables`): dw_printables_topup, then dw_day_of_kit; owns
-   `printables`: no offer. The rule is one pure function, `offersFor` in
+   `printables`: no offer; offering `new_event` ("Start a new event"): dw_new_event only. The rule is one pure function, `offersFor` in
    `apps/mobile/src/billing/offers.ts` (already in the scaffold, guarded by
    `test/offers.unit.ts`); screens never decide offers themselves. Prices come from the store at run time, never typed into the app.
    Printables are digital content, so in-app purchase only (Apple 3.1.1); download from

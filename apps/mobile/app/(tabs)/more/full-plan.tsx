@@ -14,18 +14,22 @@ import type { StoreProduct } from '../../../src/billing/provider';
 import { purchases } from '../../../src/billing/current';
 import { eventNameStore } from '../../../src/billing/eventName';
 import { eventStore } from '../../../src/billing/eventStore';
-import { offerEntitlementsFor } from '../../../src/billing/events';
+import { offerEntitlementsFor, unusedNewEvents } from '../../../src/billing/events';
+import { newEventDate } from '../../../src/billing/newEvent';
+import { phoneSharing } from '../../../src/sharing/runtime';
+import { syncReminders } from '../../../src/localReminders';
 import { color, type, space, radius } from '../../../src/theme';
 const phoneCheckout = checkout(AsyncStorage, purchases, downloadStore(AsyncStorage), () => bytesToHex(getRandomBytes(16)));
 const names: Record<ProductId, string> = { dw_planner_printables: 'Planner + printables', dw_full_plan: 'Full plan', dw_printables_topup: 'Printables', dw_day_of_kit: 'Day-of kit', dw_new_event: 'Full plan for a new event' };
 export default function FullPlan() {
-  const { newEvent: requestedNewEvent } = useLocalSearchParams<{ newEvent?: string }>();
+  const { newEvent: requestedNewEvent, date: requestedDate } = useLocalSearchParams<{ newEvent?: string; date?: string }>();
   const newEvent = requestedNewEvent === '1';
   const [products, setProducts] = useState<StoreProduct[]>([]);
   const [offers, setOffers] = useState<ProductId[]>([]);
   const [selected, setSelected] = useState<ProductId>();
   const [name, setName] = useState('');
   const [locked, setLocked] = useState(false);
+  const [paidUnused, setPaidUnused] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
@@ -42,10 +46,10 @@ export default function FullPlan() {
         if (!active) return;
         clearTimeout(timeout);
         const next = offersFor(offerEntitlementsFor(ledger, event?.id ?? ''), newEvent && ledger.firstEventId !== null);
-        setName(draft.name); setLocked(draft.locked); setOffers(next); setSelected(next[0]); setLoaded(true);
+        setName(draft.name); setLocked(draft.locked); setOffers(next); setSelected(next[0]); setPaidUnused(unusedNewEvents(ledger).length); setLoaded(true);
         if (ledger.purchasedExtras?.some(extra => !ledger.extras.includes(extra))) setMessage(EXTRA_DOWNLOAD_MESSAGE);
         // Event details are ready: Restore does not depend on store prices.
-        const catalog = await checkoutCatalog(purchases, event?.fullPlan ? 'after_unlock' : 'default');
+        const catalog = await checkoutCatalog(purchases, next[0] === 'dw_new_event' ? 'new_event' : event?.fullPlan ? 'after_unlock' : 'default');
         if (!active) return;
         setProducts(catalog.products);
         if (catalog.error) setError(catalog.error);
@@ -55,18 +59,36 @@ export default function FullPlan() {
   async function transact(restore = false) {
     setSaving(true); setError(''); setMessage('');
     try {
-      const date = await checkoutRead(() => dateStore(AsyncStorage).read());
+      const saved = await checkoutRead(() => dateStore(AsyncStorage).read());
+      const buyingNewEvent = !restore && selected === 'dw_new_event';
+      // The date she asked for when her three date changes ran out, else the current one.
+      const date = buyingNewEvent ? newEventDate(requestedDate, saved) : saved;
       if (!date) throw Error('Set your wedding date on the plan first.');
+      if (buyingNewEvent && await checkoutRead(async () => (await phoneSharing()).read())) throw Error('Stop sharing your current event first (More, then Two phones). Then start the new event.');
       if (restore) await phoneCheckout.restore(name, date);
       else {
         if (!selected) throw Error('Choose a product first.');
         await phoneCheckout.purchase(name, date, selected);
       }
       sharingChanged();
-      setLocked(true);
       const downloaded = await checkoutRead(() => downloadStore(AsyncStorage).saved());
-      setMessage(downloaded?.warning ?? 'Your full plan is saved on this phone.');
       const [event, ledger] = await checkoutRead(() => Promise.all([eventStore(AsyncStorage).active(), eventStore(AsyncStorage).read()]));
+      const unused = unusedNewEvents(ledger).length;
+      setPaidUnused(unused);
+      if (buyingNewEvent) {
+        // The new event is now the open one: its reminders follow its date.
+        await syncReminders().catch(() => {});
+        setMessage(`Your new event is ready: ${event?.name ?? name}. Open your plan to see it.`);
+        setOffers([]); setSelected(undefined); setProducts([]); setName(event?.name ?? name); setLocked(true);
+        return;
+      }
+      if (newEvent) {
+        // Restore on the new-event screen: the name typed here is still for the new event.
+        setMessage(unused ? 'Restored. Your new event is already paid for. Start it below at no extra charge.' : 'Restored. No unstarted event was found for this store account.');
+        return;
+      }
+      setLocked(true);
+      setMessage(downloaded?.warning ?? (unused ? `Your full plan is saved on this phone. You also have ${unused === 1 ? 'a paid event' : `${unused} paid events`} not started yet: use Start a new event in More, at no extra charge.` : 'Your full plan is saved on this phone.'));
       if (event) setName(event.name);
       setOffers(offersFor(offerEntitlementsFor(ledger, event?.id ?? '')));
       setSelected(undefined);
@@ -76,7 +98,9 @@ export default function FullPlan() {
     } catch (e) { setError(e instanceof Error ? e.message : 'Could not check your purchase. Restore and try again.'); }
     finally { setSaving(false); }
   }
-  const canBuy = purchases.available && loaded && !saving && !newEvent && !!selected && offers.includes(selected) && !!name.trim() && products.some(p => p.id === selected);
+  // An event already paid for and not started needs no store price: it is not charged again.
+  const prepaid = selected === 'dw_new_event' && paidUnused > 0;
+  const canBuy = purchases.available && loaded && !saving && !!selected && offers.includes(selected) && !!name.trim() && (prepaid || products.some(p => p.id === selected));
   async function saveName() {
     setSaving(true); setError(''); setMessage('');
     try { setName(await eventNameStore(AsyncStorage, newEvent).save(name)); setMessage('Event name saved on this phone.'); }
@@ -87,7 +111,8 @@ export default function FullPlan() {
     <Text accessibilityRole="header" style={type.title}>{newEvent ? 'A new wedding event' : 'Your full wedding plan'}</Text>
     <Text style={type.body}>Paid once for this wedding. No subscription.</Text>
     {!purchases.available ? <Text accessibilityRole="status" style={type.body}>Purchases are not set up yet.</Text> : null}
-    {newEvent ? <Text style={type.body}>A new event needs its own full-plan purchase. Your current event stays as it is. The store price will appear here before you can buy.</Text> : null}
+    {newEvent ? <Text style={type.body}>A new event is a new full plan, paid once, with its own name and date. Everything you have ticked and added stays on this phone. The store price will appear here before you can buy.</Text> : null}
+    {newEvent && paidUnused > 0 ? <Text accessibilityRole="status" style={type.body}>You have already paid for this event. Starting it costs nothing more.</Text> : null}
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {loaded ? locked ? <Text style={type.body}>🔒 {name}</Text> : <View style={{ gap: space[2] }}>
       <Text style={type.sub}>Event name</Text>
@@ -106,12 +131,12 @@ export default function FullPlan() {
     {offers.map(id => <Pressable key={id} accessibilityRole="radio" accessibilityState={{ checked: selected === id }} onPress={() => setSelected(id)}
       style={{ minHeight: 64, padding: space[3], borderRadius: radius.md, borderWidth: selected === id ? 2 : 1, borderColor: selected === id ? color.blue : color.rule, gap: space[1] }}>
       <Text style={type.button}>{names[id]}</Text>
-      <Text style={type.sub}>{id === 'dw_planner_printables' ? 'Includes printables' : id === 'dw_new_event' ? 'Your existing event stays as it is' : 'For this wedding'}</Text>
-      <Text style={type.sub}>{products.find(p => p.id === id)?.price ?? 'Price available when the store is ready'}</Text>
+      <Text style={type.sub}>{id === 'dw_planner_printables' ? 'Includes printables' : id === 'dw_new_event' ? 'One new event, paid once' : 'For this wedding'}</Text>
+      <Text style={type.sub}>{id === 'dw_new_event' && paidUnused > 0 ? 'Already paid' : products.find(p => p.id === id)?.price ?? 'Price available when the store is ready'}</Text>
     </Pressable>)}
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !canBuy }} disabled={!canBuy} onPress={() => { void transact(); }}
       style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: radius.md, opacity: canBuy ? 1 : 0.5 }}>
-      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? locked ? 'Add to my plan' : 'Unlock full plan' : 'Purchases unavailable'}</Text>
+      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? selected === 'dw_new_event' ? 'Start my new event' : locked ? 'Add to my plan' : 'Unlock full plan' : 'Purchases unavailable'}</Text>
     </Pressable>
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !purchases.available || saving || !loaded }} disabled={!purchases.available || saving || !loaded} onPress={() => { void transact(true); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={type.sub}>{purchases.available ? 'Restore purchase' : 'Restore purchase · unavailable'}</Text></Pressable>
     <View style={{ flexDirection: 'row', gap: space[4] }}>
