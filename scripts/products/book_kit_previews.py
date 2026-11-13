@@ -1,9 +1,10 @@
 """Flattened, watermarked previews of the three book kits (public/product-previews/<id>/).
 
-Manual: needs pdftoppm (poppler) and Pillow. Input: the committed PDFs in product-builds/releases.
+Manual: needs pdftoppm (poppler) and Pillow. Input: the private PDFs in
+$DW_PRODUCTS_DIR/product-builds/releases (default ~/.boss-os/dream-wedding/products; absent = [PRODUCTS_DIR_MISSING]).
 Usage: python scripts/products/book_kit_previews.py
 """
-import subprocess, tempfile
+import os, subprocess, sys, tempfile
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -13,6 +14,9 @@ KITS = {
     "wedding-vows-workbook": ("DWB-VOWS-001_v1.0.0.pdf", "The Wedding Vows Workbook", [(6, "A five-part structure"), (7, "Fill-in template"), (10, "Length and timing guide")]),
     "maid-of-honor-kit": ("DWB-MOH-001_v1.0.0.pdf", "The Maid of Honor Kit", [(3, "Duties timeline"), (8, "Budget split sheet"), (9, "Speech builder")]),
 }
+REL = Path(os.environ.get('DW_PRODUCTS_DIR') or Path.home() / '.boss-os/dream-wedding/products') / 'product-builds/releases'
+if not REL.is_dir():
+    sys.exit(f'[PRODUCTS_DIR_MISSING] book_kit_previews: the paid product files are not at {REL}. They are private and never in this repo. Set DW_PRODUCTS_DIR, then run this again. Nothing was written.')
 IVORY, MID, BLUE = (250, 247, 242), (27, 31, 59), (39, 71, 217)
 
 def font(size, bold=False):
@@ -29,7 +33,7 @@ for pid, (pdf, name, pages) in KITS.items():
     out.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
         for i, (n, label) in enumerate(pages, 1):
-            subprocess.run(["pdftoppm", "-r", "90", "-f", str(n), "-l", str(n), "-png", str(ROOT / "product-builds/releases" / pdf), f"{tmp}/p"], check=True)
+            subprocess.run(["pdftoppm", "-r", "90", "-f", str(n), "-l", str(n), "-png", str(REL / pdf), f"{tmp}/p"], check=True)
             page = Image.open(next(Path(tmp).glob("p*.png"))).convert("RGB")
             for f in Path(tmp).glob("p*.png"):
                 f.unlink()

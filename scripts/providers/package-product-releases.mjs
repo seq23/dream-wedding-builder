@@ -1,18 +1,21 @@
 #!/usr/bin/env node
 /**
- * Package the committed canonical product files into the exact R2 objects that the
- * paid download route reads.
+ * Package the canonical product files into the exact R2 objects that the paid
+ * download route reads. The files are private: they are read from and written to
+ * DW_PRODUCTS_DIR (scripts/lib/products-dir.mjs), never this repo. Without that
+ * folder this stops with [PRODUCTS_DIR_MISSING].
  *
  * The gap this closes: `lib/fulfillment.js releaseKeyForSku()` points every
  * entitlement at `products/<product-id>/current.zip` in the private
  * PRODUCT_RELEASES bucket, and `app/api/download/[token]/route.ts` serves that key
- * verbatim. Nothing in the repo produced that object. `product-builds/releases`
+ * verbatim. Nothing produced that object. `product-builds/releases`
  * holds loose per-SKU PDF/XLSX/CSV files under versioned names, so a paid customer
  * with a valid entitlement and a valid signed token still received
  * HTTP 404 "Product release is not available yet".
  *
- * Output: product-builds/r2/products/<product-id>/current.zip, plus a
- * release_manifest.json recording the bytes and digests actually shipped.
+ * Output: <DW_PRODUCTS_DIR>/product-builds/r2/products/<product-id>/current.zip,
+ * plus product-builds/r2/release_manifest.json in the repo recording the bytes and
+ * digests (no product content).
  *
  * Writes ZIP archives with no third-party dependency, using a fixed timestamp so
  * repeated runs over unchanged inputs produce byte-identical archives.
@@ -21,11 +24,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { deflateRawSync } from 'node:zlib';
+import { requireProductsDir } from '../lib/products-dir.mjs';
 
 const ROOT = process.cwd();
 const MANIFEST = path.join(ROOT, 'product-builds/manifests/download_manifest.json');
-const RELEASE_DIR = path.join(ROOT, 'product-builds/releases');
-const OUT_ROOT = path.join(ROOT, 'product-builds/r2');
+const PRODUCTS_DIR = requireProductsDir('release:package');
+const RELEASE_DIR = path.join(PRODUCTS_DIR, 'product-builds/releases');
+const OUT_ROOT = path.join(PRODUCTS_DIR, 'product-builds/r2');
 const BUCKET = 'dream-wedding-builder-products';
 
 // Fixed DOS timestamp (1980-01-01 00:00:00) keeps archives reproducible.
@@ -146,7 +151,7 @@ for (const product of manifest.products) {
     version: product.version,
     r2_key: key,
     bucket: BUCKET,
-    local_path: path.relative(ROOT, target),
+    local_path: path.relative(PRODUCTS_DIR, target),
     bytes: zip.length,
     sha256: crypto.createHash('sha256').update(zip).digest('hex'),
     file_count: entries.length,
@@ -163,10 +168,8 @@ const outManifest = {
   note: 'These objects are what app/api/download/[token]/route.ts serves. Upload them before selling.',
   releases: packaged
 };
-fs.writeFileSync(path.join(OUT_ROOT, 'release_manifest.json'), `${JSON.stringify(outManifest, null, 2)}\n`);
+fs.writeFileSync(path.join(ROOT, 'product-builds/r2/release_manifest.json'), `${JSON.stringify(outManifest, null, 2)}\n`);
 
-console.log(`\n${packaged.length} release objects written to product-builds/r2/`);
-console.log('\nUpload with:');
-for (const release of packaged) {
-  console.log(`  npx wrangler r2 object put ${BUCKET}/${release.r2_key} --file=${release.local_path} --remote`);
-}
+console.log(`\n${packaged.length} release objects written to ${OUT_ROOT}`);
+console.log('\nUpload one (the safety checks run on the exact file first):');
+for (const release of packaged) console.log(`  npm run release:upload -- ${release.product_id}`);

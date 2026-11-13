@@ -39,16 +39,55 @@
 - `products/checklist-pdf/current.zip`
 - `products/operations-suite/current.zip`
 
-Build those objects from the committed canonical files and upload them:
+- `products/courthouse-wedding-kit/current.zip`
+- `products/wedding-vows-workbook/current.zip`
+- `products/maid-of-honor-kit/current.zip`
+
+### Where the paid files live (13 Nov 2026)
+
+Paid content never sits in this public repo (owner ruling, 10 Nov 2026). The product
+PDFs, workbooks, CSVs and packaged zips, and the two scripts that hold their full
+text, live in a private folder on the owner's Mac, laid out as they were in the repo:
+
+- `DW_PRODUCTS_DIR` (default `~/.boss-os/dream-wedding/products`)
+  - `product-builds/releases/` the loose files
+  - `product-builds/r2/products/<product-id>/current.zip` the packaged objects
+  - `scripts/generate_product_downloads.py`, `scripts/products/book_kits.py` the generators
+
+The repo keeps only `product-builds/manifests/download_manifest.json` and
+`product-builds/r2/release_manifest.json`: file names, sizes and SHA-256, no content.
+Git history before 13 Nov 2026 still holds the old copies; refreshed v2 products
+are the follow-up that makes those copies stale.
+
+### Package and upload
 
 ```bash
-npm run release:package
-npx wrangler r2 object put dream-wedding-builder-products/products/checklist-pdf/current.zip \
-  --file=product-builds/r2/products/checklist-pdf/current.zip --remote
-# repeat for the other four keys; release:package prints the full command list
+npm run release:package                    # private files -> private current.zip, rewrites release_manifest.json
+npm run release:upload -- --check          # run the file checks only, upload nothing
+npm run release:upload -- checklist-pdf    # checks, then uploads that one product to R2
 ```
 
-`npm run release:package` is the only thing that produces these objects. Until it has been run and the output uploaded, a paying customer with a valid entitlement and a valid signed token receives HTTP 404 from `/api/download/[token]`. `npm run validate:downloads` now fails if the packaged objects are missing, stale, or keyed differently from what `lib/fulfillment.ts` derives.
+- `release:upload` always runs `validate-downloads.mjs --require-files` on the exact
+  files first: present, checksums equal to the committed manifests, file types,
+  sizes, advertised formula counts. Any failure stops with `[PRODUCT_FILES_UNSAFE]`
+  and uploads nothing.
+- A product must be named. An upload replaces what paying customers receive.
+- No private folder: every script that needs the files stops with
+  `[PRODUCTS_DIR_MISSING]` and exits non-zero.
+- CI has no private folder. There `npm run validate:downloads` checks the two
+  manifests against the catalog and the key `lib/fulfillment.ts` serves, and prints
+  `PRODUCT FILES NOT READ`. The mobile check (`apps/mobile`, `npm run check`) fails
+  if any paid product file is tracked in git again.
+- Commit the changed `release_manifest.json` with the upload.
+
+Read back on 13 Nov 2026 (`~/.boss-os/dream-wedding/readback/products-2026-11-13/`):
+the three book kits in R2 are byte-identical to the packaged copies. The other five
+R2 objects were uploaded on 11 Jul 2026, before `release:package` existed. Four hold
+the same three inner files in a different zip container. `operations-suite` in R2 is
+the eight-file `DWB-SUITE-001_complete` zip itself, without the suite PDF and starter
+CSV that the packaged copy adds. Nothing was re-uploaded.
+
+Until an object exists, a paying customer with a valid entitlement and a valid signed token receives HTTP 404 from `/api/download/[token]`.
 
 The order-status endpoint truthfully reports `AWAITING_ASSET` until the matching object exists. Payment remains recorded and no second charge is required.
 
@@ -72,9 +111,7 @@ Provider population and a controlled real purchase must verify the webhook, D1 r
 
 ```bash
 npx wrangler d1 execute dream-wedding-builder --local --file=migrations/0001_fulfillment.sql
-npm run release:package
-npx wrangler r2 object put dream-wedding-builder-products/products/checklist-pdf/current.zip \
-  --file=product-builds/r2/products/checklist-pdf/current.zip --local
+npm run release:upload -- checklist-pdf --local
 npx wrangler dev --port 8788 --local   # in a second shell
 BASE_URL=http://localhost:8788 \
   STRIPE_WEBHOOK_SECRET=<the value the worker is running with> \

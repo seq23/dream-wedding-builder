@@ -48,6 +48,7 @@
     "proof:fulfillment": "node scripts/verify-fulfillment-e2e.mjs",
     "proof:local-full": "npm run typecheck && npm run test && npm run authority:all && npm run validate:structural && npm run build",
     "release:package": "node scripts/providers/package-product-releases.mjs",
+    "release:upload": "node scripts/providers/upload-product-releases.mjs",
     "search:citations": "node scripts/search_intelligence/llm_citation_probe.mjs",
     "search:consolidation": "node scripts/search_intelligence/build_consolidation_candidates.mjs",
     "search:coverage": "node scripts/search_intelligence/collect_index_coverage.mjs",

@@ -2,7 +2,7 @@
 
 1. Read `data/products/product_catalog.json` and `docs/products/START_HERE.md` to understand every paid offer.
 2. Use `info@weddingchecklistpdf.com` for all customer-facing support.
-3. Never email a file from `product-source/`; customer files come from versioned `product-builds/releases/` and private R2 in production.
+3. Never email a file from `product-source/`; customer files come from the private folder `DW_PRODUCTS_DIR` (versioned `product-builds/releases/`, never in this repo) and private R2 in production.
 4. Verify the SKU, payment state, entitlement, and current release before resending access.
 5. Do not change prices, refund rules, legal language, or product files without an approved release record.
 6. Run `npm run validate:all` before packaging.

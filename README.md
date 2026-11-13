@@ -15,8 +15,6 @@ Dream Wedding Builder is the only free product in a shared five-domain wedding p
 ## Local structural validation
 ```bash
 npm install
-python -m pip install reportlab
-python scripts/generate_product_downloads.py
 npm run validate:all
 ```
 

@@ -35,7 +35,7 @@ Validation profiles check contracts and structural evidence. They do not generat
 ### Execution Commands Are Not Validators
 
 - `npm run authority:all` writes authority receipts and sitemaps.
-- `python scripts/generate_product_downloads.py` writes product release files.
+- `npm run release:package` and `npm run release:upload` read the private product folder (`DW_PRODUCTS_DIR`) and write packaged files and R2 objects; the generators live in that private folder, not in this repo.
 - `npm run build` writes framework build output.
 - `npm run stripe:bootstrap:*`, `npm run cloudflare:discover`, `npm run d1:migrate:remote`, `npm run deploy`, and `npm run upload` touch providers or deployment surfaces.
 
