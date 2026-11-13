@@ -54,7 +54,7 @@ it('unknown and expired ids have the same response; malformed and plaintext bodi
   expect((await call(request('POST', '', { ciphertext: 'private wedding text' }))).status).toBe(400);
   expect((await call(request('POST', '', null))).status).toBe(400);
 });
-it('enforces 64 KB on streamed bytes even without content-length, including multibyte input', async () => {
+it('enforces the size cap on streamed bytes even without content-length, including multibyte input', async () => {
   const huge = request('POST', '', { ciphertext: 'é'.repeat(SHARE_MAX_BYTES / 2) });
   expect(huge.headers.has('content-length')).toBe(false);
   expect((await call(huge)).status).toBe(413);

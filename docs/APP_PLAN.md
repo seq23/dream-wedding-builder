@@ -150,11 +150,11 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    is ticked (Apple 5.1.2).
    Tests (server mocked): disabled, busy, used, per-connection and daily-limit replies each
    show the server's sentence; a check fails if any model address or key is in the app.
-7. **Two phones.** Site PR: `/api/plan-share` on the Worker (app-security shape: 64 KB
-   cap, per-IP limit via lib/abuse-limits, a daily ceiling, additive migration, stores
+7. **Two phones.** Site PR: `/api/plan-share` on the Worker (app-security shape: 256 KB
+   cap (raised from 64 KB on 13 Nov 2026: the real list, packs and ticks pass 64 KB), per-IP limit via lib/abuse-limits, a daily ceiling, additive migration, stores
    only ciphertext under a random id). App PR: encrypt with the key in the link fragment
    (@noble/ciphers, as KeepMyProof); merge ticks by latest stamp.
-   Tests: over 64 KB → 413; over the limit → 429; an unknown id and a wrong key answer the
+   Tests: over the cap → 413; over the limit → 429; an unknown id and a wrong key answer the
    same; the key never reaches the server; two phones ticking different tasks keep both.
    **Partner joining is a later task, not part of the first build.** It is sold as part of
    `full_plan` from day one only if it ships; until it does, no screen or store text mentions
