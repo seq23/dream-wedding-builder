@@ -132,8 +132,8 @@ test('full-plan tasks are late by their own date; after-the-wedding tasks are ne
 });
 
 test('a task is listed once: late tasks sit under Catch up and never also under Do these next', () => {
-  // Ten months out the 12+ window has closed, so its unticked tasks are late.
-  const plan = buildDatedPlan('2027-09-13', '2026-11-13');
+  // Seven months out the 12+ window has closed, so its unticked tasks are late.
+  const plan = buildDatedPlan('2027-06-13', '2026-11-13');
   let progress = emptyProgress();
   const rows = () => taskRows(progress);
   let blocks = planBlocks(rows(), catchUpRows(progress, plan));
