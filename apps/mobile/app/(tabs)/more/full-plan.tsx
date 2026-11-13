@@ -14,7 +14,7 @@ import type { StoreProduct } from '../../../src/billing/provider';
 import { purchases } from '../../../src/billing/current';
 import { eventNameStore } from '../../../src/billing/eventName';
 import { eventStore } from '../../../src/billing/eventStore';
-import { entitlementsFor } from '../../../src/billing/events';
+import { offerEntitlementsFor } from '../../../src/billing/events';
 import { color, type, space, radius } from '../../../src/theme';
 const phoneCheckout = checkout(AsyncStorage, purchases, downloadStore(AsyncStorage), () => bytesToHex(getRandomBytes(16)));
 const names: Record<ProductId, string> = { dw_planner_printables: 'Planner + printables', dw_full_plan: 'Full plan', dw_printables_topup: 'Printables', dw_day_of_kit: 'Day-of kit', dw_new_event: 'Full plan for a new event' };
@@ -41,7 +41,7 @@ export default function FullPlan() {
       .then(async ([draft, ledger, event]) => {
         if (!active) return;
         clearTimeout(timeout);
-        const next = offersFor(entitlementsFor(ledger, event?.id ?? ''), newEvent && ledger.firstEventId !== null);
+        const next = offersFor(offerEntitlementsFor(ledger, event?.id ?? ''), newEvent && ledger.firstEventId !== null);
         setName(draft.name); setLocked(draft.locked); setOffers(next); setSelected(next[0]); setLoaded(true);
         // Event details are ready: Restore does not depend on store prices.
         const catalog = await checkoutCatalog(purchases, event?.fullPlan ? 'after_unlock' : 'default');
@@ -67,7 +67,7 @@ export default function FullPlan() {
       setMessage(downloaded?.warning ?? 'Your full plan is saved on this phone.');
       const [event, ledger] = await checkoutRead(() => Promise.all([eventStore(AsyncStorage).active(), eventStore(AsyncStorage).read()]));
       if (event) setName(event.name);
-      setOffers(offersFor(entitlementsFor(ledger, event?.id ?? '')));
+      setOffers(offersFor(offerEntitlementsFor(ledger, event?.id ?? '')));
       setSelected(undefined);
       setProducts([]);
       try { setProducts(await checkoutRead(() => purchases.products('after_unlock'))); }

@@ -14,23 +14,24 @@ async function native() {
   return { directory, digest, file };
 }
 /** Content-addressed files preserve the previous committed cache if a write fails. */
-export const phoneArchives: ArchiveFiles = {
+export function archiveFiles(load: typeof native = native): ArchiveFiles { return {
   async write(id, bytes) {
-    const { directory, digest, file } = await native();
+    const { directory, digest, file } = await load();
     const record = { id, byteLength: bytes.length, sha256: await digest(bytes) };
     directory.create({ intermediates: true, idempotent: true });
     file(record).write(bytes);
-    if (!await this.has(record)) throw Error('Could not save purchased files.');
+    const saved = file(record);
+    if (!saved.exists || saved.size !== record.byteLength || await digest(await saved.bytes()) !== record.sha256) throw Error('Could not save purchased files.');
     return record;
   },
   async has(record) {
-    const { file, digest } = await native();
+    const { file } = await load();
     const saved = file(record);
-    if (!saved.exists || saved.size !== record.byteLength) return false;
-    return await digest(await saved.bytes()) === record.sha256;
+    return saved.exists && saved.size === record.byteLength;
   },
   async clear() {
-    const { directory } = await native();
+    const { directory } = await load();
     if (directory.exists) directory.delete();
   },
-};
+}; }
+export const phoneArchives = archiveFiles();

@@ -1,7 +1,7 @@
 import { parseDay } from '@core/dated-plan';
 import type { Entitlement, ProductId } from './offers';
 export interface PaidEvent { id: string; name: string; date: string; dateChanges: number; fullPlan: boolean }
-export interface EventLedger { firstEventId: string | null; events: PaidEvent[]; extras: Entitlement[] }
+export interface EventLedger { firstEventId: string | null; events: PaidEvent[]; extras: Entitlement[]; purchasedExtras?: Entitlement[] }
 export const emptyLedger = (): EventLedger => ({ firstEventId: null, events: [], extras: [] });
 export function addEvent(ledger: EventLedger, id: string, name: string, date: string): EventLedger {
   if (!id || !name.trim() || !parseDay(date) || ledger.events.some(e => e.id === id)) throw new Error('INVALID_EVENT');
@@ -36,4 +36,9 @@ export function recordVerifiedPurchase(ledger: EventLedger, eventId: string, pro
 /** Deleting visible plan data must never erase the purchase ledger or reuse its id. */
 export function entitlementsFor(ledger: EventLedger, eventId: string): Entitlement[] {
   return [...ledger.extras, ...(ledger.events.some(e => e.id === eventId && e.fullPlan) ? ['full_plan' as const] : [])];
+}
+
+/** Ownership suppresses repeat sales even while Restore still owes a file. */
+export function offerEntitlementsFor(ledger: EventLedger, eventId: string): Entitlement[] {
+  return [...entitlementsFor(ledger, eventId), ...(ledger.purchasedExtras ?? [])];
 }

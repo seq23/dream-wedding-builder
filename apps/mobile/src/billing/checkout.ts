@@ -1,4 +1,4 @@
-import { addEvent, entitlementsFor, recordVerifiedPurchase } from './events';
+import { addEvent, offerEntitlementsFor, recordVerifiedPurchase } from './events';
 import { offersFor, type ProductId } from './offers';
 import { ACTIVE_EVENT_KEY, EVENT_LEDGER_KEY, eventStore } from './eventStore';
 import type { PurchasesProvider } from './provider';
@@ -49,7 +49,7 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
           if (product === 'dw_new_event') throw Error('New-event purchases are not available yet. Your current event has not changed.');
           if (!extra && ledger.firstEventId) throw Error('Restore your existing event. A new event needs its own purchase.');
           if (extra && !active?.fullPlan) throw Error('Restore your full plan before adding extras.');
-          if (!offersFor(entitlementsFor(ledger, active?.id ?? '')).includes(product)) throw Error('This product is already included in your plan.');
+          if (!offersFor(offerEntitlementsFor(ledger, active?.id ?? '')).includes(product)) throw Error('This product is already included in your plan.');
         }
         const first = ledger.events.find(e => e.id === ledger.firstEventId);
         let next = ledger;
@@ -74,7 +74,8 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
         next = latest ? current : addEvent(current, event.id, event.name, event.date);
         if (!latest?.fullPlan) next = recordVerifiedPurchase(next, event.id, mode === 'purchase' ? product : 'dw_full_plan');
         // These per-person grants come from the verified cache, never snapshot.active.
-        next = { ...next, extras: [...(printables ? ['printables' as const] : []), ...(kit ? ['day_of_kit' as const] : [])] };
+        const purchasedExtras = [...new Set([...(current.purchasedExtras ?? []), ...(content.purchasedExtras ?? [])])];
+        next = { ...next, ...(purchasedExtras.length ? { purchasedExtras } : {}), extras: [...(printables ? ['printables' as const] : []), ...(kit ? ['day_of_kit' as const] : [])] };
         await storage.setItem(EVENT_LEDGER_KEY, JSON.stringify(next)); check();
         await storage.setItem(ACTIVE_EVENT_KEY, event.id);
         return event.id;

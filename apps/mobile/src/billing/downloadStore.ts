@@ -10,7 +10,7 @@ const LIMIT = 2 * 1024 * 1024;
 const MESSAGE = 'Could not download your full plan. Your saved plan has not changed. Restore your purchase and try again.';
 export type ArchiveId = 'printables' | 'day-of-kit';
 export const EXTRA_DOWNLOAD_MESSAGE = 'Your printables could not be downloaded. Restore to try again.';
-export interface DownloadedPlan { list: FullPlanList; packs: TraditionPack[]; archives?: Partial<Record<ArchiveId, ArchiveRecord>>; warning?: string }
+export interface DownloadedPlan { list: FullPlanList; packs: TraditionPack[]; archives?: Partial<Record<ArchiveId, ArchiveRecord>>; warning?: string; purchasedExtras?: ('printables' | 'day_of_kit')[] }
 interface Cache extends DownloadedPlan { version: 1; userId: string }
 const validId = (id: string) => /^\$RCAnonymousID:[a-f0-9]{32}$/.test(id);
 const object = (raw: unknown): Record<string, unknown> => raw !== null && typeof raw === 'object' && !Array.isArray(raw) ? raw as Record<string, unknown> : {};
@@ -33,7 +33,8 @@ function parseContent(raw: unknown): DownloadedPlan {
     }
     archives[id] = r as unknown as ArchiveRecord;
   }
-  return { list, packs: packs as TraditionPack[], ...(Object.keys(archives).length ? { archives } : {}), ...(warning ? { warning } : {}) };
+  const purchasedExtras = Array.isArray(value.purchasedExtras) ? value.purchasedExtras.filter((e): e is 'printables' | 'day_of_kit' => e === 'printables' || e === 'day_of_kit') : [];
+  return { list, packs: packs as TraditionPack[], ...(purchasedExtras.length ? { purchasedExtras } : {}), ...(Object.keys(archives).length ? { archives } : {}), ...(warning ? { warning } : {}) };
 }
 
 // ZIP signatures only: archives are kept opaque and never extracted by the app.
@@ -145,7 +146,7 @@ export function downloadStore(storage: DateStorage, transport: typeof fetch = fe
           warning = EXTRA_DOWNLOAD_MESSAGE;
         }
       }
-      const content = parseContent({ list: payloads[0], packs: payloads.slice(1), archives, warning });
+      const content = parseContent({ list: payloads[0], packs: payloads.slice(1), archives, warning, purchasedExtras: active.filter(e => e === 'printables' || e === 'day_of_kit') });
       for (let i = 0; i < content.packs.length; i++) if (content.packs[i].id !== TRADITION_PREVIEWS[i].id) throw Error(MESSAGE);
       const cache: Cache = { version: 1, userId, ...content };
       // Commit the full list even when an optional archive failed. Files precede metadata.

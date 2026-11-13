@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { checkout, checkoutRead, checkoutCatalog } from '../src/billing/checkout';
 import { DisabledPurchases, type PurchasesProvider } from '../src/billing/provider';
 import { ACTIVE_EVENT_KEY, EVENT_LEDGER_KEY, eventStore } from '../src/billing/eventStore';
-import { addEvent, recordVerifiedPurchase, entitlementsFor } from '../src/billing/events';
+import { addEvent, recordVerifiedPurchase, entitlementsFor, offerEntitlementsFor } from '../src/billing/events';
 function setup() {
   const data = new Map<string, string>(), calls: string[] = [];
   const storage = { async getItem(k: string) { return data.get(k) ?? null; }, async setItem(k: string, v: string) { data.set(k, v); } };
@@ -128,4 +128,22 @@ test('bundle and owner extras grant only verified files; incomplete extras keep 
   refused.provider.purchase = async () => ({ userId: 'forged', active: ['full_plan', 'printables', 'day_of_kit'] });
   await checkout(refused.storage, refused.provider, refused.downloads, () => 'refused').purchase('Our event', '2027-06-12', 'dw_planner_printables');
   assert.deepEqual(entitlementsFor(await eventStore(refused.storage).read(), 'refused'), ['full_plan']);
+});
+
+
+test('verified but undelivered extras suppress repeat sales across restart and Restore recovers access', async () => {
+  const s = setup();
+  let delivered = false;
+  const downloads = { async refresh() { return { list: { windows: [], tasks: [] }, packs: [], purchasedExtras: ['printables', 'day_of_kit'] as ('printables' | 'day_of_kit')[], ...(delivered ? { archives: { printables: { id: 'printables' as const, byteLength: 22, sha256: 'a'.repeat(64) }, 'day-of-kit': { id: 'day-of-kit' as const, byteLength: 22, sha256: 'b'.repeat(64) } } } : {}) }; } };
+  await checkout(s.storage, s.provider, downloads, () => 'bundle').purchase('Our event', '2027-06-12', 'dw_planner_printables');
+  const ledger = await eventStore(s.storage).read();
+  assert.deepEqual(entitlementsFor(ledger, 'bundle'), ['full_plan']);
+  const { offersFor } = await import('../src/billing/offers');
+  assert.deepEqual(offersFor(offerEntitlementsFor(ledger, 'bundle')), []);
+  const restarted = checkout(s.storage, s.provider, downloads, () => assert.fail('no new event'));
+  for (const product of ['dw_printables_topup', 'dw_day_of_kit'] as const) await assert.rejects(restarted.purchase('Ignored', '2027-06-12', product), /already included/);
+  assert.deepEqual(s.calls, ['dw_planner_printables']);
+  delivered = true;
+  await restarted.restore('Ignored', '2027-06-12');
+  assert.deepEqual(entitlementsFor(await eventStore(s.storage).read(), 'bundle'), ['printables', 'day_of_kit', 'full_plan']);
 });
