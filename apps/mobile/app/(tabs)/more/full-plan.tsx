@@ -110,8 +110,8 @@ export default function FullPlan() {
     finally { setSaving(false); }
   }
   return <PlannedScreen route="/more/full-plan">
-    <Text accessibilityRole="header" style={type.title}>{newEvent ? 'A new wedding event' : 'The full plan'}</Text>
-    <Text style={type.body}>Your free plan stays free. The full plan is paid once for this wedding, with no subscription, and adds:</Text>
+    <Text accessibilityRole="header" style={type.title}>{newEvent ? 'A new wedding event' : 'What the full plan adds'}</Text>
+    <Text style={type.body}>Your free plan stays free. The full plan is paid once for this wedding, with no subscription.</Text>
     <View style={{ gap: space[2] }}>
       {['Payments and the final-payment schedule', 'Your wedding-week sheet, with who to call', 'The printable hand-over packet with payments and contacts', 'Every tradition pack', 'Reminders for your dated tasks', 'A second phone for your partner'].map(line => <Text key={line} style={type.body}>• {line}</Text>)}
     </View>

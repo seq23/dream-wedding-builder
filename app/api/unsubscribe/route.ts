@@ -12,7 +12,7 @@ async function handle(req: NextRequest) {
   if (!env.DB || !env.DOWNLOAD_SIGNING_SECRET) return new NextResponse('Unsubscribe is unavailable right now. Reply to any email and we will remove you by hand.', { status: 503 });
   if (!(await verifyUnsubscribe(env.DOWNLOAD_SIGNING_SECRET, id, token))) return new NextResponse('This unsubscribe link is not valid. Reply to any email and we will remove you by hand.', { status: 400 });
   await optOut(env.DB, id);
-  return new NextResponse('<!doctype html><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width"><title>Unsubscribed</title><p style="font-family:Arial,sans-serif;max-width:520px;margin:60px auto;font-size:18px">You are unsubscribed. Dream Wedding Builder will not email you again.</p>', { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
+  return new NextResponse('<!doctype html><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width"><title>Unsubscribed</title><p style="font-family:Arial,sans-serif;max-width:520px;margin:60px auto;font-size:18px">You are unsubscribed. Dream Wedding will not email you again.</p>', { status: 200, headers: { 'content-type': 'text/html; charset=utf-8' } });
 }
 export const GET = handle;
 export const POST = handle;

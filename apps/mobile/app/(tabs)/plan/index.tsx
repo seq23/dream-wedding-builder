@@ -82,6 +82,7 @@ export default function Plan() {
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {!ready ? <Text style={type.body}>Opening your plan…</Text> : <>
       <Text style={type.body}>{plan.headline}</Text>
+      {plan.state === 'none' && !shared ? <GoButton href="/welcome" label="Choose my wedding date ›" primary /> : null}
       {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text><GoButton href="/more/sharing" label="♧ Two phones ›" /></> : null}
       {plan.warning ? <Text style={type.body}>{plan.warning}</Text> : null}
       <Text style={type.section}>{shared ? 'Full plan' : 'Free plan'} · {count.done} of {count.total} tasks done</Text>
@@ -97,7 +98,7 @@ export default function Plan() {
         <Text style={[type.body, { color: color.midnightMuted }]}>🔒 {r.text}</Text>
         <Text style={type.sub}>{r.dueOn ? plainDate(r.dueOn) : 'Start here'} · {partOfFullPlan(price)} ›</Text>
       </Pressable>)}
-      <GoButton href={`/plan/add-task?window=${windowId}`} label="+ Add your own task" primary />
+      <GoButton href={`/plan/add-task?window=${windowId}`} label="+ Add your own task" primary={plan.state !== 'none'} />
       <GoButton href="/plan/ai-draft" label={Object.keys(notes).length ? 'Change my guests, place and budget ›' : 'Add my guests, place and budget ›'} />
       <GoButton href="/more/packet" label="Print or send my plan ›" />
       <GoButton href="/plan/wedding-week" label={shared ? 'Your wedding week ›' : 'Wedding week · in the full plan ›'} />

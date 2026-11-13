@@ -20,7 +20,6 @@ import type { PaidEvent } from '../../../src/billing/events';
 import { calendarFile } from '../../../src/calendar';
 import { saveCalendar } from '../../../src/calendarOutput';
 import { color, space, type } from '../../../src/theme';
-import { partOfFullPlan } from '../../../src/build';
 import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 import { plainDate } from '@core/dated-plan';
 
@@ -91,7 +90,7 @@ export default function More() {
       {files.ready.map(file => <View key={file.id}>{button(file.label, () => { void openFile(file); })}</View>)}
       {files.missing ? <><Text style={type.sub}>{FILE_MISSING_MESSAGE}</Text><GoButton href="/more/full-plan" label="Restore my purchase ›" /></> : null}
       <Text accessibilityRole="header" style={type.section}>{paid ? 'Your full plan' : 'The full plan'}</Text>
-      {paid ? null : <Text style={type.sub}>{partOfFullPlan(price)}: payments, your wedding week, reminders and a second phone for your partner.</Text>}
+      {paid ? null : <Text style={type.sub}>{price ? `${price}, paid once` : 'Paid once'}, only if you want it: payments, your wedding week, reminders and a second phone for your partner.</Text>}
       {paid ? null : <GoButton href="/more/full-plan" label="See the full plan ›" />}
       <GoButton href="/payments" label="Payments ›" />
       <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
