@@ -27,7 +27,7 @@ PR numbers below are in seq23/dream-wedding-builder unless qualified.
 | 10 Store files | NAMED STOP [WAITS_FOR_LAUNCH_PLAN] | Deliberately deferred by owner |
 | 11 Store-build gate | #157, #159 | `releaseGate.unit.ts`; submission still refuses placeholder identity and absent registration receipt |
 | 12 Website app line | NAMED STOP [WAITS_FOR_LAUNCH_PLAN] | Deliberately deferred by owner |
-| 13 Scorecard | #157, #190; seq23/boss-os#386 OPEN, all checks green | Reach and server-verified transaction source, SQL reader; Boss OS row, launch clock, 3/6 floors and version B tested in its registration PR |
+| 13 Scorecard | #157, #190; seq23/boss-os#386 merged 13 Nov 2026 (row `dw-phone-app`) | Reach and server-verified transaction source, SQL reader; Boss OS row, launch clock, 3/6 floors and version B tested in its registration PR |
 | Purchase door | #169, #172, #183–#189, #194 | Server `app-unlock.test.ts`; phone `downloadStore.unit.ts`, `checkout.unit.ts`; verification precedes downloads, unknown/refused answers match |
 | Paid-content leak check | #174, #193 | `paidContent.unit.ts`: tracked-repository fingerprint scan, negative copy fixtures, zero-input refusal; missing ZIP text explicitly NOT RUN |
 | Target-day load check | #179 | `scripts/load/app-day.mjs`, `app-day-load.test.ts`, `.github/workflows/app-day-load.yml`: 3,000 opens and 1,000 writes; separate AI replay covers 3,000 mocked requests; remote execution requires isolated preview |
@@ -44,10 +44,9 @@ the full route map. No new screen patterns are needed in this documentation PR.
 - App #189 (merged 13 Nov after coordinator review) preserves verified ownership
   when extras fail, suppresses repeat offers, retries delivery through Restore, and
   avoids ZIP byte reads on normal plan opens.
-- Boss OS #386 registers `dw-phone-app` using its existing D1 reader. Once it
-  merges, record the actual merge receipt in `release/scorecard.json`
-  (`bossOsRowId` and `recordedAt`). Both remain null until that receipt exists;
-  NAMED STOP [SCORECARD_NOT_REGISTERED] intentionally still blocks submission.
+- Boss OS #386 (merged 2026-11-13T13:43:51Z) registers `dw-phone-app` using its
+  existing D1 reader. `release/scorecard.json` records the row (`bossOsRowId`,
+  `recordedAt`), so NAMED STOP [SCORECARD_NOT_REGISTERED] no longer blocks submission.
 - NAMED STOP [DW_STORE_NOT_SET_UP] and [REVENUECAT_SECRET_MISSING]: real store
   purchases/Restore remain disabled until owner-held store setup and secrets
   exist. Store metadata and production measurements were not verified live.
@@ -93,8 +92,7 @@ Still open before the store is switched on:
   anonymous id after Restore on a second phone. The phone has one plan at a time: a new
   event takes over the name and date, ticks and own tasks carry over, and an earlier
   event cannot be reopened.
-- NAMED STOP [APP_PAID_ASSET_MISSING]: `app/printables-v1.zip` and
-  `app/day-of-kit-v1.zip` do not exist in the private bucket, and their contents
-  have not been decided.
+- `app/printables-v1.zip` (73,513 bytes) and `app/day-of-kit-v1.zip` (18,451 bytes) are
+  in the private bucket since 13 Nov 2026, built from files the website already sells.
 - The RevenueCat reply shape (`non_subscriptions`, matching purchase dates) is
   taken from its documentation and has not been checked against a real purchase.

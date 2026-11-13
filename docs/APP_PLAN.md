@@ -71,6 +71,9 @@ only after a confirmed purchase:
   bucket `dream-wedding-builder-products`, the same object the website reads), never committed.
   The only paid task names in the repo are the two per window the free plan shows locked
   (`lib/full-plan-teaser.ts`, on main).
+  - Tradition packs: one private object each, `packs/traditions/<id>-v1.json`, in the same bucket.
+  - Printables: `app/printables-v1.zip` = the files of the website's `products/operations-suite/current.zip` (four PDFs, four spreadsheets); nothing new is written (coordinator, 13 Nov 2026).
+  - Day-of kit: `app/day-of-kit-v1.zip` = the files of the website's `products/timeline-template/current.zip` (PDF, spreadsheet, starter CSV); same decision.
 - **The door:** a Worker route `/api/app-unlock` checks the purchase with RevenueCat's server API
   (secret on the Worker only) and returns short-lived signed links; the phone downloads once, keeps
   it, and works offline after. No RevenueCat secret yet = NAMED STOP [REVENUECAT_SECRET_MISSING]
