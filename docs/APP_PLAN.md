@@ -583,3 +583,30 @@ For our screen (only what (e) does not already say):
 - Must NOT be there: a multi-select grid with one "add all" button (Packr does this; (e) already forbids it), a lock on every row, a typed task count.
 
 Honest limits: 2 more seen (6 in all with (e)). No example seen marks some packs as paid inside the picker, so "no lock on the rows" is a judgement from their absence, not from a tested screen.
+
+### (j) "What should your wedding feel like?" first screen and "your wedding on one page" (the free journey; 13 Nov 2026)
+
+The website's free journey went live on 13 Nov 2026 (`components/WeddingJourney.tsx`, steps 1 to 4). The app gets the same journey as its first screen for someone new. Examples looked at on 13 Nov 2026 (free, no-account sources; structure only, nothing copied):
+- Paperless Post wedding style quiz: https://www.paperlesspost.com/blog/wedding-style-quiz/ : 10 questions, one tap per question from five text options, no account or email, result = one named style with a short description. SEEN (page text)
+- David's Bridal Pearl Planner "Vision Quiz": https://www.davidsbridal.com/content/wedding-planning/how-to-build-a-wedding-mood-board-with-ai-hint-pearl-planner : tap the wedding photos you like; an AI names the look (e.g. "romantic garden") and builds a board, then vendor and dress suggestions. TEXT ONLY (their article; quiz screens not seen; sign-up before the result not stated).
+- NuptiaAI: https://nuptia-landing.pages.dev/ : three steps: a photo of the venue, then one style from twelve tiles and one of three budget tiers, then refine in plain words. TEXT ONLY (landing page; sign-up not stated).
+- The Knot style quiz: https://www.theknot.com/content/wedding-style-finder : photo picks with a heart or an X; the app version needs an account. TEXT ONLY (page refused automated reading; described in search results).
+
+What they share:
+- The first screen asks about feel, not facts: taps on words or pictures; typing is optional.
+- One answer per screen or one short grid; no more than about a dozen choices at once.
+- The result names the look in a few words first, then the detail under it.
+- The two that show money (Pearl, The Knot) turn the result into vendor suggestions; none of them turns it into a dated plan.
+
+Build it like this (app):
+- First screen for someone new (`/feel`): the title "What should your wedding feel like?", two cards ("I have an idea" / "I don't know yet"), the same taps as the website (season, setting, mood) or a text box, optional facts (where, guests, venue booked), one blue button "Show me my wedding ›", and the text link "I already know what I want. Just give me my plan ›" to `/welcome`.
+- The answer screen shows the headline, the read, colour swatches, then each direction, kind of place (none when the venue is booked), idea and detail as a row she taps to keep, then one blue button "Continue to my date ›".
+- Kept rows become her own tasks in the window that job is usually done, marked "Your pick"; a booked venue ticks "Book the venue". Then the date screen and the plan, as today.
+- The same line as the website on where her words go (a free AI model), and the same fixed-list answer when the free models are busy or her three answers today are used.
+- Leave out (first version): photos (the website keeps them; the app would need a new native module and an on-device colour read), named venues, prices, email.
+
+Do not:
+- Do not ask for email, an account or the date before her answer.
+- Do not show a paywall on these two screens.
+
+Honest limits: 4 examples, 1 seen as page text, 3 text only; no quiz screen was seen in an app. None of them is free, no-account and AI-written at once; that combination comes from the approved website journey, not from an example.
