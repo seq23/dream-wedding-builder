@@ -85,6 +85,14 @@ describe('the journey endpoint', () => {
     expect(net.calls.every(c => !c.body.includes('x@example.com') && !c.body.includes('1.1.1.1'))).toBe(true);
   });
 
+  it('questions to ask are never empty: a list of objects is read, and none at all falls back to our own', async () => {
+    const { db } = fakeD1();
+    const net = fakeNet({ gemini: () => geminiAnswer(good({ ask_vendors: [{ vendor: 'Caterer', question: 'How does food stay warm outdoors?' }] })) });
+    expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl }))).body.read.ask).toEqual(['Caterer: How does food stay warm outdoors?']);
+    const net2 = fakeNet({ gemini: () => geminiAnswer(good({ ask_vendors: [] })) });
+    expect((await weddingRead(base({ db, fetchImpl: net2.fetchImpl, ip: '9.9.9.9' }))).body.read.ask.length).toBeGreaterThan(0);
+  });
+
   it('a booked venue gets no venue types, even when the model offers some', async () => {
     const { db } = fakeD1();
     const net = fakeNet({ gemini: () => geminiAnswer(good()) });

@@ -362,7 +362,8 @@ function firstJson(s: string): Record<string, unknown> | null {
   if (a < 0 || b <= a) return null;
   try { const v = JSON.parse(s.slice(a, b + 1)); return v && typeof v === 'object' && !Array.isArray(v) ? v : null; } catch { return null; }
 }
-const strs = (v: unknown, n: number, max: number) => (Array.isArray(v) ? v : []).map(x => text(x, max)).filter(x => x.length >= 3).slice(0, n);
+// A model sometimes answers a list of strings as a list of small objects ({vendor, question}); both are read.
+const strs = (v: unknown, n: number, max: number) => (Array.isArray(v) ? v : []).map(x => text(x && typeof x === 'object' ? Object.values(x as Record<string, unknown>).filter(y => typeof y === 'string').join(': ') : x, max)).filter(x => x.length >= 3).slice(0, n);
 
 /** Whitelists a model's answer into the shape she sees. Null when it is not a usable answer. */
 export function parseRead(content: string, a: Answers, offeredIdeas: Trend[], venues: { id: string; name: string }[]): WeddingRead | null {
@@ -388,6 +389,8 @@ export function parseRead(content: string, a: Answers, offeredIdeas: Trend[], ve
   void offeredIdeas; void venues;
   if (!read.read || read.directions.length < 2 || read.colours.length < 3) return null;
   if (!read.headline) read.headline = headlineFor(a);
+  // Nothing to ask from the model: she still gets the plain questions from our lists.
+  if (!read.ask.length) read.ask = fixedRead(a).ask;
   return read;
 }
 

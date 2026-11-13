@@ -105,6 +105,7 @@ export function WeddingJourney({ onFacts }: { onFacts?: (facts: JourneyFacts) =>
 
   const go = async () => {
     if (!path) return;
+    if (path === 'idea' && wish.trim().length < 3 && !photos.length) { setProblem('Say it in a few words, add a photo, or tap “I don’t know yet”.'); return; }
     setBusy(true); setProblem('');
     onFacts?.({ where: facts.where.trim(), guests: facts.guests.trim(), budget: facts.budget });
     try {
