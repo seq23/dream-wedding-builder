@@ -4,6 +4,7 @@ export type RuntimeEnv = {
   DB?: any;
   APP_SHARING_ENABLED?: string;
   APP_PURCHASES_ENABLED?: string;
+  APP_SANDBOX_PURCHASES?: string;
   APP_METRICS_ENABLED?: string;
   REVENUECAT_SECRET?: string;
   PRODUCT_RELEASES?: any;
