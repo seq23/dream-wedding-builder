@@ -107,10 +107,23 @@ export function fullPlanRows(list: FullPlanList, progress: PlanProgress, date: s
   });
 }
 
-/** The two blocks above the list. A task appears once: late tasks go under "Catch up"
- * (the band at the very top), and "Do these next" is the next three open tasks that are
- * not late (docs/APP_PLAN.md, screen pattern (b)). */
-export function planBlocks<T extends { key: string; doneAt?: string }>(rows: T[], late: T[]) {
+/** The blocks above the list. A task appears once. Late tasks that were already due on the day
+ * she began (`beforeStart`) go under "Start here"; tasks that fell due since go under "Catch up";
+ * "Do these next" is the next three open tasks that are not late (docs/APP_PLAN.md, pattern (b)). */
+export function planBlocks<T extends { key: string; doneAt?: string }>(rows: T[], late: T[], beforeStart: Set<string> = new Set()) {
   const lateKeys = new Set(late.map(r => r.key));
-  return { catchUp: late, next: rows.filter(r => !r.doneAt && !lateKeys.has(r.key)).slice(0, 3) };
+  return {
+    startHere: late.filter(r => beforeStart.has(r.key)),
+    catchUp: late.filter(r => !beforeStart.has(r.key)),
+    next: rows.filter(r => !r.doneAt && !lateKeys.has(r.key)).slice(0, 3),
+  };
+}
+
+/** Keys of the tasks that were already due on the day she began: by the task's own date where it
+ * has one, otherwise by its window having closed before that day. */
+export function dueBeforeStart<T extends { key: string; windowId: string; dueOn?: string | null }>(rows: T[], weddingDate: string, startedOn: string) {
+  const atStart = buildDatedPlan(weddingDate, startedOn);
+  if (atStart.state !== 'future') return new Set<string>();
+  const open = new Set(atStart.windows.map(w => w.id));
+  return new Set(rows.filter(r => r.dueOn ? r.dueOn < startedOn : !open.has(r.windowId)).map(r => r.key));
 }

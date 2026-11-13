@@ -9,7 +9,9 @@ import { taskKey, emptyProgress, toggleDone, type PlanProgress } from '@core/pla
 import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/traditionPacks';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
-import { fullPlanRows, lockedPlanRows, planBlocks, planOverview, completionDay, taskRows } from '../../../src/planTasks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { dueBeforeStart, fullPlanRows, lockedPlanRows, planBlocks, planOverview, completionDay, taskRows } from '../../../src/planTasks';
+import { planStartStore } from '../../../src/planStart';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
 import { shouldOffer } from '../../../src/reminders';
@@ -19,6 +21,7 @@ export default function Plan() {
   const sharingRevision = useSharingRevision();
   const [shared, setShared] = useState<SharedPlan | null>(null);
   const [date, setDate] = useState('');
+  const [startedOn, setStartedOn] = useState(localToday());
   const [progress, setProgress] = useState<PlanProgress>(emptyProgress);
   const [windowId, setWindow] = useState(PLAN_WINDOWS[0].id);
   const [error, setError] = useState('');
@@ -27,8 +30,9 @@ export default function Plan() {
   useFocusEffect(useCallback(() => {
     let active = true;
     setReady(false);
-    Promise.all([savedDate.read(), savedProgress.read(), activePlan()]).then(([d, p, shared]) => {
-      if (active) { setShared(shared); setDate(d ?? ''); setProgress(p); setReady(true); setError(''); void phoneMetrics.record(); }
+    Promise.all([savedDate.read(), savedProgress.read(), activePlan()]).then(async ([d, p, shared]) => {
+      const began = await planStartStore(AsyncStorage).read(d ?? '', localToday()).catch(() => localToday());
+      if (active) { setStartedOn(began); setShared(shared); setDate(d ?? ''); setProgress(p); setReady(true); setError(''); void phoneMetrics.record(); }
       awaitReminderOffer();
     }).catch(() => { if (active) setError('Could not read your plan. Reopen this screen to try again.'); });
     return () => { active = false; };
@@ -51,17 +55,17 @@ export default function Plan() {
   const overview = planOverview(progress, plan);
   // Full-list tasks are late by their own date; her own tasks, by their window having passed.
   const overdue = shared ? rows.filter(r => r.ownId ? !r.doneAt && !plan.windows.some(w => w.id === r.windowId) : r.late) : overview.overdue;
-  const blocks = planBlocks(rows, overdue);
+  const blocks = planBlocks(rows, overdue, dueBeforeStart(rows, date, startedOn));
   async function tick(key: string) {
     setSaving(true);
     try { setProgress(await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()))); setError(''); }
     catch { setError('Your change could not be saved. Try again.'); }
     finally { setSaving(false); }
   }
-  const row = (r: Row) => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
+  const row = (r: Row, undated = '') => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
     <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
-      <Text style={type.sub}>{(shared?.list.windows ?? PLAN_WINDOWS).find(w => w.id === r.windowId)?.label}{r.dueOn ? ` · By ${plainDate(r.dueOn)}` : plan.windows.find(w => w.id === r.windowId) ? ` · By ${plainDate(plan.windows.find(w => w.id === r.windowId)!.endsOn)}` : ' · Catch up'}</Text>
+      <Text style={type.sub}>{(shared?.list.windows ?? PLAN_WINDOWS).find(w => w.id === r.windowId)?.label}{r.dueOn ? ` · By ${plainDate(r.dueOn)}` : plan.windows.find(w => w.id === r.windowId) ? ` · By ${plainDate(plan.windows.find(w => w.id === r.windowId)!.endsOn)}` : undated}</Text>
       {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {completionDay(r.doneAt)}</Text> : null}
     </Pressable>
     {r.ownId && (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask | undefined)?.tradition ? <Text style={type.sub}>{TRADITION_PREVIEWS.find(p => p.id === (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask).tradition?.packId)?.name}</Text> : null}
@@ -74,13 +78,14 @@ export default function Plan() {
       {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text><GoButton href="/more/sharing" label="♧ Two phones ›" /></> : null}
       {plan.warning ? <Text style={type.body}>{plan.warning}</Text> : null}
       <Text style={type.section}>{count.done} / {count.total} tasks done</Text>
-      {blocks.catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {blocks.catchUp.length}</Text>{blocks.catchUp.map(row)}</View> : null}
-      {blocks.next.length ? <View><Text accessibilityRole="header" style={type.section}>Do these next · {blocks.next.length}</Text>{blocks.next.map(row)}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
+      {blocks.startHere.length ? <View><Text accessibilityRole="header" style={type.section}>Start here · {blocks.startHere.length}</Text><Text style={type.sub}>These came before you began. Do the ones that still apply to you.</Text>{blocks.startHere.map(r => row(r, ' · Start here'))}</View> : null}
+      {blocks.catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {blocks.catchUp.length}</Text>{blocks.catchUp.map(r => row(r, ' · Catch up'))}</View> : null}
+      {blocks.next.length ? <View><Text accessibilityRole="header" style={type.section}>Do these next · {blocks.next.length}</Text>{blocks.next.map(r => row(r))}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
       <ScrollView horizontal accessibilityRole="tablist" contentContainerStyle={{ gap: space[2] }}>
         {(shared ? shared.list.windows : PLAN_WINDOWS).map(w => <Pressable key={w.id} accessibilityRole="tab" accessibilityState={{ selected: windowId === w.id }} onPress={() => setWindow(w.id)} style={{ minHeight: 48, padding: space[3], backgroundColor: windowId === w.id ? color.blueSoft : color.coralSoft }}><Text style={type.button}>{w.label}</Text></Pressable>)}
       </ScrollView>
       {plan.windows.filter(w => w.id === windowId).map(w => <Text key={w.id} style={type.sub}>{plainDate(w.startsOn)} – {plainDate(w.endsOn)}</Text>)}
-      {rows.filter(r => r.windowId === windowId).map(row)}
+      {rows.filter(r => r.windowId === windowId).map(r => row(r))}
       {(!shared ? lockedPlanRows(date, windowId) : []).map(r => <Pressable key={r.text} accessibilityRole="button" onPress={() => router.push(r.href)} style={{ minHeight: 64, paddingVertical: space[2], borderBottomWidth: 1, borderColor: color.rule }}>
         <Text style={[type.body, { color: color.midnightMuted }]}>🔒 {r.text}</Text>
         <Text style={type.sub}>{plainDate(r.dueOn)} · Full plan ›</Text>
