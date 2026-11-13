@@ -23,7 +23,7 @@ export const ROUTE_SEGMENTS = [
   'icon-192.png', 'icon-512.png', 'llms.txt', 'methodology', 'micro-wedding-planning',
   'og.png', 'order', 'pack', 'photos', 'pinfeed', 'pinfeed.xml',
   'printable-wedding-checklist', 'privacy', 'products', 'questions', 'readiness-score', 'refund-policy',
-  'robots.txt', 'shop', 'site.webmanifest', 'sitemap.xml', 'terms', 'trends',
+  'robots.txt', 'shop', 'site.webmanifest', 'sitemap.xml', 'terms', 'trends', 'two-phones',
   'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
   'wedding-checklist-pdf', 'wedding-cost-per-guest', 'wedding-guest-list-template',
   'wedding-planning-checklist', 'wedding-planning-reality-check', 'wedding-seating-chart',

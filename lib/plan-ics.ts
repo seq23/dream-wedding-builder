@@ -7,7 +7,7 @@ import { addDays, parseDay, type DatedPlan } from '@/lib/dated-plan';
 const compact = (iso: string) => iso.replace(/-/g, '');
 const nextDay = (iso: string) => { const d = parseDay(iso)!; const n = addDays(d, 1); return `${n.y}${String(n.m).padStart(2, '0')}${String(n.d).padStart(2, '0')}`; };
 /** RFC 5545 text escaping. */
-export const icsText = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+export const icsText = (s: string) => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
 
 export function buildIcs(plan: DatedPlan, weddingDate: string, openTasks: (windowId: string, tasks: string[]) => string[], stamp: string): string | null {
   if (plan.state !== 'future') return null;
