@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PUBLIC_PAGE_CACHE_CONTROL, edgeCacheKey, serveWithEdgeCache } from '@/lib/edge-cache';
+import { PUBLIC_PAGE_CACHE_CONTROL, edgeCacheKey, isScannerPath, serveWithEdgeCache } from '@/lib/edge-cache';
 
 // Public pages must be cacheable at the edge and vary by host; nothing private may be.
 function memoryCache() {
@@ -51,6 +51,8 @@ describe('edge cache for public pages', () => {
       get('https://weddingchecklistpdf.com/order/success'),
       get('https://weddingchecklistpdf.com/?utm_source=pinterest&pin=a'),
       get('https://weddingchecklistpdf.com/', { cookie: 'dwb_pin=a' }),
+      get('https://weddingchecklistpdf.com/', { cookie: '_clck=1; dwb_admin_session=x' }),
+      get('https://weddingchecklistpdf.com/api/wedding-read'),
       get('https://weddingchecklistpdf.com/', { authorization: 'Bearer x' }),
       get('https://weddingchecklistpdf.com/', { 'x-forwarded-host': 'weddingbudgetspreadsheet.com' }),
       new Request('https://weddingchecklistpdf.com/', { method: 'POST' })
@@ -75,5 +77,38 @@ describe('edge cache for public pages', () => {
     const cache = memoryCache();
     await serveWithEdgeCache(get('https://weddingchecklistpdf.com/'), '', undefined, ctx(), () => page('x'));
     expect(cache.store.size).toBe(0);
+  });
+
+  it('a visitor with only analytics cookies gets the edge copy; crawler files are kept; scanner probes never render', async () => {
+    const cache = memoryCache(); let renders = 0;
+    const app = () => { renders++; return page('<html>home</html>'); };
+    const c = ctx();
+    await serveWithEdgeCache(get('https://weddingchecklistpdf.com/'), 'v1', cache, c, app);
+    await Promise.all(c.pending);
+    const withClarity = await serveWithEdgeCache(get('https://weddingchecklistpdf.com/', { cookie: '_clck=abc; _clsk=def' }), 'v1', cache, ctx(), app);
+    expect(withClarity.headers.get('x-edge-cache')).toBe('HIT');
+    expect(renders).toBe(1);
+    for (const path of ['/robots.txt', '/sitemap.xml', '/llms.txt']) {
+      const type = path.endsWith('.xml') ? 'application/xml' : 'text/plain; charset=utf-8';
+      let n = 0; const file = () => { n++; return new Response('x', { status: 200, headers: { 'content-type': type } }); };
+      const c2 = ctx();
+      await serveWithEdgeCache(get(`https://weddingchecklistpdf.com${path}`), 'v1', cache, c2, file);
+      await Promise.all(c2.pending);
+      expect((await serveWithEdgeCache(get(`https://weddingchecklistpdf.com${path}`), 'v1', cache, ctx(), file)).headers.get('x-edge-cache'), path).toBe('HIT');
+      expect(n).toBe(1);
+    }
+    // A JSON or text response anywhere else is still never kept.
+    const c3 = ctx(); const other = memoryCache();
+    await serveWithEdgeCache(get('https://weddingchecklistpdf.com/feed.txt'), 'v1', other, c3, () => new Response('x', { status: 200, headers: { 'content-type': 'text/plain' } }));
+    await Promise.all(c3.pending);
+    expect(other.store.size).toBe(0);
+    for (const probe of ['/wp-admin/install.php?step=1', '/wp-login.php', '/xmlrpc.php', '/.env', '/.git/config', '/index.php', '/cgi-bin/x']) {
+      let rendered = false;
+      const r = await serveWithEdgeCache(get(`https://weddingchecklistpdf.com${probe}`), 'v1', memoryCache(), ctx(), () => { rendered = true; return page('x'); });
+      expect(r.status, probe).toBe(404);
+      expect(rendered, probe).toBe(false);
+    }
+    // Real pages are never mistaken for probes.
+    for (const path of ['/', '/free-wedding-planner', '/wedding-checklist', '/products/checklist-pdf', '/questions/what-to-do-first', '/amazon/wedding-day-timeline']) expect(isScannerPath(path), path).toBe(false);
   });
 });
