@@ -1,4 +1,5 @@
 import { phoneSharing, pauseSharing, activePlan } from '../../../src/sharing/runtime';
+import { sharingDeadline } from '../../../src/sharing/deadline';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
 import release from '../../../release/config.json';
 import { useCallback, useState } from 'react';
@@ -51,7 +52,10 @@ export default function More() {
     let resume: (() => void) | undefined;
     try {
       resume = await pauseSharing();
-      await deleteLocalPlan(AsyncStorage, stopPlanReminders, savedProgress.drain, () => phoneArchives.clear());
+      await deleteLocalPlan(AsyncStorage, stopPlanReminders, savedProgress.drain, () => phoneArchives.clear(), async () => {
+        const api = await phoneSharing();
+        if ((await api.read())?.role === 'owner') await sharingDeadline(() => api.stop(), 5000);
+      });
       router.replace('/welcome');
     } catch { setError('Deletion could not finish. Please try again.'); }
     finally { resume?.(); setBusy(false); }

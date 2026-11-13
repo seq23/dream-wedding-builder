@@ -1,6 +1,6 @@
 import { decryptPlan, encryptPlan, newShareKey, SHARE_ORIGIN, SHARE_UNAVAILABLE, validateLink, type ShareLink, type SecureRandom } from './crypto';
 
-const MAX_BYTES = 64 * 1024;
+const MAX_BYTES = 256 * 1024; // same cap as the server (lib/plan-share.ts)
 export class ShareConflict extends Error {}
 /** A confirmed missing capability, distinct from a temporary server/network failure.
  * Keep the public message identical to wrong-key failures. */
@@ -49,9 +49,10 @@ export function shareClient(rng: SecureRandom, transport: typeof fetch = fetch, 
             }
             text += decoder.decode();
           }
-          const data = JSON.parse(text);
+          let data: unknown;
+          try { data = JSON.parse(text); } catch { throw Error(SHARE_UNAVAILABLE); }
           if (!data || typeof data !== 'object' || Array.isArray(data)) throw Error(SHARE_UNAVAILABLE);
-          return data;
+          return data as Record<string, unknown>;
         })(),
         new Promise<never>((_, reject) => { timer = setTimeout(() => reject(Error('No connection. Try sharing again when you are online.')), timeoutMs); }),
       ]);

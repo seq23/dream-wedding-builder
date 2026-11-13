@@ -23,7 +23,7 @@ Sharing cannot grant full_plan until the independent server purchase verificatio
 exists. Deleting a share cannot erase content already downloaded to another phone;
 the joined phone must drop its event entitlement and paid content on revocation.
 
-Request size includes JSON overhead and is limited to 64 KB, even with chunked
+Request size includes JSON overhead and is limited to 256 KB, even with chunked
 transfer. Rate limits: 120 requests/minute/IP, 10,000 requests/day globally and
 4,000 mutating requests/day globally (UTC days). The write budget includes 3,000
 creates plus 1,000 updates; the request budget is a conservative stop, not proof

@@ -287,3 +287,42 @@ test('stopping drains pending writes before preserving the owner; local deletion
   await deleteLocalPlan(owner.storage,async()=>{},a.drain);
   assert.equal(JSON.stringify([...s.documents]),snapshot);
 });
+
+test('deleting the plan on the inviting phone stops sharing first, so the partner loses the paid plan; offline still deletes', async () => {
+  const s = server(), owner = phone(), partner = phone();
+  const a = sharingSession(owner.storage, s.client, 'a'.repeat(32), async () => fixture());
+  const b = sharingSession(partner.storage, s.client, 'b'.repeat(32), async () => null);
+  await b.join(inviteLink((await a.invite()).link));
+  assert.equal(s.documents.size, 1);
+  await deleteLocalPlan(owner.storage, async () => {}, a.drain, async () => {}, () => a.stop());
+  assert.equal(s.documents.size, 0);
+  assert.equal(await b.sync(), null);
+  assert.equal(await b.read(), null);
+  // Offline: the stop cannot reach the server, and the delete still completes.
+  const offlineOwner = phone();
+  const c = sharingSession(offlineOwner.storage, s.client, 'c'.repeat(32), async () => fixture());
+  await c.invite();
+  s.offline(true);
+  await deleteLocalPlan(offlineOwner.storage, async () => {}, c.drain, async () => {}, () => c.stop());
+  assert.equal(offlineOwner.data.has(SHARE_SESSION_KEY), false);
+});
+
+test('a plan the size of the real full list, with every pack added and every task ticked, still shares and syncs', async () => {
+  // Fictional text at the real shape: 100 tasks of 92 characters, 7 packs of 14 tasks.
+  const windowId = '9-months', actor = 'a'.repeat(32);
+  const big = { windows: [{ id: windowId, label: 'Example window' }], tasks: Array.from({ length: 100 }, (_, i) => ({
+    id: `task-${i}`, window: windowId, text: `Fictional task ${String(i).padStart(3, '0')} ${'x'.repeat(73)}`, daysBefore: i, owner: 'Fictional owner', kind: 'task' as const })) };
+  const packIds = ['catholic', 'jewish', 'hindu', 'muslim-nikah', 'nigerian', 'mexican', 'chinese-tea'];
+  const packs = packIds.map(id => ({ id, tasks: Array.from({ length: 14 }, (_, i) => ({ id: `t${i}`, windowId, text: `Fictional pack task ${i} ${'y'.repeat(100)}`, source: `https://example.org/${'s'.repeat(60)}/${i}` })) }));
+  const custom = Object.fromEntries(packs.flatMap(p => p.tasks.map(t => { const id = `tradition:${p.id}:${t.id}`; return [id, { at: 1, actor, value: { id, text: t.text, windowId, tradition: { packId: p.id, taskId: t.id, text: t.text, windowId, source: t.source } } }]; })));
+  const ticks = Object.fromEntries([...big.tasks.map(t => taskKey(t.window, t.text)), ...Object.keys(custom).map(id => `own::${id}`)].map(key => [key, { at: 1800000000000, actor, done: true }]));
+  const plan = sharedPlan({ event: { id: 'event-1', name: 'Fictional robot wedding', date: '2028-06-12' }, list: big, packs, custom, ticks, joined: false });
+  assert.ok(JSON.stringify(plan).length > 64 * 1024, 'fixture must be larger than the old cap');
+  const s = server(), owner = phone(), partner = phone();
+  const a = sharingSession(owner.storage, s.client, actor, async () => plan);
+  const b = sharingSession(partner.storage, s.client, 'b'.repeat(32), async () => null);
+  await b.join(inviteLink((await a.invite()).link));
+  await b.tick(taskKey(windowId, big.tasks[0].text), false);
+  await b.sync();
+  assert.equal((await a.sync())?.plan.ticks[taskKey(windowId, big.tasks[0].text)].done, false);
+});

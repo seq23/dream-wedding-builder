@@ -107,7 +107,7 @@ test('latest untick survives stale snapshots, clock rollback, and equal-time con
 
 test('accepted boundary plans remain readable and writable; oversized envelopes never leave the phone', async () => {
   const fake = server(), client = shareClient(rng, fake.transport);
-  const limit = 64 * 1024;
+  const limit = 256 * 1024;
   const overhead = JSON.stringify({ ciphertext: '', revision: Number.MAX_SAFE_INTEGER }).length;
   // XChaCha20-Poly1305: 24-byte nonce + 16-byte tag, then base64.
   const size = Math.floor((limit - overhead) / 4) * 3 - 40;
@@ -124,7 +124,7 @@ test('accepted boundary plans remain readable and writable; oversized envelopes 
 
 test('oversized writes never leave the phone, and stalled headers or bodies time out', async () => {
   const fake = server(), client = shareClient(rng, fake.transport);
-  await assert.rejects(client.create('x'.repeat(64 * 1024)), /too large/);
+  await assert.rejects(client.create('x'.repeat(256 * 1024)), /too large/);
   assert.equal(fake.requests.length, 0);
   const link = { id: 'c'.repeat(64), key: newShareKey(rng) };
   const stuck: typeof fetch = () => new Promise(() => {});
@@ -133,7 +133,7 @@ test('oversized writes never leave the phone, and stalled headers or bodies time
   const stuckBody: typeof fetch = async () => new Response(new ReadableStream({ cancel() { cancelled = true; } }));
   await assert.rejects(shareClient(rng, stuckBody, 5).read(link), /No connection/);
   assert.equal(cancelled, true);
-  const oversized: typeof fetch = async () => new Response('x'.repeat(64 * 1024 + 1));
+  const oversized: typeof fetch = async () => new Response('x'.repeat(256 * 1024 + 1));
   await assert.rejects(shareClient(rng, oversized).read(link), { message: SHARE_UNAVAILABLE });
 });
 
@@ -149,8 +149,11 @@ test('phone responses without streams support sharing and still enforce size and
   assert.equal((await client.read(link)).plaintext, 'Fictional robot wedding');
   assert.equal(await client.write(link, 'Updated fictional wedding', 1), 2);
   assert.equal((await client.read(link)).plaintext, 'Updated fictional wedding');
-  const oversized: typeof fetch = async () => ({ ok: true, status: 200, body: null, text: async () => '🌸'.repeat(17000) } as Response);
+  const oversized: typeof fetch = async () => ({ ok: true, status: 200, body: null, text: async () => '🌸'.repeat(256 * 1024 / 4 + 1) } as Response);
   await assert.rejects(shareClient(rng, oversized).read(link), { message: SHARE_UNAVAILABLE });
+  // A reply that is not JSON (an error page) shows the same plain sentence, never a parser message.
+  const page: typeof fetch = async () => ({ ok: true, status: 200, body: null, text: async () => '<html>busy</html>' } as Response);
+  await assert.rejects(shareClient(rng, page).read(link), { message: SHARE_UNAVAILABLE });
   const stalled: typeof fetch = async () => ({ ok: true, status: 200, body: null, text: () => new Promise<string>(() => {}) } as Response);
   await assert.rejects(shareClient(rng, stalled, 5).read(link), /No connection/);
   await client.stop(link);

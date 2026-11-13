@@ -12,7 +12,11 @@ export async function deleteLocalPlan(
   stopReminders: () => Promise<void>,
   drainProgress: () => Promise<unknown>,
   removeArchives: () => Promise<void> = async () => {},
+  stopSharing: () => Promise<void> = async () => {},
 ) {
+  // The inviting phone ends the share first, so the partner's phone does not keep
+  // the paid plan until the link expires. Best effort: offline never blocks deletion.
+  await stopSharing().catch(() => {});
   // A cancellation failure must stay visible; do not claim deletion succeeded.
   await stopReminders();
   await drainProgress();

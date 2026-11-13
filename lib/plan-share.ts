@@ -1,6 +1,8 @@
 import { callerKey, takeSlot, type LimitDB } from './abuse-limits';
 
-export const SHARE_MAX_BYTES = 64 * 1024;
+// 256 KB: the real full list, seven packs and a tick for every task come to about
+// 155 KB once encrypted; 64 KB stopped syncing after about three quarters of the ticks.
+export const SHARE_MAX_BYTES = 256 * 1024;
 export const SHARE_DAILY_REQUESTS = 10000;
 export const SHARE_DAILY_WRITES = 4000; // 3,000 creates + 1,000 updates; target-day test before enabling.
 export const SHARE_IP_LIMIT = { max: 120, windowS: 60 };
