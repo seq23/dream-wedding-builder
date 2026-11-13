@@ -106,3 +106,11 @@ export function fullPlanRows(list: FullPlanList, progress: PlanProgress, date: s
     return { key, windowId: t.window, text: t.text, ownId: undefined as string | undefined, doneAt, dueOn, late: !doneAt && !!dueOn && dueOn < today };
   });
 }
+
+/** The two blocks above the list. A task appears once: late tasks go under "Catch up"
+ * (the band at the very top), and "Do these next" is the next three open tasks that are
+ * not late (docs/APP_PLAN.md, screen pattern (b)). */
+export function planBlocks<T extends { key: string; doneAt?: string }>(rows: T[], late: T[]) {
+  const lateKeys = new Set(late.map(r => r.key));
+  return { catchUp: late, next: rows.filter(r => !r.doneAt && !lateKeys.has(r.key)).slice(0, 3) };
+}

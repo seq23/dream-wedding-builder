@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { emptyProgress, toggleDone, taskKey } from '@core/plan-progress';
 import { buildDatedPlan } from '@core/dated-plan';
-import { lockedPlanRows, planOverview, addOwnTask, catchUpRows, editOwnTask, ownTaskKey, progressStore, removeCustomTask, taskCount, taskRows } from '../src/planTasks';
+import { lockedPlanRows, planBlocks, planOverview, addOwnTask, catchUpRows, editOwnTask, ownTaskKey, progressStore, removeCustomTask, taskCount, taskRows } from '../src/planTasks';
 
 test('tick stamps and untick clears without moving rows; totals include own tasks only once', () => {
   let p = addOwnTask(emptyProgress(), '9-months', 'Our task', 'a');
@@ -129,4 +129,28 @@ test('full-plan tasks are late by their own date; after-the-wedding tasks are ne
   assert.deepEqual(late('2027-07-01'), ['Fictional robots book a hall', 'Fictional robots choose chairs', 'Fictional robots send thank-you cards']);
   // No date set: nothing can be late.
   assert.deepEqual(fullPlanRows(list, progress, '', '2027-01-10').filter(r => r.late), []);
+});
+
+test('a task is listed once: late tasks sit under Catch up and never also under Do these next', () => {
+  // Seven months out the 12+ window has closed, so its unticked tasks are late.
+  const plan = buildDatedPlan('2027-06-13', '2026-11-13');
+  let progress = emptyProgress();
+  const rows = () => taskRows(progress);
+  let blocks = planBlocks(rows(), catchUpRows(progress, plan));
+  assert.ok(blocks.catchUp.length > 0);
+  assert.equal(blocks.next.length, 3);
+  const late = new Set(blocks.catchUp.map(r => r.key));
+  assert.ok(blocks.next.every(r => !late.has(r.key)));
+  assert.equal(new Set([...blocks.catchUp, ...blocks.next].map(r => r.key)).size, blocks.catchUp.length + blocks.next.length);
+  // The next block is the first open tasks that are not late, in list order.
+  assert.deepEqual(blocks.next.map(r => r.key), rows().filter(r => !late.has(r.key)).slice(0, 3).map(r => r.key));
+  // Ticking a next task brings in the following one; ticking a late one only shortens Catch up.
+  const first = blocks.next[0].key, lateKey = blocks.catchUp[0].key;
+  progress = toggleDone(toggleDone(progress, first, '2026-11-13T10:00:00Z'), lateKey, '2026-11-13T10:00:00Z');
+  const after = planBlocks(rows(), catchUpRows(progress, plan));
+  assert.equal(after.catchUp.length, blocks.catchUp.length - 1);
+  assert.ok(![...after.next, ...after.catchUp].some(r => r.key === first || r.key === lateKey));
+  assert.equal(after.next.length, 3);
+  // With nothing late, the next block is simply the first three open tasks.
+  assert.deepEqual(planBlocks(taskRows(emptyProgress()), []).next.map(r => r.key), taskRows(emptyProgress()).slice(0, 3).map(r => r.key));
 });

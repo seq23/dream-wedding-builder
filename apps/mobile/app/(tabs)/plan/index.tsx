@@ -9,7 +9,7 @@ import { taskKey, emptyProgress, toggleDone, type PlanProgress } from '@core/pla
 import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/traditionPacks';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
-import { fullPlanRows, lockedPlanRows, planOverview, completionDay, taskRows } from '../../../src/planTasks';
+import { fullPlanRows, lockedPlanRows, planBlocks, planOverview, completionDay, taskRows } from '../../../src/planTasks';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
 import { shouldOffer } from '../../../src/reminders';
@@ -51,7 +51,7 @@ export default function Plan() {
   const overview = planOverview(progress, plan);
   // Full-list tasks are late by their own date; her own tasks, by their window having passed.
   const overdue = shared ? rows.filter(r => r.ownId ? !r.doneAt && !plan.windows.some(w => w.id === r.windowId) : r.late) : overview.overdue;
-  const catchUp = rows.filter(r => !r.doneAt).slice(0, 3);
+  const blocks = planBlocks(rows, overdue);
   async function tick(key: string) {
     setSaving(true);
     try { setProgress(await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()))); setError(''); }
@@ -74,8 +74,8 @@ export default function Plan() {
       {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text><GoButton href="/more/sharing" label="♧ Two phones ›" /></> : null}
       {plan.warning ? <Text style={type.body}>{plan.warning}</Text> : null}
       <Text style={type.section}>{count.done} / {count.total} tasks done</Text>
-      {catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Do these next · {catchUp.length}</Text>{catchUp.map(row)}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
-      {overdue.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {overdue.length}</Text>{overdue.map(row)}</View> : null}
+      {blocks.catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {blocks.catchUp.length}</Text>{blocks.catchUp.map(row)}</View> : null}
+      {blocks.next.length ? <View><Text accessibilityRole="header" style={type.section}>Do these next · {blocks.next.length}</Text>{blocks.next.map(row)}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
       <ScrollView horizontal accessibilityRole="tablist" contentContainerStyle={{ gap: space[2] }}>
         {(shared ? shared.list.windows : PLAN_WINDOWS).map(w => <Pressable key={w.id} accessibilityRole="tab" accessibilityState={{ selected: windowId === w.id }} onPress={() => setWindow(w.id)} style={{ minHeight: 48, padding: space[3], backgroundColor: windowId === w.id ? color.blueSoft : color.coralSoft }}><Text style={type.button}>{w.label}</Text></Pressable>)}
       </ScrollView>
