@@ -58,6 +58,8 @@ describe('the checks before she sees an answer', () => {
     expect(JSON.stringify(buildMessages(cleanAnswers({ path: 'idea', wish: 'Memphis', facts: { where: 'Memphis' } }), [], [], []))).not.toContain('near you');
     // The colours read from her photo on her phone shape the palette.
     expect(JSON.stringify(buildMessages(cleanAnswers({ path: 'idea', wish: 'a villa', photos: [{ loves: [], colours: ['#800020', '#d2b48c'] }] }), [], [], []))).toContain('Colours read from her photos: #800020, #d2b48c');
+    // And the fixed-list answer shows her photo's own colours, plainly named.
+    expect(fixedRead(cleanAnswers({ path: 'idea', wish: 'a villa', photos: [{ loves: [], colours: ['#7f001f', '#d1b38b', '#024421'] }] })).colours).toEqual([{ name: 'Burgundy', hex: '#7f001f' }, { name: 'Tan', hex: '#d1b38b' }, { name: 'Deep green', hex: '#024421' }]);
   });
 
   it('speaks as the tool: we, us, I and darling fail', () => {

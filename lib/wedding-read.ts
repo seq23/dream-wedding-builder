@@ -323,6 +323,24 @@ export function headlineFor(a: Answers): string {
   return `${feel}${rest ? `${words.length ? ', ' : ' '}${rest}` : ''}${guests ? `, for ${guests}` : ''}.`;
 }
 
+// Plain names for colours read from her photos, so the fixed-list answer can show her own colours.
+const COLOUR_NAMES: [string, number, number, number][] = [
+  ['Burgundy', 128, 0, 32], ['Wine', 94, 25, 40], ['Brick red', 170, 60, 50], ['Coral', 242, 140, 107], ['Terracotta', 204, 102, 51], ['Rust', 183, 65, 14],
+  ['Tan', 210, 180, 140], ['Sand', 222, 200, 160], ['Cream', 253, 251, 247], ['Ivory', 250, 247, 242], ['White', 255, 255, 255], ['Warm grey', 160, 150, 140],
+  ['Charcoal', 51, 51, 51], ['Black', 10, 10, 10], ['Brown', 110, 75, 45], ['Gold', 200, 160, 60], ['Butter', 243, 227, 161], ['Lemon', 244, 211, 94],
+  ['Forest green', 30, 80, 45], ['Deep green', 1, 68, 33], ['Olive', 85, 107, 47], ['Sage', 156, 175, 136], ['Leaf green', 76, 140, 74], ['Fresh green', 143, 185, 139],
+  ['Navy', 31, 42, 68], ['Sea blue', 46, 134, 171], ['Sky', 169, 199, 232], ['Dusty blue', 120, 150, 180], ['Lilac', 200, 182, 226], ['Plum', 110, 50, 90], ['Pink', 230, 170, 180]
+];
+function photoPalette(a: Answers): { name: string; hex: string }[] | null {
+  const hexes = [...new Set(a.photos.flatMap(p => p.colours))].slice(0, 5);
+  if (!hexes.length) return null;
+  return hexes.map(hex => {
+    const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+    const name = COLOUR_NAMES.reduce((best, c) => Math.hypot(c[1] - r, c[2] - g, c[3] - b) < Math.hypot(best[1] - r, best[2] - g, best[3] - b) ? c : best)[0];
+    return { name, hex };
+  });
+}
+
 /** The plainer answer from our own lists: no model, no network, never fails. */
 export function fixedRead(a: Answers): WeddingRead {
   const moods = moodsFor(a);
@@ -336,7 +354,7 @@ export function fixedRead(a: Answers): WeddingRead {
     headline: headlineFor(a),
     read: `Put together from your answers using fixed lists, without AI${guestsLine}. It leans ${moods.slice(0, 2).map(m => m.toLowerCase()).join(' and ')}, and everything below can change as you decide more.`,
     directions: [...moods, 'Relaxed', 'Elegant'].filter((m, i, l) => l.indexOf(m) === i).slice(0, 2).map(m => DIRECTIONS[m]),
-    colours: PALETTES[a.season === 'Not sure' ? '' : a.season] ?? PALETTES[''],
+    colours: photoPalette(a) ?? PALETTES[a.season === 'Not sure' ? '' : a.season] ?? PALETTES[''],
     venueTypes: venues.map(v => ({ id: v.id, name: v.name, why: v.goodFor })),
     ideas: ideas.map(({ trend }) => ({ id: trend.id, name: trend.name, cost: costLevel(trend), why: trend.whyItStandsOut ?? trend.description })),
     details: moods.flatMap(m => DETAILS[m] ?? []).slice(0, 5),
