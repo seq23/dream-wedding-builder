@@ -172,6 +172,21 @@ export function parseDraft(content: string, today: string): AiDraftFields | null
   return filled > 0 ? draft : null;
 }
 
+/** The visitor an address stands for: an IPv4 address as is; an IPv6 address by its /64
+ * prefix, because phones and Macs rotate the rest daily (privacy addresses) and one home or
+ * phone owns the whole /64. So rotation neither gives a visitor a fresh allowance nor
+ * makes a tester entry go stale. */
+export function visitorIp(ip: string): string {
+  const raw = (ip || '').trim().toLowerCase().replace(/^\[|\]$/g, '').replace(/%.*$/, '');
+  if (!raw.includes(':')) return raw || 'unknown';
+  if (/^::ffff:\d+\.\d+\.\d+\.\d+$/.test(raw)) return raw.slice(7);
+  const [head, tail = ''] = raw.split('::');
+  const h = head ? head.split(':') : [];
+  const t = raw.includes('::') && tail ? tail.split(':') : [];
+  const groups = raw.includes('::') ? [...h, ...Array(Math.max(0, 8 - h.length - t.length)).fill('0'), ...t] : h;
+  return `${groups.slice(0, 4).map(g => (g.replace(/^0+(?=.)/, '') || '0')).join(':')}::/64`;
+}
+
 export async function sha256(value: string): Promise<string> {
   const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
   return [...new Uint8Array(bytes)].map(b => b.toString(16).padStart(2, '0')).join('');
@@ -354,7 +369,7 @@ export async function draftPlan(input: DraftInput): Promise<DraftResult> {
   if (!signedUp) return refuse(403, 'NOT_SIGNED_UP', MESSAGES.notSignedUp);
 
   const emailHash = await sha256(`${input.salt}:email:${email}`);
-  const ipHash = await sha256(`${input.salt}:ip:${input.ip || 'unknown'}`);
+  const ipHash = await sha256(`${input.salt}:ip:${visitorIp(input.ip)}`);
   const count = async (sql: string, ...values: unknown[]) => Number((await db.prepare(sql).bind(...values).first<{ n: number }>())?.n ?? 0);
 
   if (await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE email_hash = ? AND outcome IN ('ok','pending')`, emailHash) >= FREE_DRAFTS_PER_EMAIL) return refuse(429, 'EMAIL_USED', MESSAGES.usedEmail);

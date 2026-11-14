@@ -20,7 +20,7 @@ import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 import { hasFullPlan, reminderChoice, syncReminders } from '../../../src/localReminders';
 import { shouldOffer } from '../../../src/reminders';
 import { color, space, type } from '../../../src/theme';
-import { isPick } from '../../../src/journey';
+import { isPick, journeyStore, type SavedJourney } from '../../../src/journey';
 import { phoneMetrics } from '../../../src/phoneMetrics';
 export default function Plan() {
   const sharingRevision = useSharingRevision();
@@ -34,11 +34,13 @@ export default function Plan() {
   const [saving, setSaving] = useState(false);
   const [notes, setNotes] = useState<Record<string, string>>({});
   const price = useFullPlanPrice();
+  const [journey, setJourney] = useState<SavedJourney | null>(null);
   useFocusEffect(useCallback(() => {
     let active = true;
     setReady(false);
     Promise.all([savedDate.read(), savedProgress.read(), activePlan(), detailStore(AsyncStorage).read().catch(() => ({}))]).then(async ([d, p, shared, details]) => {
       const began = await planStartStore(AsyncStorage).read(d ?? '', localToday()).catch(() => localToday());
+      journeyStore(AsyncStorage).read().then(j => { if (active) setJourney(j); }).catch(() => {});
       if (active) { setNotes(planNotes(details)); setStartedOn(began); setShared(shared); setDate(d ?? ''); setProgress(p); setReady(true); setError(''); void phoneMetrics.record(); }
       awaitReminderOffer();
     }).catch(() => { if (active) setError('Could not read your plan. Reopen this screen to try again.'); });
@@ -83,6 +85,13 @@ export default function Plan() {
   return <PlannedScreen route="/plan">
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {!ready ? <Text style={type.body}>Opening your plan…</Text> : <>
+      {/* Her wedding page stays one tap from home (the Plan tab stays the home tab). */}
+      {!shared ? <Pressable accessibilityRole="button" accessibilityLabel={journey?.read ? `Your wedding: ${journey.read.headline}` : 'Describe your wedding'} onPress={() => router.push('/feel')}
+        style={{ gap: 4, padding: space[3], borderRadius: 10, borderWidth: 1, borderColor: color.rule, backgroundColor: color.ivoryRaised }}>
+        <Text style={type.label}>Your wedding</Text>
+        <Text style={[type.title, { fontSize: 22, lineHeight: 26 }]}>{journey?.read ? journey.read.headline : 'What should your wedding feel like?'}</Text>
+        <Text style={[type.button, { color: color.blue }]}>{journey?.read ? `${journey.picks.length ? `${journey.picks.length} kept · ` : ''}Your wedding ›` : 'Describe my wedding ›'}</Text>
+      </Pressable> : null}
       <Text style={type.body}>{plan.headline}</Text>
       {plan.state === 'none' && !shared ? <GoButton href="/welcome" label="Choose my wedding date ›" primary /> : null}
       {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text><GoButton href="/more/sharing" label="♧ Two phones ›" /></> : null}

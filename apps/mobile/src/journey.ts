@@ -10,7 +10,7 @@ import type { WeddingRead } from '@core/wedding-read-shared';
 import { ownTaskKey } from './planTasks';
 import type { DateStorage } from './weddingDate';
 
-export { SEASONS, SETTINGS, MOODS } from '@core/wedding-read-shared';
+export { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS } from '@core/wedding-read-shared';
 export { pickable };
 export type { JourneyPick, WeddingRead };
 
@@ -18,12 +18,16 @@ const ORIGIN = 'https://weddingchecklistpdf.com';
 export const JOURNEY_STORE_KEY = 'dw.journey.v1';
 /** Her own tasks made from a pick carry this id prefix, so the plan can mark them "Your pick". */
 export const PICK_PREFIX = 'pick-';
+export const EMPTY_ANSWERS: JourneyAnswers = { path: 'dk', wish: '', season: '', setting: '', moods: [], where: '', guests: '', budget: '', tradition: '', venueBooked: false, dateSet: false };
 export const isPick = (id: string | undefined) => !!id && id.startsWith(PICK_PREFIX);
 
 export interface JourneyAnswers {
   path: 'idea' | 'dk'; wish: string; season: string; setting: string; moods: string[];
-  where: string; guests: string; venueBooked: boolean;
+  where: string; guests: string; budget: string; tradition: string; venueBooked: boolean; dateSet: boolean;
 }
+/** A photo as it is sent: what she loves in it, the colours read on the phone, and the
+ * shrunk image only when she ticked "Let the AI planner look at this photo". */
+export interface SentPhoto { loves: string[]; colours: string[]; image?: string }
 export type ReadReason = 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed';
 export type ReadReply =
   | { ok: true; read: WeddingRead; reason: ReadReason; remaining: number | null; limit: number }
@@ -48,9 +52,9 @@ const isRead = (v: unknown): v is WeddingRead => {
 export function weddingReadClient(preview: boolean, send: Transport = fetch) {
   let pending = false;
   return {
-    async request(a: JourneyAnswers): Promise<ReadReply> {
+    async request(a: JourneyAnswers, photos: SentPhoto[] = []): Promise<ReadReply> {
       if (pending) return { ok: false, message: 'Your wedding is still being written.' };
-      if (a.path === 'idea' && !a.wish.trim()) return { ok: false, message: 'Say a few words about the wedding you picture first.' };
+      if (a.path === 'idea' && a.wish.trim().length < 3 && !photos.length) return { ok: false, message: 'Say it in a few words, add a photo, or tap “I don’t know yet”.' };
       pending = true;
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 45000);
@@ -58,8 +62,8 @@ export function weddingReadClient(preview: boolean, send: Transport = fetch) {
         const res = await send(ORIGIN + '/api/wedding-read', {
           method: 'POST', signal: controller.signal,
           headers: { 'Content-Type': 'application/json', ...(preview ? { 'x-dw-test': '1' } : {}) },
-          body: JSON.stringify({ path: a.path, wish: a.path === 'idea' ? a.wish : '', season: a.season, setting: a.setting, moods: a.moods, photos: [],
-            facts: { where: a.where, guests: a.guests, venueBooked: a.venueBooked } }),
+          body: JSON.stringify({ path: a.path, wish: a.path === 'idea' ? a.wish : '', season: a.season, setting: a.setting, moods: a.moods, photos: photos.slice(0, 3),
+            facts: { where: a.where, guests: a.guests, budget: a.budget, tradition: a.tradition, venueBooked: a.venueBooked, dateSet: a.dateSet } }),
         });
         const body = await res.json() as Record<string, unknown>;
         if (!res.ok || body?.ok !== true || !isRead(body.read)) throw new Error('bad reply');
@@ -103,7 +107,7 @@ export function journeyStore(storage: DateStorage) {
       try {
         const v = JSON.parse(await storage.getItem(JOURNEY_STORE_KEY) ?? 'null') as SavedJourney | null;
         if (!v || typeof v !== 'object' || !v.answers || typeof v.answers !== 'object') return null;
-        return { answers: v.answers, read: isRead(v.read) ? v.read : null, reason: v.reason ?? 'no_model', picks: Array.isArray(v.picks) ? v.picks : [] };
+        return { answers: { ...EMPTY_ANSWERS, ...v.answers }, read: isRead(v.read) ? v.read : null, reason: v.reason ?? 'no_model', picks: Array.isArray(v.picks) ? v.picks : [] };
       } catch { return null; }
     },
     save: (j: SavedJourney) => storage.setItem(JOURNEY_STORE_KEY, JSON.stringify(j)),

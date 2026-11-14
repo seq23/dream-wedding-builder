@@ -4,10 +4,11 @@ import { emptyProgress, taskKey, toggleDone } from '@core/plan-progress';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { directionPick, ideaPick, venuePick } from '@core/journey-picks';
 import { applyPicks, isPick, journeyStore, readLabel, weddingReadClient, type JourneyAnswers } from '../src/journey';
+import { base64Bytes, strongestColours } from '../src/photoColours';
 import { ownTaskKey, taskRows } from '../src/planTasks';
 
 const NOW = '2026-11-13T12:00:00.000Z';
-const answers: JourneyAnswers = { path: 'dk', wish: '', season: 'Fall', setting: 'Outdoors', moods: ['Garden'], where: '', guests: '120', venueBooked: false };
+const answers: JourneyAnswers = { path: 'dk', wish: '', season: 'Fall', setting: 'Outdoors', moods: ['Garden'], where: '', guests: '120', budget: '', tradition: '', venueBooked: false, dateSet: false };
 const read = { by: 'ai', headline: 'A garden in the fall', read: 'Soft and green.', directions: [{ name: 'Garden', what: 'x' }], colours: [{ name: 'Sage', hex: '#9CAF88' }], venueTypes: [], ideas: [], details: [], ask: [], honest: '', photoNotes: [] };
 const venueTask = PLAN_WINDOWS.flatMap(w => w.tasks.map(t => ({ w: w.id, t }))).find(x => /^Book the venue\b/.test(x.t))!;
 
@@ -43,10 +44,15 @@ test('the client sends her answers to the website, marks preview calls as tests,
   assert.equal(calls[0].url, 'https://weddingchecklistpdf.com/api/wedding-read');
   assert.equal((calls[0].init.headers as Record<string, string>)['x-dw-test'], '1');
   const body = JSON.parse(String(calls[0].init.body));
-  assert.deepEqual(body.photos, []);
+  assert.deepEqual(body.photos, [], 'no photo is sent unless she adds one');
   assert.equal(body.email, undefined);
   assert.equal(body.facts.guests, '120');
-  await weddingReadClient(false, send).request(answers);
+  await weddingReadClient(false, send).request({ ...answers, budget: 'Under $10,000', tradition: 'Jewish', dateSet: true }, [{ loves: ['The light'], colours: ['#aabbcc'] }, { loves: [], colours: [], image: 'AAAA' }, { loves: [], colours: [] }, { loves: [], colours: [] }]);
+  const sent = JSON.parse(String(calls[1].init.body));
+  assert.equal(sent.photos.length, 3, 'at most three photos');
+  assert.equal(sent.photos[0].image, undefined, 'a photo she did not tick is never sent as an image');
+  assert.equal(sent.photos[1].image, 'AAAA');
+  assert.deepEqual([sent.facts.budget, sent.facts.tradition, sent.facts.dateSet], ['Under $10,000', 'Jewish', true]);
   assert.equal((calls[1].init.headers as Record<string, string>)['x-dw-test'], undefined, 'a store build never marks itself as a test');
 });
 
@@ -58,6 +64,9 @@ test('the client turns a bad reply or no connection into a plain message, and an
   let sent = 0;
   const empty = await weddingReadClient(false, async () => { sent++; return { ok: true, json: async () => ({}) }; }).request({ ...answers, path: 'idea', wish: '  ' });
   assert.equal(empty.ok, false); assert.equal(sent, 0);
+  // An idea told only by a photo is fine.
+  await weddingReadClient(false, async () => { sent++; return { ok: true, json: async () => ({}) }; }).request({ ...answers, path: 'idea', wish: '' }, [{ loves: ['The table'], colours: [] }]);
+  assert.equal(sent, 1);
 });
 
 test('the label says honestly who wrote it', () => {
@@ -75,4 +84,13 @@ test('saved journey: junk reads as nothing, a real one comes back', async () => 
   assert.equal(await s.read(), null);
   await s.save({ answers, read: read as never, reason: 'ai', picks: [] });
   assert.equal((await s.read())?.read?.headline, 'A garden in the fall');
+});
+
+test('photo colours are read on the phone: base64 decodes exactly, and the strongest colour wins', () => {
+  assert.deepEqual([...base64Bytes('AAEC/w==')], [0, 1, 2, 255]);
+  const px: number[] = [];
+  for (let i = 0; i < 30; i++) px.push(200, 40, 40, 255);
+  for (let i = 0; i < 10; i++) px.push(20, 20, 220, 255);
+  const c = strongestColours(px);
+  assert.equal(c[0], '#c82828'); assert.equal(c[1], '#1414dc'); assert.equal(c.length, 2);
 });

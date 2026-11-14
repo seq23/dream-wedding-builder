@@ -17,6 +17,8 @@ const config: ExpoConfig = {
   updates: { enabled: false },
   experiments: { tsconfigPaths: true },
   plugins: ['expo-router', 'expo-font', 'expo-notifications',
-    ['expo-splash-screen', { image: './assets/splash.png', imageWidth: 120, backgroundColor: '#FAF7F2' }]],
+    ['expo-splash-screen', { image: './assets/splash.png', imageWidth: 120, backgroundColor: '#FAF7F2' }],
+    // Photos she loves, for the free journey: read for colours on the phone; never the camera.
+    ['expo-image-picker', { photosPermission: 'Dream Wedding reads the colours of photos you choose, on this phone.', cameraPermission: false, microphonePermission: false }]],
 };
 export default config;
