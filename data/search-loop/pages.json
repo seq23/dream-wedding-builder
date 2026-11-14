@@ -1227,6 +1227,73 @@
         "b5 FAQ answer is 35 words (aim 40-60): \"When should I finalize the wedding day schedule?\"",
         "b5 FAQ answer is 34 words (aim 40-60): \"Can a printed PDF completely replace a professiona\"",
         "b5 FAQ answer is 32 words (aim 40-60): \"What should I do if a vendor arrives late on the w\""
+      ],
+      "indexnow_at": "2026-11-14"
+    },
+    {
+      "slug": "destination-wedding-planning-checklist-pdf",
+      "query": "destination wedding planning checklist pdf",
+      "lane": "striking",
+      "score": 25,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 0
+      },
+      "reasons": [
+        "autocomplete demand (google/bing)",
+        "can-be-#1 evidence too thin (0 < 15)"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "top10": {
+          "provider": "brave",
+          "weakness": 0,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 0,
+            "exact_answer": 1
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 0 thin or old, 1 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/destination-wedding-planning-checklist-pdf.html",
+      "route": "/questions/destination-wedding-planning-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/destination-wedding-planning-checklist-pdf",
+      "published_at": "2026-11-14",
+      "status": "live",
+      "hash": "56847f688ae2a56461b0cae8d47c2bf1baee7d1d9fe59cae24a7021200355242",
+      "model": "free-route",
+      "facts": [
+        "https://www.wikipedia.org/wiki/Passport",
+        "https://www.usps.com/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/free-printable-wedding-planning-checklist-and-timeline.html",
+          "route": "/public/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "before_hash": "fcdae073c740164d9c942fe0979f8c0458b07b6ed3348dc8e1e4eb05682b73c2",
+          "after_hash": "9020c6c16c4ab2a0b54b340d468bd20ac5d8f434399f78255ea856031798ccd5"
+        },
+        {
+          "rel": "public/questions/wedding-coordinator-checklist-pdf.html",
+          "route": "/public/questions/wedding-coordinator-checklist-pdf",
+          "before_hash": "d1877f92193ba71e55c3ba68081908583c724aafcbd8b101e1d17fe57f4350fd",
+          "after_hash": "7f3b126f63dc2e17b270b12b86dd92dbda448e00e52e8e0564ac854ef90a417d"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b4 direct answer under the H1 is 36 words (aim 40-60)",
+        "b5 FAQ answer is 31 words (aim 40-60): \"How far in advance should we send destination save\"",
+        "b5 FAQ answer is 31 words (aim 40-60): \"How do we handle vendor payments in a foreign coun\"",
+        "b5 FAQ answer is 30 words (aim 40-60): \"What should we pack in our carry-on luggage?\""
       ]
     }
   ],
@@ -1438,6 +1505,14 @@
       "reason": [
         "b5 FAQ answer is 28 words (aim 40-60): \"Should I hire a local wedding coordinator at the d\"",
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0)"
+      ]
+    },
+    {
+      "query": "how much does full wedding planning cost",
+      "at": "2026-11-14",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
       ]
     }
   ],
