@@ -43,7 +43,7 @@ rolling limits bound upstream calls. Failures return a retryable plain message.
 No configuration or product is created by code. The existing disabled purchase
 provider stays disabled. Runtime bindings/secrets:
 
-- `REVENUECAT_SECRET`: missing gives `NAMED STOP [REVENUECAT_SECRET_MISSING]`.
+- `REVENUECAT_SECRET`: the Dream Wedding project's RevenueCat **v2** secret key (vault `REVENUECAT_DW_V2_SECRET_KEY`; needs customer and purchase read plus product read). The door reads `GET /v2/projects/{project}/customers/{id}/purchases` and `/products`. Missing gives `NAMED STOP [REVENUECAT_SECRET_MISSING]`; a key RevenueCat refuses gives `NAMED STOP [REVENUECAT_KEY_REJECTED]`.
 - `APP_PURCHASES_ENABLED=true`: absent gives `NAMED STOP [DW_STORE_NOT_SET_UP]`.
   Leave absent until store setup and end-to-end purchase review are complete.
 - `APP_SANDBOX_PURCHASES=true`: accepts store sandbox transactions as well. Apple and

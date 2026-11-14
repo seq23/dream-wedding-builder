@@ -1,0 +1,10 @@
+{
+  "_note": "Real GET /v2/projects/{project}/customers/{id}/purchases reply, 14 Nov 2026, customer id anonymised",
+  "status": 200,
+  "body": {
+    "items": [],
+    "next_page": null,
+    "object": "list",
+    "url": "https://api.revenuecat.com/v2/projects/proj7d196352/customers/$RCAnonymousID:00000000000000000000000000000000/purchases"
+  }
+}
