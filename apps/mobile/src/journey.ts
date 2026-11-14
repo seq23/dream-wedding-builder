@@ -26,9 +26,9 @@ export interface JourneyAnswers {
   path: 'idea' | 'dk'; wish: string; season: string; setting: string; moods: string[];
   where: string; guests: string; budget: string; tradition: string; venueBooked: boolean; dateSet: boolean;
 }
-/** A photo as it is sent: what she loves in it, the colours read on the phone, and the
- * shrunk image only when she ticked "Let the AI planner look at this photo". */
-export interface SentPhoto { loves: string[]; colours: string[]; image?: string }
+/** A photo as it is sent: what she loves in it and the colours read on the phone. The
+ * photo itself never leaves the phone. */
+export interface SentPhoto { loves: string[]; colours: string[] }
 export type ReadReason = 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed';
 export type ReadReply =
   | { ok: true; read: WeddingRead; reason: ReadReason; remaining: number | null; limit: number }
@@ -63,7 +63,7 @@ export function weddingReadClient(preview: boolean, send: Transport = fetch) {
         const res = await send(ORIGIN + '/api/wedding-read', {
           method: 'POST', signal: controller.signal,
           headers: { 'Content-Type': 'application/json', ...(preview ? { 'x-dw-test': '1' } : {}) },
-          body: JSON.stringify({ path: a.path, wish: a.path === 'idea' ? a.wish : '', season: a.season, setting: a.setting, moods: a.moods, photos: photos.slice(0, 3),
+          body: JSON.stringify({ path: a.path, wish: a.path === 'idea' ? a.wish : '', season: a.season, setting: a.setting, moods: a.moods, photos: photos.slice(0, 3).map(p => ({ loves: p.loves, colours: p.colours })),
             facts: { where: a.where, guests: a.guests, budget: a.budget, tradition: a.tradition, venueBooked: a.venueBooked, dateSet: a.dateSet } }),
         });
         const body = await res.json() as Record<string, unknown>;

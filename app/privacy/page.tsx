@@ -77,14 +77,16 @@ export default function Privacy() {
       <p className="mt-4 leading-7 text-charcoal/70" data-testid="privacy-ai">
         When you ask the planner to describe your wedding, what you wrote (up to 400 characters) and what you tapped,
         your town, guest count, budget range, tradition and the colours read from any photo are sent to a free AI model
-        from Google Gemini or OpenRouter. Your email and your connection&rsquo;s address are never sent to it. On these free
+        from Google Gemini or OpenRouter. Before anything you typed is sent, our server removes email addresses, phone
+        numbers, street addresses and web links from it. Your email, your connection&rsquo;s address and your photos are
+        never sent to it. On these free
         tiers the provider may use what it is sent, and its answer, to improve its products, and Google says people may
         read it to do so. Leave out names and anything private.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70">
-        We do not store what you wrote or your photos. For each answer we keep a salted one-way hash of your
-        connection&rsquo;s address (for a phone network, of its shared address block), the day, which model answered,
-        how many photos the AI saw and whether the answer was one of our own tests, so we can count the three free answers
+        We do not store what you wrote, and your photos never reach us. For each answer we keep a salted one-way hash of your
+        connection&rsquo;s address (for a phone network, of its shared address block), the day, which model answered
+        and whether the answer was one of our own tests, so we can count the three free answers
         a day. When you only tapped choices, the answer is kept for 7 days under those choices and your town, so the next
         person who taps the same things gets it without a new AI call; it holds no words of yours and no photo. A short
         list of hashed addresses of our own testers, kept as a server secret, gets a larger daily allowance, and every
@@ -92,8 +94,9 @@ export default function Privacy() {
         address, with no words, date or email.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70">
-        The AI draft of your plan works only after you tick its permission box. It sends your sentence and today&rsquo;s
-        date to the same free models, never your email or address; we keep your email and connection&rsquo;s address only
+        The AI draft of your plan works only after you tick its permission box. It sends your sentence, with email addresses,
+        phone numbers, street addresses and links removed, and today&rsquo;s date to the same free models, never your email
+        or connection&rsquo;s address; we keep your email and connection&rsquo;s address only
         as salted one-way hashes, to allow one free draft per email. The planner page itself loads no session recording.
       </p>
 
@@ -103,7 +106,7 @@ export default function Privacy() {
         category and description you type, in your browser.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70" data-testid="privacy-photos">
-        In the free planner, a photo you add is read for its colours in your browser, and nothing is sent. When you tick the box to let the AI planner look at a photo, a smaller copy (about 640 pixels) made on your device is sent to Google Gemini, which may use it to improve its products, and we do not store it.
+        Photos stay on your phone; only the colours are used. In the free planner and the app, a photo you add is read for its colours on your device and the photo itself is never sent anywhere; only the colour values and what you tapped that you love in it go with your answer.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Analytics</h2>

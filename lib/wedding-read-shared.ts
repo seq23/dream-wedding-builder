@@ -7,7 +7,7 @@ export const LOVES = ['The table', 'The flowers', 'The light', 'The place', 'The
 export const BUDGETS = ['Under $10,000', '$10,000 to $25,000', '$25,000 to $50,000', 'Over $50,000'] as const;
 export const TRADITIONS = ['Catholic', 'Jewish', 'Hindu', 'Muslim nikah', 'Nigerian traditional', 'Mexican', 'Chinese tea ceremony', 'Other'] as const;
 
-export interface Photo { loves: string[]; colours: string[]; image?: string }
+export interface Photo { loves: string[]; colours: string[] }
 export interface Answers {
   path: 'idea' | 'dk';
   wish: string;

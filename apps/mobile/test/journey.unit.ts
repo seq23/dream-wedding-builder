@@ -47,11 +47,11 @@ test('the client sends her answers to the website, marks preview calls as tests,
   assert.deepEqual(body.photos, [], 'no photo is sent unless she adds one');
   assert.equal(body.email, undefined);
   assert.equal(body.facts.guests, '120');
-  await weddingReadClient(false, send).request({ ...answers, budget: 'Under $10,000', tradition: 'Jewish', dateSet: true }, [{ loves: ['The light'], colours: ['#aabbcc'] }, { loves: [], colours: [], image: 'AAAA' }, { loves: [], colours: [] }, { loves: [], colours: [] }]);
+  await weddingReadClient(false, send).request({ ...answers, budget: 'Under $10,000', tradition: 'Jewish', dateSet: true }, [{ loves: ['The light'], colours: ['#aabbcc'] }, { loves: [], colours: [], image: 'AAAA' } as never, { loves: [], colours: [] }, { loves: [], colours: [] }]);
   const sent = JSON.parse(String(calls[1].init.body));
   assert.equal(sent.photos.length, 3, 'at most three photos');
-  assert.equal(sent.photos[0].image, undefined, 'a photo she did not tick is never sent as an image');
-  assert.equal(sent.photos[1].image, 'AAAA');
+  assert.ok(sent.photos.every((p: Record<string, unknown>) => p.image === undefined), 'a photo never leaves the phone, only its colours');
+  assert.deepEqual(sent.photos[0], { loves: ['The light'], colours: ['#aabbcc'] });
   assert.deepEqual([sent.facts.budget, sent.facts.tradition, sent.facts.dateSet], ['Under $10,000', 'Jewish', true]);
   assert.equal((calls[1].init.headers as Record<string, string>)['x-dw-test'], undefined, 'a store build never marks itself as a test');
 });

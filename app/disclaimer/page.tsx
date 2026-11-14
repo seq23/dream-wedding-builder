@@ -49,7 +49,7 @@ export default function Disclaimer() {
       <h2 className={H2}>AI answers</h2>
       <p className={P}>
         The free planner can describe your wedding and fill in a first draft of your plan using a free AI model. Every AI
-        answer is labelled as written by an AI planner, not a person. AI can be wrong or out of date. Our checks stop it
+        answer is labelled as written by an AI planner, not a person. Before anything you typed goes to the AI, email addresses, phone numbers, street addresses and links are removed. AI can be wrong or out of date. Our checks stop it
         naming businesses, prices or availability, but you should still check anything that matters. When no free model
         answers, you get an answer from our fixed lists instead, and it says so.
       </p>

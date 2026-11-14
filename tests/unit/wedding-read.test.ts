@@ -202,7 +202,8 @@ describe('the journey endpoint', () => {
     expect(net.calls.length).toBeGreaterThan(before);
     expect(readCacheKey(cleanAnswers({ path: 'idea', wish: 'a barn' }))).toBeNull();
     expect(readCacheKey(cleanAnswers({ ...DK, facts: { where: 'Nashville', guests: '100' } }))).not.toBe(readCacheKey(cleanAnswers(DK)));
-    expect(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: [], image: 'QUJD' }] }))).toBeNull();
+    // An image in the body is ignored (photos never leave her device), so it cannot change the key.
+    expect(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: [], image: 'QUJD' }] }))).toBe(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: [] }] })));
     // Photo colours share an answer by bucket.
     expect(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: ['#7f001f'] }] }))).toBe(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: ['#78041c'] }] })));
     // Older than 7 days: asked fresh.
@@ -247,19 +248,32 @@ describe('the journey endpoint', () => {
     expect(net.calls).toEqual([]);
   });
 
-  it('a photo goes to the AI planner only when she ticked it, only to the Gemini free tier, and is not stored', async () => {
+  it('a photo never reaches a model, even if an old client sends one; its colours do, and nothing of it is stored', async () => {
     const { db, sqlite } = fakeD1();
     const image = Buffer.from('fake-jpeg-bytes-for-the-test').toString('base64');
-    const net = fakeNet({ gemini: () => geminiAnswer(JSON.stringify({ seen: 'You can borrow the candlelit long table and the white linen.' })), openrouter: m => orAnswer(m, good()) });
+    const net = fakeNet({ gemini: () => geminiAnswer(good()), openrouter: m => orAnswer(m, good()) });
     const r = await weddingRead(base({ db, fetchImpl: net.fetchImpl, body: { ...DK, photos: [{ loves: ['The table'], colours: ['#aa8855'], image }, { loves: ['The light'], colours: ['#112233'] }] } }));
-    const withImage = net.calls.filter(c => c.body.includes(image));
-    expect(withImage).toHaveLength(1);
-    expect(withImage[0].provider).toBe('gemini');
-    expect(GEM).toContain(withImage[0].model);
-    expect(JSON.parse(withImage[0].body).contents[0].parts[1].inline_data.mime_type).toBe('image/jpeg');
-    expect(r.body.read.photoNotes).toEqual(['You can borrow the candlelit long table and the white linen.']);
+    expect(r.body.reason).toBe('ai');
+    const models = net.calls.filter(c => !c.body.includes('"maxOutputTokens":1') && c.model !== PROBE);
+    expect(models.length).toBeGreaterThan(0);
+    expect(net.calls.some(c => c.body.includes(image) || c.body.includes('inline_data'))).toBe(false);
+    expect(models.some(c => c.body.includes('#aa8855') && c.body.includes('#112233'))).toBe(true);
+    expect(r.body.read.photoNotes).toEqual([]);
     const stored = JSON.stringify(sqlite.prepare('SELECT * FROM wedding_reads').all()) + JSON.stringify(sqlite.prepare('SELECT * FROM ai_route_usage').all());
     expect(stored).not.toContain(image);
+  });
+
+  it('her own words reach the model with no email, phone number, street address or link; the town, size, budget and tradition stay', async () => {
+    const { db } = fakeD1();
+    const net = fakeNet({ gemini: () => geminiAnswer(good()) });
+    const wish = 'Garden party like our friends had, email me at jo.smith+wed@gmail.com or call (901) 555-0142 or +1 901.555.0199, venue at 4500 N Main Street Apt 2, ideas from https://pinterest.com/jo/boards and www.example.org/x and mysite.com';
+    await weddingRead(base({ db, fetchImpl: net.fetchImpl, body: { path: 'idea', wish, facts: { where: 'Memphis', guests: '100', budget: 'Under $10,000', tradition: 'Jewish' } } }));
+    const sent = net.calls.filter(c => c.body.includes('Garden party'));
+    expect(sent.length).toBeGreaterThan(0);
+    for (const c of sent) {
+      for (const leak of ['jo.smith', 'gmail.com', '555-0142', '555.0199', '4500 N Main', 'pinterest.com', 'www.example.org', 'mysite.com']) expect(c.body, leak).not.toContain(leak);
+      for (const kept of ['Memphis', 'about 100', 'Under $10,000', 'Jewish']) expect(c.body, kept).toContain(kept);
+    }
   });
 });
 
