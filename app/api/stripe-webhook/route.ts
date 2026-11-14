@@ -5,6 +5,7 @@ import { EMAIL_LINK_TTL_MS, createDownloadToken, releaseKeyForSku, safeEmail, ve
 import { productBySku } from '@/lib/products';
 import { sendDeliveryEmail } from '@/lib/delivery-email';
 import { recordPinterestConversion } from '@/lib/pinterest-conversions';
+import { revokeRefundedCharge } from '@/lib/refunds';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,6 +16,18 @@ export async function POST(req: NextRequest) {
   if (!secret || !verifyStripeSignature(raw, signature, secret)) return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
 
   const event = JSON.parse(raw);
+  if (event.type === 'charge.refunded') {
+    // A full refund closes the downloads (lib/refunds.ts). A failure returns 500 so Stripe retries.
+    const env = await runtimeEnv();
+    if (!env.DB) return NextResponse.json({ error: 'D1 binding DB is unavailable' }, { status: 503 });
+    try {
+      await revokeRefundedCharge(env.DB as never, event.data.object, process.env.STRIPE_SECRET_KEY || '');
+      return NextResponse.json({ received: true });
+    } catch (error) {
+      console.error(JSON.stringify({ event: 'REFUND_REVOKE_FAILED', error: error instanceof Error ? error.message : String(error) }));
+      return NextResponse.json({ error: 'Refund revoke failed' }, { status: 500 });
+    }
+  }
   if (event.type !== 'checkout.session.completed') return NextResponse.json({ received: true, ignored: true });
 
   const env = await runtimeEnv();
@@ -54,7 +67,8 @@ export async function POST(req: NextRequest) {
     await env.DB.batch([
       env.DB.prepare(`INSERT INTO orders (id, stripe_session_id, stripe_event_id, sku, product_id, customer_email, amount_total, currency, payment_status)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON CONFLICT(stripe_session_id) DO UPDATE SET updated_at=CURRENT_TIMESTAMP, payment_status=excluded.payment_status`)
+        ON CONFLICT(stripe_session_id) DO UPDATE SET updated_at=CURRENT_TIMESTAMP,
+          payment_status=CASE WHEN orders.payment_status='refunded' THEN 'refunded' ELSE excluded.payment_status END`)
         .bind(orderId, session.id, event.id, sku, product.id, email, session.amount_total || null, session.currency || 'usd', session.payment_status || 'paid'),
       env.DB.prepare(`INSERT INTO entitlements (id, order_id, sku, product_id, customer_email, release_key)
         VALUES (?, ?, ?, ?, ?, ?)

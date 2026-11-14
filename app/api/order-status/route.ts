@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
   const row = await (env.DB.prepare(`SELECT o.id order_id, o.sku, o.customer_email, o.status order_status,
     e.id entitlement_id, e.status entitlement_status, e.release_key
     FROM orders o LEFT JOIN entitlements e ON e.order_id=o.id WHERE o.stripe_session_id=?`).bind(sessionId).first() as Promise<any>);
+  if (row?.entitlement_id && row.entitlement_status !== 'ACTIVE') return NextResponse.json({ status: 'REFUNDED', message: 'This purchase was refunded, so its downloads are closed. Questions: info@weddingchecklistpdf.com.' }, { status: 403 });
   if (!row?.entitlement_id) return NextResponse.json({ status: 'PROCESSING', message: 'Your payment went through. We are getting your files ready.' }, { status: 202 });
   const signingSecret = process.env.DOWNLOAD_SIGNING_SECRET || env.DOWNLOAD_SIGNING_SECRET;
   if (!signingSecret) return NextResponse.json({ status: 'ERROR', message: 'We could not check this order just now. Your order email has your links.' }, { status: 503 });
