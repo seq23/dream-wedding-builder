@@ -28,6 +28,23 @@ const TASK_BUDGET_LINE: Record<string, string> = {
   'Order invitations and mail them 6 to 8 weeks before': 'paper',
 };
 
+/** A band she tapped or typed ("$25,000 to $50,000", "Under $10,000", "Over $50,000"):
+ * its two ends, with null for an open top. Null when the text is one number. */
+export function budgetBand(text: string | undefined): { low: number; high: number | null } | null {
+  const t = (text ?? '').trim();
+  const nums = [...t.matchAll(/(\d[\d,]*(?:\.\d+)?)\s*(k|thousand)?\b/gi)].map(m => Math.round(Number(m[1].replace(/,/g, '')) * (m[2] ? 1000 : 1))).filter(n => n > 0);
+  if (nums.length === 1 && /^(under|less than|up to|below)\b/i.test(t)) return { low: 0, high: nums[0] };
+  if (nums.length === 1 && (/^(over|more than|above)\b/i.test(t) || /\+\s*$/.test(t))) return { low: nums[0], high: null };
+  if (nums.length === 2 && /\bto\b|[-–]/.test(t)) return { low: Math.min(...nums), high: Math.max(...nums) };
+  return null;
+}
+/** A band in words: "$25,000 to $50,000", "up to $10,000", "$50,000 or more". */
+function bandWords(low: number, high: number | null, about = ''): string {
+  if (!low && high) return `up to ${about}${money(high)}`;
+  if (high === null) return `${about}${money(low)} or more`;
+  return `${about}${money(low)} to ${money(high)}`;
+}
+
 /** One note per built-in task her details bear on, keyed like the task rows. Empty when she gave nothing. */
 export function planNotes(details: Details): Record<string, string> {
   const guests = parseGuests(details.guestCount);
@@ -36,7 +53,20 @@ export function planNotes(details: Details): Record<string, string> {
   const parts: Record<string, string[]> = {};
   const add = (text: string, line: string) => { (parts[text] ??= []).push(line); };
 
-  if (budget.budget) {
+  const band = budgetBand(details.budgetTarget);
+  if (band) {
+    // With only a band, the plan shows the band, never its top as if it were her number.
+    const kind = budget.hard ? 'hard limit' : 'budget';
+    const at = (n: number) => n ? budgetPlan({ budgetTarget: String(n), budgetMode: budget.hard ? 'hard' : undefined, guestCount: details.guestCount, priorities: prioritiesFrom(details.priorities) }) : null;
+    const low = at(band.low), high = band.high === null ? null : at(band.high);
+    const each = (n: number | null) => n === null ? null : guests ? Math.round(n / guests) : 0;
+    add('Agree the total budget and who is contributing', `Your ${kind}: ${bandWords(band.low, band.high)}${guests ? `, ${bandWords(each(band.low) ?? 0, each(band.high), 'about ')} a guest for ${guests} guests` : ''}.`);
+    for (const [text, id] of Object.entries(TASK_BUDGET_LINE)) {
+      const lo = low?.lines.find(l => l.id === id), hi = high?.lines.find(l => l.id === id);
+      const line = hi ?? lo;
+      if (line?.amount) add(text, `A starting share of your budget: ${bandWords(lo?.amount ?? 0, high ? hi?.amount ?? 0 : null, 'about ')} for ${line.label.toLowerCase()}${line.protectedLine ? ' (larger, because you said it matters most)' : ''}. Not a quote.`);
+    }
+  } else if (budget.budget) {
     add('Agree the total budget and who is contributing', `Your ${budget.hard ? 'hard limit' : 'budget'}: ${money(Math.min(budget.budget, budget.limit))}${budget.perGuest ? `, about ${money(budget.perGuest)} a guest for ${guests} guests` : ''}.`);
     for (const [text, id] of Object.entries(TASK_BUDGET_LINE)) {
       const line = budget.lines.find(l => l.id === id);

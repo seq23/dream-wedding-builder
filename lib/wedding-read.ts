@@ -250,10 +250,26 @@ function modelTexts(r: WeddingRead): [string, string][] {
   ];
 }
 
+// A guest count is hers to give. With none given (the "I don't know yet" path, or words with
+// no number of people), an answer that names one ("Host 120 guests", "for 120") is refused
+// (first-time test on the phone, 14 Nov 2026). With one given, only her own number may appear.
+const HEADCOUNT = [
+  /\b(\d{2,4})(?:\s*(?:to|-|–)\s*\d{2,4})?\s+(?:guests?|people|persons|seats|meals|attendees|chairs|place settings|covers|of you)\b/gi,
+  /\bfor\s+(\d{2,4})(?=\s*(?:[.,;:!)]|$))/gi
+];
+/** The guest numbers she gave: the guests box, and any "100 people" in her own words. */
+export function herGuestNumbers(a: Answers): Set<number> {
+  const set = new Set<number>();
+  if (a.guests) set.add(a.guests);
+  if (a.path === 'idea') for (const m of a.wish.matchAll(/\b(\d{2,4})\s*(?:people|guests|of us|persons)\b/gi)) set.add(Number(m[1]));
+  return set;
+}
+
 /** The checks. An empty list means she may see it. */
 export function checkRead(r: WeddingRead, a: Answers): string[] {
   const fails: string[] = [];
   const allowed = allowedCapitals(a, r);
+  const guestsOk = herGuestNumbers(a);
   for (const [where, s] of modelTexts(r)) {
     if (!s) continue;
     const hit = (kind: string, res: RegExp[]) => { for (const re of res) { const m = re.exec(s); if (m) { fails.push(`${kind}:${where}:${m[0]}`); return; } } };
@@ -262,6 +278,7 @@ export function checkRead(r: WeddingRead, a: Answers): string[] {
     hit('availability', [AVAILABILITY]);
     hit('contact', [CONTACT]);
     hit('brand', [BRANDS]);
+    for (const re of HEADCOUNT) for (const m of s.matchAll(re)) if (!guestsOk.has(Number(m[1]))) { fails.push(`headcount:${where}:${m[0]}`); break; }
     if (where.startsWith('colour')) continue;
     // A capitalised word inside a sentence is a name unless she said it or it is a
     // month, a season, a culture or one of our own idea and venue-type names.
@@ -294,11 +311,11 @@ const PALETTES: Record<string, { name: string; hex: string }[]> = {
 };
 const DIRECTIONS: Record<string, { name: string; what: string }> = {
   Relaxed: { name: 'Long tables, easy evening', what: 'Seat everyone at long tables and serve the food family-style, so the evening runs at a talking pace. Keep the decor to greenery and candles so nothing feels staged.' },
-  Elegant: { name: 'Candlelight and clean lines', what: 'Keep the colours few and let candlelight do most of the work. Choose one statement moment, such as the table setting or the cake, rather than many small ones.' },
+  Elegant: { name: 'Candlelight and clean lines', what: 'Keep the colors few and let candlelight do most of the work. Choose one statement moment, such as the table setting or the cake, rather than many small ones.' },
   Garden: { name: 'Garden layers', what: 'Use potted plants, herbs and loose seasonal flowers so the space feels grown rather than decorated. Leave open lawn or floor for guests to move around.' },
   City: { name: 'A night out in town', what: 'Lean on the room itself: good lighting, a cocktail hour that feels like a night out, and music that builds as the night goes on.' },
   Rustic: { name: 'Wood, linen and lanterns', what: 'Bare wood tables, linen runners and lantern light give a warm, handmade feel. Keep the flowers loose and true to the season.' },
-  Cultural: { name: 'Your traditions at the centre', what: 'Build the day around the rituals, food and music your families know, and let the decor support them. Ask the elders which moments matter most to them.' },
+  Cultural: { name: 'Your traditions at the center', what: 'Build the day around the rituals, food and music your families know, and let the decor support them. Ask the elders which moments matter most to them.' },
   Party: { name: 'Dance floor first', what: 'Plan the evening around the dancing: a short dinner, early speeches and a floor that opens on time. Put the money into the music and the lighting.' },
   Intimate: { name: 'Small and close', what: 'With fewer guests, every place can be personal: a handwritten note, one shared table, a toast from anyone who wants to give one.' }
 };
@@ -345,7 +362,7 @@ export function headlineFor(a: Answers): string {
 // Plain names for colours read from her photos, so the fixed-list answer can show her own colours.
 const COLOUR_NAMES: [string, number, number, number][] = [
   ['Burgundy', 128, 0, 32], ['Wine', 94, 25, 40], ['Brick red', 170, 60, 50], ['Coral', 242, 140, 107], ['Terracotta', 204, 102, 51], ['Rust', 183, 65, 14],
-  ['Tan', 210, 180, 140], ['Sand', 222, 200, 160], ['Cream', 253, 251, 247], ['Ivory', 250, 247, 242], ['White', 255, 255, 255], ['Warm grey', 160, 150, 140],
+  ['Tan', 210, 180, 140], ['Sand', 222, 200, 160], ['Cream', 253, 251, 247], ['Ivory', 250, 247, 242], ['White', 255, 255, 255], ['Warm gray', 160, 150, 140],
   ['Charcoal', 51, 51, 51], ['Black', 10, 10, 10], ['Brown', 110, 75, 45], ['Gold', 200, 160, 60], ['Butter', 243, 227, 161], ['Lemon', 244, 211, 94],
   ['Forest green', 30, 80, 45], ['Deep green', 1, 68, 33], ['Olive', 85, 107, 47], ['Sage', 156, 175, 136], ['Leaf green', 76, 140, 74], ['Fresh green', 143, 185, 139],
   ['Navy', 31, 42, 68], ['Sea blue', 46, 134, 171], ['Sky', 169, 199, 232], ['Dusty blue', 120, 150, 180], ['Lilac', 200, 182, 226], ['Plum', 110, 50, 90], ['Pink', 230, 170, 180]
@@ -402,12 +419,12 @@ export function fixedRead(a: Answers): WeddingRead {
   return {
     by: 'fixed',
     headline: headlineFor(a),
-    read: `Put together from your answers using fixed lists, without AI${guestsLine}. It leans ${moods.slice(0, 2).map(m => m.toLowerCase()).join(' and ')}${a.colours.length ? `, built around your colours: ${listWords(a.colours)}` : ''}, and everything below can change as you decide more.`,
+    read: `Put together from your answers using fixed lists, without AI${guestsLine}. It leans ${moods.slice(0, 2).map(m => m.toLowerCase()).join(' and ')}${a.colours.length ? `, built around your colors: ${listWords(a.colours)}` : ''}, and everything below can change as you decide more.`,
     directions: [...moods, 'Relaxed', 'Elegant'].filter((m, i, l) => l.indexOf(m) === i).slice(0, 2).map(m => DIRECTIONS[m]),
     colours: photoPalette(a) ?? PALETTES[a.season === 'Not sure' ? '' : a.season] ?? PALETTES[''],
     venueTypes: venues.map(v => ({ id: v.id, name: v.name, why: v.goodFor })),
     ideas: ideas.map(({ trend }) => ({ id: trend.id, name: trend.name, cost: costLevel(trend), why: trend.whyItStandsOut ?? trend.description })),
-    details: [...(a.colours.length ? [`Linens, ribbon and flowers in your colours: ${listWords(a.colours)}.`] : []), ...moods.flatMap(m => DETAILS[m] ?? [])].slice(0, 5),
+    details: [...(a.colours.length ? [`Linens, ribbon and flowers in your colors: ${listWords(a.colours)}.`] : []), ...moods.flatMap(m => DETAILS[m] ?? [])].slice(0, 5),
     ask: [
       ...(venues[0] ? venues[0].ask.slice(0, 2).map(x => `Ask each venue about ${x}.`) : ['Ask your venue what is included and what you must hire in.']),
       'Ask the caterer what family-style, buffet and plated service each change.',
@@ -434,7 +451,9 @@ export function buildMessages(raw: Answers, ideas: Trend[], venues: { id: string
       content: [
         'You are a wedding planning tool with a seasoned planner’s taste. Translate what this couple pictures into a wedding they can really have where they live and at their size. Never assume a bride, a groom or anyone’s gender. Be specific and warm, never generic.',
         'Write as the tool, not as a person: never say we, us, our, I, me, my, darling or dear; speak to her as "you". Plain words, no flourishes. Write every number as digits (120, not one hundred twenty).',
-        `Never name a business, venue, brand, product or person. ${a.where ? `Name no real place except "${a.where}"` : 'She left the town field empty. If her own words name the town she is marrying in, use that town and no other; if they name none, name no town, city, state or country at all (say "near you" instead)'}: no rivers, regions, neighbourhoods, streets or landmarks. Never give a price, a number of dollars or any availability. No contract or legal advice.`,
+        `Never name a business, venue, brand, product or person. ${a.where ? `Name no real place except "${a.where}"` : 'She left the town field empty. If her own words name the town she is marrying in, use that town and no other; if they name none, name no town, city, state or country at all (say "near you" instead)'}: no rivers, regions, neighborhoods, streets or landmarks. Never give a price, a number of dollars or any availability. No contract or legal advice.`,
+        herGuestNumbers(a).size ? `Her guest count is ${[...herGuestNumbers(a)].join(' or ')}: use only that number for guests, seats or meals.` : 'She has not given a guest count. Never write or guess a number of guests, people, seats, meals or tables, and never write "for" and a number; say "your guests" or "your guest count" instead.',
+        'Write in US English: US spelling (color, favorite, center, gray) and US dates (Sat, Nov 6, 2027).',
         'If her wish names a place far away, carry its feel to her town instead of telling her to travel. Keep every detail true to the culture she named, and add no culture she did not name.',
         'Write the headline and the direction names in sentence case, like "Terracotta and stone": capitalise only the first word and names she gave.',
         a.venueBooked ? 'Her venue is booked: return "venue_types": [].' : `venue_types: choose 3 ids from this list, best first, each with one sentence on why it carries the feel: ${venues.map(v => `${v.id} (${v.name})`).join('; ')}.`,

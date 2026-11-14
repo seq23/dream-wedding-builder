@@ -1,5 +1,19 @@
 import type { DateStorage } from '../weddingDate';
 import { eventStore } from './eventStore';
+import { parseDay } from '@core/dated-plan';
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+/** "Nov 6, 2027", or '' with no date. */
+export function shortDate(iso: string | null | undefined): string {
+  const d = parseDay(iso ?? '');
+  return d ? `${MONTHS[d.m - 1]} ${d.d}, ${d.y}` : '';
+}
+/** The name a wedding gets when she has not typed one: buying never waits on a name, and
+ * she can rename it any time after (her ruling, 14 Nov 2026). */
+export function defaultEventName(date: string | null | undefined): string {
+  const day = shortDate(date);
+  return day ? `Our wedding – ${day}` : 'Our wedding';
+}
 
 export const EVENT_NAME_KEY = 'dw.event-name.v1';
 export const NEW_EVENT_NAME_KEY = 'dw.new-event-name.v1';

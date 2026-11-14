@@ -10,7 +10,7 @@ import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/tradi
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { dueBeforeStart, fullPlanRows, lockedPlanRows, markAllDone, planBlocks, planOverview, completionDay, startHereView, taskRows, weddingDayRows, windowRows } from '../../../src/planTasks';
+import { dueBeforeStart, fullPlanRows, lockedPlanRows, markAllDone, planBlocks, planOverview, completionDay, startHereView, taskRows, weddingDayRows, whenLine, windowRows } from '../../../src/planTasks';
 import { planStartStore } from '../../../src/planStart';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { detailStore } from '../../../src/draftReview';
@@ -93,10 +93,10 @@ export default function Plan() {
     style={{ minHeight: 48, justifyContent: 'center', borderBottomWidth: 1, borderColor: color.rule }}>
     <Text style={type.body}>{choosing?.includes(r.key) ? '☑' : '☐'} {r.text}</Text>
   </Pressable>;
-  const row = (r: Row, undated = '') => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
+  const row = (r: Row, overdue = false) => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
     <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
-      <Text style={type.sub}>{(shared?.list.windows ?? PLAN_WINDOWS).find(w => w.id === r.windowId)?.label}{r.dueOn ? ` · By ${plainDate(r.dueOn)}` : plan.windows.find(w => w.id === r.windowId) ? ` · By ${plainDate(plan.windows.find(w => w.id === r.windowId)!.endsOn)}` : undated}</Text>
+      <Text style={type.sub}>{whenLine(r, (shared?.list.windows ?? PLAN_WINDOWS).find(w => w.id === r.windowId)?.label, plan, overdue && !r.doneAt)}</Text>
       {isPick(r.ownId) ? <Text style={[type.label, { color: color.blue }]}>Your pick</Text> : null}
       {notes[r.key] ? <Text style={[type.sub, { color: color.midnightMuted }]}>{notes[r.key]}</Text> : null}
       {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {completionDay(r.doneAt)}</Text> : null}
@@ -133,12 +133,12 @@ export default function Plan() {
           </Pressable>
           <Pressable accessibilityRole="button" onPress={() => setChoosing(null)} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Cancel</Text></Pressable>
         </> : <>
-          {start.shown.map(r => row(r, ' · Start here'))}
+          {start.shown.map(r => row(r, true))}
           {start.hidden ? <Pressable accessibilityRole="button" onPress={() => setExpanded(true)} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Show {start.hidden} more ›</Text></Pressable> : null}
           <Pressable accessibilityRole="button" onPress={() => setChoosing([])} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Already done some? Tick several at once ›</Text></Pressable>
         </>}
       </View> : null}
-      {blocks.catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {blocks.catchUp.length}</Text>{blocks.catchUp.map(r => row(r, ' · Catch up'))}</View> : null}
+      {blocks.catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {blocks.catchUp.length}</Text>{blocks.catchUp.map(r => row(r, true))}</View> : null}
       {blocks.next.length ? <View><Text accessibilityRole="header" style={type.section}>{plan.state === 'today' ? 'Today' : 'Do these next'} · {blocks.next.length}</Text>{blocks.next.map(r => row(r))}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
       <ScrollView horizontal accessibilityRole="tablist" contentContainerStyle={{ gap: space[2] }}>
         {(shared ? shared.list.windows : PLAN_WINDOWS).map(w => <Pressable key={w.id} accessibilityRole="tab" accessibilityState={{ selected: windowId === w.id }} onPress={() => setWindow(w.id)} style={{ minHeight: 48, padding: space[3], backgroundColor: windowId === w.id ? color.blueSoft : color.coralSoft }}><Text style={type.button}>{w.label}</Text></Pressable>)}
@@ -147,7 +147,7 @@ export default function Plan() {
       {windowRows(rows, blocks, windowId).map(r => row(r))}
       {(!shared ? lockedPlanRows(date, windowId, startedOn) : []).map(r => <Pressable key={r.text} accessibilityRole="button" onPress={() => router.push(r.href)} style={{ minHeight: 64, paddingVertical: space[2], borderBottomWidth: 1, borderColor: color.rule }}>
         <Text style={[type.body, { color: color.midnightMuted }]}>🔒 {r.text}</Text>
-        <Text style={type.sub}>{r.dueOn ? plainDate(r.dueOn) : 'Start here'} · {partOfFullPlan(price)} ›</Text>
+        <Text style={type.sub}>{r.dueOn ? `By ${plainDate(r.dueOn)}` : 'Do now'} · {partOfFullPlan(price)} ›</Text>
       </Pressable>)}
       <GoButton href={`/plan/add-task?window=${windowId}`} label="+ Add your own task" primary={plan.state !== 'none'} />
       <GoButton href="/plan/ai-draft" label={Object.keys(notes).length ? 'Change my guests, place and budget ›' : 'Add my guests, place and budget ›'} />

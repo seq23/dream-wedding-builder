@@ -1,3 +1,4 @@
+import { shortDate } from './billing/eventName';
 import { PLAN_WINDOWS, buildDatedPlan, isoDay, monthsBefore, parseDay, plainDate } from '@core/dated-plan';
 import { datedFullPlan, taskDate, type FullPlanList } from '@core/full-plan';
 import { taskKey, type PlanProgress } from '@core/plan-progress';
@@ -58,12 +59,23 @@ export function packetHtml(input: PacketInput, paper: Paper) {
     <footer>Dream Wedding · weddingchecklistpdf.com</footer></body></html>`;
 }
 
+/** The PDF's file name in the share sheet: "Wedding plan – Sam and Alex.pdf", else the date,
+ * never the print engine's random id. Characters a file name cannot hold are dropped. */
+export function packetFileName(input: Pick<PacketInput, 'names' | 'date'>): string {
+  const clean = input.names.replace(/[\\/:*?"<>|\u0000-\u001f]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 60).trim();
+  const label = clean || shortDate(input.date);
+  return label ? `Wedding plan – ${label}.pdf` : 'Wedding plan.pdf';
+}
+
 export async function sharePacket(input: PacketInput, paper: Paper, io: {
   print(options: { html: string; width: number; height: number }): Promise<{ uri: string }>;
   share(uri: string): Promise<void>;
+  /** Gives the printed file its readable name; returns the new uri. */
+  rename?(uri: string, name: string): Promise<string> | string;
 }) {
   const result = await io.print({ html: packetHtml(input, paper), ...paperSize[paper] });
   if (!result.uri) throw new Error('Could not create the PDF. Try again.');
-  await io.share(result.uri);
-  return result.uri;
+  const uri = io.rename ? await io.rename(result.uri, packetFileName(input)) : result.uri;
+  await io.share(uri);
+  return uri;
 }

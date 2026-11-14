@@ -1,5 +1,5 @@
 import { FULL_PLAN_TEASER } from '@core/full-plan-teaser';
-import { addDays, isoDay, parseDay, PLAN_WINDOWS, buildDatedPlan, type DatedPlan } from '@core/dated-plan';
+import { addDays, isoDay, parseDay, plainDate, PLAN_WINDOWS, buildDatedPlan, type DatedPlan } from '@core/dated-plan';
 import { addCustomTask, emptyProgress, parseProgress, taskKey, type PlanProgress } from '@core/plan-progress';
 import { taskDate, type FullPlanList } from '@core/full-plan';
 
@@ -73,7 +73,7 @@ export function nextTaskRows(progress: PlanProgress) {
   return taskRows(progress).filter(row => !row.doneAt).slice(0, 3);
 }
 export function completionDay(stamp: string) {
-  return new Date(stamp).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  return new Date(stamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
 export function initialTaskWindow(requested?: string) {
@@ -152,4 +152,18 @@ export function markAllDone(progress: PlanProgress, keys: string[], now: string)
 /** On the wedding day the list is the day's own tasks: the wedding-week ones still open. */
 export function weddingDayRows<T extends { windowId: string; doneAt?: string; dueOn?: string | null }>(rows: T[], today: string): T[] {
   return rows.filter(r => !r.doneAt && (r.windowId === 'wedding-week' || r.dueOn === today));
+}
+
+/** The grey line under a task: which tab it belongs to and when to do it, in her words.
+ * A task whose usual time has already passed says "Do now", never a date in the past;
+ * a task in the window open today says "do now" with the day that window closes; a later
+ * window says the day it starts. No date set: the tab alone. */
+export function whenLine(r: { windowId: string; dueOn?: string | null }, label: string | undefined, plan: DatedPlan, overdue: boolean): string {
+  const tab = label ?? '';
+  const join = (when: string) => tab ? `${tab} · ${when}` : when;
+  if (overdue) return tab ? `Do now · ${/^\d/.test(tab) ? `usually ${tab}` : tab}` : 'Do now';
+  if (r.dueOn) return join(`by ${plainDate(r.dueOn)}`);
+  const w = plan.windows.find(x => x.id === r.windowId);
+  if (!w) return tab;
+  return join(w.timing === 'now' ? `do now, by ${plainDate(w.endsOn)}` : `starts ${plainDate(w.startsOn)}`);
 }

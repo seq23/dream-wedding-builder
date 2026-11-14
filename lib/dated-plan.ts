@@ -38,7 +38,9 @@ export interface DatedPlan {
   warning: string | null;
 }
 
-// Standard planning windows (months before the wedding). The tasks are general
+// Standard planning windows (months before the wedding), named like the binder's tabs
+// (12+ months · 9 months · 6 months · ... · Wedding week): each window runs from its own
+// mark to the next one's, so the windows are contiguous and every label names where it starts. The tasks are general
 // planning practice, not vendor quotes or legal advice; license timing varies by
 // county, so that task says to check it.
 export const PLAN_WINDOWS: { id: string; label: string; fromMonths: number; toMonths: number; tasks: string[] }[] = [
@@ -48,24 +50,24 @@ export const PLAN_WINDOWS: { id: string; label: string; fromMonths: number; toMo
     'Book the venue (it decides the date and the headcount)',
     'Book a planner or day-of coordinator if you want one'
   ] },
-  { id: '9-months', label: '9 to 6 months before', fromMonths: 9, toMonths: 6, tasks: [
+  { id: '9-months', label: '9 months before', fromMonths: 9, toMonths: 6, tasks: [
     'Book the photographer and the caterer',
     'Book the band or DJ',
     'Send save-the-dates (8 months or more ahead for travel weddings)',
     'Start looking for wedding attire'
   ] },
-  { id: '6-months', label: '6 to 3 months before', fromMonths: 6, toMonths: 3, tasks: [
+  { id: '6-months', label: '6 months before', fromMonths: 6, toMonths: 3, tasks: [
     'Book the florist, cake and rentals',
     'Reserve hotel room blocks for guests',
     'Set up the wedding website and registry',
     'Book hair and makeup, and meet the officiant'
   ] },
-  { id: '3-months', label: '3 to 1 months before', fromMonths: 3, toMonths: 1, tasks: [
+  { id: '3-months', label: '3 months before', fromMonths: 3, toMonths: 1, tasks: [
     'Order invitations and mail them 6 to 8 weeks before',
     'Book attire fittings and buy the rings',
     'Plan the rehearsal dinner and guest transport'
   ] },
-  { id: '1-month', label: 'The last month', fromMonths: 1, toMonths: 0.25, tasks: [
+  { id: '1-month', label: '1 month before', fromMonths: 1, toMonths: 0.25, tasks: [
     'Get the marriage license (check your county’s waiting and validity period)',
     'Chase RSVPs and give the caterer the final headcount',
     'Make the seating chart and the day-of timeline',
@@ -73,7 +75,7 @@ export const PLAN_WINDOWS: { id: string; label: string; fromMonths: number; toMo
   ] },
   { id: 'wedding-week', label: 'Wedding week', fromMonths: 0.25, toMonths: 0, tasks: [
     'Confirm every vendor’s arrival time and send them the timeline',
-    'Put final payments and tips in labelled envelopes',
+    'Put final payments and tips in labeled envelopes',
     'Pack for the night and the trip after',
     'Hand the day to your coordinator or a trusted friend, and rest'
   ] }
@@ -119,11 +121,12 @@ function edge(wedding: CalendarDay, months: number): CalendarDay {
   return monthsBefore(wedding, months);
 }
 
+/** A US date for a US audience: "Sat, Nov 6, 2027". */
 export function plainDate(iso: string): string {
   const day = parseDay(iso);
   if (!day) return iso;
   const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date(Date.UTC(day.y, day.m - 1, day.d)).getUTCDay()];
-  return `${weekday} ${day.d} ${MONTHS[day.m - 1]} ${day.y}`;
+  return `${weekday}, ${MONTHS[day.m - 1]} ${day.d}, ${day.y}`;
 }
 
 /** How far away, in the words a person would say: never a day countdown (the brand's rule). */

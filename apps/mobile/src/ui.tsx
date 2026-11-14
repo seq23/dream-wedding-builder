@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router, type Href } from 'expo-router';
@@ -9,12 +9,15 @@ import { Logo } from './Logo';
 
 // The shell every screen uses. Inside a tab the header (src/nav.tsx) carries the title and Back or Close,
 // and the tab bar stays below. Onboarding has no header, so its Back and Skip are drawn here.
-export function PlannedScreen({ route, children }: { route: string; children?: React.ReactNode }) {
+/** `scrollKey`: when it changes (a new step of the journey), the screen opens at the top again. */
+export function PlannedScreen({ route, children, scrollKey }: { route: string; children?: React.ReactNode; scrollKey?: string | number }) {
   const s = byRoute(route);
+  const scroller = useRef<React.ComponentRef<typeof ScrollView>>(null);
+  useEffect(() => { scroller.current?.scrollTo({ y: 0, animated: false }); }, [scrollKey]);
   useBackKeys(route);
   const onboarding = s.kind === 'onboarding';
   const body = (
-    <ScrollView contentContainerStyle={{ padding: space[4], gap: space[4] }}>
+    <ScrollView ref={scroller} contentContainerStyle={{ padding: space[4], gap: space[4] }}>
       {onboarding ? (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 44 }}>
           {/* The journey's first screen always carries the brand; its steps have their own Back links. */}

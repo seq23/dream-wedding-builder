@@ -51,6 +51,15 @@ const isRead = (v: unknown): v is WeddingRead => {
     && [r.directions, r.colours, r.venueTypes, r.ideas, r.details, r.ask].every(Array.isArray);
 };
 
+/** The daily allowance is never shown as a counter. Only when she is about to run out does
+ * one plain line say what changing her answers will do (first-time test, 14 Nov 2026). */
+export function quotaNote(remaining: number | null): string | null {
+  if (remaining === null || remaining > 1) return null;
+  return remaining === 1
+    ? 'You can change your answers once more today and get a new AI description.'
+    : 'You have used today’s free AI descriptions. If you change your answers now, the new one comes from our fixed lists, without AI. More tomorrow.';
+}
+
 /** What she sees when the planner cannot be reached: no talk of photos or ticks she never saw. */
 export const READ_FAILED = 'Couldn’t reach the planner. Try again, or tap “Just give me my plan” below.';
 
