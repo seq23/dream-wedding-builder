@@ -9,7 +9,7 @@ repo copy of what Codex builds, in order. When the two disagree, the page wins; 
 
 - `apps/mobile`: an Expo app on the KeepMyProof stack (Expo 58, expo-router, EAS
   profiles copied from KeepMyProof). Name "Dream Wedding", bundle id placeholder
-  `com.weddingchecklistpdf.dreamwedding.placeholder`, light only.
+  `com.weddingchecklistpdf.dreamwedding` (registered with Apple 14 Nov 2026), light only.
 - Brand: `src/theme.ts` holds the approved tokens (design system
   https://claude.ai/artifact/6ncBMWsGoHNHP16FzbmM9o); Instrument Serif, Instrument Sans
   and DM Mono are bundled. `scripts/make-icons.mjs` draws the icon, adaptive icon and

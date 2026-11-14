@@ -1,9 +1,9 @@
 import type { ExpoConfig } from 'expo/config';
 import release from './release/config.json';
 // Dream Wedding phone app (plan: docs/APP_PLAN.md at the repo root).
-// BUNDLE_ID is a placeholder until the store accounts exist (her call: the company
-// accounts after the D-U-N-S number). The release task refuses a store build while it
-// still ends in ".placeholder" (NAMED STOP [BUNDLE_ID_PLACEHOLDER], Codex task 11).
+// BUNDLE_ID: registered with Apple 14 Nov 2026 (individual account, her call that day).
+// The release gate refuses a store build if it ever ends in ".placeholder"
+// (NAMED STOP [BUNDLE_ID_PLACEHOLDER]).
 const BUNDLE_ID = release.bundleId;
 const config: ExpoConfig = {
   name: 'Dream Wedding', slug: 'dream-wedding-builder', version: '0.1.0', scheme: 'dreamwedding',

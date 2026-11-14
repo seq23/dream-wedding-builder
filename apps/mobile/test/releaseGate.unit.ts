@@ -20,11 +20,14 @@ test('store gate rejects each unsafe setting independently and permits a clean c
   assert.equal(recorded.bossOsRowId, recorded.id);
   assert.deepEqual(stops(config, {}, recorded), []);
 });
-test('EAS hook permits previews but blocks the current production configuration before install', () => {
+test('EAS hook permits previews and passes the registered production configuration (bundle ID registered with Apple 14 Nov 2026)', () => {
   const run = (profile: string) => spawnSync(process.execPath, ['scripts/release-gate.mjs', '--if-production'], { cwd: new URL('..', import.meta.url), env: { ...process.env, EAS_BUILD_PROFILE: profile }, encoding: 'utf8' });
   assert.equal(run('preview').status, 0);
   const production = run('production');
-  assert.equal(production.status, 2);
-  assert.doesNotMatch(production.stdout + production.stderr, /SCORECARD_NOT_REGISTERED/);
-  assert.match(production.stdout + production.stderr, /BUNDLE_ID_PLACEHOLDER/);
+  assert.equal(production.status, 0, production.stdout + production.stderr);
+  assert.doesNotMatch(production.stdout + production.stderr, /NAMED STOP/);
+  assert.match(production.stdout, /store configuration passes/);
+  const shipped = JSON.parse(readFileSync(new URL('../release/config.json', import.meta.url), 'utf8'));
+  assert.equal(shipped.bundleId, 'com.weddingchecklistpdf.dreamwedding');
+  assert.deepEqual(stops({ ...shipped, bundleId: shipped.bundleId + '.placeholder' }, {}, receipt), ['BUNDLE_ID_PLACEHOLDER']);
 });
