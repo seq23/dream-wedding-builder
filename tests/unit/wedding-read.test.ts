@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
-import { checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
+import { buildMessages, checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
 import { sha256, visitorIp } from '@/lib/ai-draft';
 import { recordReach } from '@/lib/journey-reach';
 import { MODEL_CALLS_PER_DAY_GLOBAL } from '@/lib/ai-draft';
@@ -40,6 +40,28 @@ describe('the checks before she sees an answer', () => {
       expect(checkRead(fixedRead(a), a), JSON.stringify(body)).toEqual([]);
     }
   });
+  it('no false names or voice: Edison bulbs and her own "we" in a vendor question pass; invented towns, venues, I and darling still fail', () => {
+    expect(checkRead(read({ details: ['Edison bulbs strung over long tables', 'Chiavari chairs with Chantilly lace runners'] }), dk)).toEqual([]);
+    expect(checkRead(read({ ask: ['Ask the caterer if we can bring our own wine.'] }), dk)).toEqual([]);
+    expect(checkRead(read({ read: 'We can bring our own wine.' }), dk).some(f => f.startsWith('voice:read'))).toBe(true);
+    expect(checkRead(read({ ask: ['Ask the florist what I should pick, darling.'] }), dk).some(f => f.startsWith('voice:ask'))).toBe(true);
+    expect(checkRead(read({ headline: 'A relaxed fall garden in Springfield, for 100' }), dk).some(f => f === 'name:headline:Springfield')).toBe(true);
+    expect(checkRead(read({ details: ['Dinner at the Grand Oak Ballroom'] }), dk).some(f => f.startsWith('name:detail0:'))).toBe(true);
+    expect(checkRead(read({ details: ['Spritzes with Aperol at the bar'] }), dk).some(f => f.startsWith('name:detail0:') || f.startsWith('brand:'))).toBe(true);
+  });
+
+  it('a town named only in her own words may be used; with no town anywhere the prompt says "near you"', () => {
+    const typed = cleanAnswers({ path: 'idea', wish: 'Italian villa feel in Memphis, 100 people' });
+    expect(checkRead(read({ headline: 'An Italian villa evening in Memphis, for 100', ideas: [] }), typed).filter(f => f.startsWith('name:'))).toEqual([]);
+    const prompt = JSON.stringify(buildMessages(typed, [], [], []));
+    expect(prompt).toContain('If her own words name the town');
+    expect(JSON.stringify(buildMessages(cleanAnswers({ path: 'idea', wish: 'Memphis', facts: { where: 'Memphis' } }), [], [], []))).not.toContain('near you');
+    // The colours read from her photo on her phone shape the palette.
+    expect(JSON.stringify(buildMessages(cleanAnswers({ path: 'idea', wish: 'a villa', photos: [{ loves: [], colours: ['#800020', '#d2b48c'] }] }), [], [], []))).toContain('Colours read from her photos: #800020, #d2b48c');
+    // And the fixed-list answer shows her photo's own colours, plainly named.
+    expect(fixedRead(cleanAnswers({ path: 'idea', wish: 'a villa', photos: [{ loves: [], colours: ['#7f001f', '#d1b38b', '#024421'] }] })).colours).toEqual([{ name: 'Burgundy', hex: '#7f001f' }, { name: 'Tan', hex: '#d1b38b' }, { name: 'Deep green', hex: '#024421' }]);
+  });
+
   it('speaks as the tool: we, us, I and darling fail', () => {
     for (const bad of ['We love this for you.', 'I think candles work.', 'Darling, keep it simple.', 'Let us plan it.']) expect(checkRead(read({ read: bad }), dk).some(f => f.startsWith('voice:'))).toBe(true);
     expect(checkRead(read({ read: 'You can keep it simple with candles.' }), dk)).toEqual([]);

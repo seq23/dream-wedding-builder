@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { emptyProgress, taskKey, toggleDone } from '@core/plan-progress';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { directionPick, ideaPick, venuePick } from '@core/journey-picks';
-import { applyPicks, isPick, journeyStore, readLabel, weddingReadClient, type JourneyAnswers } from '../src/journey';
+import { applyPicks, applyTradition, isPick, journeyStore, readLabel, weddingReadClient, type JourneyAnswers } from '../src/journey';
 import { base64Bytes, strongestColours } from '../src/photoColours';
 import { ownTaskKey, taskRows } from '../src/planTasks';
 
@@ -93,4 +93,31 @@ test('photo colours are read on the phone: base64 decodes exactly, and the stron
   for (let i = 0; i < 10; i++) px.push(20, 20, 220, 255);
   const c = strongestColours(px);
   assert.equal(c[0], '#c82828'); assert.equal(c[1], '#1414dc'); assert.equal(c.length, 2);
+});
+
+test('a known-colour JPEG (burgundy, tan, dark green) reads back as those three colours, once each', async () => {
+  const { encode, decode } = await import('jpeg-js');
+  const w = 48, h = 48, data = new Uint8Array(w * h * 4);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const c = y >= 36 ? [1, 68, 33] : x >= 32 ? [210, 180, 140] : [128, 0, 32];
+    data.set([...c, 255], (y * w + x) * 4);
+  }
+  const jpeg = encode({ data, width: w, height: h }, 90).data;
+  let b64 = ''; const A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  for (let i = 0; i < jpeg.length; i += 3) { const n = (jpeg[i] << 16) | ((jpeg[i + 1] ?? 0) << 8) | (jpeg[i + 2] ?? 0); b64 += A[n >> 18 & 63] + A[n >> 12 & 63] + (i + 1 < jpeg.length ? A[n >> 6 & 63] : '=') + (i + 2 < jpeg.length ? A[n & 63] : '='); }
+  const got = strongestColours(decode(base64Bytes(b64), { useTArray: true }).data);
+  const near = (hex: string, [r, g, b]: number[]) => Math.hypot(parseInt(hex.slice(1, 3), 16) - r, parseInt(hex.slice(3, 5), 16) - g, parseInt(hex.slice(5, 7), 16) - b) < 30;
+  assert.ok(near(got[0], [128, 0, 32]), `burgundy first: ${got}`);
+  assert.ok(got.some(c => near(c, [210, 180, 140])), `tan: ${got}`);
+  assert.ok(got.some(c => near(c, [1, 68, 33])), `dark green: ${got}`);
+  assert.equal(got.filter(c => near(c, [128, 0, 32])).length, 1, 'one swatch per colour');
+});
+
+test('a tradition picked in step 1 opens that pack\'s free example once; Other or none adds nothing', () => {
+  const once = applyTradition(emptyProgress(), 'Catholic');
+  assert.equal(once.custom.length, 1);
+  assert.match(once.custom[0].text, /parish/);
+  assert.equal(applyTradition(once, 'Catholic').custom.length, 1);
+  assert.equal(applyTradition(emptyProgress(), 'Other').custom.length, 0);
+  assert.equal(applyTradition(emptyProgress(), '').custom.length, 0);
 });
