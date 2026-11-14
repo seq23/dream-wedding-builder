@@ -6,6 +6,7 @@ import { PlannedScreen, GoButton } from '../../../src/ui';
 import { phoneSharing, sharedAccess, sharingChanged } from '../../../src/sharing/runtime';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
 import { inviteLink, SHARE_UNAVAILABLE } from '../../../src/sharing/crypto';
+import { SHARED_PAYMENTS_NOTE } from '../../../src/sharing/details';
 import type { SharedEvent, ShareSession } from '../../../src/sharing/session';
 import { color, type, space } from '../../../src/theme';
 import { plainDate } from '@core/dated-plan';
@@ -50,7 +51,7 @@ export default function Sharing() {
       <Text style={type.title}>{session.role === 'owner' ? 'Sharing is on' : 'Shared with you'}</Text>
       <Text style={type.body}>🔒 {session.plan.event.name} · {plainDate(session.plan.event.date)}</Text>
       <Text style={type.sub}>{session.plan.joined ? 'Your partner joined' : 'Link ready to send'} · Last updated {new Date(session.syncedAt).toLocaleTimeString()}</Text>
-      <Text style={type.body}>Ticks catch up when both phones are online. Payment amounts stay on each phone.</Text>
+      <Text style={type.body}>Ticks catch up when both phones are online. {SHARED_PAYMENTS_NOTE}</Text>
       {button('Sync now', () => void action('sync'))}
       {session.role === 'owner' ? <>
         {button('Send the link again', () => void action('invite'))}
@@ -59,11 +60,11 @@ export default function Sharing() {
       <GoButton href="/plan" label="Back to my plan ›" />
     </> : event ? <>
       <Text style={type.title}>Join this plan</Text><Text style={type.body}>🔒 {event.name}</Text><Text style={type.body}>{plainDate(event.date)}</Text>
-      <Text style={type.body}>You will see the same tasks and payments. Ticks show on both phones. No account and nothing more to pay.</Text>
+      <Text style={type.body}>You will see the same tasks, and who is paid and when. {SHARED_PAYMENTS_NOTE} Ticks show on both phones. No account and nothing more to pay.</Text>
       {button('Join this plan', () => void action('join'), true)}
       {button('Not now', () => router.replace('/plan'))}
     </> : invite ? <GoButton href="/plan" label="Back to my plan ›" /> : <>
-      <Text style={type.title}>Invite my partner</Text><Text style={type.body}>Both phones show the same plan. No account and nothing more to pay.</Text>
+      <Text style={type.title}>Invite my partner</Text><Text style={type.body}>Both phones show the same plan. {SHARED_PAYMENTS_NOTE} No account and nothing more to pay.</Text>
       <Text style={type.body}>Anyone with the link can open the plan. Send it only to your partner. The link needs a connection once; ticks catch up later.</Text>
       {button('Send the link', () => void action('invite'), true)}
       <GoButton href="/more/full-plan" label="See the full plan ›" />

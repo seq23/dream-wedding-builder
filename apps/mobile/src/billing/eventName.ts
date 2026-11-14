@@ -12,11 +12,12 @@ export function eventNameStore(storage: DateStorage, newEvent = false) {
       if (!newEvent && event?.fullPlan) return { name: event.name, locked: true };
       return { name: await storage.getItem(key) ?? '', locked: false };
     },
+    /** Before buying, the name is kept for checkout; after, it renames the paid event. */
     async save(value: string) {
-      const current = await this.read();
-      if (current.locked) throw Error('EVENT_NAME_LOCKED');
       const name = value.trim();
       if (!name || name.length > 140) throw Error('Enter an event name of 1 to 140 characters.');
+      const current = await this.read();
+      if (current.locked) { await eventStore(storage).rename(name); return name; }
       await storage.setItem(key, name);
       return name;
     },

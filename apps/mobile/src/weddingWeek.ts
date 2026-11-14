@@ -15,3 +15,11 @@ export function weekEnvelopes(rows: Payment[], date: string, unlocked: boolean) 
 export function weekStore(storage: { getItem(k:string): Promise<string|null>; setItem(k:string,v:string):Promise<void> }, preview: boolean) {
   return { async read(): Promise<WeekDetails> { const raw = await storage.getItem(weekKey(preview)); return raw ? JSON.parse(raw) : { who: {}, contacts: [] }; }, async save(value: WeekDetails) { await storage.setItem(weekKey(preview),JSON.stringify(value)); } };
 }
+
+/** The whole sheet's names, saved together: a name she typed is kept even if she never
+ * pressed a button. An emptied box clears that name. */
+export function withWho(details: WeekDetails, typed: Record<string, string>): WeekDetails {
+  const who = { ...details.who };
+  for (const [key, value] of Object.entries(typed)) { if (value.trim()) who[key] = value.trim().slice(0, 140); else delete who[key]; }
+  return { ...details, who };
+}

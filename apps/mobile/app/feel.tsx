@@ -10,9 +10,12 @@ import { useFullPlanPrice } from '../src/useFullPlanPrice';
 import { WeddingDatePicker } from '../src/WeddingDatePicker';
 import { canSaveDate } from '../src/welcomeStart';
 import { MAX_PHOTOS, pickPhoto, type JourneyPhoto } from '../src/photos';
-import { BUDGETS, COLOURS_NOT_SURE, EMPTY_ANSWERS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, WEDDING_COLOURS, applyPicks, applyTradition, colourView, journeyStore, pickable, readLabel, toggleColour, togglePick, weddingReadClient,
+import { BUDGETS, COLOURS_NOT_SURE, EMPTY_ANSWERS, LOVES, MOODS, READ_FAILED, SEASONS, SETTINGS, TRADITIONS, WEDDING_COLOURS, answersToSend, applyPicks, applyTradition, colourView, journeyStore, pickable, placePicks, readLabel, toggleColour, togglePick, toggleTradition, traditionList, weddingReadClient,
   type JourneyAnswers, type JourneyPick, type ReadReason, type WeddingRead } from '../src/journey';
 import { color, font, radius, space, type } from '../src/theme';
+import { detailStore, journeyDetails } from '../src/draftReview';
+import { localToday, plainDate } from '@core/dated-plan';
+import { dateCheck } from '../src/welcomeStart';
 
 // The free journey, as the approved sample and the website (components/WeddingJourney.tsx):
 // 1 Tell us · 2 See it · 3 Keep · 4 Plan, one blue "Continue · step N of 4 ›" per step.
@@ -81,6 +84,7 @@ export default function Feel() {
   const [savedOn, setSavedOn] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [askPast, setAskPast] = useState<{ date: string; then: '/plan' | '/more/packet' } | null>(null);
   useEffect(() => {
     store.read().then(saved => {
       if (!saved) return;
@@ -103,24 +107,29 @@ export default function Feel() {
     setBusy(true); setError('');
     try {
       const sent = photos.map(p => ({ loves: p.loves, colours: p.colours }));
-      const reply = await client.request(a, sent);
+      const reply = await client.request(answersToSend(a, canSaveDate(date) ? date : ''), sent);
       if (!reply.ok) { setError(reply.message); return; }
       setPage({ read: reply.read, reason: reply.reason, remaining: reply.remaining, limit: reply.limit }); setPicks([]); setStep(2);
       await store.save({ answers: a, read: reply.read, reason: reply.reason, picks: [] }).catch(() => {});
-    } catch { setError('That photo could not be prepared. Untick “Let the AI planner look at this photo” and try again.'); }
+    } catch { setError(READ_FAILED); }
     finally { setBusy(false); }
   }
-  async function finish(chosenDate: string, then: '/plan' | '/more/packet' = '/plan') {
-    setBusy(true); setError('');
+  async function finish(chosenDate: string, then: '/plan' | '/more/packet' = '/plan', pastOk = false) {
+    // A date that has passed is usually a typo in the year: ask before saving it.
+    if (!pastOk && chosenDate !== savedOn && dateCheck(chosenDate) === 'past') { setAskPast({ date: chosenDate, then }); return; }
+    setBusy(true); setError(''); setAskPast(null);
     try {
-      await savedProgress.update(p => applyTradition(applyPicks(p, picks, a.venueBooked, new Date().toISOString()), a.tradition));
-      if (chosenDate !== savedOn) await savedDate.save(chosenDate);
-      await store.save({ answers: a, read: page?.read ?? null, reason: page?.reason ?? 'no_model', picks });
+      const today = localToday();
+      await savedProgress.update(p => applyTradition(applyPicks(p, placePicks(picks, chosenDate, today), a.venueBooked, new Date().toISOString()), a.tradition));
+      if (chosenDate !== savedOn) await savedDate.save(chosenDate, today, true);
+      await store.save({ answers: answersToSend(a, chosenDate), read: page?.read ?? null, reason: page?.reason ?? 'no_model', picks });
+      // Guests, town and budget she gave here fill the Plan's details, so she never types them twice.
+      const details = detailStore(AsyncStorage);
+      await details.save(journeyDetails(await details.read().catch(() => ({})), a)).catch(() => {});
       router.replace('/plan');
       if (then !== '/plan') router.push(then);
-    } catch (e) {
-      setError(e instanceof Error && e.message === 'NEW_EVENT_REQUIRED' ? 'This event has used its three date changes. A different date needs a new event (More › The full plan).'
-        : 'Your plan could not be saved. Try again.');
+    } catch {
+      setError('Your plan could not be saved. Try again.');
     } finally { setBusy(false); }
   }
 
@@ -152,8 +161,13 @@ export default function Feel() {
       {chosen && a.path === 'idea' ? <TextInput accessibilityLabel="Your wedding in your own words" multiline maxLength={400} value={a.wish} onChangeText={wish => set({ wish })}
         placeholder="For example: an Italian villa feel, candlelit long tables, 100 people" placeholderTextColor={color.midnightMuted}
         style={[...input, { minHeight: 96, paddingTop: space[3], textAlignVertical: 'top' }]} /> : null}
+      {chosen ? <View style={{ gap: space[2] }}>
+        <Text style={mono}>Wedding date (optional)</Text>
+        <WeddingDatePicker value={date} onChange={setDate} />
+        {canSaveDate(date) ? <Text style={[type.sub, { color: color.midnightMuted }]}>{plainDate(date)}. The season comes from your date.</Text> : null}
+      </View> : null}
       {chosen && a.path === 'dk' ? <View style={{ gap: space[4] }}>
-        <Row title="When">{SEASONS.map(v => <Chip key={v} label={v} on={a.season === v} onPress={() => set({ season: a.season === v ? '' : v })} />)}</Row>
+        {!canSaveDate(date) ? <Row title="When">{SEASONS.map(v => <Chip key={v} label={v} on={a.season === v} onPress={() => set({ season: a.season === v ? '' : v })} />)}</Row> : null}
         <Row title="Where">{SETTINGS.map(v => <Chip key={v} label={v} on={a.setting === v} onPress={() => set({ setting: a.setting === v ? '' : v })} />)}</Row>
         <Row title="How it should feel (pick any)">{MOODS.map(m => <Chip key={m} label={m} on={a.moods.includes(m)} onPress={() => set({ moods: a.moods.includes(m) ? a.moods.filter(x => x !== m) : [...a.moods, m] })} />)}</Row>
       </View> : null}
@@ -183,10 +197,9 @@ export default function Feel() {
           <TextInput accessibilityLabel="Town or city" value={a.where} maxLength={60} onChangeText={where => set({ where })} placeholder="Town or city" placeholderTextColor={color.midnightMuted} style={input} />
           <TextInput accessibilityLabel="About how many guests" value={a.guests} keyboardType="number-pad" maxLength={4} onChangeText={g => set({ guests: g.replace(/[^0-9]/g, '') })} placeholder="About how many guests" placeholderTextColor={color.midnightMuted} style={input} />
           <Row title="Budget (optional)">{BUDGETS.map(v => <Chip key={v} label={v} on={a.budget === v} onPress={() => set({ budget: a.budget === v ? '' : v })} />)}</Row>
-          <Row title="Tradition (optional)">{TRADITIONS.map(v => <Chip key={v} label={v} on={a.tradition === v} onPress={() => set({ tradition: a.tradition === v ? '' : v })} />)}</Row>
+          <Row title="Traditions (optional, pick up to 3)">{TRADITIONS.map(v => <Chip key={v} label={v} on={traditionList(a.tradition).includes(v)} onPress={() => set({ tradition: toggleTradition(a.tradition, v) })} />)}</Row>
           <Text style={mono}>Already decided</Text>
           <Tick label="The venue is booked" on={a.venueBooked} onPress={() => set({ venueBooked: !a.venueBooked })} />
-          <Tick label="The date is set" on={a.dateSet} onPress={() => set({ dateSet: !a.dateSet })} />
         </View> : null}
       </View> : null}
       {chosen ? <Text style={[type.sub, { color: color.midnightMuted }]}>What you tell us goes to a free AI model (Google Gemini or OpenRouter), which may use it to improve its products. We remove emails, phone numbers, street addresses and links first. Photos stay on your phone; only the colours are used. Leave out names.</Text> : null}
@@ -259,6 +272,12 @@ export default function Feel() {
       <Text accessibilityRole="header" style={h1}>When is it?</Text>
       <WeddingDatePicker value={date} onChange={setDate} />
       {!canSaveDate(date) ? <Under label="I don’t have a date yet ›" onPress={() => finish('')} /> : null}
+      {askPast ? <View accessibilityRole="alert" style={[box, { gap: space[2] }]}>
+        <Text style={type.subhead}>Is that right?</Text>
+        <Text style={type.body}>{plainDate(askPast.date)} has already passed. If you meant next year, change the year.</Text>
+        <Blue label="Yes, that’s right ›" onPress={() => finish(askPast.date, askPast.then, true)} />
+        <Under label="Change the date" onPress={() => setAskPast(null)} />
+      </View> : null}
       {err}
       <Blue label={busy ? 'Saving your plan…' : 'Continue · step 4 of 4 ›'} onPress={() => finish(date)} disabled={!canSaveDate(date) || busy} />
       <View style={[box, { gap: 4 }]}>

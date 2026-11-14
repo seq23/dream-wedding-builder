@@ -24,7 +24,7 @@ export const catalog = {
   entitlements: (Object.keys(ENTITLEMENT_NAMES) as Entitlement[]).map(key => ({ key, name: ENTITLEMENT_NAMES[key], products: ids.filter(id => PRODUCTS[id].grants.includes(key)) })),
   // The offerings the screens ask for (full-plan.tsx, useFullPlanPrice.ts), packages in offersFor order.
   offerings: [
-    { key: 'default', name: 'First purchase', current: true, packages: ['dw_planner_printables', 'dw_full_plan'] },
+    { key: 'default', name: 'First purchase', current: true, packages: ['dw_full_plan', 'dw_planner_printables'] },
     { key: 'after_unlock', name: 'Full plan owners', packages: ['dw_printables_topup', 'dw_day_of_kit'] },
     { key: 'new_event', name: 'New event', packages: ['dw_new_event'] },
   ],

@@ -10,7 +10,7 @@ import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/tradi
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { dueBeforeStart, fullPlanRows, lockedPlanRows, planBlocks, planOverview, completionDay, taskRows } from '../../../src/planTasks';
+import { dueBeforeStart, fullPlanRows, lockedPlanRows, markAllDone, planBlocks, planOverview, completionDay, startHereView, taskRows, weddingDayRows, windowRows } from '../../../src/planTasks';
 import { planStartStore } from '../../../src/planStart';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { detailStore } from '../../../src/draftReview';
@@ -22,6 +22,7 @@ import { shouldOffer } from '../../../src/reminders';
 import { color, space, type } from '../../../src/theme';
 import { isPick, journeyStore, type SavedJourney } from '../../../src/journey';
 import { phoneMetrics } from '../../../src/phoneMetrics';
+const AFTER_KEY = 'dw.after-wedding.kept.v1';
 export default function Plan() {
   const sharingRevision = useSharingRevision();
   const [shared, setShared] = useState<SharedPlan | null>(null);
@@ -35,13 +36,18 @@ export default function Plan() {
   const [notes, setNotes] = useState<Record<string, string>>({});
   const price = useFullPlanPrice();
   const [journey, setJourney] = useState<SavedJourney | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [choosing, setChoosing] = useState<string[] | null>(null);
+  const [keptAfter, setKeptAfter] = useState<string | null>(null);
   useFocusEffect(useCallback(() => {
     let active = true;
     setReady(false);
     Promise.all([savedDate.read(), savedProgress.read(), activePlan(), detailStore(AsyncStorage).read().catch(() => ({}))]).then(async ([d, p, shared, details]) => {
       const began = await planStartStore(AsyncStorage).read(d ?? '', localToday()).catch(() => localToday());
       journeyStore(AsyncStorage).read().then(j => { if (active) setJourney(j); }).catch(() => {});
-      if (active) { setNotes(planNotes(details)); setStartedOn(began); setShared(shared); setDate(d ?? ''); setProgress(p); setReady(true); setError(''); void phoneMetrics.record(); }
+      const kept = await AsyncStorage.getItem(AFTER_KEY).catch(() => null);
+      if (active) { setNotes(planNotes(details)); setStartedOn(began); setShared(shared); setDate(d ?? ''); setProgress(p); setKeptAfter(kept); setReady(true); setError(''); void phoneMetrics.record();
+        if (buildDatedPlan(d ?? '', localToday()).state === 'today') setWindow('wedding-week'); }
       awaitReminderOffer();
     }).catch(() => { if (active) setError('Could not read your plan. Reopen this screen to try again.'); });
     return () => { active = false; };
@@ -64,13 +70,29 @@ export default function Plan() {
   const overview = planOverview(progress, plan);
   // Full-list tasks are late by their own date; her own tasks, by their window having passed.
   const overdue = shared ? rows.filter(r => r.ownId ? !r.doneAt && !plan.windows.some(w => w.id === r.windowId) : r.late) : overview.overdue;
-  const blocks = planBlocks(rows, overdue, dueBeforeStart(rows, date, startedOn));
+  // On the wedding day the only block is the day's own list.
+  const blocks = plan.state === 'today' ? { startHere: [], catchUp: [], next: weddingDayRows(rows, today) } : planBlocks(rows, overdue, dueBeforeStart(rows, date, startedOn));
+  const start = startHereView(blocks.startHere, expanded);
+  async function markDone(keys: string[]) {
+    setSaving(true);
+    try { setProgress(await savedProgress.update(p => markAllDone(p, keys, new Date().toISOString()))); setChoosing(null); setError(''); }
+    catch { setError('Your change could not be saved. Try again.'); }
+    finally { setSaving(false); }
+  }
+  async function keepAfter() {
+    try { await AsyncStorage.setItem(AFTER_KEY, date); setKeptAfter(date); } catch { setError('Could not save that. Try again.'); }
+  }
   async function tick(key: string) {
     setSaving(true);
     try { setProgress(await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()))); setError(''); }
     catch { setError('Your change could not be saved. Try again.'); }
     finally { setSaving(false); }
   }
+  const pick = (r: Row) => <Pressable key={r.key} accessibilityRole="checkbox" accessibilityState={{ checked: !!choosing?.includes(r.key) }} disabled={saving}
+    onPress={() => setChoosing(list => list?.includes(r.key) ? list.filter(k => k !== r.key) : [...(list ?? []), r.key])}
+    style={{ minHeight: 48, justifyContent: 'center', borderBottomWidth: 1, borderColor: color.rule }}>
+    <Text style={type.body}>{choosing?.includes(r.key) ? '☑' : '☐'} {r.text}</Text>
+  </Pressable>;
   const row = (r: Row, undated = '') => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
     <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
@@ -93,18 +115,36 @@ export default function Plan() {
         <Text style={[type.button, { color: color.blue }]}>{journey?.read ? `${journey.picks.length ? `${journey.picks.length} kept · ` : ''}Your wedding ›` : 'Describe my wedding ›'}</Text>
       </Pressable> : null}
       <Text style={type.body}>{plan.headline}</Text>
+      {plan.state === 'past' && !shared && keptAfter !== date ? <View style={{ gap: space[2] }}>
+        <Text style={type.sub}>Keep your plan on this phone to look back on, or close it.</Text>
+        <Pressable accessibilityRole="button" onPress={() => { void keepAfter(); }} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Keep my plan</Text></Pressable>
+        <GoButton href="/more?close=1" label="Close my plan ›" />
+      </View> : null}
       {plan.state === 'none' && !shared ? <GoButton href="/welcome" label="Choose my wedding date ›" primary /> : null}
       {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text><GoButton href="/more/sharing" label="♧ Two phones ›" /></> : null}
       {plan.warning ? <Text style={type.body}>{plan.warning}</Text> : null}
       <Text style={type.section}>{shared ? 'Full plan' : 'Free plan'} · {count.done} of {count.total} tasks done</Text>
-      {blocks.startHere.length ? <View><Text accessibilityRole="header" style={type.section}>Start here · {blocks.startHere.length}</Text><Text style={type.sub}>These came before you began. Do the ones that still apply to you.</Text>{blocks.startHere.map(r => row(r, ' · Start here'))}</View> : null}
+      {blocks.startHere.length ? <View><Text accessibilityRole="header" style={type.section}>Start here · {blocks.startHere.length}</Text><Text style={type.sub}>These came before you began. Do the ones that still apply to you.</Text>
+        {choosing ? <>
+          {blocks.startHere.map(pick)}
+          <Pressable accessibilityRole="button" accessibilityState={{ disabled: saving || !choosing.length }} disabled={saving || !choosing.length} onPress={() => { void markDone(choosing); }}
+            style={{ minHeight: 48, marginTop: space[2], justifyContent: 'center', alignItems: 'center', borderRadius: 10, backgroundColor: color.blue, opacity: choosing.length ? 1 : 0.5 }}>
+            <Text style={[type.button, { color: color.onBlue }]}>{choosing.length ? `Mark ${choosing.length} as done ›` : 'Tick the ones you have done'}</Text>
+          </Pressable>
+          <Pressable accessibilityRole="button" onPress={() => setChoosing(null)} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Cancel</Text></Pressable>
+        </> : <>
+          {start.shown.map(r => row(r, ' · Start here'))}
+          {start.hidden ? <Pressable accessibilityRole="button" onPress={() => setExpanded(true)} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Show {start.hidden} more ›</Text></Pressable> : null}
+          <Pressable accessibilityRole="button" onPress={() => setChoosing([])} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Already done some? Tick several at once ›</Text></Pressable>
+        </>}
+      </View> : null}
       {blocks.catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {blocks.catchUp.length}</Text>{blocks.catchUp.map(r => row(r, ' · Catch up'))}</View> : null}
-      {blocks.next.length ? <View><Text accessibilityRole="header" style={type.section}>Do these next · {blocks.next.length}</Text>{blocks.next.map(r => row(r))}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
+      {blocks.next.length ? <View><Text accessibilityRole="header" style={type.section}>{plan.state === 'today' ? 'Today' : 'Do these next'} · {blocks.next.length}</Text>{blocks.next.map(r => row(r))}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
       <ScrollView horizontal accessibilityRole="tablist" contentContainerStyle={{ gap: space[2] }}>
         {(shared ? shared.list.windows : PLAN_WINDOWS).map(w => <Pressable key={w.id} accessibilityRole="tab" accessibilityState={{ selected: windowId === w.id }} onPress={() => setWindow(w.id)} style={{ minHeight: 48, padding: space[3], backgroundColor: windowId === w.id ? color.blueSoft : color.coralSoft }}><Text style={type.button}>{w.label}</Text></Pressable>)}
       </ScrollView>
       {plan.windows.filter(w => w.id === windowId).map(w => <Text key={w.id} style={type.sub}>{plainDate(w.startsOn)} – {plainDate(w.endsOn)}</Text>)}
-      {rows.filter(r => r.windowId === windowId).map(r => row(r))}
+      {windowRows(rows, blocks, windowId).map(r => row(r))}
       {(!shared ? lockedPlanRows(date, windowId, startedOn) : []).map(r => <Pressable key={r.text} accessibilityRole="button" onPress={() => router.push(r.href)} style={{ minHeight: 64, paddingVertical: space[2], borderBottomWidth: 1, borderColor: color.rule }}>
         <Text style={[type.body, { color: color.midnightMuted }]}>🔒 {r.text}</Text>
         <Text style={type.sub}>{r.dueOn ? plainDate(r.dueOn) : 'Start here'} · {partOfFullPlan(price)} ›</Text>

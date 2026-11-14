@@ -5,7 +5,7 @@ import { taskKey } from '@core/plan-progress';
 import { activePlan } from '../../../src/sharing/runtime';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
 import type { SharedPlan } from '../../../src/sharing/session';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Text, TextInput, Pressable, View } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,7 +15,7 @@ import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
 import { hasFullPlan } from '../../../src/localReminders';
 import { paymentRows, paymentsStore, SAMPLE_PAYMENTS, type Payment } from '../../../src/payments';
-import { weekTasks, weekEnvelopes, weekStore, type WeekDetails, type Contact } from '../../../src/weddingWeek';
+import { weekTasks, weekEnvelopes, weekStore, withWho, type WeekDetails, type Contact } from '../../../src/weddingWeek';
 import { color, type } from '../../../src/theme';
 import { plainDate } from '@core/dated-plan';
 import { partOfFullPlan } from '../../../src/build';
@@ -31,9 +31,28 @@ export default function WeddingWeek() {
   const [ready,setReady] = useState(false); const [busy,setBusy] = useState(false); const [error,setError] = useState('');
   const price = useFullPlanPrice();
   const [contact,setContact] = useState<Contact|null>(null); const [who,setWho] = useState<Record<string,string>>({});
+  // Names save as she types (and when she leaves), never one button per box.
+  const latest = useRef<{ details: WeekDetails; who: Record<string,string>; shared: SharedPlan | null; dirty: boolean }>({ details: { who: {}, contacts: [] }, who: {}, shared: null, dirty: false });
+  latest.current = { ...latest.current, details, who, shared };
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  async function flushWho() {
+    if (timer.current) { clearTimeout(timer.current); timer.current = null; }
+    const now = latest.current;
+    if (!now.dirty) return;
+    latest.current.dirty = false;
+    const next = withWho(now.details, now.who);
+    try { if (now.shared) await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,now.shared.event.id,()=>({who:{},contacts:[]} as WeekDetails)).save(next); else await store.save(next); setDetails(next); }
+    catch { setError('Could not save the names. Try again.'); }
+  }
+  function typeWho(key: string, value: string) {
+    setWho(old => ({ ...old, [key]: value }));
+    latest.current.dirty = true;
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => { void flushWho(); }, 600);
+  }
   useFocusEffect(useCallback(() => { let active=true;
     Promise.all([savedDate.read(),savedProgress.read(),store.read(),activePlan(),paymentsStore(AsyncStorage,preview ? 'dw.payments.preview.v1':'dw.payments.v1').read()]).then(async ([d,p,s,paid,m])=> { if(paid) { s = await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,paid.event.id,()=>({who:{},contacts:[]} as WeekDetails)).read(); m = await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,paid.event.id,()=>({own:[],edits:{}} as PaymentState)).read(); } return [d,p,s,paid,m] as const; }).then(([d,p,s,paid,m])=>{if(active){setDate(d??'');setProgress(p);setDetails(s);setWho(s.who);setShared(paid);setAllowed(!!paid);setPayments(paymentRows(paid?.list ?? (preview?SAMPLE_PAYMENTS:null),d??'',m.own,m.edits,!!paid||preview).map(row=>{const t=paid?.list.tasks.find(t=>row.id===`task:${t.id}`);return t?{...row,paidOn:p.done[taskKey(t.window,t.text)]?.slice(0,10)}:row;}));setReady(true);}}).catch(()=>{if(active)setError('Could not open your wedding week. Reopen to try again.');});
-    return ()=>{active=false;}; },[sharingRevision]));
+    return ()=>{active=false; void flushWho();}; },[sharingRevision]));
   async function save(next: WeekDetails) { setBusy(true); try {if(shared) await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,shared.event.id,()=>({who:{},contacts:[]} as WeekDetails)).save(next); else await store.save(next);setDetails(next);setContact(null);setError('');} catch {setError('Could not save. Try again.');} finally {setBusy(false);} }
   async function tick(key:string) {setBusy(true);try {setProgress(await savedProgress.update(p=>toggleDone(p,key,new Date().toISOString())));}catch{setError('Could not save your tick. Try again.');}finally{setBusy(false);}}
   const button=(label:string,action:()=>void)=><Pressable accessibilityRole="button" disabled={busy} onPress={action} style={{minHeight:48,justifyContent:'center'}}><Text style={[type.button,{color:color.blue}]}>{label}</Text></Pressable>;
@@ -46,8 +65,7 @@ export default function WeddingWeek() {
       {Array.from({length:8},(_,i)=>7-i).filter(day=>tasks.some(t=>t.daysBefore===day)).map(day=><View key={day}><Text style={type.section}>{day===0?'Wedding day':day===1?'1 day before':`${day} days before`}</Text>{tasks.filter(t=>t.daysBefore===day).map(t=><View key={t.key}>
         <Pressable accessibilityRole="checkbox" accessibilityState={{checked:!!t.doneAt,disabled:busy}} disabled={busy} onPress={()=>void tick(t.key)} style={{minHeight:48}}><Text style={type.body}>{t.doneAt?'✓':'○'} {t.text}</Text></Pressable>
         <Text style={type.sub}>{t.date ? plainDate(t.date) : ''} · Suggested owner: {t.owner || 'you choose'}</Text>
-        {field('Who',who[t.key]??details.who[t.key]??'',v=>setWho({...who,[t.key]:v}))}
-        {button('Save who',()=>void save({...details,who:{...details.who,[t.key]:who[t.key]??''}}))}
+        {field('Who',who[t.key]??details.who[t.key]??'',v=>typeWho(t.key,v))}
       </View>)}</View>)}
       <Text style={type.section}>Who to call</Text>
       {details.contacts.map(c=><View key={c.id}><Text style={type.body}>{c.name} · {c.phone}</Text><Text style={type.sub}>Arrival: {c.arrival} · If late: {c.caller}</Text>{button('Edit contact',()=>setContact(c))}{button('Remove contact',()=>void save({...details,contacts:details.contacts.filter(x=>x.id!==c.id)}))}</View>)}

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { emptyProgress, taskKey, toggleDone } from '@core/plan-progress';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { directionPick, ideaPick, venuePick } from '@core/journey-picks';
-import { applyPicks, applyTradition, colourView, isPick, journeyStore, keptColours, pickable, readLabel, togglePick, weddingReadClient, type JourneyAnswers, type WeddingRead } from '../src/journey';
+import { READ_FAILED, applyPicks, applyTradition, colourView, isPick, journeyStore, keptColours, pickable, readLabel, togglePick, weddingReadClient, type JourneyAnswers, type WeddingRead } from '../src/journey';
 import { base64Bytes, strongestColours } from '../src/photoColours';
 import { ownTaskKey, taskRows } from '../src/planTasks';
 
@@ -60,7 +60,7 @@ test('the client turns a bad reply or no connection into a plain message, and an
   const bad = await weddingReadClient(false, async () => ({ ok: true, json: async () => ({ ok: true, read: { headline: 1 } }) })).request(answers);
   assert.equal(bad.ok, false);
   const down = await weddingReadClient(false, async () => { throw new Error('offline'); }).request(answers);
-  assert.ok(!down.ok && /could not be reached/.test(down.message));
+  assert.ok(!down.ok && down.message === READ_FAILED && !/photo|untick/i.test(down.message));
   let sent = 0;
   const empty = await weddingReadClient(false, async () => { sent++; return { ok: true, json: async () => ({}) }; }).request({ ...answers, path: 'idea', wish: '  ' });
   assert.equal(empty.ok, false); assert.equal(sent, 0);

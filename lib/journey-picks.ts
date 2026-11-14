@@ -9,7 +9,7 @@ export const JOURNEY_KEY = 'dwb-blend';
 /** Fired after the journey saves, so every dated plan on the page redraws. */
 export const JOURNEY_EVENT = 'dwb-updated';
 
-export type PickWindow = '12-plus' | '9-months' | '6-months';
+export type PickWindow = '12-plus' | '9-months' | '6-months' | '3-months' | '1-month' | 'wedding-week';
 export interface JourneyPick { key: string; text: string; windowId: PickWindow }
 export interface JourneyPlanInput { picks: JourneyPick[]; venueBooked: boolean }
 export const NO_PICKS: JourneyPlanInput = { picks: [], venueBooked: false };
@@ -67,15 +67,25 @@ export function togglePick(list: JourneyPick[], pick: JourneyPick): JourneyPick[
   return [...rest, pick];
 }
 
-/** Everything on her wedding page she could keep, grouped as step 3 shows it. Venue types only when the venue is not booked. */
+/** "Fruit-and-Floral Tablescape" and "Fruit and floral tablescape" are the same thing. */
+const sameName = (s: string) => s.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim();
+
+/** Everything on her wedding page she could keep, grouped as step 3 shows it. Venue types
+ * only when the venue is not booked. Each thing is offered once: a name already shown in an
+ * earlier group (or a detail that just repeats one) is left out, so keeping it never makes
+ * two tasks for the same thing. */
 export function pickable(read: WeddingRead, venueBooked: boolean) {
-  return {
-    colours: colourOptions(read),
-    directions: read.directions.map(d => ({ label: d.name, sub: d.what, pick: directionPick(d) })),
-    venues: venueBooked ? [] : read.venueTypes.map(v => ({ label: v.name, sub: v.why, pick: venuePick(v) })),
-    ideas: read.ideas.map(i => ({ label: i.name, sub: i.why, pick: ideaPick(i) })),
-    details: read.details.map(d => ({ label: '', sub: d, pick: detailPick(d) }))
-  };
+  const seen = new Set<string>();
+  const once = <T extends { label: string; sub: string }>(items: T[]) => items.filter(item => {
+    const name = sameName(item.label || item.sub);
+    if (!name || seen.has(name) || (!item.label && [...seen].some(n => name.startsWith(n + ' ') || name === n))) return false;
+    seen.add(name); return true;
+  });
+  const directions = once(read.directions.map(d => ({ label: d.name, sub: d.what, pick: directionPick(d) })));
+  const venues = venueBooked ? [] : once(read.venueTypes.map(v => ({ label: v.name, sub: v.why, pick: venuePick(v) })));
+  const ideas = once(read.ideas.map(i => ({ label: i.name, sub: i.why, pick: ideaPick(i) })));
+  const details = once(read.details.map(d => ({ label: '', sub: d, pick: detailPick(d) })));
+  return { colours: colourOptions(read), directions, venues, ideas, details };
 }
 
 /** Reads her picks from this browser; anything malformed is dropped, never thrown. */

@@ -51,3 +51,9 @@ export const byRoute = (route: string) => {
   if (!s) throw new Error(`NAMED STOP [SCREEN_NOT_IN_PLAN] ${route}`);
   return s;
 };
+
+/** The top-left of an onboarding screen: its parent's Back, a plain Back when a screen is under
+ * it (the journey opened from the Plan card or More), and the brand only on a first screen. */
+export function onboardingLeft(hasParent: boolean, canGoBack: boolean): 'parent' | 'back' | 'logo' {
+  return hasParent ? 'parent' : canGoBack ? 'back' : 'logo';
+}

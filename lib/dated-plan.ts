@@ -126,17 +126,32 @@ export function plainDate(iso: string): string {
   return `${weekday} ${day.d} ${MONTHS[day.m - 1]} ${day.y}`;
 }
 
-function countdown(days: number): string {
-  if (days === 1) return '1 day to go.';
-  if (days < 14) return `${days} days to go.`;
-  if (days < 63) return `${days} days to go (about ${Math.round(days / 7)} weeks).`;
+/** How far away, in the words a person would say: never a day countdown (the brand's rule). */
+export function distance(days: number): string {
+  if (days === 1) return 'tomorrow';
+  if (days < 14) return `${days} days away`;
+  if (days < 63) return `about ${Math.round(days / 7)} weeks away`;
   const months = Math.round(days / 30.44);
-  if (months >= 18) return `${days} days to go (about ${Math.round(days / 365.25 * 2) / 2} years).`;
-  return `${days} days to go (about ${months} months).`;
+  if (months >= 18) return `about ${Math.round(days / 365.25 * 2) / 2} years away`;
+  return `about ${months} month${months === 1 ? '' : 's'} away`;
+}
+
+/** Her picks are placed in the window that job is usually done; when that window has
+ * already closed they go in the first window still open, so a late starter's picks are
+ * dated from now. Venue-touring picks are dropped when the wedding is under 60 days away:
+ * there is no time to tour. No date: unchanged. */
+export const VENUE_PICK_PREFIX = 'venue:';
+export function placePicks<T extends { windowId: string; key?: string }>(picks: T[], weddingDate: string, today: string = localToday()): T[] {
+  const wedding = parseDay(weddingDate), now = parseDay(today);
+  if (!wedding || !now) return picks;
+  const days = daysBetween(now, wedding);
+  const open = PLAN_WINDOWS.filter(w => dayNumber(addDays(edge(wedding, w.toMonths), w.toMonths === 0 ? 0 : -1)) >= dayNumber(now)).map(w => w.id);
+  const first = open[0] ?? 'wedding-week';
+  return picks.filter(p => !(days < 60 && p.key?.startsWith(VENUE_PICK_PREFIX))).map(p => open.includes(p.windowId) ? p : { ...p, windowId: first });
 }
 
 /** Her picks and what she has already decided (lib/journey-picks.ts). */
-export interface PlanExtras { picks: { text: string; windowId: string }[]; venueBooked: boolean }
+export interface PlanExtras { picks: { text: string; windowId: string; key?: string }[]; venueBooked: boolean }
 
 /** A window's tasks once her journey is in: the venue task goes when the venue is booked, her picks are added at the end. */
 export function windowTasks(windowId: string, base: string[], extras?: PlanExtras): string[] {
@@ -161,8 +176,14 @@ export function buildDatedPlan(weddingDate: unknown, today: string = localToday(
   const now = parseDay(today);
   if (!now) throw new Error(`buildDatedPlan: today must be yyyy-mm-dd, got ${today}`);
   const days = daysBetween(now, wedding);
-  if (days < 0) return { state: 'past', headline: `${plainDate(raw)} has already passed. Check the year, or enter your new date.`, ...empty };
-  if (days === 0) return { state: 'today', headline: 'It is your wedding day. Nothing on a list matters more than enjoying it.', ...empty };
+  if (days < 0) return { state: 'past', headline: `Congratulations! Your wedding was ${plainDate(raw)}. If that date is not right, change it.`, ...empty };
+  if (days === 0) {
+    // The day itself: only the wedding-week list, never a wall of catch-up.
+    const week = PLAN_WINDOWS[PLAN_WINDOWS.length - 1];
+    return { ...empty, state: 'today', headline: 'It is your wedding day. Here is today’s short list; then enjoy it.', daysToGo: 0,
+      windows: [{ id: week.id, label: week.label, startsOn: raw, endsOn: raw, timing: 'now', tasks: windowTasks(week.id, week.tasks, extras && { ...extras, picks: placePicks(extras.picks, raw, today) }) }] };
+  }
+  if (extras) extras = { ...extras, picks: placePicks(extras.picks, raw, today) };
 
   const windows: PlanWindow[] = [];
   const catchUp: string[] = [];
@@ -178,6 +199,6 @@ export function buildDatedPlan(weddingDate: unknown, today: string = localToday(
     windows.push({ id: w.id, label: w.label, startsOn: isoDay(startDay), endsOn: isoDay(end), timing, tasks });
   }
   const warning = days > 3 * 366 ? `That is more than 3 years away (${plainDate(raw)}). If that is right, the first steps can wait; if not, check the year.` : null;
-  const headline = countdown(days);
+  const headline = `Your wedding: ${plainDate(raw)} · ${distance(days)}.`;
   return { state: 'future', headline, daysToGo: days, catchUp, windows, warning, picks: empty.picks };
 }

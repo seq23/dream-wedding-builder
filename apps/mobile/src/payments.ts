@@ -1,6 +1,7 @@
 import { isoDay, parseDay } from '@core/dated-plan';
 import { type FullPlanList, datedFullPlan } from '@core/full-plan';
-export interface Payment { id: string; payee: string; detail: string; cents: number; date: string; method: string; paidOn?: string }
+/** `ownDate`: she set this payment's due date herself (the vendor's real date), so it no longer follows the wedding date. */
+export interface Payment { id: string; payee: string; detail: string; cents: number; date: string; method: string; paidOn?: string; ownDate?: boolean }
 export function amountCents(value: string): number {
   if (!/^\d+(\.\d{1,2})?$/.test(value.trim())) throw new Error('Enter an amount with at most two decimal places.');
   const n = Math.round(Number(value) * 100);
@@ -10,7 +11,7 @@ export function amountCents(value: string): number {
 export function paymentRows(list: FullPlanList | null, date: string, own: Payment[], edits: Record<string, Payment>, unlocked: boolean): Payment[] {
   if (!unlocked || !list) return [];
   const tasks = datedFullPlan(list, date, date).flatMap(s => s.tasks).filter(t => t.kind === 'payment').map(t => ({ id: `task:${t.id}`, payee: t.owner, detail: t.text, cents: 0, date: t.date, method: '' }));
-  return [...tasks.map(t => edits[t.id] ? { ...edits[t.id], detail: t.detail, date: t.date } : t), ...own].sort((a,b) => a.date.localeCompare(b.date));
+  return [...tasks.map(t => edits[t.id] ? { ...edits[t.id], detail: t.detail, date: edits[t.id].ownDate && parseDay(edits[t.id].date) ? edits[t.id].date : t.date } : t), ...own].sort((a,b) => a.date.localeCompare(b.date));
 }
 export function paymentSummary(rows: Payment[]) {
   const total = rows.reduce((n,r) => n + r.cents, 0);

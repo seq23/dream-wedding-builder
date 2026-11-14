@@ -14,12 +14,12 @@ test.describe('dated plan, saved-plan safety and phone width', () => {
     const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     await page.getByTestId('wedding-date').fill(iso);
     await expect(page.getByTestId('dated-plan')).toHaveAttribute('data-state', 'future');
-    await expect(page.getByTestId('dated-plan-headline')).toContainText('21 days to go');
+    await expect(page.getByTestId('dated-plan-headline')).toContainText('about 3 weeks away');
     await expect(page.getByTestId('dated-plan-catch-up')).toContainText('Book the venue');
     await page.goto('/dashboard');
-    await expect(page.getByTestId('dated-plan-headline')).toContainText('21 days to go');
+    await expect(page.getByTestId('dated-plan-headline')).toContainText('about 3 weeks away');
     await page.goto('/pack');
-    await expect(page.getByTestId('pack-dated-plan')).toContainText('21 days to go');
+    await expect(page.getByTestId('pack-dated-plan')).toContainText('about 3 weeks away');
   });
 
   test('a past date and an impossible date are said plainly', async ({ page }) => {

@@ -3,9 +3,31 @@
 export const SEASONS = ['Spring', 'Summer', 'Fall', 'Winter', 'Not sure'] as const;
 export const SETTINGS = ['Outdoors', 'Indoors', 'Either'] as const;
 export const MOODS = ['Relaxed', 'Elegant', 'Garden', 'City', 'Rustic', 'Cultural', 'Party', 'Intimate'] as const;
-export const LOVES = ['The table', 'The flowers', 'The light', 'The place', 'The dress'] as const;
+export const LOVES = ['The table', 'The flowers', 'The light', 'The place', 'The outfits'] as const;
 export const BUDGETS = ['Under $10,000', '$10,000 to $25,000', '$25,000 to $50,000', 'Over $50,000'] as const;
-export const TRADITIONS = ['Catholic', 'Jewish', 'Hindu', 'Muslim nikah', 'Nigerian traditional', 'Mexican', 'Chinese tea ceremony', 'Other'] as const;
+export const TRADITIONS = ['Catholic', 'Protestant or Christian', 'Jewish', 'Hindu', 'Muslim nikah', 'Sikh', 'Nigerian traditional', 'Mexican', 'Chinese tea ceremony', 'Civil, not religious', 'Other'] as const;
+/** Mixed-faith and mixed-culture couples pick more than one; the answer travels as one
+ * comma-joined string so older saved answers (a single name) still read. */
+export const MAX_TRADITIONS = 3;
+export function traditionList(value: unknown): string[] {
+  const parts = Array.isArray(value) ? value : String(value ?? '').split(',');
+  return [...new Set(parts.map(p => String(p).trim()).filter(p => (TRADITIONS as readonly string[]).includes(p)))].slice(0, MAX_TRADITIONS);
+}
+export function toggleTradition(value: string, name: string): string {
+  const list = traditionList(value);
+  if (list.includes(name)) return list.filter(t => t !== name).join(', ');
+  return list.length >= MAX_TRADITIONS ? list.join(', ') : traditionList([...list, name]).join(', ');
+}
+
+/** The season her date falls in (US, northern hemisphere), so the read never goes by a
+ * season she guessed before she gave the date. '' when there is no real date. */
+export function seasonFromDate(iso: string): '' | 'Spring' | 'Summer' | 'Fall' | 'Winter' {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso.trim());
+  if (!m) return '';
+  const month = Number(m[2]);
+  if (month < 1 || month > 12) return '';
+  return month >= 3 && month <= 5 ? 'Spring' : month >= 6 && month <= 8 ? 'Summer' : month >= 9 && month <= 11 ? 'Fall' : 'Winter';
+}
 
 /** Colours she can say she already loves (step 1, "Your colours"). Real wedding colour
  * names; the hex is only the swatch. Her pick is the wedding's, never the brand's. */

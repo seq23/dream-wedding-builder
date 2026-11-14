@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { BUDGETS, COLOURS_NOT_SURE, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, WEDDING_COLOURS, colourView, toggleColour, type WeddingRead } from '@/lib/wedding-read-shared';
+import { BUDGETS, COLOURS_NOT_SURE, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, WEDDING_COLOURS, colourView, seasonFromDate, toggleColour, toggleTradition, traditionList, type WeddingRead } from '@/lib/wedding-read-shared';
 import { JOURNEY_EVENT, JOURNEY_KEY, keptColours, pickable, togglePick as toggleIn, type JourneyPick } from '@/lib/journey-picks';
 import { undatedPlan } from '@/lib/dated-plan';
 
@@ -142,7 +142,9 @@ export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, o
     onFacts?.({ where: facts.where.trim(), guests: facts.guests.trim(), budget: facts.budget });
     try {
       const sentPhotos = photos.map(p => ({ loves: p.loves, colours: p.colours }));
-      const res = await fetch('/api/wedding-read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ path, wish, colours, season, setting, moods, photos: sentPhotos, facts }) });
+      // With a date, the season comes from it (never a season tapped before the date was known).
+      const dated = seasonFromDate(weddingDate);
+      const res = await fetch('/api/wedding-read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ path, wish, colours, season: dated || season, setting, moods, photos: sentPhotos, facts: { ...facts, dateSet: !!dated } }) });
       const body = await res.json().catch(() => null);
       if (!res.ok || !body?.ok) { setProblem(body?.error ?? 'That did not go through. Please try again.'); return; }
       setAnswer({ read: body.read, remaining: body.remaining, limit: body.limit, reason: body.reason });
@@ -186,8 +188,13 @@ export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, o
 
       {path === 'idea' && <textarea data-testid="journey-wish" aria-label="Your wedding in your own words" value={wish} maxLength={400} onChange={e => setWish(e.target.value)} placeholder="For example: an Italian villa feel, candlelit long tables, 100 people" className={`${INPUT} min-h-24`} />}
 
+      {path && <label className="grid gap-2" htmlFor="journey-date-1"><span className={MONO}>Wedding date (optional)</span>
+        <input id="journey-date-1" data-testid="journey-date-1" type="date" value={weddingDate} onChange={e => onDate?.(e.target.value)} className={`${INPUT} max-w-xs`} />
+        {seasonFromDate(weddingDate) ? <span className="text-sm text-midnight-muted">The season comes from your date.</span> : null}
+      </label>}
+
       {path === 'dk' && <div className="grid gap-4" data-testid="journey-picks">
-        <div className="grid gap-2"><p className={MONO}>When</p><div className="flex flex-wrap gap-2">{SEASONS.map(s => <Chip key={s} testId={`season-${s}`} on={season === s} onClick={() => setSeason(season === s ? '' : s)}>{s}</Chip>)}</div></div>
+        {!seasonFromDate(weddingDate) && <div className="grid gap-2"><p className={MONO}>When</p><div className="flex flex-wrap gap-2">{SEASONS.map(s => <Chip key={s} testId={`season-${s}`} on={season === s} onClick={() => setSeason(season === s ? '' : s)}>{s}</Chip>)}</div></div>}
         <div className="grid gap-2"><p className={MONO}>Where</p><div className="flex flex-wrap gap-2">{SETTINGS.map(s => <Chip key={s} testId={`setting-${s}`} on={setting === s} onClick={() => setSetting(setting === s ? '' : s)}>{s}</Chip>)}</div></div>
         <div className="grid gap-2"><p className={MONO}>How it should feel (pick any)</p><div className="flex flex-wrap gap-2">{MOODS.map(m => <Chip key={m} testId={`mood-${m}`} on={moods.includes(m)} onClick={() => setMoods(list => list.includes(m) ? list.filter(x => x !== m) : [...list, m])}>{m}</Chip>)}</div></div>
       </div>}
@@ -216,10 +223,9 @@ export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, o
           <input data-testid="fact-where" type="text" aria-label="Town or city" placeholder="Town or city" value={facts.where} maxLength={60} onChange={e => setFacts({ ...facts, where: e.target.value })} className={INPUT} />
           <input data-testid="fact-guests" type="number" inputMode="numeric" aria-label="Guests" placeholder="About how many guests" min={2} value={facts.guests} onChange={e => setFacts({ ...facts, guests: e.target.value })} className={INPUT} />
           <select aria-label="Budget" data-testid="fact-budget" value={facts.budget} onChange={e => setFacts({ ...facts, budget: e.target.value })} className={INPUT}><option value="">Budget (optional)</option>{BUDGETS.map(b => <option key={b}>{b}</option>)}</select>
-          <select aria-label="Tradition" data-testid="fact-tradition" value={facts.tradition} onChange={e => setFacts({ ...facts, tradition: e.target.value })} className={INPUT}><option value="">Tradition (optional)</option>{TRADITIONS.map(t => <option key={t}>{t}</option>)}</select>
+          <div className="grid gap-2" data-testid="fact-tradition"><p className={MONO}>Traditions (optional, pick up to 3)</p><div className="flex flex-wrap gap-2">{TRADITIONS.map(t => <Chip key={t} testId={`tradition-${t}`} on={traditionList(facts.tradition).includes(t)} onClick={() => setFacts({ ...facts, tradition: toggleTradition(facts.tradition, t) })}>{t}</Chip>)}</div></div>
           <p className={MONO}>Already decided</p>
           <label className="flex items-start gap-2"><input type="checkbox" data-testid="fact-venue-booked" className="mt-1" checked={facts.venueBooked} onChange={e => setFacts({ ...facts, venueBooked: e.target.checked })} /> The venue is booked</label>
-          <label className="flex items-start gap-2"><input type="checkbox" data-testid="fact-date-set" className="mt-1" checked={facts.dateSet} onChange={e => setFacts({ ...facts, dateSet: e.target.checked })} /> The date is set</label>
         </div>
       </details>}
 

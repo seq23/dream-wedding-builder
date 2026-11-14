@@ -25,6 +25,8 @@
 //   for the day. Anything else: not proven, Gemini skipped, retried in 15 minutes.
 // - Very limited free use, on the server: 1 draft per email address ever, 3
 //   attempts per IP a day. A draft that only reached (d) keeps the email's draft.
+//   Without an email (the phone app, 14 Nov 2026), only the 3 a day per visitor apply,
+//   the same allowance as the free journey.
 // - Consent: no description goes to a model unless the couple ticked the box
 //   (consent: true); without it only (c) runs, which sends nothing anywhere.
 // - Kill switch: on the live hosts the step runs only when AI_DRAFT_ENABLED is "on".
@@ -357,8 +359,11 @@ export async function draftPlan(input: DraftInput): Promise<DraftResult> {
   const log = input.log ?? ((line: string) => console.error(line));
   const now = input.now ?? new Date();
   if (!input.enabled) return refuse(503, 'DISABLED', MESSAGES.disabled);
-  const email = normalizeEmail(input.email);
-  if (!email) return refuse(400, 'BAD_EMAIL', MESSAGES.badEmail);
+  // No email is the phone's way (and the journey's): the allowance is then the visitor's three a
+  // day, nothing more. An email, when the website's planner sends one, must be a signed-up one.
+  const noEmail = input.email === undefined || input.email === null || input.email === '';
+  const email = noEmail ? '' : normalizeEmail(input.email);
+  if (!noEmail && !email) return refuse(400, 'BAD_EMAIL', MESSAGES.badEmail);
   const cleaned = cleanDescription(input.description);
   if (!cleaned.ok) return refuse(400, 'BAD_DESCRIPTION', cleaned.error);
   if (!input.db) { log('NAMED STOP [AI_DRAFT_NO_DB] D1 binding missing; nothing generated'); return refuse(503, 'BUSY', MESSAGES.busy); }
@@ -369,14 +374,16 @@ export async function draftPlan(input: DraftInput): Promise<DraftResult> {
 
   await db.prepare(AI_DRAFTS_DDL).run();
   await db.prepare(ROUTE_USAGE_DDL).run();
-  const signedUp = await db.prepare('SELECT email FROM builder_signups WHERE email = ? AND unsubscribed_at IS NULL').bind(email).first();
-  if (!signedUp) return refuse(403, 'NOT_SIGNED_UP', MESSAGES.notSignedUp);
+  if (!noEmail) {
+    const signedUp = await db.prepare('SELECT email FROM builder_signups WHERE email = ? AND unsubscribed_at IS NULL').bind(email).first();
+    if (!signedUp) return refuse(403, 'NOT_SIGNED_UP', MESSAGES.notSignedUp);
+  }
 
-  const emailHash = await sha256(`${input.salt}:email:${email}`);
+  const emailHash = noEmail ? 'no-email' : await sha256(`${input.salt}:email:${email}`);
   const ipHash = await sha256(`${input.salt}:ip:${visitorIp(input.ip)}`);
   const count = async (sql: string, ...values: unknown[]) => Number((await db.prepare(sql).bind(...values).first<{ n: number }>())?.n ?? 0);
 
-  if (await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE email_hash = ? AND outcome IN ('ok','pending')`, emailHash) >= FREE_DRAFTS_PER_EMAIL) return refuse(429, 'EMAIL_USED', MESSAGES.usedEmail);
+  if (!noEmail && await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE email_hash = ? AND outcome IN ('ok','pending')`, emailHash) >= FREE_DRAFTS_PER_EMAIL) return refuse(429, 'EMAIL_USED', MESSAGES.usedEmail);
   if (await count('SELECT COUNT(*) AS n FROM ai_drafts WHERE ip_hash = ? AND day = ?', ipHash, input.today) >= ATTEMPTS_PER_IP_PER_DAY) return refuse(429, 'IP_CAP', MESSAGES.ipCap);
 
   // Reserve before calling anything, so two tabs at once cannot both spend the free draft.
