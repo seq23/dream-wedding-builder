@@ -37,11 +37,13 @@ test('step 1 asks nothing until she chooses, needs no email, and shows her weddi
   writeFileSync(path.join(dir, 'p.png'), png);
   await page.getByTestId('journey-photo-input').setInputFiles(path.join(dir, 'p.png'));
   await expect(page.getByTestId('journey-photo')).toHaveCount(1);
-  await expect(page.getByTestId('photo-allow-ai')).not.toBeChecked();
+  await expect(page.getByTestId('photo-stays')).toHaveText('Photos stay on your phone; only the colours are used.');
+  await expect(page.getByTestId('photo-allow-ai')).toHaveCount(0);
   await page.getByTestId('journey-continue').click();
   await expect(page.getByTestId('journey-step-2')).toBeVisible();
-  // Nothing from the photo left the phone without the tick; its colours did not need it.
+  // Nothing of the photo left the phone; only its colours did.
   expect(posted).toMatchObject({ path: 'dk', season: 'Fall', setting: 'Outdoors', moods: ['Relaxed', 'Garden'] });
+  expect(((posted as unknown as { photos: { colours: string[] }[] }).photos[0].colours).length).toBeGreaterThan(0);
   expect(JSON.stringify(posted)).not.toContain('"image"');
   await expect(page.getByTestId('read-label')).toContainText('Written by an AI planner, not a person');
   await expect(page.getByTestId('read-venues')).toBeVisible();
@@ -51,7 +53,7 @@ test('step 1 asks nothing until she chooses, needs no email, and shows her weddi
   expect(errors).toEqual([]);
 });
 
-test('a ticked photo is shrunk and sent; a booked venue shows no venue types; past the limit she still gets an answer', async ({ page }) => {
+test('a photo is never sent, only its colours; a booked venue shows no venue types; past the limit she still gets an answer', async ({ page }) => {
   const bodies: Record<string, unknown>[] = [];
   await page.route('**/api/wedding-read', async route => { bodies.push(route.request().postDataJSON()); await route.fulfill({ json: { ok: true, read: read('fixed', []), remaining: 0, limit: 3, reason: 'visitor_limit' } }); });
   await page.goto('/free-wedding-planner');
@@ -60,13 +62,13 @@ test('a ticked photo is shrunk and sent; a booked venue shows no venue types; pa
   const dir = mkdtempSync(path.join(os.tmpdir(), 'dw-'));
   writeFileSync(path.join(dir, 'p.png'), png);
   await page.getByTestId('journey-photo-input').setInputFiles(path.join(dir, 'p.png'));
-  await page.getByTestId('photo-allow-ai').check();
   await page.getByTestId('journey-facts').locator('summary').click();
   await page.getByTestId('fact-venue-booked').check();
   await page.getByTestId('journey-continue').click();
   await expect(page.getByTestId('journey-step-2')).toHaveAttribute('data-by', 'fixed');
-  const photos = bodies[0].photos as { image?: string }[];
-  expect(photos[0].image?.length).toBeGreaterThan(20);
+  const photos = bodies[0].photos as { image?: string; colours: string[] }[];
+  expect(photos[0].image).toBeUndefined();
+  expect(photos[0].colours.length).toBeGreaterThan(0);
   await expect(page.getByTestId('read-venue-booked')).toBeVisible();
   await expect(page.getByTestId('read-venues')).toHaveCount(0);
   await expect(page.getByTestId('read-label')).toContainText('three AI answers');

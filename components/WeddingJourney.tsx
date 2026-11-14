@@ -15,7 +15,7 @@ const STEPS = ['Tell us', 'See it', 'Keep', 'Plan'];
 const PHOTO_SIDE = 640;
 
 type Path = 'idea' | 'dk' | null;
-interface PhotoState { id: string; url: string; colours: string[]; loves: string[]; allowAi: boolean; file: File }
+interface PhotoState { id: string; url: string; colours: string[]; loves: string[]; file: File }
 interface Facts { where: string; guests: string; budget: string; tradition: string; venueBooked: boolean; dateSet: boolean }
 interface Answer { read: WeddingRead; remaining: number | null; limit: number; reason: string }
 export interface JourneyFacts { where: string; guests: string; budget: string }
@@ -49,16 +49,6 @@ function photoColours(img: HTMLImageElement): string[] {
 
 const loadImage = (url: string) => new Promise<HTMLImageElement>((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = url; });
 
-/** Shrinks a photo on this phone before it may be sent (about 640 px, JPEG). */
-async function shrink(url: string): Promise<string> {
-  const img = await loadImage(url);
-  const scale = Math.min(1, PHOTO_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
-  const c = document.createElement('canvas');
-  c.width = Math.max(1, Math.round(img.naturalWidth * scale));
-  c.height = Math.max(1, Math.round(img.naturalHeight * scale));
-  c.getContext('2d')?.drawImage(img, 0, 0, c.width, c.height);
-  return c.toDataURL('image/jpeg', 0.72).replace(/^data:image\/jpeg;base64,/, '');
-}
 
 function Chip({ on, onClick, children, testId }: { on: boolean; onClick: () => void; children: React.ReactNode; testId?: string }) {
   return <button type="button" data-testid={testId} aria-pressed={on} onClick={onClick} className={`min-h-11 rounded-full border bg-white px-4 py-2 text-sm font-medium ${on ? 'border-blue shadow-[inset_0_0_0_1px_#2747D9]' : 'border-rule'}`}>{children}</button>;
@@ -126,7 +116,7 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
     const url = URL.createObjectURL(file);
     try {
       const img = await loadImage(url);
-      setPhotos(list => list.length >= 3 ? list : [...list, { id: `${Date.now()}-${list.length}`, url, colours: photoColours(img), loves: [], allowAi: false, file }]);
+      setPhotos(list => list.length >= 3 ? list : [...list, { id: `${Date.now()}-${list.length}`, url, colours: photoColours(img), loves: [], file }]);
     } catch { URL.revokeObjectURL(url); setProblem('That photo could not be opened. Try a JPEG or PNG.'); }
   };
   const updatePhoto = (id: string, change: Partial<PhotoState>) => setPhotos(list => list.map(p => (p.id === id ? { ...p, ...change } : p)));
@@ -137,7 +127,7 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
     setBusy(true); setProblem('');
     onFacts?.({ where: facts.where.trim(), guests: facts.guests.trim(), budget: facts.budget });
     try {
-      const sentPhotos = await Promise.all(photos.map(async p => ({ loves: p.loves, colours: p.colours, ...(p.allowAi ? { image: await shrink(p.url) } : {}) })));
+      const sentPhotos = photos.map(p => ({ loves: p.loves, colours: p.colours }));
       const res = await fetch('/api/wedding-read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ path, wish, season, setting, moods, photos: sentPhotos, facts }) });
       const body = await res.json().catch(() => null);
       if (!res.ok || !body?.ok) { setProblem(body?.error ?? 'That did not go through. Please try again.'); return; }
@@ -194,9 +184,7 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
             <span className="text-sm text-midnight-muted">What do you love in it?</span>
             <div className="flex flex-wrap gap-1.5">{LOVES.map(l => <Chip key={l} on={p.loves.includes(l)} onClick={() => updatePhoto(p.id, { loves: p.loves.includes(l) ? p.loves.filter(x => x !== l) : [...p.loves, l] })}>{l}</Chip>)}</div>
             <Swatches colours={p.colours.map(hex => ({ hex }))} />
-            <span className="text-sm text-midnight-muted">Colours above were read on this phone. Nothing was sent.</span>
-            <label className="flex items-start gap-2 text-sm"><input type="checkbox" data-testid="photo-allow-ai" className="mt-1" checked={p.allowAi} onChange={e => updatePhoto(p.id, { allowAi: e.target.checked })} /> Let the AI planner look at this photo</label>
-            <span className="text-sm text-midnight-muted">The AI provider may use what it is sent to improve its products. A photo without faces is best. We do not keep it.</span>
+            <span className="text-sm text-midnight-muted" data-testid="photo-stays">Photos stay on your phone; only the colours are used.</span>
             <button type="button" className="justify-self-start text-sm underline underline-offset-4" onClick={() => { URL.revokeObjectURL(p.url); setPhotos(list => list.filter(x => x.id !== p.id)); }}>Remove this photo</button>
           </div>
         </div>)}
@@ -216,7 +204,7 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
         </div>
       </details>}
 
-      {path && <p className="text-sm text-midnight-muted">What you tell us goes to a free AI model (Google Gemini or OpenRouter), which may use it to improve its products. Leave out names.</p>}
+      {path && <p className="text-sm text-midnight-muted">What you tell us goes to a free AI model (Google Gemini or OpenRouter), which may use it to improve its products. We remove emails, phone numbers, street addresses and links first. Photos stay on your phone; only the colours are used. Leave out names.</p>}
       {problem && <p role="alert" className="text-sm font-semibold text-red-pen">{problem}</p>}
       <button type="button" data-testid="journey-continue" disabled={!path || busy} onClick={go} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white disabled:opacity-40">{busy ? 'Reading your wedding…' : 'Continue · step 1 of 4 ›'}</button>
       <p aria-live="polite" className="sr-only">{busy ? 'Reading your wedding. This takes a few seconds.' : ''}</p>

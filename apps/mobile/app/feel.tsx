@@ -9,7 +9,7 @@ import { savedProgress } from '../src/savedProgress';
 import { useFullPlanPrice } from '../src/useFullPlanPrice';
 import { WeddingDatePicker } from '../src/WeddingDatePicker';
 import { canSaveDate } from '../src/welcomeStart';
-import { MAX_PHOTOS, pickPhoto, shrinkForAi, type JourneyPhoto } from '../src/photos';
+import { MAX_PHOTOS, pickPhoto, type JourneyPhoto } from '../src/photos';
 import { BUDGETS, EMPTY_ANSWERS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, applyPicks, applyTradition, journeyStore, pickable, readLabel, weddingReadClient,
   type JourneyAnswers, type JourneyPick, type ReadReason, type WeddingRead } from '../src/journey';
 import { color, font, radius, space, type } from '../src/theme';
@@ -94,7 +94,7 @@ export default function Feel() {
   async function ask() {
     setBusy(true); setError('');
     try {
-      const sent = await Promise.all(photos.map(async p => ({ loves: p.loves, colours: p.colours, ...(p.allowAi ? { image: await shrinkForAi(p) } : {}) })));
+      const sent = photos.map(p => ({ loves: p.loves, colours: p.colours }));
       const reply = await client.request(a, sent);
       if (!reply.ok) { setError(reply.message); return; }
       setPage({ read: reply.read, reason: reply.reason, remaining: reply.remaining, limit: reply.limit }); setPicks([]); setStep(2);
@@ -156,9 +156,7 @@ export default function Feel() {
             <Text style={[type.sub, { color: color.midnightMuted }]}>What do you love in it?</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>{LOVES.map(l => <Chip key={l} label={l} on={p.loves.includes(l)} onPress={() => updatePhoto(p.id, { loves: p.loves.includes(l) ? p.loves.filter(x => x !== l) : [...p.loves, l] })} />)}</View>
             <Swatches colours={p.colours.map(hex => ({ hex }))} />
-            <Text style={[type.sub, { color: color.midnightMuted }]}>Colours above were read on this phone. Nothing was sent.</Text>
-            <Tick label="Let the AI planner look at this photo" on={p.allowAi} onPress={() => updatePhoto(p.id, { allowAi: !p.allowAi })} />
-            <Text style={[type.sub, { color: color.midnightMuted }]}>The AI provider may use what it is sent to improve its products. A photo without faces is best. We do not keep it.</Text>
+            <Text style={[type.sub, { color: color.midnightMuted }]}>Photos stay on your phone; only the colours are used.</Text>
             <Under label="Remove this photo" onPress={() => setPhotos(list => list.filter(x => x.id !== p.id))} />
           </View>
         </View>)}
@@ -178,7 +176,7 @@ export default function Feel() {
           <Tick label="The date is set" on={a.dateSet} onPress={() => set({ dateSet: !a.dateSet })} />
         </View> : null}
       </View> : null}
-      {chosen ? <Text style={[type.sub, { color: color.midnightMuted }]}>What you tell us goes to a free AI model (Google Gemini or OpenRouter), which may use it to improve its products. Leave out names.</Text> : null}
+      {chosen ? <Text style={[type.sub, { color: color.midnightMuted }]}>What you tell us goes to a free AI model (Google Gemini or OpenRouter), which may use it to improve its products. We remove emails, phone numbers, street addresses and links first. Photos stay on your phone; only the colours are used. Leave out names.</Text> : null}
       {err}
       {busy ? <View style={{ flexDirection: 'row', gap: space[2], alignItems: 'center' }}><ActivityIndicator color={color.blue} /><Text style={type.body}>Reading your wedding. This takes a few seconds.</Text></View> : null}
       <Blue label={busy ? 'Reading your wedding…' : 'Continue · step 1 of 4 ›'} onPress={ask} disabled={!chosen || busy} />

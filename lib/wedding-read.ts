@@ -11,8 +11,10 @@
 //   and never an error page.
 // - No email before her first answer. Three answers per visitor per day (IP hash,
 //   salted, as the other caps), the global daily ceiling and the billing guard stay.
-// - One model call per answer, plus one per photo she lets the AI planner see
-//   (Gemini only; a photo is shrunk on her phone first and never stored here).
+// - One model call per answer. Photos never leave her device (owner, 13 Nov 2026): only the
+//   colours read from them on the device arrive here; an image in the body is ignored.
+// - Her own words and town pass scrubForModel (emails, phones, street addresses, links
+//   removed) where the prompt is built.
 // - Every answer is checked before she sees it (checkRead): it speaks as the tool,
 //   names no business, venue, brand, person, price or availability, every idea
 //   traces to something she said or tapped, venue types only from our list and none
@@ -32,12 +34,11 @@ import { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS, type Answers, typ
 export type { Answers, Photo, WeddingRead };
 // @ts-expect-error - plain ESM module without types; the repo's only door to a model.
 import { routeChat, callGemini } from '@/scripts/llm/free_router.mjs';
+import { scrubForModel } from '@/lib/scrub-for-model';
 
 export const ANSWERS_PER_VISITOR_PER_DAY = 3;
 export const WISH_MAX = 400;
 export const MAX_PHOTOS = 3;
-/** A photo arrives already shrunk on her phone (about 640 px); anything bigger is not sent on. */
-export const PHOTO_MAX_BYTES = 400_000;
 export const BODY_MAX_BYTES = 2_000_000;
 
 export { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS };
@@ -64,9 +65,9 @@ export const READ_CACHE_DDL = `CREATE TABLE IF NOT EXISTS wedding_read_cache (
 )`;
 export const READ_CACHE_DAYS = 7;
 
-/** The cache key for an answer made from taps (and her town), or null when her answer has her own words or an image. */
+/** The cache key for an answer made from taps (and her town), or null when her answer has her own words. */
 export function readCacheKey(a: Answers): string | null {
-  if (a.path !== 'dk' || a.wish || a.photos.some(p => p.image)) return null;
+  if (a.path !== 'dk' || a.wish) return null;
   // A photo's colours count by a coarse bucket (3 bits a channel), so near colours share an answer.
   const bucket = (hex: string) => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) >> 5).join('');
   return JSON.stringify([a.where.trim().toLowerCase().replace(/\s+/g, ' '), a.season, a.setting, [...a.moods].sort(), a.guests ?? '', a.budget, a.tradition, a.venueBooked, a.dateSet,
@@ -77,7 +78,6 @@ export function readCacheKey(a: Answers): string | null {
 const oneOf = <T extends readonly string[]>(list: T, v: unknown): string => (typeof v === 'string' && (list as readonly string[]).includes(v) ? v : '');
 const text = (v: unknown, max: number) => (typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f<>]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max) : '');
 const HEX = /^#[0-9a-f]{6}$/i;
-const BASE64 = /^[A-Za-z0-9+/]+={0,2}$/;
 
 /** Keeps only what the form can send, in the sizes it can send it. Never throws. */
 export function cleanAnswers(raw: unknown): Answers {
@@ -86,11 +86,9 @@ export function cleanAnswers(raw: unknown): Answers {
   const guests = Number(String(f.guests ?? '').replace(/[^0-9]/g, ''));
   const photos = (Array.isArray(r.photos) ? r.photos : []).slice(0, MAX_PHOTOS).map(p => {
     const o = (p && typeof p === 'object' ? p : {}) as Record<string, unknown>;
-    const image = typeof o.image === 'string' ? o.image.replace(/^data:image\/jpeg;base64,/, '') : '';
     return {
       loves: [...new Set((Array.isArray(o.loves) ? o.loves : []).map(l => oneOf(LOVES, l)).filter(Boolean))],
-      colours: (Array.isArray(o.colours) ? o.colours : []).filter((c): c is string => typeof c === 'string' && HEX.test(c)).slice(0, 5),
-      ...(image && image.length * 0.75 <= PHOTO_MAX_BYTES && BASE64.test(image) ? { image } : {})
+      colours: (Array.isArray(o.colours) ? o.colours : []).filter((c): c is string => typeof c === 'string' && HEX.test(c)).slice(0, 5)
     };
   });
   return {
@@ -391,7 +389,8 @@ export function fixedRead(a: Answers): WeddingRead {
 }
 
 // ---- The model step -----------------------------------------------------------------
-export function buildMessages(a: Answers, ideas: Trend[], venues: { id: string; name: string }[], photoNotes: string[]) {
+export function buildMessages(raw: Answers, ideas: Trend[], venues: { id: string; name: string }[], photoNotes: string[]) {
+  const a: Answers = { ...raw, wish: scrubForModel(raw.wish), where: scrubForModel(raw.where) };
   const said = a.path === 'idea' ? `In her own words: """${a.wish}"""` : 'She does not know yet what she wants.';
   const taps = [a.season && `season: ${a.season}`, a.setting && `setting: ${a.setting}`, a.moods.length && `feel: ${a.moods.join(', ')}`, a.where && `where: ${a.where}`, a.guests && `guests: about ${a.guests}`, a.budget && `budget band: ${a.budget}`, a.tradition && `tradition: ${a.tradition}`, a.dateSet && 'the date is set', a.venueBooked && 'the venue is booked'].filter(Boolean).join('; ');
   const loves = a.photos.map((p, i) => p.loves.length ? `photo ${i + 1}: she loves ${p.loves.join(', ').toLowerCase()}` : '').filter(Boolean).join('; ');
@@ -453,13 +452,6 @@ export function parseRead(content: string, a: Answers, offeredIdeas: Trend[], ve
   return read;
 }
 
-export function photoMessages(loves: string[]) {
-  return [
-    { role: 'system', content: 'You are a wedding planning tool. Look at the photo a bride chose and say, in one or two plain sentences, what a wedding could borrow from it (setting, table, flowers, light, colours). Speak to her as "you"; never say we, us, I or my. Never name a business, brand, venue, product or person, and never guess who anyone is. Reply with ONE JSON object: {"seen":"1 or 2 sentences"}.' },
-    { role: 'user', content: loves.length ? `She says she loves: ${loves.join(', ').toLowerCase()}.` : 'She did not say what she loves in it.' }
-  ];
-}
-
 // ---- The handler --------------------------------------------------------------------
 export interface ReadInput {
   db: D1Like | undefined;
@@ -494,7 +486,7 @@ export type ReadResult = { status: 200; body: { ok: true; read: WeddingRead; /**
 type Step = { step: 'gemini' | 'openrouter'; model: string };
 
 /** One free-model answer that passes `accept`; at most two answers are judged (a failed check retries once on the next model). */
-async function askFree<T>(opts: { db: D1Like; input: ReadInput; messages: unknown[]; images?: { mimeType: string; data: string }[]; accept: (content: string) => T | null; geminiOnly?: boolean; deadline: number; trail: string[]; now: Date; log: (l: string) => void }): Promise<(Step & { value: T }) | null> {
+async function askFree<T>(opts: { db: D1Like; input: ReadInput; messages: unknown[]; accept: (content: string) => T | null; deadline: number; trail: string[]; now: Date; log: (l: string) => void }): Promise<(Step & { value: T }) | null> {
   const { db, input, messages, trail, now, log } = opts;
   const fetchImpl = input.fetchImpl ?? ((u: RequestInfo | URL, i?: RequestInit) => fetch(u, i));
   let judged = 0;
@@ -506,7 +498,7 @@ async function askFree<T>(opts: { db: D1Like; input: ReadInput; messages: unknow
       const claim = await claimCall(db, m.pool, now);
       if (claim !== 'ok') { trail.push(`gemini:${m.id}:${claim}`); continue; }
       let r: { outcome: string; content?: string; http?: number | null; error?: string | null };
-      try { r = await callGemini({ model: m.id, messages, apiKey: input.geminiKey, maxTokens: 2000, temperature: 0.6, fetchImpl, config: llmConfig, timeoutMs: Math.min(opts.images?.length ? 12000 : 10000, left()), images: opts.images ?? [] }); }
+      try { r = await callGemini({ model: m.id, messages, apiKey: input.geminiKey, maxTokens: 2000, temperature: 0.6, fetchImpl, config: llmConfig, timeoutMs: Math.min(10000, left()) }); }
       catch (err) { trail.push(`gemini:${m.id}:refused`); log(`NAMED STOP [WEDDING_READ_ROUTER_REFUSED] ${String((err as Error)?.message || err).slice(0, 200)}`); return null; }
       trail.push(`gemini:${m.id}:${r.outcome}`);
       if (r.outcome === 'quota_day') await markSpent(db, m.pool, now, r.error ?? 'daily quota');
@@ -518,7 +510,6 @@ async function askFree<T>(opts: { db: D1Like; input: ReadInput; messages: unknow
       if (++judged >= 2) return null;
     }
   }
-  if (opts.geminiOnly) return null;
   for (const m of llmConfig.models) {
     if (left() < 2000) { trail.push('deadline'); return null; }
     const claim = await claimCall(db, OPENROUTER_POOL, now);
@@ -563,7 +554,7 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
   const modelCallsToday = await count(`SELECT COUNT(*) AS n FROM wedding_reads WHERE day = ? AND (model LIKE 'gemini:%' OR model LIKE 'openrouter:%')`, input.today)
     + await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE day = ? AND (model LIKE 'gemini:%' OR model LIKE 'openrouter:%')`, input.today);
   // Reserve first, so two tabs at once cannot both spend the third answer.
-  const reserved = await db.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, photos, is_test) VALUES (?, ?, 'pending', ?, ?) RETURNING id`).bind(ipHash, input.today, a.photos.filter(p => p.image).length, isTest ? 1 : 0).first<{ id: number }>();
+  const reserved = await db.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, photos, is_test) VALUES (?, ?, 'pending', ?, ?) RETURNING id`).bind(ipHash, input.today, 0, isTest ? 1 : 0).first<{ id: number }>();
   const settle = (outcome: string, model: string | null) => db.prepare('UPDATE wedding_reads SET outcome = ?, model = ? WHERE id = ?').bind(outcome, model, reserved?.id ?? -1).run();
   const remaining = limit - used - 1;
   const cacheKey = readCacheKey(a);
@@ -587,22 +578,7 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
   const deadline = Date.now() + (input.budgetMs ?? 25000);
   const ideaPool = tracedIdeas(a).map(x => x.trend);
   const venues = a.venueBooked ? [] : venueOptions(a).slice(0, 6).map(v => ({ id: v.id, name: v.name }));
-  let photoNotes: string[] = [];
-  // Settle today's billing guard once, before the photo calls run side by side.
-  if (input.geminiKey && a.photos.some(p => p.image)) await geminiProvedFree(db, input.geminiKey, input.fetchImpl ?? ((u: RequestInfo | URL, i?: RequestInit) => fetch(u, i)), input.today, now, log, trail).catch(() => false);
-  try {
-    // One call per photo she let the AI planner see, side by side; a photo nobody could read still gave her colours and taps.
-    const looks = await Promise.all(a.photos.filter(p => p.image).map(p => askFree({
-      db, input, messages: photoMessages(p.loves), images: [{ mimeType: 'image/jpeg', data: p.image! }], geminiOnly: true, deadline: Date.now() + 15000, trail, now, log,
-      accept: c => {
-        const seen = text(firstJson(c)?.seen, 300);
-        if (!seen) return null;
-        const probe: WeddingRead = { by: 'ai', headline: '', read: '', directions: [], colours: [], venueTypes: [], ideas: [], details: [], ask: [], honest: '', photoNotes: [seen] };
-        return checkRead(probe, a).length ? null : { seen };
-      }
-    })));
-    for (const l of looks) if (l) photoNotes.push(l.value.seen);
-  } catch (err) { trail.push('photos:error'); log(`NAMED STOP [WEDDING_READ_PHOTO_STEP_ERROR] ${String((err as Error)?.message || err).slice(0, 200)}`); photoNotes = []; }
+  const photoNotes: string[] = [];
 
   let got: (Step & { value: WeddingRead }) | null = null;
   try {
