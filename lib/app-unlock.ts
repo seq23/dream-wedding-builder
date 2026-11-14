@@ -133,7 +133,9 @@ export async function appUnlock(req: Request, env: UnlockEnv, upstream: typeof f
     }
     const get = (path: string) => upstream(`${RC}${path}`, {
       headers: { Authorization: `Bearer ${env.REVENUECAT_SECRET}`, Accept: 'application/json' },
-      signal: AbortSignal.timeout(10000), redirect: 'error',
+      // Workers refuse redirect 'error' (TypeError on every call); 'manual' leaves a 3xx
+      // unfollowed and !ok, so it fails closed below.
+      signal: AbortSignal.timeout(10000), redirect: 'manual',
     });
     const customer = encodeURIComponent(id);
     const [purchasesReply, productsReply] = await Promise.all([get(`/customers/${customer}/purchases?limit=1000`), get('/products?limit=1000')]);

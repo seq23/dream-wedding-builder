@@ -45,7 +45,7 @@ export function stopPlanReminders(): Promise<void> {
   return job;
 }
 export async function turnRemindersOn() {
-  if (!canRemind(await hasFullPlan())) throw Error('Reminders are part of the full plan. Purchases are not set up yet.');
+  if (!canRemind(await hasFullPlan())) throw Error('Reminders are part of the full plan. Unlock it in More, then try again.');
   if (Platform.OS === 'web') throw Error('Local reminders need the phone app.');
   // Save the decision before asking the OS, so a refused permission never re-prompts automatically.
   await AsyncStorage.setItem(CHOICE, 'off');
