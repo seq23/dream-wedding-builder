@@ -81,6 +81,11 @@ function More({ summary, children, testId }: { summary: string; children: React.
 function BuildPage() {
   const [plan, setPlan] = useState<WeddingPlan>(emptyPlan);
   const [loaded, setLoaded] = useState(false);
+  // The old planner stays out of the way of a new bride (approved sample: nothing under the
+  // journey). It opens when she reaches her plan in step 4, taps "Just give me my plan ›",
+  // follows a link into it, or comes back with a plan already saved.
+  const [showPlan, setShowPlan] = useState(false);
+  const openPlan = () => { setShowPlan(true); try { localStorage.setItem(PLAN_OPEN_KEY, '1'); } catch { /* still opens for this visit */ } };
   const [saveState, setSaveState] = useState<{ status: 'idle' | 'saved' | 'failed'; at: string }>({ status: 'idle', at: '' });
   const firstSave = useRef(true);
   const [seedReport, setSeedReport] = useState<{ applied: (keyof WeddingPlan)[]; skipped: (keyof WeddingPlan)[] } | null>(null);
@@ -93,11 +98,13 @@ function BuildPage() {
   // URL and no history, because a broken inbound link is not the reader's problem.
   useEffect(() => {
     let restored: WeddingPlan = loadSavedPlan(localStorage);
+    let seeded = false;
     try {
       const patch = planPatchFromSeed(window.location.search.replace(/^\?/, ''));
       const result = applySeed(restored, patch);
       restored = result.plan;
       const named = (fields: (keyof WeddingPlan)[]) => fields.filter(field => seedFieldLabels[field]);
+      seeded = Object.keys(patch).length > 0;
       if (named(result.applied).length || named(result.skipped).length) setSeedReport({ applied: named(result.applied), skipped: named(result.skipped) });
     } catch { /* an unreadable seed is dropped; the planner still opens */ }
     // A date typed before this page finished loading is in the field but not yet in
@@ -106,6 +113,12 @@ function BuildPage() {
     if (typed && !restored.weddingDate) restored = { ...restored, weddingDate: typed };
     setPlan(restored);
     setLoaded(true);
+    let opened = false;
+    try { opened = localStorage.getItem(PLAN_OPEN_KEY) === '1'; } catch { /* treated as new */ }
+    if (opened || hasOwnWork(restored) || seeded || plannerHash()) setShowPlan(true);
+    const onHash = () => { if (plannerHash()) openPlan(); };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
   // Every change saves itself. There is no Save button to find: reload, the back
@@ -172,8 +185,9 @@ function BuildPage() {
 
     {/* The free journey leads (owner, 13 Nov 2026): what should it feel like, then her
         wedding described. The dated plan below stays one tap away ("I already know"). */}
-    <WeddingJourney onFacts={fillFromJourney} weddingDate={plan.weddingDate} onDate={weddingDate => patch({ weddingDate })} />
+    <WeddingJourney onFacts={fillFromJourney} weddingDate={plan.weddingDate} onDate={weddingDate => patch({ weddingDate })} onPlan={openPlan} />
 
+    {showPlan && <>
     <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar. No account, no app and no email needed; it saves in this browser by itself.</p></div>}>
       <Card data-testid="wedding-date-card">
         <label className="grid gap-2 text-sm font-semibold" htmlFor="wedding-date">Wedding date
@@ -353,12 +367,20 @@ function BuildPage() {
       <Link href="/shop" className="mt-4 inline-flex min-h-11 items-center font-bold underline underline-offset-4">Compare the four wedding planning tools and prices ›</Link>
     </section>
 
+    </>}
+
     <p data-testid="planner-disclaimer" className="text-xs leading-5 text-charcoal/60">{disclaimers.cost} Venue types and ideas here are examples to ask about; no live prices or availability are shown. {disclaimers.professional}</p>
   </div>;
 }
 
 // No wall: the plan opens for everyone (owner, 10 Nov 2026). An email is asked only
 // where it buys her something: the printable plan. No email before her first AI answer (13 Nov 2026).
+const PLAN_OPEN_KEY = 'dwb-plan-open';
+/** A hash that points into the planner (#your-date, #step-3 …), not into the journey. */
+const plannerHash = () => /^#(your-date|step-\d|wedding-date)/.test(window.location.hash);
+/** Work she did in the planner itself (the journey only fills place, guests and budget). */
+const hasOwnWork = (p: WeddingPlan) => !!p.weddingDate || p.selectedTrends.length > 0 || p.selectedVenueIds.length > 0 || p.selectedVendorCategories.length > 0;
+
 export default function PlannerPage() {
   return <BuildPage />;
 }

@@ -20,11 +20,14 @@ describe('one H1 per page (checklist b3)', () => {
   // 10 Nov 2026: the email wall is gone. The planner renders for everyone, so the
   // server HTML is the planner itself, with its one h1 and the date field, and no
   // email form in front of it.
-  it('the planner renders its one h1 and the date field with no email wall', () => {
+  it('the planner renders its one h1, the way straight to the dated plan, and no email wall', () => {
     const html = renderToStaticMarkup(<PlannerPage />);
     expect(html).toContain('What should your wedding feel like?');
     expect(countH1(html)).toBe(1);
-    expect(html).toContain('data-testid="wedding-date"');
+    // A new bride sees the journey only (approved sample); the date is one tap away.
+    expect(html).toContain('data-testid="journey-skip"');
+    expect(html).toContain('href="#your-date"');
+    expect(html).not.toContain('data-testid="wedding-date"');
     expect(html).not.toContain('data-testid="builder-email-gate"');
     expect(html).not.toContain('type="email"');
   });

@@ -41,7 +41,9 @@ test('onboarding: the journey, then the date, then reminders; each later step ca
   const steps = SCREENS.filter(s => s.kind === 'onboarding');
   assert.deepEqual(steps.map(s => s.route), ['/feel', '/welcome', '/reminders']);
   assert.equal(steps[0].back, undefined, 'the first screen has nowhere to go back to');
-  assert.ok(steps[0].links.some(l => l.href === '/welcome'), 'the journey leads to the date');
+  // The journey asks the date itself (step 4 of 4) and ends on the plan; the Plan tab's "Your wedding ›" reopens it.
+  assert.ok(steps[0].links.some(l => l.href === HOME && /step 4 of 4/.test(l.label)), 'the journey ends on the plan');
+  assert.ok(byRoute(HOME).links.some(l => l.href === '/feel'), 'the plan reopens her wedding');
   // The date screen is opened from the journey and from More, so its Back is the stack's own (src/ui.tsx), never a fixed route.
   assert.equal(steps[1].back, undefined);
   assert.equal(steps[2].back, steps[1].route);

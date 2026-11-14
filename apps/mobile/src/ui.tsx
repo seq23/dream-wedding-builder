@@ -5,6 +5,7 @@ import { Link, router, type Href } from 'expo-router';
 import { color, radius, space, type } from './theme';
 import { byRoute } from './screens';
 import { BackButton, useBackKeys } from './nav';
+import { Logo } from './Logo';
 
 // The shell every screen uses. Inside a tab the header (src/nav.tsx) carries the title and Back or Close,
 // and the tab bar stays below. Onboarding has no header, so its Back and Skip are drawn here.
@@ -16,9 +17,10 @@ export function PlannedScreen({ route, children }: { route: string; children?: R
     <ScrollView contentContainerStyle={{ padding: space[4], gap: space[4] }}>
       {onboarding ? (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 44 }}>
+          {/* The journey's first screen always carries the brand; its steps have their own Back links. */}
           {s.back ? <BackButton route={route} />
-            : router.canGoBack() ? <TextButton label="← Back" onPress={() => router.back()} />
-            : <Text style={[type.label, { color: color.midnightMuted }]}>Dream Wedding</Text>}
+            : route !== '/feel' && router.canGoBack() ? <TextButton label="← Back" onPress={() => router.back()} />
+            : <Logo />}
         </View>
       ) : null}
       {children}

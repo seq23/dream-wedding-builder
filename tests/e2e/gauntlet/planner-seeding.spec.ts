@@ -68,9 +68,9 @@ test('a seed never overwrites a plan the reader already saved', async ({ page })
   expect(landing, 'no landing page seeds a guest count, so this cannot be proved').toBeTruthy();
 
   // Build real saved work through the UI, not by writing storage directly.
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await page.evaluate(() => window.localStorage.clear());
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await page.getByTestId('fold-toggle-step-0').click();
   await page.getByTestId('location-input').fill('Sonoma');
   await page.getByTestId('guest-input').fill('140');
@@ -84,9 +84,9 @@ test('a seed never overwrites a plan the reader already saved', async ({ page })
 });
 
 test('a malformed seed silently no-ops and the planner still works', async ({ page }) => {
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await page.evaluate(() => window.localStorage.clear());
-  await page.goto('/free-wedding-planner?guests=abc&focus=nonsense&venue=hogwarts&%%%');
+  await page.goto('/free-wedding-planner?guests=abc&focus=nonsense&venue=hogwarts&%%%#your-date');
   await expect(page.getByTestId('canonical-plan-summary').getByRole('link', { name: 'Add ›' })).toHaveCount(3);
   await expect(page.getByTestId('seed-notice')).toHaveCount(0);
   // The planner is still fully usable, which is the whole point of failing quietly.

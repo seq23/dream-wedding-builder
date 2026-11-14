@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
 import { checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
-import { sha256 } from '@/lib/ai-draft';
+import { sha256, visitorIp } from '@/lib/ai-draft';
 import { recordReach } from '@/lib/journey-reach';
 import { MODEL_CALLS_PER_DAY_GLOBAL } from '@/lib/ai-draft';
 import { fakeD1, fakeNet, geminiAnswer, geminiQuota, orAnswer, orDown } from '@/tests/support/ai-draft-fakes';
@@ -134,6 +134,32 @@ describe('the journey endpoint', () => {
     await recordReach({ db, via: 'date', ip: '7.7.7.7', today: TODAY, salt: 's', isTest: false, testerHashes: list });
     await recordReach({ db, via: 'date', ip: '5.5.5.5', today: TODAY, salt: 's', isTest: false, testerHashes: list });
     expect(sqlite.prepare('SELECT ip_hash = ? AS mine, is_test FROM journey_plan_reach ORDER BY id').all(mine)).toEqual([{ mine: 1, is_test: 1 }, { mine: 0, is_test: 0 }]);
+  });
+
+  it('the fixed-list headline is a sentence about her wedding, never her raw typing', () => {
+    const typed = 'Italian villa feel, candlelit long tables, 100 people';
+    const h = fixedRead(cleanAnswers({ path: 'idea', wish: typed })).headline;
+    expect(h).not.toContain(typed);
+    expect(h).toMatch(/^An? .*wedding with an Italian feel,.* for 100\.$/);
+    expect(fixedRead(cleanAnswers({ path: 'idea', wish: 'barn wedding outside, 80 guests', facts: { where: 'Nashville' } })).headline).toMatch(/^A .*wedding outdoors in Nashville, for 80\.$/);
+    expect(fixedRead(cleanAnswers({ path: 'dk', season: 'Fall', setting: 'Outdoors', moods: ['Garden'] })).headline).toBe('A garden wedding outdoors in the fall.');
+  });
+
+  it('an IPv6 visitor is one visitor across rotating privacy addresses (the /64), so a fresh address gives no fresh answers', async () => {
+    expect(visitorIp('2601:3cb:500:15e1:4566:b26c:ab5b:fbff')).toBe('2601:3cb:500:15e1::/64');
+    expect(visitorIp('2601:03CB:0500:15E1::1')).toBe('2601:3cb:500:15e1::/64');
+    expect(visitorIp('2601:3cb::1')).toBe('2601:3cb:0:0::/64');
+    expect(visitorIp('73.177.119.73')).toBe('73.177.119.73');
+    expect(visitorIp('::ffff:73.177.119.73')).toBe('73.177.119.73');
+    expect(visitorIp('')).toBe('unknown');
+    const { db } = fakeD1();
+    const net = fakeNet({ gemini: () => geminiAnswer(good()) });
+    for (let i = 0; i < ANSWERS_PER_VISITOR_PER_DAY; i++) await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: `2601:3cb:500:15e1:aaaa:bbbb:cccc:${i}` }));
+    expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '2601:3cb:500:15e1:1111:2222:3333:4444' }))).body.reason).toBe('visitor_limit');
+    expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '2601:3cb:500:15e2::9' }))).body.reason).toBe('ai');
+    // A tester entry made from the /64 keeps working after the address rotates.
+    const entry = await sha256('s:ip:2601:3cb:500:15e1::/64');
+    expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '2601:3cb:500:15e1:9999::1', testerHashes: entry }))).body).toMatchObject({ reason: 'ai', limit: TESTER_ANSWERS_PER_DAY });
   });
 
   it('past the global daily ceiling: the fixed-list answer, no model asked', async () => {

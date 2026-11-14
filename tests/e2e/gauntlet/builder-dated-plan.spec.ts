@@ -9,7 +9,7 @@ test.describe('dated plan, saved-plan safety and phone width', () => {
 
   test('entering a date three weeks out shows catch-up first and real dates, and the dashboard and packet agree', async ({ page }) => {
     await unlockBuilder(page);
-    await page.goto('/free-wedding-planner');
+    await page.goto('/free-wedding-planner#your-date');
     const d = new Date(); d.setDate(d.getDate() + 21);
     const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     await page.getByTestId('wedding-date').fill(iso);
@@ -24,7 +24,7 @@ test.describe('dated plan, saved-plan safety and phone width', () => {
 
   test('a past date and an impossible date are said plainly', async ({ page }) => {
     await unlockBuilder(page);
-    await page.goto('/free-wedding-planner');
+    await page.goto('/free-wedding-planner#your-date');
     await page.getByTestId('wedding-date').fill('2020-06-01');
     await expect(page.getByTestId('dated-plan')).toHaveAttribute('data-state', 'past');
   });
@@ -46,7 +46,7 @@ test.describe('dated plan, saved-plan safety and phone width', () => {
 
   test('the unlocked planner never scrolls sideways at 390px', async ({ page }) => {
     await unlockBuilder(page);
-    await page.goto('/free-wedding-planner');
+    await page.goto('/free-wedding-planner#your-date');
     await page.waitForLoadState('load');
     const { sw, cw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
     expect(sw).toBeLessThanOrEqual(cw);
@@ -54,7 +54,7 @@ test.describe('dated plan, saved-plan safety and phone width', () => {
 
   test('the planner does not show a banner telling the couple to open the planner', async ({ page }) => {
     await unlockBuilder(page);
-    await page.goto('/free-wedding-planner');
+    await page.goto('/free-wedding-planner#your-date');
     await expect(page.getByTestId('wedding-date')).toBeVisible();
     await expect(page.getByTestId('planner-banner')).toHaveCount(0);
     await page.goto('/');
@@ -67,7 +67,7 @@ test.describe('dated plan ticks, own tasks and reminders (no account)', () => {
 
   test('a tick and an own task survive coming back the next visit; the dashboard counts the same; reminders download', async ({ page }) => {
     await unlockBuilder(page);
-    await page.goto('/free-wedding-planner');
+    await page.goto('/free-wedding-planner#your-date');
     const d = new Date(); d.setDate(d.getDate() + 200);
     const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     await page.getByTestId('wedding-date').fill(iso);

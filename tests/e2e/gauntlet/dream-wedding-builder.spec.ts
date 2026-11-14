@@ -24,7 +24,7 @@ async function seedPlan(page: import('@playwright/test').Page, plan: Record<stri
 }
 
 test('outcome: new bride starts blank with no fake active wedding state', async ({ page }) => {
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   const summary = page.getByTestId('canonical-plan-summary');
   await expect(page.getByTestId('guided-total')).toHaveText('Not set yet');
   await expect(summary).not.toContainText('$');
@@ -41,7 +41,7 @@ test('outcome: new bride starts blank with no fake active wedding state', async 
 
 test('outcome: her stated budget is the headline, on the planner and on the printed plan', async ({ page }) => {
   await seedPlan(page, MEMPHIS);
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await expect(page.getByTestId('guided-total')).toHaveText('$30,000');
   await expect(page.getByTestId('budget-subline')).toContainText('$250 a guest');
   await expect(page.locator('main')).not.toContainText('$66,000');
@@ -61,7 +61,7 @@ test('outcome: her stated budget is the headline, on the planner and on the prin
 
 test('outcome: every edit saves itself and survives reload, back and the printed plan', async ({ page }) => {
   await seedPlan(page, MEMPHIS);
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await expect(page.getByTestId('save-guided-plan')).toHaveCount(0);
   await openSteps(page, 'step-0');
   await page.getByTestId('guest-input').fill('150');
@@ -84,7 +84,7 @@ test('outcome: every edit saves itself and survives reload, back and the printed
 
 test('outcome: venue types follow her answers (Memphis, outdoor, 120 guests)', async ({ page }) => {
   await seedPlan(page, MEMPHIS);
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await openSteps(page, 'step-2');
   await expect(page.getByTestId('venue-match-summary')).toContainText('outdoor · 120 guests · Memphis');
   const cards = page.locator('[data-testid^="venue-"][data-fit]');
@@ -103,7 +103,7 @@ test('outcome: venue types follow her answers (Memphis, outdoor, 120 guests)', a
 
 test('outcome: questions to settle next come from her answers, with no free-text box and no human implied', async ({ page }) => {
   await seedPlan(page, MEMPHIS);
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await openSteps(page, 'step-1');
   await expect(page.getByTestId('next-question-rain')).toContainText('You said outdoor in Memphis');
   await expect(page.getByTestId('next-question-music')).toBeVisible();
@@ -119,7 +119,7 @@ test('outcome: questions to settle next come from her answers, with no free-text
 });
 
 test('outcome: steps open one at a time and never close the dated plan', async ({ page }) => {
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await openSteps(page, 'step-0');
   await openSteps(page, 'step-3');
   await expect(page.getByTestId('fold-toggle-step-0')).toHaveAttribute('aria-expanded', 'false');
@@ -142,7 +142,7 @@ test('outcome: photos page supports description-only flower girl dress sourcing'
 
 
 test('outcome: vendor selections persist into dashboard and the printed plan', async ({ page }) => {
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await openSteps(page, 'step-5');
   await page.getByTestId('select-vendor-florist-designer').click();
   await expect(page.getByTestId('selected-vendor-summary')).toContainText('Florist / Designer');
@@ -155,7 +155,7 @@ test('outcome: vendor selections persist into dashboard and the printed plan', a
 
 test('outcome: ideas start unselected, only chosen ideas persist, cheapest first on a hard budget', async ({ page }) => {
   await seedPlan(page, MEMPHIS);
-  await page.goto('/free-wedding-planner');
+  await page.goto('/free-wedding-planner#your-date');
   await openSteps(page, 'step-6');
   await expect(page.getByTestId('standout-ideas')).toContainText('In your plan: none yet');
   await expect(page.getByTestId('ideas-order-note')).toBeVisible();

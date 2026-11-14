@@ -73,10 +73,28 @@ test('a ticked photo is shrunk and sent; a booked venue shows no venue types; pa
   await expect(page.getByTestId('journey-change')).toContainText('0 of 3 left today');
 });
 
-test('"I already know what I want" goes straight to the dated plan', async ({ page }) => {
+test('a new bride sees nothing under the journey; "I already know what I want" opens the dated plan, and it stays open when she comes back', async ({ page }) => {
   await page.goto('/free-wedding-planner');
+  await expect(page.getByTestId('journey-step-1')).toBeVisible();
+  await expect(page.getByTestId('wedding-date')).toHaveCount(0);
+  await expect(page.getByTestId('canonical-plan-summary')).toHaveCount(0);
   await page.getByTestId('journey-skip').click();
   await expect(page.getByTestId('wedding-date')).toBeInViewport();
+  await page.reload();
+  await expect(page.getByTestId('wedding-date')).toHaveCount(1);
+});
+
+test('a bride who reaches step 4 gets her plan below the journey, and only then', async ({ page }) => {
+  await page.route('**/api/journey-reach', route => route.fulfill({ json: { ok: true } }));
+  await page.route('**/api/wedding-read', route => route.fulfill({ json: { ok: true, read: read('fixed', []), remaining: 2, limit: 3, reason: 'no_model' } }));
+  await page.goto('/free-wedding-planner');
+  await page.getByTestId('fork-dk').click();
+  await page.getByTestId('journey-continue').click();
+  await page.getByTestId('journey-continue-2').click();
+  await page.getByTestId('journey-continue-3').click();
+  await expect(page.getByTestId('wedding-date')).toHaveCount(0);
+  await page.getByTestId('journey-no-date').click();
+  await expect(page.getByTestId('wedding-date')).toHaveCount(1);
 });
 
 test('kept picks become dated tasks marked "Your pick", a booked venue drops the venue task, and the printable page carries them', async ({ page }) => {

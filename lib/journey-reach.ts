@@ -2,7 +2,7 @@
 // starting at step 1. One row per visitor per day (salted IP hash, UNIQUE), written
 // only when a bride with a step-2 answer enters a date or taps "I don't have a date yet".
 // No words, no date, no email: just that it happened.
-import { sha256, type D1Like } from '@/lib/ai-draft';
+import { sha256, visitorIp, type D1Like } from '@/lib/ai-draft';
 import { isTesterHash } from '@/lib/wedding-read';
 
 export const JOURNEY_REACH_DDL = `CREATE TABLE IF NOT EXISTS journey_plan_reach (
@@ -21,7 +21,7 @@ export async function recordReach(input: { db: D1Like | undefined; via: unknown;
   if (!via) return 'skipped';
   if (!input.db || !input.salt) { log('NAMED STOP [JOURNEY_REACH_NOT_COUNTED] D1 or the salt is missing; a dated plan was reached and not counted'); return 'skipped'; }
   await input.db.prepare(JOURNEY_REACH_DDL).run();
-  const ipHash = await sha256(`${input.salt}:ip:${input.ip || 'unknown'}`);
+  const ipHash = await sha256(`${input.salt}:ip:${visitorIp(input.ip)}`);
   const row = await input.db.prepare('INSERT INTO journey_plan_reach (ip_hash, day, via, is_test) VALUES (?, ?, ?, ?) ON CONFLICT(ip_hash, day) DO NOTHING RETURNING id').bind(ipHash, input.today, via, input.isTest || isTesterHash(ipHash, input.testerHashes) ? 1 : 0).first();
   return row ? 'recorded' : 'already';
 }

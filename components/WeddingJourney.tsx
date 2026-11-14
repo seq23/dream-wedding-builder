@@ -79,7 +79,7 @@ function PickButton({ on, label, sub, onClick }: { on: boolean; label: string; s
   </button>;
 }
 
-export function WeddingJourney({ onFacts, weddingDate = '', onDate }: { onFacts?: (facts: JourneyFacts) => void; weddingDate?: string; onDate?: (date: string) => void }) {
+export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { onFacts?: (facts: JourneyFacts) => void; weddingDate?: string; onDate?: (date: string) => void; onPlan?: () => void }) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [picks, setPicks] = useState<JourneyPick[]>([]);
   const [noDate, setNoDate] = useState(false);
@@ -145,11 +145,11 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate }: { onFacts?
   };
 
   const read = answer?.read;
-  const toPlan = () => document.getElementById('your-date')?.scrollIntoView({ block: 'start' });
+  const toPlan = () => { onPlan?.(); window.setTimeout(() => document.getElementById('your-date')?.scrollIntoView({ block: 'start' }), 60); };
   const goTo = (n: 1 | 2 | 3 | 4) => { setStep(n); requestAnimationFrame(() => top.current?.scrollIntoView({ block: 'start' })); };
   const togglePick = (p: JourneyPick) => setPicks(list => list.some(x => x.key === p.key) ? list.filter(x => x.key !== p.key) : [...list, p]);
-  const chooseDate = (date: string) => { onDate?.(date); setNoDate(false); if (date && answer) countReach('date'); };
-  const chooseNoDate = () => { setNoDate(true); if (answer) countReach('no_date'); };
+  const chooseDate = (date: string) => { onDate?.(date); setNoDate(false); if (date) onPlan?.(); if (date && answer) countReach('date'); };
+  const chooseNoDate = () => { setNoDate(true); onPlan?.(); if (answer) countReach('no_date'); };
   const groups = read ? pickable(read, facts.venueBooked) : null;
   const photoSwatches = photos.flatMap(p => p.colours).slice(0, 8).map(hex => ({ hex }));
 
