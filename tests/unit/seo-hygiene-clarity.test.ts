@@ -125,7 +125,8 @@ describe('conversion-only session recording (e9)', () => {
 
   it('the planner, where her plan is on screen, loads no session recording', () => {
     const html = renderToStaticMarkup(createElement(PlannerPage));
-    expect(html).toContain('data-testid="wedding-date"');
+    // The planner page really rendered (the journey leads; the dated plan opens below it).
+    expect(html).toContain('data-testid="journey-step-1"');
     expect(loadsClarity(html)).toBe(false);
     expect(html).not.toContain('data-session-recording');
     expect(html).not.toContain('clarity-loader');
