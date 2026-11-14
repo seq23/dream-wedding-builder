@@ -198,7 +198,7 @@ export default function Feel() {
         </Pressable>
         {factsOpen ? <View style={{ gap: space[3], marginTop: space[2] }}>
           <TypingBox accessibilityLabel="Town or city" value={a.where} maxLength={60} onChangeText={where => set({ where })} placeholder="Town or city" placeholderTextColor={color.midnightMuted} style={input} />
-          <TypingBox accessibilityLabel="About how many guests" value={a.guests} keyboardType="number-pad" maxLength={4} clean={g => g.replace(/[^0-9]/g, '')} onChangeText={guests => set({ guests })} placeholder="About how many guests" placeholderTextColor={color.midnightMuted} style={input} />
+          <TypingBox accessibilityLabel="About how many guests" value={a.guests} keyboardType="number-pad" clean={g => g.replace(/[^0-9]/g, '').slice(0, 4)} onChangeText={guests => set({ guests })} placeholder="About how many guests" placeholderTextColor={color.midnightMuted} style={input} />
           <Row title="Budget (optional)">{BUDGETS.map(v => <Chip key={v} label={v} on={a.budget === v} onPress={() => set({ budget: a.budget === v ? '' : v })} />)}</Row>
           <Row title="Traditions (optional, pick up to 3)">{TRADITIONS.map(v => <Chip key={v} many label={v} on={traditionList(a.tradition).includes(v)} onPress={() => set({ tradition: toggleTradition(a.tradition, v) })} />)}</Row>
           <Text style={mono}>Already decided</Text>

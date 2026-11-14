@@ -92,14 +92,19 @@ test('a real new value from the screen (a cleared box, a loaded task) still repl
 });
 
 test('the guests box passes on digits only as she types fast and shows them once she leaves it', () => {
-  const digits = (g: string) => g.replace(/[^0-9]/g, '');
+  // The real guests box's rule, read from feel.tsx; the cap is in it (a native maxLength would count stray letters).
+  const rule = readFileSync('app/feel.tsx', 'utf8').match(/"About how many guests"[^>]*?clean=\{([^}]+)\}/)?.[1];
+  assert.ok(rule, 'the guests box cleans what she types');
+  assert.doesNotMatch(readFileSync('app/feel.tsx', 'utf8').match(/<TypingBox accessibilityLabel="About how many guests"[\s\S]*?\/>/)![0], /maxLength/);
+  const digits = new Function(`return (${rule})`)() as (g: string) => string;
   for (const lag of [0, 1, 2]) {
-    const typed = typeFast('1a20', { clean: digits, lag });
+    const typed = typeFast('1a2x0', { clean: digits, lag });
     assert.equal(typed.heard, '120', `lag ${lag}`);
     typed.blur();
     assert.equal(typed.phone.text, '120');
     assert.equal(typed.heard, '120');
   }
+  assert.equal(digits('123456'), '1234');
 });
 
 test('no screen uses a bare TextInput: every box goes through TypingBox', () => {
