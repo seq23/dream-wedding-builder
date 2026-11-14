@@ -72,14 +72,14 @@
         "checked": "2026-11-10 200 on the free key; first because the live owner test took 22 s with gemma ahead of it (gemma stalled ~20 s, this answered in ~2 s)"
       },
       {
-        "id": "gemma-4-31b-it",
-        "pool": "gemini:gemma-4-31b-it",
-        "checked": "2026-11-10 200 on the free key"
-      },
-      {
         "id": "gemini-flash-latest",
         "pool": "gemini:gemini-flash-latest",
         "checked": "2026-11-10 not probed; a 429 falls through"
+      },
+      {
+        "id": "gemma-4-31b-it",
+        "pool": "gemini:gemma-4-31b-it",
+        "checked": "2026-11-10 200 on the free key; moved last 14 Nov 2026: HTTP 500 \"Internal error\" or no answer on every call that day"
       }
     ]
   },
@@ -131,6 +131,12 @@
         "ceiling_minute": 16,
         "shared_note": "the account limit is shared with this repo scheduled jobs: 80% = 800, of which 200 are left to those jobs, so drafts stop at 600"
       }
+    },
+    "measured": {
+      "read_on": "2026-11-14",
+      "answers_per_day": "about 650 to 700 free AI answers a day for the journey and the AI draft together",
+      "how": "Each model probed once with the vault key (status and Google's own 429 quota detail), plus that day's D1 ai_route_usage and wedding_reads outcomes and the Worker's WEDDING_READ log lines. gemini-3.5-flash-lite: free limit 1,000 a day per Google project, our ceiling 800, about 85% of its answers pass our checks after the 14 Nov prompt fix, so about 650 to 700 answers. gemma-4-31b-it (Gemini): published 14,400 a day but answered HTTP 500 or nothing all day, so 0 usable. gemini-flash-latest: Google's 429 says 20 a day per project (spent after one call that day; the key's project is shared). OpenRouter :free: 1,000 a day for the whole account, shared with other repos; Nemotron often missed the 25 s deadline and Gemma :free answered 429, so it added no answers that day.",
+      "note": "The sum of the pool ceilings (MODEL_CALLS_PER_DAY_GLOBAL) is a hard cap, not capacity: it counts gemma's 11,520, which gave nothing. Quote the measured figure. Repeat 'I don't know yet' answers come from the 7-day cache for no call."
     }
   },
   "provider_endpoint_markers": [

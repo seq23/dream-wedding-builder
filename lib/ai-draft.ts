@@ -16,7 +16,9 @@
 //   numbers, sources, date read). Over a ceiling the step is skipped without a
 //   call. A 429 moves to the next model at once (no retry); a daily-quota 429
 //   marks that pool spent until its provider's midnight. The global ceiling is the
-//   sum of the pool ceilings; past it, straight to (c).
+//   sum of the pool ceilings; past it, straight to (c). That sum is a cap, not what we
+//   can give: measured 14 Nov 2026, about 650 to 700 free AI answers a day
+//   (config/llm_routing.json capacity.measured).
 // - Billing guard: once per Central day, before the first Gemini call,
 //   gemini-pro-latest (no free tier) is asked for one token. 429 quota = free
 //   tier, no billing. 200 = NAMED STOP [GEMINI_BILLING_ATTACHED]: Gemini skipped
