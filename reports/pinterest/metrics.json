@@ -1,10 +1,12 @@
 {
-  "generated_at": "2026-11-07T00:46:50.840Z",
+  "generated_at": "2026-11-14T13:23:19.317Z",
   "status": "MEASURED",
   "source": "D1 pinterest_visits (own edge page-view log, lib/pinterest-visits.ts)",
-  "window": "last 7 days (since 2026-10-31)",
+  "window": "7 day(s), 2026-11-07 to 2026-11-13",
+  "window_from": "2026-11-07",
+  "window_to": "2026-11-13",
   "total": 1,
-  "pins_released": 23,
+  "pins_released": 21,
   "sales": 0,
   "signups": 0,
   "by_variant": {
