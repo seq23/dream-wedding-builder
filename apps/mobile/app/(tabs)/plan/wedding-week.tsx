@@ -6,7 +6,8 @@ import { activePlan } from '../../../src/sharing/runtime';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
 import type { SharedPlan } from '../../../src/sharing/session';
 import { useCallback, useRef, useState } from 'react';
-import { Text, TextInput, Pressable, View } from 'react-native';
+import { Text, Pressable, View } from 'react-native';
+import { TypingBox } from '../../../src/TypingBox';
 import { useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { emptyProgress, toggleDone, type PlanProgress } from '@core/plan-progress';
@@ -56,7 +57,7 @@ export default function WeddingWeek() {
   async function save(next: WeekDetails) { setBusy(true); try {if(shared) await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,shared.event.id,()=>({who:{},contacts:[]} as WeekDetails)).save(next); else await store.save(next);setDetails(next);setContact(null);setError('');} catch {setError('Could not save. Try again.');} finally {setBusy(false);} }
   async function tick(key:string) {setBusy(true);try {setProgress(await savedProgress.update(p=>toggleDone(p,key,new Date().toISOString())));}catch{setError('Could not save your tick. Try again.');}finally{setBusy(false);}}
   const button=(label:string,action:()=>void)=><Pressable accessibilityRole="button" disabled={busy} onPress={action} style={{minHeight:48,justifyContent:'center'}}><Text style={[type.button,{color:color.blue}]}>{label}</Text></Pressable>;
-  const field=(label:string,value:string,change:(v:string)=>void)=><View><Text style={type.sub}>{label}</Text><TextInput accessibilityLabel={label} value={value} onChangeText={change} editable={!busy} maxLength={140} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12}]} /></View>;
+  const field=(label:string,value:string,change:(v:string)=>void)=><View><Text style={type.sub}>{label}</Text><TypingBox accessibilityLabel={label} value={value} onChangeText={change} editable={!busy} maxLength={140} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12}]} /></View>;
   const tasks=weekTasks(shared?.list ?? (preview?SAMPLE_PAYMENTS:null),date,progress,allowed||preview);
   return <PlannedScreen route="/plan/wedding-week">
     {error?<Text accessibilityRole="alert">{error}</Text>:null}
@@ -70,7 +71,7 @@ export default function WeddingWeek() {
       <Text style={type.section}>Who to call</Text>
       {details.contacts.map(c=><View key={c.id}><Text style={type.body}>{c.name} · {c.phone}</Text><Text style={type.sub}>Arrival: {c.arrival} · If late: {c.caller}</Text>{button('Edit contact',()=>setContact(c))}{button('Remove contact',()=>void save({...details,contacts:details.contacts.filter(x=>x.id!==c.id)}))}</View>)}
       {button('+ Add a contact',()=>setContact({id:String(Date.now()),name:'',phone:'',arrival:'',caller:''}))}
-      {contact?<View>{(['name','phone','arrival','caller'] as const).map((key,i)=><View key={key}>{field(['Vendor name','Phone','Arrival time','Who calls if late'][i],contact[key],v=>setContact({...contact,[key]:v}))}</View>)}{button('Save contact',()=>{if(!contact.name.trim()){setError('Add a vendor name.');return;}void save({...details,contacts:[...details.contacts.filter(c=>c.id!==contact.id),contact]});})}{button('Cancel',()=>setContact(null))}</View>:null}
+      {contact?<View>{(['name','phone','arrival','caller'] as const).map((key,i)=><View key={`${contact.id}:${key}`}>{field(['Vendor name','Phone','Arrival time','Who calls if late'][i],contact[key],v=>setContact(c=>c?{...c,[key]:v}:c))}</View>)}{button('Save contact',()=>{if(!contact.name.trim()){setError('Add a vendor name.');return;}void save({...details,contacts:[...details.contacts.filter(c=>c.id!==contact.id),contact]});})}{button('Cancel',()=>setContact(null))}</View>:null}
       <Text style={type.section}>Envelopes</Text>
       {weekEnvelopes(payments,date,allowed||preview).map(p=><Text key={p.id} style={type.body}>{p.payee} · {p.cents ? new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.cents/100) : 'amount not added yet'} · {plainDate(p.date)} · {p.paidOn?'Paid':'Not paid yet'}</Text>)}
       <GoButton href="/payments" label="Edit payments ›" />

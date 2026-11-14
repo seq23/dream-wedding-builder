@@ -6,7 +6,8 @@ import { activePlan } from '../../../src/sharing/runtime';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
 import type { SharedPlan } from '../../../src/sharing/session';
 import { useState, useCallback } from 'react';
-import { Text, TextInput, Pressable, View } from 'react-native';
+import { Text, Pressable, View } from 'react-native';
+import { TypingBox } from '../../../src/TypingBox';
 import { useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { localToday, plainDate } from '@core/dated-plan';
@@ -32,6 +33,8 @@ export default function Payments() {
   const [draft,setDraft] = useState<PaymentDraft>({ context: null, editing: null, amount: '' });
   const { editing, amount } = draft;
   const setEditing = (editing: Payment | null) => setDraft(current => ({ ...current, editing }));
+  // Each key merges into the newest draft, so a late re-render never puts an older box's text back.
+  const editWith = (patch: Partial<Payment>) => setDraft(current => current.editing ? { ...current, editing: { ...current.editing, ...patch } } : current);
   const setAmount = (amount: string) => setDraft(current => ({ ...current, amount }));
   const [error,setError] = useState('');
   const price = useFullPlanPrice();
@@ -75,7 +78,7 @@ export default function Payments() {
     finally { setBusy(false); }
   }
   function button(label:string, action:()=>void) { return <Pressable accessibilityRole="button" disabled={busy} onPress={action} style={{ minHeight:48, justifyContent:'center' }}><Text style={[type.button,{color:color.blue}]}>{label}</Text></Pressable>; }
-  function field(label:string, value:string, change:(s:string)=>void, money=false) { return <TextInput accessibilityLabel={label} placeholder={label} value={value} onChangeText={change} keyboardType={money ? 'decimal-pad' : 'default'} inputMode={money ? 'decimal' : 'text'} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12,color:color.midnight}]} />; }
+  function field(label:string, value:string, change:(s:string)=>void, money=false) { return <TypingBox key={`${editing?.id}:${label}`} accessibilityLabel={label} placeholder={label} value={value} onChangeText={change} keyboardType={money ? 'decimal-pad' : 'default'} inputMode={money ? 'decimal' : 'text'} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12,color:color.midnight}]} />; }
   const locked = datedFullPlan({ windows:[{id:'locked',label:'Payments'}], tasks:[FULL_PLAN_TEASER['12-plus'][1],FULL_PLAN_TEASER['3-months'][1]].map((t,i)=>({...t,id:String(i),window:'locked',owner:'',kind:'payment' as const})) },date ?? '',today).flatMap(s=>s.tasks);
   return <PlannedScreen route="/payments">
     {error ? <Text accessibilityRole="alert" style={[type.body,{color:color.redPen}]}>{error}</Text> : null}
@@ -97,11 +100,11 @@ export default function Payments() {
       </View>)}</View> : null; })}
       {button('+ Add a payment',()=>{setEditing({id:`own:${Date.now()}`,payee:'',detail:'',date,cents:0,method:''});setAmount('');})}
       {editing ? <View style={{gap:12}}><Text style={type.section}>Payment details</Text>
-        {field('Who is paid',editing.payee,v=>setEditing({...editing,payee:v}))}
-        {!editing.id.startsWith('task:') ? field('What the payment is for',editing.detail,v=>setEditing({...editing,detail:v})) : null}
+        {field('Who is paid',editing.payee,payee=>editWith({payee}))}
+        {!editing.id.startsWith('task:') ? field('What the payment is for',editing.detail,detail=>editWith({detail})) : null}
         {field('Amount in USD',amount,setAmount,true)}
         <WeddingDatePicker label="Payment due date" value={editing.date} onChange={v=>setEditing({...editing,date:v,ownDate:true})} />
-        {field('How it is paid',editing.method,v=>setEditing({...editing,method:v}))}
+        {field('How it is paid',editing.method,method=>editWith({method}))}
         {button('Save payment',()=>{try {void save({...editing,cents:amountCents(amount)});} catch(e) {setError((e as Error).message);}})}
         {button('Cancel',()=>setEditing(null))}
       </View> : null}

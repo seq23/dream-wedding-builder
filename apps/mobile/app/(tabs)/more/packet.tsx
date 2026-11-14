@@ -3,7 +3,8 @@ import { SHARED_WEEK_KEY, SHARED_PAYMENTS_KEY } from '../../../src/sharing/activ
 import type { PaymentState } from '../../../src/payments';
 import { activePlan } from '../../../src/sharing/runtime';
 import { useState } from 'react';
-import { Platform, Pressable, Text, TextInput, View } from 'react-native';
+import { Platform, Pressable, Text, View } from 'react-native';
+import { TypingBox } from '../../../src/TypingBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PlannedScreen } from '../../../src/ui';
 import { savedDate } from '../../../src/savedDate';
@@ -48,7 +49,7 @@ export default function Packet() {
     {preview ? <Text style={type.sub}>Sample: this preview prints the full-plan copy, with made-up payments, so you can see it.</Text> : null}
     <Text style={type.sub}>Made on this device. Nothing is uploaded. Choose who receives it in the share sheet.</Text>
     <Text style={type.body}>Names on the packet (optional)</Text>
-    <TextInput accessibilityLabel="Names on the packet (optional)" maxLength={140} value={names} onChangeText={setNames} editable={!busy} style={[type.body,{ borderWidth: 1, borderColor: color.rule, padding: space[3] }]} />
+    <TypingBox accessibilityLabel="Names on the packet (optional)" maxLength={140} value={names} onChangeText={setNames} editable={!busy} style={[type.body,{ borderWidth: 1, borderColor: color.rule, padding: space[3] }]} />
     <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: space[4] }}>
       {(['Letter','A4'] as Paper[]).map(p => <Pressable key={p} accessibilityRole="radio" accessibilityState={{ checked: paper === p, disabled: busy }} disabled={busy} onPress={() => setPaper(p)} style={{ minHeight:48, flexDirection:'row', alignItems:'center', gap: space[2] }}>
         <View style={{ width: 22, height: 22, borderRadius: 11, borderWidth: paper === p ? 7 : 1.5, borderColor: paper === p ? color.blue : color.midnightMuted, backgroundColor: color.ivoryRaised }} />

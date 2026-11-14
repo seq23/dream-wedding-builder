@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Image, Pressable, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, Text, View } from 'react-native';
+import { TypingBox } from '../src/TypingBox';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PlannedScreen } from '../src/ui';
@@ -160,7 +161,7 @@ export default function Feel() {
           </Pressable>;
         })}
       </View>
-      {chosen && a.path === 'idea' ? <TextInput accessibilityLabel="Your wedding in your own words" multiline maxLength={400} value={a.wish} onChangeText={wish => set({ wish })}
+      {chosen && a.path === 'idea' ? <TypingBox accessibilityLabel="Your wedding in your own words" multiline maxLength={400} value={a.wish} onChangeText={wish => set({ wish })}
         placeholder="For example: an Italian villa feel, candlelit long tables, 100 people" placeholderTextColor={color.midnightMuted}
         style={[...input, { minHeight: 96, paddingTop: space[3], textAlignVertical: 'top' }]} /> : null}
       {chosen ? <View style={{ gap: space[2] }}>
@@ -196,8 +197,8 @@ export default function Feel() {
           <Text style={type.subhead}>{factsOpen ? '▾' : '▸'} If you already know some things</Text>
         </Pressable>
         {factsOpen ? <View style={{ gap: space[3], marginTop: space[2] }}>
-          <TextInput accessibilityLabel="Town or city" value={a.where} maxLength={60} onChangeText={where => set({ where })} placeholder="Town or city" placeholderTextColor={color.midnightMuted} style={input} />
-          <TextInput accessibilityLabel="About how many guests" value={a.guests} keyboardType="number-pad" maxLength={4} onChangeText={g => set({ guests: g.replace(/[^0-9]/g, '') })} placeholder="About how many guests" placeholderTextColor={color.midnightMuted} style={input} />
+          <TypingBox accessibilityLabel="Town or city" value={a.where} maxLength={60} onChangeText={where => set({ where })} placeholder="Town or city" placeholderTextColor={color.midnightMuted} style={input} />
+          <TypingBox accessibilityLabel="About how many guests" value={a.guests} keyboardType="number-pad" maxLength={4} clean={g => g.replace(/[^0-9]/g, '')} onChangeText={guests => set({ guests })} placeholder="About how many guests" placeholderTextColor={color.midnightMuted} style={input} />
           <Row title="Budget (optional)">{BUDGETS.map(v => <Chip key={v} label={v} on={a.budget === v} onPress={() => set({ budget: a.budget === v ? '' : v })} />)}</Row>
           <Row title="Traditions (optional, pick up to 3)">{TRADITIONS.map(v => <Chip key={v} many label={v} on={traditionList(a.tradition).includes(v)} onPress={() => set({ tradition: toggleTradition(a.tradition, v) })} />)}</Row>
           <Text style={mono}>Already decided</Text>
