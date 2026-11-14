@@ -49,9 +49,9 @@ export function forwardsFetch(src) {
   const returns = m[1].match(/\breturn\b[^;]*;/g) ?? [];
   // Exactly one way out, and it is the OpenNext handler: either directly, or as the app
   // behind the edge page cache (lib/edge-cache.ts), which calls it for every request it
-  // does not already hold a public page for.
+  // does not already hold a public page for (optionally followed by the shared R2 copy).
   const HANDLER = 'handler\\.fetch\\(\\s*request\\s*,\\s*env\\s*,\\s*ctx\\s*\\)';
-  return returns.length === 1 && new RegExp(`^return\\s+(?:${HANDLER}|serveWithEdgeCache\\(\\s*request\\s*,[^;]*\\(\\)\\s*=>\\s*${HANDLER}\\s*\\));$`).test(returns[0]);
+  return returns.length === 1 && new RegExp(`^return\\s+(?:${HANDLER}|serveWithEdgeCache\\(\\s*request\\s*,[^;]*\\(\\)\\s*=>\\s*${HANDLER}\\s*(?:,\\s*\\w+\\s*)?\\));$`).test(returns[0]);
 }
 const mainFile = wrangler.main;
 if (!mainFile) fail('wrangler.jsonc: no "main" entry point declared');
