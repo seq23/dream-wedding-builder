@@ -6,7 +6,9 @@ import release from './release/config.json';
 // (NAMED STOP [BUNDLE_ID_PLACEHOLDER]).
 const BUNDLE_ID = release.bundleId;
 const config: ExpoConfig = {
-  name: 'Dream Wedding', slug: 'dream-wedding-builder', version: '0.1.0', scheme: 'dreamwedding',
+  name: 'Dream Wedding', slug: 'dream-wedding-builder', version: '1.0', scheme: 'dreamwedding',
+  // EAS project under the seq23 Expo account (eas init, 14 Nov 2026).
+  owner: 'seq23', extra: { eas: { projectId: 'ca5bcca0-2408-45a4-ac3d-b498eb0ed613' } },
   // The brand is light only (spry brain, Dream Wedding brand, 6 Nov 2026).
   orientation: 'portrait', userInterfaceStyle: 'light',
   icon: './assets/icon.png',
