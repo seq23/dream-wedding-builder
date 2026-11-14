@@ -21,7 +21,7 @@ test('store gate rejects each unsafe setting independently and permits a clean c
   assert.deepEqual(stops(config, {}, recorded), []);
 });
 test('EAS hook permits previews and passes the registered production configuration (bundle ID registered with Apple 14 Nov 2026)', () => {
-  const run = (profile: string) => spawnSync(process.execPath, ['scripts/release-gate.mjs', '--if-production'], { cwd: new URL('..', import.meta.url), env: { ...process.env, EAS_BUILD_PROFILE: profile }, encoding: 'utf8' });
+  const run = (profile: string) => spawnSync(process.execPath, ['scripts/release-gate.mjs', '--if-production'], { cwd: new URL('..', import.meta.url), env: { ...process.env, EXPO_PUBLIC_DW_PREVIEW: '', EAS_BUILD_PROFILE: profile }, encoding: 'utf8' });
   assert.equal(run('preview').status, 0);
   const production = run('production');
   assert.equal(production.status, 0, production.stdout + production.stderr);
