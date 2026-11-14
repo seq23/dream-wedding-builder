@@ -1,14 +1,28 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { DisabledPurchases, acceptedKey, storeProduct } from '../src/billing/provider';
-import { purchases } from '../src/billing/current';
+import { DisabledPurchases, acceptedKey, choosePurchases, storeProduct, type PurchasesProvider } from '../src/billing/provider';
 import { addEvent, emptyLedger, entitlementsFor, moveEvent, recordVerifiedPurchase, renameEvent } from '../src/billing/events';
 import { PRODUCTS } from '../src/billing/offers';
 
-test('absent stores cannot simulate purchases or restore; production entry remains closed', async () => {
-  for (const provider of [new DisabledPurchases(), purchases]) {
+test('the store opens only for a store build with the platform key; every other build stays closed', async () => {
+  const opened: string[] = [];
+  const store = { available: true } as PurchasesProvider;
+  const open = (key: string) => { opened.push(key); return store; };
+  assert.equal(choosePurchases('ios', { ios: 'appl_example' }, false, open), store);
+  assert.equal(choosePurchases('android', { android: 'goog_example' }, false, open), store);
+  assert.deepEqual(opened, ['appl_example', 'goog_example']);
+  const closed = [
+    choosePurchases('ios', { ios: 'appl_example' }, true, open), // the free preview never sells
+    choosePurchases('ios', {}, false, open),
+    choosePurchases('ios', { ios: 'test_example', android: 'goog_example' }, false, open),
+    choosePurchases('android', { ios: 'appl_example' }, false, open),
+    choosePurchases('web', { ios: 'appl_example', android: 'goog_example' }, false, open),
+  ];
+  assert.equal(opened.length, 2);
+  for (const provider of closed) assert.equal(provider.available, false);
+  for (const provider of [new DisabledPurchases(), ...closed]) {
     assert.equal(provider.available, false);
-    assert.deepEqual(await provider.products(), []);
+    assert.deepEqual(await provider.products('default'), []);
     for (const id of Object.keys(PRODUCTS) as (keyof typeof PRODUCTS)[]) await assert.rejects(provider.purchase(id), /DW_STORE_NOT_SET_UP/);
     await assert.rejects(provider.restore(), /DW_STORE_NOT_SET_UP/);
   }

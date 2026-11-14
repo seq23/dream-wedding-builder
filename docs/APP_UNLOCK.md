@@ -1,7 +1,9 @@
 # App purchase verification door
 
-Task 8 server component. The phone delivery store, event ledger and screen wiring
-are subsequent work; this route alone does not enable any purchase button.
+The server half of every app purchase. The phone opens the store
+(`apps/mobile/src/billing/current.ts`: RevenueCat, only in a store build with
+`EXPO_PUBLIC_REVENUECAT_IOS_API_KEY` from the EAS production environment; the preview
+and web stay closed), then calls this door; nothing unlocks until it answers.
 
 `POST /api/app-unlock` accepts only an `Authorization: Bearer` header containing
 the SDK's random `$RCAnonymousID:` followed by 32 lowercase hex characters. Treat
@@ -40,8 +42,9 @@ rolling limits bound upstream calls. Failures return a retryable plain message.
 
 ## Configuration and stops
 
-No configuration or product is created by code. The existing disabled purchase
-provider stays disabled. Runtime bindings/secrets:
+No configuration or product is created by code. Set on the live Worker on 14 Nov 2026
+(secrets, so they survive deploys): `REVENUECAT_SECRET`, `APP_PURCHASES_ENABLED=true`,
+`APP_SANDBOX_PURCHASES=true` (TestFlight and App Review buy in the sandbox). Runtime bindings/secrets:
 
 - `REVENUECAT_SECRET`: the Dream Wedding project's RevenueCat **v2** secret key (vault `REVENUECAT_DW_V2_SECRET_KEY`; needs customer and purchase read plus product read). The door reads `GET /v2/projects/{project}/customers/{id}/purchases` and `/products`. Missing gives `NAMED STOP [REVENUECAT_SECRET_MISSING]`; a key RevenueCat refuses gives `NAMED STOP [REVENUECAT_KEY_REJECTED]`.
 - `APP_PURCHASES_ENABLED=true`: absent gives `NAMED STOP [DW_STORE_NOT_SET_UP]`.

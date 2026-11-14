@@ -23,3 +23,11 @@ export class DisabledPurchases implements PurchasesProvider {
 export function acceptedKey(os: string, key?: string): boolean {
   return !!key && ((os === 'ios' && key.startsWith('appl_')) || (os === 'android' && key.startsWith('goog_')));
 }
+/** The app's one provider: the store only in a store build with this platform's public
+ * SDK key; the free preview, web and a missing or wrong key stay closed. Opening the
+ * store sheet is safe because nothing unlocks until /api/app-unlock confirms it. */
+export function choosePurchases(os: string, keys: { ios?: string; android?: string }, preview: boolean,
+  open: (key: string) => PurchasesProvider): PurchasesProvider {
+  const key = os === 'ios' ? keys.ios : os === 'android' ? keys.android : undefined;
+  return !preview && acceptedKey(os, key) ? open(key!) : new DisabledPurchases();
+}
