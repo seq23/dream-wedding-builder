@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Linking, Pressable, Text, TextInput, View } from 'react-native';
+import { Linking, Platform, Pressable, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { getRandomBytes } from 'expo-crypto';
@@ -9,7 +9,7 @@ import { downloadStore, EXTRA_DOWNLOAD_MESSAGE } from '../../../src/billing/down
 import { dateStore } from '../../../src/weddingDate';
 import { sharingChanged } from '../../../src/sharing/runtime';
 import { PlannedScreen } from '../../../src/ui';
-import { buyLabel, initialChoice, offersFor, OFFER_DETAIL, type ProductId } from '../../../src/billing/offers';
+import { buyButtonLabel, initialChoice, offersFor, OFFER_DETAIL, type ProductId } from '../../../src/billing/offers';
 import type { StoreProduct } from '../../../src/billing/provider';
 import { purchases } from '../../../src/billing/current';
 import { defaultEventName, eventNameStore } from '../../../src/billing/eventName';
@@ -35,6 +35,7 @@ export default function FullPlan() {
   const [paidUnused, setPaidUnused] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [buying, setBuying] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   useFocusEffect(useCallback(() => {
@@ -61,7 +62,7 @@ export default function FullPlan() {
     return () => { active = false; clearTimeout(timeout); };
   }, [newEvent]));
   async function transact(restore = false) {
-    setSaving(true); setError(''); setMessage('');
+    setSaving(true); setBuying(!restore); setError(''); setMessage('');
     try {
       const saved = await checkoutRead(() => dateStore(AsyncStorage).read());
       const buyingNewEvent = !restore && selected === 'dw_new_event';
@@ -102,7 +103,7 @@ export default function FullPlan() {
       try { setProducts(await checkoutRead(() => purchases.products('after_unlock'))); }
       catch { setMessage('Your full plan is saved. Reopen this screen to load store prices for extras.'); }
     } catch (e) { setError(e instanceof Error ? e.message : 'Could not check your purchase. Restore and try again.'); }
-    finally { setSaving(false); }
+    finally { setSaving(false); setBuying(false); }
   }
   // An event already paid for and not started needs no store price: it is not charged again.
   const prepaid = selected === 'dw_new_event' && paidUnused > 0;
@@ -144,7 +145,7 @@ export default function FullPlan() {
     </Pressable>)}
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !canBuy }} disabled={!canBuy} onPress={() => { void transact(); }}
       style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: radius.md, opacity: canBuy ? 1 : 0.5 }}>
-      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? selected === 'dw_new_event' ? 'Start my new event ›' : buyLabel(names[selected!], products.find(p => p.id === selected)?.price) : !purchases.available ? (PREVIEW ? 'Buying is off in this preview' : 'The store is not answering') : 'Choose one above'}</Text>
+      <Text style={[type.button, { color: color.onBlue }]}>{buyButtonLabel({ available: purchases.available, preview: PREVIEW, selected, name: selected ? names[selected] : '', price: products.find(p => p.id === selected)?.price, buying, storeName: Platform.OS === 'android' ? 'Google Play store' : 'App Store' })}</Text>
     </Pressable>
     {purchases.available ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: saving || !loaded }} disabled={saving || !loaded} onPress={() => { void transact(true); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>I already bought this: restore it ›</Text></Pressable> : null}
     <View style={{ flexDirection: 'row', gap: space[4] }}>

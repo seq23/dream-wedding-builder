@@ -30,6 +30,21 @@ export function buyLabel(name: string, price: string | undefined): string {
   return price ? `Get ${name} · ${price} ›` : `Get ${name} ›`;
 }
 
+/**
+ * The one buy button's words. While the store's payment sheet is open the
+ * chosen offer shows busy; "Choose one above" only when nothing is chosen.
+ */
+export function buyButtonLabel(s: {
+  available: boolean; preview: boolean; selected?: ProductId; name: string; price?: string;
+  buying: boolean; storeName: string;
+}): string {
+  if (!s.available) return s.preview ? 'Buying is off in this preview' : 'The store is not answering';
+  if (!s.selected) return 'Choose one above';
+  if (s.selected === 'dw_new_event') return s.buying ? 'Starting your new event…' : 'Start my new event ›';
+  if (s.buying) return `Opening the ${s.storeName}…`;
+  return buyLabel(s.name, s.price);
+}
+
 /** In display order: the full plan first, the bundle after it. */
 export function offersFor(owned: Iterable<Entitlement>, newPaidEvent = false): ProductId[] {
   if (newPaidEvent) return ['dw_new_event'];

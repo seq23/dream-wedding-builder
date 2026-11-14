@@ -385,7 +385,16 @@ describe('a guest count is never invented', () => {
       const bad = field === 'details' || field === 'ask' ? r({ [field]: [text] }) : r({ [field]: text });
       expect(checkRead(bad, noCount).some(f => f.startsWith('headcount:')), text).toBe(true);
     }
-    expect(checkRead(r({ read: 'Plan the long tables around your guest count.', details: ['Lamps on every table for 30 minutes of golden hour'] }), noCount)).toEqual([]);
+    expect(checkRead(r({ read: 'Plan the long tables around your guests.', details: ['Lamps on every table for 30 minutes of golden hour'] }), noCount)).toEqual([]);
+  });
+  // Simulator retest (14 Nov 2026): "the warm candle glow across your guest count".
+  it('"guest count" never stands in for guests in the prose; a vendor question or the honest note may use it', () => {
+    for (const [field, text] of [['read', 'The warm candle glow across your guest count.'], ['headline', 'Garden dinner in Napa for your guest count'], ['details', 'Lamps sized to your guest-count']] as const) {
+      const bad = field === 'details' ? r({ [field]: [text] }) : r({ [field]: text });
+      expect(checkRead(bad, noCount).some(f => f.startsWith('headcount:')), text).toBe(true);
+      expect(checkRead(bad, cleanAnswers({ ...DK })).some(f => f.startsWith('headcount:')), text).toBe(true);
+    }
+    expect(checkRead(r({ ask: ['Ask the venue the largest guest count it seats outdoors.'], honest: 'Settle your guest count before you book the caterer.' }), noCount)).toEqual([]);
   });
   it('her own number passes and any other number fails; the prompt tells the model which', () => {
     const withCount = cleanAnswers({ ...DK });
