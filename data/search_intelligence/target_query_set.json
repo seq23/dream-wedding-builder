@@ -1,14 +1,14 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-13T12:43:01.904Z",
+  "generated_at": "2026-11-14T12:42:31.976Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-15",
-          "end": "2026-11-11"
+          "start": "2026-10-16",
+          "end": "2026-11-12"
         },
         "totals": {
           "clicks": 0,
@@ -111,8 +111,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-15",
-          "end": "2026-11-11"
+          "start": "2026-10-16",
+          "end": "2026-11-12"
         },
         "totals": {
           "clicks": 0,
@@ -208,8 +208,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-15",
-          "end": "2026-11-11"
+          "start": "2026-10-16",
+          "end": "2026-11-12"
         },
         "totals": {
           "clicks": 0,
@@ -241,8 +241,8 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 70.6,
               "pages": [
@@ -273,8 +273,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 65.7,
               "pages": [
@@ -299,8 +299,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 73.7,
               "pages": [
@@ -331,8 +331,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 67,
               "pages": [
@@ -357,8 +357,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 60,
               "pages": [
@@ -383,8 +383,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 65,
               "pages": [
@@ -409,8 +409,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 65,
               "pages": [
@@ -492,20 +492,20 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-15",
-          "end": "2026-11-11"
+          "start": "2026-10-16",
+          "end": "2026-11-12"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 83,
+          "impressions": 78,
           "ctr": 0,
-          "position": 60.096385542168676
+          "position": 58.705128205128204
         }
       },
-      "target_count": 20,
+      "target_count": 19,
       "dropped_count": 22,
       "by_source": {
-        "google_search_console": 19,
+        "google_search_console": 18,
         "semrush_keyword_magic": 1
       },
       "targets": [
@@ -513,8 +513,8 @@
           "query": "free wedding planner",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 18,
-          "position": 74.7,
+          "number": 16,
+          "position": 74.9,
           "pages": [
             "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
@@ -523,12 +523,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 18,
+              "number": 16,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
-              "position": 74.7,
+              "position": 74.9,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
@@ -552,8 +552,8 @@
               "metric": "impressions_28d",
               "number": 4,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 62.3,
               "pages": [
@@ -567,8 +567,8 @@
           "query": "wedding planner free",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 4,
-          "position": 74.5,
+          "number": 3,
+          "position": 74.3,
           "pages": [
             "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
@@ -577,12 +577,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 4,
+              "number": 3,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
-              "position": 74.5,
+              "position": 74.3,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
@@ -605,8 +605,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 96.3,
               "pages": [
@@ -631,8 +631,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 86,
               "pages": [
@@ -657,38 +657,12 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 86.5,
               "pages": [
                 "https://weddingchecklistpdf.com/guides"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding planner online free",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 2,
-          "position": 94.5,
-          "pages": [
-            "https://weddingchecklistpdf.com/free-wedding-planner"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 2,
-              "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
-              },
-              "position": 94.5,
-              "pages": [
-                "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
             }
           ]
@@ -709,8 +683,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 54,
               "pages": [
@@ -735,8 +709,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 62,
               "pages": [
@@ -761,8 +735,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 75,
               "pages": [
@@ -787,8 +761,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 89,
               "pages": [
@@ -813,8 +787,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 59,
               "pages": [
@@ -839,8 +813,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 83,
               "pages": [
@@ -871,8 +845,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 78,
               "pages": [
@@ -897,8 +871,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 63,
               "pages": [
@@ -929,8 +903,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 76,
               "pages": [
@@ -955,8 +929,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 82,
               "pages": [
@@ -981,8 +955,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 96,
               "pages": [
@@ -1007,8 +981,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-15",
-                "end": "2026-11-11"
+                "start": "2026-10-16",
+                "end": "2026-11-12"
               },
               "position": 93,
               "pages": [

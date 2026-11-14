@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-10-15",
-        "end": "2026-11-11"
+        "start": "2026-10-16",
+        "end": "2026-11-12"
       },
-      "collected_at": "2026-11-13T12:42:59.322Z",
+      "collected_at": "2026-11-14T12:42:28.430Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -64,10 +64,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-10-15",
-        "end": "2026-11-11"
+        "start": "2026-10-16",
+        "end": "2026-11-12"
       },
-      "collected_at": "2026-11-13T12:42:59.997Z",
+      "collected_at": "2026-11-14T12:42:29.090Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -118,10 +118,10 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-10-15",
-        "end": "2026-11-11"
+        "start": "2026-10-16",
+        "end": "2026-11-12"
       },
-      "collected_at": "2026-11-13T12:43:00.912Z",
+      "collected_at": "2026-11-14T12:42:30.899Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -252,31 +252,24 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-10-15",
-        "end": "2026-11-11"
+        "start": "2026-10-16",
+        "end": "2026-11-12"
       },
-      "collected_at": "2026-11-13T12:43:01.756Z",
+      "collected_at": "2026-11-14T12:42:31.790Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 83,
+        "impressions": 78,
         "ctr": 0,
-        "position": 60.096385542168676
+        "position": 58.705128205128204
       },
       "queries": [
         {
           "query": "free wedding planner",
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 18,
-          "position": 74.66666666666667
-        },
-        {
-          "query": "wedding planner free",
-          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
-          "clicks": 0,
-          "impressions": 4,
-          "position": 74.5
+          "impressions": 16,
+          "position": 74.9375
         },
         {
           "query": "destination wedding checklist pdf",
@@ -284,6 +277,13 @@
           "clicks": 0,
           "impressions": 3,
           "position": 60
+        },
+        {
+          "query": "wedding planner free",
+          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 74.33333333333333
         },
         {
           "query": "wedding planning checklist pdf",
@@ -305,13 +305,6 @@
           "clicks": 0,
           "impressions": 2,
           "position": 86.5
-        },
-        {
-          "query": "wedding planner online free",
-          "page": "https://weddingchecklistpdf.com/free-wedding-planner",
-          "clicks": 0,
-          "impressions": 2,
-          "position": 94.5
         },
         {
           "query": "checklist bruiloft pdf",
@@ -409,8 +402,8 @@
         {
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
           "clicks": 0,
-          "impressions": 29,
-          "position": 74
+          "impressions": 24,
+          "position": 72.3
         },
         {
           "page": "https://weddingchecklistpdf.com/guides",
@@ -549,5 +542,5 @@
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-11-13T12:43:01.756Z"
+  "updated_at": "2026-11-14T12:42:31.791Z"
 }
