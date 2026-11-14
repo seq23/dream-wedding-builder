@@ -23,7 +23,9 @@ export async function GET(req: NextRequest, context: { params: Promise<{ token: 
   const product = productBySku(entitlement.sku);
   const filename = `${product?.id || 'dream-wedding-product'}.zip`;
   const headers = new Headers();
-  object.writeHttpMetadata(headers);
+  // Set from the stored metadata rather than writeHttpMetadata(): the same result in the Worker,
+  // and it also works through the local dev binding proxy, which cannot pass a Headers object.
+  headers.set('Content-Type', object.httpMetadata?.contentType || 'application/zip');
   headers.set('Content-Disposition', `attachment; filename="${filename}"`);
   headers.set('Cache-Control', 'private, no-store');
   headers.set('X-Content-Type-Options', 'nosniff');
