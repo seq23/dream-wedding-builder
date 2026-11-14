@@ -12,7 +12,7 @@ describe('AI draft result', () => {
     const { plan } = applyAiDraft(emptyPlan, draft, sentence, '2026-11-10T00:00:00Z');
     const values = draftValues(plan);
     expect(values.map(v => v.value)).toEqual(expect.arrayContaining(['120', 'Memphis', '$30,000']));
-    expect(values.find(v => v.field === 'weddingDate')!.value).toMatch(/15 Oct(ober)? 2027.*guess/);
+    expect(values.find(v => v.field === 'weddingDate')!.value).toMatch(/Oct(ober)? 15, 2027.*guess/);
     expect(values.every(v => v.href.startsWith('#'))).toBe(true);
   });
 
