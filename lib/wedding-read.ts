@@ -257,6 +257,9 @@ const HEADCOUNT = [
   /\b(\d{2,4})(?:\s*(?:to|-|–)\s*\d{2,4})?\s+(?:guests?|people|persons|seats|meals|attendees|chairs|place settings|covers|of you)\b/gi,
   /\bfor\s+(\d{2,4})(?=\s*(?:[.,;:!)]|$))/gi
 ];
+// "the candle glow across your guest count" (simulator retest, 14 Nov 2026): the words are
+// a planning term, fine in a question for a vendor or the honest note, never in the prose.
+const GUEST_COUNT_PROSE = /\bguest[\s-]*counts?\b/i;
 /** The guest numbers she gave: the guests box, and any "100 people" in her own words. */
 export function herGuestNumbers(a: Answers): Set<number> {
   const set = new Set<number>();
@@ -279,6 +282,7 @@ export function checkRead(r: WeddingRead, a: Answers): string[] {
     hit('contact', [CONTACT]);
     hit('brand', [BRANDS]);
     for (const re of HEADCOUNT) for (const m of s.matchAll(re)) if (!guestsOk.has(Number(m[1]))) { fails.push(`headcount:${where}:${m[0]}`); break; }
+    if (!where.startsWith('ask') && where !== 'honest') hit('headcount', [GUEST_COUNT_PROSE]);
     if (where.startsWith('colour')) continue;
     // A capitalised word inside a sentence is a name unless she said it or it is a
     // month, a season, a culture or one of our own idea and venue-type names.
@@ -452,7 +456,7 @@ export function buildMessages(raw: Answers, ideas: Trend[], venues: { id: string
         'You are a wedding planning tool with a seasoned planner’s taste. Translate what this couple pictures into a wedding they can really have where they live and at their size. Never assume a bride, a groom or anyone’s gender. Be specific and warm, never generic.',
         'Write as the tool, not as a person: never say we, us, our, I, me, my, darling or dear; speak to her as "you". Plain words, no flourishes. Write every number as digits (120, not one hundred twenty).',
         `Never name a business, venue, brand, product or person. ${a.where ? `Name no real place except "${a.where}"` : 'She left the town field empty. If her own words name the town she is marrying in, use that town and no other; if they name none, name no town, city, state or country at all (say "near you" instead)'}: no rivers, regions, neighborhoods, streets or landmarks. Never give a price, a number of dollars or any availability. No contract or legal advice.`,
-        herGuestNumbers(a).size ? `Her guest count is ${[...herGuestNumbers(a)].join(' or ')}: use only that number for guests, seats or meals.` : 'She has not given a guest count. Never write or guess a number of guests, people, seats, meals or tables, and never write "for" and a number; say "your guests" or "your guest count" instead.',
+        herGuestNumbers(a).size ? `Her guest count is ${[...herGuestNumbers(a)].join(' or ')}: use only that number for guests, seats or meals.` : 'She has not given a guest count. Never write or guess a number of guests, people, seats, meals or tables, and never write "for" and a number; leave guests out of the sentence, or say "your guests". Never write the words "guest count" in the read, headline, directions, ideas, venue reasons or details.',
         'Write in US English: US spelling (color, favorite, center, gray) and US dates (Sat, Nov 6, 2027).',
         'If her wish names a place far away, carry its feel to her town instead of telling her to travel. Keep every detail true to the culture she named, and add no culture she did not name.',
         'Write the headline and the direction names in sentence case, like "Terracotta and stone": capitalise only the first word and names she gave.',

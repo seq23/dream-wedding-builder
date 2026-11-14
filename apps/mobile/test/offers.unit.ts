@@ -1,7 +1,7 @@
 // The paywall never charges twice for something already owned (docs/APP_PLAN.md, task 8).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { OFFER_DETAIL, PRODUCTS, buyLabel, initialChoice, offersFor, type Entitlement } from '../src/billing/offers';
+import { OFFER_DETAIL, PRODUCTS, buyButtonLabel, buyLabel, initialChoice, offersFor, type Entitlement } from '../src/billing/offers';
 
 test('finding 1: a couple with nothing sees the full plan first, nothing is chosen for her, and the button names her pick and price', () => {
   assert.deepEqual(offersFor([]), ['dw_full_plan', 'dw_planner_printables']);
@@ -35,4 +35,17 @@ test('no offer ever sells an entitlement already owned, and the top-up route cos
   const cents = (usd: number) => Math.round(usd * 100);
   const viaTopUp = cents(PRODUCTS.dw_full_plan.priceUsd) + cents(PRODUCTS.dw_printables_topup.priceUsd);
   assert.ok(Math.abs(viaTopUp - cents(PRODUCTS.dw_planner_printables.priceUsd)) <= 1, '$34.98 by the top-up vs $34.99 bundle');
+});
+
+test('while the payment sheet is open the chosen offer shows busy, never "Choose one above"', () => {
+  const base = { available: true, preview: false, name: 'Full plan', price: '$14.99', storeName: 'App Store' } as const;
+  assert.equal(buyButtonLabel({ ...base, selected: 'dw_full_plan', buying: false }), 'Get Full plan · $14.99 ›');
+  assert.equal(buyButtonLabel({ ...base, selected: 'dw_full_plan', buying: true }), 'Opening the App Store…');
+  assert.equal(buyButtonLabel({ ...base, selected: 'dw_new_event', buying: true }), 'Starting your new event…');
+  // A chosen offer whose price has not loaded still names the offer.
+  assert.equal(buyButtonLabel({ ...base, selected: 'dw_full_plan', price: undefined, buying: false }), 'Get Full plan ›');
+  for (const buying of [true, false]) for (const price of ['$14.99', undefined])
+    assert.notEqual(buyButtonLabel({ ...base, selected: 'dw_planner_printables', price, buying }), 'Choose one above');
+  assert.equal(buyButtonLabel({ ...base, selected: undefined, buying: false }), 'Choose one above');
+  assert.equal(buyButtonLabel({ ...base, available: false, preview: true, selected: 'dw_full_plan', buying: false }), 'Buying is off in this preview');
 });
