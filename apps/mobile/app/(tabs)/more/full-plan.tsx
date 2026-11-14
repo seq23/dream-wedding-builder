@@ -12,7 +12,7 @@ import { PlannedScreen } from '../../../src/ui';
 import { buyLabel, initialChoice, offersFor, OFFER_DETAIL, type ProductId } from '../../../src/billing/offers';
 import type { StoreProduct } from '../../../src/billing/provider';
 import { purchases } from '../../../src/billing/current';
-import { eventNameStore } from '../../../src/billing/eventName';
+import { defaultEventName, eventNameStore } from '../../../src/billing/eventName';
 import { eventStore } from '../../../src/billing/eventStore';
 import { offerEntitlementsFor, unusedNewEvents } from '../../../src/billing/events';
 import { newEventDate } from '../../../src/billing/newEvent';
@@ -30,6 +30,7 @@ export default function FullPlan() {
   const [offers, setOffers] = useState<ProductId[]>([]);
   const [selected, setSelected] = useState<ProductId>();
   const [name, setName] = useState('');
+  const [defaultName, setDefaultName] = useState('');
   const [locked, setLocked] = useState(false);
   const [paidUnused, setPaidUnused] = useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -43,6 +44,7 @@ export default function FullPlan() {
       active = false;
       setError('Your event took too long to load. Close this screen and try again.');
     }, 10000);
+    dateStore(AsyncStorage).read().then(d => { if (active) setDefaultName(defaultEventName(newEvent ? newEventDate(requestedDate, d) : d)); }).catch(() => {});
     Promise.all([eventNameStore(AsyncStorage, newEvent).read(), eventStore(AsyncStorage).read(), eventStore(AsyncStorage).active()])
       .then(async ([draft, ledger, event]) => {
         if (!active) return;
@@ -67,10 +69,12 @@ export default function FullPlan() {
       const date = buyingNewEvent ? newEventDate(requestedDate, saved) : saved;
       if (!date) throw Error('Set your wedding date on the plan first.');
       if (buyingNewEvent && await checkoutRead(async () => (await phoneSharing()).read())) throw Error('Stop sharing your current event first (More, then Two phones). Then start the new event.');
-      if (restore) await phoneCheckout.restore(name, date);
+      // Buying never waits on a name: an empty one becomes "Our wedding – <date>", renamed any time after.
+      const eventName = name.trim() || defaultEventName(date);
+      if (restore) await phoneCheckout.restore(eventName, date);
       else {
         if (!selected) throw Error('Choose a product first.');
-        await phoneCheckout.purchase(name, date, selected);
+        await phoneCheckout.purchase(eventName, date, selected);
       }
       sharingChanged();
       const downloaded = await checkoutRead(() => downloadStore(AsyncStorage).saved());
@@ -102,7 +106,7 @@ export default function FullPlan() {
   }
   // An event already paid for and not started needs no store price: it is not charged again.
   const prepaid = selected === 'dw_new_event' && paidUnused > 0;
-  const canBuy = purchases.available && loaded && !saving && !!selected && offers.includes(selected) && !!name.trim() && (prepaid || products.some(p => p.id === selected));
+  const canBuy = purchases.available && loaded && !saving && !!selected && offers.includes(selected) && (prepaid || products.some(p => p.id === selected));
   async function saveName() {
     setSaving(true); setError(''); setMessage('');
     try {
@@ -126,9 +130,9 @@ export default function FullPlan() {
     {newEvent && paidUnused > 0 ? <Text accessibilityRole="status" style={type.body}>You have already paid for this event. Starting it costs nothing more.</Text> : null}
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {loaded ? <View style={{ gap: space[2] }}>
-      <Text style={type.subhead}>{locked ? 'Your wedding’s name' : 'Name this wedding'}</Text>
-      <TextInput accessibilityLabel="Name this wedding" placeholder="For example: Sam and Alex, June 2027" placeholderTextColor={color.midnightMuted} value={name} onChangeText={value => { setName(value); setMessage(''); }} maxLength={140} editable={!saving} style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
-      <Text style={type.sub}>The name goes on your full plan and the printed packet. You can change it any time, before or after you buy.</Text>
+      <Text style={type.subhead}>{locked ? 'Your wedding’s name' : 'Name this wedding (optional)'}</Text>
+      <TextInput accessibilityLabel="Name this wedding (optional)" placeholder={defaultName || 'Our wedding'} placeholderTextColor={color.midnightMuted} value={name} onChangeText={value => { setName(value); setMessage(''); }} maxLength={140} editable={!saving} style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
+      <Text style={type.sub}>{locked ? 'The name goes on your full plan and the printed packet. Change it any time.' : `The name goes on your full plan and the printed packet. Leave it empty and it is called “${defaultName || 'Our wedding'}”. You can change it any time, before or after you buy.`}</Text>
       {name.trim() ? <Pressable accessibilityRole="button" disabled={saving} onPress={() => { void saveName(); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{locked ? 'Save the new name ›' : 'Save this name ›'}</Text></Pressable> : null}
     </View> : null}
     {message ? <Text accessibilityRole="status" style={type.sub}>{message}</Text> : null}
@@ -140,7 +144,7 @@ export default function FullPlan() {
     </Pressable>)}
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !canBuy }} disabled={!canBuy} onPress={() => { void transact(); }}
       style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: radius.md, opacity: canBuy ? 1 : 0.5 }}>
-      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? selected === 'dw_new_event' ? 'Start my new event ›' : buyLabel(names[selected!], products.find(p => p.id === selected)?.price) : !purchases.available ? (PREVIEW ? 'Buying is off in this preview' : 'The store is not answering') : !name.trim() ? 'Name this wedding first' : 'Choose one above'}</Text>
+      <Text style={[type.button, { color: color.onBlue }]}>{canBuy ? selected === 'dw_new_event' ? 'Start my new event ›' : buyLabel(names[selected!], products.find(p => p.id === selected)?.price) : !purchases.available ? (PREVIEW ? 'Buying is off in this preview' : 'The store is not answering') : 'Choose one above'}</Text>
     </Pressable>
     {purchases.available ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: saving || !loaded }} disabled={saving || !loaded} onPress={() => { void transact(true); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>I already bought this: restore it ›</Text></Pressable> : null}
     <View style={{ flexDirection: 'row', gap: space[4] }}>

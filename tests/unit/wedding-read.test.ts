@@ -340,7 +340,7 @@ describe('her colours (her words, 14 Nov 2026: "i may not have ideas but that do
       expect(read.colourIdeas).toEqual([]);
     }
     expect(net.calls.some(c => c.body.includes('Her own colours, which she chose herself: Sage, Navy'))).toBe(true);
-    expect(fixed.body.read.read).toContain('your colours: sage and navy');
+    expect(fixed.body.read.read).toContain('your colors: sage and navy');
     // The kept palette is her colours: keeping "My colours" decides exactly hers.
     const groups = pickable(fixed.body.read, false);
     expect(keptColours(fixed.body.read, [groups.colours[0].pick])).toEqual(HERS);
@@ -371,5 +371,39 @@ describe('her colours (her words, 14 Nov 2026: "i may not have ideas but that do
     expect(toggleColour(['Sage'], 'Navy')).toEqual(['Sage', 'Navy']);
     expect(toggleColour(['Sage', 'Navy'], 'Sage')).toEqual(['Navy']);
     expect(readCacheKey(cleanAnswers(DK))).not.toBe(readCacheKey(cleanAnswers({ ...DK, colours: HERS })));
+  });
+});
+
+// First-time test on the phone (14 Nov 2026): on the "I don't know yet" path with no guest
+// count, the answer said "Host 120 guests" and "for 120". A guest count is only ever hers.
+describe('a guest count is never invented', () => {
+  const noCount = cleanAnswers({ path: 'dk', season: 'Fall', setting: 'Outdoors', moods: ['Garden'], facts: { where: 'Napa' } });
+  const r = (over: Partial<WeddingRead> = {}) => ({ ...fixedRead(noCount), by: 'ai' as const, ...over });
+  it('with no count given, any number of guests, seats or meals is refused, and "for 120" in the headline too', () => {
+    expect(checkRead(r(), noCount)).toEqual([]);
+    for (const [field, text] of [['read', 'Host 120 guests under the trees.'], ['headline', 'Sage and gold garden dinner in Napa for 120'], ['details', 'Table lamps across 120 seats'], ['ask', 'Ask the caterer how 120 meals stay hot outdoors.'], ['honest', 'Sourcing 100 to 150 chairs takes time.']] as const) {
+      const bad = field === 'details' || field === 'ask' ? r({ [field]: [text] }) : r({ [field]: text });
+      expect(checkRead(bad, noCount).some(f => f.startsWith('headcount:')), text).toBe(true);
+    }
+    expect(checkRead(r({ read: 'Plan the long tables around your guest count.', details: ['Lamps on every table for 30 minutes of golden hour'] }), noCount)).toEqual([]);
+  });
+  it('her own number passes and any other number fails; the prompt tells the model which', () => {
+    const withCount = cleanAnswers({ ...DK });
+    expect(checkRead(read({ read: 'Host 100 guests under the trees.' }), withCount)).toEqual([]);
+    expect(checkRead(read({ read: 'Host 120 guests under the trees.' }), withCount).some(f => f.startsWith('headcount:'))).toBe(true);
+    const typed = cleanAnswers({ path: 'idea', wish: 'a garden dinner, 80 people' });
+    expect(checkRead({ ...fixedRead(typed), by: 'ai', read: 'A dinner for 80 people under lights.' }, typed).filter(f => f.startsWith('headcount:'))).toEqual([]);
+    expect(JSON.stringify(buildMessages(noCount, [], [], []))).toContain('has not given a guest count');
+    expect(JSON.stringify(buildMessages(withCount, [], [], []))).toContain('Her guest count is 100');
+  });
+  it('a model answer that invents a count is not shown: the next free model answers instead', async () => {
+    const { db } = fakeD1();
+    const body = { path: 'dk', season: 'Fall', setting: 'Outdoors', moods: ['Relaxed', 'Garden'], facts: { where: 'Memphis' } };
+    const invented = good({ headline: 'A relaxed garden wedding outdoors in Memphis, for 120', read: 'Host 120 guests at long tables in Memphis this fall. Lean on greenery so it feels grown.' });
+    const clean = good({ headline: 'A relaxed garden wedding outdoors in Memphis in the fall' });
+    const net = fakeNet({ gemini: m => geminiAnswer(m === GEM[0] ? invented : clean) });
+    const res = await weddingRead(base({ db, body, fetchImpl: net.fetchImpl }));
+    expect(res.body.reason).toBe('ai');
+    expect(JSON.stringify(res.body.read)).not.toMatch(/\b120\b/);
   });
 });

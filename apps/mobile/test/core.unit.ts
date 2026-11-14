@@ -15,7 +15,7 @@ test('a June 2027 wedding seen on 6 Nov 2026 gets the site’s dated windows', (
   const now = plan.windows.filter(w => w.timing === 'now');
   assert.equal(now.length, 1);
   assert.equal(now[0].id, '9-months');
-  assert.equal(plainDate(now[0].endsOn), 'Fri 11 Dec 2026');
+  assert.equal(plainDate(now[0].endsOn), 'Fri, Dec 11, 2026');
   assert.deepEqual(plan.windows.map(w => w.startsOn), ['2026-11-06', '2026-12-12', '2027-03-12', '2027-05-12', '2027-06-05']);
 });
 

@@ -8,7 +8,7 @@ test('next tasks fills three slots and replaces completed tasks', () => {
  for (const row of all) p.done[row.key] = '2026-11-06T15:00:00Z';
  assert.deepEqual(nextTaskRows(p), []);
 });
-test('completion date omits time and year', () => { assert.equal(completionDay('2026-11-06T15:00:00Z'), '6 Nov'); });
+test('completion date omits time and year', () => { assert.equal(completionDay('2026-11-06T15:00:00Z'), 'Nov 6'); });
 
 test('new personal tasks keep the selected window and reject unknown windows', () => {
  assert.equal(initialTaskWindow('9-months'), '9-months');

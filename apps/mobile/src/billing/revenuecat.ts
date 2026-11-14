@@ -1,7 +1,7 @@
 import Purchases, { type CustomerInfo, type PurchasesPackage } from 'react-native-purchases';
 import { type Entitlement, type ProductId } from './offers';
 import { storeProduct, type PurchasesProvider, type PurchaseSnapshot, type StoreProduct } from './provider';
-export const PURCHASE_CANCELLED = 'Purchase cancelled. You have not been charged.';
+export const PURCHASE_CANCELLED = 'Purchase canceled. You have not been charged.';
 const snapshot = (info: CustomerInfo, userId: string): PurchaseSnapshot => ({
   userId, active: (['full_plan', 'printables', 'day_of_kit'] as Entitlement[]).filter(id => !!info.entitlements.active[id]),
 });

@@ -45,7 +45,7 @@ export const COLOURS_PICK = 'colours:';
 export function colourPick(name: string, colours: Swatch[]): JourneyPick {
   const words = colours.map(c => c.name.toLowerCase());
   const list = words.length > 1 ? `${words.slice(0, -1).join(', ')} and ${words[words.length - 1]}` : words[0] ?? '';
-  return { key: `${COLOURS_PICK}${name}`, text: `Share your colours with the florist, stationer and baker: ${list}`, windowId: '12-plus' };
+  return { key: `${COLOURS_PICK}${name}`, text: `Share your colors with the florist, stationer and baker: ${list}`, windowId: '12-plus' };
 }
 /** The colour names of the palette she kept, or [] when she kept none (nothing decided for her). */
 export function keptColours(read: WeddingRead | null | undefined, picks: JourneyPick[]): string[] {
@@ -56,7 +56,7 @@ export function keptColours(read: WeddingRead | null | undefined, picks: Journey
 function colourOptions(read: WeddingRead) {
   const view = colourView(read);
   const options = view.mode === 'yours'
-    ? [{ label: 'My colours', colours: view.yours }, ...(view.goesWith.length ? [{ label: 'My colours, with the ones that go with them', colours: [...view.yours, ...view.goesWith] }] : [])]
+    ? [{ label: 'My colors', colours: view.yours }, ...(view.goesWith.length ? [{ label: 'My colors, with the ones that go with them', colours: [...view.yours, ...view.goesWith] }] : [])]
     : view.ideas.map(i => ({ label: i.name, colours: i.colours }));
   return options.map(o => ({ label: o.label, sub: o.colours.map(c => c.name).join(', '), colours: o.colours, pick: colourPick(o.label, o.colours) }));
 }

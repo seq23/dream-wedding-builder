@@ -76,6 +76,6 @@ describe('dated plan (the date the couple enters becomes real calendar dates)', 
   });
 
   it('plain dates name the weekday', () => {
-    expect(plainDate('2028-02-29')).toBe('Tue 29 Feb 2028');
+    expect(plainDate('2028-02-29')).toBe('Tue, Feb 29, 2028');
   });
 });

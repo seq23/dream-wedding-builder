@@ -100,7 +100,7 @@ test('finding 18: every name typed on the week sheet is kept together, an emptie
 
 test('finding 19: the plan headline is the date and roughly how far, never a day countdown', () => {
   const plan = buildDatedPlan('2027-09-18', '2026-11-14');
-  assert.equal(plan.headline, 'Your wedding: Sat 18 Sep 2027 · about 10 months away.');
+  assert.equal(plan.headline, 'Your wedding: Sat, Sep 18, 2027 · about 10 months away.');
   assert.doesNotMatch(plan.headline, /days to go/);
 });
 

@@ -49,7 +49,9 @@ export function headerFor(route: string) {
   return {
     title: s.title,
     headerBackVisible: false,
-    headerLeft: () => (s.kind === 'sheet' ? <CloseButton route={route} /> : <BackButton route={route} />),
+    // A tab root gets no headerLeft at all: on iOS 26 even an empty one draws a blank glass
+    // button that does nothing (first-time test on the simulator, 14 Nov 2026).
+    ...(s.kind === 'sheet' ? { headerLeft: () => <CloseButton route={route} /> } : s.back ? { headerLeft: () => <BackButton route={route} /> } : {}),
   };
 }
 

@@ -170,7 +170,7 @@ test('outcome: the printed plan carries the disclaimers and no unfilled blanks',
   await seedPlan(page, MEMPHIS);
   await page.goto('/pack');
   await expect(page.getByRole('heading', { level: 1, name: 'Your wedding plan' })).toBeVisible();
-  await expect(page.getByTestId('pack-letter')).toContainText('in Memphis on Fri 15 Oct 2027 for about 120 guests');
+  await expect(page.getByTestId('pack-letter')).toContainText('in Memphis on Fri, Oct 15, 2027 for about 120 guests');
   await expect(page.getByTestId('pack-page')).not.toContainText(/\[|User-selected|Recommendation Studio|Bucket|Constraint/);
   await expect(page.getByTestId('pack-disclaimer')).toContainText('Estimated costs are planning estimates only');
   await expect(page.getByTestId('pack-disclaimer')).toContainText('not a substitute for a professional wedding planner');

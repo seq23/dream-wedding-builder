@@ -137,11 +137,11 @@ test('her colours are sent with her answers and always shown unchanged, with at 
   assert.ok(reply.ok);
   assert.deepEqual(colourView(reply.read), { mode: 'yours', yours: hers.yourColours, goesWith: hers.goesWith });
   const groups = pickable(hers, false);
-  assert.equal(groups.colours[0].label, 'My colours');
+  assert.equal(groups.colours[0].label, 'My colors');
   assert.deepEqual(keptColours(hers, [groups.colours[0].pick]), ['Sage', 'Navy']);
   // A kept palette becomes one task in her plan, so the plan and the packet carry it.
   const p = applyPicks(emptyProgress(), [groups.colours[0].pick], false, NOW);
-  assert.deepEqual(p.custom.map(t => t.text), ['Share your colours with the florist, stationer and baker: sage and navy']);
+  assert.deepEqual(p.custom.map(t => t.text), ['Share your colors with the florist, stationer and baker: sage and navy']);
 });
 
 test('no colours chosen: ideas to try, never called hers, and nothing decided unless she keeps one', async () => {
