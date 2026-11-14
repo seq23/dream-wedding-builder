@@ -1,0 +1,8 @@
+{
+  "_note": "Real GET /v1/subscribers/{id} reply, 14 Nov 2026, with a RevenueCat v2 secret key",
+  "status": 403,
+  "body": {
+    "code": 7723,
+    "message": "You're trying to use a secret API key incompatible with RevenueCat API V1."
+  }
+}

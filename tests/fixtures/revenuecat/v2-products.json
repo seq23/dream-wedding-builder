@@ -1,0 +1,221 @@
+{
+  "_note": "Real GET /v2/projects/{project}/products?limit=1000 reply, 14 Nov 2026",
+  "status": 200,
+  "body": {
+    "items": [
+      {
+        "app_id": "app630a018765",
+        "created_at": 1794622339545,
+        "display_name": "Planner + Printables $34.99",
+        "id": "prod283a3f2b9b",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_planner_printables",
+        "subscription": null,
+        "type": "non_consumable"
+      },
+      {
+        "app_id": "app630a018765",
+        "created_at": 1794622340276,
+        "display_name": "New event $14.99",
+        "id": "prod2b9d5b3cb2",
+        "object": "product",
+        "one_time": {
+          "is_consumable": true
+        },
+        "state": "active",
+        "store_identifier": "dw_new_event",
+        "subscription": null,
+        "type": "consumable"
+      },
+      {
+        "app_id": "app9eee4605df",
+        "created_at": 1794622340053,
+        "display_name": "Printables top-up $19.99",
+        "id": "prod3a9a94c5b2",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_printables_topup",
+        "subscription": null,
+        "type": "non_consumable"
+      },
+      {
+        "app_id": "appf822013214",
+        "created_at": 1794622340820,
+        "display_name": "Day-of kit $9.99",
+        "id": "prod401d47e536",
+        "object": "product",
+        "one_time": {
+          "is_consumable": true
+        },
+        "state": "active",
+        "store_identifier": "dw_day_of_kit",
+        "subscription": null,
+        "type": "one_time"
+      },
+      {
+        "app_id": "app9eee4605df",
+        "created_at": 1794622339322,
+        "display_name": "Full plan $14.99",
+        "id": "prod4f75008d33",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_full_plan",
+        "subscription": null,
+        "type": "non_consumable"
+      },
+      {
+        "app_id": "app9eee4605df",
+        "created_at": 1794622339653,
+        "display_name": "Planner + Printables $34.99",
+        "id": "prod5268a7b362",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_planner_printables",
+        "subscription": null,
+        "type": "non_consumable"
+      },
+      {
+        "app_id": "app9eee4605df",
+        "created_at": 1794622340372,
+        "display_name": "New event $14.99",
+        "id": "prod6ad308c9ac",
+        "object": "product",
+        "one_time": {
+          "is_consumable": true
+        },
+        "state": "active",
+        "store_identifier": "dw_new_event",
+        "subscription": null,
+        "type": "consumable"
+      },
+      {
+        "app_id": "app630a018765",
+        "created_at": 1794622339198,
+        "display_name": "Full plan $14.99",
+        "id": "prod70311162f8",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_full_plan",
+        "subscription": null,
+        "type": "non_consumable"
+      },
+      {
+        "app_id": "appf822013214",
+        "created_at": 1794622339846,
+        "display_name": "Planner + Printables $34.99",
+        "id": "prod868b8c6bcc",
+        "object": "product",
+        "one_time": {
+          "is_consumable": true
+        },
+        "state": "active",
+        "store_identifier": "dw_planner_printables",
+        "subscription": null,
+        "type": "one_time"
+      },
+      {
+        "app_id": "appf822013214",
+        "created_at": 1794622340176,
+        "display_name": "Printables top-up $19.99",
+        "id": "prod9fb8b9dd3e",
+        "object": "product",
+        "one_time": {
+          "is_consumable": true
+        },
+        "state": "active",
+        "store_identifier": "dw_printables_topup",
+        "subscription": null,
+        "type": "one_time"
+      },
+      {
+        "app_id": "appf822013214",
+        "created_at": 1794622339441,
+        "display_name": "Full plan $14.99",
+        "id": "proda7e930e4be",
+        "object": "product",
+        "one_time": {
+          "is_consumable": true
+        },
+        "state": "active",
+        "store_identifier": "dw_full_plan",
+        "subscription": null,
+        "type": "one_time"
+      },
+      {
+        "app_id": "app630a018765",
+        "created_at": 1794622339952,
+        "display_name": "Printables top-up $19.99",
+        "id": "prodab513e0c0c",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_printables_topup",
+        "subscription": null,
+        "type": "non_consumable"
+      },
+      {
+        "app_id": "appf822013214",
+        "created_at": 1794622340471,
+        "display_name": "New event $14.99",
+        "id": "prodcfbbe430c6",
+        "object": "product",
+        "one_time": {
+          "is_consumable": true
+        },
+        "state": "active",
+        "store_identifier": "dw_new_event",
+        "subscription": null,
+        "type": "one_time"
+      },
+      {
+        "app_id": "app9eee4605df",
+        "created_at": 1794622340693,
+        "display_name": "Day-of kit $9.99",
+        "id": "prodd5a6b6154b",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_day_of_kit",
+        "subscription": null,
+        "type": "non_consumable"
+      },
+      {
+        "app_id": "app630a018765",
+        "created_at": 1794622340585,
+        "display_name": "Day-of kit $9.99",
+        "id": "prodedda0a7f1a",
+        "object": "product",
+        "one_time": {
+          "is_consumable": false
+        },
+        "state": "active",
+        "store_identifier": "dw_day_of_kit",
+        "subscription": null,
+        "type": "non_consumable"
+      }
+    ],
+    "next_page": null,
+    "object": "list",
+    "url": "https://api.revenuecat.com/v2/projects/proj7d196352/products"
+  }
+}
