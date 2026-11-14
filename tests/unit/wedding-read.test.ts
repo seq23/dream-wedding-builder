@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
 import { buildMessages, checkRead, cleanAnswers, fixedRead, readCacheKey, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
 import { sha256, visitorIp } from '@/lib/ai-draft';
+import { colourView, herSwatches, toggleColour } from '@/lib/wedding-read-shared';
+import { keptColours, pickable, togglePick } from '@/lib/journey-picks';
 import { recordReach } from '@/lib/journey-reach';
 import { MODEL_CALLS_PER_DAY_GLOBAL } from '@/lib/ai-draft';
 import { fakeD1, fakeNet, geminiAnswer, geminiQuota, orAnswer, orDown } from '@/tests/support/ai-draft-fakes';
@@ -317,5 +319,57 @@ describe('$0: no paid route is reachable from the journey', () => {
     const src = readFileSync('lib/wedding-read.ts', 'utf8') + readFileSync('app/api/wedding-read/route.ts', 'utf8') + readFileSync('components/WeddingJourney.tsx', 'utf8');
     expect(src).not.toMatch(/https?:\/\/(?!localhost)[a-z0-9.-]+\.(?:com|ai|io|xyz)/i);
     expect(src.match(/from '@\/scripts\/llm\/[^']+'/g)).toEqual(["from '@/scripts/llm/free_router.mjs'"]);
+  });
+});
+
+describe('her colours (her words, 14 Nov 2026: "i may not have ideas but that doesnt mean i dont have colors")', () => {
+  const HERS = ['Sage', 'Navy'];
+  it('her colours are always shown unchanged: the AI read and the fixed-list read both carry exactly hers, and the model is told to build on them', async () => {
+    const { db } = fakeD1();
+    // The model answers with other colours; hers still come back exactly, in her order.
+    const net = fakeNet({ gemini: () => geminiAnswer(good()) });
+    const ai = await weddingRead(base({ db, fetchImpl: net.fetchImpl, body: { ...DK, colours: [...HERS, 'Neon', 'Sage'] } }));
+    expect(ai.body.read.by).toBe('ai');
+    const fixed = await weddingRead(base({ db, enabled: false, body: { ...ITALIAN, colours: HERS } }));
+    for (const read of [ai.body.read, fixed.body.read]) {
+      const view = colourView(read);
+      expect(view).toMatchObject({ mode: 'yours', yours: herSwatches(HERS) });
+      if (view.mode !== 'yours') throw new Error('not hers');
+      expect(view.goesWith.length).toBeLessThanOrEqual(2);
+      expect(view.goesWith.some(g => HERS.includes(g.name))).toBe(false);
+      expect(read.colourIdeas).toEqual([]);
+    }
+    expect(net.calls.some(c => c.body.includes('Her own colours, which she chose herself: Sage, Navy'))).toBe(true);
+    expect(fixed.body.read.read).toContain('your colours: sage and navy');
+    // The kept palette is her colours: keeping "My colours" decides exactly hers.
+    const groups = pickable(fixed.body.read, false);
+    expect(keptColours(fixed.body.read, [groups.colours[0].pick])).toEqual(HERS);
+  });
+
+  it('no colours chosen: three ideas to try, none called hers, and nothing decided unless she keeps one', async () => {
+    const { db } = fakeD1();
+    const r = await weddingRead(base({ db, enabled: false, body: DK }));
+    const view = colourView(r.body.read);
+    expect(view.mode).toBe('ideas');
+    if (view.mode !== 'ideas') throw new Error('not ideas');
+    expect(view.ideas).toHaveLength(3);
+    expect(new Set(view.ideas.map(i => i.name)).size).toBe(3);
+    expect(r.body.read.yourColours).toEqual([]);
+    const groups = pickable(r.body.read, false);
+    expect(groups.colours).toHaveLength(3);
+    // Nothing kept = nothing decided; keeping one then another keeps only the last.
+    expect(keptColours(r.body.read, [])).toEqual([]);
+    const kept = togglePick(togglePick([], groups.colours[0].pick), groups.colours[1].pick);
+    expect(kept.map(p => p.key)).toEqual([groups.colours[1].pick.key]);
+    expect(keptColours(r.body.read, kept)).toEqual(view.ideas[1].colours.map(c => c.name));
+    expect(togglePick(kept, groups.colours[1].pick)).toEqual([]);
+  });
+
+  it('only real colour names from the list are accepted, "Not sure yet" clears them, and her colours change the cached answer', () => {
+    expect(cleanAnswers({ colours: ['Sage', '<b>', 'Sage', 'Gold'] }).colours).toEqual(['Sage', 'Gold']);
+    expect(toggleColour(['Sage'], 'Not sure yet')).toEqual([]);
+    expect(toggleColour(['Sage'], 'Navy')).toEqual(['Sage', 'Navy']);
+    expect(toggleColour(['Sage', 'Navy'], 'Sage')).toEqual(['Navy']);
+    expect(readCacheKey(cleanAnswers(DK))).not.toBe(readCacheKey(cleanAnswers({ ...DK, colours: HERS })));
   });
 });

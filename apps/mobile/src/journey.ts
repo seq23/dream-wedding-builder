@@ -5,25 +5,25 @@
 // is usually done. No model, key or email is on the phone.
 import { addCustomTask, taskKey, type PlanProgress } from '@core/plan-progress';
 import { PLAN_WINDOWS } from '@core/dated-plan';
-import { pickable, type JourneyPick } from '@core/journey-picks';
+import { keptColours, pickable, togglePick, type JourneyPick } from '@core/journey-picks';
 import type { WeddingRead } from '@core/wedding-read-shared';
 import { ownTaskKey } from './planTasks';
 import { TRADITION_PREVIEWS, addTraditionExample, hasTraditionPack } from './traditionPacks';
 import type { DateStorage } from './weddingDate';
 
-export { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS } from '@core/wedding-read-shared';
-export { pickable };
+export { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS, WEDDING_COLOURS, COLOURS_NOT_SURE, colourView, toggleColour } from '@core/wedding-read-shared';
+export { keptColours, pickable, togglePick };
 export type { JourneyPick, WeddingRead };
 
 const ORIGIN = 'https://weddingchecklistpdf.com';
 export const JOURNEY_STORE_KEY = 'dw.journey.v1';
 /** Her own tasks made from a pick carry this id prefix, so the plan can mark them "Your pick". */
 export const PICK_PREFIX = 'pick-';
-export const EMPTY_ANSWERS: JourneyAnswers = { path: 'dk', wish: '', season: '', setting: '', moods: [], where: '', guests: '', budget: '', tradition: '', venueBooked: false, dateSet: false };
+export const EMPTY_ANSWERS: JourneyAnswers = { path: 'dk', wish: '', colours: [], season: '', setting: '', moods: [], where: '', guests: '', budget: '', tradition: '', venueBooked: false, dateSet: false };
 export const isPick = (id: string | undefined) => !!id && id.startsWith(PICK_PREFIX);
 
 export interface JourneyAnswers {
-  path: 'idea' | 'dk'; wish: string; season: string; setting: string; moods: string[];
+  path: 'idea' | 'dk'; wish: string; /** Colours she already loves (WEDDING_COLOURS names); empty = not sure yet. */ colours: string[]; season: string; setting: string; moods: string[];
   where: string; guests: string; budget: string; tradition: string; venueBooked: boolean; dateSet: boolean;
 }
 /** A photo as it is sent: what she loves in it and the colours read on the phone. The
@@ -63,7 +63,7 @@ export function weddingReadClient(preview: boolean, send: Transport = fetch) {
         const res = await send(ORIGIN + '/api/wedding-read', {
           method: 'POST', signal: controller.signal,
           headers: { 'Content-Type': 'application/json', ...(preview ? { 'x-dw-test': '1' } : {}) },
-          body: JSON.stringify({ path: a.path, wish: a.path === 'idea' ? a.wish : '', season: a.season, setting: a.setting, moods: a.moods, photos: photos.slice(0, 3).map(p => ({ loves: p.loves, colours: p.colours })),
+          body: JSON.stringify({ path: a.path, wish: a.path === 'idea' ? a.wish : '', colours: a.colours, season: a.season, setting: a.setting, moods: a.moods, photos: photos.slice(0, 3).map(p => ({ loves: p.loves, colours: p.colours })),
             facts: { where: a.where, guests: a.guests, budget: a.budget, tradition: a.tradition, venueBooked: a.venueBooked, dateSet: a.dateSet } }),
         });
         const body = await res.json() as Record<string, unknown>;
@@ -108,7 +108,7 @@ export function journeyStore(storage: DateStorage) {
       try {
         const v = JSON.parse(await storage.getItem(JOURNEY_STORE_KEY) ?? 'null') as SavedJourney | null;
         if (!v || typeof v !== 'object' || !v.answers || typeof v.answers !== 'object') return null;
-        return { answers: { ...EMPTY_ANSWERS, ...v.answers }, read: isRead(v.read) ? v.read : null, reason: v.reason ?? 'no_model', picks: Array.isArray(v.picks) ? v.picks : [] };
+        return { answers: { ...EMPTY_ANSWERS, ...v.answers, colours: Array.isArray(v.answers.colours) ? v.answers.colours : [] }, read: isRead(v.read) ? v.read : null, reason: v.reason ?? 'no_model', picks: Array.isArray(v.picks) ? v.picks : [] };
       } catch { return null; }
     },
     save: (j: SavedJourney) => storage.setItem(JOURNEY_STORE_KEY, JSON.stringify(j)),

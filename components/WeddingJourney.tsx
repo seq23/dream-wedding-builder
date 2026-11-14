@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { BUDGETS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, type WeddingRead } from '@/lib/wedding-read-shared';
-import { JOURNEY_EVENT, JOURNEY_KEY, pickable, type JourneyPick } from '@/lib/journey-picks';
+import { BUDGETS, COLOURS_NOT_SURE, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, WEDDING_COLOURS, colourView, toggleColour, type WeddingRead } from '@/lib/wedding-read-shared';
+import { JOURNEY_EVENT, JOURNEY_KEY, keptColours, pickable, togglePick as toggleIn, type JourneyPick } from '@/lib/journey-picks';
 import { undatedPlan } from '@/lib/dated-plan';
 
 // The free journey's steps 1 and 2 (approved sample, 13 Nov 2026): what should your
@@ -20,7 +20,7 @@ interface Facts { where: string; guests: string; budget: string; tradition: stri
 interface Answer { read: WeddingRead; remaining: number | null; limit: number; reason: string }
 export interface JourneyFacts { where: string; guests: string; budget: string }
 
-function readSaved(): { path: Path; wish: string; season: string; setting: string; moods: string[]; facts: Facts; answer: Answer | null; picks?: JourneyPick[] } | null {
+function readSaved(): { path: Path; wish: string; colours?: string[]; season: string; setting: string; moods: string[]; facts: Facts; answer: Answer | null; picks?: JourneyPick[] } | null {
   try { const raw = localStorage.getItem(JOURNEY_KEY); return raw ? JSON.parse(raw) : null; } catch { return null; }
 }
 
@@ -54,6 +54,19 @@ function Chip({ on, onClick, children, testId }: { on: boolean; onClick: () => v
   return <button type="button" data-testid={testId} aria-pressed={on} onClick={onClick} className={`min-h-11 rounded-full border bg-white px-4 py-2 text-sm font-medium ${on ? 'border-blue shadow-[inset_0_0_0_1px_#2747D9]' : 'border-rule'}`}>{children}</button>;
 }
 
+/** Step 1's "Your colours": real wedding colours as swatches, any number, or "Not sure yet". */
+function ColourChips({ chosen, onChange }: { chosen: string[]; onChange: (next: string[]) => void }) {
+  return <div className="grid gap-2" data-testid="journey-colours">
+    <p className={MONO}>Your colours (pick any you already love)</p>
+    <div className="flex flex-wrap gap-2">
+      {WEDDING_COLOURS.map(c => <Chip key={c.name} testId={`colour-${c.name}`} on={chosen.includes(c.name)} onClick={() => onChange(toggleColour(chosen, c.name))}>
+        <span className="inline-flex items-center gap-2"><i aria-hidden className="inline-block h-[18px] w-[18px] rounded-full border border-rule" style={{ background: c.hex }} />{c.name}</span>
+      </Chip>)}
+      <Chip testId="colour-not-sure" on={!chosen.length} onClick={() => onChange(toggleColour(chosen, COLOURS_NOT_SURE))}>{COLOURS_NOT_SURE}</Chip>
+    </div>
+  </div>;
+}
+
 function Swatches({ colours }: { colours: { name?: string; hex: string }[] }) {
   return <div className="flex flex-wrap gap-x-3 gap-y-2">{colours.map((c, i) => <span key={`${c.hex}-${i}`} className="inline-flex items-center gap-1.5 text-sm"><i aria-hidden className="inline-block h-[22px] w-[22px] rounded-full border border-rule" style={{ background: c.hex }} />{c.name}</span>)}</div>;
 }
@@ -68,19 +81,20 @@ function countReach(via: 'date' | 'no_date') {
   void fetch('/api/journey-reach', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ via }), keepalive: true }).catch(() => undefined);
 }
 
-function PickButton({ on, label, sub, onClick }: { on: boolean; label: string; sub: string; onClick: () => void }) {
+function PickButton({ on, label, sub, onClick, swatches }: { on: boolean; label: string; sub: string; onClick: () => void; swatches?: { name: string; hex: string }[] }) {
   return <button type="button" data-testid="journey-pick" aria-pressed={on} onClick={onClick} className={`flex w-full flex-col gap-1 rounded-xl border bg-white p-3 text-left ${on ? 'border-blue shadow-[inset_0_0_0_1px_#2747D9]' : 'border-rule'}`}>
-    {label ? <b className="font-semibold">{label}</b> : null}<span className="text-[.94rem]">{sub}</span>
+    {label ? <b className="font-semibold">{label}</b> : null}{swatches ? <Swatches colours={swatches} /> : <span className="text-[.94rem]">{sub}</span>}
     {on ? <span className="font-mono text-[.72rem] uppercase tracking-[.06em] text-done">✓ Kept</span> : null}
   </button>;
 }
 
-export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { onFacts?: (facts: JourneyFacts) => void; weddingDate?: string; onDate?: (date: string) => void; onPlan?: () => void }) {
+export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, onPlan }: { onFacts?: (facts: JourneyFacts) => void; onColours?: (names: string[]) => void; weddingDate?: string; onDate?: (date: string) => void; onPlan?: () => void }) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [picks, setPicks] = useState<JourneyPick[]>([]);
   const [noDate, setNoDate] = useState(false);
   const [path, setPath] = useState<Path>(null);
   const [wish, setWish] = useState('');
+  const [colours, setColours] = useState<string[]>([]);
   const [season, setSeason] = useState('');
   const [setting, setSetting] = useState('');
   const [moods, setMoods] = useState<string[]>([]);
@@ -95,7 +109,7 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
   useEffect(() => {
     const saved = readSaved();
     if (saved) {
-      setPath(saved.path ?? null); setWish(saved.wish ?? ''); setSeason(saved.season ?? ''); setSetting(saved.setting ?? ''); setMoods(Array.isArray(saved.moods) ? saved.moods : []);
+      setPath(saved.path ?? null); setWish(saved.wish ?? ''); setColours(Array.isArray(saved.colours) ? saved.colours.filter(c => WEDDING_COLOURS.some(w => w.name === c)) : []); setSeason(saved.season ?? ''); setSetting(saved.setting ?? ''); setMoods(Array.isArray(saved.moods) ? saved.moods : []);
       if (saved.facts) setFacts(f => ({ ...f, ...saved.facts }));
       if (Array.isArray(saved.picks)) setPicks(saved.picks);
       if (saved.answer?.read) { setAnswer(saved.answer); setStep(2); }
@@ -107,9 +121,9 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
   }, []);
   useEffect(() => {
     if (!loaded.current) return;
-    try { localStorage.setItem(JOURNEY_KEY, JSON.stringify({ path, wish, season, setting, moods, facts, answer, picks })); } catch { /* a private window: the journey still works, it just is not kept */ }
+    try { localStorage.setItem(JOURNEY_KEY, JSON.stringify({ path, wish, colours, season, setting, moods, facts, answer, picks })); } catch { /* a private window: the journey still works, it just is not kept */ }
     window.dispatchEvent(new Event(JOURNEY_EVENT));
-  }, [path, wish, season, setting, moods, facts, answer, picks]);
+  }, [path, wish, colours, season, setting, moods, facts, answer, picks]);
 
   const addPhoto = async (file: File | undefined) => {
     if (!file || photos.length >= 3 || !file.type.startsWith('image/')) return;
@@ -128,7 +142,7 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
     onFacts?.({ where: facts.where.trim(), guests: facts.guests.trim(), budget: facts.budget });
     try {
       const sentPhotos = photos.map(p => ({ loves: p.loves, colours: p.colours }));
-      const res = await fetch('/api/wedding-read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ path, wish, season, setting, moods, photos: sentPhotos, facts }) });
+      const res = await fetch('/api/wedding-read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ path, wish, colours, season, setting, moods, photos: sentPhotos, facts }) });
       const body = await res.json().catch(() => null);
       if (!res.ok || !body?.ok) { setProblem(body?.error ?? 'That did not go through. Please try again.'); return; }
       setAnswer({ read: body.read, remaining: body.remaining, limit: body.limit, reason: body.reason });
@@ -143,11 +157,14 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
   const read = answer?.read;
   const toPlan = () => { onPlan?.(); window.setTimeout(() => document.getElementById('your-date')?.scrollIntoView({ block: 'start' }), 60); };
   const goTo = (n: 1 | 2 | 3 | 4) => { setStep(n); requestAnimationFrame(() => top.current?.scrollIntoView({ block: 'start' })); };
-  const togglePick = (p: JourneyPick) => setPicks(list => list.some(x => x.key === p.key) ? list.filter(x => x.key !== p.key) : [...list, p]);
+  const togglePick = (p: JourneyPick) => setPicks(list => toggleIn(list, p));
+  // A kept palette becomes the plan's colours; nothing kept leaves the plan as it is.
+  const keepColours = () => { const names = keptColours(read, picks); if (names.length) onColours?.(names); };
   const chooseDate = (date: string) => { onDate?.(date); setNoDate(false); if (date) onPlan?.(); if (date && answer) countReach('date'); };
   const chooseNoDate = () => { setNoDate(true); onPlan?.(); if (answer) countReach('no_date'); };
   const groups = read ? pickable(read, facts.venueBooked) : null;
   const photoSwatches = photos.flatMap(p => p.colours).slice(0, 8).map(hex => ({ hex }));
+  const colourShown = read ? colourView(read) : null;
 
   return <section id="ai-draft" ref={top} data-testid="journey" data-step={step} className="scroll-mt-24 grid gap-5">
     <div aria-hidden className="grid gap-1.5">
@@ -174,6 +191,8 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
         <div className="grid gap-2"><p className={MONO}>Where</p><div className="flex flex-wrap gap-2">{SETTINGS.map(s => <Chip key={s} testId={`setting-${s}`} on={setting === s} onClick={() => setSetting(setting === s ? '' : s)}>{s}</Chip>)}</div></div>
         <div className="grid gap-2"><p className={MONO}>How it should feel (pick any)</p><div className="flex flex-wrap gap-2">{MOODS.map(m => <Chip key={m} testId={`mood-${m}`} on={moods.includes(m)} onClick={() => setMoods(list => list.includes(m) ? list.filter(x => x !== m) : [...list, m])}>{m}</Chip>)}</div></div>
       </div>}
+
+      {path && <ColourChips chosen={colours} onChange={setColours} />}
 
       {path && <div className="grid gap-2" data-testid="journey-photos">
         <p className={MONO}>Photos you love (optional, up to 3)</p>
@@ -216,7 +235,14 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
       <h1 data-testid="read-headline" className="font-serif text-[2.05rem] leading-[1.12] md:text-5xl">{read.headline}</h1>
       <p data-testid="read-text">{read.read}</p>
       {read.photoNotes.length > 0 && <div className="grid gap-1">{read.photoNotes.map((n, i) => <p key={i} className="text-sm"><b>From your photo:</b> {n}</p>)}</div>}
-      <div className="grid gap-2"><p className={MONO}>Your colours</p><Swatches colours={read.colours} />
+      <div className="grid gap-2" data-testid="read-colours" data-mode={colourShown?.mode}>
+        {colourShown?.mode === 'yours' ? <>
+          <p className={MONO}>Your colours</p><Swatches colours={colourShown.yours} />
+          {colourShown.goesWith.length > 0 && <><p className={`${MONO} mt-2`}>Goes with yours</p><Swatches colours={colourShown.goesWith} /></>}
+        </> : colourShown?.mode === 'ideas' && colourShown.ideas.length > 0 ? <>
+          <p className={MONO}>Colour ideas to try</p>
+          {colourShown.ideas.map(i => <div key={i.name} className="grid gap-1.5"><span className="text-sm font-semibold">{i.name}</span><Swatches colours={i.colours} /></div>)}
+        </> : null}
         {photoSwatches.length > 0 && <><p className={`${MONO} mt-2`}>From your photos, read on this phone</p><Swatches colours={photoSwatches} /></>}</div>
       <h2 className="font-serif text-2xl">Two directions</h2>
       <div className="grid gap-2">{read.directions.map(d => <div key={d.name} className="rounded-xl border border-rule bg-white p-3"><b>{d.name}</b><br />{d.what}</div>)}</div>
@@ -238,12 +264,17 @@ export function WeddingJourney({ onFacts, weddingDate = '', onDate, onPlan }: { 
     {step === 3 && read && groups && <div className="grid gap-5" data-testid="journey-step-3">
       <p className={MONO}>Keep what you love</p>
       <h1 className="font-serif text-[2.05rem] leading-[1.12] md:text-5xl">Tap what belongs in your wedding.</h1>
+      {groups.colours.length > 0 && <div className="grid gap-2" data-testid="keep-colours">
+        <h2 className="font-serif text-2xl">The colours</h2>
+        <p className="text-sm text-midnight-muted">Keep one, or none: nothing is decided for you.</p>
+        {groups.colours.map(item => <PickButton key={item.pick.key} on={picks.some(p => p.key === item.pick.key)} label={item.label} sub={item.sub} swatches={item.colours} onClick={() => togglePick(item.pick)} />)}
+      </div>}
       {([['The direction', groups.directions], ['The kind of place', groups.venues], ['The ideas', groups.ideas], ['The details', groups.details]] as const).map(([title, items]) => items.length > 0 && <div key={title} className="grid gap-2">
         <h2 className="font-serif text-2xl">{title}</h2>
         {items.map(item => <PickButton key={item.pick.key} on={picks.some(p => p.key === item.pick.key)} label={item.label} sub={item.sub} onClick={() => togglePick(item.pick)} />)}
       </div>)}
       <p className="text-sm text-midnight-muted">Each one you keep becomes a dated task in your plan, marked “Your pick”.{facts.venueBooked ? ' Your venue is booked, so the venue task comes off your plan.' : ''}</p>
-      <button type="button" data-testid="journey-continue-3" onClick={() => goTo(4)} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">Continue · step 3 of 4 ›</button>
+      <button type="button" data-testid="journey-continue-3" onClick={() => { keepColours(); goTo(4); }} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">Continue · step 3 of 4 ›</button>
       <button type="button" onClick={() => goTo(2)} className="min-h-11 justify-self-start font-medium underline underline-offset-4">‹ Back to my wedding</button>
     </div>}
 
