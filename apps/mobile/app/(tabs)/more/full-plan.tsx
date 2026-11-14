@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
-import { Linking, Platform, Pressable, Text, TextInput, View } from 'react-native';
+import { Linking, Platform, Pressable, Text, View } from 'react-native';
+import { TypingBox } from '../../../src/TypingBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { getRandomBytes } from 'expo-crypto';
@@ -132,7 +133,7 @@ export default function FullPlan() {
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     {loaded ? <View style={{ gap: space[2] }}>
       <Text style={type.subhead}>{locked ? 'Your wedding’s name' : 'Name this wedding (optional)'}</Text>
-      <TextInput accessibilityLabel="Name this wedding (optional)" placeholder={defaultName || 'Our wedding'} placeholderTextColor={color.midnightMuted} value={name} onChangeText={value => { setName(value); setMessage(''); }} maxLength={140} editable={!saving} style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
+      <TypingBox accessibilityLabel="Name this wedding (optional)" placeholder={defaultName || 'Our wedding'} placeholderTextColor={color.midnightMuted} value={name} onChangeText={value => { setName(value); setMessage(''); }} maxLength={140} editable={!saving} style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
       <Text style={type.sub}>{locked ? 'The name goes on your full plan and the printed packet. Change it any time.' : `The name goes on your full plan and the printed packet. Leave it empty and it is called “${defaultName || 'Our wedding'}”. You can change it any time, before or after you buy.`}</Text>
       {name.trim() ? <Pressable accessibilityRole="button" disabled={saving} onPress={() => { void saveName(); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{locked ? 'Save the new name ›' : 'Save this name ›'}</Text></Pressable> : null}
     </View> : null}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Pressable, Text, TextInput } from 'react-native';
+import { Pressable, Text } from 'react-native';
+import { TypingBox } from '../../../src/TypingBox';
 import { router, useLocalSearchParams } from 'expo-router';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { addOwnTask, editOwnTask, removeCustomTask, initialTaskWindow } from '../../../src/planTasks';
@@ -34,7 +35,7 @@ export default function AddTask() {
     <Text style={type.section}>{id ? 'Edit your task' : 'Add your own task'}</Text>
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
     <Text nativeID="task-label" style={type.label}>Task · {text.length}/140</Text>
-    <TextInput accessibilityLabel="Task" accessibilityLabelledBy="task-label" value={text} onChangeText={t => setText(t.slice(0, 140))} maxLength={140} editable={ready && !busy} multiline style={{ minHeight: 96, borderWidth: 1, borderColor: color.rule, padding: space[3], color: color.midnight }} />
+    <TypingBox accessibilityLabel="Task" accessibilityLabelledBy="task-label" value={text} clean={t => t.slice(0, 140)} onChangeText={setText} maxLength={140} editable={ready && !busy} multiline style={{ minHeight: 96, borderWidth: 1, borderColor: color.rule, padding: space[3], color: color.midnight }} />
     <Text style={type.label}>When</Text>
     {PLAN_WINDOWS.map(w => <Pressable key={w.id} accessibilityRole="radio" accessibilityState={{ checked: w.id === windowId }} disabled={!ready || busy} onPress={() => setWindow(w.id)} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={type.body}>{windowId === w.id ? '●' : '○'} {w.label}</Text></Pressable>)}
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !ready || busy || !text.trim() }} disabled={!ready || busy || !text.trim()} onPress={() => save()} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={{ color: color.blue }}>{busy ? 'Saving…' : 'Save task'}</Text></Pressable>

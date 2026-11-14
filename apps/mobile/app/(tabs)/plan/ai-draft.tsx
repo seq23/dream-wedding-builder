@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Linking, Pressable, Text, TextInput } from 'react-native';
+import { Linking, Pressable, Text } from 'react-native';
+import { TypingBox } from '../../../src/TypingBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { aiDraftClient } from '../../../src/aiDraft';
 import { detailLabels, detailStore, initialDetails, journeyDetails, reviewFields, type Details } from '../../../src/draftReview';
@@ -55,11 +56,11 @@ export default function AiDraft() {
       <Text style={type.label}>Wedding date (optional)</Text>
       <WeddingDatePicker value={fields.weddingDate ?? ''} onChange={weddingDate => setFields(old => ({ ...old, weddingDate }))} />
       {fields.weddingDate ? button('I don’t have a date yet: clear it ›', () => setFields(old => ({ ...old, weddingDate: '' }))) : null}
-      {(['guestCount', 'locations', 'budgetTarget', 'priorities'] as const).map(key => <TextInput key={key} accessibilityLabel={`${detailLabels[key]} (optional)`} placeholder={`${detailLabels[key]} (optional)`} value={fields[key] ?? ''} editable={ready && !busy} maxLength={200} onChangeText={value => setFields(old => ({ ...old, [key]: value }))} style={{ minHeight: 48, borderWidth: 1, borderColor: color.rule, padding: space[3], color: color.midnight }} />)}
+      {(['guestCount', 'locations', 'budgetTarget', 'priorities'] as const).map(key => <TypingBox key={key} accessibilityLabel={`${detailLabels[key]} (optional)`} placeholder={`${detailLabels[key]} (optional)`} value={fields[key] ?? ''} editable={ready && !busy} maxLength={200} onChangeText={value => setFields(old => ({ ...old, [key]: value }))} style={{ minHeight: 48, borderWidth: 1, borderColor: color.rule, padding: space[3], color: color.midnight }} />)}
       {button('Save and show on my plan ›', () => save(fields), !ready)}
       {button(helper ? 'Fill it in from a sentence (free AI) ▴' : 'Fill it in from a sentence (free AI) ▾', () => setHelper(!helper))}
       {helper ? <>
-        <TextInput accessibilityLabel="Describe your wedding" placeholder="Describe your wedding" value={sentence} onChangeText={setSentence} editable={!busy} multiline maxLength={1600} style={{ minHeight: 96, borderColor: color.rule, borderWidth: 1, padding: space[3] }} />
+        <TypingBox accessibilityLabel="Describe your wedding" placeholder="Describe your wedding" value={sentence} onChangeText={setSentence} editable={!busy} multiline maxLength={1600} style={{ minHeight: 96, borderColor: color.rule, borderWidth: 1, padding: space[3] }} />
         <Text style={type.sub}>No email needed. Three free drafts a day.</Text>
         {box('Send my sentence to a free AI model outside the app. Nothing is sent until I tick this and press the button.', consent, () => setConsent(!consent))}
         {button('Privacy policy', () => { void Linking.openURL('https://weddingchecklistpdf.com/privacy'); })}
