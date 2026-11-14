@@ -45,12 +45,14 @@ export function diff(c, live) {
     const pk = live.offeringPackages[o.key];
     if (!pk) { out.push(`offering ${o.key} missing`); continue; }
     if (o.current && !live.currentOffering?.includes(o.key)) out.push(`offering ${o.key} is not current`);
-    o.packages.forEach((id, i) => {
+    for (const id of o.packages) {
       const p = pk.find(x => x.key === id);
       if (!p) out.push(`offering ${o.key} package ${id} missing`);
-      else if (p.position !== i + 1) out.push(`offering ${o.key} package ${id} at ${p.position}, want ${i + 1}`);
       else if (!p.products.includes(id)) out.push(`offering ${o.key} package ${id} has no ${id} product`);
-    });
+    }
+    // The paywall order: positions strictly rising in catalog order (a tie leaves the order to chance).
+    const pos = o.packages.map(id => pk.find(x => x.key === id)?.position);
+    if (pos.every(n => n != null) && pos.some((n, i) => i > 0 && n <= pos[i - 1])) out.push(`offering ${o.key} positions ${pos.join(',')} do not follow ${o.packages.join(' > ')}`);
   }
   return out;
 }
@@ -114,12 +116,19 @@ export async function run(c, argv = process.argv.slice(2)) {
     for (const [i, sid] of o.packages.entries()) {
       let pkg = pkgs.find(x => x.lookup_key === sid);
       if (!pkg) pkg = await call('POST', `${P}/offerings/${off.id}/packages`, { lookup_key: sid, display_name: c.products.find(p => p.id === sid)?.name ?? sid, position: i + 1 });
-      else if (pkg.position !== i + 1) await call('POST', `${P}/packages/${pkg.id}`, { position: i + 1 });
       if (!pkg) continue;
       const have = (await list(`${P}/packages/${pkg.id}/products`)).map(x => x.product?.id ?? x.id);
       const add = idsFor(sid).filter(id => !have.includes(id));
       if (add.length) await call('POST', `${P}/packages/${pkg.id}/actions/attach_products`, { products: add.map(product_id => ({ product_id, eligibility_criteria: 'all' })) });
     }
+    // RevenueCat keeps neither the position given at creation nor a forward pass of updates (it
+    // shifts the others); setting every position from the last package back to the first holds.
+    const now = await list(`${P}/offerings/${off.id}/packages`);
+    if (o.packages.some((sid, i) => now.find(x => x.lookup_key === sid)?.position !== i + 1))
+      for (const [i, sid] of [...o.packages.entries()].reverse()) {
+        const pkg = now.find(x => x.lookup_key === sid);
+        if (pkg) await call('POST', `${P}/packages/${pkg.id}`, { position: i + 1 });
+      }
     if (o.current && !off.is_current) await call('POST', `${P}/offerings/${off.id}`, { is_current: true });
   }
 
