@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Linking, Pressable, Text, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { aiDraftClient } from '../../../src/aiDraft';
-import { detailLabels, detailStore, initialDetails, reviewFields, type Details } from '../../../src/draftReview';
+import { detailLabels, detailStore, initialDetails, journeyDetails, reviewFields, type Details } from '../../../src/draftReview';
+import { journeyStore } from '../../../src/journey';
 import { savedDate } from '../../../src/savedDate';
 import { WeddingDatePicker } from '../../../src/WeddingDatePicker';
 import { PlannedScreen } from '../../../src/ui';
@@ -12,21 +13,19 @@ export default function AiDraft() {
   const client = useMemo(() => aiDraftClient(AsyncStorage), []);
   const [fields, setFields] = useState<Details>({});
   const [sentence, setSentence] = useState('');
-  const [email, setEmail] = useState('');
   const [helper, setHelper] = useState(false);
   const [consent, setConsent] = useState(false);
-  const [marketing, setMarketing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [ready, setReady] = useState(false);
   const [message, setMessage] = useState('');
   const [review, setReview] = useState<Details | null>(null);
   const [excluded, setExcluded] = useState<string[]>([]);
   const [undo, setUndo] = useState<{ fields: Details; date: string } | null>(null);
-  useEffect(() => { initialDetails(store, savedDate).then(setFields).then(() => setReady(true)).catch(() => setMessage('Could not read your details. Close and try again.')); }, []);
+  useEffect(() => { Promise.all([initialDetails(store, savedDate), journeyStore(AsyncStorage).read().catch(() => null)]).then(([d, j]) => setFields(j ? journeyDetails(d, j.answers) : d)).then(() => setReady(true)).catch(() => setMessage('Could not read your details. Close and try again.')); }, []);
   async function request() {
     setBusy(true);
     try {
-      const reply = await client.request({ email, description: sentence, consent, marketing });
+      const reply = await client.request({ description: sentence, consent });
       setMessage(reply.message);
       if (reply.ok && reply.draft) { setReview(reviewFields(reply.draft)); setExcluded([]); }
     } finally { setBusy(false); }
@@ -61,13 +60,11 @@ export default function AiDraft() {
       {button(helper ? 'Fill it in from a sentence (free AI) ▴' : 'Fill it in from a sentence (free AI) ▾', () => setHelper(!helper))}
       {helper ? <>
         <TextInput accessibilityLabel="Describe your wedding" placeholder="Describe your wedding" value={sentence} onChangeText={setSentence} editable={!busy} multiline maxLength={1600} style={{ minHeight: 96, borderColor: color.rule, borderWidth: 1, padding: space[3] }} />
-        <TextInput accessibilityLabel="Email for the AI draft" placeholder="Email" value={email} onChangeText={setEmail} editable={!busy} keyboardType="email-address" autoCapitalize="none" style={{ minHeight: 48, borderColor: color.rule, borderWidth: 1, padding: space[3] }} />
-        <Text style={type.sub}>This is the only place we ask for email. It checks your free draft allowance.</Text>
-        {box('Optional: email me wedding planning news and offers.', marketing, () => setMarketing(!marketing))}
+        <Text style={type.sub}>No email needed. Three free drafts a day.</Text>
         {box('Send my sentence to a free AI model outside the app. Nothing is sent until I tick this and press the button.', consent, () => setConsent(!consent))}
         {button('Privacy policy', () => { void Linking.openURL('https://weddingchecklistpdf.com/privacy'); })}
         {message ? <Text accessibilityRole="alert" style={type.body}>{message}</Text> : null}
-        {button(busy ? 'Preparing your draft…' : 'Send for a free draft', request, !ready || !consent || !sentence.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim()))}
+        {button(busy ? 'Preparing your draft…' : 'Send for a free draft', request, !ready || !consent || !sentence.trim())}
       </> : null}
     </>}
     {message && (!helper || review) ? <Text accessibilityRole="alert" style={type.body}>{message}</Text> : null}

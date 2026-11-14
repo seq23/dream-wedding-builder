@@ -4,14 +4,16 @@
 // loves, and each kept row becomes her own task marked "Your pick" in the window that job
 // is usually done. No model, key or email is on the phone.
 import { addCustomTask, taskKey, type PlanProgress } from '@core/plan-progress';
-import { PLAN_WINDOWS } from '@core/dated-plan';
+import { PLAN_WINDOWS, placePicks } from '@core/dated-plan';
 import { keptColours, pickable, togglePick, type JourneyPick } from '@core/journey-picks';
 import type { WeddingRead } from '@core/wedding-read-shared';
 import { ownTaskKey } from './planTasks';
 import { TRADITION_PREVIEWS, addTraditionExample, hasTraditionPack } from './traditionPacks';
 import type { DateStorage } from './weddingDate';
 
-export { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS, WEDDING_COLOURS, COLOURS_NOT_SURE, colourView, toggleColour } from '@core/wedding-read-shared';
+export { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS, WEDDING_COLOURS, COLOURS_NOT_SURE, colourView, toggleColour, toggleTradition, traditionList, seasonFromDate } from '@core/wedding-read-shared';
+import { seasonFromDate, traditionList } from '@core/wedding-read-shared';
+export { placePicks };
 export { keptColours, pickable, togglePick };
 export type { JourneyPick, WeddingRead };
 
@@ -49,6 +51,16 @@ const isRead = (v: unknown): v is WeddingRead => {
     && [r.directions, r.colours, r.venueTypes, r.ideas, r.details, r.ask].every(Array.isArray);
 };
 
+/** What she sees when the planner cannot be reached: no talk of photos or ticks she never saw. */
+export const READ_FAILED = 'Couldn’t reach the planner. Try again, or tap “Just give me my plan” below.';
+
+/** What step 1 sends: with a date, the season is worked out from it (never a season she
+ * guessed first), and the date counts as set. Without one, her season chip stands. */
+export function answersToSend(a: JourneyAnswers, date: string): JourneyAnswers {
+  const season = seasonFromDate(date);
+  return season ? { ...a, season, dateSet: true } : { ...a, dateSet: false };
+}
+
 /** Asks the website for her wedding page. The preview marks its calls as tests so they never count. */
 export function weddingReadClient(preview: boolean, send: Transport = fetch) {
   let pending = false;
@@ -71,7 +83,7 @@ export function weddingReadClient(preview: boolean, send: Transport = fetch) {
         return { ok: true, read: body.read, reason: (body.reason as ReadReason) ?? 'no_model',
           remaining: typeof body.remaining === 'number' ? body.remaining : null, limit: typeof body.limit === 'number' ? body.limit : 3 };
       } catch {
-        return { ok: false, message: 'The planner could not be reached. Check your connection and try again, or go straight to your plan.' };
+        return { ok: false, message: READ_FAILED };
       } finally { clearTimeout(timer); pending = false; }
     },
   };
@@ -119,8 +131,10 @@ export function journeyStore(storage: DateStorage) {
 export function traditionPackFor(tradition: string | undefined) {
   return TRADITION_PREVIEWS.find(p => p.name === tradition) ?? null;
 }
-/** A tradition picked in step 1 opens that pack's free example in her plan, once. */
+/** Each tradition picked in step 1 opens that pack's free example in her plan, once. */
 export function applyTradition(progress: PlanProgress, tradition: string | undefined): PlanProgress {
-  const pack = traditionPackFor(tradition);
-  return pack && !hasTraditionPack(progress, pack.id) ? addTraditionExample(progress, pack.id) : progress;
+  return traditionList(tradition).reduce((next, name) => {
+    const pack = traditionPackFor(name);
+    return pack && !hasTraditionPack(next, pack.id) ? addTraditionExample(next, pack.id) : next;
+  }, progress);
 }

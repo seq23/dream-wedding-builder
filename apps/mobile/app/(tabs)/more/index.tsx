@@ -5,7 +5,7 @@ import release from '../../../release/config.json';
 import { useCallback, useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router, useFocusEffect } from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { emptyProgress } from '@core/plan-progress';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { savedDate } from '../../../src/savedDate';
@@ -27,6 +27,8 @@ const DISCLAIMER_URL = 'https://weddingchecklistpdf.com/disclaimer';
 
 export default function More() {
   const sharingRevision = useSharingRevision();
+  // "Close my plan" after the wedding lands here with the delete question already open.
+  const { close } = useLocalSearchParams<{ close?: string }>();
   const [sharing, setSharing] = useState(false);
   const [sharedName, setSharedName] = useState('');
   const [joined, setJoined] = useState(false);
@@ -54,6 +56,7 @@ export default function More() {
     } catch (e) { setError(e instanceof Error ? e.message : 'Could not save your calendar. Please try again.'); }
     finally { setExporting(false); }
   }
+  useFocusEffect(useCallback(() => { if (close === '1') setConfirm(true); }, [close]));
   useFocusEffect(useCallback(() => {
     let active = true;
     Promise.all([savedDate.read(), reminderChoice(), eventStore(AsyncStorage).active(), activePlan(), phoneSharing().then(api => api.read()), eventStore(AsyncStorage).read(), downloadStore(AsyncStorage).saved().catch(() => null)]).then(([d, choice, current, shared, session, ledger, content]) => {
@@ -84,8 +87,8 @@ export default function More() {
     {busy ? <Text style={type.body}>Deleting your plan…</Text> : <>
       <Text style={type.body}>{date ? `Wedding date: ${plainDate(date)}` : 'You have not chosen a wedding date yet.'}</Text>
       {sharedName || event?.fullPlan ? <Text style={type.body}>🔒 {sharedName || event?.name}</Text> : null}
-      {!joined && event?.fullPlan ? <Text style={type.sub}>{3 - event.dateChanges} date changes left for this event</Text> : null}
-      {joined ? <Text style={type.sub}>Your partner manages the shared wedding date.</Text> : <GoButton href="/welcome" label={date ? 'Change the wedding date ›' : 'Choose my wedding date ›'} />}
+      {!joined && event?.fullPlan ? <GoButton href="/more/full-plan" label="Change the wedding’s name ›" /> : null}
+      {joined ? <Text style={type.sub}>Your partner manages the shared wedding date.</Text> : <GoButton href="/welcome?from=more" label={date ? 'Change the wedding date ›' : 'Choose my wedding date ›'} />}
       {joined ? null : <GoButton href="/feel" label="Describe my wedding ›" />}
       <GoButton href="/more/packet" label="Print or send my plan ›" />
       <Pressable accessibilityRole="button" disabled={exporting} accessibilityState={{ disabled: exporting }} onPress={() => { void calendar(); }} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{exporting ? 'Preparing calendar…' : 'Save my calendar file ›'}</Text></Pressable>

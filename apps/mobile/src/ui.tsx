@@ -3,7 +3,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router, type Href } from 'expo-router';
 import { color, radius, space, type } from './theme';
-import { byRoute } from './screens';
+import { byRoute, onboardingLeft } from './screens';
 import { BackButton, useBackKeys } from './nav';
 import { Logo } from './Logo';
 
@@ -18,9 +18,8 @@ export function PlannedScreen({ route, children }: { route: string; children?: R
       {onboarding ? (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 44 }}>
           {/* The journey's first screen always carries the brand; its steps have their own Back links. */}
-          {s.back ? <BackButton route={route} />
-            : route !== '/feel' && router.canGoBack() ? <TextButton label="← Back" onPress={() => router.back()} />
-            : <Logo />}
+          {(() => { const left = onboardingLeft(!!s.back, router.canGoBack());
+            return left === 'parent' ? <BackButton route={route} /> : left === 'back' ? <TextButton label="← Back" onPress={() => router.back()} /> : <Logo />; })()}
         </View>
       ) : null}
       {children}

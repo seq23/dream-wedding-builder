@@ -129,3 +129,27 @@ export function dueBeforeStart<T extends { key: string; windowId: string; dueOn?
   const open = new Set(atStart.windows.map(w => w.id));
   return new Set(rows.filter(r => r.dueOn ? r.dueOn < startedOn : !open.has(r.windowId)).map(r => r.key));
 }
+
+/** The windows below the blocks list only what the blocks do not: every task appears once. */
+export function windowRows<T extends { key: string; windowId: string }>(rows: T[], blocks: { startHere: T[]; catchUp: T[]; next: T[] }, windowId: string): T[] {
+  const shown = new Set([...blocks.startHere, ...blocks.catchUp, ...blocks.next].map(r => r.key));
+  return rows.filter(r => r.windowId === windowId && !shown.has(r.key));
+}
+
+/** A late starter's "Start here" opens short: the first few, the rest one tap away. */
+export const START_HERE_SHOWN = 5;
+export function startHereView<T>(rows: T[], expanded: boolean): { shown: T[]; hidden: number } {
+  return expanded || rows.length <= START_HERE_SHOWN ? { shown: rows, hidden: 0 } : { shown: rows.slice(0, START_HERE_SHOWN), hidden: rows.length - START_HERE_SHOWN };
+}
+
+/** "Already done": ticks every chosen task at once; one already ticked keeps its day. */
+export function markAllDone(progress: PlanProgress, keys: string[], now: string): PlanProgress {
+  const done = { ...progress.done };
+  for (const key of keys) if (!done[key]) done[key] = now;
+  return { ...progress, done };
+}
+
+/** On the wedding day the list is the day's own tasks: the wedding-week ones still open. */
+export function weddingDayRows<T extends { windowId: string; doneAt?: string; dueOn?: string | null }>(rows: T[], today: string): T[] {
+  return rows.filter(r => !r.doneAt && (r.windowId === 'wedding-week' || r.dueOn === today));
+}

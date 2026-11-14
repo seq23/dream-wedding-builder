@@ -52,15 +52,15 @@ test('each product has its exact grants and extra content stays separate from th
   assert.deepEqual(entitlementsFor(topup, 'first').sort(), ['full_plan', 'printables']);
   assert.throws(() => recordVerifiedPurchase(initial(), 'first', 'dw_printables_topup'), /FULL_PLAN_REQUIRED/);
 });
-test('paid names lock and only three real date moves are free', () => {
+test('findings 2 and 14: a paid event renames and moves its date freely, never needing a new event', () => {
   let event = recordVerifiedPurchase(initial(), 'first', 'dw_full_plan').events[0];
-  assert.throws(() => renameEvent(event, 'New wedding'), /EVENT_NAME_LOCKED/);
+  assert.equal(renameEvent(event, '  Sam and Alex  ').name, 'Sam and Alex');
+  assert.throws(() => renameEvent(event, ' '), /INVALID_EVENT/);
   assert.equal(moveEvent(event, event.date), event);
   assert.throws(() => moveEvent(event, '2027-02-30'), /INVALID_DATE/);
-  for (const date of ['2027-06-13', '2027-06-14', '2027-06-15']) event = moveEvent(event, date);
-  assert.equal(event.dateChanges, 3);
-  assert.throws(() => moveEvent(event, '2027-06-16'), /NEW_EVENT_REQUIRED/);
-  assert.equal(moveEvent(event, event.date), event);
+  for (const date of ['2027-06-13', '2027-06-14', '2027-06-15', '2027-06-16', '2028-01-08']) event = moveEvent(event, date);
+  assert.equal(event.date, '2028-01-08');
+  assert.equal(event.fullPlan, true);
 });
 test('a fresh plan cannot reuse the first unlock and new-event purchases unlock one event only', () => {
   let ledger = recordVerifiedPurchase(initial(), 'first', 'dw_full_plan');

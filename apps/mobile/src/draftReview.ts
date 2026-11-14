@@ -24,3 +24,13 @@ export async function initialDetails(store: ReturnType<typeof detailStore>, date
   const [details, weddingDate] = await Promise.all([store.read(), date.read()]);
   return weddingDate === null ? details : { ...details, weddingDate };
 }
+
+/** What she already told the journey (guests, town, budget band) fills the Plan's details,
+ * so she never types them twice. Anything she typed on the details screen wins. */
+export function journeyDetails(details: Details, answers: { guests?: string; where?: string; budget?: string }): Details {
+  const next: Details = { ...details };
+  if (!next.guestCount?.trim() && answers.guests?.trim()) next.guestCount = answers.guests.trim();
+  if (!next.locations?.trim() && answers.where?.trim()) next.locations = answers.where.trim();
+  if (!next.budgetTarget?.trim() && answers.budget?.trim()) next.budgetTarget = answers.budget.trim();
+  return next;
+}

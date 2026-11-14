@@ -75,7 +75,7 @@ export default function Payments() {
     finally { setBusy(false); }
   }
   function button(label:string, action:()=>void) { return <Pressable accessibilityRole="button" disabled={busy} onPress={action} style={{ minHeight:48, justifyContent:'center' }}><Text style={[type.button,{color:color.blue}]}>{label}</Text></Pressable>; }
-  function field(label:string, value:string, change:(s:string)=>void) { return <TextInput accessibilityLabel={label} placeholder={label} value={value} onChangeText={change} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12,color:color.midnight}]} />; }
+  function field(label:string, value:string, change:(s:string)=>void, money=false) { return <TextInput accessibilityLabel={label} placeholder={label} value={value} onChangeText={change} keyboardType={money ? 'decimal-pad' : 'default'} inputMode={money ? 'decimal' : 'text'} style={[type.body,{borderWidth:1,borderColor:color.rule,padding:12,color:color.midnight}]} />; }
   const locked = datedFullPlan({ windows:[{id:'locked',label:'Payments'}], tasks:[FULL_PLAN_TEASER['12-plus'][1],FULL_PLAN_TEASER['3-months'][1]].map((t,i)=>({...t,id:String(i),window:'locked',owner:'',kind:'payment' as const})) },date ?? '',today).flatMap(s=>s.tasks);
   return <PlannedScreen route="/payments">
     {error ? <Text accessibilityRole="alert" style={[type.body,{color:color.redPen}]}>{error}</Text> : null}
@@ -99,8 +99,8 @@ export default function Payments() {
       {editing ? <View style={{gap:12}}><Text style={type.section}>Payment details</Text>
         {field('Who is paid',editing.payee,v=>setEditing({...editing,payee:v}))}
         {!editing.id.startsWith('task:') ? field('What the payment is for',editing.detail,v=>setEditing({...editing,detail:v})) : null}
-        {field('Amount in USD',amount,setAmount)}
-        {!editing.id.startsWith('task:') ? <WeddingDatePicker label="Payment due date" value={editing.date} onChange={v=>setEditing({...editing,date:v})} /> : null}
+        {field('Amount in USD',amount,setAmount,true)}
+        <WeddingDatePicker label="Payment due date" value={editing.date} onChange={v=>setEditing({...editing,date:v,ownDate:true})} />
         {field('How it is paid',editing.method,v=>setEditing({...editing,method:v}))}
         {button('Save payment',()=>{try {void save({...editing,cents:amountCents(amount)});} catch(e) {setError((e as Error).message);}})}
         {button('Cancel',()=>setEditing(null))}

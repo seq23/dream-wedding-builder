@@ -128,3 +128,20 @@ test('kept picks become dated tasks marked "Your pick", a booked venue drops the
   await page.getByTestId('builder-email-submit').click();
   await expect(page.getByTestId('pack-page')).toContainText('Plan this idea with the vendor it needs: Dinner-Party Reception Layout');
 });
+
+test('a date given in step 1 decides the season, and traditions take more than one', async ({ page }) => {
+  let posted: Record<string, unknown> | null = null;
+  await page.route('**/api/wedding-read', async route => { posted = route.request().postDataJSON(); await route.fulfill({ json: { ok: true, read: read('ai'), remaining: 2, limit: 3, reason: 'ai' } }); });
+  await page.goto('/free-wedding-planner');
+  await page.getByTestId('fork-dk').click();
+  await page.getByTestId('season-Summer').click();
+  await page.getByTestId('journey-date-1').fill(`${new Date().getFullYear() + 1}-12-05`);
+  await expect(page.getByTestId('season-Summer')).toHaveCount(0);
+  await page.getByTestId('journey-facts').locator('summary').click();
+  await expect(page.getByTestId('fact-date-set')).toHaveCount(0);
+  await page.getByTestId('tradition-Jewish').click();
+  await page.getByTestId('tradition-Catholic').click();
+  await page.getByTestId('journey-continue').click();
+  await expect(page.getByTestId('journey-step-2')).toBeVisible();
+  expect(posted).toMatchObject({ season: 'Winter', facts: { dateSet: true, tradition: 'Jewish, Catholic' } });
+});

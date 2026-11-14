@@ -6,7 +6,7 @@ import { addEvent, emptyLedger, recordVerifiedPurchase } from '../src/billing/ev
 import { deleteLocalPlan } from '../src/deletePlan';
 import { offersFor } from '../src/billing/offers';
 
-test('checkout names persist without unlocking, paid names lock, and a new-event draft preserves the paid event', async () => {
+test('checkout names persist without unlocking, a paid name can be changed, and a new-event draft preserves the paid event', async () => {
   const data = new Map<string, string>();
   const storage = {
     async getItem(key: string) { return data.get(key) ?? null; },
@@ -23,15 +23,18 @@ test('checkout names persist without unlocking, paid names lock, and a new-event
   const paid = recordVerifiedPurchase(addEvent(emptyLedger(), 'first', 'Our wedding', '2028-06-12'), 'first', 'dw_full_plan');
   data.set(EVENT_LEDGER_KEY, JSON.stringify(paid)); data.set(ACTIVE_EVENT_KEY, 'first');
   assert.deepEqual(await eventNameStore(storage).read(), { name: 'Our wedding', locked: true });
-  await assert.rejects(eventNameStore(storage).save('Replacement'), /EVENT_NAME_LOCKED/);
+  await eventNameStore(storage).save('Our wedding, Sam and Alex');
+  assert.deepEqual(await eventNameStore(storage).read(), { name: 'Our wedding, Sam and Alex', locked: true });
+  assert.equal((await eventStore(storage).active())?.fullPlan, true);
   await eventNameStore(storage, true).save('Next wedding');
   assert.deepEqual(await eventNameStore(storage, true).read(), { name: 'Next wedding', locked: false });
-  assert.deepEqual(await eventStore(storage).read(), paid);
+  const renamed = { ...paid, events: paid.events.map(e => ({ ...e, name: 'Our wedding, Sam and Alex' })) };
+  assert.deepEqual(await eventStore(storage).read(), renamed);
   assert.equal((await eventStore(storage).active())?.id, 'first');
   // A second event is a consumable even for owners of the printables bundle.
   assert.deepEqual(offersFor(['full_plan', 'printables', 'day_of_kit'], true), ['dw_new_event']);
-  assert.deepEqual(offersFor([], false), ['dw_planner_printables', 'dw_full_plan']);
+  assert.deepEqual(offersFor([], false), ['dw_full_plan', 'dw_planner_printables']);
   await deleteLocalPlan(storage, async () => {}, async () => {});
   assert.equal(data.has(EVENT_NAME_KEY), false); assert.equal(data.has(NEW_EVENT_NAME_KEY), false);
-  assert.deepEqual(await eventStore(storage).read(), paid);
+  assert.deepEqual(await eventStore(storage).read(), renamed);
 });

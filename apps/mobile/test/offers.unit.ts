@@ -1,11 +1,16 @@
 // The paywall never charges twice for something already owned (docs/APP_PLAN.md, task 8).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PRODUCTS, offersFor, type Entitlement } from '../src/billing/offers';
+import { OFFER_DETAIL, PRODUCTS, buyLabel, initialChoice, offersFor, type Entitlement } from '../src/billing/offers';
 
-test('a couple with nothing sees the bundle first, then the full plan', () => {
-  assert.deepEqual(offersFor([]), ['dw_planner_printables', 'dw_full_plan']);
-  assert.deepEqual(offersFor(['day_of_kit']), ['dw_planner_printables', 'dw_full_plan']);
+test('finding 1: a couple with nothing sees the full plan first, nothing is chosen for her, and the button names her pick and price', () => {
+  assert.deepEqual(offersFor([]), ['dw_full_plan', 'dw_planner_printables']);
+  assert.deepEqual(offersFor(['day_of_kit']), ['dw_full_plan', 'dw_planner_printables']);
+  assert.equal(initialChoice(offersFor([])), undefined);
+  assert.equal(initialChoice(offersFor(['full_plan'])), undefined);
+  assert.equal(initialChoice(offersFor(['full_plan'], true)), 'dw_new_event');
+  assert.equal(buyLabel('Planner + printables', '$34.99'), 'Get Planner + printables · $34.99 ›');
+  assert.match(OFFER_DETAIL.dw_planner_printables, /printables: files to print/);
 });
 
 test('full plan owners see the top-up, never the bundle', () => {

@@ -1,5 +1,5 @@
 import { parseDay } from '@core/dated-plan';
-import { emptyLedger, moveEvent, validGrant, type EventLedger, type PaidEvent } from './events';
+import { emptyLedger, moveEvent, renameEvent, validGrant, type EventLedger, type PaidEvent } from './events';
 import type { DateStorage } from '../weddingDate';
 export const EVENT_LEDGER_KEY = 'dw.billing.events.v1';
 export const ACTIVE_EVENT_KEY = 'dw.billing.active-event.v1';
@@ -15,7 +15,7 @@ export function parseLedger(raw: string | null): EventLedger {
       if (!event || typeof event.id !== 'string' || !event.id || ids.has(event.id)
         || typeof event.name !== 'string' || !event.name.trim() || event.name.length > 140
         || typeof event.date !== 'string' || !parseDay(event.date)
-        || !Number.isInteger(event.dateChanges) || event.dateChanges < 0 || event.dateChanges > 3
+        || !Number.isInteger(event.dateChanges) || event.dateChanges < 0
         || typeof event.fullPlan !== 'boolean') throw Error();
       // A new-event token pays for exactly one paid event, never the first one.
       if (event.grant !== undefined && (!validGrant(event.grant) || grants.has(event.grant) || !event.fullPlan || event.id === value.firstEventId)) throw Error();
@@ -42,8 +42,21 @@ export function eventStore(storage: DateStorage) {
   }
   return {
     read, active,
-    /** A single-instance queue prevents rapid saves spending the same date allowance.
-     * Store the event and date together in one blob: a failed write spends no move. */
+    /** Renames the open paid event (the name on the plan and the packet). */
+    rename(name: string): Promise<PaidEvent | null> {
+      const job = queue.then(async () => {
+        const event = await active();
+        if (!event?.fullPlan) return null;
+        const updated = renameEvent(event, name);
+        const ledger = await read();
+        await storage.setItem(EVENT_LEDGER_KEY, JSON.stringify({ ...ledger, events: ledger.events.map(e => e.id === event.id ? updated : e) }));
+        return updated;
+      });
+      queue = job.catch(() => {});
+      return job;
+    },
+    /** A single-instance queue keeps rapid saves in order.
+     * Store the event and date together in one blob: a failed write changes nothing. */
     moveDate(date: string): Promise<boolean> {
       const job = queue.then(async () => {
         const event = await active();

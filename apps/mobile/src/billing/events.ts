@@ -20,15 +20,16 @@ export function addEvent(ledger: EventLedger, id: string, name: string, date: st
   if (!id || !name.trim() || !parseDay(date) || ledger.events.some(e => e.id === id)) throw new Error('INVALID_EVENT');
   return { ...ledger, events: [...ledger.events, { id, name: name.trim().slice(0, 140), date, dateChanges: 0, fullPlan: false }] };
 }
+/** A paid event can be renamed: a typo in a partner's name must never be permanent (her call, 14 Nov 2026). */
 export function renameEvent(event: PaidEvent, name: string): PaidEvent {
-  if (event.fullPlan) throw new Error('EVENT_NAME_LOCKED');
   if (!name.trim()) throw new Error('INVALID_EVENT');
   return { ...event, name: name.trim().slice(0, 140) };
 }
+/** A paid event's date moves freely: postponements happen, and a date change is never a new
+ * event (her call, 14 Nov 2026). `dateChanges` is only counted, never a limit. */
 export function moveEvent(event: PaidEvent, date: string): PaidEvent {
   if (!parseDay(date)) throw new Error('INVALID_DATE');
   if (date === event.date) return event;
-  if (event.fullPlan && event.dateChanges >= 3) throw new Error('NEW_EVENT_REQUIRED');
   return { ...event, date, dateChanges: event.dateChanges + (event.fullPlan ? 1 : 0) };
 }
 /** Only call with the server-verified event binding, never SDK/local receipt metadata.

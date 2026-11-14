@@ -82,6 +82,16 @@ describe('AI draft: very limited free use, enforced on the server', () => {
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
+  it('no email (the phone app): the journey’s allowance of 3 a day per visitor, no signup needed', async () => {
+    const { db } = fakeD1([]);
+    const fetchImpl = answer(GOOD);
+    const results = [];
+    for (let i = 0; i < 4; i++) results.push(await draftPlan(input({ db, email: undefined, fetchImpl: fetchImpl as never })));
+    expect(results.map(r => r.status)).toEqual([200, 200, 200, 429]);
+    expect(results[3].body).toMatchObject({ code: 'IP_CAP' });
+    expect((await draftPlan(input({ db, email: undefined, fetchImpl: fetchImpl as never, ip: '9.9.9.9' }))).status).toBe(200);
+  });
+
   it('an email that never opened the planner is refused before any model call', async () => {
     const { db } = fakeD1([]);
     const fetchImpl = answer(GOOD);

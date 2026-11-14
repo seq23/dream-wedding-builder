@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { aiDraftClient } from '../src/aiDraft';
-const input = { email: ['couple', 'example.test'].join('@'), description: 'A small wedding next summer', consent: true, marketing: false };
+const input = { description: 'A small wedding next summer', consent: true };
 function harness(replies: { ok: boolean; [key: string]: unknown }[]) {
   const saved = new Map<string, string>();
   const calls: { url: string; body: Record<string, unknown> }[] = [];
@@ -14,44 +14,31 @@ function harness(replies: { ok: boolean; [key: string]: unknown }[]) {
   });
   return { client, calls, storage };
 }
-test('no consent sends nothing, including signup', async () => {
+test('no consent sends nothing', async () => {
   const h = harness([]);
-  assert.equal((await h.client.request({ ...input, consent: false, marketing: true })).ok, false);
+  assert.equal((await h.client.request({ ...input, consent: false })).ok, false);
   assert.deepEqual(h.calls, []);
 });
-test('signup precedes draft; AI consent never becomes marketing; reopening skips signup', async () => {
+test('finding 5: the draft asks for no email: one call, no signup, no email in the body', async () => {
   const draft = { weddingDate: '2027-06-12' };
-  const h = harness([{ ok: true }, { ok: true, draft, note: 'Check each field.' }]);
+  const h = harness([{ ok: true, draft, note: 'Check each field.' }]);
   assert.deepEqual(await h.client.request(input), { ok: true, draft, message: 'Check each field.' });
-  assert.deepEqual(h.calls.map(c => new URL(c.url).pathname), ['/api/builder-signup', '/api/ai-draft']);
-  assert.equal(h.calls[0].body.marketing, false);
-  assert.equal('consent' in h.calls[0].body, false);
-  assert.equal(h.calls[1].body.consent, true);
-  const reopened = aiDraftClient(h.storage, async url => {
-    assert.equal(new URL(url).pathname, '/api/ai-draft');
-    return { ok: true, async json() { return { ok: true, draft, note: 'Again' }; } };
-  });
-  assert.equal((await reopened.request(input)).ok, true);
+  assert.deepEqual(h.calls.map(c => new URL(c.url).pathname), ['/api/ai-draft']);
+  assert.equal('email' in h.calls[0].body, false);
+  assert.equal(h.calls[0].body.consent, true);
 });
-test('marketing needs its own tick and failed signup never sends the sentence', async () => {
-  const h = harness([{ ok: false, error: 'Signup unavailable.' }]);
-  assert.deepEqual(await h.client.request({ ...input, marketing: true }), { ok: false, message: 'Signup unavailable.' });
-  assert.equal(h.calls.length, 1);
-  assert.equal(h.calls[0].body.marketing, true);
-  assert.equal('description' in h.calls[0].body, false);
-});
-test('disabled, busy, used, connection and daily-limit server replies survive unchanged', async () => {
-  for (const code of ['DISABLED', 'BUSY', 'EMAIL_USED', 'IP_CAP', 'DAILY_LIMIT']) {
+test('disabled, busy, connection and daily-limit server replies survive unchanged', async () => {
+  for (const code of ['DISABLED', 'BUSY', 'IP_CAP', 'DAILY_LIMIT']) {
     const error = `Server response for ${code}.`;
-    const h = harness([{ ok: true }, { ok: false, code, error }]);
+    const h = harness([{ ok: false, code, error }]);
     assert.deepEqual(await h.client.request(input), { ok: false, message: error });
   }
 });
-test('network failure releases busy state and retry skips a successful signup', async () => {
-  const h = harness([{ ok: true }]);
+test('network failure releases busy state so a retry is sent', async () => {
+  const h = harness([]);
   assert.equal((await h.client.request(input)).ok, false);
   assert.equal((await h.client.request(input)).ok, false);
-  assert.deepEqual(h.calls.map(c => new URL(c.url).pathname), ['/api/builder-signup', '/api/ai-draft', '/api/ai-draft']);
+  assert.deepEqual(h.calls.map(c => new URL(c.url).pathname), ['/api/ai-draft', '/api/ai-draft']);
 });
 
 test('phone source contains no direct model endpoints or provider credentials', async () => {
@@ -82,18 +69,6 @@ test('review accepts actual API fields, drops invented tasks and saves only sele
   assert.deepEqual(await store.read(), { guestCount: '80' });
 });
 
-test('remembered email can opt into marketing on retry and the choice survives reopening', async () => {
-  const h = harness([{ ok: true }, { ok: false }, { ok: true }, { ok: true, draft: {}, note: 'Ready' }]);
-  await h.client.request(input);
-  assert.equal((await h.client.request({ ...input, marketing: true })).ok, true);
-  assert.deepEqual(h.calls.map(c => new URL(c.url).pathname), ['/api/builder-signup', '/api/ai-draft', '/api/builder-signup', '/api/ai-draft']);
-  assert.equal(h.calls[2].body.marketing, true);
-  const reopened = aiDraftClient(h.storage, async url => {
-    assert.equal(new URL(url).pathname, '/api/ai-draft');
-    return { ok: true, async json() { return { ok: true, draft: {}, note: 'Ready' }; } };
-  });
-  assert.equal((await reopened.request({ ...input, marketing: true })).ok, true);
-});
 test('opening details and saving an unrelated field preserves the onboarding date', async () => {
   const { initialDetails, detailStore } = await import('../src/draftReview');
   const { dateStore } = await import('../src/weddingDate');
@@ -121,7 +96,7 @@ test('requests use phone-compatible cancellation and clear settled deadlines', a
   });
   assert.equal((await client.request(input)).ok, true);
   t.mock.timers.tick(60000);
-  assert.equal(signals.length, 2);
+  assert.equal(signals.length, 1);
   assert.ok(signals.every(signal => !signal.aborted));
   let started!: () => void;
   const ready = new Promise<void>(resolve => { started = resolve; });
@@ -135,4 +110,10 @@ test('requests use phone-compatible cancellation and clear settled deadlines', a
   await ready;
   t.mock.timers.tick(60000);
   assert.equal((await request).ok, false);
+});
+
+test('finding 4: guests, town and budget from the journey fill the details, never over her own', async () => {
+  const { journeyDetails } = await import('../src/draftReview');
+  assert.deepEqual(journeyDetails({}, { guests: '120', where: 'Memphis', budget: '$10,000 to $25,000' }), { guestCount: '120', locations: 'Memphis', budgetTarget: '$10,000 to $25,000' });
+  assert.deepEqual(journeyDetails({ guestCount: '90' }, { guests: '120', where: '', budget: '' }), { guestCount: '90' });
 });

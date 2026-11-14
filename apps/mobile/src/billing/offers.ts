@@ -13,7 +13,24 @@ export const PRODUCTS: Record<ProductId, { priceUsd: number; grants: Entitlement
   dw_day_of_kit: { priceUsd: 9.99, grants: ['day_of_kit'] },
 };
 
-/** In display order: the first one is the better-value choice. */
+/** What each one is, on the buy screen. "Printables" is never left unexplained. */
+export const OFFER_DETAIL: Record<ProductId, string> = {
+  dw_full_plan: 'Payments, your wedding week, the hand-over packet, every tradition pack, reminders and a second phone.',
+  dw_planner_printables: 'The full plan, plus printables: files to print or fill in (checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers), and the day-of kit.',
+  dw_printables_topup: 'Files to print or fill in: checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers.',
+  dw_day_of_kit: 'The wedding-day timeline as a PDF and a spreadsheet, with a starter list to fill in.',
+  dw_new_event: 'One new event, paid once.',
+};
+/** Nothing is chosen for her: only a new event, the one thing that screen sells, starts selected. */
+export function initialChoice(offers: ProductId[]): ProductId | undefined {
+  return offers.length === 1 && offers[0] === 'dw_new_event' ? offers[0] : undefined;
+}
+/** The buy button names what she chose and what it costs. */
+export function buyLabel(name: string, price: string | undefined): string {
+  return price ? `Get ${name} · ${price} ›` : `Get ${name} ›`;
+}
+
+/** In display order: the full plan first, the bundle after it. */
 export function offersFor(owned: Iterable<Entitlement>, newPaidEvent = false): ProductId[] {
   if (newPaidEvent) return ['dw_new_event'];
   const has = new Set(owned);
@@ -21,5 +38,5 @@ export function offersFor(owned: Iterable<Entitlement>, newPaidEvent = false): P
   if (has.has('printables')) return [];
   // Owners of the full plan get the top-up (same total as the bundle), never the bundle.
   if (has.has('full_plan')) return has.has('day_of_kit') ? ['dw_printables_topup'] : ['dw_printables_topup', 'dw_day_of_kit'];
-  return ['dw_planner_printables', 'dw_full_plan'];
+  return ['dw_full_plan', 'dw_planner_printables'];
 }

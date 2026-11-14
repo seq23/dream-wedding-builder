@@ -184,7 +184,7 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    read from the list), tradition packs (task 5) and every window's reminders (task 4).
    Free (same as the website): the free core tasks in `lib/dated-plan.ts` (23), ticks, own tasks,
    "Do these next", the calendar file, 1 AI draft, the basic packet; no reminders (owner, 10 Nov 2026). Offering `default`:
-   dw_planner_printables first (better value), then dw_full_plan; offering `after_unlock`
+   dw_full_plan first, then dw_planner_printables, with nothing pre-selected (user review 14 Nov 2026); offering `after_unlock`
    (owns `full_plan`, not `printables`): dw_printables_topup, then dw_day_of_kit; owns
    `printables`: no offer; offering `new_event` ("Start a new event"): dw_new_event only. The rule is one pure function, `offersFor` in
    `apps/mobile/src/billing/offers.ts` (already in the scaffold, guarded by
@@ -195,10 +195,12 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    and plan an entirely new event we charge again but editing an existing event (within
    reason) is free and we make some things lock once they pay"). Wins over the plan page.
    - **The event:** at unlock the couple types the event's name ("Maya & Jordan's wedding"),
-     kept on the phone. Once paid, **the name locks** (shown with a lock, no edit).
+     kept on the phone. It can be changed any time, before or after paying (her call 14 Nov 2026,
+     user review finding 14: a typo in a partner's name must never be permanent).
    - **Free edits, within reason:** tasks, ticks, own tasks, traditions and reminders, always.
-     **The date may move up to 3 times** after unlock (postponements); each move shows
-     "2 date changes left for this event". A 4th change needs a new event.
+     **The date moves freely** after unlock: postponements happen, and a date change never needs
+     a new event (her call 14 Nov 2026, user review finding 2). A date in the past asks "Is that
+     right?" before it is saved.
    - **A new event is a new purchase:** "Start a new event ›" in More says the price first
      ("A new event is a new full plan: $14.99, paid once. This event stays as it is.") and buys
      `dw_new_event`. Deleting the plan never refunds or frees an event.
@@ -212,7 +214,7 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
      (`printables`, `day_of_kit`) stay once per person, every event.
    - Reminders, two phones, traditions, payments and the full task list belong to the event that was paid for.
    Tests: with no key every buy button is off and free features never check a purchase;
-   each product grants exactly its entitlements; a joined phone with no purchase sees every task of the shared plan (the full list's own count) and loses them when sharing stops; the name cannot be edited after unlock; date moves 1 to 3 keep the unlock and the 4th is refused with the new-event offer; a new event without `dw_new_event` stays on the free plan; deleting and recreating never unlocks a new event; Restore brings back the first event and every recorded paid event; `offersFor` keeps passing (full plan owners
+   each product grants exactly its entitlements; a joined phone with no purchase sees every task of the shared plan (the full list's own count) and loses them when sharing stops; the name can be changed after unlock; any number of date moves keep the unlock; a new event without `dw_new_event` stays on the free plan; deleting and recreating never unlocks a new event; Restore brings back the first event and every recorded paid event; `offersFor` keeps passing (full plan owners
    see the top-up, never the bundle; printables owners see nothing); restore brings back all three; printables download only after a
    confirmed purchase; no product, offering or price is created by code.
 1a. **A preview link she can open (coordinator, 10 Nov 2026; do this before task 2).** The owner

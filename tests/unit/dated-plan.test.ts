@@ -27,10 +27,11 @@ describe('dated plan (the date the couple enters becomes real calendar dates)', 
     expect(plan.windows.at(-1)?.endsOn).toBe('2028-02-29');
   });
 
-  it('a past date is said plainly and draws no plan', () => {
+  it('a past date congratulates (she may just be married), says how to fix a typo, and draws no plan', () => {
     const plan = buildDatedPlan('2026-10-01', TODAY);
     expect(plan.state).toBe('past');
-    expect(plan.headline).toContain('already passed');
+    expect(plan.headline).toMatch(/^Congratulations/);
+    expect(plan.headline).toContain('change it');
     expect(plan.windows).toHaveLength(0);
   });
 
