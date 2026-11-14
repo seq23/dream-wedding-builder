@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import config from '@/data/affiliates/partners.json';
-import { affiliateLink, linksFor, partners, placementForGuide } from '@/lib/affiliates';
+import { affiliateDisclosure, affiliateLink, linksFor, partners, placementForGuide } from '@/lib/affiliates';
 
 describe('affiliate config', () => {
   it('carries exactly Zola, Minted and the Amazon registry, each with a plain https site', () => {
@@ -26,6 +26,16 @@ describe('affiliate config', () => {
     const link = affiliateLink({ ...partners[0], affiliate_url: 'https://example.test/track?id=1' });
     expect(link).toMatchObject({ href: 'https://example.test/track?id=1', tracked: true });
     expect(link.rel).toContain('sponsored');
+  });
+
+  it('a tracked link always carries the commission line beside it, and an Amazon one the Associates line (16 CFR 255.5)', () => {
+    const amazon = partners.find((p) => p.id === 'amazon-registry')!;
+    const zola = partners.find((p) => p.id === 'zola')!;
+    expect(affiliateDisclosure([affiliateLink({ ...zola, affiliate_url: null })])).toBe('');
+    const tracked = affiliateDisclosure([affiliateLink({ ...zola, affiliate_url: 'https://example.test/t?id=1' })]);
+    expect(tracked).toMatch(/may earn a commission/);
+    expect(tracked).not.toMatch(/Amazon Associate/);
+    expect(affiliateDisclosure([affiliateLink({ ...amazon, affiliate_url: 'https://www.amazon.com/wedding?tag=x-20' })])).toMatch(/As an Amazon Associate we earn from qualifying purchases/);
   });
 
   it('routes guest and invitation guides to the invitations-first placement', () => {

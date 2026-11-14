@@ -23,6 +23,8 @@ import { color, space, type } from '../../../src/theme';
 import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 import { plainDate } from '@core/dated-plan';
 
+const DISCLAIMER_URL = 'https://weddingchecklistpdf.com/disclaimer';
+
 export default function More() {
   const sharingRevision = useSharingRevision();
   const [sharing, setSharing] = useState(false);
@@ -74,7 +76,7 @@ export default function More() {
   }
   const button = (label: string, action: () => void) => <Pressable accessibilityRole="button" disabled={busy} accessibilityState={{ disabled: busy }} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{label}</Text></Pressable>;
   async function open(path: string) {
-    try { await Linking.openURL(path === 'privacy' ? release.privacyUrl : release.termsUrl); }
+    try { await Linking.openURL(path === 'privacy' ? release.privacyUrl : path === 'disclaimer' ? DISCLAIMER_URL : release.termsUrl); }
     catch { setError('Could not open the page. Please try again.'); }
   }
   return <PlannedScreen route="/more">
@@ -101,6 +103,7 @@ export default function More() {
       <GoButton href="/more/full-plan?newEvent=1" label="Start a new event ›" />
       {button('Privacy policy ›', () => { void open('privacy'); })}
       {button('Terms ›', () => { void open('terms'); })}
+      {button('Disclaimer ›', () => { void open('disclaimer'); })}
       {confirm ? <View style={{ gap: space[3], borderWidth: 1, borderColor: color.rule, padding: space[4] }}>
         <Text accessibilityRole="header" style={type.section}>Delete this plan from this phone?</Text>
         <Text style={type.body}>This removes the date, task ticks, your own tasks, tradition tasks, saved payments, downloaded files, planning details and saved AI signup and marketing choices from this phone, and turns off its reminders. It cannot be undone. Purchases are kept. Copies on other phones and signups already sent to the website stay there.</Text>

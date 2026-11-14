@@ -87,6 +87,7 @@ export default function Traditions() {
     </> : <>
       <Text accessibilityRole="header" style={type.title}>Traditions</Text>
       <Text style={type.body}>These packs are optional. Add their tasks to your plan at the right time.</Text>
+      <Text style={type.sub}>General information. Customs differ by family, faith community and place; your officiant and families have the final word.</Text>
       {!shared ? <Text style={type.sub}>One example from each pack is free. The full packs are {partOfFullPlan(price, 'part')}.</Text> : null}
       {/* The tradition she picked in step 1 of the journey comes first. */}
       {[...TRADITION_PREVIEWS].sort((x, y) => Number(y.id === mine) - Number(x.id === mine)).map(p => <Pressable key={p.id} accessibilityRole="button" onPress={() => { setSelected(p.id); setConfirm(false); setRemoved(null); }} style={{ minHeight: 64, paddingVertical: space[3], borderBottomWidth: 1, borderColor: color.rule, gap: space[1] }}>

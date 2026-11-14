@@ -35,6 +35,15 @@ export function affiliateLink(partner: AffiliatePartner): AffiliateLink {
   };
 }
 
+/** The disclosure printed beside a set of links (16 CFR 255.5: next to the link, not on
+ * another page). Amazon Associates also requires its own sentence wherever an Amazon
+ * tracked link shows. Empty when nothing on the list is tracked. */
+export function affiliateDisclosure(links: AffiliateLink[]): string {
+  if (!links.some((link) => link.tracked)) return '';
+  const amazon = links.some((link) => link.tracked && /(^|\.)amazon\.com$/.test(new URL(link.href).hostname));
+  return `Some of these are affiliate links: if you sign up or buy through them we may earn a commission, at no cost to you.${amazon ? ' As an Amazon Associate we earn from qualifying purchases.' : ''}`;
+}
+
 export function linksFor(placement: Placement): AffiliateLink[] {
   const ids = config.placements[placement] as string[];
   return ids.map((id) => {
