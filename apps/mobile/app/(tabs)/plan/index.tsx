@@ -79,7 +79,7 @@ export default function Plan() {
       {notes[r.key] ? <Text style={[type.sub, { color: color.midnightMuted }]}>{notes[r.key]}</Text> : null}
       {r.doneAt ? <Text style={[type.sub, { color: color.midnightMuted }]}>Done {completionDay(r.doneAt)}</Text> : null}
     </Pressable>
-    {r.ownId && (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask | undefined)?.tradition ? <Text style={type.sub}>{TRADITION_PREVIEWS.find(p => p.id === (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask).tradition?.packId)?.name}</Text> : null}
+    {r.ownId && (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask | undefined)?.tradition ? <Text style={type.sub}>{(n => n && n === journey?.answers.tradition ? `${n} · from your answers` : n)(TRADITION_PREVIEWS.find(p => p.id === (progress.custom.find(t => t.id === r.ownId) as TraditionCustomTask).tradition?.packId)?.name)}</Text> : null}
     {r.ownId ? <Pressable accessibilityRole="button" onPress={() => router.push({ pathname: '/plan/add-task', params: { id: r.ownId } })} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={{ color: color.blue }}>Edit your task ›</Text></Pressable> : null}
   </View>;
   return <PlannedScreen route="/plan">

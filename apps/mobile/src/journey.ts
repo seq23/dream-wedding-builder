@@ -8,6 +8,7 @@ import { PLAN_WINDOWS } from '@core/dated-plan';
 import { pickable, type JourneyPick } from '@core/journey-picks';
 import type { WeddingRead } from '@core/wedding-read-shared';
 import { ownTaskKey } from './planTasks';
+import { TRADITION_PREVIEWS, addTraditionExample, hasTraditionPack } from './traditionPacks';
 import type { DateStorage } from './weddingDate';
 
 export { SEASONS, SETTINGS, MOODS, LOVES, BUDGETS, TRADITIONS } from '@core/wedding-read-shared';
@@ -112,4 +113,14 @@ export function journeyStore(storage: DateStorage) {
     },
     save: (j: SavedJourney) => storage.setItem(JOURNEY_STORE_KEY, JSON.stringify(j)),
   };
+}
+
+/** The tradition pack her step-1 answer names (the journey's list uses the packs' own names). */
+export function traditionPackFor(tradition: string | undefined) {
+  return TRADITION_PREVIEWS.find(p => p.name === tradition) ?? null;
+}
+/** A tradition picked in step 1 opens that pack's free example in her plan, once. */
+export function applyTradition(progress: PlanProgress, tradition: string | undefined): PlanProgress {
+  const pack = traditionPackFor(tradition);
+  return pack && !hasTraditionPack(progress, pack.id) ? addTraditionExample(progress, pack.id) : progress;
 }

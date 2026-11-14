@@ -4,6 +4,8 @@ import type { SharedPlan } from '../../../src/sharing/session';
 import { useCallback, useState } from 'react';
 import { Linking, Pressable, Text, View } from 'react-native';
 import { useFocusEffect } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { journeyStore, traditionPackFor } from '../../../src/journey';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { emptyProgress, type PlanProgress } from '@core/plan-progress';
 import { GoButton, PlannedScreen } from '../../../src/ui';
@@ -26,9 +28,11 @@ export default function Traditions() {
   const [confirm, setConfirm] = useState(false);
   const [removed, setRemoved] = useState<PlanProgress['custom'] | null>(null);
   const price = useFullPlanPrice();
+  const [mine, setMine] = useState<string | null>(null);
   useFocusEffect(useCallback(() => {
     let active = true;
     setReady(false); setLoadFailed(false);
+    journeyStore(AsyncStorage).read().then(j => { if (active) setMine(traditionPackFor(j?.answers.tradition)?.id ?? null); }).catch(() => {});
     Promise.all([loadTraditions(savedProgress.read), activePlan()]).then(([p, plan]) => { if (active) { setShared(plan); setProgress(p); setReady(true); setError(''); } })
       .catch(() => { if (active) { setLoadFailed(true); setReady(true); setError('Could not read your plan. Return to your plan and try again.'); } });
     return () => { active = false; };
@@ -84,8 +88,10 @@ export default function Traditions() {
       <Text accessibilityRole="header" style={type.title}>Traditions</Text>
       <Text style={type.body}>These packs are optional. Add their tasks to your plan at the right time.</Text>
       {!shared ? <Text style={type.sub}>One example from each pack is free. The full packs are {partOfFullPlan(price, 'part')}.</Text> : null}
-      {TRADITION_PREVIEWS.map(p => <Pressable key={p.id} accessibilityRole="button" onPress={() => { setSelected(p.id); setConfirm(false); setRemoved(null); }} style={{ minHeight: 64, paddingVertical: space[3], borderBottomWidth: 1, borderColor: color.rule, gap: space[1] }}>
+      {/* The tradition she picked in step 1 of the journey comes first. */}
+      {[...TRADITION_PREVIEWS].sort((x, y) => Number(y.id === mine) - Number(x.id === mine)).map(p => <Pressable key={p.id} accessibilityRole="button" onPress={() => { setSelected(p.id); setConfirm(false); setRemoved(null); }} style={{ minHeight: 64, paddingVertical: space[3], borderBottomWidth: 1, borderColor: color.rule, gap: space[1] }}>
         <Text style={type.section}>{p.name} {hasTraditionPack(progress, p.id) ? '✓ Added' : '›'}</Text>
+        {p.id === mine ? <Text style={[type.label, { color: color.blue }]}>From your answers</Text> : null}
         <Text style={type.sub}>{p.example.text}</Text>
       </Pressable>)}
       <GoButton href="/plan/add-task" label="Write my own task ›" />

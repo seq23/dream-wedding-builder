@@ -38,7 +38,13 @@ function photoColours(img: HTMLImageElement): string[] {
     const o = (bins[k] ??= { n: 0, r: 0, g: 0, b: 0 });
     o.n++; o.r += d[i]; o.g += d[i + 1]; o.b += d[i + 2];
   }
-  return Object.values(bins).sort((a, b) => b.n - a.n).slice(0, 5).map(o => '#' + [o.r, o.g, o.b].map(v => Math.round(v / o.n).toString(16).padStart(2, '0')).join(''));
+  // JPEG noise splits one colour across neighbouring bins: fold near ones together, then rank by size.
+  const groups: { n: number; r: number; g: number; b: number }[] = [];
+  for (const o of Object.values(bins).sort((a, b) => b.n - a.n)) {
+    const k = groups.find(g => Math.hypot(g.r / g.n - o.r / o.n, g.g / g.n - o.g / o.n, g.b / g.n - o.b / o.n) < 40);
+    if (k) { k.n += o.n; k.r += o.r; k.g += o.g; k.b += o.b; } else groups.push({ ...o });
+  }
+  return groups.sort((a, b) => b.n - a.n).slice(0, 5).map(o => '#' + [o.r, o.g, o.b].map(v => Math.round(v / o.n).toString(16).padStart(2, '0')).join(''));
 }
 
 const loadImage = (url: string) => new Promise<HTMLImageElement>((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = url; });

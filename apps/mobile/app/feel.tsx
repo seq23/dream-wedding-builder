@@ -10,7 +10,7 @@ import { useFullPlanPrice } from '../src/useFullPlanPrice';
 import { WeddingDatePicker } from '../src/WeddingDatePicker';
 import { canSaveDate } from '../src/welcomeStart';
 import { MAX_PHOTOS, pickPhoto, shrinkForAi, type JourneyPhoto } from '../src/photos';
-import { BUDGETS, EMPTY_ANSWERS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, applyPicks, journeyStore, pickable, readLabel, weddingReadClient,
+import { BUDGETS, EMPTY_ANSWERS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, applyPicks, applyTradition, journeyStore, pickable, readLabel, weddingReadClient,
   type JourneyAnswers, type JourneyPick, type ReadReason, type WeddingRead } from '../src/journey';
 import { color, font, radius, space, type } from '../src/theme';
 
@@ -105,7 +105,7 @@ export default function Feel() {
   async function finish(chosenDate: string, then: '/plan' | '/more/packet' = '/plan') {
     setBusy(true); setError('');
     try {
-      await savedProgress.update(p => applyPicks(p, picks, a.venueBooked, new Date().toISOString()));
+      await savedProgress.update(p => applyTradition(applyPicks(p, picks, a.venueBooked, new Date().toISOString()), a.tradition));
       if (chosenDate !== savedOn) await savedDate.save(chosenDate);
       await store.save({ answers: a, read: page?.read ?? null, reason: page?.reason ?? 'no_model', picks });
       router.replace('/plan');

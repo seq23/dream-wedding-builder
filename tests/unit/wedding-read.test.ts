@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
-import { checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
+import { buildMessages, checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
 import { sha256, visitorIp } from '@/lib/ai-draft';
 import { recordReach } from '@/lib/journey-reach';
 import { MODEL_CALLS_PER_DAY_GLOBAL } from '@/lib/ai-draft';
@@ -48,6 +48,16 @@ describe('the checks before she sees an answer', () => {
     expect(checkRead(read({ headline: 'A relaxed fall garden in Springfield, for 100' }), dk).some(f => f === 'name:headline:Springfield')).toBe(true);
     expect(checkRead(read({ details: ['Dinner at the Grand Oak Ballroom'] }), dk).some(f => f.startsWith('name:detail0:'))).toBe(true);
     expect(checkRead(read({ details: ['Spritzes with Aperol at the bar'] }), dk).some(f => f.startsWith('name:detail0:') || f.startsWith('brand:'))).toBe(true);
+  });
+
+  it('a town named only in her own words may be used; with no town anywhere the prompt says "near you"', () => {
+    const typed = cleanAnswers({ path: 'idea', wish: 'Italian villa feel in Memphis, 100 people' });
+    expect(checkRead(read({ headline: 'An Italian villa evening in Memphis, for 100', ideas: [] }), typed).filter(f => f.startsWith('name:'))).toEqual([]);
+    const prompt = JSON.stringify(buildMessages(typed, [], [], []));
+    expect(prompt).toContain('If her own words name the town');
+    expect(JSON.stringify(buildMessages(cleanAnswers({ path: 'idea', wish: 'Memphis', facts: { where: 'Memphis' } }), [], [], []))).not.toContain('near you');
+    // The colours read from her photo on her phone shape the palette.
+    expect(JSON.stringify(buildMessages(cleanAnswers({ path: 'idea', wish: 'a villa', photos: [{ loves: [], colours: ['#800020', '#d2b48c'] }] }), [], [], []))).toContain('Colours read from her photos: #800020, #d2b48c');
   });
 
   it('speaks as the tool: we, us, I and darling fail', () => {
