@@ -53,6 +53,26 @@ export const WEDDING_READS_DDL = `CREATE TABLE IF NOT EXISTS wedding_reads (
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 )`;
 
+// "I don't know yet" answers are kept for 7 days by her taps, so a bride who taps the same
+// things as an earlier one gets that AI answer for no model call. Only answers made from
+// taps and her town (no words of her own, no photo sent for the AI to see) are kept, and our own
+// test traffic never writes to it.
+export const READ_CACHE_DDL = `CREATE TABLE IF NOT EXISTS wedding_read_cache (
+  cache_key TEXT PRIMARY KEY,
+  read TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+)`;
+export const READ_CACHE_DAYS = 7;
+
+/** The cache key for an answer made from taps (and her town), or null when her answer has her own words or an image. */
+export function readCacheKey(a: Answers): string | null {
+  if (a.path !== 'dk' || a.wish || a.photos.some(p => p.image)) return null;
+  // A photo's colours count by a coarse bucket (3 bits a channel), so near colours share an answer.
+  const bucket = (hex: string) => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) >> 5).join('');
+  return JSON.stringify([a.where.trim().toLowerCase().replace(/\s+/g, ' '), a.season, a.setting, [...a.moods].sort(), a.guests ?? '', a.budget, a.tradition, a.venueBooked, a.dateSet,
+    a.photos.map(p => [[...p.loves].sort(), p.colours.map(bucket)])]);
+}
+
 // ---- What she told us ---------------------------------------------------------
 const oneOf = <T extends readonly string[]>(list: T, v: unknown): string => (typeof v === 'string' && (list as readonly string[]).includes(v) ? v : '');
 const text = (v: unknown, max: number) => (typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f<>]+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max) : '');
@@ -546,6 +566,17 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
   const reserved = await db.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, photos, is_test) VALUES (?, ?, 'pending', ?, ?) RETURNING id`).bind(ipHash, input.today, a.photos.filter(p => p.image).length, isTest ? 1 : 0).first<{ id: number }>();
   const settle = (outcome: string, model: string | null) => db.prepare('UPDATE wedding_reads SET outcome = ?, model = ? WHERE id = ?').bind(outcome, model, reserved?.id ?? -1).run();
   const remaining = limit - used - 1;
+  const cacheKey = readCacheKey(a);
+  if (cacheKey) {
+    await db.prepare(READ_CACHE_DDL).run();
+    const hit = await db.prepare(`SELECT read FROM wedding_read_cache WHERE cache_key = ? AND created_at >= datetime('now', ?)`).bind(cacheKey, `-${READ_CACHE_DAYS} days`).first<{ read: string }>();
+    let cached: WeddingRead | null = null;
+    try { cached = hit ? JSON.parse(hit.read) as WeddingRead : null; } catch { cached = null; }
+    if (cached && !checkRead(cached, a).length) {
+      await settle('ok', 'cache');
+      return { status: 200, body: { ok: true, read: cached, remaining, limit, reason: 'ai' } };
+    }
+  }
   if (modelCallsToday >= MODEL_CALLS_PER_DAY_GLOBAL) {
     log(`NAMED STOP [WEDDING_READ_DAILY_CEILING] ${MODEL_CALLS_PER_DAY_GLOBAL} model answers reached for ${input.today}; the fixed-list answer was given`);
     await settle('fixed', 'fixed');
@@ -591,6 +622,7 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
 
   if (got) {
     await settle('ok', `${got.step}:${got.model}`);
+    if (cacheKey && !isTest) await db.prepare(`INSERT INTO wedding_read_cache (cache_key, read, created_at) VALUES (?, ?, CURRENT_TIMESTAMP) ON CONFLICT(cache_key) DO UPDATE SET read = excluded.read, created_at = excluded.created_at`).bind(cacheKey, JSON.stringify(got.value)).run();
     log(`WEDDING_READ_ROUTE ${JSON.stringify({ day: input.today, by: got.step, model: got.model, photos: photoNotes.length, trail })}`);
     return { status: 200, body: { ok: true, read: got.value, remaining, limit, reason: 'ai' } };
   }

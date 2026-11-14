@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
-import { buildMessages, checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
+import { buildMessages, checkRead, cleanAnswers, fixedRead, readCacheKey, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
 import { sha256, visitorIp } from '@/lib/ai-draft';
 import { recordReach } from '@/lib/journey-reach';
 import { MODEL_CALLS_PER_DAY_GLOBAL } from '@/lib/ai-draft';
@@ -182,6 +182,34 @@ describe('the journey endpoint', () => {
     // A tester entry made from the /64 keeps working after the address rotates.
     const entry = await sha256('s:ip:2601:3cb:500:15e1::/64');
     expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '2601:3cb:500:15e1:9999::1', testerHashes: entry }))).body).toMatchObject({ reason: 'ai', limit: TESTER_ANSWERS_PER_DAY });
+  });
+
+  it('a repeat "I don\'t know yet" answer comes from the 7-day cache with no model call; words, an image and test traffic never use or fill it; a different town is a different answer', async () => {
+    const { db, sqlite } = fakeD1();
+    const net = fakeNet({ gemini: () => geminiAnswer(good()) });
+    const first = await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '3.3.3.1', isTest: true }));
+    expect(first.body.reason).toBe('ai');
+    expect(sqlite.prepare('SELECT COUNT(*) AS n FROM wedding_read_cache').get()).toMatchObject({ n: 0 });
+    await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '3.3.3.2' }));
+    expect(sqlite.prepare('SELECT COUNT(*) AS n FROM wedding_read_cache').get()).toMatchObject({ n: 1 });
+    const before = net.calls.length;
+    const repeat = await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '3.3.3.3' }));
+    expect(repeat.body).toMatchObject({ ok: true, reason: 'ai', remaining: 2 });
+    expect(net.calls.length).toBe(before);
+    expect(sqlite.prepare("SELECT model FROM wedding_reads ORDER BY id DESC LIMIT 1").get()).toMatchObject({ model: 'cache' });
+    // Different taps, or her own words, are asked fresh.
+    await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '3.3.3.4', body: { ...DK, moods: ['Party'] } }));
+    expect(net.calls.length).toBeGreaterThan(before);
+    expect(readCacheKey(cleanAnswers({ path: 'idea', wish: 'a barn' }))).toBeNull();
+    expect(readCacheKey(cleanAnswers({ ...DK, facts: { where: 'Nashville', guests: '100' } }))).not.toBe(readCacheKey(cleanAnswers(DK)));
+    expect(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: [], image: 'QUJD' }] }))).toBeNull();
+    // Photo colours share an answer by bucket.
+    expect(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: ['#7f001f'] }] }))).toBe(readCacheKey(cleanAnswers({ ...DK, photos: [{ loves: [], colours: ['#78041c'] }] })));
+    // Older than 7 days: asked fresh.
+    sqlite.exec("UPDATE wedding_read_cache SET created_at = datetime('now', '-8 days')");
+    const n = net.calls.length;
+    await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '3.3.3.5' }));
+    expect(net.calls.length).toBeGreaterThan(n);
   });
 
   it('past the global daily ceiling: the fixed-list answer, no model asked', async () => {
