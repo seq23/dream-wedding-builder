@@ -8,7 +8,7 @@ import { appCorsHeaders } from '@/lib/app-cors';
 // lib/wedding-read.ts; this route only reads the request and the Worker's env.
 // Over any limit, off, or with no model free, the answer is the fixed-list one:
 // she never sees an error page for asking.
-type Env = { DB?: D1Like; OPENROUTER_API_KEY?: string; GEMINI_API_KEY?: string; AI_DRAFT_ENABLED?: string; AI_DRAFT_SALT?: string; DOWNLOAD_SIGNING_SECRET?: string };
+type Env = { DB?: D1Like; OPENROUTER_API_KEY?: string; GEMINI_API_KEY?: string; AI_DRAFT_ENABLED?: string; AI_DRAFT_SALT?: string; DOWNLOAD_SIGNING_SECRET?: string; DW_TESTER_IP_HASHES?: string };
 
 const hostOf = (req: NextRequest) => (req.headers.get('x-forwarded-host') ?? req.headers.get('host') ?? '').slice(0, 120);
 async function env(): Promise<Env> { try { return (await runtimeEnv()) as unknown as Env; } catch { return {}; } }
@@ -34,7 +34,8 @@ export async function POST(req: NextRequest) {
     ip: req.headers.get('cf-connecting-ip') ?? req.headers.get('x-real-ip') ?? '',
     today: centralDay(),
     salt: e.AI_DRAFT_SALT || e.DOWNLOAD_SIGNING_SECRET || '',
-    isTest: req.headers.get('x-dw-test') === '1'
+    isTest: req.headers.get('x-dw-test') === '1',
+    testerHashes: e.DW_TESTER_IP_HASHES
   });
   return json(result.body, result.status);
 }

@@ -418,6 +418,16 @@ export interface ReadInput {
   budgetMs?: number;
   /** Our own checks (header x-dw-test: 1): counted like anyone, but left out of the scorecard. */
   isTest?: boolean;
+  /** DW_TESTER_IP_HASHES (a Worker secret, never in the repo): salted IP hashes of our own testers. */
+  testerHashes?: string;
+}
+
+/** Our own testers get TESTER_ANSWERS_PER_DAY instead of three, still free models only and
+ * still under the global ceiling, and every row they make is is_test = 1. Only the IP list
+ * unlocks it: no header, URL key or cookie can. */
+export const TESTER_ANSWERS_PER_DAY = 300;
+export function isTesterHash(ipHash: string, list: string | undefined): boolean {
+  return !!ipHash && !!list && list.split(/[\s,]+/).some(h => h.length === 64 && h === ipHash);
 }
 
 export type ReadResult = { status: 200; body: { ok: true; read: WeddingRead; /** null when the count was not read (switched off, no database). */ remaining: number | null; limit: number; reason: 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed' } };
@@ -476,7 +486,7 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
   const log = input.log ?? ((l: string) => console.error(l));
   const now = input.now ?? new Date();
   const a = cleanAnswers(input.body);
-  const fixed = (reason: ReadResult['body']['reason'], remaining: number | null): ReadResult => ({ status: 200, body: { ok: true, read: fixedRead(a), remaining, limit: ANSWERS_PER_VISITOR_PER_DAY, reason } });
+  const fixed = (reason: ReadResult['body']['reason'], remaining: number | null, limit = ANSWERS_PER_VISITOR_PER_DAY): ReadResult => ({ status: 200, body: { ok: true, read: fixedRead(a), remaining, limit, reason } });
   if (!input.enabled) return fixed('off', null);
   if (!input.db) { log('NAMED STOP [WEDDING_READ_NO_DB] D1 binding missing; the fixed-list answer was given'); return fixed('off', null); }
   if (!input.salt) { log('NAMED STOP [WEDDING_READ_SALT_MISSING] neither AI_DRAFT_SALT nor DOWNLOAD_SIGNING_SECRET is set; the fixed-list answer was given'); return fixed('off', null); }
@@ -486,18 +496,21 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
   await db.prepare(ROUTE_USAGE_DDL).run();
   const ipHash = await sha256(`${input.salt}:ip:${input.ip || 'unknown'}`);
   const count = async (sql: string, ...v: unknown[]) => Number((await db.prepare(sql).bind(...v).first<{ n: number }>())?.n ?? 0);
+  const tester = isTesterHash(ipHash, input.testerHashes);
+  const limit = tester ? TESTER_ANSWERS_PER_DAY : ANSWERS_PER_VISITOR_PER_DAY;
+  const isTest = input.isTest || tester;
   const used = await count(`SELECT COUNT(*) AS n FROM wedding_reads WHERE ip_hash = ? AND day = ?`, ipHash, input.today);
-  if (used >= ANSWERS_PER_VISITOR_PER_DAY) return fixed('visitor_limit', 0);
+  if (used >= limit) return fixed('visitor_limit', 0, limit);
   const modelCallsToday = await count(`SELECT COUNT(*) AS n FROM wedding_reads WHERE day = ? AND (model LIKE 'gemini:%' OR model LIKE 'openrouter:%')`, input.today)
     + await count(`SELECT COUNT(*) AS n FROM ai_drafts WHERE day = ? AND (model LIKE 'gemini:%' OR model LIKE 'openrouter:%')`, input.today);
   // Reserve first, so two tabs at once cannot both spend the third answer.
-  const reserved = await db.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, photos, is_test) VALUES (?, ?, 'pending', ?, ?) RETURNING id`).bind(ipHash, input.today, a.photos.filter(p => p.image).length, input.isTest ? 1 : 0).first<{ id: number }>();
+  const reserved = await db.prepare(`INSERT INTO wedding_reads (ip_hash, day, outcome, photos, is_test) VALUES (?, ?, 'pending', ?, ?) RETURNING id`).bind(ipHash, input.today, a.photos.filter(p => p.image).length, isTest ? 1 : 0).first<{ id: number }>();
   const settle = (outcome: string, model: string | null) => db.prepare('UPDATE wedding_reads SET outcome = ?, model = ? WHERE id = ?').bind(outcome, model, reserved?.id ?? -1).run();
-  const remaining = ANSWERS_PER_VISITOR_PER_DAY - used - 1;
+  const remaining = limit - used - 1;
   if (modelCallsToday >= MODEL_CALLS_PER_DAY_GLOBAL) {
     log(`NAMED STOP [WEDDING_READ_DAILY_CEILING] ${MODEL_CALLS_PER_DAY_GLOBAL} model answers reached for ${input.today}; the fixed-list answer was given`);
     await settle('fixed', 'fixed');
-    return fixed('daily_ceiling', remaining);
+    return fixed('daily_ceiling', remaining, limit);
   }
 
   const trail: string[] = [];
@@ -540,12 +553,12 @@ export async function weddingRead(input: ReadInput): Promise<ReadResult> {
   if (got) {
     await settle('ok', `${got.step}:${got.model}`);
     log(`WEDDING_READ_ROUTE ${JSON.stringify({ day: input.today, by: got.step, model: got.model, photos: photoNotes.length, trail })}`);
-    return { status: 200, body: { ok: true, read: got.value, remaining, limit: ANSWERS_PER_VISITOR_PER_DAY, reason: 'ai' } };
+    return { status: 200, body: { ok: true, read: got.value, remaining, limit, reason: 'ai' } };
   }
   const failedChecks = trail.some(t => t.endsWith(':failed_checks'));
   log(`NAMED STOP [WEDDING_READ_NO_FREE_MODEL] ${trail.join(' ') || 'none'}; the fixed-list answer was given, no paid model tried`);
   await settle('fixed', 'fixed');
   const read = fixedRead(a);
   read.photoNotes = photoNotes;
-  return { status: 200, body: { ok: true, read, remaining, limit: ANSWERS_PER_VISITOR_PER_DAY, reason: failedChecks ? 'checks_failed' : 'no_model' } };
+  return { status: 200, body: { ok: true, read, remaining, limit, reason: failedChecks ? 'checks_failed' : 'no_model' } };
 }

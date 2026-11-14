@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
-import { checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
+import { checkRead, cleanAnswers, fixedRead, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
+import { sha256 } from '@/lib/ai-draft';
+import { recordReach } from '@/lib/journey-reach';
 import { MODEL_CALLS_PER_DAY_GLOBAL } from '@/lib/ai-draft';
 import { fakeD1, fakeNet, geminiAnswer, geminiQuota, orAnswer, orDown } from '@/tests/support/ai-draft-fakes';
 
@@ -113,6 +115,25 @@ describe('the journey endpoint', () => {
     expect(net.calls.length).toBe(before);
     expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '2.2.2.2' }))).body.reason).toBe('ai');
     expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, today: '2026-11-14', now: new Date('2026-11-14T18:00:00Z') }))).body.reason).toBe('ai');
+  });
+
+  it('a tester on DW_TESTER_IP_HASHES gets more than three AI answers, every row is a test row; nothing else unlocks it', async () => {
+    const { db, sqlite } = fakeD1();
+    const net = fakeNet({ gemini: () => geminiAnswer(good()) });
+    const mine = await sha256('s:ip:7.7.7.7');
+    const list = `${'a'.repeat(64)}, ${mine}`;
+    for (let i = 0; i < 5; i++) expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '7.7.7.7', testerHashes: list }))).body).toMatchObject({ reason: 'ai', limit: TESTER_ANSWERS_PER_DAY, remaining: TESTER_ANSWERS_PER_DAY - 1 - i });
+    expect(sqlite.prepare('SELECT COUNT(*) AS n FROM wedding_reads WHERE is_test = 1 AND ip_hash = ?').get(mine)).toMatchObject({ n: 5 });
+    // Anyone else, even with the test header or the list set: three.
+    for (let i = 0; i < ANSWERS_PER_VISITOR_PER_DAY; i++) await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '8.8.8.8', testerHashes: list, isTest: true }));
+    expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '8.8.8.8', testerHashes: list, isTest: true }))).body).toMatchObject({ reason: 'visitor_limit', limit: ANSWERS_PER_VISITOR_PER_DAY });
+    // A hash that is not a whole 64-character entry never matches (no prefixes, no empty list).
+    for (let i = 0; i < ANSWERS_PER_VISITOR_PER_DAY; i++) await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '6.6.6.6', testerHashes: (await sha256('s:ip:6.6.6.6')).slice(0, 40) }));
+    expect((await weddingRead(base({ db, fetchImpl: net.fetchImpl, ip: '6.6.6.6', testerHashes: '' }))).body.reason).toBe('visitor_limit');
+    // The tester's reach row is a test row too.
+    await recordReach({ db, via: 'date', ip: '7.7.7.7', today: TODAY, salt: 's', isTest: false, testerHashes: list });
+    await recordReach({ db, via: 'date', ip: '5.5.5.5', today: TODAY, salt: 's', isTest: false, testerHashes: list });
+    expect(sqlite.prepare('SELECT ip_hash = ? AS mine, is_test FROM journey_plan_reach ORDER BY id').all(mine)).toEqual([{ mine: 1, is_test: 1 }, { mine: 0, is_test: 0 }]);
   });
 
   it('past the global daily ceiling: the fixed-list answer, no model asked', async () => {
