@@ -2,11 +2,11 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "0d873242bae22fa16851e5e9e55f2293124c51ac",
+  "generated_from_commit": "9a7afd0d4290abdc7e61db37df40a3fa01f3a5db",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-13",
       "source": "app/page.tsx"
     },
     "/about": {
@@ -50,7 +50,7 @@
       "source": "app/backyard-wedding-planning/page.tsx"
     },
     "/disclaimer": {
-      "lastmod": "2026-08-27",
+      "lastmod": "2026-11-13",
       "source": "app/disclaimer/page.tsx"
     },
     "/editorial-policy": {

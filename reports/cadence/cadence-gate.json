@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13",
+  "generated_at": "2026-11-14",
   "policy_source": "data/cadence/policy.json",
   "lane": "publish",
   "urls": 57,
@@ -7,8 +7,8 @@
   "undated": 0,
   "stale_over_window": 0,
   "stale_pct": 0,
-  "fresh_within_30d": 50,
-  "lastmod_within_7d": 26,
+  "fresh_within_30d": 52,
+  "lastmod_within_7d": 27,
   "new_since_last_run": 0,
   "ledger_initialised": true,
   "maintainable_ceiling": 13,
@@ -32,7 +32,7 @@
     }
   },
   "refreshes_needed": 0,
-  "projected_stale_pct": 5.3,
+  "projected_stale_pct": 1.8,
   "blocking": [],
   "hold": null,
   "warnings": [
