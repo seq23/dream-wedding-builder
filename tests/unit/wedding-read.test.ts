@@ -40,6 +40,16 @@ describe('the checks before she sees an answer', () => {
       expect(checkRead(fixedRead(a), a), JSON.stringify(body)).toEqual([]);
     }
   });
+  it('no false names or voice: Edison bulbs and her own "we" in a vendor question pass; invented towns, venues, I and darling still fail', () => {
+    expect(checkRead(read({ details: ['Edison bulbs strung over long tables', 'Chiavari chairs with Chantilly lace runners'] }), dk)).toEqual([]);
+    expect(checkRead(read({ ask: ['Ask the caterer if we can bring our own wine.'] }), dk)).toEqual([]);
+    expect(checkRead(read({ read: 'We can bring our own wine.' }), dk).some(f => f.startsWith('voice:read'))).toBe(true);
+    expect(checkRead(read({ ask: ['Ask the florist what I should pick, darling.'] }), dk).some(f => f.startsWith('voice:ask'))).toBe(true);
+    expect(checkRead(read({ headline: 'A relaxed fall garden in Springfield, for 100' }), dk).some(f => f === 'name:headline:Springfield')).toBe(true);
+    expect(checkRead(read({ details: ['Dinner at the Grand Oak Ballroom'] }), dk).some(f => f.startsWith('name:detail0:'))).toBe(true);
+    expect(checkRead(read({ details: ['Spritzes with Aperol at the bar'] }), dk).some(f => f.startsWith('name:detail0:') || f.startsWith('brand:'))).toBe(true);
+  });
+
   it('speaks as the tool: we, us, I and darling fail', () => {
     for (const bad of ['We love this for you.', 'I think candles work.', 'Darling, keep it simple.', 'Let us plan it.']) expect(checkRead(read({ read: bad }), dk).some(f => f.startsWith('voice:'))).toBe(true);
     expect(checkRead(read({ read: 'You can keep it simple with candles.' }), dk)).toEqual([]);

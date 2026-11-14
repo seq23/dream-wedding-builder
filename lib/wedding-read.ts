@@ -175,7 +175,11 @@ export function venueOptions(a: Answers) {
 }
 
 // ---- The checks before she sees anything ------------------------------------------
-const VOICE = [/\b(we|us|our|ours|we're|we've|we'll|let's)\b/i, /\b(I|I'm|I'd|I'll|I've)\b/, /\b(me|my|mine|myself)\b/i, /\b(darling|dear|honey|sweetie|babe|hun)\b/i];
+const WE = /\b(we|us|our|ours|we're|we've|we'll|let's)\b/i;
+const VOICE = [WE, /\b(I|I'm|I'd|I'll|I've)\b/, /\b(me|my|mine|myself)\b/i, /\b(darling|dear|honey|sweetie|babe|hun)\b/i];
+// The questions she asks her vendors are hers, as a couple: "Can we bring our own wine?" is
+// her voice, not the tool's. Only "we" is let through there; I, me and darling still fail.
+const ASK_VOICE = VOICE.filter(re => re !== WE);
 const PRICE = [/[$€£]\s*\d/, /\b\d[\d,.]*\s*(dollars|usd|bucks|grand)\b/i, /\b\d+(\.\d+)?k\b/i];
 // Availability of a date, a venue or a vendor; "which flowers are available in fall" is not a claim about anyone's calendar.
 const AVAILABILITY = /\b(availability|sold out|booked up|open dates?|has openings?)\b|\b(dates?|days?|weekends?|venues?|they|it|vendors?)\s+(is|are)\s+(still\s+)?available\b/i;
@@ -183,6 +187,9 @@ const CONTACT = /https?:\/\/|www\.|\b[\w-]+\.(com|net|org|co|io|us)\b|@\w|\(\d{3
 // Businesses and brands a wedding answer is likely to reach for, caught anywhere, any case.
 const BRANDS = words(['zola', 'the knot', 'weddingwire', 'wedding wire', 'etsy', 'amazon', 'target', 'walmart', 'costco', 'ikea', 'pinterest', 'instagram', 'tiktok', "david's bridal", 'davids bridal', 'vera wang', 'home depot', "trader joe's", 'trader joe', 'whole foods', 'aldi', 'kroger', "sam's club", 'michaels', 'hobby lobby', 'joann', 'party city', 'minted', 'shutterfly', 'vistaprint', 'canva', 'airbnb', 'vrbo', 'marriott', 'hilton', 'hyatt', 'four seasons', 'ritz', 'peabody', 'graceland', 'starbucks', 'honeybook', 'uber', 'lyft', 'tiffany', 'pantone', 'crate and barrel', 'williams sonoma', 'pottery barn', 'west elm', 'anthropologie', 'bhldn', 'kleinfeld', 'sephora', 'ulta', 'disney']);
 const MONTHS_DAYS_SEASONS = 'january february march april may june july august september october november december monday tuesday wednesday thursday friday saturday sunday spring summer fall autumn winter'.split(' ');
+// Common decor, flower, colour and drink words that are capitalised but name no business or
+// place (Edison bulbs, Chiavari chairs, Chantilly lace). A town, venue or business is still a name.
+const DECOR_WORDS = 'edison chiavari mason ghost chesterfield adirondack turkish venetian chantilly alencon burgundy bordeaux champagne marsala prosecco sangria margarita bellini negroni spritz'.split(' ');
 const DEMONYMS = 'italian tuscan sicilian roman mediterranean european french parisian provencal spanish andalusian portuguese greek english british irish scottish welsh scandinavian nordic german dutch moroccan persian indian hindu muslim jewish catholic christian nigerian yoruba igbo african ghanaian ethiopian caribbean jamaican latin latina latino mexican cuban puerto rican colombian brazilian chinese japanese korean vietnamese filipino thai american southern northern western eastern midwestern southwestern creole cajun gothic victorian edwardian baroque renaissance art deco bohemian boho hollywood old-world old world'.split(/\s+/);
 
 // Regions the answer may name only when she named their culture (an Italian villa
@@ -196,7 +203,7 @@ const CULTURE_PLACES: Record<string, string[]> = {
 };
 
 function allowedCapitals(a: Answers, read: WeddingRead): Set<string> {
-  const set = new Set<string>(['ai', ...MONTHS_DAYS_SEASONS, ...DEMONYMS]);
+  const set = new Set<string>(['ai', ...MONTHS_DAYS_SEASONS, ...DEMONYMS, ...DECOR_WORDS]);
   const her = herWords(a);
   for (const [marker, places] of Object.entries(CULTURE_PLACES)) if (MARKERS[marker]?.her.test(her)) for (const p of places) set.add(p);
   const add = (s: string) => { for (const w of s.toLowerCase().match(/[a-z]+/g) ?? []) set.add(w); };
@@ -231,7 +238,7 @@ export function checkRead(r: WeddingRead, a: Answers): string[] {
   for (const [where, s] of modelTexts(r)) {
     if (!s) continue;
     const hit = (kind: string, res: RegExp[]) => { for (const re of res) { const m = re.exec(s); if (m) { fails.push(`${kind}:${where}:${m[0]}`); return; } } };
-    hit('voice', VOICE);
+    hit('voice', where.startsWith('ask') ? ASK_VOICE : VOICE);
     hit('price', PRICE);
     hit('availability', [AVAILABILITY]);
     hit('contact', [CONTACT]);
