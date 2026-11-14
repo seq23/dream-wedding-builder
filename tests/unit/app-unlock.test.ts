@@ -21,8 +21,12 @@ const list = (items: unknown[]) => ({ object: 'list', items, next_page: null, ur
 function customer(product = 'dw_full_plan', sandbox = false) { return list([purchase(product, sandbox ? { environment: 'sandbox' } : {})]); }
 const owned = (value: unknown) => storePurchases(value, products);
 function post(id = identity) { return new Request('https://weddingchecklistpdf.com/api/app-unlock', { method: 'POST', headers: { authorization: `Bearer ${id}`, 'cf-connecting-ip': '203.0.113.1' } }); }
-const source = (value: unknown, status = 200) => vi.fn<typeof fetch>().mockImplementation(async input =>
-  String(input).includes('/products?') ? Response.json(products) : Response.json(value, { status }));
+// Mirrors the Workers runtime, which throws on redirect 'error' (measured in workerd, 14 Nov 2026).
+const workersFetch = (init?: RequestInit) => { if (init?.redirect === 'error') throw new TypeError('Invalid redirect value, must be one of "follow" or "manual"'); };
+const source = (value: unknown, status = 200) => vi.fn<typeof fetch>().mockImplementation(async (input, init) => {
+  workersFetch(init);
+  return String(input).includes('/products?') ? Response.json(products) : Response.json(value, { status });
+});
 const call = (req: Request, upstream = source(customer()), at = now) => appUnlock(req, env, upstream, at);
 beforeEach(() => {
   raw = new DatabaseSync(':memory:');
@@ -88,7 +92,7 @@ it('checks only the anonymous bearer identity server-side, then streams only its
   const body = await response.json();
   expect(body.active).toEqual(['full_plan']);
   expect(body.downloads.map((a: {id: string}) => a.id)).toEqual(APP_ASSETS.filter(a => a.entitlement === 'full_plan').map(a => a.id));
-  const sent = expect.objectContaining({ headers: { Authorization: 'Bearer test-server-secret', Accept: 'application/json' }, signal: expect.any(AbortSignal), redirect: 'error' });
+  const sent = expect.objectContaining({ headers: { Authorization: 'Bearer test-server-secret', Accept: 'application/json' }, signal: expect.any(AbortSignal), redirect: 'manual' });
   expect(upstream).toHaveBeenCalledWith(`https://api.revenuecat.com/v2/projects/${REVENUECAT_PROJECT}/customers/${encodeURIComponent(identity)}/purchases?limit=1000`, sent);
   expect(upstream).toHaveBeenCalledWith(`https://api.revenuecat.com/v2/projects/${REVENUECAT_PROJECT}/products?limit=1000`, sent);
   expect(JSON.stringify(body)).not.toContain(identity);
@@ -245,4 +249,15 @@ it('real RevenueCat replies: our rejected key is a named stop, and a real custom
   expect(paid.status).toBe(200);
   expect((await paid.json()).active).toEqual(['full_plan']);
   expect(productId('dw_full_plan')).toMatch(/^prod/);
+});
+
+it('a redirected RevenueCat reply is never followed and unlocks nothing', async () => {
+  const upstream = vi.fn<typeof fetch>().mockImplementation(async (input, init) => {
+    workersFetch(init);
+    return String(input).includes('/products?') ? Response.json(products) : new Response(null, { status: 302, headers: { location: 'https://example.invalid/' } });
+  });
+  const response = await call(post(), upstream);
+  expect(response.status).toBe(503);
+  expect(JSON.stringify(await response.json())).not.toContain('downloads');
+  expect(upstream).toHaveBeenCalledTimes(2);
 });
