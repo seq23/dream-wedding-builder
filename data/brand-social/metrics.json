@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-11-13T11:56:01.712Z",
+  "updatedAt": "2026-11-14T11:56:07.834Z",
   "headline_host": "weddingchecklistpdf.com",
   "window": {
     "days": 28,
-    "since": "2026-10-17",
-    "until": "2026-11-13",
-    "from": "2026-10-16T11:56:01.712Z",
-    "to": "2026-11-13T11:56:01.712Z"
+    "since": "2026-10-18",
+    "until": "2026-11-14",
+    "from": "2026-10-17T11:56:07.834Z",
+    "to": "2026-11-14T11:56:07.834Z"
   },
   "social_visits_28d": 0,
   "by_platform": {
@@ -19,7 +19,7 @@
   "by_host": {
     "weddingchecklistpdf.com": {
       "site_tag": "1a97575237ad472683f60409f6ef88b3",
-      "pageloads": 50,
+      "pageloads": 110,
       "first_pageload_date": "2026-11-09",
       "social_visits": 0,
       "by_platform": {
@@ -52,8 +52,8 @@
     },
     "weddingseatingchartmaker.com": {
       "site_tag": "a931b1ad0d1c4dfebb494e51a5ebcd1f",
-      "pageloads": 0,
-      "first_pageload_date": null,
+      "pageloads": 10,
+      "first_pageload_date": "2026-11-13",
       "social_visits": 0,
       "by_platform": {
         "instagram": 0,
