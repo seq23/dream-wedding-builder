@@ -1,8 +1,8 @@
-import { linksFor, type Placement } from '@/lib/affiliates';
+import { affiliateDisclosure, linksFor, type Placement } from '@/lib/affiliates';
 
 export function AffiliatePicks({ placement, heading = 'Registry and invitations, when you get there' }: { placement: Placement; heading?: string }) {
   const links = linksFor(placement);
-  const anyTracked = links.some((link) => link.tracked);
+  const disclosure = affiliateDisclosure(links);
   return <section data-testid="affiliate-picks" data-placement={placement} className="no-print rounded-[12px] border border-charcoal/10 bg-white p-7 md:p-9">
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Outside services couples use</p>
     <h2 className="mt-3 font-serif text-3xl md:text-4xl">{heading}</h2>
@@ -12,6 +12,6 @@ export function AffiliatePicks({ placement, heading = 'Registry and invitations,
         <span className="mt-2 block text-sm leading-6 text-charcoal/65">{link.blurb}</span>
       </a>)}
     </div>
-    {anyTracked ? <p className="mt-4 text-xs text-charcoal/55">Some of these are affiliate links: if you sign up or buy through them we may earn a commission, at no cost to you.</p> : null}
+    {disclosure ? <p data-testid="affiliate-disclosure" className="mt-4 text-xs text-charcoal/55">{disclosure}</p> : null}
   </section>;
 }
