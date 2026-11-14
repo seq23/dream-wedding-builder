@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PUBLIC_PAGE_CACHE_CONTROL, edgeCacheKey, isScannerPath, serveWithEdgeCache } from '@/lib/edge-cache';
+import { PUBLIC_PAGE_CACHE_CONTROL, edgeCacheKey, isScannerPath, serveWithEdgeCache, sharedCopyKey, type SharedStore } from '@/lib/edge-cache';
 
 // Public pages must be cacheable at the edge and vary by host; nothing private may be.
 function memoryCache() {
@@ -110,5 +110,55 @@ describe('edge cache for public pages', () => {
     }
     // Real pages are never mistaken for probes.
     for (const path of ['/', '/free-wedding-planner', '/wedding-checklist', '/products/checklist-pdf', '/questions/what-to-do-first', '/amazon/wedding-day-timeline']) expect(isScannerPath(path), path).toBe(false);
+  });
+
+  // CPU guard (14 Nov 2026): a first visit in a data centre with no copy started Next
+  // (~110-280 ms). The shared R2 copy must answer it without rendering.
+  it('a page rendered once is served in every other data centre from the shared copy, without rendering', async () => {
+    const objects = new Map<string, { body: string; type: string; meta: Record<string, string> }>();
+    const shared: SharedStore = {
+      get: async (k) => { const o = objects.get(k); return o ? { body: new Response(o.body).body!, httpMetadata: { contentType: o.type }, customMetadata: o.meta } : null; },
+      put: async (k, v, opts) => { objects.set(k, { body: typeof v === 'string' ? v : new TextDecoder().decode(v), type: opts.httpMetadata.contentType, meta: opts.customMetadata }); }
+    };
+    let renders = 0;
+    const app = (label: string) => () => { renders++; return page(`<html>${label}</html>`); };
+    const paths = ['/', '/free-wedding-planner', '/guides', '/robots.txt', '/sitemap.xml'];
+    for (const path of paths) {
+      const isFile = path.endsWith('.txt') || path.endsWith('.xml');
+      const render = isFile ? () => { renders++; return new Response('file', { status: 200, headers: { 'content-type': path.endsWith('.xml') ? 'application/xml' : 'text/plain' } }); } : app(path);
+      const c = ctx();
+      await serveWithEdgeCache(get(`https://weddingchecklistpdf.com${path}`), 'v1', memoryCache(), c, render, shared);
+      await Promise.all(c.pending);
+    }
+    expect(renders).toBe(paths.length);
+    expect(objects.size).toBe(paths.length);
+    // Ten other data centres, each with an empty local cache: nothing renders.
+    for (let dc = 0; dc < 10; dc++) for (const path of paths) {
+      const local = memoryCache(); const c = ctx();
+      const r = await serveWithEdgeCache(get(`https://weddingchecklistpdf.com${path}`), 'v1', local, c, app('never'), shared);
+      await Promise.all(c.pending);
+      expect(r.headers.get('x-edge-cache'), path).toBe('SHARED');
+      expect(r.headers.get('cache-control')).toBe(PUBLIC_PAGE_CACHE_CONTROL);
+      expect(await r.text()).not.toContain('never');
+      expect(local.store.size, 'the data centre keeps its own copy too').toBe(1);
+    }
+    expect(renders).toBe(paths.length);
+    // Another host on the same path never gets this host's copy.
+    expect(sharedCopyKey(get('https://weddingbudgetspreadsheet.com/'))).not.toBe(sharedCopyKey(get('https://weddingchecklistpdf.com/')));
+    const other = await serveWithEdgeCache(get('https://weddingbudgetspreadsheet.com/'), 'v1', memoryCache(), ctx(), app('budget'), shared);
+    expect(await other.text()).toBe('<html>budget</html>');
+    // A new deploy renders again and overwrites the one object (storage never grows).
+    const before = objects.size; const c = ctx();
+    const fresh = await serveWithEdgeCache(get('https://weddingchecklistpdf.com/'), 'v2', memoryCache(), c, app('v2'), shared);
+    await Promise.all(c.pending);
+    expect(await fresh.text()).toBe('<html>v2</html>');
+    expect(objects.get(sharedCopyKey(get('https://weddingchecklistpdf.com/')))?.meta.version).toBe('v2');
+    // Private requests never read or write the shared copy.
+    for (const request of [get('https://weddingchecklistpdf.com/api/wedding-read'), get('https://weddingchecklistpdf.com/', { cookie: 'dwb_admin_session=x' }), get('https://weddingchecklistpdf.com/?utm_source=pinterest')]) {
+      const c2 = ctx(); const r = await serveWithEdgeCache(request, 'v2', memoryCache(), c2, () => page('private'), shared);
+      await Promise.all(c2.pending);
+      expect(await r.text(), request.url).toBe('private');
+    }
+    expect(objects.size).toBe(before + 1);
   });
 });

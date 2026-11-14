@@ -26,7 +26,7 @@
 // without rendering; and a copy lasts a day (a deploy still starts fresh, the version
 // id is in the key).
 export const EDGE_TTL_SECONDS = 86400;
-/** What a browser is told: it may reuse the page for a minute; the edge copy lasts an hour. */
+/** What a browser is told: it may reuse the page for a minute; the edge copy lasts a day. */
 export const PUBLIC_PAGE_CACHE_CONTROL = `public, max-age=60, s-maxage=${EDGE_TTL_SECONDS}`;
 const PRIVATE_PREFIXES = ['/api', '/admin', '/order', '/_next'];
 
@@ -62,19 +62,62 @@ export function isScannerPath(pathname: string): boolean { return SCANNER.test(p
 type CacheLike = { match(key: string): Promise<Response | undefined>; put(key: string, response: Response): Promise<void> };
 type Ctx = { waitUntil(promise: Promise<unknown>): void };
 
+// CPU, 14 Nov 2026: the fix above did not bring the pace down (35.0M ms a month).
+// Measured with `wrangler tail`: the expensive requests are first visits that miss the
+// copy, ~110-280 ms each, and even robots.txt cost ~140 ms on a miss. The cost is not
+// the page: it is loading the Next server into a fresh Worker. The Cache API copy lives
+// in one Cloudflare data centre, crawlers arrive from dozens of them, and every deploy
+// (several a day) empties every copy, so most crawler visits were that first visit.
+// So one shared copy per page is also kept in R2 (free tier: 10M reads, 1M writes a
+// month; this adds at most one read per local miss and one write per page per deploy).
+// A data centre with no copy reads R2 instead of starting Next. One object per host and
+// path, overwritten by each deploy, so storage never grows; the deploy's version id is
+// stored with it and an older version counts as no copy.
+type R2Object = { body: ReadableStream; httpMetadata?: { contentType?: string }; customMetadata?: Record<string, string> };
+export type SharedStore = {
+  get(key: string): Promise<R2Object | null>;
+  put(key: string, value: ArrayBuffer | string, options: { httpMetadata: { contentType: string }; customMetadata: Record<string, string> }): Promise<unknown>;
+};
+/** The R2 key for a page's shared copy: one per host and path, whatever the deploy. */
+export function sharedCopyKey(request: Request): string {
+  const url = new URL(request.url);
+  return `edge-pages/${url.host.toLowerCase()}${url.pathname}`;
+}
+const SHARED_MAX_BYTES = 2_000_000;
+
+async function readShared(store: SharedStore | undefined, request: Request, version: string): Promise<Response | null> {
+  if (!store) return null;
+  const object = await store.get(sharedCopyKey(request)).catch(() => null);
+  if (!object || object.customMetadata?.version !== version) return null;
+  return new Response(object.body, { status: 200, headers: { 'content-type': object.httpMetadata?.contentType ?? 'text/html; charset=utf-8' } });
+}
+
 /** Answers from the edge copy when there is one; otherwise asks the app and keeps a public page for next time. */
-export async function serveWithEdgeCache(request: Request, version: string, cache: CacheLike | undefined, ctx: Ctx, app: () => Promise<Response> | Response): Promise<Response> {
+export async function serveWithEdgeCache(request: Request, version: string, cache: CacheLike | undefined, ctx: Ctx, app: () => Promise<Response> | Response, shared?: SharedStore): Promise<Response> {
   if (isScannerPath(new URL(request.url).pathname)) return new Response('Not found', { status: 404, headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'public, max-age=86400' } });
   const key = cache ? edgeCacheKey(request, version) : null;
   if (!key || !cache) return app();
   const hit = await cache.match(key).catch(() => undefined);
   // A stored copy comes back with the zone's browser lifetime (4 hours) in place of ours; put ours back so a browser re-asks after a minute.
   if (hit) { const response = new Response(hit.body, hit); response.headers.set('Cache-Control', PUBLIC_PAGE_CACHE_CONTROL); response.headers.set('x-edge-cache', 'HIT'); return response; }
+  const fromShared = await readShared(shared, request, version);
+  if (fromShared) {
+    fromShared.headers.set('Cache-Control', PUBLIC_PAGE_CACHE_CONTROL);
+    fromShared.headers.set('x-edge-cache', 'SHARED');
+    ctx.waitUntil(cache.put(key, fromShared.clone()).catch(() => undefined));
+    return fromShared;
+  }
   const fresh = await app();
   if (!isCacheablePage(fresh, new URL(request.url).pathname)) return fresh;
   const response = new Response(fresh.body, fresh);
   response.headers.set('Cache-Control', PUBLIC_PAGE_CACHE_CONTROL);
   response.headers.set('x-edge-cache', 'MISS');
   ctx.waitUntil(cache.put(key, response.clone()).catch(() => undefined));
+  if (shared) {
+    const copy = response.clone();
+    const contentType = response.headers.get('content-type') ?? 'text/html; charset=utf-8';
+    ctx.waitUntil(copy.arrayBuffer().then(body => body.byteLength > SHARED_MAX_BYTES ? undefined
+      : shared.put(sharedCopyKey(request), body, { httpMetadata: { contentType }, customMetadata: { version } })).catch(() => undefined));
+  }
   return response;
 }

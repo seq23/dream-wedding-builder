@@ -20,7 +20,9 @@ export default {
     // The deploy's version id is part of the key, so a new deploy starts with fresh pages.
     const version = (env as { CF_VERSION_METADATA?: { id?: string } }).CF_VERSION_METADATA?.id ?? '';
     const cache = version ? (globalThis as unknown as { caches?: { default?: Parameters<typeof serveWithEdgeCache>[2] } }).caches?.default : undefined;
-    return serveWithEdgeCache(request, version, cache, ctx, () => handler.fetch(request, env, ctx));
+    // A shared copy in R2 answers data centres that have no copy yet, without starting Next.
+    const shared = (env as { NEXT_INC_CACHE_R2_BUCKET?: Parameters<typeof serveWithEdgeCache>[5] }).NEXT_INC_CACHE_R2_BUCKET;
+    return serveWithEdgeCache(request, version, cache, ctx, () => handler.fetch(request, env, ctx), shared);
   },
   async scheduled(_controller: unknown, env: RetryEnv & AlertEnv, ctx: { waitUntil(p: Promise<unknown>): void }) {
     ctx.waitUntil(purgeExpiredShares(env.DB).then(
