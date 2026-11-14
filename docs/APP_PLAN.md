@@ -105,7 +105,7 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
 - Read `~/Brains/spry.md` (Dream Wedding brand) and `~/Brains/risk.md` first.
 - $0 only. The app never holds a model key or calls a model; the AI draft goes through the
   live `/api/ai-draft`, which tries OpenRouter free models only (`lib/ai-draft.ts`).
-- Never create anything in RevenueCat, Stripe, Gumroad or either store; she does.
+- Never create anything in Stripe, Gumroad or either store; she does. RevenueCat: only through `apps/mobile/scripts/revenuecat/setup.ts`.
 - No accounts or passwords. The plan works with no email; only the AI draft asks for one.
 - Brand do-not list: no human planner implied, no countdown pressure, streaks or invented
   numbers, no competitor names in app or store text.
@@ -268,9 +268,29 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
 
 - Prices: approved 6 Nov 2026 (task 8). Her pricing model: website free with the smaller
   plan; the app freemium, one flat fee paid once, bundles on top.
-- Apple ($99/yr) and Google Play accounts under the company after the D-U-N-S number, and
-  RevenueCat with the three products: she creates them herself. Codex needs none of these
-  to build or preview.
+- Apple ($99/yr) and Google Play accounts under the company after the D-U-N-S number: she
+  creates them herself. Codex needs none of these to build or preview.
+
+## RevenueCat (set up 13 Nov 2026, her yes: "set up revenuecat for the other 3 apps")
+
+The project **Dream Wedding** exists in her RevenueCat account. Everything inside it is made from
+the code by `apps/mobile/scripts/revenuecat/setup.ts`: iOS and Android apps (the bundle id from
+`release/config.json` without `.placeholder`), the 5 products of task 8 on each store and the Test
+Store, the entitlements `full_plan` / `printables` / `day_of_kit`, and the offerings the screens ask
+for (`default` current, `after_unlock`, `new_event`) in `offersFor` order. It fixes only what is
+missing, so re-run it after any product change:
+`cd ~/GitHub/boss-os && npm run -s vault:run -- npx --prefix ~/GitHub/dream-wedding-builder/apps/mobile tsx ~/GitHub/dream-wedding-builder/apps/mobile/scripts/revenuecat/setup.ts --save-keys`
+(public SDK keys go to the vault as `REVENUECAT_DW_{IOS,ANDROID,TEST}_PUBLIC_KEY`, never in git).
+
+Steps left, in order:
+1. Her: the project's v2 secret key (dashboard → Dream Wedding → API keys → New secret API key,
+   Project configuration read & write), then `pbpaste | npm run -s vault:set REVENUECAT_DW_V2_SECRET_KEY`
+   in `~/GitHub/boss-os`. Until then the script stops with `REVENUECAT_SECRET_MISSING`.
+2. Run the command above; it ends with `0 mismatches, 0 errors`.
+3. When the company store accounts exist: set the real bundle id in `release/config.json`, create the
+   5 product ids and prices in App Store Connect and Play Console (`dw_new_event` consumable), re-run.
+4. Link the stores in RevenueCat (App Store In-App Purchase key; Play service-account JSON), put a
+   RevenueCat secret on the Worker for `/api/app-unlock`, then wire the public keys into the build.
 - Her yes to switch the AI draft on for the live hosts (`AI_DRAFT_ENABLED`); until then the
   app shows the server's "switched off" message.
 
