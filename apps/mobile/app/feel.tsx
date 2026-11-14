@@ -10,7 +10,7 @@ import { useFullPlanPrice } from '../src/useFullPlanPrice';
 import { WeddingDatePicker } from '../src/WeddingDatePicker';
 import { canSaveDate } from '../src/welcomeStart';
 import { MAX_PHOTOS, pickPhoto, type JourneyPhoto } from '../src/photos';
-import { BUDGETS, EMPTY_ANSWERS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, applyPicks, applyTradition, journeyStore, pickable, readLabel, weddingReadClient,
+import { BUDGETS, COLOURS_NOT_SURE, EMPTY_ANSWERS, LOVES, MOODS, SEASONS, SETTINGS, TRADITIONS, WEDDING_COLOURS, applyPicks, applyTradition, colourView, journeyStore, pickable, readLabel, toggleColour, togglePick, weddingReadClient,
   type JourneyAnswers, type JourneyPick, type ReadReason, type WeddingRead } from '../src/journey';
 import { color, font, radius, space, type } from '../src/theme';
 
@@ -37,6 +37,14 @@ function Progress({ step }: { step: Step }) {
 function Chip({ label, on, onPress }: { label: string; on: boolean; onPress: () => void }) {
   return <Pressable accessibilityRole="button" accessibilityState={{ selected: on }} accessibilityLabel={label} onPress={onPress}
     style={{ minHeight: 44, paddingHorizontal: 14, justifyContent: 'center', borderRadius: radius.pill, borderWidth: on ? 2 : 1, borderColor: on ? color.blue : color.rule, backgroundColor: color.ivoryRaised }}>
+    <Text style={[type.sub, { fontFamily: font.sansBold, color: color.midnight }]}>{label}</Text>
+  </Pressable>;
+}
+/** A chip with the colour itself beside its name (step 1, "Your colours"). */
+function ColourChip({ label, hex, on, onPress }: { label: string; hex?: string; on: boolean; onPress: () => void }) {
+  return <Pressable accessibilityRole="button" accessibilityState={{ selected: on }} accessibilityLabel={label} onPress={onPress}
+    style={{ minHeight: 44, paddingHorizontal: 14, flexDirection: 'row', alignItems: 'center', gap: 8, borderRadius: radius.pill, borderWidth: on ? 2 : 1, borderColor: on ? color.blue : color.rule, backgroundColor: color.ivoryRaised }}>
+    {hex ? <View style={{ width: 18, height: 18, borderRadius: 9, backgroundColor: hex, borderWidth: 1, borderColor: color.rule }} /> : null}
     <Text style={[type.sub, { fontFamily: font.sansBold, color: color.midnight }]}>{label}</Text>
   </Pressable>;
 }
@@ -118,7 +126,8 @@ export default function Feel() {
 
   const read = page?.read;
   const groups = read ? pickable(read, a.venueBooked) : null;
-  const toggle = (p: JourneyPick) => setPicks(prev => prev.some(x => x.key === p.key) ? prev.filter(x => x.key !== p.key) : [...prev, p]);
+  const toggle = (p: JourneyPick) => setPicks(prev => togglePick(prev, p));
+  const colourShown = read ? colourView(read) : null;
   const photoSwatches = photos.flatMap(p => p.colours).slice(0, 8).map(hex => ({ hex }));
   const err = error ? <Text accessibilityRole="alert" style={[type.body, { color: color.redPen, fontFamily: font.sansBold }]}>{error}</Text> : null;
 
@@ -148,6 +157,10 @@ export default function Feel() {
         <Row title="Where">{SETTINGS.map(v => <Chip key={v} label={v} on={a.setting === v} onPress={() => set({ setting: a.setting === v ? '' : v })} />)}</Row>
         <Row title="How it should feel (pick any)">{MOODS.map(m => <Chip key={m} label={m} on={a.moods.includes(m)} onPress={() => set({ moods: a.moods.includes(m) ? a.moods.filter(x => x !== m) : [...a.moods, m] })} />)}</Row>
       </View> : null}
+      {chosen ? <Row title="Your colours (pick any you already love)">
+        {WEDDING_COLOURS.map(c => <ColourChip key={c.name} label={c.name} hex={c.hex} on={a.colours.includes(c.name)} onPress={() => set({ colours: toggleColour(a.colours, c.name) })} />)}
+        <ColourChip label={COLOURS_NOT_SURE} on={!a.colours.length} onPress={() => set({ colours: toggleColour(a.colours, COLOURS_NOT_SURE) })} />
+      </Row> : null}
       {chosen ? <View style={{ gap: space[2] }}>
         <Text style={mono}>Photos you love (optional, up to 3)</Text>
         {photos.map((p, i) => <View key={p.id} style={[box, { flexDirection: 'row', gap: 10 }]}>
@@ -189,7 +202,13 @@ export default function Feel() {
       <Text style={type.body}>{read.read}</Text>
       {read.photoNotes.map((n, i) => <Text key={i} style={type.sub}><Text style={{ fontFamily: font.sansBold }}>From your photo: </Text>{n}</Text>)}
       <View style={{ gap: space[2] }}>
-        <Text style={mono}>Your colours</Text><Swatches colours={read.colours} />
+        {colourShown?.mode === 'yours' ? <>
+          <Text style={mono}>Your colours</Text><Swatches colours={colourShown.yours} />
+          {colourShown.goesWith.length ? <><Text style={[mono, { marginTop: space[2] }]}>Goes with yours</Text><Swatches colours={colourShown.goesWith} /></> : null}
+        </> : colourShown?.mode === 'ideas' && colourShown.ideas.length ? <>
+          <Text style={mono}>Colour ideas to try</Text>
+          {colourShown.ideas.map(i => <View key={i.name} style={{ gap: 6 }}><Text style={[type.sub, { fontFamily: font.sansBold }]}>{i.name}</Text><Swatches colours={i.colours} /></View>)}
+        </> : null}
         {photoSwatches.length ? <><Text style={[mono, { marginTop: space[2] }]}>From your photos, read on this phone</Text><Swatches colours={photoSwatches} /></> : null}
       </View>
       {read.directions.length ? <View style={{ gap: space[2] }}><Text style={h2}>Two directions</Text>{read.directions.map(d => <View key={d.name} style={box}><Text style={type.subhead}>{d.name}</Text><Text style={type.body}>{d.what}</Text></View>)}</View> : null}
@@ -213,6 +232,15 @@ export default function Feel() {
     {step === 3 && read && groups ? <>
       <Text style={mono}>Keep what you love</Text>
       <Text accessibilityRole="header" style={h1}>Tap what belongs in your wedding.</Text>
+      {groups.colours.length ? <View style={{ gap: space[2] }}>
+        <Text style={h2}>The colours</Text>
+        <Text style={[type.sub, { color: color.midnightMuted }]}>Keep one, or none: nothing is decided for you.</Text>
+        {groups.colours.map(item => { const on = picks.some(p => p.key === item.pick.key); return <Pressable key={item.pick.key} accessibilityRole="radio" accessibilityState={{ checked: on }} accessibilityLabel={`${item.label}: ${item.sub}`} onPress={() => toggle(item.pick)}
+          style={[box, { gap: 6, borderWidth: on ? 2 : 1, borderColor: on ? color.blue : color.rule }]}>
+          <Text style={type.subhead}>{item.label}</Text><Swatches colours={item.colours} />
+          {on ? <Text style={[mono, { color: color.done }]}>✓ Kept</Text> : null}
+        </Pressable>; })}
+      </View> : null}
       {([['The direction', groups.directions], ['The kind of place', groups.venues], ['The ideas', groups.ideas], ['The details', groups.details]] as const).map(([title, items]) => items.length ? <View key={title} style={{ gap: space[2] }}>
         <Text style={h2}>{title}</Text>
         {items.map(item => { const on = picks.some(p => p.key === item.pick.key); return <Pressable key={item.pick.key} accessibilityRole="checkbox" accessibilityState={{ checked: on }} onPress={() => toggle(item.pick)}

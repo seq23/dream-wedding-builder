@@ -3,12 +3,12 @@ import assert from 'node:assert/strict';
 import { emptyProgress, taskKey, toggleDone } from '@core/plan-progress';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { directionPick, ideaPick, venuePick } from '@core/journey-picks';
-import { applyPicks, applyTradition, isPick, journeyStore, readLabel, weddingReadClient, type JourneyAnswers } from '../src/journey';
+import { applyPicks, applyTradition, colourView, isPick, journeyStore, keptColours, pickable, readLabel, togglePick, weddingReadClient, type JourneyAnswers, type WeddingRead } from '../src/journey';
 import { base64Bytes, strongestColours } from '../src/photoColours';
 import { ownTaskKey, taskRows } from '../src/planTasks';
 
 const NOW = '2026-11-13T12:00:00.000Z';
-const answers: JourneyAnswers = { path: 'dk', wish: '', season: 'Fall', setting: 'Outdoors', moods: ['Garden'], where: '', guests: '120', budget: '', tradition: '', venueBooked: false, dateSet: false };
+const answers: JourneyAnswers = { path: 'dk', wish: '', colours: [], season: 'Fall', setting: 'Outdoors', moods: ['Garden'], where: '', guests: '120', budget: '', tradition: '', venueBooked: false, dateSet: false };
 const read = { by: 'ai', headline: 'A garden in the fall', read: 'Soft and green.', directions: [{ name: 'Garden', what: 'x' }], colours: [{ name: 'Sage', hex: '#9CAF88' }], venueTypes: [], ideas: [], details: [], ask: [], honest: '', photoNotes: [] };
 const venueTask = PLAN_WINDOWS.flatMap(w => w.tasks.map(t => ({ w: w.id, t }))).find(x => /^Book the venue\b/.test(x.t))!;
 
@@ -120,4 +120,40 @@ test('a tradition picked in step 1 opens that pack\'s free example once; Other o
   assert.equal(applyTradition(once, 'Catholic').custom.length, 1);
   assert.equal(applyTradition(emptyProgress(), 'Other').custom.length, 0);
   assert.equal(applyTradition(emptyProgress(), '').custom.length, 0);
+});
+
+// Her words, 14 Nov 2026: "i may not have ideas but that doesnt mean i dont have colors".
+const hers = { ...read, yourColours: [{ name: 'Sage', hex: '#9CAF88' }, { name: 'Navy', hex: '#1F2A4A' }], goesWith: [{ name: 'Cream', hex: '#FDFBF7' }], colourIdeas: [] } as WeddingRead;
+const none = { ...read, yourColours: [], goesWith: [], colourIdeas: [
+  { name: 'Autumn warmth', colours: [{ name: 'Amber', hex: '#D9822B' }, { name: 'Olive', hex: '#556B2F' }, { name: 'Cream', hex: '#FDFBF7' }] },
+  { name: 'Candlelit neutrals', colours: [{ name: 'Ivory', hex: '#FAF7F2' }, { name: 'Warm stone', hex: '#D3C2B1' }, { name: 'Midnight', hex: '#1B1F3B' }] },
+  { name: 'Deep winter', colours: [{ name: 'Burgundy', hex: '#6D1A36' }, { name: 'Silver', hex: '#C0C0C0' }, { name: 'Snow', hex: '#F7F7F7' }] }] } as WeddingRead;
+
+test('her colours are sent with her answers and always shown unchanged, with at most two that go with them', async () => {
+  const calls: RequestInit[] = [];
+  const send = async (_: string, init: RequestInit) => { calls.push(init); return { ok: true, json: async () => ({ ok: true, read: hers, reason: 'ai' }) }; };
+  const reply = await weddingReadClient(false, send).request({ ...answers, path: 'dk', colours: ['Sage', 'Navy'] });
+  assert.deepEqual(JSON.parse(String(calls[0].body)).colours, ['Sage', 'Navy']);
+  assert.ok(reply.ok);
+  assert.deepEqual(colourView(reply.read), { mode: 'yours', yours: hers.yourColours, goesWith: hers.goesWith });
+  const groups = pickable(hers, false);
+  assert.equal(groups.colours[0].label, 'My colours');
+  assert.deepEqual(keptColours(hers, [groups.colours[0].pick]), ['Sage', 'Navy']);
+  // A kept palette becomes one task in her plan, so the plan and the packet carry it.
+  const p = applyPicks(emptyProgress(), [groups.colours[0].pick], false, NOW);
+  assert.deepEqual(p.custom.map(t => t.text), ['Share your colours with the florist, stationer and baker: sage and navy']);
+});
+
+test('no colours chosen: ideas to try, never called hers, and nothing decided unless she keeps one', async () => {
+  assert.equal(colourView(none).mode, 'ideas');
+  const groups = pickable(none, false);
+  assert.equal(groups.colours.length, 3);
+  assert.deepEqual(keptColours(none, []), []);
+  assert.equal(applyPicks(emptyProgress(), [], false, NOW).custom.length, 0, 'no palette kept: no colour task');
+  const kept = togglePick(togglePick([], groups.colours[0].pick), groups.colours[2].pick);
+  assert.deepEqual(keptColours(none, kept), ['Burgundy', 'Silver', 'Snow'], 'one palette at most: the later one replaces the first');
+  // A journey saved before colours existed reads as "not sure yet".
+  const mem = new Map<string, string>([['dw.journey.v1', JSON.stringify({ answers: { path: 'dk', wish: '' }, read: null, picks: [] })]]);
+  const saved = await journeyStore({ getItem: async (k: string) => mem.get(k) ?? null, setItem: async (k: string, v: string) => { mem.set(k, v); } } as never).read();
+  assert.deepEqual(saved?.answers.colours, []);
 });

@@ -2,7 +2,7 @@
 // dated tasks marked "Your pick" in the one dated plan (lib/dated-plan.ts), which the
 // planner, the dashboard and the printable page all draw. A booked venue takes the
 // venue task out. Everything lives in this browser (localStorage), nothing is sent.
-import type { WeddingRead } from '@/lib/wedding-read-shared';
+import { colourView, type Swatch, type WeddingRead } from '@/lib/wedding-read-shared';
 
 /** The journey's own record in this browser: answers, her wedding page, her picks. */
 export const JOURNEY_KEY = 'dwb-blend';
@@ -40,9 +40,37 @@ export function detailPick(detail: string): JourneyPick {
   return { key: `detail:${clean}`, text: `${job ? job[1] : 'Plan this detail'}: ${lowerFirst(clean)}`, windowId: job ? job[2] : '6-months' };
 }
 
+/** A kept palette: one task to tell every vendor, and the colours her plan shows. */
+export const COLOURS_PICK = 'colours:';
+export function colourPick(name: string, colours: Swatch[]): JourneyPick {
+  const words = colours.map(c => c.name.toLowerCase());
+  const list = words.length > 1 ? `${words.slice(0, -1).join(', ')} and ${words[words.length - 1]}` : words[0] ?? '';
+  return { key: `${COLOURS_PICK}${name}`, text: `Share your colours with the florist, stationer and baker: ${list}`, windowId: '12-plus' };
+}
+/** The colour names of the palette she kept, or [] when she kept none (nothing decided for her). */
+export function keptColours(read: WeddingRead | null | undefined, picks: JourneyPick[]): string[] {
+  const kept = picks.find(p => p.key.startsWith(COLOURS_PICK));
+  if (!read || !kept) return [];
+  return colourOptions(read).find(o => o.pick.key === kept.key)?.colours.map(c => c.name) ?? [];
+}
+function colourOptions(read: WeddingRead) {
+  const view = colourView(read);
+  const options = view.mode === 'yours'
+    ? [{ label: 'My colours', colours: view.yours }, ...(view.goesWith.length ? [{ label: 'My colours, with the ones that go with them', colours: [...view.yours, ...view.goesWith] }] : [])]
+    : view.ideas.map(i => ({ label: i.name, colours: i.colours }));
+  return options.map(o => ({ label: o.label, sub: o.colours.map(c => c.name).join(', '), colours: o.colours, pick: colourPick(o.label, o.colours) }));
+}
+/** Keeps or un-keeps one row. Only one palette can be kept: keeping another replaces it. */
+export function togglePick(list: JourneyPick[], pick: JourneyPick): JourneyPick[] {
+  if (list.some(x => x.key === pick.key)) return list.filter(x => x.key !== pick.key);
+  const rest = pick.key.startsWith(COLOURS_PICK) ? list.filter(x => !x.key.startsWith(COLOURS_PICK)) : list;
+  return [...rest, pick];
+}
+
 /** Everything on her wedding page she could keep, grouped as step 3 shows it. Venue types only when the venue is not booked. */
 export function pickable(read: WeddingRead, venueBooked: boolean) {
   return {
+    colours: colourOptions(read),
     directions: read.directions.map(d => ({ label: d.name, sub: d.what, pick: directionPick(d) })),
     venues: venueBooked ? [] : read.venueTypes.map(v => ({ label: v.name, sub: v.why, pick: venuePick(v) })),
     ideas: read.ideas.map(i => ({ label: i.name, sub: i.why, pick: ideaPick(i) })),
