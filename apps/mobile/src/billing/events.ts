@@ -16,8 +16,11 @@ export function withPaidNewEvents(ledger: EventLedger, tokens: readonly string[]
   return all.length ? { ...ledger, paidNewEvents: all } : ledger;
 }
 export const emptyLedger = (): EventLedger => ({ firstEventId: null, events: [], extras: [] });
+/** A wedding date is optional: '' means "no date yet". Buying never waits on one, and the
+ * date can be added any time after (her rulings, 14 Nov 2026). */
+export const validEventDate = (date: unknown): date is string => date === '' || (typeof date === 'string' && !!parseDay(date));
 export function addEvent(ledger: EventLedger, id: string, name: string, date: string): EventLedger {
-  if (!id || !name.trim() || !parseDay(date) || ledger.events.some(e => e.id === id)) throw new Error('INVALID_EVENT');
+  if (!id || !name.trim() || !validEventDate(date) || ledger.events.some(e => e.id === id)) throw new Error('INVALID_EVENT');
   return { ...ledger, events: [...ledger.events, { id, name: name.trim().slice(0, 140), date, dateChanges: 0, fullPlan: false }] };
 }
 /** A paid event can be renamed: a typo in a partner's name must never be permanent (her call, 14 Nov 2026). */

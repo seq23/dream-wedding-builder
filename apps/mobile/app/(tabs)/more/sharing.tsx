@@ -49,7 +49,7 @@ export default function Sharing() {
     {error ? <Text accessibilityRole="alert" style={type.body}>{error}</Text> : null}
     {!ready ? <Text style={type.body}>Opening sharing…</Text> : session ? <>
       <Text style={type.title}>{session.role === 'owner' ? 'Sharing is on' : 'Shared with you'}</Text>
-      <Text style={type.body}>🔒 {session.plan.event.name} · {plainDate(session.plan.event.date)}</Text>
+      <Text style={type.body}>🔒 {session.plan.event.name} · {session.plan.event.date ? plainDate(session.plan.event.date) : 'No date yet'}</Text>
       <Text style={type.sub}>{session.plan.joined ? 'Your partner joined' : 'Link ready to send'} · Last updated {new Date(session.syncedAt).toLocaleTimeString()}</Text>
       <Text style={type.body}>Ticks catch up when both phones are online. {SHARED_PAYMENTS_NOTE}</Text>
       {button('Sync now', () => void action('sync'))}
@@ -59,7 +59,7 @@ export default function Sharing() {
       </> : button('Leave this plan', () => void action('leave'))}
       <GoButton href="/plan" label="Back to my plan ›" />
     </> : event ? <>
-      <Text style={type.title}>Join this plan</Text><Text style={type.body}>🔒 {event.name}</Text><Text style={type.body}>{plainDate(event.date)}</Text>
+      <Text style={type.title}>Join this plan</Text><Text style={type.body}>🔒 {event.name}</Text><Text style={type.body}>{event.date ? plainDate(event.date) : 'No date yet'}</Text>
       <Text style={type.body}>You will see the same tasks, and who is paid and when. {SHARED_PAYMENTS_NOTE} Ticks show on both phones. No account and nothing more to pay.</Text>
       {button('Join this plan', () => void action('join'), true)}
       {button('Not now', () => router.replace('/plan'))}

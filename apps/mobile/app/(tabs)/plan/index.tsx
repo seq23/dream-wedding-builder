@@ -69,7 +69,8 @@ export default function Plan() {
   const count = { done: rows.filter(r => r.doneAt).length, total: rows.length };
   const overview = planOverview(progress, plan);
   // Full-list tasks are late by their own date; her own tasks, by their window having passed.
-  const overdue = shared ? rows.filter(r => r.ownId ? !r.doneAt && !plan.windows.some(w => w.id === r.windowId) : r.late) : overview.overdue;
+  // With no date yet nothing is late: there are no due dates to be late against.
+  const overdue = shared ? rows.filter(r => r.ownId ? plan.state !== 'none' && !r.doneAt && !plan.windows.some(w => w.id === r.windowId) : r.late) : overview.overdue;
   // On the wedding day the only block is the day's own list.
   const blocks = plan.state === 'today' ? { startHere: [], catchUp: [], next: weddingDayRows(rows, today) } : planBlocks(rows, overdue, dueBeforeStart(rows, date, startedOn));
   const start = startHereView(blocks.startHere, expanded);
@@ -120,7 +121,8 @@ export default function Plan() {
         <Pressable accessibilityRole="button" onPress={() => { void keepAfter(); }} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>Keep my plan</Text></Pressable>
         <GoButton href="/more?close=1" label="Close my plan ›" />
       </View> : null}
-      {plan.state === 'none' && !shared ? <GoButton href="/welcome" label="Choose my wedding date ›" primary /> : null}
+      {/* A full plan bought before a date was set shows the same gentle way to add one. */}
+      {plan.state === 'none' ? <GoButton href="/welcome" label="Choose my wedding date ›" primary /> : null}
       {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text><GoButton href="/more/sharing" label="♧ Two phones ›" /></> : null}
       {plan.warning ? <Text style={type.body}>{plan.warning}</Text> : null}
       <Text style={type.section}>{shared ? 'Full plan' : 'Free plan'} · {count.done} of {count.total} tasks done</Text>
