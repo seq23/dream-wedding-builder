@@ -5,7 +5,7 @@ const KEY = 'dw.wedding-date.v1';
 export function dateStore(storage: DateStorage) {
   const events = eventStore(storage);
   return {
-    async read(): Promise<string | null> { const event = await events.active(); return event?.fullPlan ? event.date : storage.getItem(KEY); },
+    async read(): Promise<string | null> { const event = await events.active(); return event?.fullPlan ? event.date || null : storage.getItem(KEY); },
     /** A past date is saved only when she said "Yes, that's right" (pastOk). */
     async save(date: string, today = localToday(), pastOk = false) {
       const plan = buildDatedPlan(date, today);

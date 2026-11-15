@@ -1,5 +1,4 @@
-import { parseDay } from '@core/dated-plan';
-import { emptyLedger, moveEvent, renameEvent, validGrant, type EventLedger, type PaidEvent } from './events';
+import { emptyLedger, moveEvent, renameEvent, validEventDate, validGrant, type EventLedger, type PaidEvent } from './events';
 import type { DateStorage } from '../weddingDate';
 export const EVENT_LEDGER_KEY = 'dw.billing.events.v1';
 export const ACTIVE_EVENT_KEY = 'dw.billing.active-event.v1';
@@ -14,7 +13,7 @@ export function parseLedger(raw: string | null): EventLedger {
     for (const event of value.events) {
       if (!event || typeof event.id !== 'string' || !event.id || ids.has(event.id)
         || typeof event.name !== 'string' || !event.name.trim() || event.name.length > 140
-        || typeof event.date !== 'string' || !parseDay(event.date)
+        || !validEventDate(event.date)
         || !Number.isInteger(event.dateChanges) || event.dateChanges < 0
         || typeof event.fullPlan !== 'boolean') throw Error();
       // A new-event token pays for exactly one paid event, never the first one.

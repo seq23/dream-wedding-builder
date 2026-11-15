@@ -1,6 +1,5 @@
 import { parseLedger } from '../billing/eventStore';
-import type { EventLedger } from '../billing/events';
-import { parseDay } from '@core/dated-plan';
+import { validEventDate, type EventLedger } from '../billing/events';
 import { parseFullPlan, type FullPlanList } from '@core/full-plan';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { parseTraditionPack, type TraditionPack, type TraditionCustomTask } from '../traditionPacks';
@@ -31,8 +30,7 @@ export function sharedPlan(value: unknown): SharedPlan {
   const raw = record(value), event = record(raw.event);
   const list = parseFullPlan(raw.list);
   if (!list || typeof event.id !== 'string' || !event.id || typeof event.name !== 'string'
-    || !event.name.trim() || event.name.length > 140 || typeof event.date !== 'string'
-    || !parseDay(event.date) || typeof raw.joined !== 'boolean') throw Error(SHARE_UNAVAILABLE);
+    || !event.name.trim() || event.name.length > 140 || !validEventDate(event.date) || typeof raw.joined !== 'boolean') throw Error(SHARE_UNAVAILABLE);
   // A strict projection keeps extra fields (including amounts/credentials) out of
   // both the encrypted document and the local shared-access cache.
   const keys = new Set(list.tasks.map(t => taskKey(t.window, t.text)));

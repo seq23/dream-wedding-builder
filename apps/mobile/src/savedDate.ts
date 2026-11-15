@@ -6,5 +6,5 @@ const store = dateStore(AsyncStorage);
 export const savedDate = { read: async () => (await activePlan())?.event.date ?? store.read(), async save(...args: Parameters<typeof store.save>) { const session = await (await phoneSharing()).read();
   if (session?.role === 'joined') throw Error('Only your partner can change the shared wedding date.');
   await store.save(...args);
-  if (session?.role === 'owner') await (await phoneSharing()).updateOwnerEvent({ ...session.plan.event, date: (await store.read())! });
+  if (session?.role === 'owner') await (await phoneSharing()).updateOwnerEvent({ ...session.plan.event, date: (await store.read()) ?? '' });
   sharingChanged(); await syncReminders(); } };
