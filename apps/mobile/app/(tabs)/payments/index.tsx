@@ -7,7 +7,7 @@ import { useSharingRevision } from '../../../src/sharing/useSharing';
 import type { SharedPlan } from '../../../src/sharing/session';
 import { useState, useCallback } from 'react';
 import { Text, Pressable, View } from 'react-native';
-import { TypingBox } from '../../../src/TypingBox';
+import { TypingBox, flushFields, useTypedState } from '../../../src/TypingBox';
 import { useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { localToday, plainDate } from '@core/dated-plan';
@@ -30,7 +30,7 @@ export default function Payments() {
   const [date,setDate] = useState<string|null>(null);
   const [state,setState] = useState<PaymentState>({ own: [], edits: {} });
   const [ready,setReady] = useState(false); const [busy,setBusy] = useState(false);
-  const [draft,setDraft] = useState<PaymentDraft>({ context: null, editing: null, amount: '' });
+  const [draft,setDraft,draftNow] = useTypedState<PaymentDraft>({ context: null, editing: null, amount: '' });
   const { editing, amount } = draft;
   const setEditing = (editing: Payment | null) => setDraft(current => ({ ...current, editing }));
   // Each key merges into the newest draft, so a late re-render never puts an older box's text back.
@@ -105,7 +105,7 @@ export default function Payments() {
         {field('Amount in USD',amount,setAmount,true)}
         <WeddingDatePicker label="Payment due date" value={editing.date} onChange={v=>setEditing({...editing,date:v,ownDate:true})} />
         {field('How it is paid',editing.method,method=>editWith({method}))}
-        {button('Save payment',()=>{try {void save({...editing,cents:amountCents(amount)});} catch(e) {setError((e as Error).message);}})}
+        {button('Save payment',()=>{void flushFields().then(()=>{const now=draftNow(); if(!now.editing) return; try {void save({...now.editing,cents:amountCents(now.amount)});} catch(e) {setError((e as Error).message);}});})}
         {button('Cancel',()=>setEditing(null))}
       </View> : null}
     </>}

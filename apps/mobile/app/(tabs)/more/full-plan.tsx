@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Linking, Platform, Pressable, Text, View } from 'react-native';
-import { TypingBox } from '../../../src/TypingBox';
+import { TypingBox, flushFields, useTypedState } from '../../../src/TypingBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { getRandomBytes } from 'expo-crypto';
@@ -30,7 +30,7 @@ export default function FullPlan() {
   const [products, setProducts] = useState<StoreProduct[]>([]);
   const [offers, setOffers] = useState<ProductId[]>([]);
   const [selected, setSelected] = useState<ProductId>();
-  const [name, setName] = useState('');
+  const [name, setName, nameNow] = useTypedState('');
   const [defaultName, setDefaultName] = useState('');
   const [locked, setLocked] = useState(false);
   const [paidUnused, setPaidUnused] = useState(0);
@@ -65,6 +65,9 @@ export default function FullPlan() {
   async function transact(restore = false) {
     setSaving(true); setBuying(!restore); setError(''); setMessage('');
     try {
+      // The name box hands up its last letters before the store sheet reads it.
+      await flushFields();
+      const typedName = nameNow();
       const saved = await checkoutRead(() => dateStore(AsyncStorage).read());
       const buyingNewEvent = !restore && selected === 'dw_new_event';
       // The date she asked for when starting a new event, else the current one.
@@ -72,7 +75,7 @@ export default function FullPlan() {
       const date = (buyingNewEvent ? newEventDate(requestedDate, saved) : saved) ?? '';
       if (buyingNewEvent && await checkoutRead(async () => (await phoneSharing()).read())) throw Error('Stop sharing your current event first (More, then Two phones). Then start the new event.');
       // Buying never waits on a name: an empty one becomes "Our wedding – <date>" (or "Our wedding"), renamed any time after.
-      const eventName = name.trim() || defaultEventName(date);
+      const eventName = typedName.trim() || defaultEventName(date);
       if (restore) await phoneCheckout.restore(eventName, date);
       else {
         if (!selected) throw Error('Choose a product first.');
@@ -86,8 +89,8 @@ export default function FullPlan() {
       if (buyingNewEvent) {
         // The new event is now the open one: its reminders follow its date.
         await syncReminders().catch(() => {});
-        setMessage(`Your new event is ready: ${event?.name ?? name}. Open your plan to see it.`);
-        setOffers([]); setSelected(undefined); setProducts([]); setName(event?.name ?? name); setLocked(true);
+        setMessage(`Your new event is ready: ${event?.name ?? eventName}. Open your plan to see it.`);
+        setOffers([]); setSelected(undefined); setProducts([]); setName(event?.name ?? eventName); setLocked(true);
         return;
       }
       if (newEvent) {
@@ -112,7 +115,8 @@ export default function FullPlan() {
   async function saveName() {
     setSaving(true); setError(''); setMessage('');
     try {
-      const saved = await eventNameStore(AsyncStorage, newEvent).save(name);
+      await flushFields();
+      const saved = await eventNameStore(AsyncStorage, newEvent).save(nameNow());
       setName(saved);
       // A paid, shared plan: the partner's phone shows the new name too.
       if (locked) { const api = await phoneSharing(); const session = await api.read(); if (session?.role === 'owner') await api.updateOwnerEvent({ ...session.plan.event, name: saved }); sharingChanged(); }
