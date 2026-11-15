@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "702ed83e7cc72fff167a9471108698c30faf8539",
+  "generated_from_commit": "093969fe5c9331c2c154208bd5fe55746853f805",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -58,7 +58,7 @@
       "source": "app/editorial-policy/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-11-13",
+      "lastmod": "2026-11-14",
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
