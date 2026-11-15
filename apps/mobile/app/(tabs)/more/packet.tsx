@@ -4,7 +4,7 @@ import type { PaymentState } from '../../../src/payments';
 import { activePlan } from '../../../src/sharing/runtime';
 import { useState } from 'react';
 import { Platform, Pressable, Text, View } from 'react-native';
-import { TypingBox } from '../../../src/TypingBox';
+import { TypingBox, flushFields, useTypedState } from '../../../src/TypingBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PlannedScreen } from '../../../src/ui';
 import { savedDate } from '../../../src/savedDate';
@@ -19,7 +19,7 @@ import { useFullPlanPrice } from '../../../src/useFullPlanPrice';
 
 export default function Packet() {
   const [paper, setPaper] = useState<Paper>('Letter');
-  const [names, setNames] = useState('');
+  const [names, setNames, namesNow] = useTypedState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const price = useFullPlanPrice();
@@ -28,6 +28,7 @@ export default function Packet() {
     let output: ReturnType<typeof preparePacketOutput> | undefined;
     try {
       output = preparePacketOutput();
+      await flushFields();
       const [date, progress, payments, rawWeek, shared] = await Promise.all([
         savedDate.read(), savedProgress.read(),
         paymentsStore(AsyncStorage, preview ? 'dw.payments.preview.v1' : 'dw.payments.v1').read(),
@@ -37,7 +38,7 @@ export default function Packet() {
       const localPayments = shared ? await sharingDetails(AsyncStorage,SHARED_PAYMENTS_KEY,shared.event.id,()=>({own:[],edits:{}} as PaymentState)).read() : payments;
       if (shared) week = await sharingDetails(AsyncStorage,SHARED_WEEK_KEY,shared.event.id,()=>({who:{},contacts:[]} as PacketWeek)).read();
       // The verified purchase door is closed. Only the isolated preview gets fictional data.
-      const input: PacketInput = { shared: !!shared, names, date: date ?? '', progress, payments: localPayments, week, unlocked: !!shared || preview, list: shared?.list ?? (preview ? SAMPLE_PAYMENTS : null) };
+      const input: PacketInput = { shared: !!shared, names: namesNow(), date: date ?? '', progress, payments: localPayments, week, unlocked: !!shared || preview, list: shared?.list ?? (preview ? SAMPLE_PAYMENTS : null) };
       await output.write(input, paper);
     } catch (e) { output?.cancel(); setError(e instanceof Error ? e.message : 'Could not prepare your plan. Try again.'); }
     finally { setBusy(false); }

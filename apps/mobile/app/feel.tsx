@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, Text, View } from 'react-native';
-import { TypingBox } from '../src/TypingBox';
+import { TypingBox, flushFields, useTypedState } from '../src/TypingBox';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PlannedScreen } from '../src/ui';
@@ -77,7 +77,7 @@ export default function Feel() {
   const client = useMemo(() => weddingReadClient(PREVIEW), []);
   const price = useFullPlanPrice();
   const [step, setStep] = useState<Step>(1);
-  const [a, setA] = useState<JourneyAnswers>(EMPTY_ANSWERS);
+  const [a, setA, answersNow] = useTypedState<JourneyAnswers>(EMPTY_ANSWERS);
   const [chosen, setChosen] = useState(false);
   const [photos, setPhotos] = useState<JourneyPhoto[]>([]);
   const [factsOpen, setFactsOpen] = useState(false);
@@ -97,7 +97,8 @@ export default function Feel() {
     savedDate.read().then(d => { setSavedOn(d); if (d && canSaveDate(d)) setDate(d); }).catch(() => {});
   }, []);
   const set = (patch: Partial<JourneyAnswers>) => setA(prev => ({ ...prev, ...patch }));
-  const go = (n: Step) => { setError(''); setStep(n); };
+  // Leaving a step ends editing first, so the box's last letters are kept (flushFields).
+  const go = (n: Step) => { void flushFields().then(() => { setError(''); setStep(n); }); };
 
   async function addPhoto() {
     setError('');
@@ -109,6 +110,8 @@ export default function Feel() {
   async function ask() {
     setBusy(true); setError('');
     try {
+      await flushFields();
+      const a = answersNow();
       const sent = photos.map(p => ({ loves: p.loves, colours: p.colours }));
       const reply = await client.request(answersToSend(a, canSaveDate(date) ? date : ''), sent);
       if (!reply.ok) { setError(reply.message); return; }
@@ -122,6 +125,8 @@ export default function Feel() {
     if (!pastOk && chosenDate !== savedOn && dateCheck(chosenDate) === 'past') { setAskPast({ date: chosenDate, then }); return; }
     setBusy(true); setError(''); setAskPast(null);
     try {
+      await flushFields();
+      const a = answersNow();
       const today = localToday();
       await savedProgress.update(p => applyTradition(applyPicks(p, placePicks(picks, chosenDate, today), a.venueBooked, new Date().toISOString()), a.tradition));
       if (chosenDate !== savedOn) await savedDate.save(chosenDate, today, true);

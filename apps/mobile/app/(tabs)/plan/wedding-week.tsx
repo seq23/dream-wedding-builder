@@ -7,7 +7,7 @@ import { useSharingRevision } from '../../../src/sharing/useSharing';
 import type { SharedPlan } from '../../../src/sharing/session';
 import { useCallback, useRef, useState } from 'react';
 import { Text, Pressable, View } from 'react-native';
-import { TypingBox } from '../../../src/TypingBox';
+import { TypingBox, flushFields, useTypedState } from '../../../src/TypingBox';
 import { useFocusEffect } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { emptyProgress, toggleDone, type PlanProgress } from '@core/plan-progress';
@@ -31,7 +31,7 @@ export default function WeddingWeek() {
   const [payments,setPayments] = useState<Payment[]>([]); const [allowed,setAllowed] = useState(false);
   const [ready,setReady] = useState(false); const [busy,setBusy] = useState(false); const [error,setError] = useState('');
   const price = useFullPlanPrice();
-  const [contact,setContact] = useState<Contact|null>(null); const [who,setWho] = useState<Record<string,string>>({});
+  const [contact,setContact,contactNow] = useTypedState<Contact|null>(null); const [who,setWho] = useState<Record<string,string>>({});
   // Names save as she types (and when she leaves), never one button per box.
   const latest = useRef<{ details: WeekDetails; who: Record<string,string>; shared: SharedPlan | null; dirty: boolean }>({ details: { who: {}, contacts: [] }, who: {}, shared: null, dirty: false });
   latest.current = { ...latest.current, details, who, shared };
@@ -47,7 +47,8 @@ export default function WeddingWeek() {
   }
   function typeWho(key: string, value: string) {
     setWho(old => ({ ...old, [key]: value }));
-    latest.current.dirty = true;
+    // Kept at once too, so a save straight after a flush reads the newest name, not the last render's.
+    latest.current = { ...latest.current, who: { ...latest.current.who, [key]: value }, dirty: true };
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => { void flushWho(); }, 600);
   }
@@ -71,7 +72,7 @@ export default function WeddingWeek() {
       <Text style={type.section}>Who to call</Text>
       {details.contacts.map(c=><View key={c.id}><Text style={type.body}>{c.name} · {c.phone}</Text><Text style={type.sub}>Arrival: {c.arrival} · If late: {c.caller}</Text>{button('Edit contact',()=>setContact(c))}{button('Remove contact',()=>void save({...details,contacts:details.contacts.filter(x=>x.id!==c.id)}))}</View>)}
       {button('+ Add a contact',()=>setContact({id:String(Date.now()),name:'',phone:'',arrival:'',caller:''}))}
-      {contact?<View>{(['name','phone','arrival','caller'] as const).map((key,i)=><View key={`${contact.id}:${key}`}>{field(['Vendor name','Phone','Arrival time','Who calls if late'][i],contact[key],v=>setContact(c=>c?{...c,[key]:v}:c))}</View>)}{button('Save contact',()=>{if(!contact.name.trim()){setError('Add a vendor name.');return;}void save({...details,contacts:[...details.contacts.filter(c=>c.id!==contact.id),contact]});})}{button('Cancel',()=>setContact(null))}</View>:null}
+      {contact?<View>{(['name','phone','arrival','caller'] as const).map((key,i)=><View key={`${contact.id}:${key}`}>{field(['Vendor name','Phone','Arrival time','Who calls if late'][i],contact[key],v=>setContact(c=>c?{...c,[key]:v}:c))}</View>)}{button('Save contact',()=>{void flushFields().then(()=>{const typed=contactNow(); if(!typed) return; if(!typed.name.trim()){setError('Add a vendor name.');return;}void save({...details,contacts:[...details.contacts.filter(c=>c.id!==typed.id),typed]});});})}{button('Cancel',()=>setContact(null))}</View>:null}
       <Text style={type.section}>Envelopes</Text>
       {weekEnvelopes(payments,date,allowed||preview).map(p=><Text key={p.id} style={type.body}>{p.payee} · {p.cents ? new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.cents/100) : 'amount not added yet'} · {plainDate(p.date)} · {p.paidOn?'Paid':'Not paid yet'}</Text>)}
       <GoButton href="/payments" label="Edit payments ›" />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Pressable, Text } from 'react-native';
-import { TypingBox } from '../../../src/TypingBox';
+import { TypingBox, flushFields, useTypedState } from '../../../src/TypingBox';
 import { router, useLocalSearchParams } from 'expo-router';
 import { PLAN_WINDOWS } from '@core/dated-plan';
 import { addOwnTask, editOwnTask, removeCustomTask, initialTaskWindow } from '../../../src/planTasks';
@@ -9,7 +9,7 @@ import { PlannedScreen } from '../../../src/ui';
 import { color, space, type } from '../../../src/theme';
 export default function AddTask() {
   const { id, window: requestedWindow } = useLocalSearchParams<{ id?: string; window?: string }>();
-  const [text, setText] = useState('');
+  const [text, setText, textNow] = useTypedState('');
   const [windowId, setWindow] = useState(() => initialTaskWindow(requestedWindow));
   const [ready, setReady] = useState(!id);
   const [busy, setBusy] = useState(false);
@@ -26,7 +26,9 @@ export default function AddTask() {
   async function save(remove = false) {
     setBusy(true);
     try {
-      await savedProgress.update(p => remove && id ? removeCustomTask(p, id) : id ? editOwnTask(p, id, windowId, text) : addOwnTask(p, windowId, text, `own-${Date.now()}-${Math.random().toString(36).slice(2)}`));
+      await flushFields();
+      const typed = textNow();
+      await savedProgress.update(p => remove && id ? removeCustomTask(p, id) : id ? editOwnTask(p, id, windowId, typed) : addOwnTask(p, windowId, typed, `own-${Date.now()}-${Math.random().toString(36).slice(2)}`));
       router.replace('/plan');
     } catch { setError('Could not save your task. Try again.'); }
     finally { setBusy(false); }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Linking, Pressable, Text } from 'react-native';
-import { TypingBox } from '../../../src/TypingBox';
+import { TypingBox, flushFields, useTypedState } from '../../../src/TypingBox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { aiDraftClient } from '../../../src/aiDraft';
 import { detailLabels, detailStore, initialDetails, journeyDetails, reviewFields, type Details } from '../../../src/draftReview';
@@ -12,8 +12,8 @@ import { color, space, type } from '../../../src/theme';
 const store = detailStore(AsyncStorage);
 export default function AiDraft() {
   const client = useMemo(() => aiDraftClient(AsyncStorage), []);
-  const [fields, setFields] = useState<Details>({});
-  const [sentence, setSentence] = useState('');
+  const [fields, setFields, fieldsNow] = useTypedState<Details>({});
+  const [sentence, setSentence, sentenceNow] = useTypedState('');
   const [helper, setHelper] = useState(false);
   const [consent, setConsent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -26,7 +26,8 @@ export default function AiDraft() {
   async function request() {
     setBusy(true);
     try {
-      const reply = await client.request({ description: sentence, consent });
+      await flushFields();
+      const reply = await client.request({ description: sentenceNow(), consent });
       setMessage(reply.message);
       if (reply.ok && reply.draft) { setReview(reviewFields(reply.draft)); setExcluded([]); }
     } finally { setBusy(false); }
@@ -34,8 +35,9 @@ export default function AiDraft() {
   async function save(selected: Details) {
     setBusy(true);
     try {
+      await flushFields();
       const previous = { fields: await store.read(), date: await savedDate.read() ?? '' };
-      const next = { ...fields, ...selected };
+      const next = { ...fieldsNow(), ...selected };
       if (selected.weddingDate !== undefined) await savedDate.save(selected.weddingDate);
       await store.save(next);
       setFields(next); setUndo(previous); setReview(null); setMessage('Saved. Go back to your plan to see them on your tasks.');
@@ -57,7 +59,7 @@ export default function AiDraft() {
       <WeddingDatePicker value={fields.weddingDate ?? ''} onChange={weddingDate => setFields(old => ({ ...old, weddingDate }))} />
       {fields.weddingDate ? button('I don’t have a date yet: clear it ›', () => setFields(old => ({ ...old, weddingDate: '' }))) : null}
       {(['guestCount', 'locations', 'budgetTarget', 'priorities'] as const).map(key => <TypingBox key={key} accessibilityLabel={`${detailLabels[key]} (optional)`} placeholder={`${detailLabels[key]} (optional)`} value={fields[key] ?? ''} editable={ready && !busy} maxLength={200} onChangeText={value => setFields(old => ({ ...old, [key]: value }))} style={{ minHeight: 48, borderWidth: 1, borderColor: color.rule, padding: space[3], color: color.midnight }} />)}
-      {button('Save and show on my plan ›', () => save(fields), !ready)}
+      {button('Save and show on my plan ›', () => { void flushFields().then(() => save(fieldsNow())); }, !ready)}
       {button(helper ? 'Fill it in from a sentence (free AI) ▴' : 'Fill it in from a sentence (free AI) ▾', () => setHelper(!helper))}
       {helper ? <>
         <TypingBox accessibilityLabel="Describe your wedding" placeholder="Describe your wedding" value={sentence} onChangeText={setSentence} editable={!busy} multiline maxLength={1600} style={{ minHeight: 96, borderColor: color.rule, borderWidth: 1, padding: space[3] }} />
