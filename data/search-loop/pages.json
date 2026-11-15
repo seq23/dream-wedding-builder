@@ -1294,6 +1294,59 @@
         "b5 FAQ answer is 31 words (aim 40-60): \"How far in advance should we send destination save\"",
         "b5 FAQ answer is 31 words (aim 40-60): \"How do we handle vendor payments in a foreign coun\"",
         "b5 FAQ answer is 30 words (aim 40-60): \"What should we pack in our carry-on luggage?\""
+      ],
+      "extra_queries": [
+        "destination wedding planning checklist printable"
+      ],
+      "indexnow_at": "2026-11-15"
+    },
+    {
+      "slug": "complete-checklist-for-wedding-planning",
+      "query": "complete checklist for wedding planning",
+      "lane": "striking",
+      "score": 20,
+      "scores": {
+        "striking": 20,
+        "can_be_one": 0
+      },
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "rel": "public/questions/complete-checklist-for-wedding-planning.html",
+      "route": "/questions/complete-checklist-for-wedding-planning",
+      "url": "https://weddingchecklistpdf.com/questions/complete-checklist-for-wedding-planning",
+      "published_at": "2026-11-15",
+      "status": "live",
+      "hash": "5f13d5771d730d436ac9487db855f7e43bbb9194fc6cdf67e9f85042c3be6c09",
+      "model": "free-route",
+      "facts": [
+        "https://www.cdc.gov/nchs/fastats/marriage-divorce.htm",
+        "https://www.census.gov/topics/families.html"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/destination-wedding-planning-checklist-pdf.html",
+          "route": "/public/questions/destination-wedding-planning-checklist-pdf",
+          "before_hash": "07b8899ee5e19c1964822f67006ac376cade43bb2c5d73c9f462f3853dbaa077",
+          "after_hash": "e194d863400bc8d91d655f9d3001d9aa4826fc9162057dcd226575f5530ce524"
+        },
+        {
+          "rel": "public/questions/free-printable-wedding-planning-checklist-and-timeline.html",
+          "route": "/public/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "before_hash": "9020c6c16c4ab2a0b54b340d468bd20ac5d8f434399f78255ea856031798ccd5",
+          "after_hash": "3514d8fb16236b1a04191ff97c3fc2dbf7fd86654b8c2fe1c91a3833c431bac6"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 36 words (aim 40-60): \"Who should hold copies of the wedding day timeline\"",
+        "b5 FAQ answer is 32 words (aim 40-60): \"Can I plan a wedding without a professional coordi\""
       ]
     }
   ],
@@ -1513,6 +1566,23 @@
       "gate": 2,
       "reason": [
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1)"
+      ]
+    },
+    {
+      "query": "free destination wedding checklist pdf",
+      "at": "2026-11-15",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.travel.state.gov/content/travel/en/passports/how-apply/validity.html (HTTP 403: this site refuses automated checks, so cite a different publisher)"
+      ]
+    },
+    {
+      "query": "how to plan a destination wedding checklist",
+      "at": "2026-11-15",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"How far in advance should we send destination save\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.state.gov/travel (HTTP 404); https://www.usa.gov/passports (HTTP 404)"
       ]
     }
   ],
@@ -1835,6 +1905,16 @@
       "kind": "sitemap",
       "matched_by": "same wording",
       "matched_text": "destination wedding checklist",
+      "stage": "search"
+    },
+    {
+      "query": "destination wedding planning checklist printable",
+      "at": "2026-11-15",
+      "url": "https://weddingchecklistpdf.com/questions/destination-wedding-planning-checklist-pdf",
+      "route": "/questions/destination-wedding-planning-checklist-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "destination wedding planning checklist pdf",
       "stage": "search"
     }
   ]
