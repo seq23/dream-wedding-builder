@@ -16,7 +16,10 @@
 //     headline host, and equals that host's by_host tally;
 //   - updatedAt is an ISO time; by_host lists at least one host;
 //   - data/brand-social/social_referrers.json names hostnames only, for both platforms;
-//   - the daily workflow runs the collector and commits through push_back.sh.
+//   - an absent metric names its kind (missing_key | no_traffic | broken), and
+//     missing_keys lists bare env-var names exactly when a metric waits on a key;
+//   - the daily workflow runs the collector, commits through push_back.sh, and runs
+//     the stop check after the commit (a broken read reds the run).
 // Rule 0: it self-tests first (a fixture with an unmeasured zero must fail it), and
 // it fails on zero fields or zero hosts checked. Staleness is NOT gated here - a
 // network job's lateness must never red a pull request; the scorecard reports it.
@@ -34,14 +37,25 @@ const good = {
   updatedAt: new Date(now).toISOString(), headline_host: 'weddingchecklistpdf.com', posts_published_28d: 0, social_visits_28d: 2, unread: {},
   by_host: { 'weddingchecklistpdf.com': { pageloads: 40, beacon: 'ok', social_visits: 2 } }
 };
+const waiting = (() => {
+  const m = { ...good, unread: { posts_published_28d: 'key not set' }, unread_kind: { posts_published_28d: 'missing_key' }, missing_keys: ['BUFFER_BRANDS_ACCESS_TOKEN'] };
+  delete m.posts_published_28d;
+  return m;
+})();
 const bad = {
   'an unmeasured zero (no beacon, no page loads)': { ...good, social_visits_28d: 0, by_host: { 'weddingchecklistpdf.com': { pageloads: 0, beacon: 'the beacon posts cross-origin', social_visits: 0 } } },
   'a missing metric with no reason': (() => { const m = { ...good }; delete m.posts_published_28d; return m; })(),
   'a metric that is both a number and unread': { ...good, unread: { social_visits_28d: 'x' } },
   'a non-ISO updatedAt': { ...good, updatedAt: 'yesterday' },
-  'zero hosts measured': { ...good, by_host: {} }
+  'zero hosts measured': { ...good, by_host: {} },
+  'an absent metric with no unread_kind': { ...waiting, unread_kind: {} , missing_keys: [] },
+  'an unknown unread_kind': { ...waiting, unread_kind: { posts_published_28d: 'later' }, missing_keys: [] },
+  'a missing_key kind with empty missing_keys': { ...waiting, missing_keys: [] },
+  'a missing_keys entry that is not a bare env-var name': { ...waiting, missing_keys: ['the Buffer token'] }
 };
-if (metricsProblems(good, now).length) failures.push(`self-test: a sound fixture was rejected (${metricsProblems(good, now).join('; ')})`);
+for (const [name, fixture] of Object.entries({ 'a sound fixture': good, 'a sound fixture waiting on a key': waiting })) {
+  if (metricsProblems(fixture, now).length) failures.push(`self-test: ${name} was rejected (${metricsProblems(fixture, now).join('; ')})`);
+}
 for (const [name, fixture] of Object.entries(bad)) {
   if (metricsProblems(fixture, now).length === 0) failures.push(`self-test: ${name} passed, so this gate cannot see that defect`);
 }
@@ -61,7 +75,7 @@ if (!fs.existsSync(metricsPath)) {
     hostsChecked = Object.keys(metrics.by_host ?? {}).length;
     if (isStale(metrics, now)) console.warn(`${TAG} WARNING: updatedAt ${metrics.updatedAt} is older than the scorecard's 9 days; the daily workflow has not refreshed it`);
     for (const field of METRIC_FIELDS) {
-      console.log(`${TAG} ${field}: ${field in metrics ? metrics[field] : `not read - ${metrics.unread?.[field]}`}`);
+      console.log(`${TAG} ${field}: ${field in metrics ? metrics[field] : `not read [${metrics.unread_kind?.[field]}] - ${metrics.unread?.[field]}`}`);
     }
   }
 }
@@ -83,6 +97,9 @@ else {
   const wf = fs.readFileSync(wfPath, 'utf8');
   if (!/brand-social:collect|scripts\/brand_social\/collect_metrics\.mjs/.test(wf)) failures.push('brand-social-metrics.yml never runs the collector');
   if (!wf.includes('scripts/ci/push_back.sh')) failures.push('brand-social-metrics.yml does not commit through scripts/ci/push_back.sh');
+  const stopAt = wf.search(/brand-social:stop-check|scripts\/brand_social\/stop_check\.mjs/);
+  if (stopAt < 0) failures.push('brand-social-metrics.yml never runs the stop check, so a broken read stays green');
+  else if (stopAt < wf.indexOf('scripts/ci/push_back.sh')) failures.push('brand-social-metrics.yml runs the stop check before push_back.sh; the file must land first or a wait freezes it stale');
   if (!/^\s*schedule:/m.test(wf)) failures.push('brand-social-metrics.yml has no schedule');
 }
 

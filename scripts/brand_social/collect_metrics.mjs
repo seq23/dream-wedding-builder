@@ -18,7 +18,11 @@
 // cannot be measured while the rest can is ABSENT with a reason under `unread`, never
 // a 0: visits are a number only when the live home page carries a beacon that can
 // record (lib.mjs beaconProblem) and Cloudflare holds at least one page load for the
-// host in the window. A real 0 from Buffer is written as 0. updatedAt is written on
+// host in the window. Each unread reason carries a kind (lib.mjs UNREAD_KINDS): a key
+// only the owner can mint is `missing_key` and is listed under `missing_keys`; a
+// host with no page loads yet is `no_traffic`; anything else is `broken`, and the
+// workflow's next step (stop_check.mjs) reds the run for it after the file lands.
+// A real 0 from Buffer is written as 0. updatedAt is written on
 // every run, so the scorecard's 9-day staleness check never trips on a working job.
 //
 // `--prove` (npm run brand-social:prove, after a deploy): the same reads, nothing
@@ -30,7 +34,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  beaconProblem, brandChannels, countSentPosts, resolveSiteTags, socialHandles, tallyVisits, visitsDecision, windowFor
+  BUFFER_KEY, beaconProblem, brandChannels, countSentPosts, noChannelReason, resolveSiteTags, socialHandles, tallyVisits, visitsDecision, windowFor
 } from './lib.mjs';
 
 const ROOT = process.cwd();
@@ -101,8 +105,8 @@ const visits = visitsDecision({ host: headline, beaconIssue: byHost[headline].be
 
 // ── Posts: the brands Buffer ────────────────────────────────────────────────────
 async function readPosts() {
-  const key = process.env.BUFFER_BRANDS_ACCESS_TOKEN;
-  if (!key) return { unread: 'BUFFER_BRANDS_ACCESS_TOKEN is not set (Missing key: the brands Buffer holding Dream Wedding\'s Instagram and TikTok)' };
+  const key = process.env[BUFFER_KEY];
+  if (!key) return { unread: `${BUFFER_KEY} is not set (Missing key: the brands Buffer holding Dream Wedding's Instagram and TikTok)`, kind: 'missing_key', key: BUFFER_KEY };
   const call = async (query, variables = {}) => {
     const res = await fetch('https://api.buffer.com/graphql', { method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ query, variables }) });
     const body = await res.json().catch(() => ({}));
@@ -113,19 +117,21 @@ async function readPosts() {
   };
   try {
     const orgs = (await call('query { account { organizations { id } } }')).account?.organizations ?? [];
-    let channels = [];
+    const channels = [];
+    const seen = [];
     const orgOf = {};
     for (const org of orgs) {
       const list = (await call('query($org: OrganizationId!) { channels(input: { organizationId: $org }) { id name displayName service } }', { org: org.id })).channels ?? [];
+      seen.push(...list);
       for (const ch of brandChannels(list, handles)) { channels.push(ch); orgOf[ch.id] = org.id; }
     }
-    if (channels.length === 0) return { unread: `the Buffer this key opens has no Instagram or TikTok channel named ${handles.join(' or ')}` };
+    if (channels.length === 0) return { unread: noChannelReason(seen, handles), kind: 'broken' };
     const posts = [];
     for (const orgId of new Set(Object.values(orgOf))) {
       const ids = channels.filter((ch) => orgOf[ch.id] === orgId).map((ch) => ch.id);
       let after = null;
       for (let page = 0; ; page += 1) {
-        if (page === 20) return { unread: 'Buffer listed more than 2,000 sent posts; the count stopped rather than guess' };
+        if (page === 20) return { unread: 'Buffer listed more than 2,000 sent posts; the count stopped rather than guess', kind: 'broken' };
         const data = await call(`query($org: OrganizationId!, $ids: [ChannelId!], $after: String) {
           posts(first: 100, after: $after, input: { organizationId: $org, filter: { channelIds: $ids, status: [sent] } }) {
             edges { node { id status sentAt channelId } } pageInfo { hasNextPage endCursor } } }`, { org: orgId, ids, after });
@@ -137,7 +143,7 @@ async function readPosts() {
     const counted = countSentPosts(posts, channels, window);
     return { value: counted.total, by_platform: counted.byPlatform, channels: channels.map((ch) => ({ platform: String(ch.service).toLowerCase(), name: ch.name })) };
   } catch (error) {
-    return { unread: String(error?.message ?? error) };
+    return { unread: String(error?.message ?? error), kind: 'broken' };
   }
 }
 const posts = await readPosts();
@@ -155,8 +161,11 @@ if (process.argv.includes('--prove')) {
 // ── Write ───────────────────────────────────────────────────────────────────────
 const metrics = { updatedAt: now.toISOString(), headline_host: headline, window };
 const unread = {};
-if ('value' in posts) metrics.posts_published_28d = posts.value; else unread.posts_published_28d = posts.unread;
-if ('value' in visits) metrics.social_visits_28d = visits.value; else unread.social_visits_28d = visits.unread;
+const unreadKind = {};
+const missingKeys = [];
+if ('value' in posts) metrics.posts_published_28d = posts.value; else { unread.posts_published_28d = posts.unread; unreadKind.posts_published_28d = posts.kind; }
+if ('value' in visits) metrics.social_visits_28d = visits.value; else { unread.social_visits_28d = visits.unread; unreadKind.social_visits_28d = visits.kind; }
+if (posts.key) missingKeys.push(posts.key);
 metrics.by_platform = {
   posts: posts.by_platform ?? null,
   visits: 'value' in visits ? byHost[headline].by_platform : null
@@ -164,6 +173,8 @@ metrics.by_platform = {
 if (posts.channels) metrics.buffer_channels = posts.channels;
 metrics.by_host = byHost;
 metrics.unread = unread;
+metrics.unread_kind = unreadKind;
+metrics.missing_keys = missingKeys;
 metrics.sources = {
   posts: 'api.buffer.com/graphql posts(status: sent), counted on sentAt, Dream Wedding Instagram and TikTok channels (handles from data/seo/entity.json)',
   visits: 'Cloudflare Web Analytics rumPageloadEventsAdaptiveGroups sum.visits by refererHost, matched on hostname (data/brand-social/social_referrers.json)'
@@ -173,5 +184,6 @@ fs.writeFileSync(OUT, `${JSON.stringify(metrics, null, 2)}\n`);
 
 const show = (field) => (field in metrics ? String(metrics[field]) : `not read (${unread[field]})`);
 const line = `OUTPUT brand-social: posts_published_28d=${show('posts_published_28d')}; social_visits_28d=${show('social_visits_28d')}; window ${window.since}..${window.until}; ${Object.keys(byHost).length} host(s) read`;
-console.log(line);
-if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Brand social metrics\n\n${line}\n`);
+const keyLines = missingKeys.map((name) => `Missing key: ${name}`);
+console.log([line, ...keyLines].join('\n'));
+if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Brand social metrics\n\n${[line, ...keyLines].join('\n\n')}\n`);

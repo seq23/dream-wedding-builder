@@ -8,7 +8,9 @@ name: Brand social metrics (daily)
 # Daily, not weekly: the scorecard refuses a file older than 9 days, so one failed run
 # never leaves the Monday line blank. A metric that cannot be measured is written as
 # absent with a reason under `unread` - never a 0. Cloudflare unreadable is a NAMED STOP
-# and a red run, and the last good file stays on main.
+# and a red run, and the last good file stays on main. After the file lands, the stop
+# check reds the run when a metric is unread because something broke; a key the owner
+# has not given yet is a note and the run stays green.
 #
 # The commit touches only data/brand-social, which no page, lastmod or sitemap reads.
 on:
@@ -48,3 +50,5 @@ jobs:
           git add data/brand-social
           git diff --cached --quiet || git commit -m 'brand-social: daily metrics for the scorecard'
           scripts/ci/push_back.sh "$GITHUB_REF_NAME"
+      - name: A broken read is a named stop (a missing key is a note)
+        run: npm run -s brand-social:stop-check
