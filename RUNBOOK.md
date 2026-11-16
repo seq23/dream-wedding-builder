@@ -100,14 +100,14 @@ Scripts a job may run on the model's request, as `npm run <name> -- <args>` in t
 - `validate:brand-social` — `node scripts/validators/validate_brand_social.mjs`
 - `brand-social:collect` — `node scripts/brand_social/collect_metrics.mjs` (writes `data/brand-social/metrics.json`; daily in `.github/workflows/brand-social-metrics.yml`)
 - `brand-social:prove` — `node scripts/brand_social/collect_metrics.mjs --prove` (after a deploy: every host's live beacon can record; writes nothing)
-- `brand-social:stop-check` — `node scripts/brand_social/stop_check.mjs` (daily, after the file is pushed: a metric unread because something broke is `NAMED STOP BRAND_SOCIAL_UNREADABLE` and a red run; a missing key is a note and the run stays green)
+- `brand-social:stop-check` — `node scripts/brand_social/stop_check.mjs` (daily, after the file is pushed: a metric unread because something broke is `NAMED STOP BRAND_SOCIAL_UNREADABLE` and a red run; a missing key is a note and the run stays green for 14 days from its `missing_since` date, then it is a NAMED STOP too)
 
 ## Secrets
 
 Names only. The duty looks each up in the vault (exact name, then vendor prefix) before any job asks her; a missing one is named in the next email to her with the `SECRET NAME=value` line that sends it.
 
 - `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` — GitHub Actions secrets; read-only Web Analytics reads by `brand-social:collect` (and the Pinterest drip's D1 read). Needs Account Analytics read.
-- `BUFFER_BRANDS_ACCESS_TOKEN` — GitHub Actions secret: the brands Buffer (Dream Wedding Instagram and TikTok). Not yet given; until it is, `posts_published_28d` is recorded as unread with kind `missing_key`, `missing_keys` names it, and the daily run stays green (a note, not a fault). She sends it as `SECRET BUFFER_BRANDS_ACCESS_TOKEN=<value>`.
+- `BUFFER_BRANDS_ACCESS_TOKEN` — GitHub Actions secret: the brands Buffer (Dream Wedding Instagram and TikTok). Not yet given; until it is, `posts_published_28d` is recorded as unread with kind `missing_key`, `missing_keys` names it, `missing_since` records the first day it was missing (2026-11-09), and the daily run stays green for 14 days from that date, then reds until it arrives. She sends it as `SECRET BUFFER_BRANDS_ACCESS_TOKEN=<value>`.
 
 ## Guards, and what each pins
 

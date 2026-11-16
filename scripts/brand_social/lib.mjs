@@ -22,9 +22,53 @@ export const BUFFER_KEY = 'BUFFER_BRANDS_ACCESS_TOKEN';
 // `broken`: anything else - a refused key, an outage, no matching channel, a beacon
 // that cannot record - and the daily run goes red (scripts/brand_social/stop_check.mjs).
 export const UNREAD_KINDS = ['missing_key', 'no_traffic', 'broken'];
+// A missing key is a note only for this long, counted from the first day the file
+// recorded it missing (`missing_since`). Two Mondays of the weekly scorecard: after
+// that the row has been blank twice and the wait becomes a break (a red daily run,
+// NAMED STOP), so a key nobody sends can never leave the row blank for ever behind a
+// green job - the shape of the 33 green days the beacon was broken.
+export const MISSING_KEY_GRACE_DAYS = 14;
 const ENV_NAME = /^[A-Z][A-Z0-9_]*$/;
+const ISO_DATE = /^\d{4}-\d\d-\d\d$/;
 
 const DAY_MS = 86_400_000;
+const utcDate = (now) => new Date(now).toISOString().slice(0, 10);
+
+/**
+ * { key: 'YYYY-MM-DD' } for every key still missing: the date the previous file
+ * recorded, else today. A key no longer missing is dropped, so a key that arrives and
+ * is lost again starts a fresh wait.
+ */
+export function carryMissingSince(previous, missingKeys, now) {
+  const today = utcDate(now);
+  const prior = previous?.missing_since && typeof previous.missing_since === 'object' ? previous.missing_since : {};
+  const out = {};
+  for (const key of missingKeys ?? []) {
+    const was = prior[key];
+    out[key] = typeof was === 'string' && ISO_DATE.test(was) && was <= today ? was : today;
+  }
+  return out;
+}
+
+/** Whole days from a YYYY-MM-DD date to today (UTC). */
+export function daysSince(date, now) {
+  return Math.floor((Date.parse(`${utcDate(now)}T00:00:00Z`) - Date.parse(`${date}T00:00:00Z`)) / DAY_MS);
+}
+
+/** Every listed missing key with how long it has waited, and whether it is past the grace. */
+export function keyWaits(metrics, now = Date.now()) {
+  const keys = Array.isArray(metrics?.missing_keys) ? metrics.missing_keys : [];
+  return keys.filter((key) => ENV_NAME.test(String(key))).map((key) => {
+    const since = metrics?.missing_since?.[key];
+    const days = typeof since === 'string' && ISO_DATE.test(since) ? daysSince(since, now) : null;
+    return { key, since: since ?? null, days, overdue: days !== null && days >= MISSING_KEY_GRACE_DAYS };
+  });
+}
+
+/** The missing keys past the grace. */
+export function overdueKeys(metrics, now = Date.now()) {
+  return keyWaits(metrics, now).filter((wait) => wait.overdue);
+}
 
 /** The 28 calendar days ending today (UTC dates, both ends inclusive) and the same span as instants. */
 export function windowFor(now) {
@@ -210,6 +254,18 @@ export function metricsProblems(metrics, now = Date.now()) {
     if (keyed && missingKeys.length === 0) problems.push('a metric waits on a missing key but missing_keys is empty');
     if (!keyed && missingKeys.length > 0) problems.push(`missing_keys lists ${missingKeys.join(', ')} but no metric waits on a key`);
     for (const name of missingKeys) if (!ENV_NAME.test(String(name))) problems.push(`missing_keys entry ${JSON.stringify(name)} is not a bare environment-variable name`);
+    // The wait has a start date, or the grace can never run out.
+    const since = metrics.missing_since ?? {};
+    if (typeof since !== 'object' || Array.isArray(since)) problems.push('missing_since is not an object');
+    else {
+      const today = utcDate(now);
+      for (const name of missingKeys) {
+        const date = since[name];
+        if (!(typeof date === 'string' && ISO_DATE.test(date) && Number.isFinite(Date.parse(`${date}T00:00:00Z`)))) problems.push(`missing_keys lists ${name} but missing_since.${name} is ${JSON.stringify(date)}, not a YYYY-MM-DD date`);
+        else if (date > today) problems.push(`missing_since.${name} ${date} is in the future`);
+      }
+      for (const name of Object.keys(since)) if (!missingKeys.includes(name)) problems.push(`missing_since names ${name}, which missing_keys does not list`);
+    }
   }
   const at = Date.parse(metrics.updatedAt);
   if (!Number.isFinite(at) || !/^\d{4}-\d\d-\d\dT/.test(String(metrics.updatedAt))) problems.push(`updatedAt ${JSON.stringify(metrics.updatedAt)} is not an ISO time`);
@@ -229,11 +285,12 @@ export function metricsProblems(metrics, now = Date.now()) {
 }
 
 /**
- * What the daily run should do about the unread metrics. A key the owner owes us and a
- * host with no traffic yet are notes (green); everything else is a break (red, NAMED
+ * What the daily run should do about the unread metrics. A key the owner owes us
+ * (within MISSING_KEY_GRACE_DAYS of missing_since) and a host with no traffic yet are
+ * notes (green); a key past the grace, and everything else, is a break (red, NAMED
  * STOP). A file the contract rejects is reported under `problems` and also stops.
  */
-export function unreadSummary(metrics) {
+export function unreadSummary(metrics, now = Date.now()) {
   const out = { missingKeys: [], breaks: [], notes: [], problems: [], checked: 0 };
   if (!metrics || typeof metrics !== 'object') { out.problems.push('the file is not a JSON object'); return out; }
   for (const field of METRIC_FIELDS) {
@@ -241,7 +298,17 @@ export function unreadSummary(metrics) {
     if (Object.prototype.hasOwnProperty.call(metrics, field)) continue;
     const reason = metrics.unread?.[field] ?? 'no reason given';
     const kind = metrics.unread_kind?.[field];
-    if (kind === 'missing_key' || kind === 'no_traffic') out.notes.push({ field, reason });
+    if (kind === 'missing_key') {
+      const waits = keyWaits(metrics, now);
+      const overdue = waits.filter((wait) => wait.overdue);
+      if (overdue.length) {
+        const late = overdue.map(({ key, since, days }) => `${key} has been missing ${days} days (since ${since}), past the ${MISSING_KEY_GRACE_DAYS}-day grace; clear it by emailing boss@sequoiataylor.com the line SECRET ${key}=<value>`);
+        out.breaks.push({ field, reason: `${reason}. ${late.join('; ')}` });
+      } else {
+        const told = waits.map(({ key, since, days }) => (days === null ? `${key}: no missing_since recorded` : `${key} waiting ${days} of ${MISSING_KEY_GRACE_DAYS} day(s), since ${since}`));
+        out.notes.push({ field, reason: told.length ? `${reason} (${told.join('; ')})` : reason });
+      }
+    } else if (kind === 'no_traffic') out.notes.push({ field, reason });
     else out.breaks.push({ field, reason });
   }
   if (Array.isArray(metrics.missing_keys)) out.missingKeys = metrics.missing_keys.filter((k) => ENV_NAME.test(String(k)));

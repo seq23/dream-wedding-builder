@@ -22,6 +22,8 @@
 // only the owner can mint is `missing_key` and is listed under `missing_keys`; a
 // host with no page loads yet is `no_traffic`; anything else is `broken`, and the
 // workflow's next step (stop_check.mjs) reds the run for it after the file lands.
+// A missing key's first-recorded day is carried forward under `missing_since` from the
+// file this run replaces; past MISSING_KEY_GRACE_DAYS the stop check reds the run.
 // A real 0 from Buffer is written as 0. updatedAt is written on
 // every run, so the scorecard's 9-day staleness check never trips on a working job.
 //
@@ -34,7 +36,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  BUFFER_KEY, beaconProblem, brandChannels, countSentPosts, noChannelReason, resolveSiteTags, socialHandles, tallyVisits, visitsDecision, windowFor
+  BUFFER_KEY, MISSING_KEY_GRACE_DAYS, beaconProblem, brandChannels, carryMissingSince, countSentPosts, daysSince, noChannelReason, resolveSiteTags, socialHandles, tallyVisits, visitsDecision, windowFor
 } from './lib.mjs';
 
 const ROOT = process.cwd();
@@ -148,10 +150,17 @@ async function readPosts() {
 }
 const posts = await readPosts();
 
+const previous = (() => { try { return JSON.parse(fs.readFileSync(OUT, 'utf8')); } catch { return null; } })();
+const missingKeys = posts.key ? [posts.key] : [];
+const missingSince = carryMissingSince(previous, missingKeys, now);
+const waitLines = missingKeys.map((name) => `Missing key: ${name}`)
+  .concat(missingKeys.map((name) => `  ${name} waiting ${daysSince(missingSince[name], now)} of ${MISSING_KEY_GRACE_DAYS} day(s), since ${missingSince[name]}`));
+
 if (process.argv.includes('--prove')) {
   for (const [host, entry] of Object.entries(byHost)) console.log(`  ${host}: beacon ${entry.beacon}; ${entry.pageloads} page load(s) since ${window.since} (first ${entry.first_pageload_date ?? 'none'}); ${entry.social_visits} Instagram/TikTok visit(s)`);
   console.log(`  social_visits_28d: ${'value' in visits ? visits.value : `not read (${visits.unread})`}`);
   console.log(`  posts_published_28d: ${'value' in posts ? posts.value : `not read (${posts.unread})`}`);
+  for (const l of waitLines) console.log(`  ${l.trim()}`);
   const broken = Object.entries(byHost).filter(([, entry]) => entry.beacon !== 'ok');
   if (broken.length) { console.error(`brand-social prove: FAIL - ${broken.length} host(s) cannot record a visit`); process.exit(1); }
   console.log(`brand-social prove: PASS - ${Object.keys(byHost).length} host(s) carry a beacon that records`);
@@ -162,10 +171,8 @@ if (process.argv.includes('--prove')) {
 const metrics = { updatedAt: now.toISOString(), headline_host: headline, window };
 const unread = {};
 const unreadKind = {};
-const missingKeys = [];
 if ('value' in posts) metrics.posts_published_28d = posts.value; else { unread.posts_published_28d = posts.unread; unreadKind.posts_published_28d = posts.kind; }
 if ('value' in visits) metrics.social_visits_28d = visits.value; else { unread.social_visits_28d = visits.unread; unreadKind.social_visits_28d = visits.kind; }
-if (posts.key) missingKeys.push(posts.key);
 metrics.by_platform = {
   posts: posts.by_platform ?? null,
   visits: 'value' in visits ? byHost[headline].by_platform : null
@@ -175,6 +182,7 @@ metrics.by_host = byHost;
 metrics.unread = unread;
 metrics.unread_kind = unreadKind;
 metrics.missing_keys = missingKeys;
+metrics.missing_since = missingSince;
 metrics.sources = {
   posts: 'api.buffer.com/graphql posts(status: sent), counted on sentAt, Dream Wedding Instagram and TikTok channels (handles from data/seo/entity.json)',
   visits: 'Cloudflare Web Analytics rumPageloadEventsAdaptiveGroups sum.visits by refererHost, matched on hostname (data/brand-social/social_referrers.json)'
@@ -184,6 +192,6 @@ fs.writeFileSync(OUT, `${JSON.stringify(metrics, null, 2)}\n`);
 
 const show = (field) => (field in metrics ? String(metrics[field]) : `not read (${unread[field]})`);
 const line = `OUTPUT brand-social: posts_published_28d=${show('posts_published_28d')}; social_visits_28d=${show('social_visits_28d')}; window ${window.since}..${window.until}; ${Object.keys(byHost).length} host(s) read`;
-const keyLines = missingKeys.map((name) => `Missing key: ${name}`);
+const keyLines = waitLines;
 console.log([line, ...keyLines].join('\n'));
 if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `### Brand social metrics\n\n${[line, ...keyLines].join('\n\n')}\n`);

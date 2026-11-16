@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-11-16T13:26:08.298Z",
+  "updatedAt": "2026-11-16T19:02:00.674Z",
   "headline_host": "weddingchecklistpdf.com",
   "window": {
     "days": 28,
     "since": "2026-10-20",
     "until": "2026-11-16",
-    "from": "2026-10-19T13:26:08.298Z",
-    "to": "2026-11-16T13:26:08.298Z"
+    "from": "2026-10-19T19:02:00.674Z",
+    "to": "2026-11-16T19:02:00.674Z"
   },
   "social_visits_28d": 0,
   "by_platform": {
@@ -71,6 +71,9 @@
   "missing_keys": [
     "BUFFER_BRANDS_ACCESS_TOKEN"
   ],
+  "missing_since": {
+    "BUFFER_BRANDS_ACCESS_TOKEN": "2026-11-09"
+  },
   "sources": {
     "posts": "api.buffer.com/graphql posts(status: sent), counted on sentAt, Dream Wedding Instagram and TikTok channels (handles from data/seo/entity.json)",
     "visits": "Cloudflare Web Analytics rumPageloadEventsAdaptiveGroups sum.visits by refererHost, matched on hostname (data/brand-social/social_referrers.json)"

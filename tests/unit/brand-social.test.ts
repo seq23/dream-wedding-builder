@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  beaconProblem, brandChannels, BUFFER_KEY, cloudflareBeacons, countSentPosts, isStale, METRIC_FIELDS, metricsProblems,
+  beaconProblem, brandChannels, BUFFER_KEY, carryMissingSince, cloudflareBeacons, keyWaits, MISSING_KEY_GRACE_DAYS, overdueKeys, countSentPosts, isStale, METRIC_FIELDS, metricsProblems,
   noChannelReason, platformForReferrer, resolveSiteTags, socialHandles, tallyVisits, unreadSummary, visitsDecision, windowFor
 } from '../../scripts/brand_social/lib.mjs';
 import referrers from '../../data/brand-social/social_referrers.json';
@@ -39,7 +39,7 @@ describe('no false zero', () => {
     const base = { updatedAt: new Date(NOW).toISOString(), headline_host: 'a.com', by_host: { 'a.com': { pageloads: 0, beacon: 'x', social_visits: 0 } } };
     // per field: no reason, and no kind
     expect(metricsProblems({ ...base, unread: {} }, NOW).length).toBe(2 * METRIC_FIELDS.length);
-    expect(metricsProblems({ ...base, unread: { posts_published_28d: 'no key', social_visits_28d: 'no loads' }, unread_kind: { posts_published_28d: 'missing_key', social_visits_28d: 'no_traffic' }, missing_keys: [BUFFER_KEY] }, NOW)).toEqual([]);
+    expect(metricsProblems({ ...base, unread: { posts_published_28d: 'no key', social_visits_28d: 'no loads' }, unread_kind: { posts_published_28d: 'missing_key', social_visits_28d: 'no_traffic' }, missing_keys: [BUFFER_KEY], missing_since: { [BUFFER_KEY]: '2026-11-05' } }, NOW)).toEqual([]);
   });
 
   it('visits are a number only with a live beacon and recorded page loads', () => {
@@ -128,7 +128,10 @@ describe('posts', () => {
 
 describe('a wait is a note, a break is a stop', () => {
   const base = { updatedAt: new Date(NOW).toISOString(), headline_host: 'a.com', social_visits_28d: 1, by_host: { 'a.com': { pageloads: 5, beacon: 'ok', social_visits: 1 } } };
-  const absentPosts = (kind: string, missing_keys: string[] = []) => ({ ...base, unread: { posts_published_28d: 'why' }, unread_kind: { posts_published_28d: kind }, missing_keys });
+  const absentPosts = (kind: string, missing_keys: string[] = [], since = '2026-11-06') => ({
+    ...base, unread: { posts_published_28d: 'why' }, unread_kind: { posts_published_28d: kind }, missing_keys,
+    missing_since: Object.fromEntries(missing_keys.map((k) => [k, since]))
+  });
 
   it.each([
     ['missing_key', [BUFFER_KEY], 'notes'],
@@ -170,5 +173,51 @@ describe('a wait is a note, a break is a stop', () => {
     expect(reason).toContain('tiktok/iamcindymercer');
     const many = Array.from({ length: 13 }, (_, i) => ({ service: 'instagram', name: `c${i}` }));
     expect(noChannelReason(many, ['x'])).not.toContain('c10');
+  });
+});
+
+describe('a missing key waits 14 days, then stops', () => {
+  const base = { updatedAt: new Date(NOW).toISOString(), headline_host: 'a.com', social_visits_28d: 1, by_host: { 'a.com': { pageloads: 5, beacon: 'ok', social_visits: 1 } } };
+  const waitingSince = (since: string) => ({
+    ...base, unread: { posts_published_28d: 'key not set' }, unread_kind: { posts_published_28d: 'missing_key' },
+    missing_keys: [BUFFER_KEY], missing_since: { [BUFFER_KEY]: since }
+  });
+
+  it('carries the first-recorded day forward, starts today for a new key, drops a key that arrived', () => {
+    expect(carryMissingSince({ missing_since: { [BUFFER_KEY]: '2026-11-01' } }, [BUFFER_KEY], NOW)).toEqual({ [BUFFER_KEY]: '2026-11-01' });
+    expect(carryMissingSince(null, [BUFFER_KEY], NOW)).toEqual({ [BUFFER_KEY]: '2026-11-09' });
+    expect(carryMissingSince({ missing_since: { [BUFFER_KEY]: '2026-11-01' } }, [], NOW)).toEqual({});
+    // a corrupt or future date never extends the wait past today
+    expect(carryMissingSince({ missing_since: { [BUFFER_KEY]: '2027-01-01' } }, [BUFFER_KEY], NOW)).toEqual({ [BUFFER_KEY]: '2026-11-09' });
+    expect(carryMissingSince({ missing_since: { [BUFFER_KEY]: 'soon' } }, [BUFFER_KEY], NOW)).toEqual({ [BUFFER_KEY]: '2026-11-09' });
+  });
+
+  it('the grace boundary is 14 whole days', () => {
+    expect(MISSING_KEY_GRACE_DAYS).toBe(14);
+    expect(keyWaits(waitingSince('2026-10-27'), NOW)).toEqual([{ key: BUFFER_KEY, since: '2026-10-27', days: 13, overdue: false }]);
+    expect(overdueKeys(waitingSince('2026-10-27'), NOW)).toEqual([]);
+    expect(overdueKeys(waitingSince('2026-10-26'), NOW)).toEqual([{ key: BUFFER_KEY, since: '2026-10-26', days: 14, overdue: true }]);
+  });
+
+  it('within the grace it is a note that says how long it has waited', () => {
+    const summary = unreadSummary(waitingSince('2026-11-02'), NOW);
+    expect(summary.breaks).toEqual([]);
+    expect(summary.notes[0].reason).toContain('waiting 7 of 14 day(s), since 2026-11-02');
+  });
+
+  it('past the grace it is a break naming the days and the reply that clears it', () => {
+    const file = waitingSince('2026-10-20');
+    expect(metricsProblems(file, NOW)).toEqual([]);
+    const summary = unreadSummary(file, NOW);
+    expect(summary.notes).toEqual([]);
+    expect(summary.breaks).toHaveLength(1);
+    expect(summary.breaks[0].reason).toContain('missing 20 days (since 2026-10-20)');
+    expect(summary.breaks[0].reason).toContain(`SECRET ${BUFFER_KEY}=<value>`);
+  });
+
+  it('rejects a listed key with no start date, a future start, or a start for an unlisted key', () => {
+    expect(metricsProblems({ ...waitingSince('2026-11-01'), missing_since: {} }, NOW).join('\n')).toMatch(/missing_since/);
+    expect(metricsProblems(waitingSince('2026-11-20'), NOW).join('\n')).toMatch(/in the future/);
+    expect(metricsProblems({ ...waitingSince('2026-11-01'), missing_since: { [BUFFER_KEY]: '2026-11-01', OTHER: '2026-11-01' } }, NOW).join('\n')).toMatch(/OTHER/);
   });
 });

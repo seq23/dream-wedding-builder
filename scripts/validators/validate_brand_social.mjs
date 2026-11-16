@@ -17,7 +17,9 @@
 //   - updatedAt is an ISO time; by_host lists at least one host;
 //   - data/brand-social/social_referrers.json names hostnames only, for both platforms;
 //   - an absent metric names its kind (missing_key | no_traffic | broken), and
-//     missing_keys lists bare env-var names exactly when a metric waits on a key;
+//     missing_keys lists bare env-var names exactly when a metric waits on a key,
+//     each with a missing_since date that is not in the future (the start of the
+//     14-day grace the daily stop check enforces);
 //   - the daily workflow runs the collector, commits through push_back.sh, and runs
 //     the stop check after the commit (a broken read reds the run).
 // Rule 0: it self-tests first (a fixture with an unmeasured zero must fail it), and
@@ -25,12 +27,13 @@
 // network job's lateness must never red a pull request; the scorecard reports it.
 import fs from 'node:fs';
 import path from 'node:path';
-import { isStale, metricsProblems, METRIC_FIELDS, PLATFORMS } from '../brand_social/lib.mjs';
+import { isStale, metricsProblems, METRIC_FIELDS, PLATFORMS, unreadSummary } from '../brand_social/lib.mjs';
 
 const ROOT = process.argv[2] || '.';
 const TAG = '[validate:brand-social]';
 const now = Date.now();
 const failures = [];
+const dayOffset = (days) => new Date(now + days * 86_400_000).toISOString().slice(0, 10);
 
 // ── Self-test: the gate must reject what it exists to reject. ───────────────────
 const good = {
@@ -38,7 +41,7 @@ const good = {
   by_host: { 'weddingchecklistpdf.com': { pageloads: 40, beacon: 'ok', social_visits: 2 } }
 };
 const waiting = (() => {
-  const m = { ...good, unread: { posts_published_28d: 'key not set' }, unread_kind: { posts_published_28d: 'missing_key' }, missing_keys: ['BUFFER_BRANDS_ACCESS_TOKEN'] };
+  const m = { ...good, unread: { posts_published_28d: 'key not set' }, unread_kind: { posts_published_28d: 'missing_key' }, missing_keys: ['BUFFER_BRANDS_ACCESS_TOKEN'], missing_since: { BUFFER_BRANDS_ACCESS_TOKEN: dayOffset(-3) } };
   delete m.posts_published_28d;
   return m;
 })();
@@ -51,7 +54,10 @@ const bad = {
   'an absent metric with no unread_kind': { ...waiting, unread_kind: {} , missing_keys: [] },
   'an unknown unread_kind': { ...waiting, unread_kind: { posts_published_28d: 'later' }, missing_keys: [] },
   'a missing_key kind with empty missing_keys': { ...waiting, missing_keys: [] },
-  'a missing_keys entry that is not a bare env-var name': { ...waiting, missing_keys: ['the Buffer token'] }
+  'a missing_keys entry that is not a bare env-var name': { ...waiting, missing_keys: ['the Buffer token'] },
+  'a missing key with no missing_since': { ...waiting, missing_since: {} },
+  'a missing_since in the future': { ...waiting, missing_since: { BUFFER_BRANDS_ACCESS_TOKEN: dayOffset(3) } },
+  'a missing_since for a key not listed': { ...waiting, missing_since: { ...waiting.missing_since, OTHER_KEY: dayOffset(-1) } }
 };
 for (const [name, fixture] of Object.entries({ 'a sound fixture': good, 'a sound fixture waiting on a key': waiting })) {
   if (metricsProblems(fixture, now).length) failures.push(`self-test: ${name} was rejected (${metricsProblems(fixture, now).join('; ')})`);
@@ -59,6 +65,10 @@ for (const [name, fixture] of Object.entries({ 'a sound fixture': good, 'a sound
 for (const [name, fixture] of Object.entries(bad)) {
   if (metricsProblems(fixture, now).length === 0) failures.push(`self-test: ${name} passed, so this gate cannot see that defect`);
 }
+// The deadline the daily stop check enforces: 3 days waiting is a note, 20 days a break.
+if (unreadSummary(waiting, now).breaks.length !== 0) failures.push('self-test: a key missing 3 days was a break; the grace is 14 days');
+const late = { ...waiting, missing_since: { BUFFER_BRANDS_ACCESS_TOKEN: dayOffset(-20) } };
+if (unreadSummary(late, now).breaks.length !== 1) failures.push('self-test: a key missing 20 days was not a break, so a blank scorecard row could stay green for ever');
 
 // ── The committed file ──────────────────────────────────────────────────────────
 const metricsPath = path.join(ROOT, 'data/brand-social/metrics.json');
