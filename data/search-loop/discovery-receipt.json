@@ -1,8 +1,8 @@
 {
   "schema": "search-loop-discovery-v1",
   "site": "weddingchecklistpdf.com",
-  "week": "2026-W46",
-  "generated_at": "2026-11-09T12:22:33.733Z",
+  "week": "2026-W47",
+  "generated_at": "2026-11-16T12:28:51.397Z",
   "paid_calls": 0,
   "cost_usd": 0,
   "hosts": {
@@ -38,16 +38,24 @@
     }
   },
   "sources": {
-    "search_console": "ok: 19 rows",
+    "search_console": "ok: 25 rows",
     "bing_webmaster": "ok: 0 rows",
     "easy_wins": "ok: 0 easy win(s) in Search Console",
     "suggestqueries.google.com": "ok",
     "api.bing.com": "ok",
-    "relevance_screen": "ok: kept 38 of 120 (free model)",
+    "relevance_screen": "ok: kept 85 of 150 (free model)",
     "top10": "ok: 15 top-10 read(s) via brave"
   },
+  "seeds": {
+    "planned": 184,
+    "asked": 40,
+    "topics": 16,
+    "topics_asked": 16,
+    "priority_topics": 7,
+    "priority_targets": 68
+  },
   "notes": [
-    "autocomplete stopped at its budget of 80 calls"
+    "autocomplete stopped at its budget of 80 calls (40 of 184 planned questions asked)"
   ],
   "competition": "ok: 15 top-10 read(s) via brave",
   "lanes": {
@@ -55,8 +63,8 @@
       "can_be_one": 2,
       "striking": 1
     },
-    "can_be_one": 6,
-    "striking": 32,
+    "can_be_one": 35,
+    "striking": 50,
     "weights": {
       "neighbour": 35,
       "unanswered": 30,
@@ -65,8 +73,8 @@
     }
   },
   "counts": {
-    "candidates": 134,
-    "targets": 38,
+    "candidates": 385,
+    "targets": 85,
     "strengthen_candidates": 0,
     "dropped_shared_audience": 0
   }

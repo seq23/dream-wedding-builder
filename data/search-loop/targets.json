@@ -1,542 +1,83 @@
 {
   "schema": "search-loop-targets-v1",
   "site": "weddingchecklistpdf.com",
-  "week": "2026-W46",
-  "generated_at": "2026-11-09T12:22:33.733Z",
+  "week": "2026-W47",
+  "generated_at": "2026-11-16T12:28:51.397Z",
   "sources": {
-    "search_console": "ok: 19 rows",
+    "search_console": "ok: 25 rows",
     "bing_webmaster": "ok: 0 rows",
     "easy_wins": "ok: 0 easy win(s) in Search Console",
     "suggestqueries.google.com": "ok",
     "api.bing.com": "ok",
-    "relevance_screen": "ok: kept 38 of 120 (free model)",
+    "relevance_screen": "ok: kept 85 of 150 (free model)",
     "top10": "ok: 15 top-10 read(s) via brave"
   },
   "targets": [
     {
-      "query": "is a wedding planner worth it",
+      "query": "diy wedding planning checklist printable",
       "variants": [],
       "signals": {
-        "words": 6,
-        "question": true,
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
         "bing_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.4,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
         "top10": {
           "provider": "brave",
           "weakness": 0.54,
           "counts": {
             "results": 10,
-            "directories": 2,
-            "forums": 3,
-            "off_target_national": 0,
-            "thin_or_old": 2,
-            "exact_answer": 8
-          },
-          "reasons": [
-            "top 10: 2 directories, 3 forums, 0 off-target national, 2 thin or old, 8 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 25,
-        "can_be_one": 31.6
-      },
-      "score": 31.6,
-      "kind": "new",
-      "lane": "can_be_one",
-      "reasons": [
-        "weak top 10 (0.54): 2 directories, 3 forums, 0 off-target national, 2 thin or old, 8 answer the exact question",
-        "people search it (autocomplete or impressions)"
-      ]
-    },
-    {
-      "query": "free wedding planner printable",
-      "variants": [
-        "free printable wedding planner",
-        "printable free wedding planner",
-        "free printable wedding planners",
-        "wedding planner free printable"
-      ],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "google_suggest": true,
-        "bing_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.23,
-          "counts": {
-            "results": 10,
             "directories": 1,
-            "forums": 2,
-            "off_target_national": 0,
-            "thin_or_old": 1,
-            "exact_answer": 4
-          },
-          "reasons": [
-            "top 10: 1 directories, 2 forums, 0 off-target national, 1 thin or old, 4 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 40,
-        "can_be_one": 19.2
-      },
-      "score": 40,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 score 19.2 too (taken by the striking lane's turn)"
-      ]
-    },
-    {
-      "query": "is it necessary to hire a wedding planner",
-      "variants": [],
-      "signals": {
-        "words": 8,
-        "question": true,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.46,
-          "counts": {
-            "results": 10,
-            "directories": 2,
-            "forums": 2,
-            "off_target_national": 0,
-            "thin_or_old": 1,
-            "exact_answer": 0
-          },
-          "reasons": [
-            "top 10: 2 directories, 2 forums, 0 off-target national, 1 thin or old, 0 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 30,
-        "can_be_one": 28.4
-      },
-      "score": 28.4,
-      "kind": "new",
-      "lane": "can_be_one",
-      "reasons": [
-        "weak top 10 (0.46): 2 directories, 2 forums, 0 off-target national, 1 thin or old, 0 answer the exact question",
-        "people search it (autocomplete or impressions)"
-      ]
-    },
-    {
-      "query": "how much does full wedding planning cost",
-      "variants": [],
-      "signals": {
-        "words": 7,
-        "question": true,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.38,
-          "counts": {
-            "results": 10,
-            "directories": 2,
-            "forums": 1,
-            "off_target_national": 0,
-            "thin_or_old": 1,
-            "exact_answer": 0
-          },
-          "reasons": [
-            "top 10: 2 directories, 1 forums, 0 off-target national, 1 thin or old, 0 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 30,
-        "can_be_one": 25.2
-      },
-      "score": 25.2,
-      "kind": "new",
-      "lane": "can_be_one",
-      "reasons": [
-        "weak top 10 (0.38): 2 directories, 1 forums, 0 off-target national, 1 thin or old, 0 answer the exact question",
-        "people search it (autocomplete or impressions)"
-      ]
-    },
-    {
-      "query": "wedding planning checklist pdf",
-      "variants": [
-        "wedding planner checklist pdf",
-        "simple wedding planning checklist pdf",
-        "pdf wedding planning checklist",
-        "best wedding planner checklist pdf",
-        "checklist wedding planner pdf",
-        "checklist for wedding planning pdf"
-      ],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "google_suggest": true,
-        "bing_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.15,
-          "counts": {
-            "results": 10,
-            "directories": 1,
-            "forums": 0,
-            "off_target_national": 0,
-            "thin_or_old": 1,
-            "exact_answer": 4
-          },
-          "reasons": [
-            "top 10: 1 directories, 0 forums, 0 off-target national, 1 thin or old, 4 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 40,
-        "can_be_one": 16
-      },
-      "score": 40,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 score 16 too (taken by the striking lane's turn)"
-      ]
-    },
-    {
-      "query": "free wedding planner printables pdf",
-      "variants": [
-        "best free wedding planner printables pdf"
-      ],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.31,
-          "counts": {
-            "results": 10,
-            "directories": 0,
-            "forums": 1,
-            "off_target_national": 0,
-            "thin_or_old": 2,
-            "exact_answer": 2
-          },
-          "reasons": [
-            "top 10: 0 directories, 1 forums, 0 off-target national, 2 thin or old, 2 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 25,
-        "can_be_one": 22.4
-      },
-      "score": 22.4,
-      "kind": "new",
-      "lane": "can_be_one",
-      "reasons": [
-        "weak top 10 (0.31): 0 directories, 1 forums, 0 off-target national, 2 thin or old, 2 answer the exact question",
-        "people search it (autocomplete or impressions)"
-      ]
-    },
-    {
-      "query": "beach wedding checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.31,
-          "counts": {
-            "results": 10,
-            "directories": 0,
             "forums": 0,
             "off_target_national": 0,
             "thin_or_old": 3,
             "exact_answer": 0
           },
           "reasons": [
-            "top 10: 0 directories, 0 forums, 0 off-target national, 3 thin or old, 0 answer the exact question"
+            "top 10: 1 directories, 0 forums, 0 off-target national, 3 thin or old, 0 answer the exact question"
           ]
         }
       },
+      "priority": "wedding planner cost",
       "scores": {
-        "striking": 25,
-        "can_be_one": 22.4
+        "striking": 40,
+        "can_be_one": 61.6
       },
-      "score": 22.4,
+      "score": 61.6,
       "kind": "new",
       "lane": "can_be_one",
       "reasons": [
-        "weak top 10 (0.31): 0 directories, 0 forums, 0 off-target national, 3 thin or old, 0 answer the exact question",
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.54): 1 directories, 0 forums, 0 off-target national, 3 thin or old, 0 answer the exact question",
         "people search it (autocomplete or impressions)"
       ]
     },
     {
-      "query": "destination wedding checklist pdf",
+      "query": "backyard wedding checklist pdf",
       "variants": [],
       "signals": {
         "words": 4,
         "question": false,
+        "gsc_position": 8.5,
+        "gsc_impressions": 2,
+        "gsc_page": "https://weddingchecklistpdf.com/backyard-wedding-planning",
         "google_suggest": true,
         "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
         "top10": {
           "provider": "brave",
-          "weakness": 0,
-          "counts": {
-            "results": 10,
-            "directories": 0,
-            "forums": 0,
-            "off_target_national": 0,
-            "thin_or_old": 0,
-            "exact_answer": 1
-          },
-          "reasons": [
-            "top 10: 0 directories, 0 forums, 0 off-target national, 0 thin or old, 1 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 40,
-        "can_be_one": 0
-      },
-      "score": 40,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 evidence too thin (0 < 15)"
-      ]
-    },
-    {
-      "query": "free printable wedding planning checklist and timeline",
-      "variants": [],
-      "signals": {
-        "words": 7,
-        "question": false,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.23,
-          "counts": {
-            "results": 10,
-            "directories": 1,
-            "forums": 0,
-            "off_target_national": 0,
-            "thin_or_old": 2,
-            "exact_answer": 3
-          },
-          "reasons": [
-            "top 10: 1 directories, 0 forums, 0 off-target national, 2 thin or old, 3 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 25,
-        "can_be_one": 19.2
-      },
-      "score": 19.2,
-      "kind": "new",
-      "lane": "can_be_one",
-      "reasons": [
-        "weak top 10 (0.23): 1 directories, 0 forums, 0 off-target national, 2 thin or old, 3 answer the exact question",
-        "people search it (autocomplete or impressions)"
-      ]
-    },
-    {
-      "query": "destination wedding checklist printable",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "google_suggest": true,
-        "bing_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0,
-          "counts": {
-            "results": 10,
-            "directories": 0,
-            "forums": 0,
-            "off_target_national": 0,
-            "thin_or_old": 1,
-            "exact_answer": 1
-          },
-          "reasons": [
-            "top 10: 0 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 40,
-        "can_be_one": 0
-      },
-      "score": 40,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 evidence too thin (0 < 15)"
-      ]
-    },
-    {
-      "query": "planning a destination wedding checklist",
-      "variants": [
-        "destination wedding planner checklist"
-      ],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "google_suggest": true,
-        "bing_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0,
-          "counts": {
-            "results": 10,
-            "directories": 0,
-            "forums": 0,
-            "off_target_national": 0,
-            "thin_or_old": 0,
-            "exact_answer": 2
-          },
-          "reasons": [
-            "top 10: 0 directories, 0 forums, 0 off-target national, 0 thin or old, 2 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 40,
-        "can_be_one": 0
-      },
-      "score": 40,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 evidence too thin (0 < 15)"
-      ]
-    },
-    {
-      "query": "checklist for destination wedding",
-      "variants": [
-        "destination wedding checklist"
-      ],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "google_suggest": true,
-        "bing_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0,
-          "counts": {
-            "results": 10,
-            "directories": 0,
-            "forums": 0,
-            "off_target_national": 0,
-            "thin_or_old": 0,
-            "exact_answer": 9
-          },
-          "reasons": [
-            "top 10: 0 directories, 0 forums, 0 off-target national, 0 thin or old, 9 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 40,
-        "can_be_one": 0
-      },
-      "score": 40,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 evidence too thin (0 < 15)"
-      ]
-    },
-    {
-      "query": "wedding coordinator checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.08,
-          "counts": {
-            "results": 10,
-            "directories": 0,
-            "forums": 1,
-            "off_target_national": 0,
-            "thin_or_old": 1,
-            "exact_answer": 6
-          },
-          "reasons": [
-            "top 10: 0 directories, 1 forums, 0 off-target national, 1 thin or old, 6 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 25,
-        "can_be_one": 13.2
-      },
-      "score": 25,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 evidence too thin (13.2 < 15)"
-      ]
-    },
-    {
-      "query": "destination wedding planning checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0,
-          "counts": {
-            "results": 10,
-            "directories": 0,
-            "forums": 0,
-            "off_target_national": 0,
-            "thin_or_old": 0,
-            "exact_answer": 1
-          },
-          "reasons": [
-            "top 10: 0 directories, 0 forums, 0 off-target national, 0 thin or old, 1 answer the exact question"
-          ]
-        }
-      },
-      "scores": {
-        "striking": 25,
-        "can_be_one": 0
-      },
-      "score": 25,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 evidence too thin (0 < 15)"
-      ]
-    },
-    {
-      "query": "free destination wedding checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "google_suggest": true,
-        "top10": {
-          "provider": "brave",
-          "weakness": 0.08,
+          "weakness": 0.15,
           "counts": {
             "results": 10,
             "directories": 0,
@@ -550,423 +91,302 @@
           ]
         }
       },
+      "priority": "wedding planning checklist",
       "scores": {
-        "striking": 25,
-        "can_be_one": 13.2
+        "striking": 85.4,
+        "can_be_one": 46
       },
-      "score": 25,
+      "score": 85.4,
       "kind": "new",
       "lane": "striking",
       "reasons": [
-        "autocomplete demand (google/bing)",
-        "can-be-#1 evidence too thin (13.2 < 15)"
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "already ranks 8.5 in Search Console (2 impressions)",
+        "can-be-#1 score 46 too (taken by the striking lane's turn)"
       ]
     },
     {
-      "query": "destination wedding planning checklist printable",
+      "query": "diy wedding planning checklist pdf",
       "variants": [],
       "signals": {
         "words": 5,
         "question": false,
         "google_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
+        "unanswered": {
+          "words": 5,
+          "covered": 0.2,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.38,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 3,
+            "exact_answer": 1
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 3 thin or old, 1 answer the exact question"
+          ]
+        }
       },
+      "priority": "wedding planner cost",
       "scores": {
         "striking": 25,
+        "can_be_one": 55.2
+      },
+      "score": 55.2,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.38): 0 directories, 0 forums, 0 off-target national, 3 thin or old, 1 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "simple wedding planner pdf",
+      "variants": [
+        "wedding planner guide pdf"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.33,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.31,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 3,
+            "exact_answer": 1
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 3 thin or old, 1 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 52.4
+      },
+      "score": 52.4,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.31): 0 directories, 0 forums, 0 off-target national, 3 thin or old, 1 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "is getting a wedding planner worth it",
+      "variants": [
+        "is it worth getting a wedding planner"
+      ],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 45,
         "can_be_one": 0
       },
-      "score": 25,
+      "score": 45,
       "kind": "new",
       "lane": "striking",
       "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
         "autocomplete demand (google/bing)"
       ]
     },
     {
-      "query": "how to plan a destination wedding checklist",
-      "variants": [],
+      "query": "wedding planning checklist pdf",
+      "variants": [
+        "checklist for wedding planning pdf",
+        "wedding planner checklist pdf",
+        "simple wedding planning checklist pdf"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.31,
+          "counts": {
+            "results": 10,
+            "directories": 2,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 4
+          },
+          "reasons": [
+            "top 10: 2 directories, 0 forums, 0 off-target national, 1 thin or old, 4 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 52.4
+      },
+      "score": 52.4,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.31): 2 directories, 0 forums, 0 off-target national, 1 thin or old, 4 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "diy wedding planning checklist",
+      "variants": [
+        "diy checklist for wedding planning"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.23,
+          "counts": {
+            "results": 10,
+            "directories": 1,
+            "forums": 1,
+            "off_target_national": 0,
+            "thin_or_old": 3,
+            "exact_answer": 2
+          },
+          "reasons": [
+            "top 10: 1 directories, 1 forums, 0 off-target national, 3 thin or old, 2 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 49.2
+      },
+      "score": 49.2,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.23): 1 directories, 1 forums, 0 off-target national, 3 thin or old, 2 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "how much is a wedding planner cost",
+      "variants": [
+        "how much to wedding planners cost",
+        "how much does wedding planner cost",
+        "how much should wedding planner cost"
+      ],
       "signals": {
         "words": 7,
         "question": true,
         "bing_suggest": true,
+        "google_suggest": true,
         "top10": "not read: outside this run's top-10 budget"
       },
+      "priority": "wedding planner cost",
       "scores": {
-        "striking": 25,
+        "striking": 45,
         "can_be_one": 0
       },
-      "score": 25,
+      "score": 45,
       "kind": "new",
       "lane": "striking",
       "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
         "autocomplete demand (google/bing)"
       ]
     },
     {
-      "query": "free wedding planner templates",
+      "query": "wedding planning checklist template",
       "variants": [],
       "signals": {
         "words": 4,
         "question": false,
+        "google_suggest": true,
         "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.23,
+          "counts": {
+            "results": 10,
+            "directories": 1,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 2
+          },
+          "reasons": [
+            "top 10: 1 directories, 0 forums, 0 off-target national, 1 thin or old, 2 answer the exact question"
+          ]
+        }
       },
+      "priority": "wedding planner cost",
       "scores": {
-        "striking": 20,
-        "can_be_one": 0
+        "striking": 40,
+        "can_be_one": 49.2
       },
-      "score": 20,
+      "score": 49.2,
       "kind": "new",
-      "lane": "striking",
+      "lane": "can_be_one",
       "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "free wedding planner checklist",
-      "variants": [
-        "wedding planner free checklist",
-        "wedding planning checklist free",
-        "wedding planner checklist free"
-      ],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "free wedding planner download",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "downloadable wedding planner free",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding planner to do list free",
-      "variants": [],
-      "signals": {
-        "words": 6,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "printable wedding planning checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "complete checklist for wedding planning",
-      "variants": [],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding planning checklist online",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding planner checklist free printable",
-      "variants": [],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding planner checklist printable free pdf",
-      "variants": [],
-      "signals": {
-        "words": 6,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding planner checklist printable",
-      "variants": [
-        "printable wedding planner checklist",
-        "simple wedding planner checklist printable"
-      ],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding planner checklist template",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "destination wedding checklist free printable",
-      "variants": [],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "destination wedding timeline checklist",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding to do checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 5,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding list checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "wedding day checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
-      ]
-    },
-    {
-      "query": "free wedding checklist pdf",
-      "variants": [],
-      "signals": {
-        "words": 4,
-        "question": false,
-        "bing_suggest": true,
-        "top10": "not read: outside this run's top-10 budget"
-      },
-      "scores": {
-        "striking": 20,
-        "can_be_one": 0
-      },
-      "score": 20,
-      "kind": "new",
-      "lane": "striking",
-      "reasons": [
-        "autocomplete demand (google/bing)"
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.23): 1 directories, 0 forums, 0 off-target national, 1 thin or old, 2 answer the exact question",
+        "people search it (autocomplete or impressions)"
       ]
     },
     {
@@ -977,34 +397,1709 @@
       "signals": {
         "words": 4,
         "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.23,
+          "counts": {
+            "results": 10,
+            "directories": 1,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 1
+          },
+          "reasons": [
+            "top 10: 1 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 49.2
+      },
+      "score": 49.2,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.23): 1 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "do i need a wedding planner",
+      "variants": [
+        "do i really need a wedding planner",
+        "do you need a wedding planner",
+        "do you really need a wedding planner",
+        "what do i need to be a wedding planner",
+        "why do i need a wedding planner"
+      ],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
         "bing_suggest": true,
         "top10": "not read: outside this run's top-10 budget"
       },
+      "priority": "wedding planner cost",
       "scores": {
-        "striking": 20,
+        "striking": 45,
         "can_be_one": 0
       },
-      "score": 20,
+      "score": 45,
       "kind": "new",
       "lane": "striking",
       "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
         "autocomplete demand (google/bing)"
       ]
     },
     {
-      "query": "in depth wedding checklist",
+      "query": "printable wedding checklist free pdf",
+      "variants": [
+        "free printable wedding checklist pdf"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.4,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.23,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 2,
+            "exact_answer": 2
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 2 thin or old, 2 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 49.2
+      },
+      "score": 49.2,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.23): 0 directories, 0 forums, 0 off-target national, 2 thin or old, 2 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "micro wedding planning checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.23,
+          "counts": {
+            "results": 10,
+            "directories": 1,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 1
+          },
+          "reasons": [
+            "top 10: 1 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 49.2
+      },
+      "score": 49.2,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.23): 1 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "how to plan a wedding without a planner",
+      "variants": [],
+      "signals": {
+        "words": 8,
+        "question": true,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 45,
+        "can_be_one": 0
+      },
+      "score": 45,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "outdoor wedding planning checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.23,
+          "counts": {
+            "results": 10,
+            "directories": 1,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 3
+          },
+          "reasons": [
+            "top 10: 1 directories, 0 forums, 0 off-target national, 1 thin or old, 3 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 49.2
+      },
+      "score": 49.2,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.23): 1 directories, 0 forums, 0 off-target national, 1 thin or old, 3 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "backyard wedding planning checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.15,
+          "counts": {
+            "results": 10,
+            "directories": 1,
+            "forums": 1,
+            "off_target_national": 0,
+            "thin_or_old": 2,
+            "exact_answer": 3
+          },
+          "reasons": [
+            "top 10: 1 directories, 1 forums, 0 off-target national, 2 thin or old, 3 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 46
+      },
+      "score": 46,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.15): 1 directories, 1 forums, 0 off-target national, 2 thin or old, 3 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "free wedding planner printables pdf",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.4,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.15,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 2,
+            "exact_answer": 2
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 2 thin or old, 2 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 46
+      },
+      "score": 46,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.15): 0 directories, 0 forums, 0 off-target national, 2 thin or old, 2 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "outdoor wedding checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.15,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 1
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 46
+      },
+      "score": 46,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.15): 0 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "free wedding checklist pdf",
       "variants": [],
       "signals": {
         "words": 4,
         "question": false,
         "bing_suggest": true,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 5
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 1 thin or old, 5 answer the exact question"
+          ]
+        }
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0): 0 directories, 0 forums, 0 off-target national, 1 thin or old, 5 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "diy wedding planning checklist free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.4,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planning checklist by month",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding checklist 1 month out",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding venue questions checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding venue questions checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planner cost average",
+      "variants": [
+        "average cost of a wedding planner",
+        "average wedding planner cost"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding venue questions checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.2,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planner cost per hour",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "backyard wedding planning list",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "backyard wedding planning checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.4,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planning checklist and timeline",
+      "variants": [
+        "wedding planning timeline checklist"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "backyard wedding planning spreadsheet",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "free wedding planner software with checklist",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.4,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planning checklist printable",
+      "variants": [
+        "printable wedding checklist planner",
+        "printable wedding planning checklist",
+        "printable wedding planner checklist"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding list checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding day checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planning checklist free printable",
+      "variants": [
+        "wedding planner checklist free printable"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "printable wedding planning checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0.4,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "outdoor wedding checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planning checklist free",
+      "variants": [
+        "free wedding planner checklist",
+        "wedding planner free checklist",
+        "wedding planner checklist free",
+        "free wedding planning checklist"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "backyard wedding checklist printable",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "diy backyard wedding checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "diy wedding planning",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"diy wedding planning\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "free wedding planner printable",
+      "variants": [
+        "wedding planner free printable"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "planning a wedding at home checklist",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "backyard wedding checklist free",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "checklist for backyard wedding",
+      "variants": [
+        "backyard wedding checklist"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "backyard wedding reception checklist",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "diy wedding checklist pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "diy wedding planning",
+      "scores": {
+        "striking": 20,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "priority topic \"diy wedding planning\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding planner cost",
+      "variants": [
+        "cost of a wedding planner",
+        "how do wedding planners cost",
+        "cost of wedding planner",
+        "wedding planner costs"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "is a wedding coordinator worth it",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "is a wedding planner worth it",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"is a wedding planner worth it\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "is a wedding planner worth the money",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "is hiring a wedding planner worth it",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "is a wedding planner book worth it",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "is a partial wedding planner worth it",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "do i need a wedding planner for a small wedding",
+      "variants": [],
+      "signals": {
+        "words": 10,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "do i need a wedding planner or coordinator",
+      "variants": [],
+      "signals": {
+        "words": 8,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "do i need a wedding planner quiz",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "do i need a wedding coordinator",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "do i need a wedding planner",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"do i need a wedding planner\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "diy wedding planning",
+      "variants": [
+        "diy wedding planning guide",
+        "wedding planning diy"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding checklist timeline",
+      "variants": [
+        "wedding timeline checklist"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding checklist pdf",
+      "variants": [
+        "wedding to do checklist pdf"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding checklist printable",
+      "variants": [
+        "printable wedding checklist",
+        "printable wedding guide checklist"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding checklist template",
+      "variants": [],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding checklist free",
+      "variants": [],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planning checklist",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "micro wedding planning",
+      "variants": [
+        "micro wedding planning guide",
+        "micro wedding planning tips",
+        "micro wedding planner"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "backyard wedding planning",
+      "variants": [
+        "backyard wedding planning guide",
+        "backyard wedding planner tips",
+        "backyard wedding planner ideas"
+      ],
+      "signals": {
+        "words": 3,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "how much wedding coordinator cost",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "how much do wedding planners cost on average",
+      "variants": [],
+      "signals": {
+        "words": 8,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "how to make wedding planning less stressful",
+      "variants": [],
+      "signals": {
+        "words": 7,
+        "question": true,
+        "google_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "priority": "wedding planner cost",
+      "scores": {
+        "striking": 30,
+        "can_be_one": 0
+      },
+      "score": 30,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "priority topic \"wedding planner cost\" (find.priority_topics): built before other searches",
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "how to plan wedding day timeline",
+      "variants": [
+        "how to plan your wedding day timeline"
+      ],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "bing_suggest": true,
         "top10": "not read: outside this run's top-10 budget"
       },
       "scores": {
-        "striking": 20,
+        "striking": 45,
         "can_be_one": 0
       },
-      "score": 20,
+      "score": 45,
       "kind": "new",
       "lane": "striking",
       "reasons": [
@@ -1012,19 +2107,355 @@
       ]
     },
     {
-      "query": "wedding checklist for destination wedding",
-      "variants": [],
+      "query": "how to make wedding day timeline",
+      "variants": [
+        "how to make a wedding day timeline"
+      ],
       "signals": {
-        "words": 5,
-        "question": false,
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
         "bing_suggest": true,
         "top10": "not read: outside this run's top-10 budget"
       },
       "scores": {
-        "striking": 20,
+        "striking": 45,
         "can_be_one": 0
       },
-      "score": 20,
+      "score": 45,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "how to make wedding seating chart",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 45,
+        "can_be_one": 0
+      },
+      "score": 45,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "how to make wedding guest list",
+      "variants": [],
+      "signals": {
+        "words": 6,
+        "question": true,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 45,
+        "can_be_one": 0
+      },
+      "score": 45,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding venue questions pdf",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "can_be_one",
+      "reasons": [
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ]
+    },
+    {
+      "query": "wedding day timeline template",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding day timeline for 4pm ceremony",
+      "variants": [
+        "wedding day timeline 4pm ceremony"
+      ],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding day timeline for 3pm ceremony",
+      "variants": [
+        "wedding day timeline 3pm ceremony"
+      ],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding day timeline for 5pm ceremony",
+      "variants": [
+        "wedding day timeline 5pm ceremony"
+      ],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding day timeline for 2pm ceremony",
+      "variants": [
+        "wedding day timeline 2pm ceremony"
+      ],
+      "signals": {
+        "words": 6,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding day timeline template free",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding day timeline 1pm ceremony",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding timeline template free",
+      "variants": [
+        "free wedding timeline template"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding timeline template google docs",
+      "variants": [],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding timeline template excel",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding timeline template word",
+      "variants": [],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
+      "kind": "new",
+      "lane": "striking",
+      "reasons": [
+        "autocomplete demand (google/bing)"
+      ]
+    },
+    {
+      "query": "wedding seating chart template",
+      "variants": [
+        "seating chart wedding template"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "scores": {
+        "striking": 40,
+        "can_be_one": 0
+      },
+      "score": 40,
       "kind": "new",
       "lane": "striking",
       "reasons": [
@@ -1032,42 +2463,5 @@
       ]
     }
   ],
-  "strengthen": [
-    {
-      "query": "destination wedding planning checklist printable",
-      "page": "/questions/destination-wedding-planning-checklist-pdf",
-      "url": "https://weddingchecklistpdf.com/questions/destination-wedding-planning-checklist-pdf",
-      "score": 25,
-      "from": "distinct-gate",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-15"
-    },
-    {
-      "query": "checklist for destination wedding",
-      "page": "/guides/destination-wedding-checklist",
-      "url": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
-      "score": 40,
-      "from": "distinct-gate",
-      "matched_by": "same wording",
-      "at": "2026-11-13"
-    },
-    {
-      "query": "destination wedding checklist pdf",
-      "page": "/guides/destination-wedding-checklist",
-      "url": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
-      "score": 40,
-      "from": "distinct-gate",
-      "matched_by": "same wording",
-      "at": "2026-11-13"
-    },
-    {
-      "query": "free wedding planner printables pdf",
-      "page": "/free-wedding-planner",
-      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
-      "score": 22.4,
-      "from": "distinct-gate",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-11"
-    }
-  ]
+  "strengthen": []
 }
