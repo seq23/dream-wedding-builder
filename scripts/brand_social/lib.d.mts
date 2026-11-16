@@ -11,6 +11,12 @@ export const METRIC_FIELDS: string[];
 export const PLATFORMS: string[];
 export const BEACON_ENDPOINT: string;
 export const BUFFER_KEY: string;
+export const MISSING_KEY_GRACE_DAYS: number;
+export interface KeyWait { key: string; since: string | null; days: number | null; overdue: boolean }
+export function carryMissingSince(previous: unknown, missingKeys: string[], now: number | string | Date): Record<string, string>;
+export function daysSince(date: string, now: number | string | Date): number;
+export function keyWaits(metrics: unknown, now?: number): KeyWait[];
+export function overdueKeys(metrics: unknown, now?: number): KeyWait[];
 export type UnreadKind = 'missing_key' | 'no_traffic' | 'broken';
 export const UNREAD_KINDS: UnreadKind[];
 export function windowFor(now: number | string | Date): MetricsWindow;
@@ -25,5 +31,5 @@ export function noChannelReason(seen: Array<{ service?: string; name?: string; d
 export function socialHandles(sameAs: string[] | undefined): Array<{ platform: string; handle: string }>;
 export function countSentPosts(posts: BufferPost[], channels: Array<{ id: string; service: string }>, window: MetricsWindow): { total: number; byPlatform: Record<string, number> };
 export function metricsProblems(metrics: unknown, now?: number): string[];
-export function unreadSummary(metrics: unknown): { missingKeys: string[]; breaks: Array<{ field: string; reason: string }>; notes: Array<{ field: string; reason: string }>; problems: string[]; checked: number };
+export function unreadSummary(metrics: unknown, now?: number): { missingKeys: string[]; breaks: Array<{ field: string; reason: string }>; notes: Array<{ field: string; reason: string }>; problems: string[]; checked: number };
 export function isStale(metrics: unknown, now?: number): boolean;

@@ -5,7 +5,9 @@
 // A metric that is unread because something BROKE (a refused Buffer key, a Buffer
 // outage, no matching channel, a beacon that cannot record) is a NAMED STOP and exit 1,
 // so the daily run is red the same day. A metric that waits on a key only the owner
-// can mint, or on a host's first page loads, is a note: printed, exit 0. The data lands
+// can mint, or on a host's first page loads, is a note: printed, exit 0. A key wait has
+// a deadline: past MISSING_KEY_GRACE_DAYS (14) from its `missing_since` date it is a
+// break too, so a key nobody sends cannot keep the scorecard row blank behind a green run. The data lands
 // first either way, so the scorecard's 9-day staleness check never trips on a wait.
 //
 // Rule 0: a missing or unparseable file, a file the contract rejects, or zero metric

@@ -59,5 +59,14 @@ pushed: a `broken` metric is `NAMED STOP BRAND_SOCIAL_UNREADABLE` and a red run 
 so a fault cannot sit green the way the beacon did; the other two are notes. When a Buffer key
 matches no channel, the reason lists the channels it does see.
 
+A missing key is a note for 14 days only (`MISSING_KEY_GRACE_DAYS` in
+`scripts/brand_social/lib.mjs`, two Mondays of the weekly scorecard). `missing_since.<KEY>` holds
+the first day the file recorded it missing, carried forward by every run; from day 14 the stop
+check treats it as `broken` and the daily run goes red, naming the days waited and the reply that
+clears it (`SECRET <KEY>=<value>` to boss@sequoiataylor.com). Before this, a missing key was green
+for ever and the scorecard row stayed blank with nothing asking for the key.
+`BUFFER_BRANDS_ACCESS_TOKEN` was first recorded missing on 2026-11-09, so the run reds on
+2026-11-23 if it has not arrived.
+
 `npm run brand-social:prove` (after a deploy) runs the same reads without writing and fails
 unless every host's live beacon can record.
