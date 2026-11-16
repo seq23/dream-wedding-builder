@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
-  beaconProblem, brandChannels, cloudflareBeacons, countSentPosts, isStale, METRIC_FIELDS, metricsProblems,
-  platformForReferrer, resolveSiteTags, socialHandles, tallyVisits, visitsDecision, windowFor
+  beaconProblem, brandChannels, BUFFER_KEY, cloudflareBeacons, countSentPosts, isStale, METRIC_FIELDS, metricsProblems,
+  noChannelReason, platformForReferrer, resolveSiteTags, socialHandles, tallyVisits, unreadSummary, visitsDecision, windowFor
 } from '../../scripts/brand_social/lib.mjs';
 import referrers from '../../data/brand-social/social_referrers.json';
 import entity from '../../data/seo/entity.json';
@@ -37,16 +37,17 @@ describe('no false zero', () => {
 
   it('rejects a missing metric with no reason, and accepts it with one', () => {
     const base = { updatedAt: new Date(NOW).toISOString(), headline_host: 'a.com', by_host: { 'a.com': { pageloads: 0, beacon: 'x', social_visits: 0 } } };
-    expect(metricsProblems({ ...base, unread: {} }, NOW).length).toBe(2);
-    expect(metricsProblems({ ...base, unread: { posts_published_28d: 'no key', social_visits_28d: 'no loads' } }, NOW)).toEqual([]);
+    // per field: no reason, and no kind
+    expect(metricsProblems({ ...base, unread: {} }, NOW).length).toBe(2 * METRIC_FIELDS.length);
+    expect(metricsProblems({ ...base, unread: { posts_published_28d: 'no key', social_visits_28d: 'no loads' }, unread_kind: { posts_published_28d: 'missing_key', social_visits_28d: 'no_traffic' }, missing_keys: [BUFFER_KEY] }, NOW)).toEqual([]);
   });
 
   it('visits are a number only with a live beacon and recorded page loads', () => {
     const tally = { pageloads: 12, social_visits: 0 };
     expect(visitsDecision({ host: 'a.com', beaconIssue: null, tally, window })).toEqual({ value: 0 });
-    expect(visitsDecision({ host: 'a.com', beaconIssue: 'cross-origin', tally, window })).toHaveProperty('unread');
-    expect(visitsDecision({ host: 'a.com', beaconIssue: null, tally: { pageloads: 0, social_visits: 0 }, window })).toHaveProperty('unread');
-    expect(visitsDecision({ host: 'a.com', beaconIssue: null, tally: undefined, window })).toHaveProperty('unread');
+    expect(visitsDecision({ host: 'a.com', beaconIssue: 'cross-origin', tally, window })).toMatchObject({ kind: 'broken' });
+    expect(visitsDecision({ host: 'a.com', beaconIssue: null, tally: { pageloads: 0, social_visits: 0 }, window })).toMatchObject({ kind: 'no_traffic' });
+    expect(visitsDecision({ host: 'a.com', beaconIssue: null, tally: undefined, window })).toMatchObject({ kind: 'broken' });
   });
 });
 
@@ -122,5 +123,52 @@ describe('posts', () => {
     ];
     expect(countSentPosts(posts, channels, window)).toEqual({ total: 2, byPlatform: { instagram: 1, tiktok: 1 } });
     expect(countSentPosts([], channels, window)).toEqual({ total: 0, byPlatform: { instagram: 0, tiktok: 0 } });
+  });
+});
+
+describe('a wait is a note, a break is a stop', () => {
+  const base = { updatedAt: new Date(NOW).toISOString(), headline_host: 'a.com', social_visits_28d: 1, by_host: { 'a.com': { pageloads: 5, beacon: 'ok', social_visits: 1 } } };
+  const absentPosts = (kind: string, missing_keys: string[] = []) => ({ ...base, unread: { posts_published_28d: 'why' }, unread_kind: { posts_published_28d: kind }, missing_keys });
+
+  it.each([
+    ['missing_key', [BUFFER_KEY], 'notes'],
+    ['no_traffic', [], 'notes'],
+    ['broken', [], 'breaks']
+  ])('an absent metric of kind %s is filed under %s', (kind, keys, bucket) => {
+    const file = absentPosts(kind, keys);
+    expect(metricsProblems(file, NOW)).toEqual([]);
+    const summary = unreadSummary(file);
+    expect(summary[bucket as 'notes' | 'breaks'].map((e) => e.field)).toEqual(['posts_published_28d']);
+    expect(summary[bucket === 'notes' ? 'breaks' : 'notes']).toEqual([]);
+    expect(summary.checked).toBe(METRIC_FIELDS.length);
+  });
+
+  it('an absent metric with no kind is a break, never a quiet note', () => {
+    const file = { ...base, unread: { posts_published_28d: 'why' } };
+    expect(unreadSummary(file).breaks).toHaveLength(1);
+    expect(metricsProblems(file, NOW).length).toBeGreaterThan(0);
+  });
+
+  it('lists the missing key, and nothing when every metric is read', () => {
+    expect(unreadSummary(absentPosts('missing_key', [BUFFER_KEY])).missingKeys).toEqual([BUFFER_KEY]);
+    const read = { ...base, posts_published_28d: 3, unread: {}, unread_kind: {}, missing_keys: [] };
+    expect(unreadSummary(read)).toMatchObject({ breaks: [], notes: [], missingKeys: [] });
+  });
+
+  it('rejects each malformed waiting file', () => {
+    expect(metricsProblems(absentPosts('later'), NOW).length).toBeGreaterThan(0);
+    expect(metricsProblems(absentPosts('missing_key', []), NOW).length).toBeGreaterThan(0);
+    expect(metricsProblems(absentPosts('missing_key', ['the Buffer token']), NOW).length).toBeGreaterThan(0);
+    expect(metricsProblems(absentPosts('broken', [BUFFER_KEY]), NOW).length).toBeGreaterThan(0);
+    expect(metricsProblems({ ...base, posts_published_28d: 2, unread: {}, unread_kind: { posts_published_28d: 'broken' } }, NOW).length).toBeGreaterThan(0);
+  });
+
+  it('a key that opens a Buffer with no brand channel names the channels it saw', () => {
+    const seen = [{ service: 'instagram', name: 'porchandparty901' }, { service: 'tiktok', name: 'iamcindymercer' }];
+    const reason = noChannelReason(seen, ['dreamweddingbuilder']);
+    expect(reason).toContain('instagram/porchandparty901');
+    expect(reason).toContain('tiktok/iamcindymercer');
+    const many = Array.from({ length: 13 }, (_, i) => ({ service: 'instagram', name: `c${i}` }));
+    expect(noChannelReason(many, ['x'])).not.toContain('c10');
   });
 });

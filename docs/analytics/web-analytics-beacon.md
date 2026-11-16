@@ -52,5 +52,12 @@ and the analytics `site_tag` are different values, and querying by the token rea
 metric. Because nothing was recorded from 8 Oct to 9 Nov, the first 28-day windows after the
 fix cover fewer real days; `by_host.<host>.first_pageload_date` says from when.
 
+Every absent metric also carries `unread_kind.<field>`: `missing_key` (a key the owner has not
+given; listed under `missing_keys`), `no_traffic` (the host has no page loads yet) or `broken`
+(anything else). The daily workflow runs `npm run brand-social:stop-check` after the file is
+pushed: a `broken` metric is `NAMED STOP BRAND_SOCIAL_UNREADABLE` and a red run the same day,
+so a fault cannot sit green the way the beacon did; the other two are notes. When a Buffer key
+matches no channel, the reason lists the channels it does see.
+
 `npm run brand-social:prove` (after a deploy) runs the same reads without writing and fails
 unless every host's live beacon can record.

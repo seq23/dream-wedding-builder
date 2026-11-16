@@ -100,17 +100,18 @@ Scripts a job may run on the model's request, as `npm run <name> -- <args>` in t
 - `validate:brand-social` — `node scripts/validators/validate_brand_social.mjs`
 - `brand-social:collect` — `node scripts/brand_social/collect_metrics.mjs` (writes `data/brand-social/metrics.json`; daily in `.github/workflows/brand-social-metrics.yml`)
 - `brand-social:prove` — `node scripts/brand_social/collect_metrics.mjs --prove` (after a deploy: every host's live beacon can record; writes nothing)
+- `brand-social:stop-check` — `node scripts/brand_social/stop_check.mjs` (daily, after the file is pushed: a metric unread because something broke is `NAMED STOP BRAND_SOCIAL_UNREADABLE` and a red run; a missing key is a note and the run stays green)
 
 ## Secrets
 
 Names only. The duty looks each up in the vault (exact name, then vendor prefix) before any job asks her; a missing one is named in the next email to her with the `SECRET NAME=value` line that sends it.
 
 - `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` — GitHub Actions secrets; read-only Web Analytics reads by `brand-social:collect` (and the Pinterest drip's D1 read). Needs Account Analytics read.
-- `BUFFER_BRANDS_ACCESS_TOKEN` — GitHub Actions secret: the brands Buffer (Dream Wedding Instagram and TikTok). Not yet given; until it is, `posts_published_28d` is recorded as unread. She sends it as `SECRET BUFFER_BRANDS_ACCESS_TOKEN=<value>`.
+- `BUFFER_BRANDS_ACCESS_TOKEN` — GitHub Actions secret: the brands Buffer (Dream Wedding Instagram and TikTok). Not yet given; until it is, `posts_published_28d` is recorded as unread with kind `missing_key`, `missing_keys` names it, and the daily run stays green (a note, not a fault). She sends it as `SECRET BUFFER_BRANDS_ACCESS_TOKEN=<value>`.
 
 ## Guards, and what each pins
 
-- `npm run validate:brand-social` — the scorecard's `data/brand-social/metrics.json` never carries an unmeasured zero (docs/analytics/web-analytics-beacon.md).
+- `npm run validate:brand-social` — the scorecard's `data/brand-social/metrics.json` never carries an unmeasured zero, and every absent metric names its kind (`missing_key`, `no_traffic` or `broken`); the daily workflow runs `brand-social:stop-check` after the push (docs/analytics/web-analytics-beacon.md).
 - `npm run validate:live-check` (post-deploy) — assertion 9: each host's Web Analytics beacon carries its own token and posts same-origin to `/cdn-cgi/rum`.
 
 - `npm run test` — the repo's own check; a PR is not green without it.

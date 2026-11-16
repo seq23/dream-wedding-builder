@@ -16,6 +16,13 @@ export const MAX_AGE_DAYS = 9;
 export const METRIC_FIELDS = ['posts_published_28d', 'social_visits_28d'];
 export const PLATFORMS = ['instagram', 'tiktok'];
 export const BEACON_ENDPOINT = '/cdn-cgi/rum'; // lib/web-analytics.ts CF_BEACON_ENDPOINT
+export const BUFFER_KEY = 'BUFFER_BRANDS_ACCESS_TOKEN';
+// Why a metric is absent. `missing_key`: a key only the owner can mint (a note, the
+// run stays green). `no_traffic`: the host recorded no page loads yet (a note).
+// `broken`: anything else - a refused key, an outage, no matching channel, a beacon
+// that cannot record - and the daily run goes red (scripts/brand_social/stop_check.mjs).
+export const UNREAD_KINDS = ['missing_key', 'no_traffic', 'broken'];
+const ENV_NAME = /^[A-Z][A-Z0-9_]*$/;
 
 const DAY_MS = 86_400_000;
 
@@ -115,9 +122,9 @@ export function beaconProblem(html, expectedToken) {
  * record AND Cloudflare recorded at least one page load for the host in the window.
  */
 export function visitsDecision({ host, beaconIssue, tally, window }) {
-  if (beaconIssue) return { unread: `${host}: ${beaconIssue}` };
-  if (!tally) return { unread: `${host}: Cloudflare Web Analytics has no site for this host` };
-  if (tally.pageloads <= 0) return { unread: `${host}: Cloudflare recorded no page loads between ${window.since} and ${window.until}, so a zero would not be a measurement` };
+  if (beaconIssue) return { unread: `${host}: ${beaconIssue}`, kind: 'broken' };
+  if (!tally) return { unread: `${host}: Cloudflare Web Analytics has no site for this host`, kind: 'broken' };
+  if (tally.pageloads <= 0) return { unread: `${host}: Cloudflare recorded no page loads between ${window.since} and ${window.until}, so a zero would not be a measurement`, kind: 'no_traffic' };
   return { value: tally.social_visits };
 }
 
@@ -133,6 +140,16 @@ export function brandChannels(channels, handles) {
     if (!PLATFORMS.includes(service)) return false;
     return [ch.name, ch.displayName].some((n) => n && wanted.has(String(n).toLowerCase().replace(/^@/, '')));
   });
+}
+
+/**
+ * The reason a key opened a Buffer but no channel matched: names the channels it did
+ * see (service/name, at most 10), so a renamed channel is diagnosable from the file.
+ */
+export function noChannelReason(seen, handles) {
+  const names = (seen ?? []).map((ch) => `${String(ch?.service ?? '?').toLowerCase()}/${ch?.name ?? ch?.displayName ?? '?'}`);
+  const shown = names.length ? `${names.slice(0, 10).join(', ')}${names.length > 10 ? ` and ${names.length - 10} more` : ''}` : 'none';
+  return `the Buffer this key opens has no Instagram or TikTok channel named ${handles.join(' or ')}; channels it sees: ${shown}`;
 }
 
 /** The handles in a list of profile URLs (https://www.instagram.com/x/, https://www.tiktok.com/@x). */
@@ -181,8 +198,19 @@ export function metricsProblems(metrics, now = Date.now()) {
     if (has && reason) problems.push(`${field} is both a number and unread ("${reason}")`);
     if (has && !(typeof metrics[field] === 'number' && Number.isFinite(metrics[field]) && metrics[field] >= 0)) problems.push(`${field} is ${JSON.stringify(metrics[field])}, not a finite count`);
     if (!has && !(typeof reason === 'string' && reason.trim())) problems.push(`${field} is missing and unread.${field} gives no reason`);
+    const kind = metrics.unread_kind?.[field];
+    if (!has && !UNREAD_KINDS.includes(kind)) problems.push(`${field} is missing and unread_kind.${field} is ${JSON.stringify(kind)}, not one of ${UNREAD_KINDS.join(', ')}`);
+    if (has && kind !== undefined) problems.push(`${field} is a number but unread_kind.${field} is set`);
   }
   if (checked === 0) problems.push('zero fields checked');
+  const missingKeys = metrics.missing_keys ?? [];
+  const keyed = METRIC_FIELDS.some((f) => metrics.unread_kind?.[f] === 'missing_key');
+  if (!Array.isArray(missingKeys)) problems.push('missing_keys is not a list');
+  else {
+    if (keyed && missingKeys.length === 0) problems.push('a metric waits on a missing key but missing_keys is empty');
+    if (!keyed && missingKeys.length > 0) problems.push(`missing_keys lists ${missingKeys.join(', ')} but no metric waits on a key`);
+    for (const name of missingKeys) if (!ENV_NAME.test(String(name))) problems.push(`missing_keys entry ${JSON.stringify(name)} is not a bare environment-variable name`);
+  }
   const at = Date.parse(metrics.updatedAt);
   if (!Number.isFinite(at) || !/^\d{4}-\d\d-\d\dT/.test(String(metrics.updatedAt))) problems.push(`updatedAt ${JSON.stringify(metrics.updatedAt)} is not an ISO time`);
   else if (at - now > DAY_MS) problems.push(`updatedAt ${metrics.updatedAt} is in the future`);
@@ -198,6 +226,26 @@ export function metricsProblems(metrics, now = Date.now()) {
     }
   }
   return problems;
+}
+
+/**
+ * What the daily run should do about the unread metrics. A key the owner owes us and a
+ * host with no traffic yet are notes (green); everything else is a break (red, NAMED
+ * STOP). A file the contract rejects is reported under `problems` and also stops.
+ */
+export function unreadSummary(metrics) {
+  const out = { missingKeys: [], breaks: [], notes: [], problems: [], checked: 0 };
+  if (!metrics || typeof metrics !== 'object') { out.problems.push('the file is not a JSON object'); return out; }
+  for (const field of METRIC_FIELDS) {
+    out.checked += 1;
+    if (Object.prototype.hasOwnProperty.call(metrics, field)) continue;
+    const reason = metrics.unread?.[field] ?? 'no reason given';
+    const kind = metrics.unread_kind?.[field];
+    if (kind === 'missing_key' || kind === 'no_traffic') out.notes.push({ field, reason });
+    else out.breaks.push({ field, reason });
+  }
+  if (Array.isArray(metrics.missing_keys)) out.missingKeys = metrics.missing_keys.filter((k) => ENV_NAME.test(String(k)));
+  return out;
 }
 
 /** True when updatedAt is older than the scorecard allows. */

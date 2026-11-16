@@ -115,6 +115,7 @@
     "validate:brand-social": "node scripts/validators/validate_brand_social.mjs",
     "brand-social:collect": "node scripts/brand_social/collect_metrics.mjs",
     "brand-social:prove": "node scripts/brand_social/collect_metrics.mjs --prove",
+    "brand-social:stop-check": "node scripts/brand_social/stop_check.mjs",
     "load:app-day": "node scripts/load/app-day.mjs"
   },
   "dependencies": {
