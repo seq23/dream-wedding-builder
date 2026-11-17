@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "run_at": "2026-11-16T11:27:12.225Z",
+  "run_at": "2026-11-17T11:22:10.685Z",
   "outcome": "HELD_AWAITING_AUTHORING",
   "outcome_kind": "LEGITIMATE_STOP",
   "outcome_reason": "0 seed(s) are not marked ready; 29 backlog topic(s) have a cluster and a scaffold but no author.",
