@@ -70,3 +70,11 @@ Live load execution and real-device/store verification are not certified by
 unit tests. The free hosted phone preview remains the owner's build review link.
 
 The complete audit-to-PR mapping is in `docs/APP_BUILD_STATUS.md`.
+
+## TestFlight builds
+
+Cloud route: `eas build --platform ios --profile production` (Expo free plan). When the
+free plan's iOS builds for the month are used up, run the manual `iOS store build`
+workflow (free GitHub macOS runner, `eas build --local`, same profile and remote build
+number), download its `app-ipa` artifact and upload it with
+`eas submit --platform ios --profile production --path app.ipa`.
