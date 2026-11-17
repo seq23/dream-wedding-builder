@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Pressable, Share, Text, View } from 'react-native';
-import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { sharingControlsShown } from '../../../src/sharingSwitch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PlannedScreen, GoButton } from '../../../src/ui';
 import { phoneSharing, sharedAccess, sharingChanged } from '../../../src/sharing/runtime';
@@ -10,7 +11,11 @@ import { SHARED_PAYMENTS_NOTE } from '../../../src/sharing/details';
 import type { SharedEvent, ShareSession } from '../../../src/sharing/session';
 import { color, type, space } from '../../../src/theme';
 import { plainDate } from '@core/dated-plan';
+// Sharing off (src/sharingSwitch.ts): no Send the link, Join or Stop controls; back to More.
 export default function Sharing() {
+  return sharingControlsShown() ? <SharingScreen /> : <Redirect href="/more" />;
+}
+function SharingScreen() {
   const { invite } = useLocalSearchParams<{ invite?: string }>();
   const revision = useSharingRevision();
   const [session, setSession] = useState<ShareSession | null>(null);

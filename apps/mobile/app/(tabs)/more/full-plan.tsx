@@ -22,6 +22,7 @@ import { syncReminders } from '../../../src/localReminders';
 import { color, type, space, radius } from '../../../src/theme';
 import { PREVIEW, PREVIEW_NOTE, STORE_AWAY } from '../../../src/build';
 import { PRODUCTS } from '../../../src/billing/offers';
+import { fullPlanLines } from '../../../src/sharingSwitch';
 const phoneCheckout = checkout(AsyncStorage, purchases, downloadStore(AsyncStorage), () => bytesToHex(getRandomBytes(16)));
 const names: Record<ProductId, string> = { dw_planner_printables: 'Planner + printables', dw_full_plan: 'Full plan', dw_printables_topup: 'Printables', dw_day_of_kit: 'Day-of kit', dw_new_event: 'Full plan for a new event' };
 export default function FullPlan() {
@@ -129,7 +130,7 @@ export default function FullPlan() {
     <Text accessibilityRole="header" style={type.title}>{newEvent ? 'A new wedding event' : 'What the full plan adds'}</Text>
     <Text style={type.body}>Your free plan stays free. The full plan is paid once for this wedding, with no subscription. If your date moves, change it any time at no charge.</Text>
     <View style={{ gap: space[2] }}>
-      {['Payments and the final-payment schedule', 'Your wedding-week sheet, with who to call', 'The printable hand-over packet with payments and contacts', 'Every tradition pack', 'Reminders for your dated tasks', 'A second phone for your partner'].map(line => <Text key={line} style={type.body}>• {line}</Text>)}
+      {fullPlanLines().map(line => <Text key={line} style={type.body}>• {line}</Text>)}
     </View>
     {!purchases.available ? <Text accessibilityRole="status" style={type.sub}>{PREVIEW ? PREVIEW_NOTE : STORE_AWAY}</Text> : null}
     {newEvent ? <Text style={type.body}>A new event is a new full plan, paid once, with its own name and date. Everything you have ticked and added stays on this phone.</Text> : null}
