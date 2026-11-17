@@ -1,3 +1,4 @@
+import { sharingControlsShown } from '../../../src/sharingSwitch';
 import { activePlan } from '../../../src/sharing/runtime';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
 import type { SharedPlan } from '../../../src/sharing/session';
@@ -123,7 +124,7 @@ export default function Plan() {
       </View> : null}
       {/* A full plan bought before a date was set shows the same gentle way to add one. */}
       {plan.state === 'none' ? <GoButton href="/welcome" label="Choose my wedding date ›" primary /> : null}
-      {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text><GoButton href="/more/sharing" label="♧ Two phones ›" /></> : null}
+      {shared ? <><Text style={type.body}>🔒 {shared.event.name}</Text>{sharingControlsShown() ? <GoButton href="/more/sharing" label="♧ Two phones ›" /> : null}</> : null}
       {plan.warning ? <Text style={type.body}>{plan.warning}</Text> : null}
       <Text style={type.section}>{shared ? 'Full plan' : 'Free plan'} · {count.done} of {count.total} tasks done</Text>
       {blocks.startHere.length ? <View><Text accessibilityRole="header" style={type.section}>Start here · {blocks.startHere.length}</Text><Text style={type.sub}>These came before you began. Do the ones that still apply to you.</Text>

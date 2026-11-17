@@ -1,3 +1,4 @@
+import { fullPlanSummary, twoPhonesLink } from '../../../src/sharingSwitch';
 import { phoneSharing, pauseSharing, activePlan } from '../../../src/sharing/runtime';
 import { sharingDeadline } from '../../../src/sharing/deadline';
 import { useSharingRevision } from '../../../src/sharing/useSharing';
@@ -40,6 +41,7 @@ export default function More() {
   const [error, setError] = useState('');
   const price = useFullPlanPrice();
   const paid = sharing || !!event?.fullPlan;
+  const twoPhones = twoPhonesLink(paid);
   const [exporting, setExporting] = useState(false);
   const [files, setFiles] = useState<{ ready: PurchasedFile[]; missing: boolean }>({ ready: [], missing: false });
   async function openFile(file: PurchasedFile) {
@@ -96,12 +98,12 @@ export default function More() {
       {files.ready.map(file => <View key={file.id}>{button(file.label, () => { void openFile(file); })}</View>)}
       {files.missing ? <><Text style={type.sub}>{FILE_MISSING_MESSAGE}</Text><GoButton href="/more/full-plan" label="Restore my purchase ›" /></> : null}
       <Text accessibilityRole="header" style={type.section}>{paid ? 'Your full plan' : 'The full plan'}</Text>
-      {paid ? null : <Text style={type.sub}>{price ? `${price}, paid once` : 'Paid once'}, only if you want it: payments, your wedding week, reminders and a second phone for your partner.</Text>}
+      {paid ? null : <Text style={type.sub}>{price ? `${price}, paid once` : 'Paid once'}, only if you want it: {fullPlanSummary().short}.</Text>}
       {paid ? null : <GoButton href="/more/full-plan" label="See the full plan ›" />}
       <GoButton href="/payments" label="Payments ›" />
       <GoButton href="/plan/wedding-week" label="Your wedding week ›" />
       <GoButton href="/reminders" label={paid ? `Reminders: ${reminders} ›` : 'Reminders ›'} />
-      <GoButton href={paid ? '/more/sharing' : '/more/full-plan'} label={paid ? 'Two phones: share with my partner ›' : 'Two phones ›'} />
+      {twoPhones ? <GoButton href={twoPhones.href} label={twoPhones.label} /> : null}
       {paid ? <GoButton href="/more/full-plan" label="Add printables to my plan ›" /> : null}
       <GoButton href="/more/full-plan?newEvent=1" label="Start a new event ›" />
       {button('Privacy policy ›', () => { void open('privacy'); })}

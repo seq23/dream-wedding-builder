@@ -1,6 +1,9 @@
 # App sharing server (task 7, unfinished)
 
 The route is off unless APP_SHARING_ENABLED=true. Leave it unset in production.
+The phone has one matching switch, EXPO_PUBLIC_DW_SHARING=1 (apps/mobile/src/sharingSwitch.ts),
+off by default: with it off the app does not list a second phone on the full plan and shows
+no Two phones link, share screen or invite handling. Turn both on together.
 Before enabling: apply migrations/0009_plan_shares.sql through the governed deploy,
 finish the phone protocol and entitlement gate, run the target-day load test against
 preview and verify two real clients, revoke, restore and conflict retry end to end.

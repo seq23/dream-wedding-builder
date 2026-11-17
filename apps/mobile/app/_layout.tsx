@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { syncSharing } from '../src/sharing/runtime';
 import { sharingLifecycle } from '../src/sharing/lifecycle';
+import { SHARING } from '../src/sharingSwitch';
 import { AppState, Platform, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -14,6 +15,7 @@ import { color } from '../src/theme';
 // stacks with headers (app/(tabs)/*/_layout.tsx). Fonts are OFL and bundled.
 export default function Layout() {
   useEffect(() => {
+    if (!SHARING) return;
     const lifecycle = sharingLifecycle(syncSharing, (run, ms) => { const timer = setInterval(run, ms); return () => clearInterval(timer); });
     const state = AppState.addEventListener('change', value => { if (value === 'active') void lifecycle.foreground(); });
     return () => { lifecycle.stop(); state.remove(); };

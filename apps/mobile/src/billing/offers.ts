@@ -2,6 +2,7 @@
 // 6 Nov 2026 (docs/APP_PLAN.md, task 8); every product stays switched off until the
 // store accounts and RevenueCat exist (NAMED STOP [DW_STORE_NOT_SET_UP]). The one rule
 // here: nobody is ever offered something that charges twice for what they already have.
+import { fullPlanSummary } from '../sharingSwitch';
 export type Entitlement = 'full_plan' | 'printables' | 'day_of_kit';
 export type ProductId = 'dw_full_plan' | 'dw_planner_printables' | 'dw_printables_topup' | 'dw_day_of_kit' | 'dw_new_event';
 
@@ -15,7 +16,7 @@ export const PRODUCTS: Record<ProductId, { priceUsd: number; grants: Entitlement
 
 /** What each one is, on the buy screen. "Printables" is never left unexplained. */
 export const OFFER_DETAIL: Record<ProductId, string> = {
-  dw_full_plan: 'Payments, your wedding week, the hand-over packet, every tradition pack, reminders and a second phone.',
+  dw_full_plan: fullPlanSummary().offer,
   dw_planner_printables: 'The full plan, plus printables: files to print or fill in (checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers), and the day-of kit.',
   dw_printables_topup: 'Files to print or fill in: checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers.',
   dw_day_of_kit: 'The wedding-day timeline as a PDF and a spreadsheet, with a starter list to fill in.',
