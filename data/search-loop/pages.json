@@ -1348,7 +1348,10 @@
         "b5 FAQ answer is 36 words (aim 40-60): \"Who should hold copies of the wedding day timeline\"",
         "b5 FAQ answer is 32 words (aim 40-60): \"Can I plan a wedding without a professional coordi\""
       ],
-      "indexnow_at": "2026-11-16"
+      "indexnow_at": "2026-11-16",
+      "extra_queries": [
+        "outdoor wedding planning checklist"
+      ]
     },
     {
       "slug": "diy-wedding-planning-checklist-printable",
@@ -1423,7 +1426,78 @@
         "b5 FAQ answer is 38 words (aim 40-60): \"Can I customize a PDF wedding checklist?\"",
         "b5 FAQ answer is 35 words (aim 40-60): \"How do I involve my partner in using the checklist\"",
         "b5 FAQ answer is 32 words (aim 40-60): \"What should I do if I fall behind on my wedding ti\""
-      ]
+      ],
+      "indexnow_at": "2026-11-17"
+    },
+    {
+      "slug": "outdoor-wedding-checklist-printable",
+      "query": "outdoor wedding checklist printable",
+      "lane": "can_be_one",
+      "priority": "wedding planning checklist",
+      "score": 46,
+      "scores": {
+        "striking": 40,
+        "can_be_one": 46
+      },
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0.15): 0 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "bing_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0.15,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 1
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 1 thin or old, 1 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/outdoor-wedding-checklist-printable.html",
+      "route": "/questions/outdoor-wedding-checklist-printable",
+      "url": "https://weddingchecklistpdf.com/questions/outdoor-wedding-checklist-printable",
+      "published_at": "2026-11-17",
+      "status": "live",
+      "hash": "8f27da6e71b5ba8fa82f8d8d80f1dd2f2fd7e552b077d0ff885c5cda7ce53202",
+      "model": "free-route",
+      "facts": [
+        "https://en.wikipedia.org/wiki/Wedding",
+        "https://www.nps.gov/index.htm"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/diy-wedding-planning-checklist-printable.html",
+          "route": "/public/questions/diy-wedding-planning-checklist-printable",
+          "before_hash": "67811867a3f4dd30a21fdb320d4bd9619b422a4629d423b0a81f6412312ce26e",
+          "after_hash": "3909705a4801d6bd59529fe0248203744097f963e6ce89a0ad7d04135b9cc430"
+        },
+        {
+          "rel": "public/questions/free-printable-wedding-planning-checklist-and-timeline.html",
+          "route": "/public/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "before_hash": "7f2f8431b4e88176df41e026339052fd76f560c13f0aca17c3d299827cbad44a",
+          "after_hash": "8b56343ed833be6116111aebbdf5b6d027dc178902632e316ad77736d6c100ff"
+        }
+      ],
+      "checks": {}
     }
   ],
   "dropped": [
@@ -1991,6 +2065,86 @@
       "kind": "engine",
       "matched_by": "high token overlap (0.67 >= 0.6)",
       "matched_text": "destination wedding planning checklist pdf",
+      "stage": "search"
+    },
+    {
+      "query": "diy wedding planning checklist pdf",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
+      "route": "/public/questions/diy-wedding-planning-checklist-printable",
+      "kind": "page",
+      "matched_by": "same wording",
+      "matched_text": "DIY Wedding Planning Checklist — Wedding Checklist PDF",
+      "stage": "search"
+    },
+    {
+      "query": "simple wedding planner pdf",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/wedding-planning-checklist",
+      "route": "/wedding-planning-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "wedding planning checklist",
+      "stage": "search"
+    },
+    {
+      "query": "diy wedding planning checklist",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
+      "route": "/public/questions/diy-wedding-planning-checklist-printable",
+      "kind": "page",
+      "matched_by": "same wording",
+      "matched_text": "DIY Wedding Planning Checklist — Wedding Checklist PDF",
+      "stage": "search"
+    },
+    {
+      "query": "wedding planning checklist template",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "route": "/free-wedding-planner",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner",
+      "stage": "draft"
+    },
+    {
+      "query": "printable wedding checklist free pdf",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/public/questions/free-printable-wedding-planning-checklist-and-timeline",
+      "route": "/public/questions/free-printable-wedding-planning-checklist-and-timeline",
+      "kind": "page",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "Free Printable Wedding Planning Checklist — Wedding Checklist PDF",
+      "stage": "search"
+    },
+    {
+      "query": "micro wedding planning checklist",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/micro-wedding-planning",
+      "route": "/micro-wedding-planning",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "micro wedding planning",
+      "stage": "search"
+    },
+    {
+      "query": "outdoor wedding planning checklist",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/questions/complete-checklist-for-wedding-planning",
+      "route": "/questions/complete-checklist-for-wedding-planning",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "complete checklist for wedding planning",
+      "stage": "draft"
+    },
+    {
+      "query": "backyard wedding planning checklist",
+      "at": "2026-11-17",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "route": "/backyard-wedding-planning",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "backyard wedding planning",
       "stage": "search"
     }
   ]
