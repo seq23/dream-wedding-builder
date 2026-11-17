@@ -6,6 +6,11 @@ name: iOS store build
 # the remote one (eas.json autoIncrement). Upload the .ipa with `eas submit --path`.
 on:
   workflow_dispatch:
+    inputs:
+      simulator:
+        description: Build for the iPhone simulator instead (app.tar.gz, for the App Review recording; cannot be submitted)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -38,10 +43,10 @@ jobs:
           command -v fastlane || brew install fastlane
           command -v pod || brew install cocoapods
       - name: EAS local build
-        run: npx --yes eas-cli@latest build --platform ios --profile production --local --non-interactive --output app.ipa
+        run: npx --yes eas-cli@latest build --platform ios --profile ${{ inputs.simulator && 'simulator' || 'production' }} --local --non-interactive --output ${{ inputs.simulator && 'app.tar.gz' || 'app.ipa' }}
       - uses: actions/upload-artifact@v4
         with:
-          name: app-ipa
-          path: apps/mobile/app.ipa
+          name: ${{ inputs.simulator && 'app-simulator' || 'app-ipa' }}
+          path: apps/mobile/${{ inputs.simulator && 'app.tar.gz' || 'app.ipa' }}
           retention-days: 3
           if-no-files-found: error
