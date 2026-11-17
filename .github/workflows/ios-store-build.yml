@@ -1,0 +1,47 @@
+name: iOS store build
+# Manual only. Builds the App Store (TestFlight) .ipa on a free GitHub macOS runner with
+# `eas build --local` (same route as KeepMyProof and ApprovalPrep), for months when the
+# Expo free plan's cloud iOS builds are used up. Signing credentials and the production
+# environment's EAS variables are fetched from EAS via EXPO_TOKEN; the build number is
+# the remote one (eas.json autoIncrement). Upload the .ipa with `eas submit --path`.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: apps/mobile
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EXPO_NO_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select newest Xcode
+        run: |
+          XC=$(ls -d /Applications/Xcode_*.app | grep -v -i beta | sort -V | tail -1)
+          sudo xcode-select -s "$XC/Contents/Developer"
+          xcodebuild -version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - name: Ensure fastlane and CocoaPods
+        run: |
+          command -v fastlane || brew install fastlane
+          command -v pod || brew install cocoapods
+      - name: EAS local build
+        run: npx --yes eas-cli@latest build --platform ios --profile production --local --non-interactive --output app.ipa
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-ipa
+          path: apps/mobile/app.ipa
+          retention-days: 3
+          if-no-files-found: error
