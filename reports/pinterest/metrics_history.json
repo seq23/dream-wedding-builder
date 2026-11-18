@@ -57,5 +57,19 @@
     "by_variant": {
       "(launch item, no utm_content)": 1
     }
+  },
+  {
+    "generated_at": "2026-11-18T21:30:58.143Z",
+    "status": "MEASURED",
+    "window": "4 day(s), 2026-11-14 to 2026-11-17",
+    "window_from": "2026-11-14",
+    "window_to": "2026-11-17",
+    "total": 3,
+    "pins_released": 12,
+    "sales": 0,
+    "signups": 0,
+    "by_variant": {
+      "(launch item, no utm_content)": 3
+    }
   }
 ]

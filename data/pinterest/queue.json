@@ -6715,7 +6715,596 @@
       }
     }
   ],
-  "questions": [],
+  "questions": [
+    {
+      "id": "q-wedding-venue-questions-checklist-pdf",
+      "seq": 0,
+      "path": "/questions/wedding-venue-questions-checklist-pdf",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Wedding venue\nquestions checklist\nPDF",
+      "subline": "The short answer + next steps",
+      "title": "Wedding venue questions checklist PDF",
+      "description": "Use this wedding venue questions checklist to evaluate potential locations. Get clear answers on capacity, costs, and policies before you sign a contract.",
+      "layout": "band-top",
+      "palette": "sage",
+      "topic": "checklist",
+      "search": [
+        "wedding venue questions checklist pdf"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-5.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-wedding-venue-questions-checklist-pdf.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 190612,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding venue",
+              "questions",
+              "checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#EAECE5"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EAECE5"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EAECE5"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.661,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-outdoor-wedding-checklist-printable",
+      "seq": 0,
+      "path": "/questions/outdoor-wedding-checklist-printable",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Outdoor wedding\nchecklist printable",
+      "subline": "The short answer + next steps",
+      "title": "Outdoor wedding checklist printable",
+      "description": "Plan your outdoor wedding with our practical checklist. Get essential steps for weather, seating, and logistics to ensure your day runs smoothly outdoors.",
+      "layout": "band-top",
+      "palette": "sage",
+      "topic": "checklist",
+      "search": [
+        "outdoor wedding checklist printable"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-2.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-outdoor-wedding-checklist-printable.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 240944,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Outdoor wedding",
+              "checklist printable"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#EBEFE8"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EBEFE8"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EBEFE8"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-diy-wedding-planning-checklist-printable",
+      "seq": 0,
+      "path": "/questions/diy-wedding-planning-checklist-printable",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "DIY wedding planning\nchecklist printable",
+      "subline": "The short answer + next steps",
+      "title": "DIY wedding planning checklist printable",
+      "description": "Get a free DIY wedding planning checklist printable to keep your timeline, budget, and seating chart organized from engagement to the big day.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "topic": "checklist",
+      "search": [
+        "diy wedding planning checklist printable"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-3.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-diy-wedding-planning-checklist-printable.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 192196,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "DIY wedding planning",
+              "checklist printable"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F6F2ED"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F6F2ED"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F6F2ED"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-complete-checklist-for-wedding-planning",
+      "seq": 0,
+      "path": "/questions/complete-checklist-for-wedding-planning",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Complete checklist\nfor wedding planning",
+      "subline": "The short answer + next steps",
+      "title": "Complete checklist for wedding planning",
+      "description": "Get a complete checklist for wedding planning to organize your timeline, budget, and seating plan step by step without hiring a professional.",
+      "layout": "band-low",
+      "palette": "blush",
+      "topic": "checklist",
+      "search": [
+        "complete checklist for wedding planning"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-5.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-complete-checklist-for-wedding-planning.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 185283,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Complete checklist",
+              "for wedding planning"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F0E4DF"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F0E4DF"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F0E4DF"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-destination-wedding-planning-checklist-pdf",
+      "seq": 0,
+      "path": "/questions/destination-wedding-planning-checklist-pdf",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Destination wedding\nplanning checklist\nPDF",
+      "subline": "The short answer + next steps",
+      "title": "Destination wedding planning checklist PDF",
+      "description": "Plan your destination wedding with a free PDF checklist, timeline, and travel guide. Keep your guests organized and manage every step.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "topic": "destination",
+      "search": [
+        "destination wedding planning checklist pdf"
+      ],
+      "art": "/pinterest/topic-art/destination-v3-1.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-destination-wedding-planning-checklist-pdf.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 135871,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Destination",
+              "wedding planning",
+              "checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F4F3F0"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F4F3F0"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F4F3F0"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.661,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-wedding-coordinator-checklist-pdf",
+      "seq": 0,
+      "path": "/questions/wedding-coordinator-checklist-pdf",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Wedding coordinator\nchecklist PDF",
+      "subline": "The short answer + next steps",
+      "title": "Wedding coordinator checklist PDF",
+      "description": "Get a free wedding coordinator checklist PDF to run your own day smoothly. Master timelines, set up vendors, and keep every detail on track without hiring help.",
+      "layout": "band-low",
+      "palette": "champagne",
+      "topic": "coordinator",
+      "search": [
+        "wedding coordinator checklist pdf"
+      ],
+      "art": "/pinterest/topic-art/coordinator-v4-3.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-wedding-coordinator-checklist-pdf.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 382990,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Wedding coordinator",
+              "checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F4EEE2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EEE2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EEE2"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-free-printable-wedding-planning-checklist-and-timeline",
+      "seq": 0,
+      "path": "/questions/free-printable-wedding-planning-checklist-and-timeline",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Free printable\nwedding planning\nchecklist and\ntimeline",
+      "subline": "The short answer + next steps",
+      "title": "Free printable wedding planning checklist and timeline",
+      "description": "Organize your wedding with a free printable checklist and timeline. Follow concrete steps from engagement to the big day with this practical planning guide.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "topic": "checklist",
+      "search": [
+        "free printable wedding planning checklist and timeline"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-1.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-free-printable-wedding-planning-checklist-and-timeline.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 143424,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Free printable",
+              "wedding planning",
+              "checklist and timeline"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F8F6F0"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F8F6F0"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F8F6F0"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.661,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-beach-wedding-checklist-pdf",
+      "seq": 0,
+      "path": "/questions/beach-wedding-checklist-pdf",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Beach wedding\nchecklist PDF",
+      "subline": "The short answer + next steps",
+      "title": "Beach wedding checklist PDF",
+      "description": "Plan your coastal celebration with a free beach wedding checklist PDF. Get a timeline, seating layout, and permit guide for sand-bound events.",
+      "layout": "band-frame",
+      "palette": "sage",
+      "topic": "checklist",
+      "search": [
+        "beach wedding checklist pdf"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-4.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-beach-wedding-checklist-pdf.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 199307,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Beach wedding",
+              "checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#24302A",
+            "ground": "#EAECE4"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EAECE4"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#46524A",
+            "ground": "#EAECE4"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-is-a-wedding-planner-worth-it",
+      "seq": 0,
+      "path": "/questions/is-a-wedding-planner-worth-it",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Is a wedding planner\nworth it?",
+      "subline": "The short answer + next steps",
+      "title": "Is a wedding planner worth it?",
+      "description": "Discover if hiring a professional wedding planner is worth the cost, or if you can plan your own event using free tools and simple checklists.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "topic": "checklist",
+      "search": [
+        "is a wedding planner worth it"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-1.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-is-a-wedding-planner-worth-it.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 130685,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Is a wedding",
+              "planner worth it?"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F4EDE1"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EDE1"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F4EDE1"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-18"
+    }
+  ],
   "pending": [],
   "retired_ids": [
     "products-checklist-pdf-06",
