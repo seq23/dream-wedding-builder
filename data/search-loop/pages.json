@@ -1497,6 +1497,61 @@
           "after_hash": "8b56343ed833be6116111aebbdf5b6d027dc178902632e316ad77736d6c100ff"
         }
       ],
+      "checks": {},
+      "indexnow_at": "2026-11-18"
+    },
+    {
+      "slug": "wedding-venue-questions-checklist-pdf",
+      "query": "wedding venue questions checklist pdf",
+      "lane": "can_be_one",
+      "priority": "wedding planning checklist",
+      "score": 40,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 5-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 5,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 5,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "rel": "public/questions/wedding-venue-questions-checklist-pdf.html",
+      "route": "/questions/wedding-venue-questions-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
+      "published_at": "2026-11-18",
+      "status": "live",
+      "hash": "e934df543aab3434e0c32d9ee4159e58ddfff8418e6a4474cf2e6cc8baf70980",
+      "model": "free-route",
+      "facts": [
+        "https://www.iii.org/article/special-event-insurance",
+        "https://www.law.cornell.edu/wex/contract"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/wedding-coordinator-checklist-pdf.html",
+          "route": "/public/questions/wedding-coordinator-checklist-pdf",
+          "before_hash": "7f3b126f63dc2e17b270b12b86dd92dbda448e00e52e8e0564ac854ef90a417d",
+          "after_hash": "e1ce922e72d012ab9678d05d3cebd37f3cb1acf5ea49251422a8b6e8cacec689"
+        },
+        {
+          "rel": "public/questions/beach-wedding-checklist-pdf.html",
+          "route": "/public/questions/beach-wedding-checklist-pdf",
+          "before_hash": "cd6d5a4125a92ee873c03cf368adfd9216750c9edec1cb5a21a6fdb112d3e971",
+          "after_hash": "a735431a8d4866f6f2bf5fc6caa0bf803921226d4524c4ae399d68496e83ffd8"
+        }
+      ],
       "checks": {}
     }
   ],
@@ -1733,6 +1788,32 @@
       "reason": [
         "b5 FAQ answer is 29 words (aim 40-60): \"How far in advance should we send destination save\"",
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.state.gov/travel (HTTP 404); https://www.usa.gov/passports (HTTP 404)"
+      ]
+    },
+    {
+      "query": "free wedding checklist pdf",
+      "at": "2026-11-18",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.census.gov/topics/families/marriage-divorce.html (HTTP 404); https://www.britannica.com/topic/marriage-license (HTTP 403: this site refuses automated checks, so cite a different publisher)"
+      ]
+    },
+    {
+      "query": "wedding planning checklist by month",
+      "at": "2026-11-18",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 25 words (aim 40-60): \"Do I need special software to use this checklist?\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.nyc.gov/site/cityclerk/marriage/marriage-license-obtain.page (HTTP 403: this site refuses automated checks, so cite a different publisher); https://www.cdph.ca.gov/Programs/CHSI/Pages/Vital-Records-Obtaining-Certified-Copies-of-Marriage-Records.aspx (no answer)"
+      ]
+    },
+    {
+      "query": "wedding checklist 1 month out",
+      "at": "2026-11-18",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"Who should hold the wedding day payments?\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.usa.gov/nlg/marriage-certificates (HTTP 404)"
       ]
     }
   ],
@@ -2145,6 +2226,16 @@
       "kind": "sitemap",
       "matched_by": "same wording",
       "matched_text": "backyard wedding planning",
+      "stage": "search"
+    },
+    {
+      "query": "diy wedding planning checklist free",
+      "at": "2026-11-18",
+      "url": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
+      "route": "/public/questions/diy-wedding-planning-checklist-printable",
+      "kind": "page",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "DIY Wedding Planning Checklist — Wedding Checklist PDF",
       "stage": "search"
     }
   ]
