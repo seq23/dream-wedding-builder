@@ -78,6 +78,7 @@ describe('the Buffer queue stays inside the free plan', () => {
     const reel = postInput(videoFor(0, tags), 'instagram', 'ch1', url);
     expect(reel.metadata.instagram.type).toBe('reel');
     expect(reel.assets[0].video.url).toMatch(/video\.mp4$/);
+    expect(Object.keys(reel.assets[0].video)).toEqual(['url']); // Buffer refuses thumbnailUrl (18 Nov 2026 live run)
     const tt = postInput(c, 'tiktok', 'ch2', url);
     expect(tt.metadata.tiktok.title.length).toBeLessThanOrEqual(90);
   });

@@ -56,7 +56,7 @@ export async function readState(call, plan) {
 /** The createPost input for one post on one platform. */
 export function postInput(post, platform, channelId, mediaUrl, text = post.caption) {
   const assets = post.type === 'video'
-    ? [{ video: { url: mediaUrl(post, 'video.mp4'), thumbnailUrl: mediaUrl(post, 'cover.jpg') } }]
+    ? [{ video: { url: mediaUrl(post, 'video.mp4') } }]  // Buffer refuses thumbnailUrl (18 Nov 2026); the first frame is the title card
     : post.slides.map((s, i) => ({ image: { url: mediaUrl(post, `${i + 1}.jpg`), metadata: { altText: [s.eyebrow, s.headline, s.label, s.subline, s.re, s.greeting, ...(s.items ?? []), ...(s.body ?? [])].filter(Boolean).join('. ').slice(0, 1000) } } }));
   const metadata = platform === 'tiktok'
     ? { tiktok: { title: post.title.slice(0, 90), isAiGenerated: false } }
