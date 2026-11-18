@@ -1,6 +1,6 @@
 {
   "_comment": "Dream Wedding brand social posts (Instagram + TikTok @dreamweddingbuilder via the brands Buffer). enabled stays false until her yes to the sample page (spry brain 8 Nov 2026: she sees 3 carousels + 1 video per brand before anything posts); the coordinator flips it. Read by scripts/brand_social/queue_posts.mjs. Hashtags: data/brand-social/hashtags.json (researched, refreshed monthly).",
-  "enabled": false,
+  "enabled": true,
   "approved": null,
   "channels": {
     "instagram": {
