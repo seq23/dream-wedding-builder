@@ -72,7 +72,7 @@ describe('the Buffer queue stays inside the free plan', () => {
     const c = carouselFor('/guides/wedding-day-timeline', angles, 'Wedding Day Timeline', tags)!;
     const url = (p: { id: string }, f: string) => `https://weddingchecklistpdf.com/social/${p.id}/${f}`;
     const ig = postInput(c, 'instagram', 'ch1', url);
-    expect(ig.metadata.instagram.type).toBe('carousel');
+    expect(ig.metadata.instagram.type).toBe('post'); // Buffer refuses 'carousel' (18 Nov 2026 live run)
     expect(ig.assets).toHaveLength(6);
     expect(ig.mode).toBe('addToQueue');
     const reel = postInput(videoFor(0, tags), 'instagram', 'ch1', url);
