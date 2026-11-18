@@ -44,6 +44,8 @@ async function main(mode, now = Date.now()) {
   if (!carousels.length) throw new NamedStop('BRAND_SOCIAL_EXHAUSTED', 'every carousel the pin copy can make has posted; add angles to data/pinterest/angles.json or a second carousel per page');
   const need = [video, ...carousels.slice(0, plan.posts_per_week)];
   if (mode === '--render') {
+    // BRAND_SOCIAL_DRY_RUN: everything up to drawing (tests run the real entrypoint this way).
+    if (process.env.BRAND_SOCIAL_DRY_RUN) { console.log(`OUTPUT ${label}: dry run - would draw ${need.map((p) => p.id).join(', ')} for week ${week}`); return; }
     const missing = need.filter((p) => !mediaFiles(p).every((f) => fs.existsSync(path.join(ROOT, 'public', 'social', p.id, f))));
     if (missing.length) await render(missing);
     const still = missing.filter((p) => !mediaFiles(p).every((f) => fs.existsSync(path.join(ROOT, 'public', 'social', p.id, f))));
