@@ -3,7 +3,7 @@ import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { NamedStop, bufferClient, planWeek, postInput, waitLive } from '../../scripts/brand_social/buffer_queue.mjs';
+import { NamedStop, bufferClient, planWeek, postInput, readState, waitLive } from '../../scripts/brand_social/buffer_queue.mjs';
 import { carouselFor, carouselPages, hashtagsFresh, postLink, postText, roomInQueue, sentenceCase, videoFor } from '../../scripts/brand_social/posts.mjs';
 import { synth } from '../../scripts/brand_social/music.mjs';
 
@@ -144,5 +144,22 @@ describe('the weekly job runs as CI runs it (18 Nov 2026: Node 20 could not load
     const major = (f: string) => Number(readFileSync(f, 'utf8').match(/node-version:\s*'?(\d+)/)![1]);
     expect(major('.github/workflows/brand-social-posts.yml')).toBe(major('.github/workflows/pinterest-drip.yml'));
     expect(major('.github/workflows/brand-social-posts.yml')).toBeGreaterThanOrEqual(22);
+  });
+});
+
+describe('reading the Buffer queue (18 Nov 2026: a multi-status filter answered 0 while 6 were scheduled)', () => {
+  it('counts every scheduled post even though Buffer drops multi-status filters', async () => {
+    const posts = [{ id: 'a', channelId: 'ig', status: 'scheduled' }, { id: 'b', channelId: 'ig', status: 'scheduled' }, { id: 'c', channelId: 'tt', status: 'sending' }];
+    const call = async (q: string) => {
+      if (q.includes('account')) return { account: { organizations: [{ id: 'o', limits: { scheduledPosts: 10 } }] } };
+      if (q.includes('channels')) return { channels: [{ id: 'ig', service: 'instagram', name: 'dreamweddingbuilder' }, { id: 'tt', service: 'tiktok', name: 'dreamweddingbuilder' }] };
+      const wanted = q.match(/status:\[([^\]]*)\]/)![1].split(',').map((x) => x.trim());
+      if (wanted.length !== 1) return { posts: { edges: [] } }; // what the real API does
+      return { posts: { edges: posts.filter((p) => p.status === wanted[0]).map((node) => ({ node })) } };
+    };
+    const state = await readState(call, plan);
+    expect(state.orgScheduled).toBe(3);
+    expect(state.channels.instagram.scheduled).toBe(2);
+    expect(state.channels.tiktok.scheduled).toBe(1);
   });
 });
