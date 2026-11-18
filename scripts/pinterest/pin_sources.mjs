@@ -286,7 +286,9 @@ export function questionPin(page, slConfig, id) {
   const html = fs.readFileSync(file, 'utf8');
   const meta = decode(metaDescription(html)).trim();
   const q = page.query.trim().replace(/\?*$/, '');
-  const question = `${q.charAt(0).toUpperCase()}${q.slice(1)}${/^(how|what|when|where|why|who|which|can|do|does|is|are|should|will)\b/i.test(q) ? '?' : ''}`;
+  // Search queries arrive lower-case; print the acronyms a reader expects in capitals.
+  const shown = q.replace(/\b(diy|pdf|dj|rsvp|faq)\b/gi, (w) => w.toUpperCase());
+  const question = `${shown.charAt(0).toUpperCase()}${shown.slice(1)}${/^(how|what|when|where|why|who|which|can|do|does|is|are|should|will)\b/i.test(q) ? '?' : ''}`;
   const headline = wrapQuestion(question);
   if (!headline || !meta) return null;
   const n = [...id].reduce((sum, c) => sum + c.charCodeAt(0), 0);

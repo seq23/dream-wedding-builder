@@ -10,6 +10,7 @@ import ownership from '@/data/seo/route_ownership.json';
 import { queue } from '@/lib/pinfeed';
 import pageRescue from '@/data/seo/page_rescue.json';
 import budgetRescue from '@/data/seo/budget_rescue.json';
+import { searchLoopHost, searchLoopPages } from '../../lib/search-loop-pages.mjs';
 
 const HOST = 'weddingchecklistpdf.com';
 const TOKEN = '0fcfdee391238788157a7120c048a945';
@@ -50,6 +51,13 @@ describe('Pinterest feed /pinfeed.xml', () => {
   it('every item links a real page on this host with the utm params, never checkout, with a real 1000x1500 image', async () => {
     const { items } = parseFeed(await (await fetchFeed('/pinfeed.xml', HOST)).text());
     const owned = new Set(ownership.routes.filter((r) => r.host === HOST).map((r) => r.path));
+    // Search-loop question pages are real pages on this host too (public/questions/*.html),
+    // served from the engine's ledger rather than route_ownership.json.
+    const slConfig = JSON.parse(readFileSync('search-loop.config.json', 'utf8'));
+    expect(searchLoopHost(slConfig)).toBe(HOST);
+    for (const page of searchLoopPages(slConfig, JSON.parse(readFileSync('data/search-loop/pages.json', 'utf8')))) {
+      if (existsSync(join(slConfig.output.dir, `${page.route.slice(slConfig.output.url_prefix.length)}.html`))) owned.add(page.route);
+    }
     expect(items.length).toBeGreaterThanOrEqual(5);
     for (const item of items) {
       expect(item.title.length, item.title).toBeLessThanOrEqual(100);

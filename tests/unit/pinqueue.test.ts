@@ -513,5 +513,8 @@ describe('every live search-loop question page becomes a pin (spry brain, 1 Nov 
     expect(pages.length).toBeGreaterThan(0);
     const skipped = pages.filter((page) => !questionPin(page, config, 'q-test')).map((page) => page.route);
     expect(skipped).toEqual([]);
+    const diy = pages.find((page) => /\bdiy\b/.test(page.query) && /\bpdf\b|printable/.test(page.query));
+    expect(diy, 'a live diy question page').toBeDefined();
+    expect(questionPin({ ...diy!, query: 'diy wedding checklist pdf' }, config, 'q-test')!.title).toBe('DIY wedding checklist PDF');
   });
 });
