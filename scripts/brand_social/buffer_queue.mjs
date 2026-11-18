@@ -58,9 +58,10 @@ export function postInput(post, platform, channelId, mediaUrl, text = post.capti
   const assets = post.type === 'video'
     ? [{ video: { url: mediaUrl(post, 'video.mp4') } }]  // Buffer refuses thumbnailUrl (18 Nov 2026); the first frame is the title card
     : post.slides.map((s, i) => ({ image: { url: mediaUrl(post, `${i + 1}.jpg`), metadata: { altText: [s.eyebrow, s.headline, s.label, s.subline, s.re, s.greeting, ...(s.items ?? []), ...(s.body ?? [])].filter(Boolean).join('. ').slice(0, 1000) } } }));
+  // Instagram takes 'post' for a multi-image carousel; Buffer refuses 'carousel' (18 Nov 2026 live run).
   const metadata = platform === 'tiktok'
     ? { tiktok: { title: post.title.slice(0, 90), isAiGenerated: false } }
-    : { instagram: { type: post.type === 'video' ? 'reel' : 'carousel', shouldShareToFeed: true, isAiGenerated: false } };
+    : { instagram: { type: post.type === 'video' ? 'reel' : 'post', shouldShareToFeed: true, isAiGenerated: false } };
   return { channelId, text, assets, metadata, mode: 'addToQueue', schedulingType: 'automatic', needsApproval: false, source: 'brand-social' };
 }
 
