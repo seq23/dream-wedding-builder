@@ -15,7 +15,8 @@ import rawQueue from '@/data/pinterest/queue.json';
 import retiredFixture from '../fixtures/pinterest/retired_pins.json';
 import { boards, buildPinfeed, pinItems } from '@/lib/pinfeed';
 import { addDays, applyFallback, applyPause, chicagoDate, decidePace, dueVariants, needsRefill, pageSlug, planRefill, scheduleVariants, spreadViolations, SPREAD, type PinQueue, type PinVariant } from '@/lib/pinqueue.mjs';
-import { anglesFor, derivedAngles, eligiblePaths, guideFacts, pageSource } from '../../scripts/pinterest/pin_sources.mjs';
+import { anglesFor, derivedAngles, eligiblePaths, guideFacts, metaDescription, pageSource, questionPin } from '../../scripts/pinterest/pin_sources.mjs';
+import { searchLoopPages } from '../../lib/search-loop-pages.mjs';
 import { LAYOUTS, LEGACY_LAYOUTS, LEGACY_PALETTES, PALETTES } from '../../scripts/pinterest/render_pin.mjs';
 import { auditQueue, copyIssue, isFrozen, layoutIssue, photoIssue, salesIssue } from '../../scripts/pinterest/quality.mjs';
 
@@ -496,5 +497,21 @@ describe('stop rule: 0 visits at 4 weeks -> new format; 8 weeks -> pause (never 
     applyPause(c, vs, '2026-12-27', d2.reason);
     expect(vs.map((v) => v.release_date)).toEqual(['2026-12-01', null]);
     expect(decidePace(c, [], '2027-01-10').action).toBe('pause');
+  });
+});
+
+describe('every live search-loop question page becomes a pin (spry brain, 1 Nov 2026)', () => {
+  it('reads the meta description whatever order its attributes are in', () => {
+    expect(metaDescription('<meta content="Answer first." name="description"/>')).toBe('Answer first.');
+    expect(metaDescription('<meta name="description" content="Answer first.">')).toBe('Answer first.');
+    expect(metaDescription('<meta content="Not this." property="og:description"/>')).toBe('');
+  });
+
+  it('builds a pin for each live question page (18 Nov 2026: 12 of 12 were skipped)', () => {
+    const config = JSON.parse(readFileSync('search-loop.config.json', 'utf8'));
+    const pages = searchLoopPages(config, JSON.parse(readFileSync('data/search-loop/pages.json', 'utf8')));
+    expect(pages.length).toBeGreaterThan(0);
+    const skipped = pages.filter((page) => !questionPin(page, config, 'q-test')).map((page) => page.route);
+    expect(skipped).toEqual([]);
   });
 });
