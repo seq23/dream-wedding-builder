@@ -265,6 +265,16 @@ export function wrapQuestion(text) {
 
 const decode = (s) => s.replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 
+/** The page's <meta name="description"> content, whatever order its attributes are in. */
+export function metaDescription(html) {
+  for (const tag of String(html).match(/<meta\b[^>]*>/gi) ?? []) {
+    if (!/\bname\s*=\s*["']description["']/i.test(tag)) continue;
+    const content = tag.match(/\bcontent\s*=\s*"([^"]*)"/i) ?? tag.match(/\bcontent\s*=\s*'([^']*)'/i);
+    if (content) return content[1];
+  }
+  return '';
+}
+
 /**
  * A search-loop question page as a pin: the question itself (a real search, from Search
  * Console) is the headline and title; the page's own meta description is the pin
@@ -274,7 +284,7 @@ export function questionPin(page, slConfig, id) {
   const file = path.join(ROOT, slConfig.output.dir, `${page.route.slice(slConfig.output.url_prefix.length).replace(/\/$/, '')}.html`);
   if (!fs.existsSync(file)) return null;
   const html = fs.readFileSync(file, 'utf8');
-  const meta = decode(html.match(/<meta\s+name="description"\s+content="([^"]*)"/i)?.[1] ?? '').trim();
+  const meta = decode(metaDescription(html)).trim();
   const q = page.query.trim().replace(/\?*$/, '');
   const question = `${q.charAt(0).toUpperCase()}${q.slice(1)}${/^(how|what|when|where|why|who|which|can|do|does|is|are|should|will)\b/i.test(q) ? '?' : ''}`;
   const headline = wrapQuestion(question);

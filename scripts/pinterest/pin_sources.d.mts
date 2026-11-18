@@ -21,3 +21,5 @@ export declare function anglesFor(pagePath: string): PinAngle[];
 export declare function guideFacts(answer: string | null | undefined): string[];
 export declare function wrapQuestion(text: string): string | null;
 export declare function questionPin(page: { route: string; query: string }, slConfig: { output: { dir: string; url_prefix: string } }, id: string): (PinAngle & { id: string; seq: number; path: string; layout: string; palette: string; art: string }) | null;
+
+export declare function metaDescription(html: string): string;
