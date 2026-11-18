@@ -23,7 +23,7 @@ concurrency:
 jobs:
   post:
     timeout-minutes: 30  # ~3 min to draw, up to 12 min waiting for the deploy; fault detector
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
         with:
