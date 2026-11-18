@@ -42,7 +42,9 @@ jobs:
           # the system packages are installed only if it cannot start.
           npx playwright install chromium-headless-shell
           node -e "require('playwright').chromium.launch().then((b) => b.close())" || npx playwright install-deps chromium
-          command -v ffmpeg || { sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg; }
+          # ffmpeg from a pinned static build, not apt: apt stalled 8+ min on two ApprovalPrep runs (18 Nov 2026).
+          command -v ffmpeg || { npm i --no-save --no-audit --no-fund ffmpeg-static@5.2.0 && echo "$PWD/node_modules/ffmpeg-static" >> "$GITHUB_PATH"; }
+          PATH="$PWD/node_modules/ffmpeg-static:$PATH" ffmpeg -hide_banner -version | head -1
       - name: Draw this week's posts
         timeout-minutes: 10
         run: node scripts/brand_social/queue_posts.mjs --render
