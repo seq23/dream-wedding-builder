@@ -1,0 +1,18 @@
+export type Slide = { kind: 'cover' | 'point' | 'close'; eyebrow?: string; headline: string; subline?: string; step?: string; primary?: string; secondary?: string; site?: string; label?: string; items?: string[] };
+export type Carousel = { id: string; type: 'carousel'; page: string; title: string; slides: Slide[]; caption: string; hashtags: string[] };
+export type Video = { id: string; type: 'video'; page: string; title: string; picks: string[]; caption: string; hashtags: string[] };
+export const SITE: string;
+export const PLANNER_PATH: string;
+export const MIN_ANGLES: number;
+export const BODY_SLIDES: number;
+export const VIDEO_PICKS: string[][];
+export function sentenceCase(text: string): string;
+export function postLink(pagePath: string, platform: string, postId: string): string;
+export function carouselPages(angles: Record<string, unknown>): string[];
+export function carouselFor(pagePath: string, angles: Record<string, any>, pageName: string | null, hashtags: string[]): Carousel | null;
+export function videoFor(week: number, hashtags: string[]): Video;
+export function weekIndex(now: number | string | Date): number;
+export function roomInQueue(a: { channelScheduled: number; orgScheduled: number; perChannelMax: number; orgLimit: number }): number;
+export function tagsForPlatform(post: { hashtags?: string[] }, platform: string, tiktokMax?: number): string[];
+export function postText(post: { caption: string; hashtags?: string[] }, platform: string, tiktokMax?: number): string;
+export function hashtagsFresh(doc: { refresh_by: string }, now: number | string | Date): boolean;
