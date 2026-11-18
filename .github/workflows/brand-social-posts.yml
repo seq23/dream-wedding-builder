@@ -1,0 +1,61 @@
+name: Brand social posts (weekly)
+
+# Dream Wedding's Instagram + TikTok posts through the brands Buffer (spry brain 8 Nov 2026:
+# carousels from the pin copy + one screen-recorded planner video a week, a few posts a
+# week). Switched OFF until her yes to the sample page: data/brand-social/plan.json
+# `enabled`. Off, both steps print an OUTPUT ... OFF line and nothing is drawn or queued.
+# On: draw this week's posts into public/social, commit (Workers Builds deploys them),
+# then queue them in Buffer once the files are live (scripts/brand_social/queue_posts.mjs).
+# Every failure is a NAMED STOP and a red run (BUFFER_TOKEN_MISSING, BUFFER_TOKEN_REFUSED,
+# BUFFER_QUEUE_FULL, BRAND_SOCIAL_MEDIA_NOT_LIVE, BUFFER_POST_REFUSED, ...).
+on:
+  schedule:
+    - cron: '30 7 * * 1'  # Mondays 07:30 America/Chicago
+      timezone: America/Chicago
+  workflow_dispatch:
+
+permissions: { contents: write }
+
+concurrency:
+  group: brand-social-posts
+  cancel-in-progress: false
+
+jobs:
+  post:
+    timeout-minutes: 30  # ~3 min to draw, up to 12 min waiting for the deploy; fault detector
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with: { node-version: '20' }
+      - run: npm ci
+      - name: Is it switched on?
+        id: on
+        run: echo "enabled=$(node -p "require('./data/brand-social/plan.json').enabled === true")" >> "$GITHUB_OUTPUT"
+      - name: Browser and ffmpeg for drawing
+        if: steps.on.outputs.enabled == 'true'
+        run: |
+          npx playwright install --with-deps chromium
+          command -v ffmpeg || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
+      - name: Draw this week's posts
+        run: node scripts/brand_social/queue_posts.mjs --render
+      - name: Commit the drawn posts (deploys them)
+        if: steps.on.outputs.enabled == 'true'
+        run: |
+          git config user.name 'dream-wedding-brand-social-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add public/social
+          git diff --cached --quiet || git commit -m 'brand-social: this week posts'
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"
+      - name: Queue them in Buffer
+        env:
+          BUFFER_BRANDS_ACCESS_TOKEN: ${{ secrets.BUFFER_BRANDS_ACCESS_TOKEN }}
+        run: node scripts/brand_social/queue_posts.mjs --queue
+      - name: Record what was queued
+        if: always() && steps.on.outputs.enabled == 'true'
+        run: |
+          git add data/brand-social/posted.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m 'brand-social: queued posts ledger'
+          scripts/ci/push_back.sh "$GITHUB_REF_NAME"

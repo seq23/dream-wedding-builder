@@ -1,0 +1,213 @@
+{
+  "_comment": "Researched hashtag sets for Dream Wedding posts, one per Pinterest board topic (lib/pinboards.mjs boardFor). Mix per set: 2 broad, 4 mid (100k-2M posts), 1-2 niche. Instagram post counts from best-hashtags.com tag reports (read 18 Nov 2026; each report's own update date in `as_of`). TikTok shows no public counts without a login (tiktok.com/tag pages and Creative Center hashtag search now ask to sign in, checked 18 Nov 2026), so TikTok uses the first 5 of the same set. Refresh monthly: scripts/brand_social/posts.mjs fails the weekly run with NAMED STOP BRAND_SOCIAL_HASHTAGS_STALE after refresh_by. `pages` swaps a tag that does not fit one page (drop, then add).",
+  "read_on": "2026-11-18",
+  "refresh_by": "2026-12-18",
+  "source": "https://best-hashtags.com/hashtag/<tag>/ (Instagram post counts)",
+  "tiktok_max": 5,
+  "sets": {
+    "printable-wedding-checklists": [
+      {
+        "tag": "#weddingplanning",
+        "tier": "broad",
+        "posts": 8977815,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#bridetobe",
+        "tier": "broad",
+        "posts": 21280562,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#weddingtips",
+        "tier": "mid",
+        "posts": 466030,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#diywedding",
+        "tier": "mid",
+        "posts": 546310,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#newlyengaged",
+        "tier": "mid",
+        "posts": 427913,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#engagedlife",
+        "tier": "mid",
+        "posts": 863358,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#weddingplanningtips",
+        "tier": "niche",
+        "posts": 94519,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#weddingchecklist",
+        "tier": "niche",
+        "posts": 12950,
+        "as_of": "2024-10-29"
+      }
+    ],
+    "small-weddings": [
+      {
+        "tag": "#elopement",
+        "tier": "broad",
+        "posts": 3194220,
+        "as_of": "2025-11-29"
+      },
+      {
+        "tag": "#weddingplanning",
+        "tier": "broad",
+        "posts": 8977815,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#elopementwedding",
+        "tier": "mid",
+        "posts": 663770,
+        "as_of": "2025-11-29"
+      },
+      {
+        "tag": "#elope",
+        "tier": "mid",
+        "posts": 340060,
+        "as_of": "2025-11-29"
+      },
+      {
+        "tag": "#civilwedding",
+        "tier": "mid",
+        "posts": 226548,
+        "as_of": "2024-10-26"
+      },
+      {
+        "tag": "#smallwedding",
+        "tier": "mid",
+        "posts": 143770,
+        "as_of": "2025-11-29"
+      },
+      {
+        "tag": "#microwedding",
+        "tier": "niche",
+        "posts": 95965,
+        "as_of": "2025-11-29"
+      },
+      {
+        "tag": "#courthousewedding",
+        "tier": "niche",
+        "posts": 28763,
+        "as_of": "2024-10-26"
+      }
+    ],
+    "wedding-day": [
+      {
+        "tag": "#weddingplanning",
+        "tier": "broad",
+        "posts": 8977815,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#bridetobe",
+        "tier": "broad",
+        "posts": 21280562,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#weddingtips",
+        "tier": "mid",
+        "posts": 466030,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#weddingcoordinator",
+        "tier": "mid",
+        "posts": 558670,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#newlyengaged",
+        "tier": "mid",
+        "posts": 427913,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#weddingadvice",
+        "tier": "mid",
+        "posts": 109181,
+        "as_of": "2024-11-07"
+      },
+      {
+        "tag": "#weddingtimeline",
+        "tier": "niche",
+        "posts": 7052,
+        "as_of": "2024-11-07"
+      }
+    ],
+    "vendors-budget": [
+      {
+        "tag": "#weddingplanning",
+        "tier": "broad",
+        "posts": 8977815,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#bridetobe",
+        "tier": "broad",
+        "posts": 21280562,
+        "as_of": "2024-10-29"
+      },
+      {
+        "tag": "#weddingtips",
+        "tier": "mid",
+        "posts": 466030,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#diywedding",
+        "tier": "mid",
+        "posts": 546310,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#engagedlife",
+        "tier": "mid",
+        "posts": 863358,
+        "as_of": "2024-10-15"
+      },
+      {
+        "tag": "#weddingadvice",
+        "tier": "mid",
+        "posts": 109181,
+        "as_of": "2024-11-07"
+      },
+      {
+        "tag": "#weddingplanningtips",
+        "tier": "niche",
+        "posts": 94519,
+        "as_of": "2024-10-29"
+      }
+    ]
+  },
+  "video": "printable-wedding-checklists",
+  "pages": {
+    "/guides/wedding-emergency-kit": {
+      "drop": [
+        "#weddingtimeline"
+      ],
+      "add": [
+        {
+          "tag": "#weddingdayready",
+          "tier": "mid",
+          "posts": 281977,
+          "as_of": "2024-10-29"
+        }
+      ]
+    }
+  }
+}

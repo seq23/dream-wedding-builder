@@ -1,0 +1,6 @@
+{
+  "_comment": "Where the music under each brand video comes from. Every track is original, made in this repo by scripts/brand_social/music.mjs (preset dream-wedding: light acoustic fingerpicking in D, 72 bpm), so no third-party licence, attribution or Content ID applies. Mixed to -19 LUFS integrated, true peak -2 dB, 1 s fade in, 2 s fade out (music.mjs muxArgs). A stock track (Pixabay Music, CC0 from Free Music Archive) would need a download, which is hers to approve; none is used.",
+  "tracks": [
+    { "preset": "dream-wedding", "source": "scripts/brand_social/music.mjs", "licence": "Original work of Spry Labs; no third-party audio", "attribution": "none needed", "content_id": "not registered", "loudness": "-19 LUFS integrated, -2 dBTP" }
+  ]
+}
