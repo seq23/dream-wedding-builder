@@ -6,6 +6,40 @@
         "due_at": "2026-11-19T00:07:00.000Z",
         "week": 45,
         "queued_at": "2026-11-18T23:48:44.850Z"
+      },
+      "tiktok": {
+        "buffer_id": "6afe3b6fc462756e9e2a8d33",
+        "due_at": "2026-11-19T04:19:00.000Z",
+        "week": 45,
+        "queued_at": "2026-11-18T23:57:33.798Z"
+      }
+    },
+    "dw-products-checklist-pdf-c1": {
+      "instagram": {
+        "buffer_id": "6afe3b6eebd4409dc9051744",
+        "due_at": "2026-11-19T16:07:00.000Z",
+        "week": 45,
+        "queued_at": "2026-11-18T23:57:33.798Z"
+      },
+      "tiktok": {
+        "buffer_id": "6afe3b70c462756e9e2a8d66",
+        "due_at": "2026-11-20T03:05:00.000Z",
+        "week": 45,
+        "queued_at": "2026-11-18T23:57:33.798Z"
+      }
+    },
+    "dw-products-operations-suite-c1": {
+      "instagram": {
+        "buffer_id": "6afe3b6f4cace847b3820c0b",
+        "due_at": "2026-11-25T01:27:00.000Z",
+        "week": 45,
+        "queued_at": "2026-11-18T23:57:33.798Z"
+      },
+      "tiktok": {
+        "buffer_id": "6afe3b7001ba7c5e79206dbe",
+        "due_at": "2026-11-20T04:49:00.000Z",
+        "week": 45,
+        "queued_at": "2026-11-18T23:57:33.798Z"
       }
     }
   }
