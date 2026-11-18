@@ -4,10 +4,10 @@
     "weddingseatingchartmaker.com": {
       "site_property": "sc-domain:weddingseatingchartmaker.com",
       "period": {
-        "start": "2026-10-19",
-        "end": "2026-11-15"
+        "start": "2026-10-20",
+        "end": "2026-11-16"
       },
-      "collected_at": "2026-11-17T12:42:48.223Z",
+      "collected_at": "2026-11-18T12:43:15.983Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -70,10 +70,10 @@
     "weddingbudgetspreadsheet.com": {
       "site_property": "sc-domain:weddingbudgetspreadsheet.com",
       "period": {
-        "start": "2026-10-19",
-        "end": "2026-11-15"
+        "start": "2026-10-20",
+        "end": "2026-11-16"
       },
-      "collected_at": "2026-11-17T12:42:49.124Z",
+      "collected_at": "2026-11-18T12:43:16.883Z",
       "complete": true,
       "totals": {
         "clicks": 0,
@@ -124,24 +124,24 @@
     "weddingtimelinetemplate.com": {
       "site_property": "sc-domain:weddingtimelinetemplate.com",
       "period": {
-        "start": "2026-10-19",
-        "end": "2026-11-15"
+        "start": "2026-10-20",
+        "end": "2026-11-16"
       },
-      "collected_at": "2026-11-17T12:42:50.008Z",
+      "collected_at": "2026-11-18T12:43:17.911Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 46,
+        "impressions": 49,
         "ctr": 0,
-        "position": 54.95652173913044
+        "position": 54.244897959183675
       },
       "queries": [
         {
           "query": "wedding timeline template",
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 0,
-          "impressions": 11,
-          "position": 61
+          "impressions": 12,
+          "position": 60.916666666666664
         },
         {
           "query": "wedding day timeline template",
@@ -154,8 +154,8 @@
           "query": "wedding schedule template",
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 0,
-          "impressions": 5,
-          "position": 61.2
+          "impressions": 6,
+          "position": 62.5
         },
         {
           "query": "wedding ceremony timeline template",
@@ -218,8 +218,8 @@
         {
           "page": "https://weddingtimelinetemplate.com/wedding-timeline-template",
           "clicks": 0,
-          "impressions": 46,
-          "position": 55.1
+          "impressions": 49,
+          "position": 54.4
         },
         {
           "page": "https://weddingtimelinetemplate.com/guides",
@@ -286,16 +286,16 @@
     "weddingchecklistpdf.com": {
       "site_property": "sc-domain:weddingchecklistpdf.com",
       "period": {
-        "start": "2026-10-19",
-        "end": "2026-11-15"
+        "start": "2026-10-20",
+        "end": "2026-11-16"
       },
-      "collected_at": "2026-11-17T12:42:50.534Z",
+      "collected_at": "2026-11-18T12:43:18.921Z",
       "complete": true,
       "totals": {
         "clicks": 0,
-        "impressions": 123,
+        "impressions": 150,
         "ctr": 0,
-        "position": 58.609756097560975
+        "position": 62.526666666666664
       },
       "queries": [
         {
@@ -318,6 +318,13 @@
           "clicks": 0,
           "impressions": 3,
           "position": 8.666666666666668
+        },
+        {
+          "query": "wedding checklist pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 3,
+          "position": 77
         },
         {
           "query": "wedding planning checklist pdf",
@@ -348,6 +355,20 @@
           "position": 86
         },
         {
+          "query": "planning a wedding checklist pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 86.5
+        },
+        {
+          "query": "planning a wedding checklist pdf",
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 91.5
+        },
+        {
           "query": "printable wedding checklist",
           "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
           "clicks": 0,
@@ -356,10 +377,24 @@
         },
         {
           "query": "wedding checklist pdf",
-          "page": "https://weddingchecklistpdf.com/guides",
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
           "clicks": 0,
           "impressions": 2,
-          "position": 76
+          "position": 73.5
+        },
+        {
+          "query": "wedding checklist printable",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 86.5
+        },
+        {
+          "query": "wedding coordinator checklist",
+          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+          "clicks": 0,
+          "impressions": 2,
+          "position": 73.5
         },
         {
           "query": "50 person wedding cost",
@@ -397,8 +432,29 @@
           "position": 79
         },
         {
+          "query": "destination wedding planner checklist",
+          "page": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 64
+        },
+        {
+          "query": "destination wedding planning checklist",
+          "page": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 65
+        },
+        {
           "query": "diy wedding checklist pdf",
           "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 76
+        },
+        {
+          "query": "elopement checklist",
+          "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
           "impressions": 1,
           "position": 76
@@ -425,6 +481,13 @@
           "position": 84
         },
         {
+          "query": "free wedding checklist",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 90
+        },
+        {
           "query": "free wedding plan checklist",
           "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
           "clicks": 0,
@@ -437,6 +500,13 @@
           "clicks": 0,
           "impressions": 1,
           "position": 75
+        },
+        {
+          "query": "free wedding planning checklist pdf",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 73
         },
         {
           "query": "free wedding planning guide",
@@ -460,25 +530,18 @@
           "position": 89
         },
         {
+          "query": "marriage checklist pdf",
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 67
+        },
+        {
           "query": "pdf wedding planning checklist",
           "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
           "clicks": 0,
           "impressions": 1,
           "position": 94
-        },
-        {
-          "query": "planning a wedding checklist pdf",
-          "page": "https://weddingchecklistpdf.com/guides",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 89
-        },
-        {
-          "query": "planning a wedding checklist pdf",
-          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 87
         },
         {
           "query": "printable elopement checklist",
@@ -509,6 +572,27 @@
           "position": 78
         },
         {
+          "query": "simple wedding checklist pdf",
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 72
+        },
+        {
+          "query": "simple wedding checklist pdf",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 85
+        },
+        {
+          "query": "simple wedding checklist pdf free download",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 70
+        },
+        {
           "query": "wedding ceremony checklist pdf",
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
@@ -524,10 +608,10 @@
         },
         {
           "query": "wedding checklist pdf",
-          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
           "clicks": 0,
           "impressions": 1,
-          "position": 58
+          "position": 93
         },
         {
           "query": "wedding checklist pdf free",
@@ -544,18 +628,18 @@
           "position": 28
         },
         {
-          "query": "wedding coordinator checklist",
-          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 80
-        },
-        {
           "query": "wedding coordinator guide",
           "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
           "clicks": 0,
           "impressions": 1,
           "position": 65
+        },
+        {
+          "query": "wedding coordinator wedding day checklist",
+          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 83
         },
         {
           "query": "wedding coordinators checklist",
@@ -570,6 +654,27 @@
           "clicks": 0,
           "impressions": 1,
           "position": 82
+        },
+        {
+          "query": "wedding day checklist for coordinator",
+          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 69
+        },
+        {
+          "query": "wedding day checklist pdf",
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 86
+        },
+        {
+          "query": "wedding day checklist pdf",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 93
         },
         {
           "query": "wedding plan checklist pdf",
@@ -614,6 +719,13 @@
           "position": 85
         },
         {
+          "query": "wedding planning checklist printable",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 90
+        },
+        {
           "query": "wedding planning guide free",
           "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
           "clicks": 0,
@@ -621,11 +733,46 @@
           "position": 96
         },
         {
+          "query": "wedding planning guide pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 83
+        },
+        {
           "query": "wedding planning list pdf",
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
           "impressions": 1,
           "position": 94
+        },
+        {
+          "query": "wedding planning stress survey ranked list percentage",
+          "page": "https://weddingchecklistpdf.com/readiness-score",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 61
+        },
+        {
+          "query": "wedding preparation checklist pdf",
+          "page": "https://weddingchecklistpdf.com/guides",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 71
+        },
+        {
+          "query": "wedding preparation checklist pdf",
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 80
+        },
+        {
+          "query": "wedding preparation checklist pdf",
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 1,
+          "position": 88
         },
         {
           "query": "wedding vendor contract checklist",
@@ -637,10 +784,22 @@
       ],
       "pages": [
         {
+          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "clicks": 0,
+          "impressions": 34,
+          "position": 85.9
+        },
+        {
           "page": "https://weddingchecklistpdf.com/guides",
           "clicks": 0,
-          "impressions": 24,
-          "position": 72
+          "impressions": 29,
+          "position": 73.5
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
+          "clicks": 0,
+          "impressions": 23,
+          "position": 74.2
         },
         {
           "page": "https://weddingchecklistpdf.com/free-wedding-planner",
@@ -649,16 +808,10 @@
           "position": 75.9
         },
         {
-          "page": "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
           "clicks": 0,
-          "impressions": 17,
-          "position": 86.8
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/printable-wedding-checklist",
-          "clicks": 0,
-          "impressions": 16,
-          "position": 71.1
+          "impressions": 11,
+          "position": 63.8
         },
         {
           "page": "https://weddingchecklistpdf.com/privacy",
@@ -679,12 +832,6 @@
           "position": 6.6
         },
         {
-          "page": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
-          "clicks": 0,
-          "impressions": 9,
-          "position": 53.8
-        },
-        {
           "page": "https://weddingchecklistpdf.com/methodology",
           "clicks": 0,
           "impressions": 9,
@@ -695,6 +842,12 @@
           "clicks": 0,
           "impressions": 6,
           "position": 18.7
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+          "clicks": 0,
+          "impressions": 6,
+          "position": 71.3
         },
         {
           "page": "https://weddingchecklistpdf.com/products/checklist-pdf",
@@ -712,25 +865,25 @@
           "page": "https://weddingchecklistpdf.com/guides/elopement-planning-checklist",
           "clicks": 0,
           "impressions": 5,
-          "position": 62.4
+          "position": 75.6
         },
         {
-          "page": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+          "page": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
           "clicks": 0,
           "impressions": 4,
-          "position": 74.8
+          "position": 39.3
+        },
+        {
+          "page": "https://weddingchecklistpdf.com/readiness-score",
+          "clicks": 0,
+          "impressions": 4,
+          "position": 22
         },
         {
           "page": "https://weddingchecklistpdf.com/terms",
           "clicks": 0,
           "impressions": 4,
           "position": 4.8
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
-          "clicks": 0,
-          "impressions": 3,
-          "position": 48.7
         },
         {
           "page": "https://weddingchecklistpdf.com/wedding-planning-checklist",
@@ -745,10 +898,10 @@
           "position": 1
         },
         {
-          "page": "https://weddingchecklistpdf.com/readiness-score",
+          "page": "https://weddingchecklistpdf.com/wedding-checklist",
           "clicks": 0,
           "impressions": 2,
-          "position": 8.5
+          "position": 30.5
         },
         {
           "page": "https://weddingchecklistpdf.com/wedding-guest-list-template",
@@ -761,12 +914,6 @@
           "clicks": 0,
           "impressions": 1,
           "position": 1
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/guides/18-month-wedding-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 8
         },
         {
           "page": "https://weddingchecklistpdf.com/guides/3-month-wedding-checklist",
@@ -785,17 +932,11 @@
           "clicks": 0,
           "impressions": 1,
           "position": 4
-        },
-        {
-          "page": "https://weddingchecklistpdf.com/wedding-checklist",
-          "clicks": 0,
-          "impressions": 1,
-          "position": 9
         }
       ]
     }
   },
   "truth_source": "google_search_console_search_analytics",
   "truth_boundary": "Own-site Google Search performance for the rolling window in each host period. Replaced per host on every answered run; a host that failed keeps its previous window.",
-  "updated_at": "2026-11-17T12:42:50.535Z"
+  "updated_at": "2026-11-18T12:43:18.923Z"
 }
