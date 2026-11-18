@@ -130,3 +130,18 @@ describe('researched hashtags and original music', () => {
     expect(Array.from(a.slice(44100, 46000))).not.toEqual(Array.from(c.slice(44100, 46000)));
   });
 });
+
+describe('the weekly job runs as CI runs it (18 Nov 2026: Node 20 could not load the pin copy)', () => {
+  it('the real entrypoint loads the whole pin-copy chain and names the week it would draw', () => {
+    const file = join(mkdtempSync(join(tmpdir(), 'bs-')), 'plan.json');
+    writeFileSync(file, JSON.stringify({ ...plan, enabled: true }));
+    const out = execFileSync('node', ['scripts/brand_social/queue_posts.mjs', '--render'], { encoding: 'utf8', env: { ...process.env, BRAND_SOCIAL_PLAN: file, BRAND_SOCIAL_DRY_RUN: '1' } });
+    expect(out).toMatch(/^OUTPUT brand-social render \(Dream Wedding\): dry run - would draw dw-planner-video-w\d+, dw-/);
+  });
+
+  it('the workflow uses the Node the pin drip uses (it loads the same .ts data)', () => {
+    const major = (f: string) => Number(readFileSync(f, 'utf8').match(/node-version:\s*'?(\d+)/)![1]);
+    expect(major('.github/workflows/brand-social-posts.yml')).toBe(major('.github/workflows/pinterest-drip.yml'));
+    expect(major('.github/workflows/brand-social-posts.yml')).toBeGreaterThanOrEqual(22);
+  });
+});

@@ -29,17 +29,22 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v7
-        with: { node-version: '20' }
+        with: { node-version: '22', cache: npm }  # 22: the pin copy loads data/planner-landings.ts, which Node 20 cannot read
       - run: npm ci
       - name: Is it switched on?
         id: on
         run: echo "enabled=$(node -p "require('./data/brand-social/plan.json').enabled === true")" >> "$GITHUB_OUTPUT"
       - name: Browser and ffmpeg for drawing
         if: steps.on.outputs.enabled == 'true'
+        timeout-minutes: 8  # ~1 min normally; an apt stall is a fault, not a wait (18 Nov 2026 run sat 16 min)
         run: |
-          npx playwright install --with-deps chromium
-          command -v ffmpeg || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
+          # The runner image ships Chrome and its libraries, so only the headless shell is fetched;
+          # the system packages are installed only if it cannot start.
+          npx playwright install chromium-headless-shell
+          node -e "require('playwright').chromium.launch().then((b) => b.close())" || npx playwright install-deps chromium
+          command -v ffmpeg || { sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg; }
       - name: Draw this week's posts
+        timeout-minutes: 10
         run: node scripts/brand_social/queue_posts.mjs --render
       - name: Commit the drawn posts (deploys them)
         if: steps.on.outputs.enabled == 'true'
