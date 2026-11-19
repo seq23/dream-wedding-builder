@@ -8,6 +8,7 @@ import { journeyStore } from '../../../src/journey';
 import { savedDate } from '../../../src/savedDate';
 import { WeddingDatePicker } from '../../../src/WeddingDatePicker';
 import { PlannedScreen } from '../../../src/ui';
+import { ReportAnswer } from '../../../src/ReportAnswerLink';
 import { color, space, type } from '../../../src/theme';
 const store = detailStore(AsyncStorage);
 export default function AiDraft() {
@@ -53,6 +54,7 @@ export default function AiDraft() {
       {(Object.keys(review) as (keyof Details)[]).map(key => <Pressable key={key} accessibilityRole="checkbox" accessibilityState={{ checked: !excluded.includes(key) }} disabled={busy} onPress={() => setExcluded(old => old.includes(key) ? old.filter(k => k !== key) : [...old, key])} style={{ minHeight: 48 }}><Text style={type.body}>{excluded.includes(key) ? '☐' : '☑'} {detailLabels[key]}: {review[key]}</Text></Pressable>)}
       {button('Save the ticked details ›', () => save(Object.fromEntries(Object.entries(review).filter(([key]) => !excluded.includes(key)))), Object.keys(review).every(key => excluded.includes(key)))}
       {button('Discard draft', () => { setReview(null); setMessage(''); })}
+      <ReportAnswer where="Check your draft" answer={(Object.keys(review) as (keyof Details)[]).map(key => `${detailLabels[key]}: ${review[key]}`).join('\n')} />
     </> : <>
       <Text style={type.body}>What you add here shows on the tasks it affects: your guest count on the venue and caterer tasks, your place on the venue and license tasks, and your budget shared out across what you book. Everything is optional and stays on this phone.</Text>
       <Text style={type.label}>Wedding date (optional)</Text>

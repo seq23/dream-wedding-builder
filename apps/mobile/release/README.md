@@ -78,3 +78,12 @@ free plan's iOS builds for the month are used up, run the manual `iOS store buil
 workflow (free GitHub macOS runner, `eas build --local`, same profile and remote build
 number), download its `app-ipa` artifact and upload it with
 `eas submit --platform ios --profile production --path app.ipa`.
+
+## Report this answer (AI content, Google Play)
+
+`src/reportAnswer.ts` adds "Report this answer" under the AI read (Your wedding, described) and
+the AI draft review. It opens a pre-filled email to info@weddingchecklistpdf.com (no backend).
+It is ON for Android builds only, because Dream Wedding 1.0 was Waiting for Review at Apple on
+19 Nov 2026 with the reviewed screens. **Turn it on for iOS in the next Apple version** by
+setting `EXPO_PUBLIC_DW_REPORT_AI=1` in the EAS production environment (or dropping the
+platform check in `reportAnswerShown`).
