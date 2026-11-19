@@ -98,4 +98,15 @@ Choose **"All or some functionality is restricted"** and paste:
 | COVID-19 contact tracing or status | No | |
 | Advertising ID | Not used | No ad or attribution SDK (`src/billing/revenuecat.ts:18`) |
 | Photo and video permissions declaration | Not needed | `READ_MEDIA_*` and storage blocked (`app.config.ts`, `blockedPermissions`); the system photo picker needs no permission |
-| Exact alarm / full-screen intent | Not needed unless the built manifest lists them (see the PR for the list read from the APK) | Reminders are ordinary local notifications |
+| Exact alarm / full-screen intent | Not needed | Neither is in the built manifest (below); reminders are ordinary local notifications |
+
+## Android permissions in the built manifest
+
+Read from the APK of the free EAS Android build of this branch (build 440635f0, 19 Nov 2026), binary manifest
+parsed: `INTERNET`, `VIBRATE`, `RECEIVE_BOOT_COMPLETED`, `POST_NOTIFICATIONS`, `ACCESS_NETWORK_STATE`, `WAKE_LOCK`,
+`com.google.android.c2dm.permission.RECEIVE`, `com.android.vending.BILLING`,
+`com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE`, `READ_APP_BADGE` and launcher badge
+permissions (Samsung, HTC, Sony, Huawei, Oppo, Nova, Everything) from the notifications library, and the app's own
+`DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`. None needs a Play declaration form. `SYSTEM_ALERT_WINDOW`,
+`READ_/WRITE_EXTERNAL_STORAGE`, `READ_MEDIA_*`, `RECORD_AUDIO`, location and contacts are absent
+(`app.config.ts`, `blockedPermissions`). No code reads the install referrer.
