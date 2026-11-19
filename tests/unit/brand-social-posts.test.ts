@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { NamedStop, bufferClient, planWeek, postInput, readState, waitLive } from '../../scripts/brand_social/buffer_queue.mjs';
 import { carouselFor, carouselPages, hashtagsFresh, postLink, postText, roomInQueue, sentenceCase, videoFor } from '../../scripts/brand_social/posts.mjs';
-import { synth } from '../../scripts/brand_social/music.mjs';
+import { concatSeconds, synth } from '../../scripts/brand_social/music.mjs';
 
 const angles = JSON.parse(readFileSync('data/pinterest/angles.json', 'utf8'));
 const plan = JSON.parse(readFileSync('data/brand-social/plan.json', 'utf8'));
@@ -161,5 +161,17 @@ describe('reading the Buffer queue (18 Nov 2026: a multi-status filter answered 
     expect(state.orgScheduled).toBe(3);
     expect(state.channels.instagram.scheduled).toBe(2);
     expect(state.channels.tiktok.scheduled).toBe(1);
+  });
+});
+
+describe('the renderer needs only what the job installs (18 Nov 2026: ffprobe missing from the static ffmpeg)', () => {
+  it('reads the video length from the concat list', () => {
+    expect(concatSeconds("file 'a.png'\nduration 2.6\nfile 'b.png'\nduration 0.4\nfile 'c.png'\nduration 3\nfile 'c.png'\n")).toBeCloseTo(6, 5);
+    expect(() => concatSeconds("file 'a.png'\n")).toThrow();
+  });
+  it('spawns no binary but ffmpeg', () => {
+    const src = readFileSync('scripts/brand_social/render_posts.mjs', 'utf8');
+    const bins = new Set([...src.matchAll(/exec(?:File)?Sync\('([^']+)'/g)].map((m) => m[1]));
+    expect([...bins]).toEqual(['ffmpeg']);
   });
 });
