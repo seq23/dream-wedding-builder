@@ -1,25 +1,39 @@
 {
-  "updatedAt": "2026-11-18T11:56:43.045Z",
+  "updatedAt": "2026-11-19T19:38:37.813Z",
   "headline_host": "weddingchecklistpdf.com",
   "window": {
     "days": 28,
-    "since": "2026-10-22",
-    "until": "2026-11-18",
-    "from": "2026-10-21T11:56:43.045Z",
-    "to": "2026-11-18T11:56:43.045Z"
+    "since": "2026-10-23",
+    "until": "2026-11-19",
+    "from": "2026-10-22T19:38:37.813Z",
+    "to": "2026-11-19T19:38:37.813Z"
   },
+  "posts_published_28d": 3,
   "social_visits_28d": 0,
   "by_platform": {
-    "posts": null,
+    "posts": {
+      "instagram": 2,
+      "tiktok": 1
+    },
     "visits": {
       "instagram": 0,
       "tiktok": 0
     }
   },
+  "buffer_channels": [
+    {
+      "platform": "tiktok",
+      "name": "dreamweddingbuilder"
+    },
+    {
+      "platform": "instagram",
+      "name": "dreamweddingbuilder"
+    }
+  ],
   "by_host": {
     "weddingchecklistpdf.com": {
       "site_tag": "1a97575237ad472683f60409f6ef88b3",
-      "pageloads": 180,
+      "pageloads": 200,
       "first_pageload_date": "2026-11-09",
       "social_visits": 0,
       "by_platform": {
@@ -62,18 +76,10 @@
       "beacon": "ok"
     }
   },
-  "unread": {
-    "posts_published_28d": "BUFFER_BRANDS_ACCESS_TOKEN is not set (Missing key: the brands Buffer holding Dream Wedding's Instagram and TikTok)"
-  },
-  "unread_kind": {
-    "posts_published_28d": "missing_key"
-  },
-  "missing_keys": [
-    "BUFFER_BRANDS_ACCESS_TOKEN"
-  ],
-  "missing_since": {
-    "BUFFER_BRANDS_ACCESS_TOKEN": "2026-11-09"
-  },
+  "unread": {},
+  "unread_kind": {},
+  "missing_keys": [],
+  "missing_since": {},
   "sources": {
     "posts": "api.buffer.com/graphql posts(status: sent), counted on sentAt, Dream Wedding Instagram and TikTok channels (handles from data/seo/entity.json)",
     "visits": "Cloudflare Web Analytics rumPageloadEventsAdaptiveGroups sum.visits by refererHost, matched on hostname (data/brand-social/social_referrers.json)"
