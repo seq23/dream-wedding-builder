@@ -2,7 +2,8 @@
 
 **Status: DRAFT (19 Nov 2026).** Store copy was held on purpose until the launch plan. This is
 drafted for her to see first; nothing here goes to Google until she has read it and the company
-Play account (Redwood Reserve Holdings LLC, waiting on its D-U-N-S number) exists.
+Play account (Redwood Reserve Holdings LLC; exists, organisation documents and website in
+review on 19 Nov 2026) is cleared to publish. Console form answers: `store/play-console-answers.md`.
 
 Source: the Apple copy as published in App Store Connect for Dream Wedding 1.0 (app 6834891267,
 read 19 Nov 2026). No new claims: every line below is the Apple copy, shortened or reordered.
