@@ -115,3 +115,10 @@ export function muxArgs(video, wav, seconds, out) {
     `[1:a]atrim=0:${seconds.toFixed(2)},highpass=f=60,lowpass=f=6500,loudnorm=I=-19:TP=-2:LRA=7,afade=t=in:d=1,afade=t=out:st=${fadeOut}:d=2,aresample=44100[a]`,
     '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-shortest', '-movflags', '+faststart', out];
 }
+
+/** Length in seconds of an ffmpeg concat list (the sum of its `duration` lines). */
+export function concatSeconds(listText) {
+  const total = [...String(listText).matchAll(/^duration\s+([\d.]+)\s*$/gm)].reduce((sum, m) => sum + Number(m[1]), 0);
+  if (!(total > 0)) throw new Error('concat list has no durations');
+  return total;
+}

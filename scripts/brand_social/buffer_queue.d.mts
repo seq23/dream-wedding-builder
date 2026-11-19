@@ -7,3 +7,4 @@ export function postInput(post: any, platform: string, channelId: string, mediaU
 export function createPost(call: (q: string, v?: Record<string, unknown>) => Promise<any>, input: any): Promise<{ id: string; dueAt?: string }>;
 export function waitLive(urls: string[], opts?: { waitMs?: number; everyMs?: number; fetchImpl?: typeof fetch; sleep?: (ms: number) => Promise<void> }): Promise<void>;
 export function planWeek(a: { plan: any; carousels: any[]; video: any; ledger: any; week: number; state: any; roomInQueue: (a: any) => number }): Record<string, any[]>;
+export const PENDING_STATUSES: string[];
