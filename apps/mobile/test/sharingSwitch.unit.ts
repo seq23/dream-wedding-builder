@@ -3,6 +3,7 @@
 // phone and must not show the share controls; turning the switch on brings both back.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { SHARING, fullPlanLines, fullPlanSummary, sharingControlsShown, twoPhonesLink } from '../src/sharingSwitch';
 import { OFFER_DETAIL } from '../src/billing/offers';
 
@@ -23,4 +24,22 @@ test('sharing switch off: the paywall list sells no partner phone and no share c
   assert.ok(fullPlanLines(true).some(l => partner.test(l)));
   assert.deepEqual(twoPhonesLink(true, true), { href: '/more/sharing', label: 'Two phones: share with my partner ›' });
   assert.equal(sharingControlsShown(true), true);
+});
+
+test('sharing switch off: no store listing draft promises a partner phone', () => {
+  assert.equal(SHARING, false);
+  const section = (file: string, start: string, end: string) => {
+    const text = readFileSync(new URL(`../store/${file}`, import.meta.url), 'utf8');
+    const from = text.indexOf(start), to = text.indexOf(end, from + 1);
+    assert.ok(from >= 0 && to > from, `${file} has its ${start} section`);
+    return text.slice(from, to);
+  };
+  const listings = [
+    section('google-play.md', '## Title', '## Other listing fields'),
+    section('app-store-next-version.md', '## Description: full plan list', '## End of description list'),
+  ];
+  for (const copy of listings) {
+    assert.ok(copy.includes('• '), 'the full-plan list is present');
+    assert.doesNotMatch(copy, partner);
+  }
 });
