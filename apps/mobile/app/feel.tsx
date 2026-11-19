@@ -4,6 +4,7 @@ import { TypingBox, flushFields, useTypedState } from '../src/TypingBox';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PlannedScreen } from '../src/ui';
+import { ReportAnswer } from '../src/ReportAnswerLink';
 import { PREVIEW, partOfFullPlan } from '../src/build';
 import { savedDate } from '../src/savedDate';
 import { savedProgress } from '../src/savedProgress';
@@ -246,6 +247,7 @@ export default function Feel() {
       {read.ask.length ? <View style={{ gap: space[2] }}><Text style={h2}>What to ask</Text>{read.ask.map(q => <Text key={q} style={type.body}>• {q}</Text>)}</View> : null}
       {read.honest ? <View style={box}><Text style={type.body}><Text style={{ fontFamily: font.sansBold }}>Worth knowing. </Text>{read.honest}</Text></View> : null}
       <Text style={[type.sub, { color: color.midnightMuted }]}>{readLabel(read.by, page!.reason)}</Text>
+      <ReportAnswer where="Your wedding, described" answer={[read.headline, read.read, ...read.directions.map(d => `${d.name}: ${d.what}`), ...read.ideas.map(i => `${i.name}: ${i.why}`), ...read.ask, read.honest ?? ''].filter(Boolean).join('\n')} />
       <Blue label="Continue · step 2 of 4 ›" onPress={() => go(3)} />
       <Under label="‹ Change my answers" onPress={() => go(1)} />
       {quotaNote(page!.remaining) ? <Text style={[type.sub, { color: color.midnightMuted }]}>{quotaNote(page!.remaining)}</Text> : null}
