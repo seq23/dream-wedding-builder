@@ -2465,6 +2465,69 @@
   ],
   "strengthen": [
     {
+      "query": "wedding day checklist pdf",
+      "page": "/amazon/wedding-day-timeline",
+      "url": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "same wording",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "free wedding planner software with checklist",
+      "page": "/free-wedding-planner",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "backyard wedding planning spreadsheet",
+      "page": "/backyard-wedding-planning",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "backyard wedding planning checklist printable",
+      "page": "/backyard-wedding-planning",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "backyard wedding planning list",
+      "page": "/backyard-wedding-planning",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "wedding venue questions checklist printable",
+      "page": "/questions/wedding-venue-questions-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "wedding venue questions checklist",
+      "page": "/questions/wedding-venue-questions-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "same wording",
+      "at": "2026-11-19"
+    },
+    {
       "query": "diy wedding planning checklist free",
       "page": "/public/questions/diy-wedding-planning-checklist-printable",
       "url": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",

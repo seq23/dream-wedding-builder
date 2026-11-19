@@ -2,13 +2,13 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W47",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-18T12:21:36.961Z",
+  "generated_at": "2026-11-19T20:27:35.009Z",
   "state": "slow",
   "published": 7,
   "indexed": "not read: no page old enough to inspect yet (14 days)",
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 520,
+  "ai_bot_hits": 436,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
@@ -86,17 +86,60 @@
       "strengthen": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
       "matched_by": "high token overlap (0.67 >= 0.6)",
       "at": "2026-11-18"
+    },
+    {
+      "query": "wedding venue questions checklist",
+      "strengthen": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
+      "matched_by": "same wording",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "wedding venue questions checklist printable",
+      "strengthen": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "backyard wedding planning list",
+      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "backyard wedding planning checklist printable",
+      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "backyard wedding planning spreadsheet",
+      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "free wedding planner software with checklist",
+      "strengthen": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-19"
+    },
+    {
+      "query": "wedding day checklist pdf",
+      "strengthen": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
+      "matched_by": "same wording",
+      "at": "2026-11-19"
     }
   ],
   "cap": {
     "max_live_pages": 28,
-    "live": 12,
-    "room": 16,
+    "live": 13,
+    "room": 15,
     "why": "up from 25 to 28: Google impressions 87 in the last 28 days beat 70 in the 28 before"
   },
   "notes": [
     "site config lowers the mode to slow",
-    "BUILD distinct gate: 1 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
+    "BUILD distinct gate: 7 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
+    "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json",
     "CHECK runs weekly in mode=slow; last ran 2026-11-15"
   ],
   "lanes": {
@@ -105,7 +148,7 @@
       "striking": 1
     },
     "can_be_one": {
-      "pages": 7,
+      "pages": 8,
       "measured": 0,
       "top3": 0,
       "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
@@ -125,5 +168,5 @@
     "weight_changes": [],
     "competition": "ok: 15 top-10 read(s) via brave"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/44303142286"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/44608864710"
 }

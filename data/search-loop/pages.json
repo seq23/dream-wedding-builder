@@ -1552,7 +1552,72 @@
           "after_hash": "a735431a8d4866f6f2bf5fc6caa0bf803921226d4524c4ae399d68496e83ffd8"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "extra_queries": [
+        "wedding venue questions checklist",
+        "wedding venue questions checklist printable"
+      ],
+      "indexnow_at": "2026-11-19"
+    },
+    {
+      "slug": "outdoor-wedding-checklist-pdf",
+      "query": "outdoor wedding checklist pdf",
+      "lane": "can_be_one",
+      "priority": "wedding planning checklist",
+      "score": 40,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "rel": "public/questions/outdoor-wedding-checklist-pdf.html",
+      "route": "/questions/outdoor-wedding-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/outdoor-wedding-checklist-pdf",
+      "published_at": "2026-11-19",
+      "status": "live",
+      "hash": "03eeebe997052cecf1a2471d73021dc4571832f2678b25282b9c0a14c1579060",
+      "model": "free-route",
+      "facts": [
+        "https://www.nps.gov/aboutus/index.htm",
+        "https://www.psai.org/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/outdoor-wedding-checklist-printable.html",
+          "route": "/public/questions/outdoor-wedding-checklist-printable",
+          "before_hash": "f0a66623c190610adc0bf21c4addc46835dd4ece659ac34762af5a21c58cfcc1",
+          "after_hash": "da6ee952bbd06162461f95d3177744679ffc67ad4ff8b6588c8c98aed0a1dc61"
+        },
+        {
+          "rel": "public/questions/beach-wedding-checklist-pdf.html",
+          "route": "/public/questions/beach-wedding-checklist-pdf",
+          "before_hash": "a735431a8d4866f6f2bf5fc6caa0bf803921226d4524c4ae399d68496e83ffd8",
+          "after_hash": "667acda510ee8548b7ca0fd9b3e6925d00ecec04d62118d8fde923c3235ded85"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 33 words (aim 40-60): \"What is the best flooring for a lawn wedding?\"",
+        "b5 FAQ answer is 38 words (aim 40-60): \"How do I handle bugs at an outdoor reception?\"",
+        "b5 FAQ answer is 34 words (aim 40-60): \"Do I need a backup tent if the forecast looks sunn\"",
+        "b5 FAQ answer is 36 words (aim 40-60): \"How many restrooms do we need for an outdoor party\""
+      ]
     }
   ],
   "dropped": [
@@ -1814,6 +1879,14 @@
       "reason": [
         "b5 FAQ answer is 29 words (aim 40-60): \"Who should hold the wedding day payments?\"",
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.usa.gov/nlg/marriage-certificates (HTTP 404)"
+      ]
+    },
+    {
+      "query": "wedding list checklist pdf",
+      "at": "2026-11-19",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.census.gov/topics/families/marriage-divorce.html (HTTP 404)"
       ]
     }
   ],
@@ -2237,6 +2310,76 @@
       "matched_by": "high token overlap (0.67 >= 0.6)",
       "matched_text": "DIY Wedding Planning Checklist — Wedding Checklist PDF",
       "stage": "search"
+    },
+    {
+      "query": "wedding venue questions checklist",
+      "at": "2026-11-19",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
+      "route": "/questions/wedding-venue-questions-checklist-pdf",
+      "kind": "engine",
+      "matched_by": "same wording",
+      "matched_text": "wedding venue questions checklist pdf",
+      "stage": "search"
+    },
+    {
+      "query": "wedding venue questions checklist printable",
+      "at": "2026-11-19",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
+      "route": "/questions/wedding-venue-questions-checklist-pdf",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "wedding venue questions checklist pdf",
+      "stage": "search"
+    },
+    {
+      "query": "backyard wedding planning list",
+      "at": "2026-11-19",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "route": "/backyard-wedding-planning",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "backyard wedding planning",
+      "stage": "search"
+    },
+    {
+      "query": "backyard wedding planning checklist printable",
+      "at": "2026-11-19",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "route": "/backyard-wedding-planning",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "backyard wedding planning",
+      "stage": "search"
+    },
+    {
+      "query": "backyard wedding planning spreadsheet",
+      "at": "2026-11-19",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "route": "/backyard-wedding-planning",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "backyard wedding planning",
+      "stage": "search"
+    },
+    {
+      "query": "free wedding planner software with checklist",
+      "at": "2026-11-19",
+      "url": "https://weddingchecklistpdf.com/free-wedding-planner",
+      "route": "/free-wedding-planner",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "free wedding planner",
+      "stage": "search"
+    },
+    {
+      "query": "wedding day checklist pdf",
+      "at": "2026-11-19",
+      "url": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
+      "route": "/amazon/wedding-day-timeline",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "wedding day timeline",
+      "stage": "draft"
     }
   ]
 }
