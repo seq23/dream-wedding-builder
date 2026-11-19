@@ -15,7 +15,13 @@ const config: ExpoConfig = {
   ios: { bundleIdentifier: BUNDLE_ID, supportsTablet: false, infoPlist: { ITSAppUsesNonExemptEncryption: false } },
   android: { package: BUNDLE_ID, allowBackup: false,
     adaptiveIcon: { foregroundImage: './assets/adaptive-icon.png', backgroundColor: '#FAF7F2' },
-    blockedPermissions: ['android.permission.RECORD_AUDIO', 'android.permission.ACCESS_FINE_LOCATION', 'android.permission.READ_CONTACTS'] },
+    // Library permissions the app never uses. Photos come through the system photo picker, which needs
+    // no permission (and READ_MEDIA_IMAGES would need Play's photo and video declaration); files leave
+    // through the share sheet; nothing draws over other apps.
+    blockedPermissions: ['android.permission.RECORD_AUDIO', 'android.permission.ACCESS_FINE_LOCATION', 'android.permission.READ_CONTACTS',
+      'android.permission.SYSTEM_ALERT_WINDOW', 'android.permission.READ_EXTERNAL_STORAGE', 'android.permission.WRITE_EXTERNAL_STORAGE',
+      'android.permission.READ_MEDIA_IMAGES', 'android.permission.READ_MEDIA_VIDEO', 'android.permission.READ_MEDIA_VISUAL_USER_SELECTED',
+      'android.permission.READ_MEDIA_AUDIO'] },
   updates: { enabled: false },
   experiments: { tsconfigPaths: true },
   plugins: ['expo-router', 'expo-font', 'expo-notifications',
