@@ -7303,6 +7303,71 @@
         }
       },
       "release_date": "2026-11-18"
+    },
+    {
+      "id": "q-outdoor-wedding-checklist-pdf",
+      "seq": 0,
+      "path": "/questions/outdoor-wedding-checklist-pdf",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Outdoor wedding\nchecklist PDF",
+      "subline": "The short answer + next steps",
+      "title": "Outdoor wedding checklist PDF",
+      "description": "Get a free outdoor wedding checklist PDF for your nature ceremony. Covers weather plans, seating, power, permits, and permits for any open site.",
+      "layout": "band-low",
+      "palette": "champagne",
+      "topic": "checklist",
+      "search": [
+        "outdoor wedding checklist pdf"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-1.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-outdoor-wedding-checklist-pdf.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 129112,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Outdoor wedding",
+              "checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F3EDE1"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F3EDE1"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F3EDE1"
+          }
+        ],
+        "shape": {
+          "layout": "band-low",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-19"
     }
   ],
   "pending": [],
