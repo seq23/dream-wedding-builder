@@ -140,7 +140,7 @@ describe('a wait is a note, a break is a stop', () => {
   ])('an absent metric of kind %s is filed under %s', (kind, keys, bucket) => {
     const file = absentPosts(kind, keys);
     expect(metricsProblems(file, NOW)).toEqual([]);
-    const summary = unreadSummary(file);
+    const summary = unreadSummary(file, NOW);
     expect(summary[bucket as 'notes' | 'breaks'].map((e) => e.field)).toEqual(['posts_published_28d']);
     expect(summary[bucket === 'notes' ? 'breaks' : 'notes']).toEqual([]);
     expect(summary.checked).toBe(METRIC_FIELDS.length);
@@ -148,14 +148,14 @@ describe('a wait is a note, a break is a stop', () => {
 
   it('an absent metric with no kind is a break, never a quiet note', () => {
     const file = { ...base, unread: { posts_published_28d: 'why' } };
-    expect(unreadSummary(file).breaks).toHaveLength(1);
+    expect(unreadSummary(file, NOW).breaks).toHaveLength(1);
     expect(metricsProblems(file, NOW).length).toBeGreaterThan(0);
   });
 
   it('lists the missing key, and nothing when every metric is read', () => {
     expect(unreadSummary(absentPosts('missing_key', [BUFFER_KEY])).missingKeys).toEqual([BUFFER_KEY]);
     const read = { ...base, posts_published_28d: 3, unread: {}, unread_kind: {}, missing_keys: [] };
-    expect(unreadSummary(read)).toMatchObject({ breaks: [], notes: [], missingKeys: [] });
+    expect(unreadSummary(read, NOW)).toMatchObject({ breaks: [], notes: [], missingKeys: [] });
   });
 
   it('rejects each malformed waiting file', () => {
