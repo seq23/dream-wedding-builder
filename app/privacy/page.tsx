@@ -37,7 +37,7 @@ export const metadata = seoMetadata({
 export default function Privacy() {
   return (
     <article className="mx-auto max-w-3xl">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/50">Dream Wedding product family</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Dream Wedding product family</p>
       <h1 className="mt-4 font-serif text-6xl">Privacy</h1>
       <p className="mt-6 text-lg leading-8 text-charcoal/70">
         This page describes what the four Dream Wedding sites and the Dream Wedding app actually store and send. In
@@ -178,7 +178,7 @@ export default function Privacy() {
         write to <a className="underline underline-offset-4" href={`mailto:${supportEmail}`}>{supportEmail}</a> from the
         address used at checkout.
       </p>
-      <p className="mt-6 text-sm leading-6 text-charcoal/55">
+      <p className="mt-6 text-sm leading-6 text-midnight-muted">
         This page describes the behaviour of the software in this product family. It is a factual description, not legal
         advice, and it does not describe the separate practices of Stripe, Microsoft, Resend, Google, OpenRouter, Cloudflare, RevenueCat, Apple or Google Play, which publish their own
         privacy terms.

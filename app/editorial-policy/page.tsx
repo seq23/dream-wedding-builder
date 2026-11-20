@@ -55,7 +55,7 @@ export default async function EditorialPolicy() {
     <Breadcrumbs items={[{ name: site.name, href: homePathFor(host), canonical: canonicalUrl(host, homePathFor(host)) }, { name: 'Editorial policy', href: PATH, canonical }]} />
 
     <header className="rounded-[12px] bg-white p-7 shadow-soft md:p-12">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Editorial policy</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Editorial policy</p>
       <h1 className="mt-4 font-serif text-5xl leading-tight md:text-6xl">How {site.name} is built</h1>
       <p className="mt-6 max-w-3xl text-xl leading-9 text-charcoal/70">{site.name} is one of four single-purpose sites published by {ORGANIZATION.name}. This page explains how its guides are written, how its paid template is built, what its numbers are, and how mistakes get corrected.</p>
     </header>

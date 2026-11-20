@@ -66,7 +66,7 @@ export default function ReadinessScore() {
     <Breadcrumbs items={[{ name: 'Constraint-first planning', href: '/methodology', canonical: canonicalUrl(PARENT_HOST, '/methodology') }, { name: 'Readiness score', href: '/readiness-score', canonical: CANONICAL }]} />
 
     <header className="rounded-[12px] bg-white p-7 shadow-soft md:p-12">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">The rubric</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">The rubric</p>
       <h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">The planning readiness score</h1>
       <p className="mt-6 max-w-4xl text-xl leading-9 text-charcoal/70">{DEFINITION}</p>
     </header>
@@ -129,7 +129,7 @@ export default function ReadinessScore() {
     </section>
     <PlannerCta label="See your readiness score →" seed={{}} />
 
-    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">This page lists the same checks the planner uses, so what you read here is what the planner counts. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
+    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-midnight-muted">This page lists the same checks the planner uses, so what you read here is what the planner counts. Figures elsewhere on this site are planning benchmarks, not quotes; verify before booking or purchasing.</footer>
     <JsonLd data={[definedTerm, faq]} />
   </article>;
 }

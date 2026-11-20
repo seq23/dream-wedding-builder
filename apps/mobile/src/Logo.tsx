@@ -12,7 +12,7 @@ export function Logo({ size = 30 }: { size?: number }) {
     <View style={{ width: size, height: size }}>{tab(24, 52, 8, 56, color.coral)}{tab(12, 40, 18, 64, color.blue)}</View>
     <View>
       <Text style={{ fontFamily: font.serif, fontSize: 22, lineHeight: 24, color: color.midnight }}>Dream <Text style={{ fontFamily: font.serifItalic }}>Wedding</Text></Text>
-      <Text style={{ fontFamily: font.mono, fontSize: 8, lineHeight: 10, letterSpacing: 2, color: color.midnightMuted }}>BUILDER</Text>
+      <Text style={{ fontFamily: font.mono, fontSize: 12, lineHeight: 14, letterSpacing: 2, color: color.midnightMuted }}>BUILDER</Text>
     </View>
   </View>;
 }

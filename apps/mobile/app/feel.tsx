@@ -27,7 +27,7 @@ const STEPS = ['Tell us', 'See it', 'Keep', 'Plan'];
 type Step = 1 | 2 | 3 | 4;
 interface Page { read: WeddingRead; reason: ReadReason; remaining: number | null; limit: number }
 
-const mono = { fontFamily: font.mono, fontSize: 11, letterSpacing: 0.9, textTransform: 'uppercase' as const, color: color.midnightMuted };
+const mono = { fontFamily: font.mono, fontSize: 12, letterSpacing: 0.9, textTransform: 'uppercase' as const, color: color.midnightMuted };
 const h1 = { fontFamily: font.serif, fontSize: 33, lineHeight: 37, color: color.midnight };
 const h2 = { fontFamily: font.serif, fontSize: 23, lineHeight: 27, color: color.midnight };
 const box = { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, backgroundColor: color.ivoryRaised, padding: space[3] };
@@ -36,7 +36,7 @@ const input = [type.body, { minHeight: 48, paddingHorizontal: space[3], borderWi
 function Progress({ step }: { step: Step }) {
   return <View accessibilityLabel={`Step ${step} of 4: ${STEPS[step - 1]}`} style={{ gap: 6 }}>
     <View style={{ flexDirection: 'row', gap: 6 }}>{STEPS.map((s, i) => <View key={s} style={{ flex: 1, height: 4, borderRadius: 2, backgroundColor: i < step ? color.blue : color.rule }} />)}</View>
-    <View style={{ flexDirection: 'row', gap: 6 }}>{STEPS.map(s => <Text key={s} style={[mono, { flex: 1, fontSize: 10 }]}>{s}</Text>)}</View>
+    <View style={{ flexDirection: 'row', gap: 6 }}>{STEPS.map(s => <Text key={s} style={[mono, { flex: 1 }]}>{s}</Text>)}</View>
   </View>;
 }
 // Chips say whether they are chosen to VoiceOver and TalkBack: a pick-any row is a set of
@@ -242,7 +242,7 @@ export default function Feel() {
         </View> : null}
       {read.ideas.length ? <View style={{ gap: space[2] }}>
         <Text style={h2}>Ideas that fit</Text><Text style={[type.sub, { color: color.midnightMuted }]}>Chosen from our 175 standout ideas, from what you told us.</Text>
-        {read.ideas.map(i => <Text key={i.id} style={type.body}>• <Text style={{ fontFamily: font.sansBold }}>{i.name}</Text> <Text style={[mono, { fontSize: 10 }]}>{i.cost}</Text>{'\n'}{i.why}</Text>)}
+        {read.ideas.map(i => <Text key={i.id} style={type.body}>• <Text style={{ fontFamily: font.sansBold }}>{i.name}</Text> <Text style={mono}>{i.cost}</Text>{'\n'}{i.why}</Text>)}
       </View> : null}
       {read.ask.length ? <View style={{ gap: space[2] }}><Text style={h2}>What to ask</Text>{read.ask.map(q => <Text key={q} style={type.body}>• {q}</Text>)}</View> : null}
       {read.honest ? <View style={box}><Text style={type.body}><Text style={{ fontFamily: font.sansBold }}>Worth knowing. </Text>{read.honest}</Text></View> : null}
