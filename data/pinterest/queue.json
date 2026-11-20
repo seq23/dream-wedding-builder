@@ -7368,6 +7368,71 @@
         }
       },
       "release_date": "2026-11-19"
+    },
+    {
+      "id": "q-backyard-wedding-checklist-printable",
+      "seq": 0,
+      "path": "/questions/backyard-wedding-checklist-printable",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Backyard wedding\nchecklist printable",
+      "subline": "The short answer + next steps",
+      "title": "Backyard wedding checklist printable",
+      "description": "Get a free backyard wedding checklist printable to plan your home ceremony. Cover power, permits, seating, and weather backup plans simply.",
+      "layout": "band-frame",
+      "palette": "champagne",
+      "topic": "checklist",
+      "search": [
+        "backyard wedding checklist printable"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-5.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-backyard-wedding-checklist-printable.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 189644,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Backyard wedding",
+              "checklist printable"
+            ],
+            "fit": true,
+            "ink": "#2E2A22",
+            "ground": "#F1EADE"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F1EADE"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C3C",
+            "ground": "#F1EADE"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-20"
     }
   ],
   "pending": [],
