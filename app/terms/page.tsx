@@ -18,7 +18,7 @@ const P = 'mt-3 leading-7 text-charcoal/70';
 export default function Page() {
   return (
     <article className="mx-auto max-w-3xl">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/50">Dream Wedding product family</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Dream Wedding product family</p>
       <h1 className="mt-4 font-serif text-6xl">Terms of Use</h1>
       <p className="mt-6 text-lg leading-8 text-charcoal/70" data-testid="terms-answer">
         You may use the free planner and guides without an account. A purchase is paid once and gives you a personal-use

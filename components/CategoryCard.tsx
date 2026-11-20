@@ -9,9 +9,9 @@ export function CategoryCard({ category }: { category: Category }) {
       <Badge>{e.confidence}</Badge>
     </div>
     <div className="mt-5 grid gap-3 rounded-2xl bg-ivory p-4 md:grid-cols-3">
-      <div><p className="text-xs uppercase text-charcoal/50">Likely</p><p className="text-xl font-bold">{money(e.likely, e.currency)}</p></div>
-      <div><p className="text-xs uppercase text-charcoal/50">Range</p><p className="font-semibold">{range(e.low, e.high, e.currency)}</p></div>
-      <div><p className="text-xs uppercase text-charcoal/50">Source</p><p className="font-semibold">{e.sourceType}</p></div>
+      <div><p className="text-xs uppercase text-midnight-muted">Likely</p><p className="text-xl font-bold">{money(e.likely, e.currency)}</p></div>
+      <div><p className="text-xs uppercase text-midnight-muted">Range</p><p className="font-semibold">{range(e.low, e.high, e.currency)}</p></div>
+      <div><p className="text-xs uppercase text-midnight-muted">Source</p><p className="font-semibold">{e.sourceType}</p></div>
     </div>
     <p className="mt-4 text-sm"><strong>Planner note:</strong> {category.plannerTip}</p>
     <details className="mt-4"><summary className="cursor-pointer font-semibold">Hidden costs + levers</summary><div className="mt-3 grid gap-3 md:grid-cols-2"><ul className="list-disc pl-5 text-sm text-charcoal/75">{e.hiddenCosts.map(h => <li key={h}>{h}</li>)}</ul><ul className="list-disc pl-5 text-sm text-charcoal/75">{category.levers.map(l => <li key={l}>{l}</li>)}</ul></div></details>

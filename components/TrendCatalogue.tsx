@@ -53,7 +53,7 @@ export function TrendCatalogue() {
     </Card>
 
     {showCompact ? <div className="overflow-hidden rounded-3xl border border-charcoal/10 bg-white shadow-soft">
-      <div className="hidden grid-cols-[1.1fr_0.9fr_0.8fr_1.2fr_1fr_170px] gap-3 border-b border-charcoal/10 bg-ivory px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-charcoal/55 lg:grid">
+      <div className="hidden grid-cols-[1.1fr_0.9fr_0.8fr_1.2fr_1fr_170px] gap-3 border-b border-charcoal/10 bg-ivory px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-midnight-muted lg:grid">
         <span>Idea</span><span>Moment</span><span>Budget</span><span>Why it stands out</span><span>Verify</span><span>Action</span>
       </div>
       <div className="divide-y divide-charcoal/10">
@@ -62,7 +62,7 @@ export function TrendCatalogue() {
           <p className="text-sm font-semibold">{trend.category}</p>
           <p className="text-sm">{trend.budgetPressure || trend.complexity}</p>
           <p className="text-sm text-charcoal/70">{trend.whyItStandsOut}</p>
-          <p className="text-xs text-charcoal/55">{trend.verificationNote}</p>
+          <p className="text-xs text-midnight-muted">{trend.verificationNote}</p>
           <div className="flex flex-col gap-2"><button data-testid={`add-trend-${trend.id}`} onClick={() => saveTrendToPlan(trend)} className="rounded-full bg-charcoal px-4 py-2 text-sm font-bold text-linen">Add</button><a className="rounded-full border border-charcoal/20 px-4 py-2 text-center text-xs font-bold" href="/free-wedding-planner#step-6">Open Standout ideas in the free planner ›</a></div>
         </div>)}
       </div>

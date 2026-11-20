@@ -21,7 +21,7 @@ export function BinderTabs({ plannerHref }: { plannerHref: string }) {
         const selected = t.id === active;
         return <button key={t.id} type="button" role="tab" id={`binder-tab-${t.id}`} aria-selected={selected} aria-controls="binder-page"
           onClick={() => setActive(t.id)}
-          className={`min-h-11 min-w-0 flex-1 rounded-t-[10px] px-1 pb-1.5 pt-2 text-center font-mono text-[11px] font-medium uppercase leading-[14px] tracking-[.04em] ${selected ? 'bg-blue text-white' : 'bg-coral text-midnight'}`}>{t.tab}</button>;
+          className={`min-h-11 min-w-0 flex-1 rounded-t-[10px] px-1 pb-1.5 pt-2 text-center font-mono text-xs font-medium uppercase leading-[14px] tracking-[.04em] ${selected ? 'bg-blue text-white' : 'bg-coral text-midnight'}`}>{t.tab}</button>;
       })}
     </div>
     <div id="binder-page" role="tabpanel" aria-labelledby={`binder-tab-${active}`} className="grid gap-1 rounded-[10px] bg-white p-4 shadow-soft">

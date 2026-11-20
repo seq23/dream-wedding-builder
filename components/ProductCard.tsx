@@ -19,7 +19,7 @@ export function ProductCard({ product, compact=false, fromHost=PARENT_HOST }: { 
   return <article className="group flex h-full flex-col overflow-hidden rounded-[12px] border border-charcoal/10 bg-white shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-soft">
     {image && <Link href={href} className="relative block aspect-[14/9] overflow-hidden bg-linen"><Image src={image} alt={`${product.name} — $${product.price} one-time`} fill sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw" className="object-cover transition duration-500 group-hover:scale-[1.025]"/></Link>}
     <div className="flex flex-1 flex-col p-5 md:p-6">
-      <div className="flex items-start justify-between gap-3"><p className="text-[11px] font-bold uppercase tracking-[.2em] text-charcoal/45">Editable wedding tool</p><span className="rounded-full bg-linen px-3 py-1 text-xs font-bold">${product.price}</span></div>
+      <div className="flex items-start justify-between gap-3"><p className="text-xs font-bold uppercase tracking-[.2em] text-midnight-muted">Editable wedding tool</p><span className="rounded-full bg-linen px-3 py-1 text-xs font-bold">${product.price}</span></div>
       <h3 className="mt-3 font-serif text-3xl leading-tight"><Link href={href}>{product.name}</Link></h3>
       {'headline' in product && <p className="mt-2 font-semibold leading-6">{product.headline}</p>}
       {!compact && 'sub' in product && <p className="mt-3 flex-1 text-sm leading-6 text-charcoal/68">{product.sub}</p>}
@@ -27,7 +27,7 @@ export function ProductCard({ product, compact=false, fromHost=PARENT_HOST }: { 
         <CheckoutButton sku={product.sku} price={product.price} productName={product.name}/>
         <Link className="inline-flex min-h-11 items-center justify-center rounded-2xl border border-charcoal/15 bg-white px-4 py-3 text-sm font-bold transition hover:bg-linen" href={href}>See {product.name} details →</Link>
       </div>
-      <p className="mt-3 text-center text-xs text-charcoal/50">One-time purchase • No subscription</p>
+      <p className="mt-3 text-center text-xs text-midnight-muted">One-time purchase • No subscription</p>
     </div>
   </article>;
 }

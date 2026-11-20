@@ -67,7 +67,7 @@ export function AppShell({ children, siteHost, directory = [] }: { children: Rea
           Before this existed, five /amazon/ book companion pages and one planner
           landing page were in the sitemap with no inbound internal link at all -
           published, crawlable, and unable to receive or pass any authority. */}
-      {directoryGroups.length > 0 && <div data-testid="site-directory" className="border-t border-linen/15"><div className="mx-auto max-w-[1440px] px-5 py-10 md:px-8"><p className="text-xs font-bold uppercase tracking-[.24em] text-linen/45">Everything on this site</p><div className="mt-6 grid gap-8 md:grid-cols-4">{directoryGroups.map((group) => <div key={group.group}><p className="text-sm font-bold text-linen/85">{group.group}</p><ul className="mt-3 grid gap-2 text-sm text-linen/65">{group.links.map((link) => <li key={link.href}><a href={link.href} className="hover:text-linen hover:underline">{link.label}</a></li>)}</ul></div>)}</div></div></div>}
+      {directoryGroups.length > 0 && <div data-testid="site-directory" className="border-t border-linen/15"><div className="mx-auto max-w-[1440px] px-5 py-10 md:px-8"><p className="text-xs font-bold uppercase tracking-[.24em] text-linen/75">Everything on this site</p><div className="mt-6 grid gap-8 md:grid-cols-4">{directoryGroups.map((group) => <div key={group.group}><p className="text-sm font-bold text-linen/85">{group.group}</p><ul className="mt-3 grid gap-2 text-sm text-linen/65">{group.links.map((link) => <li key={link.href}><a href={link.href} className="hover:text-linen hover:underline">{link.label}</a></li>)}</ul></div>)}</div></div></div>}
     </footer>
   </div>;
 }

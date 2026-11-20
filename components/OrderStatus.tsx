@@ -21,10 +21,10 @@ export function OrderStatus({ sessionId }: { sessionId: string }) {
   }, [sessionId]);
 
   return <section className="mt-7 rounded-[12px] border border-charcoal/10 bg-white p-6 shadow-soft" aria-live="polite">
-    <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Your order</p>
+    <p className="text-xs font-bold uppercase tracking-[.22em] text-midnight-muted">Your order</p>
     <h2 className="mt-3 font-serif text-3xl">{state.product_name || 'Getting your purchase ready'}</h2>
     <p className="mt-3 leading-7 text-charcoal/70">{state.message}</p>
-    {state.email && <p className="mt-2 text-sm text-charcoal/55">Emailed to: {state.email}</p>}
+    {state.email && <p className="mt-2 text-sm text-midnight-muted">Emailed to: {state.email}</p>}
     {state.plan_url && <div data-testid="order-plan" className="mt-6"><a className="inline-flex min-h-12 items-center rounded-2xl bg-blue px-6 py-4 font-bold text-white" href={state.plan_url}>Open my dated plan ›</a><p className="mt-2 text-sm text-charcoal/65">Every task dated from your wedding day, ready to print.</p></div>}
     {state.download_url && <a data-testid="order-download" className={state.plan_url ? 'mt-4 inline-flex min-h-11 items-center font-bold underline underline-offset-4' : 'mt-6 inline-flex rounded-full bg-charcoal px-6 py-4 font-bold text-linen transition hover:-translate-y-0.5'} href={state.download_url}>Download {state.product_name}{state.plan_url ? ' files ↓' : ''}</a>}
     {state.download_url && <AfterPurchase bought={state.product_name} />}
@@ -39,7 +39,7 @@ export function AfterPurchase({ bought }: { bought?: string }) {
   const others = products.filter((p) => p.name !== bought);
   if (others.length === products.length) return null;
   return <div data-testid="after-purchase" className="mt-7 border-t border-charcoal/10 pt-6">
-    <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Planning the rest</p>
+    <p className="text-xs font-bold uppercase tracking-[.22em] text-midnight-muted">Planning the rest</p>
     <p className="mt-2 leading-7 text-charcoal/70">The same planning system covers the other parts of the wedding. Each is a one-time purchase.</p>
     <ul className="mt-4 grid gap-3 md:grid-cols-3">{others.map((p) => <li key={p.id}><a className="block rounded-2xl bg-ivory p-4 font-bold" href={p.canonical_url}>{p.name} — ${p.price} →</a></li>)}</ul>
   </div>;

@@ -86,14 +86,14 @@ export default function FullPlanPage() {
               <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full border text-sm ${ticked ? 'border-emerald-700 bg-emerald-700 text-white' : 'border-charcoal/50 bg-white'}`}>{ticked ? '✓' : ''}</span>
             </button>
             <div className="min-w-0 flex-1">
-              <p className={`text-sm leading-6 ${ticked ? 'text-charcoal/50 line-through' : ''}`}>{task.text}</p>
+              <p className={`text-sm leading-6 ${ticked ? 'text-midnight-muted line-through' : ''}`}>{task.text}</p>
               <p className="text-xs leading-5 text-charcoal/70"><span data-testid="full-plan-task-date" className="font-semibold">{task.overdue && !ticked ? `Now (usually done by ${plainDate(task.date)})` : plainDate(task.date)}</span>{task.kind === 'payment' ? ' · payment' : ''}{task.owner ? ` · suggested: ${task.owner.toLowerCase()}` : ''}</p>
             </div>
             <span className="hidden shrink-0 whitespace-nowrap pt-0.5 text-xs print:inline">Who: <span aria-hidden="true" className="inline-block w-20 border-b border-charcoal/60">&nbsp;</span></span>
           </li>;
         })}</ul>
       </section>)}
-      <p className="text-xs leading-5 text-charcoal/60">General planning timing, not legal, tax or vendor advice. Your contracts and your county’s license rules win.</p>
+      <p className="text-xs leading-5 text-midnight-muted">General planning timing, not legal, tax or vendor advice. Your contracts and your county’s license rules win.</p>
       <p className="hidden text-xs print:block">Dream Wedding · weddingchecklistpdf.com</p>
     </>}
   </div>;
