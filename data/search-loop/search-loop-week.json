@@ -2,31 +2,19 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W47",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-19T20:27:35.009Z",
+  "generated_at": "2026-11-20T20:00:09.207Z",
   "state": "slow",
   "published": 7,
   "indexed": "not read: no page old enough to inspect yet (14 days)",
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 436,
+  "ai_bot_hits": 469,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
   "merged": 0,
   "held_by_cap": 0,
   "redirected": [
-    {
-      "query": "destination wedding checklist pdf",
-      "strengthen": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
-      "matched_by": "same wording",
-      "at": "2026-11-13"
-    },
-    {
-      "query": "checklist for destination wedding",
-      "strengthen": "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
-      "matched_by": "same wording",
-      "at": "2026-11-13"
-    },
     {
       "query": "destination wedding planning checklist printable",
       "strengthen": "https://weddingchecklistpdf.com/questions/destination-wedding-planning-checklist-pdf",
@@ -132,14 +120,12 @@
   ],
   "cap": {
     "max_live_pages": 28,
-    "live": 13,
-    "room": 15,
+    "live": 14,
+    "room": 14,
     "why": "up from 25 to 28: Google impressions 87 in the last 28 days beat 70 in the 28 before"
   },
   "notes": [
     "site config lowers the mode to slow",
-    "BUILD distinct gate: 7 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
-    "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json",
     "CHECK runs weekly in mode=slow; last ran 2026-11-15"
   ],
   "lanes": {
@@ -148,7 +134,7 @@
       "striking": 1
     },
     "can_be_one": {
-      "pages": 8,
+      "pages": 9,
       "measured": 0,
       "top3": 0,
       "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
@@ -168,5 +154,5 @@
     "weight_changes": [],
     "competition": "ok: 15 top-10 read(s) via brave"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/44608864710"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/44807283871"
 }
