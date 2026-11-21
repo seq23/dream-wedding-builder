@@ -42,7 +42,7 @@ export default function Welcome() {
     <Text accessibilityRole="header" style={type.title}>When is your wedding?</Text>
     {returning
       ? <Text style={type.body}>Change the date and every task moves with it. Postponed? Change it as often as you need, at no charge.</Text>
-      : <Text style={type.body}>Dream Wedding turns your wedding date into a checklist with a real date on every task. The checklist, your own tasks and a printable copy are free, with no account.</Text>}
+      : <><Text style={type.section}>No account, no vendor ads, and we never sell your plan.</Text><Text style={type.body}>Dream Wedding turns your wedding date into a checklist with a real date on every task. The checklist, your own tasks and a printable copy are free.</Text></>}
     <WeddingDatePicker value={date} onChange={value => { setDate(value); setAsk(null); }} />
     {ask === 'past' ? <View accessibilityRole="alert" style={{ gap: space[2], borderWidth: 1, borderColor: color.rule, padding: space[3] }}>
       <Text style={type.section}>Is that right?</Text>

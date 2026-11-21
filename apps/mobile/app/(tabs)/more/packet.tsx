@@ -45,6 +45,7 @@ export default function Packet() {
   }
   return <PlannedScreen route="/more/packet">
     <Text accessibilityRole="header" style={type.title}>A copy to print or send</Text>
+    <Text style={type.body}>Made to hand to whoever runs your day, such as a parent or a friend, so they can follow the plan without asking you.</Text>
     <Text style={type.body}>Free: your dated tasks and the tasks you added, on paper or as a PDF.</Text>
     <Text style={type.sub}>{partOfFullPlan(price)}: payments, your wedding week and vendor contacts on the same copy.</Text>
     {preview ? <Text style={type.sub}>Sample: this preview prints the full-plan copy, with made-up payments, so you can see it.</Text> : null}
