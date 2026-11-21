@@ -19,7 +19,7 @@ export const OFFER_DETAIL: Record<ProductId, string> = {
   dw_full_plan: fullPlanSummary().offer,
   dw_planner_printables: 'The full plan, plus printables: files to print or fill in (checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers), and the day-of kit.',
   dw_printables_topup: 'Files to print or fill in: checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers.',
-  dw_day_of_kit: 'The wedding-day timeline as a PDF and a spreadsheet, with a starter list to fill in.',
+  dw_day_of_kit: 'For the day itself: the run sheet, a contact list and day-of checklists, to print or fill in.',
   dw_new_event: 'One new event, paid once.',
 };
 /** Nothing is chosen for her: only a new event, the one thing that screen sells, starts selected. */

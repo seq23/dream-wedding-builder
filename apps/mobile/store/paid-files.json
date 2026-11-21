@@ -1,0 +1,224 @@
+{
+  "about": "What each paid archive holds (names and checksums only; the files are private, in R2) and which file delivers each thing the paywall, the in-app purchase descriptions (storeText, as entered in App Store Connect) and the App Store listing name. test/promises.unit.ts holds every product text to this list. Archives part: node scripts/store/paid-files.mjs write ~/.boss-os/dream-wedding",
+  "products": {
+    "dw_printables_topup": [
+      "printables"
+    ],
+    "dw_planner_printables": [
+      "printables",
+      "day_of_kit"
+    ],
+    "dw_day_of_kit": [
+      "day_of_kit"
+    ]
+  },
+  "storeText": {
+    "dw_planner_printables": [
+      "Full plan, every printable and the day-of kit"
+    ],
+    "dw_printables_topup": [
+      "Every printable, for Full Plan owners",
+      "Planner + Printables adds the printable checklist, budget, timeline and seating planners."
+    ],
+    "dw_day_of_kit": [
+      "Run sheet, contact list and day-of checklists",
+      "The Day-of kit adds the day's run sheet to print."
+    ]
+  },
+  "promises": {
+    "printables": [
+      {
+        "says": "checklist PDF",
+        "files": [
+          "DWB-CHECKLIST-001_v2.0.0.pdf"
+        ]
+      },
+      {
+        "says": "printable checklist",
+        "files": [
+          "DWB-CHECKLIST-001_v2.0.0.pdf",
+          "DWB-CHECKLIST-001_v2.0.0.xlsx"
+        ]
+      },
+      {
+        "says": "budget spreadsheet",
+        "files": [
+          "DWB-BUDGET-001_v2.0.0.xlsx"
+        ]
+      },
+      {
+        "says": "budget",
+        "files": [
+          "DWB-BUDGET-001_v2.0.0.pdf",
+          "DWB-BUDGET-001_v2.0.0.xlsx"
+        ]
+      },
+      {
+        "says": "seating chart maker",
+        "files": [
+          "DWB-SEATING-001_v2.0.0.xlsx",
+          "DWB-SEATING-001_v2.0.0.pdf"
+        ]
+      },
+      {
+        "says": "seating planners",
+        "files": [
+          "DWB-SEATING-001_v2.0.0.xlsx",
+          "DWB-SEATING-001_v2.0.0.pdf"
+        ]
+      },
+      {
+        "says": "timeline template",
+        "files": [
+          "DWB-TIMELINE-001_v2.0.0.xlsx",
+          "DWB-TIMELINE-001_v2.0.0.pdf"
+        ]
+      },
+      {
+        "says": "timeline",
+        "files": [
+          "DWB-TIMELINE-001_v2.0.0.xlsx",
+          "DWB-TIMELINE-001_v2.0.0.pdf"
+        ]
+      },
+      {
+        "says": "venue comparison",
+        "files": [
+          "DWB-VENUE-001_v1.0.0.pdf",
+          "DWB-VENUE-001_v1.0.0.xlsx"
+        ]
+      },
+      {
+        "says": "vendor and payment trackers",
+        "files": [
+          "DWB-VENDORS-001_v1.0.0.pdf",
+          "DWB-VENDORS-001_v1.0.0.xlsx"
+        ]
+      }
+    ],
+    "day_of_kit": [
+      {
+        "says": "run sheet",
+        "files": [
+          "DWB-TIMELINE-001_v2.0.0.pdf",
+          "DWB-TIMELINE-001_v2.0.0.xlsx"
+        ]
+      },
+      {
+        "says": "contact list",
+        "files": [
+          "DWB-DAYOF-001_v1.0.0.pdf",
+          "DWB-DAYOF-001_v1.0.0.xlsx"
+        ]
+      },
+      {
+        "says": "day-of checklists",
+        "files": [
+          "DWB-DAYOF-001_v1.0.0.pdf",
+          "DWB-DAYOF-001_v1.0.0.xlsx"
+        ]
+      }
+    ]
+  },
+  "archives": {
+    "printables": {
+      "key": "app/printables-v1.zip",
+      "bytes": 103665,
+      "sha256": "76bcf49dd14b5747d3c178582c3f08f9842368587b328f0adfa94a1e1f616a45",
+      "files": [
+        {
+          "name": "DWB-BUDGET-001_v2.0.0.pdf",
+          "bytes": 16985,
+          "sha256": "73a119146d73d21e9ace705a4ab75d59f3d8e403d3ffb44eab17dde0d61390db"
+        },
+        {
+          "name": "DWB-BUDGET-001_v2.0.0.xlsx",
+          "bytes": 8243,
+          "sha256": "3ed621c4466ca3c8f9667a6fb4a794d9cd4c5c9db327ae222b406728b892d501"
+        },
+        {
+          "name": "DWB-CHECKLIST-001_v2.0.0.pdf",
+          "bytes": 19101,
+          "sha256": "a4df683b3d815b6b7b41e40f4500e7107601823e145944cd1d653cccbcbfb30d"
+        },
+        {
+          "name": "DWB-CHECKLIST-001_v2.0.0.xlsx",
+          "bytes": 9593,
+          "sha256": "308ea8fa8797b815babf014768da71ff8389af21f9dc117452ef877e573f913a"
+        },
+        {
+          "name": "DWB-SEATING-001_v2.0.0.pdf",
+          "bytes": 16757,
+          "sha256": "1be76ae610552367fc51b9c7a30dcb7d10607de5bb8966e46ec3ec0ed7af6de5"
+        },
+        {
+          "name": "DWB-SEATING-001_v2.0.0.xlsx",
+          "bytes": 10283,
+          "sha256": "f604f8da71359bad8de13588c88ff34251d63b305104313676eb91100d1bf311"
+        },
+        {
+          "name": "DWB-TIMELINE-001_v2.0.0.pdf",
+          "bytes": 17782,
+          "sha256": "f61e20a4d41c0496e6e836c13ac9b19d97cb7d0f14648f96c86cdb242f5c8231"
+        },
+        {
+          "name": "DWB-TIMELINE-001_v2.0.0.xlsx",
+          "bytes": 8517,
+          "sha256": "ef65447d6f01973d2ff4073423fc6ea31966708599e4ef11311fa839faa16d6e"
+        },
+        {
+          "name": "DWB-VENUE-001_v1.0.0.pdf",
+          "bytes": 10330,
+          "sha256": "d3ee6dbcd6d3c131fefc12830d61351a26d17791e7b31f05d2b3ef3ba703f8cc"
+        },
+        {
+          "name": "DWB-VENUE-001_v1.0.0.xlsx",
+          "bytes": 10751,
+          "sha256": "d5b01a53b70ccf091b056ca67ef895649d25a2c8b4664fb6be91b0b9469dd3d1"
+        },
+        {
+          "name": "DWB-VENDORS-001_v1.0.0.pdf",
+          "bytes": 7934,
+          "sha256": "bc91cbfbbebd7033a14c1ca26185635280725f88ff9b1643cec22f67ab428f23"
+        },
+        {
+          "name": "DWB-VENDORS-001_v1.0.0.xlsx",
+          "bytes": 9081,
+          "sha256": "8e99cd9081b0e2e341afcd14350383c21b892bd2574a32e2fda315461dc23659"
+        }
+      ]
+    },
+    "day_of_kit": {
+      "key": "app/day-of-kit-v1.zip",
+      "bytes": 32682,
+      "sha256": "482bda4066316b030db0fa9ae4c973d3dc686ba05a25374efbfd57dad40e95f7",
+      "files": [
+        {
+          "name": "DWB-TIMELINE-001_starter_v2.0.0.csv",
+          "bytes": 78,
+          "sha256": "5b602dc76861e02fcc991a4f34c00469864dd20c2136793118a875db0e21a9d7"
+        },
+        {
+          "name": "DWB-TIMELINE-001_v2.0.0.pdf",
+          "bytes": 17782,
+          "sha256": "f61e20a4d41c0496e6e836c13ac9b19d97cb7d0f14648f96c86cdb242f5c8231"
+        },
+        {
+          "name": "DWB-TIMELINE-001_v2.0.0.xlsx",
+          "bytes": 8517,
+          "sha256": "ef65447d6f01973d2ff4073423fc6ea31966708599e4ef11311fa839faa16d6e"
+        },
+        {
+          "name": "DWB-DAYOF-001_v1.0.0.pdf",
+          "bytes": 8669,
+          "sha256": "cbdc16f983ba4896ba8780980e0e51f39245f3d1644fffb5e8468ce326dae670"
+        },
+        {
+          "name": "DWB-DAYOF-001_v1.0.0.xlsx",
+          "bytes": 9251,
+          "sha256": "7003dae77649834a12499894a07f93f828abe6fc658f64cef6cf2ac234d069f2"
+        }
+      ]
+    }
+  }
+}

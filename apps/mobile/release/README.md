@@ -51,7 +51,10 @@ The coordinator must supply these private files to the private R2 bucket
 | `~/.boss-os/dream-wedding/printables-v1.zip` | `app/printables-v1.zip` |
 | `~/.boss-os/dream-wedding/day-of-kit-v1.zip` | `app/day-of-kit-v1.zip` |
 
-Each ZIP may be up to 25 MiB; each is saved separately with a small metadata
+Both are built by the private generator (`products/scripts/app_extras.py`) and listed by name and
+checksum in `store/paid-files.json` (`node scripts/store/paid-files.mjs write ~/.boss-os/dream-wedding`).
+After upload, read each object back from R2 and run `node scripts/store/paid-files.mjs verify
+<printables|day_of_kit> <readback.zip>`: it stops on any difference. Each ZIP may be up to 25 MiB; each is saved separately with a small metadata
 record. Failed extras preserve the full plan; Restore retries delivery. Seven
 tradition packs were uploaded according to the coordinator's audit additions.
 Unit fixtures prove the code path, not the existence of live ZIPs. The paid-task
