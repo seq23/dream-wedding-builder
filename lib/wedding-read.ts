@@ -536,7 +536,7 @@ export function isTesterHash(ipHash: string, list: string | undefined): boolean 
   return !!ipHash && !!list && list.split(/[\s,]+/).some(h => h.length === 64 && h === ipHash);
 }
 
-export type ReadResult = { status: 200; body: { ok: true; read: WeddingRead; /** null when the count was not read (switched off, no database). */ remaining: number | null; limit: number; reason: 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed' } };
+export type ReadResult = { status: 200; body: { ok: true; read: WeddingRead; /** null when the count was not read (switched off, no database). */ remaining: number | null; limit: number; reason: 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed' | 'no_consent' } };
 
 type Step = { step: 'gemini' | 'openrouter'; model: string };
 
@@ -596,6 +596,9 @@ async function weddingReadBody(input: ReadInput): Promise<ReadResult> {
   const now = input.now ?? new Date();
   const a = cleanAnswers(input.body);
   const fixed = (reason: ReadResult['body']['reason'], remaining: number | null, limit = ANSWERS_PER_VISITOR_PER_DAY): ReadResult => ({ status: 200, body: { ok: true, read: fixedRead(a), remaining, limit, reason } });
+  // The app sends consent: false when she has not ticked permission to send her answers to an AI
+  // model (Apple 5.1.2(i)): fixed lists only, no model call. The website sends no consent field.
+  if ((input.body as { consent?: unknown } | null)?.consent === false) return fixed('no_consent', null);
   if (!input.enabled) return fixed('off', null);
   if (!input.db) { log('NAMED STOP [WEDDING_READ_NO_DB] D1 binding missing; the fixed-list answer was given'); return fixed('off', null); }
   if (!input.salt) { log('NAMED STOP [WEDDING_READ_SALT_MISSING] neither AI_DRAFT_SALT nor DOWNLOAD_SIGNING_SECRET is set; the fixed-list answer was given'); return fixed('off', null); }

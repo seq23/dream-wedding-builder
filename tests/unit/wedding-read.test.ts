@@ -101,6 +101,17 @@ describe('the checks before she sees an answer', () => {
 });
 
 describe('the journey endpoint', () => {
+  it('without her permission tick (consent: false) no AI model is called: the fixed-list answer, labelled as such', async () => {
+    const { db } = fakeD1([]);
+    const net = fakeNet({ gemini: () => geminiAnswer(good()) });
+    const r = await weddingRead(base({ db, fetchImpl: net.fetchImpl, body: { ...DK, consent: false } }));
+    expect(r.body).toMatchObject({ ok: true, reason: 'no_consent' });
+    expect(r.body.read.by).toBe('fixed');
+    expect(net.calls).toHaveLength(0);
+    const ticked = await weddingRead(base({ db, fetchImpl: net.fetchImpl, body: { ...DK, consent: true } }));
+    expect(ticked.body.reason).toBe('ai');
+    expect(net.calls.length).toBeGreaterThan(0);
+  });
   it('answers with no email: a stranger gets an AI read, labelled as AI, with venue types and traced ideas', async () => {
     const { db } = fakeD1([]);
     const net = fakeNet({ gemini: () => geminiAnswer(good()) });
