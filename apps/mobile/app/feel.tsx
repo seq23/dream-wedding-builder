@@ -1,3 +1,4 @@
+import { NO_ACCOUNT_LINE } from '../src/firstScreen';
 import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, Text, View } from 'react-native';
 import { TypingBox, flushFields, useTypedState } from '../src/TypingBox';
@@ -156,7 +157,7 @@ export default function Feel() {
     {step === 1 ? <>
       <View style={{ gap: space[2] }}>
         <Text accessibilityRole="header" style={h1}>What should your wedding feel like?</Text>
-        <Text style={type.body}>Free, with no account and no email.</Text>
+        <Text style={type.body}>{NO_ACCOUNT_LINE}</Text>
       </View>
       <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: 10 }}>
         {([['idea', 'I have an idea', 'Say it in your own words'], ['dk', 'I don’t know yet', 'Tap a few things you like']] as const).map(([id, title, sub]) => {
