@@ -1,6 +1,6 @@
-// The six planner landing pages.
+// The planner landing pages.
 //
-// Deliberately six. A large programmatic batch of near-identical pages is the
+// Deliberately few, each hand-written. A large programmatic batch of near-identical pages is the
 // pattern that appears to be hurting a sister property, so each record here was
 // chosen against two tests and kept only if it passed both:
 //
@@ -31,6 +31,16 @@ export interface LandingTable {
   columns: string[];
   rows: string[][];
   note: string;
+}
+
+/** A dated outside source for a fact on the page; rendered under "Sources". */
+export interface LandingSource {
+  label: string;
+  url: string;
+  /** The day we read it, e.g. "21 Nov 2026". */
+  read?: string;
+  /** Shown instead of "read <day>", e.g. for an archived copy of a page no longer live. */
+  note?: string;
 }
 
 export interface PlannerLanding {
@@ -68,6 +78,10 @@ export interface PlannerLanding {
   seed: PlannerSeed;
   verificationBoundary: string;
   relatedSlugs: string[];
+  /** Required wherever the page states an outside fact (a fee, a price, a company fact). */
+  sources?: LandingSource[];
+  /** Pages on this site that answer the next question, each a different one from this page's. */
+  seeAlso?: { label: string; path: string }[];
 }
 
 export const plannerLandings: PlannerLanding[] = [
@@ -492,6 +506,525 @@ export const plannerLandings: PlannerLanding[] = [
     seed: { focus: 'I am overwhelmed', mode: 'discovery', budgetmode: 'unknown', q: 'We have no reference point at all. What do we need to decide first?' },
     verificationBoundary: 'This page describes how wedding cost behaves, not what your wedding will cost. Every figure quoted anywhere on this site is a published planning benchmark and not a quote. No live vendor pricing or availability is claimed.',
     relatedSlugs: ['wedding-cost-per-guest', 'wedding-budget-tradeoffs', 'micro-wedding-planning']
+  },
+  // --- Added 21 Nov 2026 from the audience research (populations 1, 3, 4, 5 and 7).
+  // Each still passes the two tests at the top of this file. Every number names its
+  // source and the day it was read; nothing here is a quote or a promise.
+  {
+    slug: 'courthouse-wedding',
+    host: 'weddingchecklistpdf.com',
+    productId: 'courthouse-wedding-kit',
+    title: 'Courthouse wedding cost and what to bring',
+    h1: 'Courthouse wedding: what it costs, what to bring, and a plan dated to your day',
+    directoryLabel: 'Courthouse wedding: cost and plan',
+    description: 'What a courthouse wedding costs in fees at four large US offices, what to bring on the day, and a short plan dated back from your appointment.',
+    question: 'How much does it cost to get married at the courthouse, and what do we need to bring?',
+    directAnswer: [
+      'The government fees are small. At the four offices in the table below, a marriage license cost $35 to $98 when we read their pages on 21 November 2026, and a ceremony at the courthouse added $10 to about $120 where one is offered. The bigger costs are the ones you choose: photos, outfits, rings and dinner afterwards.',
+      'What catches couples out is timing, not cost. Some offices make you wait a day or more between the license and the ceremony, licenses expire (60 days in New York City and Cook County), and some ceremony fees are cash only. Check those three things with your own county clerk first; everything else follows from them.',
+      'On the day, bring photo ID for both of you, the license (or both of you, if you are getting it that day), any witnesses your office requires, the fee in a form it accepts, and the rings.'
+    ],
+    table: {
+      caption: 'License and ceremony fees at four large offices (read 21 November 2026)',
+      columns: ['Office', 'License fee', 'Courthouse ceremony', 'Wait and validity'],
+      rows: [
+        ['New York City (City Clerk)', '$35', 'Held by the City Clerk; check the fee when you book', 'Ceremony at least 24 hours after the license; usually valid 60 days (180 for active military)'],
+        ['Los Angeles County (Registrar-Recorder/County Clerk)', '$91 public, $85 confidential', '$35, plus $20 if the office supplies the witness', 'Ceremonies by appointment; confidential licenses need no witness'],
+        ['Cook County, Illinois (County Clerk and Marriage Court)', '$60', '$10 administrative fee at Marriage Court', 'Effective the day after issue; valid 60 days; ceremony in Cook County'],
+        ['Maricopa County, Arizona (Clerk of Superior Court and Justice Courts)', '$98', 'Set by each judge, usually $100 to $120, cash only', 'Usable the day you get it; valid one year; two witnesses aged 18+']
+      ],
+      note: 'Read from each office’s own page on 21 November 2026 (links under Sources). Fees change: Los Angeles County supervisors approved higher marriage fees in September 2025 (LAist), and the county’s page still listed these amounts when we read it. Confirm with your clerk before you go.'
+    },
+    sections: [
+      {
+        heading: 'What to bring on the day',
+        paragraphs: [
+          'Offices differ, so treat this as the list to check against your clerk’s page, not a replacement for it.'
+        ],
+        bullets: [
+          'Government photo ID for both of you, the same documents you used to apply if the license is already issued.',
+          'The marriage license, unless you are applying and marrying on the same visit.',
+          'Witnesses, if your office requires them (Maricopa County’s justice courts ask for two, aged 18 or over; a Los Angeles confidential license needs none).',
+          'The fees in a form the office takes. Maricopa County’s courtroom ceremony fee is cash only, while its license can be paid by card.',
+          'Your appointment confirmation, and time to spare for security screening.',
+          'Rings, any vows you wrote, and the name of someone who will take photos if you have no photographer.'
+        ]
+      },
+      {
+        heading: 'A plan dated back from your appointment',
+        paragraphs: [
+          'Count back from the day you want. The spacing below suits an office with a short wait and a 60-day license; stretch it if yours is stricter.'
+        ],
+        bullets: [
+          '6 to 8 weeks before: choose the office and read its page for appointments, ceremony days, waiting period, validity and accepted payment. Decide whether you want a separate party later.',
+          '4 weeks before: book the ceremony slot if your office takes bookings, a photographer if you want one, and the table for dinner afterwards. Ask your witnesses.',
+          '1 to 3 weeks before: apply for the license inside its validity window, with both IDs. Set out what you will wear.',
+          'The week of: confirm the appointment, your witnesses and the cash or card you need. Put the license, IDs and rings in one envelope.',
+          'After: check how and when the signed license is returned, order certified copies, then start any name change.'
+        ]
+      },
+      {
+        heading: 'Legal day now, party later',
+        paragraphs: [
+          'Many couples marry at the courthouse first and hold the celebration months later, for a move, a deployment, a visa timeline or simply to spread the cost. That is two plans with two dates: a short legal plan for the courthouse, and an ordinary wedding plan for the party, without the license tasks.',
+          'Give the party its own date in the planner so its tasks are dated from the party, not from the day you signed. Tell guests on the invitation that you are already married, so nobody expects a ceremony they will not see.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'How much does a courthouse wedding cost?', answer: 'In fees, $35 to about $220 at the four offices we checked on 21 November 2026: a $35 to $98 license, plus $10 to about $120 for a courthouse ceremony where one is offered. Photos, outfits, rings and dinner afterwards are the larger costs, and you choose all of them.' },
+      { question: 'Do we need witnesses for a courthouse wedding?', answer: 'It depends on the office. Maricopa County’s justice courts ask for two witnesses aged 18 or over, and Los Angeles County will supply one for $20; a Los Angeles confidential license needs none. Your clerk’s page says what yours requires.' },
+      { question: 'Can we get the license and marry on the same day?', answer: 'Sometimes. A Maricopa County license can be used the day you get it, while New York City requires 24 hours between the license and the ceremony unless a judge grants a waiver, and a Cook County license takes effect the day after issue.' },
+      { question: 'Can we have a party after a courthouse wedding?', answer: 'Yes. Treat it as its own event with its own date, so the party plan is dated from the party. Say on the invitation that you are already married.' }
+    ],
+    plannerAdds: [
+      'Dates each step from your own appointment, so the license lands inside its validity window.',
+      'Keeps the party later as its own plan with its own date, if you are having one.',
+      'Prints one page to hand to a witness or a parent with the time, place and what to bring.'
+    ],
+    ctaLabel: 'Date my courthouse plan →',
+    seed: { guests: '10', focus: 'Timeline / Weekend Flow', mode: 'hard', q: 'We are marrying at the courthouse. What do we do, and when, before the appointment?' },
+    verificationBoundary: 'Fees, waits and rules on this page were read from each office’s own website on 21 November 2026 and are not legal advice. Counties change them without notice; your county clerk’s current page is the authority.',
+    sources: [
+      { label: 'NYC 311: marriage license fee, 24-hour wait and validity', url: 'https://portal.311.nyc.gov/article?kanumber=KA-02115', read: '21 Nov 2026' },
+      { label: 'Los Angeles County Registrar-Recorder/County Clerk: license fees', url: 'https://www.lavote.gov/home/county-clerk/marriage-licenses-ceremonies/fees', read: '21 Nov 2026' },
+      { label: 'Los Angeles County Registrar-Recorder/County Clerk: ceremonies', url: 'https://www.lavote.gov/home/county-clerk/marriage-licenses-ceremonies/ceremonies', read: '21 Nov 2026' },
+      { label: 'LAist: Los Angeles County marriage license fees set to rise', url: 'https://laist.com/news/politics/marriage-licenses-cost-increase-los-angeles-county', read: '21 Nov 2026' },
+      { label: 'Cook County Clerk: marriage licenses', url: 'https://www.cookcountyclerkil.gov/vital-records/marriage-civil-union/marriage-licenses', read: '21 Nov 2026' },
+      { label: 'Circuit Court of Cook County: Marriage Court', url: 'https://www.cookcountycourtil.gov/case-type/marriage-and-civil-union', read: '21 Nov 2026' },
+      { label: 'Maricopa County Justice Courts: get married', url: 'https://justicecourts.maricopa.gov/i-want-to/get-married', read: '21 Nov 2026' }
+    ],
+    seeAlso: [{ label: 'The step-by-step courthouse wedding checklist', path: '/guides/courthouse-wedding-checklist' }],
+    relatedSlugs: ['micro-wedding-planning', 'wedding-to-do-list', 'wedding-without-a-coordinator']
+  },
+  {
+    slug: 'maid-of-honor-duties',
+    host: 'weddingchecklistpdf.com',
+    productId: 'maid-of-honor-kit',
+    title: 'Maid of honor duties, by month',
+    h1: 'Maid of honor duties: what is expected, what is optional, and when each one happens',
+    directoryLabel: 'Maid of honor duties, by month',
+    description: 'The maid of honor duties most couples expect, the ones that are optional, and when each falls, from the day she is asked to the morning after.',
+    question: 'What does a maid of honor actually have to do?',
+    directAnswer: [
+      'Fewer things than the internet suggests. Most couples expect their maid of honor to say yes honestly, keep the dates free, get her outfit sorted on time, help with the wedding-week jobs she is given, and be beside the couple on the day. Everything else is a choice the couple and she make together.',
+      'The usual extras are hosting or co-hosting a shower, leading the bachelorette, giving a toast, holding the rings or the bouquet, and acting as the point person on the day. None is a rule, and each one costs time or money, so the useful step is to agree which ones she is doing early, in writing, rather than finding out in the last month.',
+      'If she is also running the day because there is no coordinator, she needs paper: the timeline, who to call, and what is paid. That is a different job from being maid of honor, and it is worth naming it as one.'
+    ],
+    table: {
+      caption: 'Her jobs by month: expected and optional',
+      columns: ['When', 'Job', 'Expected or optional'],
+      rows: [
+        ['The week she is asked', 'Say yes only if she can; ask what the couple are hoping for, including costs', 'Expected'],
+        ['9 to 6 months before', 'Help choose and order her outfit; keep the key dates free', 'Expected'],
+        ['6 to 3 months before', 'Plan or co-host the shower', 'Optional (often shared with family)'],
+        ['3 to 1 months before', 'Plan the bachelorette with the couple’s budget and guest list', 'Optional'],
+        ['1 month before', 'Write the toast, if she is giving one', 'Optional'],
+        ['Wedding week', 'Do the jobs on her list; collect the timeline and the contacts she needs', 'Expected'],
+        ['The day', 'Be with the couple while getting ready; hold the rings, bouquet or vows if asked', 'Expected'],
+        ['The day after', 'Return anything borrowed or rented that she took charge of', 'Expected if she agreed to it']
+      ],
+      note: 'This is common practice, not a rule. Couples and their maids of honor change it all the time; the point of the table is to agree the split early.'
+    },
+    sections: [
+      {
+        heading: 'The conversation that saves the friendship',
+        paragraphs: [
+          'Most maid-of-honor stress comes from guessing. One short talk soon after she says yes settles it: which of the optional jobs she is taking, who pays for what (her outfit, the shower, her travel), and whether she or someone else is the point person on the day.'
+        ],
+        bullets: [
+          'Write down the jobs she has agreed to, with the month each falls in.',
+          'Agree a spending ceiling for anything she hosts.',
+          'Name who answers vendor calls on the day, so it is not assumed to be her.'
+        ]
+      },
+      {
+        heading: 'If she is also the one running the day',
+        paragraphs: [
+          'With no coordinator, the person running the day needs the same things a coordinator would bring: the timeline by the minute, every vendor’s arrival time and phone number, what is already paid and what goes in an envelope, and who to call when something runs late. A hand-over packet puts that on paper so she is not ringing the couple during photos.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'Does the maid of honor have to throw the bridal shower?', answer: 'No. Hosting the shower is a common job but an optional one, and it is often shared with family. Agree early who is hosting and who is paying.' },
+      { question: 'Does the maid of honor pay for her own dress?', answer: 'Usually she does, which is why the cost belongs in the first conversation. If the couple choose an expensive outfit, some offer to pay part of it.' },
+      { question: 'Does the maid of honor have to give a speech?', answer: 'Only if the couple want toasts and she agrees. If she is giving one, a month before is a good time to write it, and two or three minutes is plenty.' },
+      { question: 'What does the maid of honor do on the wedding day?', answer: 'She is with the couple while they get ready, helps with anything they hand her (rings, bouquet, vows, the dress), and does the jobs on her list. If she is also running the day, she needs the timeline and the vendor contacts on paper.' }
+    ],
+    plannerAdds: [
+      'Puts her agreed jobs into the couple’s plan, dated from the real wedding date.',
+      'Prints a hand-over packet with the timeline, contacts and what is paid, for whoever runs the day.',
+      'Keeps the optional jobs visible as optional, so nothing is assumed.'
+    ],
+    ctaLabel: 'Date the wedding plan she will follow →',
+    seed: { focus: 'Timeline / Weekend Flow', mode: 'flexible', protect: 'Family Ease', q: 'Our maid of honor is helping. Which jobs are hers, and when does each one happen?' },
+    verificationBoundary: 'This page describes common wedding practice in the US, not a set of rules. No statistics are claimed. Agree the jobs with your own maid of honor.',
+    relatedSlugs: ['wedding-without-a-coordinator', 'wedding-to-do-list', 'who-pays-for-what-wedding']
+  },
+  {
+    slug: 'zola-vs-the-knot',
+    host: 'weddingchecklistpdf.com',
+    productId: 'checklist-pdf',
+    title: 'Zola vs The Knot, and the merger news',
+    h1: 'Zola vs The Knot: the dated facts, and what the reported deal changes',
+    directoryLabel: 'Zola vs The Knot, dated facts',
+    description: 'Zola and The Knot compared on dated, linked facts: who owns what, the reported deal, seating limits, card fees, Android and data sharing. Read 21 Nov 2026.',
+    question: 'Should we plan our wedding with Zola or The Knot, now that The Knot is reported to be buying Zola?',
+    directAnswer: [
+      'On 14 October 2026 Reuters reported, citing two people familiar with the deal, that The Knot Worldwide had agreed to buy Zola, subject to regulatory clearance, with Zola kept as a standalone brand. The companies declined to comment.',
+      'The Knot Worldwide already owns WeddingWire and, since July 2024, the elopement service Simply Eloped. If the deal closes, Zola joins them in one company. That matters less for your checklist than for where your guest list, address book and registry live.',
+      'Pick on the thing you need most: a registry and wedding website, a vendor search, or a dated plan. If what you need is a dated plan and paper you can hand to whoever runs the day, you do not need an account for it.'
+    ],
+    table: {
+      caption: 'Zola and The Knot side by side (read 21 November 2026)',
+      columns: ['', 'Zola', 'The Knot'],
+      rows: [
+        ['Who owns it', 'Zola, Inc.; The Knot Worldwide agreed to buy it (Reuters, 14 Oct 2026, unconfirmed by the companies)', 'The Knot Worldwide, which also owns WeddingWire and, since July 2024, Simply Eloped'],
+        ['Seating chart', 'Free for up to 15 guests; Premium to add more (Zola help page)', 'Not compared here'],
+        ['Card gifts to cash funds', 'A 2.5% handling fee on card payments (Zola help page)', 'Not compared here'],
+        ['Phones', 'iPhone app. Zola’s own post, “An update on the Zola Android app”, says its Android app shut down on 1 January 2023; Zola works in a phone browser', 'iPhone app, and an Android app listed on Google Play'],
+        ['App Store rating (21 Nov 2026)', '4.91 from 99,338 ratings', '4.85 from 224,289 ratings']
+      ],
+      note: 'Each fact is linked under Sources with the day we read it. We describe both services by name only to compare them; Dream Wedding is not connected with Zola or The Knot.'
+    },
+    sections: [
+      {
+        heading: 'Where Dream Wedding fits, and where it does not',
+        paragraphs: [
+          'Dream Wedding is a dated wedding plan, not a registry, wedding website or RSVP service, so if you need those, Zola or The Knot is the better choice for that part. What it does: the plan is free with no account, every task gets a real date from your wedding date, and the printable packet is made for the friend or parent running your day. The paid files are one-time purchases, and we never sell your plan or your email.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'Is The Knot buying Zola?', answer: 'Reuters reported on 14 October 2026, citing two people familiar with the deal, that The Knot Worldwide agreed to buy Zola, subject to regulatory clearance, with Zola run as a standalone brand. The companies declined to comment, so treat it as reported, not confirmed.' },
+      { question: 'Is Zola free?', answer: 'Its planning tools are free, with limits. Zola’s own help page says the seating chart is free for up to 15 guests and Premium adds more, and card gifts to cash funds carry a 2.5% handling fee.' },
+      { question: 'Does Zola have an Android app?', answer: 'No. Zola’s own post, “An update on the Zola Android app”, says the Android app shut down on 1 January 2023 and accounts stay on the Zola website, which works in a phone browser. The iPhone app was not affected.' },
+      { question: 'Do I need an account to plan a wedding?', answer: 'Not for a dated checklist. Dream Wedding’s free plan opens with no account. You need accounts for a registry or a wedding website, which Dream Wedding does not offer.' }
+    ],
+    plannerAdds: [
+      'A dated plan from your wedding date, with no account and no vendor marketplace.',
+      'A printable packet for whoever runs your day, made in your browser.',
+      'One-time prices for the paid files, with no subscription.'
+    ],
+    ctaLabel: 'Open the free dated plan →',
+    seed: { focus: 'Full concept', mode: 'flexible', q: 'We want a dated plan without signing up for a wedding site. Where do we start?' },
+    verificationBoundary: 'Facts about Zola and The Knot come from their own pages, Reuters and Business Wire, each linked with the day we read it (21 November 2026). App Store ratings are as shown on each app’s page that day. Dream Wedding is not affiliated with either company; their names are used only to describe them.',
+    sources: [
+      { label: 'Reuters via The Star: The Knot Worldwide to acquire Zola, sources say (14 Oct 2026)', url: 'https://www.thestar.com.my/tech/tech-news/2026/10/15/the-knot-worldwide-to-acquire-zola-in-wedding-platform-union-sources-say', read: '21 Nov 2026' },
+      { label: 'Business Wire: The Knot Worldwide welcomes Simply Eloped (8 Jul 2024)', url: 'https://www.businesswire.com/news/home/20240708208200/en/The-Knot-Worldwide-Welcomes-Simply-Eloped-Into-Its-Portfolio-of-Brands', read: '21 Nov 2026' },
+      { label: 'Zola help: how do I use the seating chart', url: 'https://www.zola.com/faq/360038917171-how-do-i-use-the-zola-seating-chart-', read: '21 Nov 2026' },
+      { label: 'Zola help: cash fund card fee', url: 'https://www.zola.com/faq/115002838152', read: '21 Nov 2026' },
+      { label: 'Zola: An update on the Zola Android app', url: 'https://web.archive.org/web/20251112051239/https://www.zola.com/expert-advice/an-update-on-the-zola-android-app', note: 'Zola’s post, archived 12 Nov 2025' },
+      { label: 'Zola on the App Store', url: 'https://apps.apple.com/us/app/id852691916', read: '21 Nov 2026' },
+      { label: 'The Knot on the App Store', url: 'https://apps.apple.com/us/app/id457941553', read: '21 Nov 2026' },
+      { label: 'The Knot Wedding Planner on Google Play', url: 'https://play.google.com/store/apps/details?id=com.xogrp.planner', read: '21 Nov 2026' }
+    ],
+    relatedSlugs: ['wedding-to-do-list', 'wedding-planner-cost', 'wedding-without-a-coordinator']
+  },
+  {
+    slug: 'wedding-without-a-coordinator',
+    host: 'weddingchecklistpdf.com',
+    productId: 'timeline-template',
+    title: 'Wedding day without a coordinator',
+    h1: 'Running your wedding day without a coordinator: the hand-over that makes it work',
+    directoryLabel: 'Running the day without a coordinator',
+    description: 'What a day-of coordinator costs, what they actually do, and how to hand the same jobs to a friend or parent on paper so the day runs without you.',
+    question: 'Can we run our wedding day without a day-of coordinator?',
+    directAnswer: [
+      'Yes, if someone other than the two of you has the plan in their hands. A day-of coordinator mostly does four things: keeps the timeline, meets the vendors, solves small problems before you hear about them, and makes sure the right people are paid and fed. A calm friend, a parent or your venue’s contact can do most of that with the right paper.',
+      'Joy’s 2026 guide puts the national average for a day-of coordinator at about $1,800 (updated 12 August 2026). If that is not in the budget, the job does not disappear; it moves to someone you know, so give them what a coordinator would have.',
+      'The hand-over should hold the timeline by the minute, every vendor’s arrival time and phone number, what is already paid and what goes in an envelope, the rain plan, and who decides when something changes. Give it to them a week before, not on the morning.'
+    ],
+    table: {
+      caption: 'Who can take each coordinator job',
+      columns: ['Job', 'What it means on the day', 'Who usually takes it without a coordinator'],
+      rows: [
+        ['Timeline keeper', 'Moves people to the next thing on time', 'A friend who is not in the wedding party'],
+        ['Vendor contact', 'Meets each vendor on arrival and answers their questions', 'The venue’s own contact, if the venue provides one, or a parent'],
+        ['Payments and tips', 'Hands over the labelled envelopes', 'A parent or a trusted friend'],
+        ['Problem solver', 'Decides small changes so the couple does not have to', 'Whoever holds the packet, with a named back-up'],
+        ['Set-up and pack-down', 'Puts out and collects your own items', 'Two or three friends with a written list']
+      ],
+      note: 'Ask your venue what its own contact does and does not do; many look after the building and their own staff, not your vendors or your timeline.'
+    },
+    sections: [
+      {
+        heading: 'What goes in the hand-over packet',
+        paragraphs: [
+          'Write it so someone who has never seen your plan could run the day from it.'
+        ],
+        bullets: [
+          'The day’s timeline by the minute, from the first vendor arrival to the last pack-down.',
+          'Each vendor: name, phone, arrival time, and who calls them if they are late.',
+          'What is paid, what is due on the day, and which envelope it is in.',
+          'The rain or heat plan, and the moment someone decides to use it.',
+          'Your own items to set out and collect, and where they go after.',
+          'Two names: who decides, and who is their back-up.'
+        ]
+      },
+      {
+        heading: 'Be fair to the person you ask',
+        paragraphs: [
+          'Running the day is work. Ask someone who is not in the wedding party, tell them early, give them the packet a week before and walk through it once. Thank them in a way that fits; some couples cover a meal or a gift. Nobody running your day should be learning the plan on the morning.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'How much does a day-of coordinator cost?', answer: 'Joy’s 2026 cost guide puts the national average for a day-of coordinator at about $1,800 (updated 12 August 2026). Prices vary widely by region and by how many hours are included.' },
+      { question: 'What does a day-of coordinator do?', answer: 'Keeps the timeline, meets the vendors, solves small problems, and makes sure people are paid and fed. Most also confirm vendors in the final weeks.' },
+      { question: 'Can a friend be our day-of coordinator?', answer: 'Yes, with a written hand-over: the timeline, every vendor’s contact and arrival time, what is paid and what is due, and who decides when something changes. Choose someone outside the wedding party.' },
+      { question: 'Does the venue coordinator do the same job?', answer: 'Often not. Many venue contacts look after the building and their own staff. Ask yours exactly what they do on the day before you decide.' }
+    ],
+    plannerAdds: [
+      'Builds your wedding-week list and day timeline from your own date.',
+      'Prints the hand-over packet with the timeline, contacts and payments for whoever runs the day.',
+      'Keeps it on paper, so nobody needs an app or an account on the day.'
+    ],
+    ctaLabel: 'Build the hand-over for our day →',
+    seed: { focus: 'Timeline / Weekend Flow', mode: 'hard', protect: 'Family Ease', q: 'We have no coordinator. What does the person running our day need from us, and by when?' },
+    verificationBoundary: 'Coordinator costs are a published average from Joy’s cost guide, linked with the date it was updated, and are not a quote. Dream Wedding is a plan and a printable packet; it is not a coordinator and no person runs your day for you.',
+    sources: [
+      { label: 'Joy: How much does a wedding planner cost in 2026? (updated 12 Aug 2026)', url: 'https://withjoy.com/blog/cost-of-wedding-planner/', read: '21 Nov 2026' }
+    ],
+    seeAlso: [{ label: 'The day-of coordinator’s checklist, for whoever runs your day', path: '/guides/day-of-coordinator-checklist' }],
+    relatedSlugs: ['maid-of-honor-duties', 'wedding-planner-cost', 'courthouse-wedding']
+  },
+  {
+    slug: 'wedding-to-do-list',
+    host: 'weddingchecklistpdf.com',
+    productId: 'checklist-pdf',
+    title: 'Wedding to-do list, dated to your day',
+    h1: 'The wedding to-do list, with a real date on every task',
+    directoryLabel: 'Wedding to-do list, dated',
+    description: 'A wedding planning to-do list in the order it happens, with a date on every task from your own wedding date. Short engagement? The dates close up by themselves.',
+    question: 'What is on a wedding to-do list, and when should each task be done?',
+    directAnswer: [
+      'The list itself is short: settle the budget and guest count, book the venue, then the photographer, caterer and music, then attire, flowers and stays, then invitations, then the license, final numbers and payments. The order matters more than the length, because each booking decides the next.',
+      'What most lists leave out is the date. “Book the photographer 9 months before” only helps once it is a day on your calendar. Enter your wedding date below and every task gets one; if your engagement is short, the windows close up and the tasks that are already due are listed first.',
+      'Print it when you have your dates, tick it on the fridge, and hand a copy to whoever is helping.'
+    ],
+    sections: [
+      {
+        heading: 'If your wedding is less than six months away',
+        paragraphs: [
+          'Nothing is skipped; it is compressed. Book the venue and the photographer in the same week, choose attire you can buy rather than order, and send invitations as soon as the venue is confirmed. The dated list does this for you: tasks whose window has passed move to the top as the ones to do first.'
+        ]
+      },
+      {
+        heading: 'Adding your own tasks and traditions',
+        paragraphs: [
+          'Every wedding has tasks no general list knows about: a second ceremony, a family tradition, a dress from abroad. Add them to the window they belong in so they are dated with the rest, and they print on the same page.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'What should be on a wedding to-do list?', answer: 'Budget and guest count first, then the venue, then photographer, caterer and music, then attire, flowers and guest stays, then invitations, then the marriage license, final headcount and payments, and finally the wedding-week confirmations.' },
+      { question: 'How far ahead should we start the wedding to-do list?', answer: 'Twelve months is comfortable for a large wedding, but any length works. The dates are counted back from your wedding date, so a short engagement simply puts more tasks in the first weeks.' },
+      { question: 'Is there a printable wedding to-do list?', answer: 'Yes. Enter your date, then print the dated list from your browser. The $9 Wedding Checklist PDF is the longer printable version.' }
+    ],
+    plannerAdds: [
+      'Puts a real date on every task from your wedding date, and moves them all if the date changes.',
+      'Shows what is already due first on a short engagement.',
+      'Keeps your ticks and your own tasks in this browser, with no account.'
+    ],
+    ctaLabel: 'Date my to-do list →',
+    seed: { focus: 'Timeline / Weekend Flow', mode: 'hard', q: 'What is on my wedding to-do list, and what date is each task due?' },
+    verificationBoundary: 'The tasks and windows are general planning practice, not legal advice; marriage license timing varies by county, so that task says to check yours.',
+    relatedSlugs: ['courthouse-wedding', 'wedding-without-a-coordinator', 'what-to-do-6-months-before-the-wedding']
+  },
+  {
+    slug: 'nigerian-traditional-and-white-wedding',
+    host: 'weddingchecklistpdf.com',
+    productId: 'timeline-template',
+    title: 'Nigerian traditional and white wedding',
+    h1: 'Nigerian traditional and white wedding: one plan for both days',
+    directoryLabel: 'Nigerian traditional + white wedding',
+    description: 'How to plan a Nigerian traditional wedding and a white wedding together: what each day holds, what the families decide, and how to date both on one plan.',
+    question: 'How do we plan a Nigerian traditional wedding and a white wedding together?',
+    directAnswer: [
+      'Treat them as two events with one plan. The traditional wedding is led by the families and their customs; the white wedding is the church or civil ceremony and reception most US wedding lists describe. Many couples hold them on different days, some on the same day, and each needs its own date, guest count and budget line.',
+      'Start with the families, because they decide much of the traditional day. Customs differ between Yoruba, Igbo, Hausa and other families and between towns, so ask both families early which steps they expect, who leads them, and what the groom’s family is asked to bring.',
+      'Then date everything back from each event. The traditional day’s tasks run from the families’ timetable; the white wedding follows the usual windows for venue, officiant, attire and invitations.'
+    ],
+    table: {
+      caption: 'What each day usually holds',
+      columns: ['', 'Traditional wedding', 'White wedding'],
+      rows: [
+        ['Who leads it', 'The two families, often through people chosen to speak for each side', 'The couple and their officiant'],
+        ['The core of it', 'The families meet and agree; the groom’s family presents the items the bride’s family has asked for', 'The ceremony and the reception'],
+        ['What the families decide', 'Which customs, the list of items, who speaks, the order of the day', 'Usually less: guest list share and any contributions'],
+        ['Attire', 'Traditional dress, often chosen with the families', 'Wedding dress, suit or tuxedo'],
+        ['Legal marriage', 'Ask the officiant or county clerk where you marry what makes it legal there', 'A marriage license from the county, then the ceremony']
+      ],
+      note: 'A general outline, not a description of any one family’s custom. Ask both families what they expect; the steps and the list differ by region and by family.'
+    },
+    sections: [
+      {
+        heading: 'What the sources describe for the traditional day',
+        paragraphs: [
+          'A University of Texas at Austin description of Yoruba marriage sets out an introduction, where the groom’s family introduces itself and states its intention, a proposal letter and an acceptance letter, and then the engagement, or traditional marriage, where the groom’s family brings the items on the bride’s family’s list. The items it names vary by family.',
+          'Among Igbo families the traditional ceremony is often called igba nkwu, “wine carrying”. The bride price agreed between the families is often symbolic and differs by region, and families set their own terms.'
+        ]
+      },
+      {
+        heading: 'Planning both on one calendar',
+        paragraphs: [
+          'Most of the work is in keeping two events from competing for the same weeks.'
+        ],
+        bullets: [
+          'Fix both dates first, and decide whether guests are invited to one event or both.',
+          'Give each event its own budget line and guest count; the guest lists are often very different sizes.',
+          'Ask the families for the list of items early, and note who is buying each one.',
+          'Book attire for both days with fittings well apart, especially fabric ordered from abroad.',
+          'Decide who speaks for each family, and give them the day’s order on paper.',
+          'Get the marriage license for whichever ceremony makes the marriage legal where you are.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'Do we need two separate weddings?', answer: 'Many couples hold the traditional wedding and the white wedding on different days, and some hold both on one day. Either works; what matters is giving each its own date, guest count and budget line.' },
+      { question: 'What is igba nkwu?', answer: 'The Igbo traditional marriage ceremony, often translated as “wine carrying”. The details differ by family and region, so ask both families what they expect.' },
+      { question: 'Who decides the list for the traditional wedding?', answer: 'The bride’s family usually sets the list, and the groom’s family brings the items. What is on it differs by family; ask early so there is time to buy or order everything.' },
+      { question: 'Is the traditional wedding a legal marriage in the US?', answer: 'In the US, a marriage is legal through a license from the county where you marry and the ceremony that follows. Ask the county clerk where you marry what they require.' }
+    ],
+    plannerAdds: [
+      'Adds the Nigerian traditional pack to your plan, with each step sourced, alongside up to two other traditions.',
+      'Dates the tasks from your real wedding date, so both events stay on one calendar.',
+      'Prints the plan for the families and whoever runs each day.'
+    ],
+    ctaLabel: 'Plan both days together →',
+    seed: { focus: 'Timeline / Weekend Flow', mode: 'hard', protect: 'Cultural Traditions,Family Ease', q: 'We are having a Nigerian traditional wedding and a white wedding. How do we plan both on one calendar?' },
+    verificationBoundary: 'This page outlines traditions in general terms and links its sources; it does not describe any one family’s customs and is not legal advice. Your families are the authority on your traditional wedding, and your county clerk on the legal marriage.',
+    sources: [
+      { label: 'University of Texas at Austin, Africa database: Yoruba marriage', url: 'https://www.laits.utexas.edu/africa/2004/database/adejola.html', read: '21 Nov 2026' },
+      { label: 'Traditional marriage in Igbo culture (reference overview)', url: 'https://en.wikipedia.org/wiki/Traditional_marriage_in_Igbo_culture', read: '21 Nov 2026' }
+    ],
+    relatedSlugs: ['wedding-to-do-list', 'who-pays-for-what-wedding', 'wedding-without-a-coordinator']
+  },
+  {
+    slug: 'who-pays-for-what-wedding',
+    host: 'weddingchecklistpdf.com',
+    productId: 'budget-spreadsheet',
+    title: 'Who pays for what in a wedding',
+    h1: 'Who pays for what in a wedding: the traditional split, and how couples split it now',
+    directoryLabel: 'Who pays for what in a wedding',
+    description: 'The traditional split of wedding costs between the two families, how couples and parents usually share them now, and how to agree it before the first deposit.',
+    question: 'Who pays for what in a wedding?',
+    directAnswer: [
+      'By tradition in the US, the bride’s family paid for the wedding and reception and the groom’s family paid for the rehearsal dinner and the honeymoon, as the Emily Post Institute describes the old division. Very few families follow that line by line now.',
+      'Today it is usually shared. An AP report in August 2024, citing The Knot’s editors, said parents on average contribute slightly more than half of the budget and couples cover the rest. Many split by event or by category instead of by family: one side takes the rehearsal dinner, the other the flowers, the couple the photographer.',
+      'The step that matters is to ask early and write it down: who is giving what, by when, and whether it comes with a say in the guest list.'
+    ],
+    table: {
+      caption: 'The traditional split, as a starting point',
+      columns: ['Cost', 'Traditionally paid by', 'Common today'],
+      rows: [
+        ['Ceremony and reception', 'Bride’s family', 'Shared by the couple and both families'],
+        ['Invitations and stationery', 'Bride’s family', 'The couple'],
+        ['Rehearsal dinner', 'Groom’s family', 'Either family, or the couple'],
+        ['Officiant’s fee and marriage license', 'Groom’s family', 'The couple'],
+        ['Honeymoon', 'Groom’s family', 'The couple, sometimes with a honeymoon fund'],
+        ['Wedding party outfits', 'Each attendant', 'Each attendant, unless the couple offer']
+      ],
+      note: 'Traditional column from the Emily Post Institute’s description of the old division. “Common today” is a summary of current practice, not a survey figure; your families will have their own version.'
+    },
+    sections: [
+      {
+        heading: 'How to have the money conversation',
+        paragraphs: [
+          'Have it before you book anything. Ask each family separately what they would like to give, in an amount or as a category, and when; then put it in one place so everyone sees the same numbers.'
+        ],
+        bullets: [
+          'Ask for a figure or a category, not “help”.',
+          'Agree the due dates, since deposits fall months before the day.',
+          'Say plainly whether a gift comes with a say in the guest list or the venue.',
+          'Keep the couple’s own share as the line that absorbs surprises.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'What does the bride’s family traditionally pay for?', answer: 'By the old division described by the Emily Post Institute, the ceremony and reception and the invitations. Most families now share these costs.' },
+      { question: 'What does the groom’s family traditionally pay for?', answer: 'The rehearsal dinner, the officiant’s fee, the marriage license and the honeymoon, by the old division. Today these are often taken by either family or the couple.' },
+      { question: 'How much do parents usually contribute?', answer: 'An AP report in August 2024, citing The Knot’s editors, said parents on average contribute slightly more than half of the wedding budget. Every family differs.' }
+    ],
+    plannerAdds: [
+      'Records who is giving what and by when, against your own budget.',
+      'Dates every deposit and final payment from your wedding date.',
+      'Shows the couple’s own share, the line that takes the surprises.'
+    ],
+    ctaLabel: 'Plan who pays for what →',
+    seed: { focus: 'Budget + Tradeoffs', mode: 'flexible', budgetmode: 'unknown', protect: 'Family Ease', q: 'Our families want to help pay. How do we split the costs and keep track of who gives what?' },
+    verificationBoundary: 'The traditional split is the Emily Post Institute’s description of old etiquette; the parents’ share is an average reported by AP in August 2024. Neither is advice on your family’s arrangement.',
+    sources: [
+      { label: 'Emily Post Institute: Wedding expenses, who pays for what', url: 'https://emilypost.com/advice/wedding-expenses-who-pays-for-what', read: '21 Nov 2026' },
+      { label: 'AP via ABC News: Who pays for the wedding? Traditional etiquette doesn’t always hold (Aug 2024)', url: 'https://abcnews.go.com/Business/wireStory/pays-wedding-traditional-etiquette-hold-113017271', read: '21 Nov 2026' }
+    ],
+    relatedSlugs: ['wedding-budget-tradeoffs', 'wedding-cost-per-guest', 'wedding-planner-cost']
+  },
+  {
+    slug: 'wedding-planner-cost',
+    host: 'weddingchecklistpdf.com',
+    productId: 'checklist-pdf',
+    title: 'Wedding planner cost in 2026',
+    h1: 'What a wedding planner costs in 2026, and what you get for the money',
+    directoryLabel: 'What a wedding planner costs',
+    description: 'Wedding planner and day-of coordinator costs in 2026 from a dated published guide, what each level of service covers, and what to do if it is over budget.',
+    question: 'How much does a wedding planner cost?',
+    directAnswer: [
+      'Joy’s 2026 cost guide (updated 12 August 2026) puts full-service planners at $3,500 to $15,000 or more, with a national average near $5,500; partial planning at around $3,200; and a day-of coordinator at around $1,800. Some full-service and luxury planners charge 10% to 20% of the total budget instead of a flat fee.',
+      'The price follows the hours. Full service runs from the first venue search to the last vendor tip; partial planning picks up a few months out; a day-of coordinator mostly confirms vendors in the last weeks and runs the day itself.',
+      'If none of that fits the budget, the work still has to be done by someone. A dated plan covers the months before; a written hand-over lets a friend or parent cover the day.'
+    ],
+    table: {
+      caption: 'Planner costs by level of service (Joy, updated 12 August 2026)',
+      columns: ['Level', 'Published average', 'What it usually covers'],
+      rows: [
+        ['Full service', 'About $5,500 (range $3,500 to $15,000+)', 'Budget, venue and vendor search, design, contracts, the whole timeline and the day'],
+        ['Partial planning', 'About $3,200', 'Takes over a few months out: vendor gaps, timeline, confirmations and the day'],
+        ['Day-of coordination', 'About $1,800', 'Confirms vendors in the final weeks and runs the day'],
+        ['Percentage of budget', '10% to 20% of the total, where charged', 'Usually full-service or luxury planning']
+      ],
+      note: 'Published national averages from Joy’s cost guide, not quotes. Prices vary by region, season and the hours included.'
+    },
+    sections: [
+      {
+        heading: 'What to ask before you hire one',
+        paragraphs: [
+          'The fee only means something next to the hours and the list of what is included.'
+        ],
+        bullets: [
+          'How many hours on the day, and is there an overtime rate?',
+          'From what date do you start, and how many meetings are included?',
+          'Do you take commission or referral fees from vendors you recommend?',
+          'Who comes on the day: you, or an assistant?',
+          'What happens if you are ill on the day?'
+        ]
+      },
+      {
+        heading: 'Doing it yourselves',
+        paragraphs: [
+          'Many couples plan without one. A planner’s real value is the system and the person on the day. You can copy the system: a plan with a date on every task, a payments schedule, a wedding-week sheet and a hand-over packet for whoever runs the day. That is what Dream Wedding gives you, with no planner and no planner’s fee.'
+        ]
+      }
+    ],
+    faqs: [
+      { question: 'How much does a wedding planner cost in 2026?', answer: 'Joy’s 2026 guide, updated 12 August 2026, puts the national average near $5,500 for full service, about $3,200 for partial planning and about $1,800 for a day-of coordinator.' },
+      { question: 'Do wedding planners charge a percentage?', answer: 'Some full-service and luxury planners charge 10% to 20% of the total wedding budget, according to the same guide. Others charge a flat fee or by the hour.' },
+      { question: 'How much less is a day-of coordinator than full service?', answer: 'In Joy’s 2026 guide, about $1,800 for a day-of coordinator against a national average near $5,500 for full service, because a day-of coordinator mostly covers the final weeks and the day itself.' }
+    ],
+    plannerAdds: [
+      'A plan with a date on every task, from your wedding date.',
+      'Payments and the final-payment schedule, dated to your day.',
+      'A printable hand-over packet for the friend or parent running the day.'
+    ],
+    ctaLabel: 'Open the plan without the planner’s fee →',
+    seed: { focus: 'I am overwhelmed', mode: 'discovery', budgetmode: 'unknown', q: 'We cannot afford a planner. What does a planner do that we now need to cover ourselves?' },
+    verificationBoundary: 'Planner prices are published averages from Joy’s 2026 cost guide, linked with its update date, and are not quotes. Dream Wedding is a plan and printable files; no person plans or runs your wedding for you.',
+    sources: [
+      { label: 'Joy: How much does a wedding planner cost in 2026? (updated 12 Aug 2026)', url: 'https://withjoy.com/blog/cost-of-wedding-planner/', read: '21 Nov 2026' }
+    ],
+    seeAlso: [{ label: 'Is a wedding planner worth it for you?', path: '/questions/is-a-wedding-planner-worth-it' }],
+    relatedSlugs: ['wedding-without-a-coordinator', 'who-pays-for-what-wedding', 'zola-vs-the-knot']
   }
 ];
 

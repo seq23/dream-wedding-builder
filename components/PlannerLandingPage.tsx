@@ -1,6 +1,7 @@
 import { budgetShape, budgetArticleFields, BudgetEvidence } from '@/components/seo/BudgetEvidence';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import type React from 'react';
 import { landingBySlug, type PlannerLanding } from '@/data/planner-landings';
 import { productById } from '@/lib/products';
 import { PARENT_HOST, canonicalUrl, hrefFrom } from '@/lib/site-config';
@@ -23,7 +24,7 @@ export function landingMetadata(slug: string): Metadata {
   return seoMetadata({ title: landing.title, description: landing.description, host: landing.host, path: `/${landing.slug}`, type: 'article' });
 }
 
-export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
+export function PlannerLandingPage({ landing, children }: { landing: PlannerLanding; children?: React.ReactNode }) {
   const shape = budgetShape(landing.slug);
   if (shape) landing = { ...landing, faqs: shape.faqs };
   const product = productById(landing.productId);
@@ -68,6 +69,8 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
       {landing.directAnswer.map((paragraph) => <p key={paragraph} className="mt-4 text-lg leading-8 text-charcoal/75">{paragraph}</p>)}
     </section>
 
+    {children}
+
     {landing.table && <section className="rounded-[12px] bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl">{landing.table.caption}</h2>
       <div className="mt-5 overflow-x-auto">
@@ -85,6 +88,11 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
       {section.bullets && <ul className="mt-5 grid gap-3">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4 leading-7">{item}</li>)}</ul>}
     </section>)}
 
+    {landing.sources?.length ? <section className="rounded-[12px] border border-charcoal/10 bg-white p-7" data-testid="landing-sources">
+      <h2 className="font-serif text-3xl">Sources</h2>
+      <ul className="mt-4 grid gap-2 text-sm leading-6">{landing.sources.map((source) => <li key={source.url}><a href={source.url} rel="noopener" className="underline underline-offset-4 [overflow-wrap:anywhere]">{source.label}</a> <span className="text-charcoal/55">· {source.note ?? `read ${source.read}`}</span></li>)}</ul>
+    </section> : null}
+
     {/* The general answer is above. This is the part only a tool can do, and it is
         stated as three specific things rather than a promise. */}
     <section className="no-print rounded-[12px] border border-charcoal/15 bg-white p-7 md:p-10" data-testid="landing-planner-cta">
@@ -99,6 +107,11 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
     {!shape && <PlannerCta label={landing.ctaLabel} seed={landing.seed} />}
 
     <section id={shape ? "budget-faq" : undefined}><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Questions couples ask</p><h2 className="mt-3 font-serif text-5xl">Frequently asked questions</h2><div className="mt-6 grid gap-4">{landing.faqs.map((item) => <details key={item.question} className="rounded-[12px] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-3 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
+
+    {landing.seeAlso?.length ? <section className="no-print rounded-[12px] border border-charcoal/10 bg-white p-7" data-testid="landing-see-also">
+      <h2 className="font-serif text-4xl">Also on this site</h2>
+      <div className="mt-5 grid gap-3 md:grid-cols-2">{landing.seeAlso.map((item) => <Link key={item.path} href={hrefFrom(landing.host, item.path)} className="rounded-2xl bg-ivory p-4 font-bold transition hover:bg-linen">{item.label} →</Link>)}</div>
+    </section> : null}
 
     {related.length > 0 && <section className="no-print rounded-[12px] border border-charcoal/10 bg-white p-7">
       <h2 className="font-serif text-4xl">Related planning questions</h2>
