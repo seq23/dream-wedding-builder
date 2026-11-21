@@ -1,6 +1,7 @@
 import { budgetShape, budgetArticleFields, BudgetEvidence } from '@/components/seo/BudgetEvidence';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import type React from 'react';
 import { landingBySlug, type PlannerLanding } from '@/data/planner-landings';
 import { productById } from '@/lib/products';
 import { PARENT_HOST, canonicalUrl, hrefFrom } from '@/lib/site-config';
@@ -23,7 +24,7 @@ export function landingMetadata(slug: string): Metadata {
   return seoMetadata({ title: landing.title, description: landing.description, host: landing.host, path: `/${landing.slug}`, type: 'article' });
 }
 
-export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
+export function PlannerLandingPage({ landing, children }: { landing: PlannerLanding; children?: React.ReactNode }) {
   const shape = budgetShape(landing.slug);
   if (shape) landing = { ...landing, faqs: shape.faqs };
   const product = productById(landing.productId);
@@ -68,6 +69,8 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
       {landing.directAnswer.map((paragraph) => <p key={paragraph} className="mt-4 text-lg leading-8 text-charcoal/75">{paragraph}</p>)}
     </section>
 
+    {children}
+
     {landing.table && <section className="rounded-[12px] bg-white p-7 md:p-9">
       <h2 className="font-serif text-4xl">{landing.table.caption}</h2>
       <div className="mt-5 overflow-x-auto">
@@ -84,6 +87,11 @@ export function PlannerLandingPage({ landing }: { landing: PlannerLanding }) {
       {section.paragraphs.map((paragraph) => <p key={paragraph} className="mt-4 text-base leading-7 text-charcoal/70">{paragraph}</p>)}
       {section.bullets && <ul className="mt-5 grid gap-3">{section.bullets.map((item) => <li key={item} className="rounded-2xl bg-ivory p-4 leading-7">{item}</li>)}</ul>}
     </section>)}
+
+    {landing.sources?.length ? <section className="rounded-[12px] border border-charcoal/10 bg-white p-7" data-testid="landing-sources">
+      <h2 className="font-serif text-3xl">Sources</h2>
+      <ul className="mt-4 grid gap-2 text-sm leading-6">{landing.sources.map((source) => <li key={source.url}><a href={source.url} rel="noopener" className="underline underline-offset-4 [overflow-wrap:anywhere]">{source.label}</a> <span className="text-charcoal/55">· read {source.read}</span></li>)}</ul>
+    </section> : null}
 
     {/* The general answer is above. This is the part only a tool can do, and it is
         stated as three specific things rather than a promise. */}

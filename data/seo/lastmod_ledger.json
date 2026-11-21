@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "1200a642db262f1b927ef71259d7c8d5e2760087",
+  "generated_from_commit": "67027280636a2ceda07de13b44d048ebe9dab38a",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
@@ -48,6 +48,10 @@
     "/backyard-wedding-planning": {
       "lastmod": "2026-09-02",
       "source": "app/backyard-wedding-planning/page.tsx"
+    },
+    "/courthouse-wedding": {
+      "lastmod": "2026-11-21",
+      "source": "app/courthouse-wedding/page.tsx"
     },
     "/disclaimer": {
       "lastmod": "2026-11-13",
@@ -129,6 +133,10 @@
       "lastmod": "2026-11-04",
       "source": "data/seo/consolidated_decisions.json#/guides/wedding-seating-chart-template"
     },
+    "/maid-of-honor-duties": {
+      "lastmod": "2026-11-21",
+      "source": "app/maid-of-honor-duties/page.tsx"
+    },
     "/methodology": {
       "lastmod": "2026-11-10",
       "source": "app/methodology/page.tsx"
@@ -136,6 +144,10 @@
     "/micro-wedding-planning": {
       "lastmod": "2026-09-02",
       "source": "app/micro-wedding-planning/page.tsx"
+    },
+    "/nigerian-traditional-and-white-wedding": {
+      "lastmod": "2026-11-21",
+      "source": "app/nigerian-traditional-and-white-wedding/page.tsx"
     },
     "/photos": {
       "lastmod": "2026-11-13",
@@ -233,6 +245,10 @@
       "lastmod": "2026-11-04",
       "source": "data/seo/consolidated_decisions.json#/wedding-guest-list-template"
     },
+    "/wedding-planner-cost": {
+      "lastmod": "2026-11-21",
+      "source": "app/wedding-planner-cost/page.tsx"
+    },
     "/wedding-planning-checklist": {
       "lastmod": "2026-11-04",
       "source": "data/seo/consolidated_decisions.json#/wedding-planning-checklist"
@@ -249,9 +265,25 @@
       "lastmod": "2026-11-04",
       "source": "data/seo/editorial_page_shape.json#wedding-timeline-template"
     },
+    "/wedding-to-do-list": {
+      "lastmod": "2026-11-21",
+      "source": "app/wedding-to-do-list/page.tsx"
+    },
+    "/wedding-without-a-coordinator": {
+      "lastmod": "2026-11-21",
+      "source": "app/wedding-without-a-coordinator/page.tsx"
+    },
     "/what-to-do-6-months-before-the-wedding": {
       "lastmod": "2026-09-02",
       "source": "app/what-to-do-6-months-before-the-wedding/page.tsx"
+    },
+    "/who-pays-for-what-wedding": {
+      "lastmod": "2026-11-21",
+      "source": "app/who-pays-for-what-wedding/page.tsx"
+    },
+    "/zola-vs-the-knot": {
+      "lastmod": "2026-11-21",
+      "source": "app/zola-vs-the-knot/page.tsx"
     }
   }
 }
