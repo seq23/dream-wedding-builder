@@ -7433,6 +7433,71 @@
         }
       },
       "release_date": "2026-11-20"
+    },
+    {
+      "id": "q-free-wedding-checklist-pdf",
+      "seq": 0,
+      "path": "/questions/free-wedding-checklist-pdf",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "Free wedding\nchecklist PDF",
+      "subline": "The short answer + next steps",
+      "title": "Free wedding checklist PDF",
+      "description": "Get a free wedding checklist PDF to plan your own big day without a paid planner. Clear timelines, tasks and seating chart steps included.",
+      "layout": "band-frame",
+      "palette": "blush",
+      "topic": "checklist",
+      "search": [
+        "free wedding checklist pdf"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-3.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-free-wedding-checklist-pdf.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 175226,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "Free wedding",
+              "checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#3A2828",
+            "ground": "#F3E7E2"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3E7E2"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#5E4844",
+            "ground": "#F3E7E2"
+          }
+        ],
+        "shape": {
+          "layout": "band-frame",
+          "photo_fraction": 0.643,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-21"
     }
   ],
   "pending": [],

@@ -1,16 +1,14 @@
 {
-  "generated_at": "2026-11-18T21:30:58.143Z",
+  "generated_at": "2026-11-21T20:08:33.111Z",
   "status": "MEASURED",
   "source": "D1 pinterest_visits (own edge page-view log, lib/pinterest-visits.ts)",
-  "window": "4 day(s), 2026-11-14 to 2026-11-17",
-  "window_from": "2026-11-14",
-  "window_to": "2026-11-17",
-  "total": 3,
-  "pins_released": 12,
+  "window": "3 day(s), 2026-11-18 to 2026-11-20",
+  "window_from": "2026-11-18",
+  "window_to": "2026-11-20",
+  "total": 0,
+  "pins_released": 20,
   "sales": 0,
   "signups": 0,
-  "by_variant": {
-    "(launch item, no utm_content)": 3
-  },
+  "by_variant": {},
   "unknown_variants": []
 }
