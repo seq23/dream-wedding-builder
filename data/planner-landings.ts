@@ -78,6 +78,8 @@ export interface PlannerLanding {
   relatedSlugs: string[];
   /** Required wherever the page states an outside fact (a fee, a price, a company fact). */
   sources?: LandingSource[];
+  /** Pages on this site that answer the next question, each a different one from this page's. */
+  seeAlso?: { label: string; path: string }[];
 }
 
 export const plannerLandings: PlannerLanding[] = [
@@ -590,6 +592,7 @@ export const plannerLandings: PlannerLanding[] = [
       { label: 'Circuit Court of Cook County: Marriage Court', url: 'https://www.cookcountycourtil.gov/case-type/marriage-and-civil-union', read: '21 Nov 2026' },
       { label: 'Maricopa County Justice Courts: get married', url: 'https://justicecourts.maricopa.gov/i-want-to/get-married', read: '21 Nov 2026' }
     ],
+    seeAlso: [{ label: 'The step-by-step courthouse wedding checklist', path: '/guides/courthouse-wedding-checklist' }],
     relatedSlugs: ['micro-wedding-planning', 'wedding-to-do-list', 'wedding-without-a-coordinator']
   },
   {
@@ -666,36 +669,23 @@ export const plannerLandings: PlannerLanding[] = [
     description: 'Zola and The Knot compared on dated, linked facts: who owns what, the reported deal, seating limits, card fees, Android and data sharing. Read 21 Nov 2026.',
     question: 'Should we plan our wedding with Zola or The Knot, now that The Knot is reported to be buying Zola?',
     directAnswer: [
-      'Both are free to use and paid for in other ways: The Knot mainly by vendors who advertise to couples, Zola mainly by its registry and stationery. On 14 October 2026 Reuters reported, citing two people familiar with the deal, that The Knot Worldwide had agreed to buy Zola, subject to regulatory clearance, with Zola kept as a standalone brand. The companies declined to comment.',
-      'If the deal closes, the three largest free planning sites in the US (The Knot, WeddingWire, which The Knot already owns, and Zola) will belong to one company. That matters less for your checklist than for where your guest list, address book and registry live, and who may see them.',
-      'Pick on the thing you need most. Zola is strongest on registry and a matching website; The Knot on finding vendors. If what you need is a dated plan and paper you can hand to whoever runs the day, neither is built around that, and you do not need an account for it.'
+      'On 14 October 2026 Reuters reported, citing two people familiar with the deal, that The Knot Worldwide had agreed to buy Zola, subject to regulatory clearance, with Zola kept as a standalone brand. The companies declined to comment.',
+      'The Knot Worldwide already owns WeddingWire and, since July 2024, the elopement service Simply Eloped. If the deal closes, Zola joins them in one company. That matters less for your checklist than for where your guest list, address book and registry live.',
+      'Pick on the thing you need most: a registry and wedding website, a vendor search, or a dated plan. If what you need is a dated plan and paper you can hand to whoever runs the day, you do not need an account for it.'
     ],
     table: {
       caption: 'Zola and The Knot side by side (read 21 November 2026)',
       columns: ['', 'Zola', 'The Knot'],
       rows: [
         ['Who owns it', 'Zola, Inc.; The Knot Worldwide agreed to buy it (Reuters, 14 Oct 2026, unconfirmed by the companies)', 'The Knot Worldwide, which also owns WeddingWire and, since July 2024, Simply Eloped'],
-        ['How it is paid for', 'Registry, stationery and other commerce', 'Vendor advertising, registry and invitations'],
         ['Seating chart', 'Free for up to 15 guests; Premium to add more (Zola help page)', 'Not compared here'],
         ['Card gifts to cash funds', 'A 2.5% handling fee on card payments (Zola help page)', 'Not compared here'],
-        ['Phones', 'iPhone app; no Zola app found in a Google Play search on 21 Nov 2026', 'iPhone app, and an Android app listed on Google Play'],
-        ['App Store rating (21 Nov 2026)', '4.91 from 99,338 ratings', '4.85 from 224,289 ratings'],
-        ['Data sharing it discloses', 'See Zola’s privacy policy', 'Its California notice says it “sometimes disclose[s] information to unaffiliated third parties to provide offers”']
+        ['Phones', 'iPhone app. Zola’s own post, “An update on the Zola Android app”, says its Android app shut down on 1 January 2023; Zola works in a phone browser', 'iPhone app, and an Android app listed on Google Play'],
+        ['App Store rating (21 Nov 2026)', '4.91 from 99,338 ratings', '4.85 from 224,289 ratings']
       ],
       note: 'Each fact is linked under Sources with the day we read it. We describe both services by name only to compare them; Dream Wedding is not connected with Zola or The Knot.'
     },
     sections: [
-      {
-        heading: 'What couples say in their own reviews',
-        paragraphs: [
-          'Reading the most recent 1- and 2-star App Store reviews of both apps on 21 November 2026, the common complaints were bugs and lost guest data, guest list and RSVP trouble, and support. Two short examples, in the reviewers’ words:'
-        ],
-        bullets: [
-          '“Adding guests from contacts will freeze the app” (The Knot, App Store review, 18 Nov 2026).',
-          '“they make you pay to seat more than 15 guests” (Zola, App Store review, 17 Aug 2026).',
-          'A partner joining the planning came up too: “there is no feature to let your fiance join the planning” (The Knot, 22 Aug 2026).'
-        ]
-      },
       {
         heading: 'Where Dream Wedding fits, and where it does not',
         paragraphs: [
@@ -706,7 +696,7 @@ export const plannerLandings: PlannerLanding[] = [
     faqs: [
       { question: 'Is The Knot buying Zola?', answer: 'Reuters reported on 14 October 2026, citing two people familiar with the deal, that The Knot Worldwide agreed to buy Zola, subject to regulatory clearance, with Zola run as a standalone brand. The companies declined to comment, so treat it as reported, not confirmed.' },
       { question: 'Is Zola free?', answer: 'Its planning tools are free, with limits. Zola’s own help page says the seating chart is free for up to 15 guests and Premium adds more, and card gifts to cash funds carry a 2.5% handling fee.' },
-      { question: 'Does Zola have an Android app?', answer: 'We found no Zola app in a Google Play search on 21 November 2026. Zola works in a phone browser.' },
+      { question: 'Does Zola have an Android app?', answer: 'No. Zola’s own post, “An update on the Zola Android app”, says the Android app shut down on 1 January 2023 and accounts stay on the Zola website, which works in a phone browser. The iPhone app was not affected.' },
       { question: 'Do I need an account to plan a wedding?', answer: 'Not for a dated checklist. Dream Wedding’s free plan opens with no account. You need accounts for a registry or a wedding website, which Dream Wedding does not offer.' }
     ],
     plannerAdds: [
@@ -716,13 +706,13 @@ export const plannerLandings: PlannerLanding[] = [
     ],
     ctaLabel: 'Open the free dated plan →',
     seed: { focus: 'Full concept', mode: 'flexible', q: 'We want a dated plan without signing up for a wedding site. Where do we start?' },
-    verificationBoundary: 'Facts about Zola and The Knot come from their own pages, Reuters and Business Wire, each linked with the day we read it (21 November 2026). Review quotes are short, dated and linked to the App Store pages. Dream Wedding is not affiliated with either company; their names are used only to describe them.',
+    verificationBoundary: 'Facts about Zola and The Knot come from their own pages, Reuters and Business Wire, each linked with the day we read it (21 November 2026). App Store ratings are as shown on each app’s page that day. Dream Wedding is not affiliated with either company; their names are used only to describe them.',
     sources: [
       { label: 'Reuters via The Star: The Knot Worldwide to acquire Zola, sources say (14 Oct 2026)', url: 'https://www.thestar.com.my/tech/tech-news/2026/10/15/the-knot-worldwide-to-acquire-zola-in-wedding-platform-union-sources-say', read: '21 Nov 2026' },
       { label: 'Business Wire: The Knot Worldwide welcomes Simply Eloped (8 Jul 2024)', url: 'https://www.businesswire.com/news/home/20240708208200/en/The-Knot-Worldwide-Welcomes-Simply-Eloped-Into-Its-Portfolio-of-Brands', read: '21 Nov 2026' },
       { label: 'Zola help: how do I use the seating chart', url: 'https://www.zola.com/faq/360038917171-how-do-i-use-the-zola-seating-chart-', read: '21 Nov 2026' },
       { label: 'Zola help: cash fund card fee', url: 'https://www.zola.com/faq/115002838152', read: '21 Nov 2026' },
-      { label: 'The Knot Worldwide: California privacy notice', url: 'https://www.theknotww.com/ca-privacy', read: '21 Nov 2026' },
+      { label: 'Zola: An update on the Zola Android app', url: 'https://www.zola.com/expert-advice/an-update-on-the-zola-android-app', read: '21 Nov 2026' },
       { label: 'Zola on the App Store', url: 'https://apps.apple.com/us/app/id852691916', read: '21 Nov 2026' },
       { label: 'The Knot on the App Store', url: 'https://apps.apple.com/us/app/id457941553', read: '21 Nov 2026' },
       { label: 'The Knot Wedding Planner on Google Play', url: 'https://play.google.com/store/apps/details?id=com.xogrp.planner', read: '21 Nov 2026' }
@@ -794,6 +784,7 @@ export const plannerLandings: PlannerLanding[] = [
     sources: [
       { label: 'Joy: How much does a wedding planner cost in 2026? (updated 12 Aug 2026)', url: 'https://withjoy.com/blog/cost-of-wedding-planner/', read: '21 Nov 2026' }
     ],
+    seeAlso: [{ label: 'The day-of coordinator’s checklist, for whoever runs your day', path: '/guides/day-of-coordinator-checklist' }],
     relatedSlugs: ['maid-of-honor-duties', 'wedding-planner-cost', 'courthouse-wedding']
   },
   {
@@ -1017,7 +1008,7 @@ export const plannerLandings: PlannerLanding[] = [
     faqs: [
       { question: 'How much does a wedding planner cost in 2026?', answer: 'Joy’s 2026 guide, updated 12 August 2026, puts the national average near $5,500 for full service, about $3,200 for partial planning and about $1,800 for a day-of coordinator.' },
       { question: 'Do wedding planners charge a percentage?', answer: 'Some full-service and luxury planners charge 10% to 20% of the total wedding budget, according to the same guide. Others charge a flat fee or by the hour.' },
-      { question: 'Is a wedding planner worth it?', answer: 'It depends on your time, the size of the wedding and how many vendors you are managing. If the fee does not fit, a dated plan and a written hand-over for the day cover most of what a planner organises.' }
+      { question: 'How much less is a day-of coordinator than full service?', answer: 'In Joy’s 2026 guide, about $1,800 for a day-of coordinator against a national average near $5,500 for full service, because a day-of coordinator mostly covers the final weeks and the day itself.' }
     ],
     plannerAdds: [
       'A plan with a date on every task, from your wedding date.',
@@ -1030,6 +1021,7 @@ export const plannerLandings: PlannerLanding[] = [
     sources: [
       { label: 'Joy: How much does a wedding planner cost in 2026? (updated 12 Aug 2026)', url: 'https://withjoy.com/blog/cost-of-wedding-planner/', read: '21 Nov 2026' }
     ],
+    seeAlso: [{ label: 'Is a wedding planner worth it for you?', path: '/questions/is-a-wedding-planner-worth-it' }],
     relatedSlugs: ['wedding-without-a-coordinator', 'who-pays-for-what-wedding', 'zola-vs-the-knot']
   }
 ];

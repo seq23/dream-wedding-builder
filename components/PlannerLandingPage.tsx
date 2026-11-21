@@ -108,6 +108,11 @@ export function PlannerLandingPage({ landing, children }: { landing: PlannerLand
 
     <section id={shape ? "budget-faq" : undefined}><p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Questions couples ask</p><h2 className="mt-3 font-serif text-5xl">Frequently asked questions</h2><div className="mt-6 grid gap-4">{landing.faqs.map((item) => <details key={item.question} className="rounded-[12px] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-3 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
 
+    {landing.seeAlso?.length ? <section className="no-print rounded-[12px] border border-charcoal/10 bg-white p-7" data-testid="landing-see-also">
+      <h2 className="font-serif text-4xl">Also on this site</h2>
+      <div className="mt-5 grid gap-3 md:grid-cols-2">{landing.seeAlso.map((item) => <Link key={item.path} href={hrefFrom(landing.host, item.path)} className="rounded-2xl bg-ivory p-4 font-bold transition hover:bg-linen">{item.label} →</Link>)}</div>
+    </section> : null}
+
     {related.length > 0 && <section className="no-print rounded-[12px] border border-charcoal/10 bg-white p-7">
       <h2 className="font-serif text-4xl">Related planning questions</h2>
       <div className="mt-5 grid gap-3 md:grid-cols-2">{related.map((item) => <a key={item.slug} href={canonicalUrl(item.host, `/${item.slug}`)} className="rounded-2xl bg-ivory p-4 font-bold transition hover:bg-linen">{item.question} →</a>)}</div>
