@@ -975,7 +975,7 @@ export const plannerLandings: PlannerLanding[] = [
     title: 'Wedding planner cost in 2026, and what you get for it',
     h1: 'What a wedding planner costs in 2026, and what you get for the money',
     directoryLabel: 'What a wedding planner costs',
-    description: 'Wedding planner and day-of coordinator costs in 2026 from a dated published guide, what each level of service includes, and what to do if it is not in the budget.',
+    description: 'Wedding planner and day-of coordinator costs in 2026 from a dated published guide, what each level of service covers, and what to do if it is over budget.',
     question: 'How much does a wedding planner cost?',
     directAnswer: [
       'Joy’s 2026 cost guide (updated 12 August 2026) puts full-service planners at $3,500 to $15,000 or more, with a national average near $5,500; partial planning at around $3,200; and a day-of coordinator at around $1,800. Some full-service and luxury planners charge 10% to 20% of the total budget instead of a flat fee.',

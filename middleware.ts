@@ -19,15 +19,16 @@ export const KINDLE_SLASH_PATHS = ['/amazon/courthouse-wedding-planner', '/amazo
 
 export const ROUTE_SEGMENTS = [
   'about', 'admin', 'amazon', 'api', 'apple-touch-icon.png', 'backyard-wedding-planning',
-  'dashboard', 'disclaimer', 'editorial-policy', 'favicon.ico', 'free-wedding-planner', 'full-plan', 'guides',
-  'icon-192.png', 'icon-512.png', 'llms.txt', 'methodology', 'micro-wedding-planning',
-  'og.png', 'order', 'pack', 'photos', 'pinfeed', 'pinfeed.xml',
-  'printable-wedding-checklist', 'privacy', 'products', 'questions', 'readiness-score', 'refund-policy',
-  'robots.txt', 'shop', 'site.webmanifest', 'sitemap.xml', 'terms', 'trends', 'two-phones',
-  'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
-  'wedding-checklist-pdf', 'wedding-cost-per-guest', 'wedding-guest-list-template',
+  'courthouse-wedding', 'dashboard', 'disclaimer', 'editorial-policy', 'favicon.ico', 'free-wedding-planner',
+  'full-plan', 'guides', 'icon-192.png', 'icon-512.png', 'llms.txt', 'maid-of-honor-duties', 'methodology',
+  'micro-wedding-planning', 'nigerian-traditional-and-white-wedding', 'og.png', 'order', 'pack', 'photos',
+  'pinfeed', 'pinfeed.xml', 'printable-wedding-checklist', 'privacy', 'products', 'questions',
+  'readiness-score', 'refund-policy', 'robots.txt', 'shop', 'site.webmanifest', 'sitemap.xml', 'terms',
+  'trends', 'two-phones', 'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
+  'wedding-checklist-pdf', 'wedding-cost-per-guest', 'wedding-guest-list-template', 'wedding-planner-cost',
   'wedding-planning-checklist', 'wedding-planning-reality-check', 'wedding-seating-chart',
-  'wedding-timeline-template', 'what-to-do-6-months-before-the-wedding'
+  'wedding-timeline-template', 'wedding-to-do-list', 'wedding-without-a-coordinator',
+  'what-to-do-6-months-before-the-wedding', 'who-pays-for-what-wedding', 'zola-vs-the-knot'
 ];
 // Per-host icons, manifest and share card (app/<file>/route.ts) answer on every host.
 const passthroughExact = ['/favicon.ico', '/apple-touch-icon.png', '/icon-192.png', '/icon-512.png', '/og.png', '/site.webmanifest'];
