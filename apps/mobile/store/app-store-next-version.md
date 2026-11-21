@@ -1,7 +1,8 @@
 # App Store description: change for the NEXT Apple version (not 1.0)
 
-**Status: DRAFT (19 Nov 2026).** Dream Wedding 1.0 (app 6834891267) is in Apple review with its
-published copy; nothing here is entered in App Store Connect until the next version is prepared.
+**Status: APPLIED (21 Nov 2026).** The partner line was removed from the Dream Wedding 1.0 (app
+6834891267) en-US description in App Store Connect on 21 Nov 2026, before the build 11 resubmission.
+The list below is the full-plan list as it now reads there.
 
 ## The mismatch
 
