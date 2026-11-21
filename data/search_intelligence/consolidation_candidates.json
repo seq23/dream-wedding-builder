@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-20T20:42:04.213Z",
+  "generated_at": "2026-11-21T19:44:06.127Z",
   "rule": "candidate = sitemap page with 0 Search Console impressions in the rolling window (gsc_truth.json pages) AND rendered word count below the library lower quartile for its page type. No redirects are made from this file.",
   "thin_thresholds_words": {
     "guide": 503,
@@ -10,8 +10,8 @@
     "weddingseatingchartmaker.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-22",
-        "end": "2026-11-18"
+        "start": "2026-10-23",
+        "end": "2026-11-19"
       },
       "content_pages_examined": 2,
       "candidate_count": 0,
@@ -23,8 +23,8 @@
     "weddingbudgetspreadsheet.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-22",
-        "end": "2026-11-18"
+        "start": "2026-10-23",
+        "end": "2026-11-19"
       },
       "content_pages_examined": 4,
       "candidate_count": 0,
@@ -36,8 +36,8 @@
     "weddingtimelinetemplate.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-22",
-        "end": "2026-11-18"
+        "start": "2026-10-23",
+        "end": "2026-11-19"
       },
       "content_pages_examined": 2,
       "candidate_count": 0,
@@ -49,25 +49,17 @@
     "weddingchecklistpdf.com": {
       "state": "MEASURED",
       "gsc_period": {
-        "start": "2026-10-22",
-        "end": "2026-11-18"
+        "start": "2026-10-23",
+        "end": "2026-11-19"
       },
       "content_pages_examined": 24,
-      "candidate_count": 2,
+      "candidate_count": 1,
       "candidates": [
         {
           "url": "https://weddingchecklistpdf.com/guides/wedding-day-timeline",
           "type": "guide",
           "impressions_28d": 0,
           "words": 468,
-          "thin_threshold": 503,
-          "action": "REVIEW_FOR_CONSOLIDATION"
-        },
-        {
-          "url": "https://weddingchecklistpdf.com/guides/wedding-seating-chart-accessibility",
-          "type": "guide",
-          "impressions_28d": 0,
-          "words": 469,
           "thin_threshold": 503,
           "action": "REVIEW_FOR_CONSOLIDATION"
         }
