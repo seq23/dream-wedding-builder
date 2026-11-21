@@ -144,7 +144,7 @@ export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, o
       const sentPhotos = photos.map(p => ({ loves: p.loves, colours: p.colours }));
       // With a date, the season comes from it (never a season tapped before the date was known).
       const dated = seasonFromDate(weddingDate);
-      const res = await fetch('/api/wedding-read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ path, wish, colours, season: dated || season, setting, moods, photos: sentPhotos, facts: { ...facts, dateSet: !!dated } }) });
+      const res = await fetch('/api/wedding-read', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ consent: true, path, wish, colours, season: dated || season, setting, moods, photos: sentPhotos, facts: { ...facts, dateSet: !!dated } }) });
       const body = await res.json().catch(() => null);
       if (!res.ok || !body?.ok) { setProblem(body?.error ?? 'That did not go through. Please try again.'); return; }
       setAnswer({ read: body.read, remaining: body.remaining, limit: body.limit, reason: body.reason });

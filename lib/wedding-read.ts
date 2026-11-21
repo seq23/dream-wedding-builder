@@ -596,9 +596,9 @@ async function weddingReadBody(input: ReadInput): Promise<ReadResult> {
   const now = input.now ?? new Date();
   const a = cleanAnswers(input.body);
   const fixed = (reason: ReadResult['body']['reason'], remaining: number | null, limit = ANSWERS_PER_VISITOR_PER_DAY): ReadResult => ({ status: 200, body: { ok: true, read: fixedRead(a), remaining, limit, reason } });
-  // The app sends consent: false when she has not ticked permission to send her answers to an AI
-  // model (Apple 5.1.2(i)): fixed lists only, no model call. The website sends no consent field.
-  if ((input.body as { consent?: unknown } | null)?.consent === false) return fixed('no_consent', null);
+  // Only an explicit yes reaches a model (Apple 5.1.2(i)): the app sends her step 1 tick, the
+  // website sends true behind its own notice. Missing, false or malformed: fixed lists, no model call.
+  if ((input.body as { consent?: unknown } | null)?.consent !== true) return fixed('no_consent', null);
   if (!input.enabled) return fixed('off', null);
   if (!input.db) { log('NAMED STOP [WEDDING_READ_NO_DB] D1 binding missing; the fixed-list answer was given'); return fixed('off', null); }
   if (!input.salt) { log('NAMED STOP [WEDDING_READ_SALT_MISSING] neither AI_DRAFT_SALT nor DOWNLOAD_SIGNING_SECRET is set; the fixed-list answer was given'); return fixed('off', null); }

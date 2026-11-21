@@ -212,10 +212,11 @@ export default function Feel() {
           <Tick label="The venue is booked" on={a.venueBooked} onPress={() => set({ venueBooked: !a.venueBooked })} />
         </View> : null}
       </View> : null}
-      {chosen ? <>
-        <Tick label="Send my answers to a free AI model outside the app" on={aiOk} onPress={() => setAiOk(v => !v)} />
-        <Text style={[type.sub, { color: color.midnightMuted }]}>{aiOk ? 'What you tell us goes to a free AI model (Google Gemini or OpenRouter), which may use it to improve its products. We remove emails, phone numbers, street addresses and links first. Leave out names.' : 'Not ticked: nothing goes to AI, and your wedding comes from our fixed lists.'} Photos stay on your phone; only the colors are used.</Text>
-      </> : null}
+      {chosen ? <View style={{ gap: space[2], borderTopWidth: 1, borderColor: color.rule, paddingTop: space[3] }}>
+        <Text style={mono}>Written by AI? Your choice</Text>
+        <Text style={[type.sub, { color: color.midnightMuted }]}>With your permission, your answers go to a free AI model, Google Gemini or OpenRouter, which may use them to improve its products. We remove emails, phone numbers, street addresses and links first; leave out names. Without it, nothing goes to AI and your wedding comes from our fixed lists. Photos stay on your phone; only their colors are used.</Text>
+        <Tick label="Yes, send my answers to the free AI model" on={aiOk} onPress={() => setAiOk(v => !v)} />
+      </View> : null}
       {err}
       {busy ? <View style={{ flexDirection: 'row', gap: space[2], alignItems: 'center' }}><ActivityIndicator color={color.blue} /><Text style={type.body}>Reading your wedding. This takes a few seconds.</Text></View> : null}
       <Blue label={busy ? 'Reading your wedding…' : 'Continue · step 1 of 4 ›'} onPress={ask} disabled={!chosen || busy} />
