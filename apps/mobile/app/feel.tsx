@@ -80,6 +80,7 @@ export default function Feel() {
   const [step, setStep] = useState<Step>(1);
   const [a, setA, answersNow] = useTypedState<JourneyAnswers>(EMPTY_ANSWERS);
   const [chosen, setChosen] = useState(false);
+  const [aiOk, setAiOk] = useState(false);
   const [photos, setPhotos] = useState<JourneyPhoto[]>([]);
   const [factsOpen, setFactsOpen] = useState(false);
   const [page, setPage] = useState<Page | null>(null);
@@ -114,7 +115,7 @@ export default function Feel() {
       await flushFields();
       const a = answersNow();
       const sent = photos.map(p => ({ loves: p.loves, colours: p.colours }));
-      const reply = await client.request(answersToSend(a, canSaveDate(date) ? date : ''), sent);
+      const reply = await client.request(answersToSend(a, canSaveDate(date) ? date : ''), sent, aiOk);
       if (!reply.ok) { setError(reply.message); return; }
       setPage({ read: reply.read, reason: reply.reason, remaining: reply.remaining, limit: reply.limit }); setPicks([]); setStep(2);
       await store.save({ answers: a, read: reply.read, reason: reply.reason, picks: [] }).catch(() => {});
@@ -211,7 +212,11 @@ export default function Feel() {
           <Tick label="The venue is booked" on={a.venueBooked} onPress={() => set({ venueBooked: !a.venueBooked })} />
         </View> : null}
       </View> : null}
-      {chosen ? <Text style={[type.sub, { color: color.midnightMuted }]}>What you tell us goes to a free AI model (Google Gemini or OpenRouter), which may use it to improve its products. We remove emails, phone numbers, street addresses and links first. Photos stay on your phone; only the colors are used. Leave out names.</Text> : null}
+      {chosen ? <View style={{ gap: space[2], borderTopWidth: 1, borderColor: color.rule, paddingTop: space[3] }}>
+        <Text style={mono}>Written by AI? Your choice</Text>
+        <Text style={[type.sub, { color: color.midnightMuted }]}>With your permission, your answers go to a free AI model, Google Gemini or OpenRouter, which may use them to improve its products. We remove emails, phone numbers, street addresses and links first; leave out names. Without it, nothing goes to AI and your wedding comes from our fixed lists. Photos stay on your phone; only their colors are used.</Text>
+        <Tick label="Yes, send my answers to the free AI model" on={aiOk} onPress={() => setAiOk(v => !v)} />
+      </View> : null}
       {err}
       {busy ? <View style={{ flexDirection: 'row', gap: space[2], alignItems: 'center' }}><ActivityIndicator color={color.blue} /><Text style={type.body}>Reading your wedding. This takes a few seconds.</Text></View> : null}
       <Blue label={busy ? 'Reading your wedding…' : 'Continue · step 1 of 4 ›'} onPress={ask} disabled={!chosen || busy} />

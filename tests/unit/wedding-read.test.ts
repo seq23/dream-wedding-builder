@@ -31,7 +31,9 @@ const good = (over: Record<string, unknown> = {}) => JSON.stringify({
   ...over
 });
 
-const base = (over: Partial<Parameters<typeof weddingRead>[0]> = {}) => ({ db: undefined, apiKey: 'or-key', geminiKey: 'gem-key', enabled: true, body: DK, ip: '1.1.1.1', today: TODAY, now: NOW, salt: 's', log: () => {}, budgetMs: 60000, ...over });
+// Every request here has her yes (consent: true) unless the test says otherwise; the consent test sets the body itself.
+const withYes = (body: unknown) => body && typeof body === 'object' && !Array.isArray(body) && !('consent' in body) ? { consent: true, ...body } : body;
+const base = (over: Partial<Parameters<typeof weddingRead>[0]> = {}) => { const o = { db: undefined, apiKey: 'or-key', geminiKey: 'gem-key', enabled: true, body: DK as unknown, ip: '1.1.1.1', today: TODAY, now: NOW, salt: 's', log: () => {}, budgetMs: 60000, ...over }; return { ...o, body: withYes(o.body) }; };
 const read = (over: Partial<WeddingRead> = {}): WeddingRead => ({ ...fixedRead(cleanAnswers(DK)), by: 'ai', ...over });
 
 describe('the checks before she sees an answer', () => {
@@ -101,6 +103,19 @@ describe('the checks before she sees an answer', () => {
 });
 
 describe('the journey endpoint', () => {
+  it('only an explicit yes reaches an AI model: false, missing or malformed consent gets the fixed-list answer and no model call', async () => {
+    const { db } = fakeD1([]);
+    const net = fakeNet({ gemini: () => geminiAnswer(good()) });
+    for (const body of [{ ...DK, consent: false }, DK, { ...DK, consent: 'true' }, { ...DK, consent: null }]) {
+      const r = await weddingRead({ ...base({ db, fetchImpl: net.fetchImpl }), body });
+      expect(r.body, JSON.stringify((body as { consent?: unknown }).consent)).toMatchObject({ ok: true, reason: 'no_consent' });
+      expect(r.body.read.by).toBe('fixed');
+    }
+    expect(net.calls).toHaveLength(0);
+    const ticked = await weddingRead(base({ db, fetchImpl: net.fetchImpl, body: { ...DK, consent: true } }));
+    expect(ticked.body.reason).toBe('ai');
+    expect(net.calls.length).toBeGreaterThan(0);
+  });
   it('answers with no email: a stranger gets an AI read, labelled as AI, with venue types and traced ideas', async () => {
     const { db } = fakeD1([]);
     const net = fakeNet({ gemini: () => geminiAnswer(good()) });

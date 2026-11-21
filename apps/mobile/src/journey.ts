@@ -31,7 +31,7 @@ export interface JourneyAnswers {
 /** A photo as it is sent: what she loves in it and the colours read on the phone. The
  * photo itself never leaves the phone. */
 export interface SentPhoto { loves: string[]; colours: string[] }
-export type ReadReason = 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed';
+export type ReadReason = 'ai' | 'visitor_limit' | 'daily_ceiling' | 'off' | 'no_model' | 'checks_failed' | 'no_consent';
 export type ReadReply =
   | { ok: true; read: WeddingRead; reason: ReadReason; remaining: number | null; limit: number }
   | { ok: false; message: string };
@@ -40,6 +40,7 @@ type Transport = (url: string, init: RequestInit) => Promise<Pick<Response, 'ok'
 /** What the label under her answer says: who wrote it, honestly. */
 export function readLabel(by: WeddingRead['by'], reason: ReadReason): string {
   if (by === 'ai') return 'Written by an AI planner, not a person. Check anything that matters with your vendors. No businesses, prices or availability are named.';
+  if (reason === 'no_consent') return 'You chose not to send your answers to AI, so this comes from our fixed lists, without AI.';
   return reason === 'visitor_limit'
     ? 'You have used today’s three AI answers, so this one comes from our fixed lists, without AI. More tomorrow.'
     : 'The free AI planner could not answer just now, so this comes from our fixed lists, without AI.';
@@ -74,7 +75,8 @@ export function answersToSend(a: JourneyAnswers, date: string): JourneyAnswers {
 export function weddingReadClient(preview: boolean, send: Transport = fetch) {
   let pending = false;
   return {
-    async request(a: JourneyAnswers, photos: SentPhoto[] = []): Promise<ReadReply> {
+    /** consent: her tick on step 1. Without it the website answers from fixed lists and calls no AI model (Apple 5.1.2(i)). */
+    async request(a: JourneyAnswers, photos: SentPhoto[] = [], consent = false): Promise<ReadReply> {
       if (pending) return { ok: false, message: 'Your wedding is still being written.' };
       if (a.path === 'idea' && a.wish.trim().length < 3 && !photos.length) return { ok: false, message: 'Say it in a few words, add a photo, or tap “I don’t know yet”.' };
       pending = true;
@@ -84,7 +86,7 @@ export function weddingReadClient(preview: boolean, send: Transport = fetch) {
         const res = await send(ORIGIN + '/api/wedding-read', {
           method: 'POST', signal: controller.signal,
           headers: { 'Content-Type': 'application/json', ...(preview ? { 'x-dw-test': '1' } : {}) },
-          body: JSON.stringify({ path: a.path, wish: a.path === 'idea' ? a.wish : '', colours: a.colours, season: a.season, setting: a.setting, moods: a.moods, photos: photos.slice(0, 3).map(p => ({ loves: p.loves, colours: p.colours })),
+          body: JSON.stringify({ consent: consent === true, path: a.path, wish: a.path === 'idea' ? a.wish : '', colours: a.colours, season: a.season, setting: a.setting, moods: a.moods, photos: photos.slice(0, 3).map(p => ({ loves: p.loves, colours: p.colours })),
             facts: { where: a.where, guests: a.guests, budget: a.budget, tradition: a.tradition, venueBooked: a.venueBooked, dateSet: a.dateSet } }),
         });
         const body = await res.json() as Record<string, unknown>;

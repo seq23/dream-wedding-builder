@@ -91,7 +91,6 @@ export default function Payments() {
       {!shared ? <GoButton href="/more/full-plan" label="See the full plan ›" /> : null}
       <Text style={type.title}>{summary.count === 1 ? '1 payment left' : `${summary.count} payments left`}{summary.total ? ` · ${money(summary.left)}` : ''}</Text>
       {summary.total ? <Text style={type.body}>Total agreed {money(summary.total)} · Paid so far {money(summary.paid)}</Text> : <Text style={type.sub}>Tap a payment to add its amount and see the total still owed.</Text>}
-      {rows.find(r=>!r.paidOn) ? <Text style={type.body}>Next: {rows.find(r=>!r.paidOn)!.payee} · {owed(rows.find(r=>!r.paidOn)!.cents)} · {plainDate(rows.find(r=>!r.paidOn)!.date)}</Text> : null}
       {['Past due','Due in the next 30 days','Later','Paid'].map(group=> { const items=rows.filter(r=>paymentGroup(r,today)===group); return items.length ? <View key={group} style={{gap:space[2]}}><Text style={type.section}>{group}{items.some(r=>r.cents) ? ` · ${money(items.reduce((n,r)=>n+r.cents,0))}` : ''}</Text>{items.map(r=><View key={r.id} style={{borderBottomWidth:1,borderColor:color.rule,paddingVertical:8}}>
         {button(`${r.payee} · ${owed(r.cents)} ✎`,()=>{setEditing(r);setAmount((r.cents/100).toFixed(2));})}
         <Text style={type.sub}>{r.detail} · {plainDate(r.date)} · {r.method || 'how it is paid: not added yet'}</Text>
