@@ -123,8 +123,8 @@
   "archives": {
     "printables": {
       "key": "app/printables-v1.zip",
-      "bytes": 103665,
-      "sha256": "76bcf49dd14b5747d3c178582c3f08f9842368587b328f0adfa94a1e1f616a45",
+      "bytes": 104151,
+      "sha256": "9325698491e87aaf62c0b9ce673d17df641daaafca64ca1eea1299ee48efc168",
       "files": [
         {
           "name": "DWB-BUDGET-001_v2.0.0.pdf",
@@ -173,8 +173,8 @@
         },
         {
           "name": "DWB-VENUE-001_v1.0.0.xlsx",
-          "bytes": 10751,
-          "sha256": "d5b01a53b70ccf091b056ca67ef895649d25a2c8b4664fb6be91b0b9469dd3d1"
+          "bytes": 10779,
+          "sha256": "b40b9e161d361521d126925aad2ffd23bbefbd436adfd63fca685e90c60fd0ac"
         },
         {
           "name": "DWB-VENDORS-001_v1.0.0.pdf",
@@ -183,15 +183,15 @@
         },
         {
           "name": "DWB-VENDORS-001_v1.0.0.xlsx",
-          "bytes": 9081,
-          "sha256": "8e99cd9081b0e2e341afcd14350383c21b892bd2574a32e2fda315461dc23659"
+          "bytes": 9689,
+          "sha256": "3ca028d82acb6ce9e25a98dcdd9a6e0c8a6c5be4dd708e147971d0c3dc3d145a"
         }
       ]
     },
     "day_of_kit": {
       "key": "app/day-of-kit-v1.zip",
-      "bytes": 32682,
-      "sha256": "482bda4066316b030db0fa9ae4c973d3dc686ba05a25374efbfd57dad40e95f7",
+      "bytes": 32722,
+      "sha256": "608c73d0ae6097c3482f9f23eb1cb4090353baea83e6fcda5c0bb839b2bf949b",
       "files": [
         {
           "name": "DWB-TIMELINE-001_starter_v2.0.0.csv",
@@ -210,13 +210,13 @@
         },
         {
           "name": "DWB-DAYOF-001_v1.0.0.pdf",
-          "bytes": 8669,
-          "sha256": "cbdc16f983ba4896ba8780980e0e51f39245f3d1644fffb5e8468ce326dae670"
+          "bytes": 8702,
+          "sha256": "235cc36454585f32ec3b6015337a1d9e7575ca0aca854cd14e746be162ad2e04"
         },
         {
           "name": "DWB-DAYOF-001_v1.0.0.xlsx",
-          "bytes": 9251,
-          "sha256": "7003dae77649834a12499894a07f93f828abe6fc658f64cef6cf2ac234d069f2"
+          "bytes": 9254,
+          "sha256": "0f91f9fd3120969164ed30fef8b4f37dad6aa24b1e323c39cd87a7cae65b6187"
         }
       ]
     }
