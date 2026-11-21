@@ -2,13 +2,13 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W47",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-20T20:00:09.207Z",
+  "generated_at": "2026-11-21T19:05:19.687Z",
   "state": "slow",
   "published": 7,
-  "indexed": "not read: no page old enough to inspect yet (14 days)",
+  "indexed": 0,
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 469,
+  "ai_bot_hits": 431,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
@@ -120,13 +120,13 @@
   ],
   "cap": {
     "max_live_pages": 28,
-    "live": 14,
-    "room": 14,
+    "live": 15,
+    "room": 13,
     "why": "up from 25 to 28: Google impressions 87 in the last 28 days beat 70 in the 28 before"
   },
   "notes": [
     "site config lowers the mode to slow",
-    "CHECK runs weekly in mode=slow; last ran 2026-11-15"
+    "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json"
   ],
   "lanes": {
     "ratio": {
@@ -134,16 +134,16 @@
       "striking": 1
     },
     "can_be_one": {
-      "pages": 9,
+      "pages": 10,
       "measured": 0,
       "top3": 0,
       "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
     },
     "striking": {
       "pages": 26,
-      "measured": 0,
+      "measured": 1,
       "top3": 0,
-      "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
+      "hit_rate": 0
     },
     "weights": {
       "neighbour": 35,
@@ -154,5 +154,5 @@
     "weight_changes": [],
     "competition": "ok: 15 top-10 read(s) via brave"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/44807283871"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/44939017787"
 }

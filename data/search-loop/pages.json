@@ -864,7 +864,20 @@
         "https://www.loc.gov/"
       ],
       "linked_from": [],
-      "checks": {},
+      "checks": {
+        "w2": {
+          "at": "2026-11-21",
+          "source": "search_console",
+          "clicks": 0,
+          "impressions": 0,
+          "position": null,
+          "ai_visits_today": 0,
+          "indexed": false,
+          "checkpoint": "w2",
+          "lane": "striking",
+          "top3": false
+        }
+      },
       "gate_notes": [
         "b5 FAQ answer is 38 words (aim 40-60): \"How far in advance should I start planning my wedd\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"What is the hardest part of planning a wedding wit\"",
@@ -876,7 +889,9 @@
         "at": "2026-11-10",
         "before_hash": "dcfdaf80084c8f2c21f93b0e27ff20ea69763d316a42e18837603546c9d2f9d4",
         "after_hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d"
-      }
+      },
+      "inspected_at": "2026-11-21",
+      "indexed": false
     },
     {
       "slug": "what-do-you-need-to-consider-when-planning-a-wedding",
@@ -1672,7 +1687,81 @@
           "after_hash": "f79acc6423854afb053fcdee9aae05e62691008bb19e401c3049acbaadd507d7"
         }
       ],
-      "checks": {}
+      "checks": {},
+      "indexnow_at": "2026-11-21"
+    },
+    {
+      "slug": "free-wedding-checklist-pdf",
+      "query": "free wedding checklist pdf",
+      "lane": "can_be_one",
+      "priority": "wedding planning checklist",
+      "score": 40,
+      "scores": {
+        "striking": 40,
+        "can_be_one": 40
+      },
+      "reasons": [
+        "priority topic \"wedding planning checklist\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "weak top 10 (0): 0 directories, 0 forums, 0 off-target national, 1 thin or old, 5 answer the exact question",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "bing_suggest": true,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0.25,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": {
+          "provider": "brave",
+          "weakness": 0,
+          "counts": {
+            "results": 10,
+            "directories": 0,
+            "forums": 0,
+            "off_target_national": 0,
+            "thin_or_old": 1,
+            "exact_answer": 5
+          },
+          "reasons": [
+            "top 10: 0 directories, 0 forums, 0 off-target national, 1 thin or old, 5 answer the exact question"
+          ]
+        }
+      },
+      "rel": "public/questions/free-wedding-checklist-pdf.html",
+      "route": "/questions/free-wedding-checklist-pdf",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-checklist-pdf",
+      "published_at": "2026-11-21",
+      "status": "live",
+      "hash": "76f6522fb81a88611c6739a5845706ef5e9aec154a2e27593033ef10d5337b93",
+      "model": "free-route",
+      "facts": [
+        "https://www.usa.gov/marriage-certificate",
+        "https://www.census.gov/topics/families.html"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/free-printable-wedding-planning-checklist-and-timeline.html",
+          "route": "/questions/free-printable-wedding-planning-checklist-and-timeline",
+          "before_hash": "f79acc6423854afb053fcdee9aae05e62691008bb19e401c3049acbaadd507d7",
+          "after_hash": "735fce997e772b0d9d461697a4687a8b10b69da25874bc0bfb307516ed05db68"
+        },
+        {
+          "rel": "public/questions/beach-wedding-checklist-pdf.html",
+          "route": "/questions/beach-wedding-checklist-pdf",
+          "before_hash": "667acda510ee8548b7ca0fd9b3e6925d00ecec04d62118d8fde923c3235ded85",
+          "after_hash": "3f8c0875602428c81525f01dc6c938f70fa107adf780ce01a9c0ec9e874c0501"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b1 title does not put the search first"
+      ]
     }
   ],
   "dropped": [
