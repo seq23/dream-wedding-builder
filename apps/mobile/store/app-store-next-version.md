@@ -26,4 +26,4 @@ The full plan is one payment, no subscription:
 ## End of description list
 
 Bring a partner line back only in the version whose store build sets `EXPO_PUBLIC_DW_SHARING=1`.
-Also for the next Apple version: turn on "Report this answer" for iOS (`release/README.md`).
+"Report this answer" is on for iOS from 20 Nov 2026 (`release/README.md`).
