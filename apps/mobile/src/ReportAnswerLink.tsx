@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Linking, Platform, Pressable, Text, View } from 'react-native';
-import { REPORT_ADDRESS, reportAnswerLink, reportAnswerShown } from './reportAnswer';
+import { Linking, Pressable, Text, View } from 'react-native';
+import { REPORT_ADDRESS, reportAnswerLink } from './reportAnswer';
 import { color, font, type } from './theme';
 
-/** A quiet link under an AI answer. Nothing renders where the switch is off (iOS 1.0). */
+/** A quiet link under an AI answer, on iOS, Android and the web preview alike. */
 export function ReportAnswer({ answer, where }: { answer: string; where: string }) {
   const [fallback, setFallback] = useState(false);
-  if (!reportAnswerShown(Platform.OS)) return null;
   const open = () => { Linking.openURL(reportAnswerLink(answer, where)).catch(() => setFallback(true)); };
   return <View>
     <Pressable accessibilityRole="link" accessibilityLabel="Report this answer" onPress={open} style={{ minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' }}>
