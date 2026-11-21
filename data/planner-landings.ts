@@ -38,7 +38,9 @@ export interface LandingSource {
   label: string;
   url: string;
   /** The day we read it, e.g. "21 Nov 2026". */
-  read: string;
+  read?: string;
+  /** Shown instead of "read <day>", e.g. for an archived copy of a page no longer live. */
+  note?: string;
 }
 
 export interface PlannerLanding {
@@ -712,7 +714,7 @@ export const plannerLandings: PlannerLanding[] = [
       { label: 'Business Wire: The Knot Worldwide welcomes Simply Eloped (8 Jul 2024)', url: 'https://www.businesswire.com/news/home/20240708208200/en/The-Knot-Worldwide-Welcomes-Simply-Eloped-Into-Its-Portfolio-of-Brands', read: '21 Nov 2026' },
       { label: 'Zola help: how do I use the seating chart', url: 'https://www.zola.com/faq/360038917171-how-do-i-use-the-zola-seating-chart-', read: '21 Nov 2026' },
       { label: 'Zola help: cash fund card fee', url: 'https://www.zola.com/faq/115002838152', read: '21 Nov 2026' },
-      { label: 'Zola: An update on the Zola Android app', url: 'https://www.zola.com/expert-advice/an-update-on-the-zola-android-app', read: '21 Nov 2026' },
+      { label: 'Zola: An update on the Zola Android app', url: 'https://web.archive.org/web/20251112051239/https://www.zola.com/expert-advice/an-update-on-the-zola-android-app', note: 'Zola’s post, archived 12 Nov 2025' },
       { label: 'Zola on the App Store', url: 'https://apps.apple.com/us/app/id852691916', read: '21 Nov 2026' },
       { label: 'The Knot on the App Store', url: 'https://apps.apple.com/us/app/id457941553', read: '21 Nov 2026' },
       { label: 'The Knot Wedding Planner on Google Play', url: 'https://play.google.com/store/apps/details?id=com.xogrp.planner', read: '21 Nov 2026' }

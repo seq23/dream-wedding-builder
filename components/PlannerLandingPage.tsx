@@ -90,7 +90,7 @@ export function PlannerLandingPage({ landing, children }: { landing: PlannerLand
 
     {landing.sources?.length ? <section className="rounded-[12px] border border-charcoal/10 bg-white p-7" data-testid="landing-sources">
       <h2 className="font-serif text-3xl">Sources</h2>
-      <ul className="mt-4 grid gap-2 text-sm leading-6">{landing.sources.map((source) => <li key={source.url}><a href={source.url} rel="noopener" className="underline underline-offset-4 [overflow-wrap:anywhere]">{source.label}</a> <span className="text-charcoal/55">· read {source.read}</span></li>)}</ul>
+      <ul className="mt-4 grid gap-2 text-sm leading-6">{landing.sources.map((source) => <li key={source.url}><a href={source.url} rel="noopener" className="underline underline-offset-4 [overflow-wrap:anywhere]">{source.label}</a> <span className="text-charcoal/55">· {source.note ?? `read ${source.read}`}</span></li>)}</ul>
     </section> : null}
 
     {/* The general answer is above. This is the part only a tool can do, and it is
