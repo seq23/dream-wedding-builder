@@ -11,7 +11,8 @@ function setup() {
   const storage = { async getItem(k: string) { return data.get(k) ?? null; }, async setItem(k: string, v: string) { data.set(k, v); } };
   const provider: PurchasesProvider = { available: true, async products() { return []; },
     async purchase(id) { calls.push(id); return { userId: 'identity', active: [] }; },
-    async restore() { calls.push('restore'); return { userId: 'identity', active: [] }; } };
+    async restore() { calls.push('restore'); return { userId: 'identity', active: [] }; },
+    async appUserId() { return 'identity'; }, async refresh() { calls.push('refresh'); return { userId: 'identity', active: [] }; } };
   const downloads = { async refresh(id: string) { calls.push(id); return { list: { windows: [], tasks: [] }, packs: [] }; } };
   return { data, calls, storage, provider, downloads };
 }

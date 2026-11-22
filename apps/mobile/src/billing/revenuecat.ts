@@ -43,4 +43,6 @@ export class RevenueCat implements PurchasesProvider {
     }
   }
   async restore() { return snapshot(await Purchases.restorePurchases(), await Purchases.getAppUserID()); }
+  async appUserId() { return Purchases.getAppUserID(); }
+  async refresh() { await Purchases.invalidateCustomerInfoCache(); return snapshot(await Purchases.getCustomerInfo(), await Purchases.getAppUserID()); }
 }

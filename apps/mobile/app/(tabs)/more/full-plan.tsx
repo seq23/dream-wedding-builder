@@ -23,6 +23,7 @@ import { color, type, space, radius } from '../../../src/theme';
 import { PREVIEW, PREVIEW_NOTE, STORE_AWAY } from '../../../src/build';
 import { PRODUCTS } from '../../../src/billing/offers';
 import { fullPlanLines } from '../../../src/sharingSwitch';
+import { REVIEW_BUTTON, REVIEW_LINK, REVIEW_MESSAGES, redeemReviewCode, reviewCodeAllowed, reviewWindowOpen } from '../../../src/billing/review';
 const phoneCheckout = checkout(AsyncStorage, purchases, downloadStore(AsyncStorage), () => bytesToHex(getRandomBytes(16)));
 const names: Record<ProductId, string> = { dw_planner_printables: 'Planner + printables', dw_full_plan: 'Full plan', dw_printables_topup: 'Printables', dw_day_of_kit: 'Day-of kit', dw_new_event: 'Full plan for a new event' };
 export default function FullPlan() {
@@ -40,9 +41,14 @@ export default function FullPlan() {
   const [buying, setBuying] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  // Google Play's reviewer only: Android, store build, unpaid, window open on the server (src/billing/review.ts).
+  const [reviewWindow, setReviewWindow] = useState(false);
+  const [reviewExpanded, setReviewExpanded] = useState(false);
+  const [reviewNote, setReviewNote] = useState('');
+  const [reviewCode, setReviewCode, reviewCodeNow] = useTypedState('');
   useFocusEffect(useCallback(() => {
     let active = true;
-    setLoaded(false); setProducts([]); setError(''); setMessage('');
+    setLoaded(false); setProducts([]); setError(''); setMessage(''); setReviewWindow(false);
     const timeout = setTimeout(() => {
       active = false;
       setError('Your event took too long to load. Close this screen and try again.');
@@ -54,6 +60,7 @@ export default function FullPlan() {
         clearTimeout(timeout);
         const next = offersFor(offerEntitlementsFor(ledger, event?.id ?? ''), newEvent && ledger.firstEventId !== null);
         setName(draft.name); setLocked(draft.locked); setOffers(next); setSelected(initialChoice(next)); setPaidUnused(unusedNewEvents(ledger).length); setLoaded(true);
+        if (reviewCodeAllowed(Platform.OS, purchases.available, draft.locked, newEvent)) void reviewWindowOpen().then(open => { if (active) setReviewWindow(open); });
         if (ledger.purchasedExtras?.some(extra => !ledger.extras.includes(extra))) setMessage(EXTRA_DOWNLOAD_MESSAGE);
         // Event details are ready: Restore does not depend on store prices.
         const catalog = await checkoutCatalog(purchases, next[0] === 'dw_new_event' ? 'new_event' : event?.fullPlan ? 'after_unlock' : 'default');
@@ -63,8 +70,9 @@ export default function FullPlan() {
       }).catch(() => { clearTimeout(timeout); if (active) setError('Could not read your event. Close this screen and try again.'); });
     return () => { active = false; clearTimeout(timeout); };
   }, [newEvent]));
-  async function transact(restore = false) {
-    setSaving(true); setBuying(!restore); setError(''); setMessage('');
+  async function transact(kind: 'buy' | 'restore' | 'review' = 'buy') {
+    const restore = kind !== 'buy';
+    setSaving(true); setBuying(!restore); setError(''); setMessage(''); setReviewNote('');
     try {
       // The name box hands up its last letters before the store sheet reads it.
       await flushFields();
@@ -77,7 +85,13 @@ export default function FullPlan() {
       if (buyingNewEvent && await checkoutRead(async () => (await phoneSharing()).read())) throw Error('Stop sharing your current event first (More, then Two phones). Then start the new event.');
       // Buying never waits on a name: an empty one becomes "Our wedding – <date>" (or "Our wedding"), renamed any time after.
       const eventName = typedName.trim() || defaultEventName(date);
-      if (restore) await phoneCheckout.restore(eventName, date);
+      if (kind === 'review') {
+        // The code is checked on the server; then the purchase door verifies and delivers, exactly as for Restore.
+        const result = await redeemReviewCode(reviewCodeNow(), await purchases.appUserId().catch(() => null));
+        if (result !== 'unlocked') throw Error(REVIEW_MESSAGES[result]);
+        await phoneCheckout.review(eventName, date);
+        setReviewWindow(false);
+      } else if (restore) await phoneCheckout.restore(eventName, date);
       else {
         if (!selected) throw Error('Choose a product first.');
         await phoneCheckout.purchase(eventName, date, selected);
@@ -107,7 +121,11 @@ export default function FullPlan() {
       setProducts([]);
       try { setProducts(await checkoutRead(() => purchases.products('after_unlock'))); }
       catch { setMessage('Your full plan is saved. Reopen this screen to load store prices for extras.'); }
-    } catch (e) { setError(e instanceof Error ? e.message : 'Could not check your purchase. Restore and try again.'); }
+    } catch (e) {
+      const text = e instanceof Error ? e.message : 'Could not check your purchase. Restore and try again.';
+      // A review-code message sits right under "Use this code", like a buying message under the buy button.
+      if (kind === 'review') setReviewNote(text); else setError(text);
+    }
     finally { setSaving(false); setBuying(false); }
   }
   // An event already paid for and not started needs no store price: it is not charged again.
@@ -155,7 +173,19 @@ export default function FullPlan() {
     </Pressable>
     {/* Any message about buying sits right under the button she tapped, never scrolled away. */}
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}
-    {purchases.available ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: saving || !loaded }} disabled={saving || !loaded} onPress={() => { void transact(true); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>I already bought this: restore it ›</Text></Pressable> : null}
+    {purchases.available ? <Pressable accessibilityRole="button" accessibilityState={{ disabled: saving || !loaded }} disabled={saving || !loaded} onPress={() => { void transact('restore'); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>I already bought this: restore it ›</Text></Pressable> : null}
+    {reviewWindow && !locked ? (reviewExpanded ? <View style={{ gap: space[2] }}>
+      <Text style={type.subhead}>App review code</Text>
+      <TypingBox accessibilityLabel="App review code" placeholder="10 digits" placeholderTextColor={color.midnightMuted} keyboardType="number-pad" maxLength={10}
+        clean={raw => raw.replace(/\D/g, '').slice(0, 10)} value={reviewCode} onChangeText={value => { setReviewCode(value); setReviewNote(''); }} editable={!saving}
+        style={[type.body, { borderWidth: 1, borderColor: color.rule, borderRadius: radius.md, padding: space[3] }]} />
+      <Pressable accessibilityRole="button" accessibilityState={{ disabled: saving }} disabled={saving} onPress={() => { void transact('review'); }} style={{ minHeight: 44, justifyContent: 'center' }}>
+        <Text style={[type.button, { color: color.blue }]}>{REVIEW_BUTTON} ›</Text>
+      </Pressable>
+      {reviewNote ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{reviewNote}</Text> : null}
+    </View> : <Pressable accessibilityRole="button" onPress={() => setReviewExpanded(true)} style={{ minHeight: 44, justifyContent: 'center' }}>
+      <Text style={[type.sub, { color: color.midnightMuted }]}>{REVIEW_LINK}</Text>
+    </Pressable>) : null}
     <View style={{ flexDirection: 'row', gap: space[4] }}>
       <Pressable accessibilityRole="link" onPress={() => Linking.openURL('https://weddingchecklistpdf.com/terms')} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={type.sub}>Terms</Text></Pressable>
       <Pressable accessibilityRole="link" onPress={() => Linking.openURL('https://weddingchecklistpdf.com/privacy')} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={type.sub}>Privacy</Text></Pressable>
