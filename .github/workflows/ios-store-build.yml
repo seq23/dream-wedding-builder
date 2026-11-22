@@ -3,7 +3,10 @@ name: iOS store build
 # `eas build --local` (same route as KeepMyProof and ApprovalPrep), for months when the
 # Expo free plan's cloud iOS builds are used up. Signing credentials and the production
 # environment's EAS variables are fetched from EAS via EXPO_TOKEN; the build number is
-# the remote one (eas.json autoIncrement). Upload the .ipa with `eas submit --path`.
+# the remote one (eas.json autoIncrement). The .ipa is submitted to App Store Connect
+# (TestFlight) inside this job with `eas submit --path` and is never uploaded as an
+# artifact: this repo is public. The App Store Connect API key exists on disk only for
+# the submit step.
 on:
   workflow_dispatch:
     inputs:
@@ -15,6 +18,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ios-store-build
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: macos-26
@@ -23,8 +30,8 @@ jobs:
       run:
         working-directory: apps/mobile
     env:
-      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       EXPO_NO_TELEMETRY: '1'
+      EAS: npx --yes eas-cli@27.11.0
     steps:
       - uses: actions/checkout@v4
       - name: Select newest Xcode
@@ -43,10 +50,35 @@ jobs:
           command -v fastlane || brew install fastlane
           command -v pod || brew install cocoapods
       - name: EAS local build
-        run: npx --yes eas-cli@latest build --platform ios --profile ${{ inputs.simulator && 'simulator' || 'production' }} --local --non-interactive --output ${{ inputs.simulator && 'app.tar.gz' || 'app.ipa' }}
-      - uses: actions/upload-artifact@v4
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: $EAS build --platform ios --profile ${{ inputs.simulator && 'simulator' || 'production' }} --local --non-interactive --output ${{ inputs.simulator && 'app.tar.gz' || 'app.ipa' }}
+      # The simulator build cannot be submitted or installed on a phone; it is kept for the
+      # App Review screen recording only.
+      - if: ${{ inputs.simulator }}
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.simulator && 'app-simulator' || 'app-ipa' }}
-          path: apps/mobile/${{ inputs.simulator && 'app.tar.gz' || 'app.ipa' }}
+          name: app-simulator
+          path: apps/mobile/app.tar.gz
           retention-days: 3
           if-no-files-found: error
+      - name: Write App Store Connect key
+        if: ${{ !inputs.simulator }}
+        env:
+          P8: ${{ secrets.ASC_API_KEY_P8 }}
+          KEY_ID: ${{ secrets.ASC_API_KEY_ID }}
+          ISSUER: ${{ secrets.ASC_API_ISSUER_ID }}
+        run: |
+          [ -n "$P8" ] && [ -n "$KEY_ID" ] && [ -n "$ISSUER" ] || { echo "NAMED STOP [ASC_KEY_MISSING] ASC_API_KEY_P8 / ASC_API_KEY_ID / ASC_API_ISSUER_ID"; exit 1; }
+          umask 077; printf '%s\n' "$P8" > asc-key.p8
+      - name: Submit to App Store Connect (TestFlight)
+        if: ${{ !inputs.simulator }}
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_ASC_API_KEY_PATH: ./asc-key.p8
+          EXPO_ASC_KEY_ID: ${{ secrets.ASC_API_KEY_ID }}
+          EXPO_ASC_ISSUER_ID: ${{ secrets.ASC_API_ISSUER_ID }}
+        run: $EAS submit --platform ios --profile production --path app.ipa --non-interactive --wait
+      - name: Remove credentials and the build
+        if: always()
+        run: rm -f asc-key.p8 app.ipa
