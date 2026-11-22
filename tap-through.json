@@ -7,75 +7,173 @@
       "name": "first-open",
       "start": "/",
       "steps": [
-        { "see": "I already know what I want. Just give me my plan ›", "id": "welcome" },
-        { "sweep": true }
+        {
+          "see": "I already know what I want. Just give me my plan ›",
+          "id": "welcome"
+        },
+        {
+          "sweep": true
+        }
       ]
     },
     {
       "name": "main-task",
       "start": "/",
       "steps": [
-        { "tap": "I already know what I want. Just give me my plan ›", "id": "start" },
-        { "sweep": true }
+        {
+          "tap": "I already know what I want. Just give me my plan ›",
+          "id": "start"
+        },
+        {
+          "sweep": true
+        }
       ]
     },
     {
       "name": "sample-plan",
-      "start": "/",
+      "start": "/welcome",
       "steps": [
-        { "tap": "Preview only: open a sample plan ›", "then": "/Ask a friend to bring the guest book/", "id": "plan" },
-        { "sweep": true }
+        {
+          "tap": "Preview only: open a sample plan ›",
+          "then": "/Ask a friend to bring the guest book/",
+          "id": "plan"
+        },
+        {
+          "sweep": true
+        }
       ]
     },
     {
       "name": "paywall",
-      "start": "/",
+      "start": "/welcome",
       "steps": [
-        { "tap": "Preview only: open a sample plan ›", "then": "/Ask a friend to bring the guest book/" },
-        { "goto": "/more/full-plan" },
-        { "see": "What the full plan adds", "id": "plans" },
-        { "see": "This is a preview of the app, so buying is switched off." },
-        { "sweep": true }
+        {
+          "tap": "Preview only: open a sample plan ›",
+          "then": "/Ask a friend to bring the guest book/"
+        },
+        {
+          "goto": "/more/full-plan"
+        },
+        {
+          "see": "What the full plan adds",
+          "id": "plans"
+        },
+        {
+          "see": "This is a preview of the app, so buying is switched off."
+        },
+        {
+          "sweep": true
+        }
       ]
     },
     {
       "name": "paid-screens",
-      "start": "/",
+      "start": "/welcome",
       "steps": [
-        { "tap": "Preview only: open a sample plan ›", "then": "/Ask a friend to bring the guest book/" },
-        { "goto": "/payments" },
-        { "wait": 1500, "id": "payments" },
-        { "goto": "/plan/wedding-week" },
-        { "wait": 1500, "id": "wedding-week" },
-        { "goto": "/more/packet" },
-        { "wait": 1500, "id": "packet" },
-        { "goto": "/traditions" },
-        { "wait": 1500, "id": "traditions" },
-        { "goto": "/reminders" },
-        { "wait": 1500, "id": "reminders" }
+        {
+          "tap": "Preview only: open a sample plan ›",
+          "then": "/Ask a friend to bring the guest book/"
+        },
+        {
+          "goto": "/payments"
+        },
+        {
+          "wait": 1500,
+          "id": "payments"
+        },
+        {
+          "goto": "/plan/wedding-week"
+        },
+        {
+          "wait": 1500,
+          "id": "wedding-week"
+        },
+        {
+          "goto": "/more/packet"
+        },
+        {
+          "wait": 1500,
+          "id": "packet"
+        },
+        {
+          "goto": "/traditions"
+        },
+        {
+          "wait": 1500,
+          "id": "traditions"
+        },
+        {
+          "goto": "/reminders"
+        },
+        {
+          "wait": 1500,
+          "id": "reminders"
+        }
       ]
     },
     {
       "name": "settings-and-delete",
-      "start": "/",
+      "start": "/welcome",
       "steps": [
-        { "tap": "Preview only: open a sample plan ›", "then": "/Ask a friend to bring the guest book/" },
-        { "goto": "/more" },
-        { "wait": 1500, "id": "more" },
-        { "sweep": true }
+        {
+          "tap": "Preview only: open a sample plan ›",
+          "then": "/Ask a friend to bring the guest book/"
+        },
+        {
+          "goto": "/more"
+        },
+        {
+          "wait": 1500,
+          "id": "more"
+        },
+        {
+          "sweep": true
+        }
       ]
     }
   ],
   "promises": [
-    { "text": "Payments and the final-payment schedule", "on": "paywall:plans", "built": "paid-screens:payments" },
-    { "text": "Your wedding-week sheet, with who to call", "on": "paywall:plans", "built": "paid-screens:wedding-week" },
-    { "text": "The printable hand-over packet with payments and contacts", "on": "paywall:plans", "built": "paid-screens:packet" },
-    { "text": "Every tradition pack", "on": "paywall:plans", "built": "paid-screens:traditions" },
-    { "text": "Reminders for your dated tasks", "on": "paywall:plans", "built": "paid-screens:reminders" }
+    {
+      "text": "Payments and the final-payment schedule",
+      "on": "paywall:plans",
+      "built": "paid-screens:payments"
+    },
+    {
+      "text": "Your wedding-week sheet, with who to call",
+      "on": "paywall:plans",
+      "built": "paid-screens:wedding-week"
+    },
+    {
+      "text": "The printable hand-over packet with payments and contacts",
+      "on": "paywall:plans",
+      "built": "paid-screens:packet"
+    },
+    {
+      "text": "Every tradition pack",
+      "on": "paywall:plans",
+      "built": "paid-screens:traditions"
+    },
+    {
+      "text": "Reminders for your dated tasks",
+      "on": "paywall:plans",
+      "built": "paid-screens:reminders"
+    }
   ],
   "native_only": [
-    { "feature": "in-app purchase and Restore purchase", "why": "the web preview has no store: buying is switched off and says so, and Restore purchase only shows where a store exists", "simulator": "a sandbox purchase on the simulator build (GitHub macOS runner, free: public repo)" },
-    { "feature": "reminder notifications", "why": "local notifications only fire on a phone", "simulator": "the simulator build" },
-    { "feature": "calendar and share sheet", "why": "adding to the phone's calendar and sharing the packet use the phone's own sheets", "simulator": "the simulator build" }
+    {
+      "feature": "in-app purchase and Restore purchase",
+      "why": "the web preview has no store: buying is switched off and says so, and Restore purchase only shows where a store exists",
+      "simulator": "a sandbox purchase on the simulator build (GitHub macOS runner, free: public repo)"
+    },
+    {
+      "feature": "reminder notifications",
+      "why": "local notifications only fire on a phone",
+      "simulator": "the simulator build"
+    },
+    {
+      "feature": "calendar and share sheet",
+      "why": "adding to the phone's calendar and sharing the packet use the phone's own sheets",
+      "simulator": "the simulator build"
+    }
   ]
 }
