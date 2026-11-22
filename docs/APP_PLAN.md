@@ -228,6 +228,13 @@ Design target: **100 purchases a day per app**, which at 3 to 6% of free users b
    and prints the URL as the first line of the run summary and as a PR comment. The page carries
    `noindex`. No token or a refused deploy: NAMED STOP [PREVIEW_HOST_FAILED], and the job fails.
    Tests: the workflow fails when the deploy step prints no URL.
+1b. **The tap-through (her "yes to all", 22 Nov 2026; ship-ready app-review.md).** After the preview is
+   up, the `tap-through` job (boss-os `tap-through.yml`, driven by `tap-through.json` at the repo root)
+   taps through it like a person at 390 px in light and dark: welcome, the plan, the sample plan, the
+   full-plan screen and every screen its lines promise, More. A video per journey and a shot per step
+   (artifact `tap-through-<run id>`); red on a dead button, a console error, an error screen, an
+   unreachable step or a full-plan line with no screen behind it. A PR that adds a screen, button or
+   paywall line adds it to `tap-through.json`.
 8a. **Payments and the final-payment schedule (the first thing `full_plan` sells; coordinator,
    10 Nov 2026: the plan sold these with no task to build them).** A "Payments" tab: every payment
    task from the full list (its `kind` is `payment`) dated from her date, plus her own payments:
