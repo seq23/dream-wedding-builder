@@ -50,22 +50,15 @@ test('while the payment sheet is open the chosen offer shows busy, never "Choose
   assert.equal(buyButtonLabel({ ...base, available: false, preview: true, selected: 'dw_full_plan', buying: false }), 'Buying is off in this preview');
 });
 
-test('the bundle nudge is true: the bundle grants all three and costs less than the three bought one at a time', () => {
-  const cents = (usd: number) => Math.round(usd * 100);
+test('the bundle nudge claims no saving, sits only on the bundle, and chooses nothing for her', () => {
   assert.deepEqual([...PRODUCTS.dw_planner_printables.grants].sort(), ['day_of_kit', 'full_plan', 'printables']);
-  const parts = cents(PRODUCTS.dw_full_plan.priceUsd) + cents(PRODUCTS.dw_printables_topup.priceUsd) + cents(PRODUCTS.dw_day_of_kit.priceUsd);
-  // Also true at the $9.99 launch price and at the planned $19.99: the bundle is the fixed $34.99.
-  for (const fullPlan of [999, cents(PRODUCTS.dw_full_plan.priceUsd), 1999]) {
-    assert.ok(cents(PRODUCTS.dw_planner_printables.priceUsd) < parts - cents(PRODUCTS.dw_full_plan.priceUsd) + fullPlan, `bundle < parts at full plan ${fullPlan}`);
-  }
-  // The tag sits only on the bundle, and nothing is pre-selected by it.
   assert.deepEqual(Object.keys(OFFER_TAG), ['dw_planner_printables']);
   assert.equal(initialChoice(offersFor([])), undefined);
+  // Bought in steps (offersFor: full plan, then the top-up) the same things cost about the bundle's price,
+  // so no text on the buy screen may claim the bundle saves money.
+  for (const text of [...Object.values(OFFER_DETAIL), ...Object.values(OFFER_TAG), PRICE_PROMISE]) assert.doesNotMatch(text!, /\bsave|less than|cheaper|best value/i);
 });
 
-test('the price line promises only what the app keeps: one payment, no subscription, free plan stays free, date changes free', () => {
-  assert.match(PRICE_PROMISE, /one payment/i);
-  assert.match(PRICE_PROMISE, /no subscription/i);
-  assert.doesNotMatch(PRICE_PROMISE, /\$|\d/, 'no price written: prices come from the store');
-  for (const id of Object.keys(PRODUCTS) as (keyof typeof PRODUCTS)[]) assert.doesNotMatch(id, /month|year|sub/i, `${id} is a one-time product`);
+test('the price line names no figure: prices come from the store', () => {
+  assert.doesNotMatch(PRICE_PROMISE, /\$|\d/);
 });
