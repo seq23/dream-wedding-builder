@@ -27,6 +27,26 @@ Paste `store/app-store-next-version.md` § Description (2,119 characters). One s
 - App category: Lifestyle (suggested) · Contact email: info@weddingchecklistpdf.com
 - Website: https://weddingchecklistpdf.com · Privacy policy: https://weddingchecklistpdf.com/privacy
 
+## In-app products (made by `scripts/store/play-products.mjs`)
+
+The 5 one-time products are created on Play from the app's own code: ids from the RevenueCat catalog
+(`scripts/revenuecat/setup.ts`), USD prices from `PRODUCTS` in `src/billing/offers.ts` (`dw_full_plan` at its
+$14.99 list price; the $9.99 launch price is a scheduled price change, made by hand), every other region from
+Google's own price conversion, titles from `OFFER_NAME`, descriptions from the App Store texts in
+`store/paid-files.json` (or `OFFER_DETAIL`). Play has no consumable flag: RevenueCat holds `dw_new_event` as a consumable (`setup.ts`) and consumes it after
+each purchase. Re-run it after any product change; it only creates what is missing and activates what is not
+active, never deletes, deactivates or reprices (a different price on Play prints `MISMATCH`).
+
+```
+cd ~/GitHub/boss-os && npm run -s vault:run -- npx --prefix ~/GitHub/dream-wedding-builder/apps/mobile tsx ~/GitHub/dream-wedding-builder/apps/mobile/scripts/store/play-products.mjs           # dry run: the plan
+cd ~/GitHub/boss-os && npm run -s vault:run -- npx --prefix ~/GitHub/dream-wedding-builder/apps/mobile tsx ~/GitHub/dream-wedding-builder/apps/mobile/scripts/store/play-products.mjs --apply   # create, activate, read back
+```
+
+Done means the last line reads `read-back 5/5 active, 0 mismatches, 0 named stops`, and a dry run after it
+plans `0 to create, 0 to activate`. `NAMED STOP [PLAY_PERMISSION_DENIED]`: the service account in
+`GOOGLE_PLAY_UPLOAD_SA_JSON` lacks "Manage store presence" on this app in Play Console (a new grant can take up to
+36 hours to reach the API). Tests: `test/playProducts.unit.ts`.
+
 ## Graphics (in `store/google-play/`)
 
 - `icon-512.png` — 512 × 512 app icon (same mark as the app icon).

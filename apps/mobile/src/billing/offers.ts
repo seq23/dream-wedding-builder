@@ -14,6 +14,11 @@ export const PRODUCTS: Record<ProductId, { priceUsd: number; grants: Entitlement
   dw_day_of_kit: { priceUsd: 9.99, grants: ['day_of_kit'] },
 };
 
+/** Each product's name, on the buy screen and as its Google Play product title. */
+export const OFFER_NAME: Record<ProductId, string> = {
+  dw_planner_printables: 'Planner + printables', dw_full_plan: 'Full plan', dw_printables_topup: 'Printables',
+  dw_day_of_kit: 'Day-of kit', dw_new_event: 'Full plan for a new event',
+};
 /** What each one is, on the buy screen. "Printables" is never left unexplained. */
 export const OFFER_DETAIL: Record<ProductId, string> = {
   dw_full_plan: fullPlanSummary().offer,
