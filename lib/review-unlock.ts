@@ -118,13 +118,15 @@ export async function reviewUnlock(request: Request, env: ReviewEnv, fetcher: ty
       // Reserved with expires_at 0: it counts against the cap at once (atomic), but opens no door until every grant is made.
       const row = await db.prepare('INSERT INTO review_grant (window_id, id_hash, granted_at, expires_at) SELECT ?, ?, ?, 0 WHERE (SELECT COUNT(*) FROM review_grant WHERE window_id = ?) < ? ON CONFLICT(window_id, id_hash) DO NOTHING RETURNING id_hash')
         .bind(version, idHash, now, version, maxDevices(env)).first();
-      if (!row) {
+      if (!row && await db.prepare('SELECT 1 AS x FROM review_grant WHERE window_id = ? AND id_hash = ?').bind(version, idHash).first()) {
+        // A second tap from the same phone won the race: its slot exists, so this is a repeat, not the cap.
+        await giveBack(db, 'review-slot-ip', ipHash); ipSlot = false;
+      } else if (!row) {
         await giveBack(db, 'review-slot-ip', ipHash);
         stop('REVIEW_DEVICE_CAP');
         await fileCapLoop(env, fetcher);
         return json({ error: 'USED_UP' }, 403);
-      }
-      newSlot = true;
+      } else newSlot = true;
     }
   } catch {
     if (ipSlot) await giveBack(db, 'review-slot-ip', ipHash).catch(() => {});

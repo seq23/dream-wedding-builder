@@ -13,7 +13,7 @@ afterEach(() => vi.restoreAllMocks());
 
 function d1() {
   const raw = new DatabaseSync(':memory:');
-  for (const f of ['0006_rate_events.sql', '0014_review_grant.sql']) raw.exec(readFileSync(`migrations/${f}`, 'utf8'));
+  for (const f of ['0006_rate_events.sql', '0015_review_grant.sql']) raw.exec(readFileSync(`migrations/${f}`, 'utf8'));
   let down = false;
   const statement = (sql: string, args: unknown[] = []) => ({
     async run() { if (down) throw Error('D1_DOWN'); return { meta: { changes: Number(raw.prepare(sql).run(...args as never[]).changes) } }; },
@@ -247,4 +247,23 @@ it('data loss: a buyer who redeems keeps the purchase; window closed, expiry or 
   await purgeReviewRows(e.DB, NOW + 7 * DAY + 7 * DAY + 1);
   expect(slots(e)).toBe(0);
   expect(Number(e.DB.raw.prepare("SELECT COUNT(*) AS n FROM rate_events WHERE bucket LIKE 'review-%'").get()!.n)).toBe(0);
+});
+
+it('two taps from one phone at once: the loser is a repeat (fresh grant), never a false device cap or Open Loops row', async () => {
+  quiet();
+  const e = env(), rc = revenuecat(); rc.known.add(anon(1));
+  expect((await redeem(e, rc, anon(1))).status).toBe(200);
+  // The second tap's first look misses the row (the first tap had not written it yet).
+  const real = e.DB.prepare.bind(e.DB); let hidden = false;
+  e.DB.prepare = ((sql: string) => {
+    const st = real(sql);
+    if (!hidden && sql.startsWith('SELECT 1 AS x')) { hidden = true; return { ...st, bind: () => ({ ...st.bind(), first: async () => null }) }; }
+    return st;
+  }) as typeof e.DB.prepare;
+  const second = await redeem(e, rc, anon(1));
+  expect(second.status).toBe(200); expect(slots(e)).toBe(1); expect(rc.openLoops).toBe(0);
+  // The per-IP new-phone allowance was given back: two more new phones still fit.
+  rc.known.add(anon(2)); rc.known.add(anon(3));
+  e.DB.prepare = real as typeof e.DB.prepare;
+  expect((await redeem(e, rc, anon(2))).status).toBe(200);
 });

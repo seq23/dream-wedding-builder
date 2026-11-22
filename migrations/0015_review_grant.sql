@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS schema_version (
   migration TEXT PRIMARY KEY,
   applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-INSERT OR IGNORE INTO schema_version (migration) VALUES ('0014_review_grant');
+INSERT OR IGNORE INTO schema_version (migration) VALUES ('0015_review_grant');

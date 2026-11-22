@@ -63,8 +63,9 @@ asks RevenueCat (v2 `grant_entitlement`) for `full_plan`, `printables` and `day_
 - **Outage**: any RevenueCat failure revokes the granted entitlements (`revoke_granted_entitlement`, never a purchase),
   frees the slot and answers 503 `TRY_AGAIN`; a 403 on grant logs `REVIEW_RC_KEY_READONLY` (the key needs
   `customer_information:customers:read_write`).
-- **Storage**: `migrations/0014_review_grant.sql` (HMAC'd ID, code version, timestamps); the hourly cron deletes rows
-  7 days past expiry and review try counters older than a day.
+- **Storage**: `migrations/0015_review_grant.sql` (HMAC'd ID, code version, timestamps); the hourly cron deletes rows
+  7 days past expiry and review try counters older than a day. Applied to the live D1 on 22 Nov 2026 with
+  `npx wrangler d1 execute dream-wedding-builder --remote --file=migrations/0015_review_grant.sql` (additive, safe to re-run).
 - **Secrets on the Worker** (all secrets, so they survive deploys): `REVIEW_CODE` (vault `DW_PLAY_REVIEW_CODE`),
   `REVIEW_HASH_SECRET` (vault `DW_REVIEW_HASH_SECRET`), `REVIEW_CODE_VERSION` (`v1`; a new code gets a new version),
   `REVIEW_UNTIL` (ISO date, kept open while the app is live on Play, renewed yearly), `BOSS_OPEN_LOOPS_TOKEN`. Any one
