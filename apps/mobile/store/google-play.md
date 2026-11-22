@@ -1,45 +1,26 @@
 # Google Play listing — DRAFT, NOT FOR SUBMISSION
 
-**Status: DRAFT (19 Nov 2026).** Store copy was held on purpose until the launch plan. This is
+**Status: DRAFT (19 Nov 2026; description rewritten 21 Nov 2026).** Store copy was held on purpose until the launch plan. This is
 drafted for her to see first; nothing here goes to Google until she has read it and the company
 Play account (Redwood Reserve Holdings LLC; exists, organisation documents and website in
 review on 19 Nov 2026) is cleared to publish. Console form answers: `store/play-console-answers.md`.
 
-Source: the Apple copy as published in App Store Connect for Dream Wedding 1.0 (app 6834891267,
-read 19 Nov 2026). No new claims: every line below is the Apple copy, shortened or reordered.
-One Apple line is left out on purpose: "Your partner on a second phone at no extra cost" —
-partner sharing is switched off in store builds (`EXPO_PUBLIC_DW_SHARING` is not set in the EAS
-production environment), so Play should not promise it until it is on.
+Description: the one text for both stores is `store/app-store-next-version.md` § Description, with
+its promise table (rewritten 21 Nov 2026 to answer what, who and the price model first). It already
+leaves out "Your partner on a second phone at no extra cost": partner sharing is switched off in store
+builds (`EXPO_PUBLIC_DW_SHARING` is not set in the EAS production environment).
 
 ## Title (≤ 30) — 21 characters
 
 Dream Wedding Builder
 
-## Short description (≤ 80) — 74 characters
+## Short description (≤ 80) — 78 characters
 
-Picture your wedding first, then get a plan dated to your day. No account.
-
-(From the Apple promotional text.)
+A wedding checklist dated to your day. Free, no account, never a subscription.
 
 ## Full description (≤ 4000)
 
-Not sure what you want yet? Start there.
-
-Say what you picture in a sentence, add photos you love, or tap "I don't know yet" and choose a season, a setting and a mood. Dream Wedding Builder shows you your wedding on one page: the look and feel, your colours, the kinds of venues that carry it, ideas to match, and what to ask. Keep the parts you love.
-
-Then give your date. Everything you kept goes into your plan, worked back from your day: what to do now, what comes next, and what to catch up on if your date is close. Tick tasks off and add your own.
-
-Free: your wedding on one page, your dated plan, ticks and your own tasks. No account and no password; your plan stays on your phone. Your photos never leave your phone: only their colours and what you tapped are sent.
-
-The full plan is one payment, no subscription:
-• Your payments and final-payment schedule, dated to your day.
-• Your wedding-week sheet, with who to call.
-• The printable hand-over packet with payments and contacts.
-• Every task from the Wedding Checklist PDF dated to your day, reminders for your dated tasks, and the common steps for your traditions (Catholic, Jewish, Hindu, Muslim nikah, Nigerian traditional, Mexican, Chinese tea ceremony).
-
-Planner + Printables adds the printable checklist, budget, timeline and seating planners. The Day-of kit adds the day's run sheet to print.
-
-Your wedding page is written by an AI planner, not a person: three AI answers a day, and after that it comes from our fixed lists. It never names businesses, prices or availability. Dream Wedding Builder is software. It gives general planning steps, not a human planner, vendor bookings or prices. Check details with your vendors, officiant and county.
+Paste `store/app-store-next-version.md` § Description (2,119 characters). One source, so the two stores never drift.
 
 ## Other listing fields
 
