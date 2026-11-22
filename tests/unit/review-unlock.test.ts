@@ -25,13 +25,22 @@ function d1() {
 /** A fake RevenueCat v2: known customers, real store purchases (never touched by grants), granted entitlements. */
 function revenuecat() {
   const known = new Set<string>(), granted = new Map<string, Map<string, number>>(), purchases = new Map<string, string>();
-  const calls: string[] = [];
+  const calls: string[] = [], openLoopStops: string[] = [];
   let mode: 'ok' | '5xx' | 'timeout' | '403' | 'second-fails' = 'ok', openLoops = 0, grantsThisCall = 0;
+  // Boss OS's intake: up (201), down (fetch throws), refusing (500), or hanging until the test releases it.
+  let intake: 'up' | 'throws' | '500' | 'hangs' = 'up';
+  const held: (() => void)[] = [];
   const products = JSON.parse(readFileSync('tests/fixtures/revenuecat/v2-products.json', 'utf8')).body;
   const productId = (store: string) => (products.items as { id: string; store_identifier: string; app_id: string }[]).find(p => p.store_identifier === store && p.app_id === 'app630a018765')!.id;
   const fetcher = vi.fn(async (input: RequestInfo | URL, init: RequestInit = {}) => {
     const url = String(input);
-    if (url.includes('open-loops/intake')) { openLoops++; return new Response('{}', { status: 201 }); }
+    if (url.includes('open-loops/intake')) {
+      openLoops++; openLoopStops.push(JSON.parse(String(init.body)).stop);
+      if (intake === 'throws') throw new TypeError('fetch failed');
+      if (intake === '500') return new Response('{}', { status: 500 });
+      if (intake === 'hangs') return new Promise<Response>((_, fail) => held.push(() => fail(new DOMException('timed out', 'TimeoutError'))));
+      return new Response('{}', { status: 201 });
+    }
     if (url.includes('/products?')) return Response.json(products);
     calls.push(`${init.method ?? 'GET'} ${url.replace(/^.*\/customers\/[^/?]+/, '')}`);
     const id = decodeURIComponent(url.split('/customers/')[1]!.split(/[/?]/)[0]!);
@@ -59,7 +68,7 @@ function revenuecat() {
     }
     return Response.json({ id });
   });
-  return { known, granted, purchases, calls, fetcher: fetcher as unknown as typeof fetch, set(m: typeof mode) { mode = m; }, get openLoops() { return openLoops; }, resetCall() { grantsThisCall = 0; } };
+  return { known, granted, purchases, calls, fetcher: fetcher as unknown as typeof fetch, set(m: typeof mode) { mode = m; }, setIntake(m: typeof intake) { intake = m; }, release() { held.splice(0).forEach(f => f()); }, get openLoops() { return openLoops; }, openLoopStops, resetCall() { grantsThisCall = 0; } };
 }
 
 type Env = ReviewEnv & UnlockEnv & { DB: ReturnType<typeof d1> };
@@ -70,10 +79,13 @@ function env(over: Partial<Env> = {}): Env {
 }
 const req = (body: unknown, ip = '203.0.113.7', type = 'application/json') =>
   new Request('https://weddingchecklistpdf.com/api/review/unlock', { method: 'POST', headers: { 'content-type': type, 'cf-connecting-ip': ip }, body: typeof body === 'string' ? body : JSON.stringify(body) });
-async function redeem(e: Env, rc: ReturnType<typeof revenuecat>, id: string, ip?: string, now = NOW, code = CODE) {
+/** Redeems like the Worker: work handed to waitUntil is collected and, unless `settle` is false, finished before returning. */
+async function redeem(e: Env, rc: ReturnType<typeof revenuecat>, id: string, ip?: string, now = NOW, code = CODE, settle = true) {
   rc.resetCall();
-  const res = await reviewUnlock(req({ code, app_user_id: id }, ip), e, rc.fetcher, now);
-  return { status: res.status, body: await res.json() as { error?: string; unlocked?: boolean }, headers: res.headers };
+  const waits: Promise<unknown>[] = [];
+  const res = await reviewUnlock(req({ code, app_user_id: id }, ip), e, rc.fetcher, now, work => { waits.push(work); });
+  if (settle) await Promise.all(waits);
+  return { status: res.status, body: await res.json() as { error?: string; unlocked?: boolean }, headers: res.headers, waits };
 }
 const door = async (e: Env, rc: ReturnType<typeof revenuecat>, id: string, now = NOW) => {
   const res = await appUnlock(new Request('https://weddingchecklistpdf.com/api/app-unlock', { method: 'POST', headers: { authorization: `Bearer ${id}`, 'cf-connecting-ip': '198.51.100.50' } }), e, rc.fetcher, now);
@@ -187,6 +199,8 @@ it('outage: RevenueCat 5xx, timeout, read-only key or one of three grants failin
     expect(slots(e), mode).toBe(0); expect(grantsOf(rc, anon(1)), `${mode}: nothing half-granted`).toEqual([]);
     expect((await door(e, rc, anon(1))).status, mode).toBe(403);
     if (mode === '403') expect(vi.mocked(console.error).mock.calls.flat().join(' ')).toContain('REVIEW_RC_KEY_READONLY');
+    // Only the read-only key (no retry fixes it) files an Open Loops row; a passing outage does not.
+    expect(rc.openLoopStops, mode).toEqual(mode === '403' ? ['REVIEW_RC_KEY_READONLY'] : []);
     // The slot really came back: the same IP can still open its two new phones.
     rc.set('ok');
     expect((await redeem(e, rc, anon(1))).status).toBe(200);
@@ -194,6 +208,26 @@ it('outage: RevenueCat 5xx, timeout, read-only key or one of three grants failin
   }
   const e = env(), rc = revenuecat(); rc.known.add(anon(1)); e.DB.fail(true);
   expect((await redeem(e, rc, anon(1))).status).toBe(503); expect(rc.calls).toEqual([]);
+});
+
+it('outage of the alert itself: Boss OS down, refusing or hanging never delays or changes the read-only-key 503', async () => {
+  quiet();
+  for (const [intake, logged] of [['throws', 'OPEN_LOOPS_UNREACHABLE'], ['500', 'OPEN_LOOPS_REFUSED'], ['hangs', 'OPEN_LOOPS_UNREACHABLE']] as const) {
+    vi.mocked(console.error).mockClear();
+    const e = env(), rc = revenuecat(); rc.known.add(anon(1)); rc.set('403'); rc.setIntake(intake);
+    // The answer comes back while the alert is still in flight (a hung intake has not settled yet).
+    const r = await Promise.race([redeem(e, rc, anon(1), undefined, NOW, CODE, false), new Promise<'HUNG'>(ok => setTimeout(() => ok('HUNG'), 500))]);
+    expect(r, intake).not.toBe('HUNG');
+    if (r === 'HUNG') continue;
+    expect(r.status, intake).toBe(503); expect(r.body.error).toBe('TRY_AGAIN');
+    expect(slots(e), intake).toBe(0); expect(grantsOf(rc, anon(1)), intake).toEqual([]);
+    expect(r.waits, `${intake}: the alert is scheduled through waitUntil`).toHaveLength(1);
+    rc.release();
+    await Promise.all(r.waits);
+    expect(rc.openLoopStops, intake).toEqual(['REVIEW_RC_KEY_READONLY']);
+    const log = vi.mocked(console.error).mock.calls.flat().join(' ');
+    expect(log, intake).toContain('REVIEW_RC_KEY_READONLY'); expect(log, intake).toContain(logged);
+  }
 });
 
 it('doors: a forged, expired, revoked, closed-window, old-version or row-less grant is refused exactly like "no purchase"', async () => {
