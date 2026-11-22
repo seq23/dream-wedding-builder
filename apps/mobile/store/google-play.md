@@ -27,25 +27,39 @@ Paste `store/app-store-next-version.md` § Description (2,119 characters). One s
 - App category: Lifestyle (suggested) · Contact email: info@weddingchecklistpdf.com
 - Website: https://weddingchecklistpdf.com · Privacy policy: https://weddingchecklistpdf.com/privacy
 
-## In-app products (made by `scripts/store/play-products.mjs`)
+## In-app products (the shared `~/bin/play-products` tool, catalog `scripts/store/play-products.mjs`)
 
 The 5 one-time products are created on Play from the app's own code: ids from the RevenueCat catalog
-(`scripts/revenuecat/setup.ts`), USD prices from `PRODUCTS` in `src/billing/offers.ts` (`dw_full_plan` at its
-$14.99 list price; the $9.99 launch price is a scheduled price change, made by hand), every other region from
+(`scripts/revenuecat/setup.ts`), USD prices from `PRODUCTS` in `src/billing/offers.ts`, every other region from
 Google's own price conversion, titles from `OFFER_NAME`, descriptions from the App Store texts in
-`store/paid-files.json` (or `OFFER_DETAIL`). Play has no consumable flag: RevenueCat holds `dw_new_event` as a consumable (`setup.ts`) and consumes it after
-each purchase. Re-run it after any product change; it only creates what is missing and activates what is not
-active, never deletes, deactivates or reprices (a different price on Play prints `MISMATCH`).
+`store/paid-files.json` (or `OFFER_DETAIL`). The tool lives in seq-bin (`~/bin/play-products`, one copy for every
+app); this repo keeps only the catalog. Re-run it after any product change: it creates what is missing (each
+product read again just before it is written), activates only drafts, and never deletes, deactivates or
+reprices. A different US price on Play prints `MISMATCH`; a product switched off on Play prints `SWITCHED OFF`;
+both are left as they are.
+
+**Consumable or not.** A Play one-time product has no consumable flag of its own: RevenueCat decides, from the
+product type it holds. `dw_new_event` is `consumable` there on every store (a new event is bought once per
+event); the other four are `non_consumable` (owned for good, restored on a new phone). Never `one_time`: on Play
+RevenueCat consumes such a purchase, so restore would give nothing back. `~/bin/revenuecat-setup` sets and
+checks the types from `setup.ts`.
+
+**Launch price.** `dw_full_plan` is $14.99; its $9.99 launch price for the first 30 days is a Play discount
+offer (`launch`) on the product, made by the same tool from `LAUNCH_OFFER` in `src/billing/offers.ts`. Until
+`LAUNCH_OFFER.startTime` holds the Play launch date, the tool prints `WAITING` and creates nothing; set the date
+in the code when the listing goes live and re-run with `--apply`. Each region gets the same share off.
 
 ```
-cd ~/GitHub/boss-os && npm run -s vault:run -- npx --prefix ~/GitHub/dream-wedding-builder/apps/mobile tsx ~/GitHub/dream-wedding-builder/apps/mobile/scripts/store/play-products.mjs           # dry run: the plan
-cd ~/GitHub/boss-os && npm run -s vault:run -- npx --prefix ~/GitHub/dream-wedding-builder/apps/mobile tsx ~/GitHub/dream-wedding-builder/apps/mobile/scripts/store/play-products.mjs --apply   # create, activate, read back
+cd ~/GitHub/boss-os && npm run -s vault:run -- ~/bin/play-products ~/GitHub/dream-wedding-builder/apps/mobile/scripts/store/play-products.mjs           # dry run: the plan
+cd ~/GitHub/boss-os && npm run -s vault:run -- ~/bin/play-products ~/GitHub/dream-wedding-builder/apps/mobile/scripts/store/play-products.mjs --apply   # create, activate, read back
 ```
 
-Done means the last line reads `read-back 5/5 active, 0 mismatches, 0 named stops`, and a dry run after it
-plans `0 to create, 0 to activate`. `NAMED STOP [PLAY_PERMISSION_DENIED]`: the service account in
-`GOOGLE_PLAY_UPLOAD_SA_JSON` lacks "Manage store presence" on this app in Play Console (a new grant can take up to
-36 hours to reach the API). Tests: `test/playProducts.unit.ts`.
+Exit 0 means Play matches; 3 means a dry run with work left; 1 a failure or mismatch; 2 a named stop. Done
+means the `--apply` run ends `read-back on <package>: 5/5 active …` and a dry run after it exits 0. A failure
+(401/403, 429, 5xx, network) stops every write and prints Google's answer; re-run once it clears.
+`NAMED STOP [PLAY_PERMISSION_DENIED]`: the service account in `GOOGLE_PLAY_UPLOAD_SA_JSON` lacks "Manage store
+presence" on this app in Play Console (a new grant can take up to 36 hours to reach the API). Tests: the
+catalog in `test/playProducts.unit.ts`, the tool in seq-bin `tests/store/`.
 
 ## Graphics (in `store/google-play/`)
 

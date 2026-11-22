@@ -7,11 +7,21 @@ export type Entitlement = 'full_plan' | 'printables' | 'day_of_kit';
 export type ProductId = 'dw_full_plan' | 'dw_planner_printables' | 'dw_printables_topup' | 'dw_day_of_kit' | 'dw_new_event';
 
 export const PRODUCTS: Record<ProductId, { priceUsd: number; grants: Entitlement[] }> = {
-  dw_full_plan: { priceUsd: 14.99, grants: ['full_plan'] }, // $9.99 for the first 30 days by a scheduled store price change
+  dw_full_plan: { priceUsd: 14.99, grants: ['full_plan'] }, // list price; $9.99 for the first 30 days is LAUNCH_OFFER
   dw_planner_printables: { priceUsd: 34.99, grants: ['full_plan', 'printables', 'day_of_kit'] },
   dw_printables_topup: { priceUsd: 19.99, grants: ['printables'] },
   dw_new_event: { priceUsd: 14.99, grants: ['full_plan'] },
   dw_day_of_kit: { priceUsd: 9.99, grants: ['day_of_kit'] },
+};
+
+/**
+ * The launch price (approved 6 Nov 2026): the full plan at $9.99 for its first 30 days on sale, then $14.99.
+ * On Google Play it is a discount offer on the product, made by ~/bin/play-products from this constant;
+ * `startTime` is set (ISO date) when the Play listing goes live, and the window ends `days` later.
+ * null = not launched yet, so nothing is created.
+ */
+export const LAUNCH_OFFER: { product: ProductId; id: string; priceUsd: number; days: number; startTime: string | null } = {
+  product: 'dw_full_plan', id: 'launch', priceUsd: 9.99, days: 30, startTime: null,
 };
 
 /** Each product's name, on the buy screen and as its Google Play product title. */
