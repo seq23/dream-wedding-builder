@@ -20,6 +20,8 @@ export function launchOffer(o = LAUNCH_OFFER) {
 
 export const catalog = {
   app: 'Dream Wedding', packageName: revenuecat.bundleId,
+  // The tool's order guard: no Play write until RevenueCat holds every product here with its code type.
+  revenuecat,
   products: revenuecat.products.map(p => ({
     id: p.id, title: OFFER_NAME[p.id], priceUsd: PRODUCTS[p.id]?.priceUsd ?? null,
     description: paidFiles.storeText[p.id]?.[0] ?? OFFER_DETAIL[p.id],

@@ -54,6 +54,9 @@ cd ~/GitHub/boss-os && npm run -s vault:run -- ~/bin/play-products ~/GitHub/drea
 cd ~/GitHub/boss-os && npm run -s vault:run -- ~/bin/play-products ~/GitHub/dream-wedding-builder/apps/mobile/scripts/store/play-products.mjs --apply   # create, activate, read back
 ```
 
+`--apply` writes nothing while RevenueCat still holds any of these products on Play with another type
+(`NAMED STOP [RC_TYPES_NOT_READY]`: a sale would be consumed); run `~/bin/revenuecat-setup` first.
+
 Exit 0 means Play matches; 3 means a dry run with work left; 1 a failure or mismatch; 2 a named stop. Done
 means the `--apply` run ends `read-back on <package>: 5/5 active …` and a dry run after it exits 0. A failure
 (401/403, 429, 5xx, network) stops every write and prints Google's answer; re-run once it clears.

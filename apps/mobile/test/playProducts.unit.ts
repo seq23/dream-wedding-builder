@@ -18,6 +18,7 @@ const APPROVED: Record<string, number> = {
 
 test('Play gets every product RevenueCat sells, at the approved price, with a listing Play accepts', () => {
   assert.equal(catalog.packageName, revenuecat.bundleId);
+  assert.equal(catalog.revenuecat, revenuecat, 'the order guard checks this app\'s RevenueCat catalog');
   assert.deepEqual(products.map(p => p.id), revenuecat.products.map(p => p.id));
   assert.deepEqual(Object.fromEntries(products.map(p => [p.id, p.priceUsd])), APPROVED);
   for (const p of products) {
