@@ -28,6 +28,9 @@ test('the printable plan asks for an email once, with an optional unticked marke
   await page.goto('/pack');
   const ask = page.getByTestId('builder-email-gate');
   await expect(ask).toBeVisible();
+  // The gate is the whole page here, so its heading is the page's one h1.
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(ask.getByRole('heading', { level: 1 })).toHaveText('Your plan, ready to print');
   await expect(page.getByTestId('pack-page')).toHaveCount(0);
   await expect(page.getByTestId('builder-consent')).not.toBeChecked();
   await page.getByTestId('builder-email-submit').click();

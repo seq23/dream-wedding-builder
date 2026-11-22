@@ -68,7 +68,7 @@ export function EmailAsk({ heading, lead, button, children }: { heading: string;
   if (unlocked === null) return null;
   if (unlocked) return <>{children}</>;
   return <section data-testid="builder-email-gate" className="mx-auto max-w-2xl rounded-[12px] border border-charcoal/15 bg-white p-6 md:p-8">
-    <h2 className="font-serif text-3xl leading-tight">{heading}</h2>
+    <h1 className="font-serif text-3xl leading-tight">{heading}</h1>
     <p className="mt-3 leading-7 text-charcoal/70">{lead}</p>
     <form onSubmit={submit} noValidate className="mt-5 grid gap-4">
       <label className="grid gap-2 text-sm font-bold">Email address
