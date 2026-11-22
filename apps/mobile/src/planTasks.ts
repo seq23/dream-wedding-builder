@@ -13,6 +13,14 @@ export function taskCount(progress: PlanProgress) {
   const rows = taskRows(progress);
   return { done: rows.filter(r => r.doneAt).length, total: rows.length };
 }
+/** The rows the plan screen shows: the shared full list plus her own tasks, or the free list. One source for the screen's "N of M done" and the rating ask's 10th-task moment. */
+export function screenRows(progress: PlanProgress, list: FullPlanList | null, date: string, today: string) {
+  type Row = ReturnType<typeof taskRows>[number] & { dueOn?: string | null; late?: boolean };
+  const rows: Row[] = list ? [...fullPlanRows(list, progress, date, today), ...taskRows(progress).filter(t => t.ownId)] : taskRows(progress);
+  return rows;
+}
+/** Tasks on the screen that are done. Ticks for tasks no longer on the list never count. */
+export const doneCount = (rows: { doneAt?: unknown }[]) => rows.filter(r => r.doneAt).length;
 export function catchUpRows(progress: PlanProgress, plan: DatedPlan) {
   if (plan.state !== 'future') return [];
   const remaining = new Set(plan.windows.map(w => w.id));

@@ -19,7 +19,9 @@ type Saved = { firstSeenOn?: string; askedOn?: string };
 export type KeyValue = { getItem(key: string): Promise<string | null>; setItem(key: string, value: string): Promise<void> };
 export type ReviewSheet = { isAvailableAsync(): Promise<boolean>; requestReview(): Promise<void> };
 
-const day = (now: Date) => now.toISOString().slice(0, 10);
+// Her local calendar day (YYYY-MM-DD), not UTC: an evening first open must not count as yesterday.
+export const localDay = (now: Date) => `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+const day = localDay;
 async function read(store: KeyValue): Promise<Saved> {
   try { const raw = await store.getItem(RATING_KEY); return raw ? JSON.parse(raw) as Saved : {}; } catch { return {}; }
 }
@@ -43,7 +45,8 @@ export function ratingAsk(store: KeyValue, sheet: ReviewSheet, now: () => Date =
       if (!saved.firstSeenOn || saved.firstSeenOn >= day(now())) return false; // never on the first launch day
       if (!(await sheet.isAvailableAsync().catch(() => false))) return false; // web preview, or no store on the device
       // Recorded before the sheet is shown, so a crash or a second tap can never ask twice.
-      await store.setItem(RATING_KEY, JSON.stringify({ ...saved, askedOn: day(now()) }));
+      // If that record cannot be written the once-only cap cannot hold, so nothing is asked.
+      try { await store.setItem(RATING_KEY, JSON.stringify({ ...saved, askedOn: day(now()) })); } catch { return false; }
       await sheet.requestReview().catch(() => {});
       return true;
     },

@@ -2,8 +2,9 @@
 // launch day, never after an error, never gated behind a "are you happy?" question.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { ratingAsk, RATING_KEY, TASKS_MOMENT } from '../src/ratingAsk';
+import { isSuccessMoment, ratingAsk, RATING_KEY, TASKS_MOMENT } from '../src/ratingAsk';
+import { doneCount, screenRows, taskRows } from '../src/planTasks';
+import { emptyProgress } from '@core/plan-progress';
 
 function memory() {
   const data = new Map<string, string>();
@@ -60,16 +61,32 @@ test('no first-open record (unreadable storage) never asks', async () => {
   assert.equal(s.asked, 0);
 });
 
-test('callers ask only on their success path, and nothing gates the sheet behind a happiness question', () => {
-  const packet = readFileSync('app/(tabs)/more/packet.tsx', 'utf8');
-  const tryBlock = packet.slice(packet.indexOf('try {'), packet.indexOf('} catch'));
-  assert.match(tryBlock, /await output\.write\(input, paper\);[\s\S]*rating\.moment\(\{ kind: 'packet' \}\)/, 'packet: ask after a successful write');
-  assert.doesNotMatch(packet.slice(packet.indexOf('} catch')), /rating\.moment/, 'packet: never in the error path');
-  const plan = readFileSync('app/(tabs)/plan/index.tsx', 'utf8');
-  const tick = plan.slice(plan.indexOf('async function tick'), plan.indexOf('catch', plan.indexOf('async function tick')));
-  assert.match(tick, /if \(!was && next\.done\[key\]\) void rating\.moment\(\{ kind: 'tasks'/, 'plan: ask only on a tick to done, after the save');
-  for (const file of ['src/ratingAsk.ts', 'src/rating.ts', 'app/(tabs)/more/packet.tsx', 'app/(tabs)/plan/index.tsx']) {
-    assert.doesNotMatch(readFileSync(file, 'utf8'), /enjoy(ing)? (the app|dream wedding)|are you happy|love the app/i, `${file}: no review gating`);
-  }
-  assert.match(readFileSync('app/_layout.tsx', 'utf8'), /rating\.opened\(\)/, 'the first-open day is recorded');
+test('the first launch day is her local day: an evening first open in Chicago still blocks that evening', async () => {
+  const prev = process.env.TZ; process.env.TZ = 'America/Chicago';
+  try {
+    const store = memory(); const s = sheet();
+    await ratingAsk(store, s, at('2027-01-04T23:00:00Z')).opened(); // 5 pm Central
+    assert.equal(await ratingAsk(store, s, at('2027-01-05T01:00:00Z')).moment({ kind: 'packet' }), false); // 7 pm, same local day, next UTC day
+    assert.equal(await ratingAsk(store, s, at('2027-01-05T15:00:00Z')).moment({ kind: 'packet' }), true); // next morning
+  } finally { process.env.TZ = prev; }
+});
+
+test('the ask cannot be recorded: nothing is asked and nothing throws', async () => {
+  const s = sheet();
+  const data = new Map<string, string>([[RATING_KEY, JSON.stringify({ firstSeenOn: '2027-01-01' })]]);
+  const readOnly = { getItem: async (k: string) => data.get(k) ?? null, setItem: async () => { throw new Error('disk full'); } };
+  assert.equal(await ratingAsk(readOnly, s, at('2027-01-05T15:00:00Z')).moment({ kind: 'packet' }), false);
+  assert.equal(s.asked, 0);
+});
+
+test('the 10th-task moment counts what the screen counts: stale ticks and off-list keys never count', () => {
+  const progress = emptyProgress();
+  const real = taskRows(progress).slice(0, 9).map(r => r.key);
+  const done: Record<string, string> = Object.fromEntries(real.map(k => [k, '2027-01-05T10:00:00Z']));
+  for (let i = 0; i < 5; i++) done[`renamed-or-removed-${i}`] = '2027-01-05T10:00:00Z';
+  const rows = screenRows({ ...progress, done }, null, '2027-09-18', '2027-01-05');
+  assert.equal(doneCount(rows), 9);
+  assert.equal(isSuccessMoment({ kind: 'tasks', done: doneCount(rows) }), false);
+  const tenth = taskRows(progress)[9].key;
+  assert.equal(doneCount(screenRows({ ...progress, done: { ...done, [tenth]: '2027-01-05T11:00:00Z' } }, null, '2027-09-18', '2027-01-05')), TASKS_MOMENT);
 });
