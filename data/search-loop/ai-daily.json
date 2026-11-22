@@ -347,6 +347,22 @@
           "GPTBot (OpenAI training)": 1
         }
       }
+    },
+    "2026-11-22": {
+      "ai_visitors": {
+        "total": 0,
+        "by_engine": {},
+        "by_path": {},
+        "source": "web-analytics"
+      },
+      "ai_bot_hits": {
+        "total": 48,
+        "by_bot": {
+          "OAI-SearchBot (ChatGPT search)": 3,
+          "Amazonbot": 14,
+          "GPTBot (OpenAI training)": 31
+        }
+      }
     }
   }
 }

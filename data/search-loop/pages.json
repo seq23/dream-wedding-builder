@@ -1761,6 +1761,66 @@
       "checks": {},
       "gate_notes": [
         "b1 title does not put the search first"
+      ],
+      "indexnow_at": "2026-11-22"
+    },
+    {
+      "slug": "diy-backyard-wedding-checklist",
+      "query": "diy backyard wedding checklist",
+      "lane": "can_be_one",
+      "priority": "diy wedding planning",
+      "score": 40,
+      "scores": {
+        "striking": 25,
+        "can_be_one": 40
+      },
+      "reasons": [
+        "priority topic \"diy wedding planning\" (find.priority_topics): built before other searches",
+        "no site page answers this 4-word question, and the site holds its parts at position 8.5",
+        "people search it (autocomplete or impressions)"
+      ],
+      "signals": {
+        "words": 4,
+        "question": false,
+        "google_suggest": true,
+        "unanswered": {
+          "words": 4,
+          "covered": 0,
+          "parts_best_position": 8.5,
+          "parts_rows": 1
+        },
+        "top10": "not read: outside this run's top-10 budget"
+      },
+      "rel": "public/questions/diy-backyard-wedding-checklist.html",
+      "route": "/questions/diy-backyard-wedding-checklist",
+      "url": "https://weddingchecklistpdf.com/questions/diy-backyard-wedding-checklist",
+      "published_at": "2026-11-22",
+      "status": "live",
+      "hash": "2029d4b6763c886d29f104bbdb66354bd8aa66e5b3e479f38d37bf3ee5676401",
+      "model": "free-route",
+      "facts": [
+        "https://www.nfpa.org/",
+        "https://www.epa.gov/"
+      ],
+      "linked_from": [
+        {
+          "rel": "public/questions/backyard-wedding-checklist-printable.html",
+          "route": "/questions/backyard-wedding-checklist-printable",
+          "before_hash": "987c73cc0d1418386365af18cb754511627e1bd719c0ad59fe02a3f8a36d899c",
+          "after_hash": "10d253a1fdc0bd1316c731cabd0a3ced7cd21c1402a44ce06e021eb660fd93f3"
+        },
+        {
+          "rel": "public/questions/diy-wedding-planning-checklist-printable.html",
+          "route": "/questions/diy-wedding-planning-checklist-printable",
+          "before_hash": "2f9d3b815687d045c87d7a51dd8a89dceae41e8e46df529e429a8c0dc02cce92",
+          "after_hash": "4b24857dee537f4cbeb7468edbdcd16d8d958fc3b4c758829f9fb901d42f306d"
+        }
+      ],
+      "checks": {},
+      "gate_notes": [
+        "b5 FAQ answer is 39 words (aim 40-60): \"Do I need a permit for a backyard wedding?\"",
+        "b5 FAQ answer is 36 words (aim 40-60): \"How many bathrooms do I need for fifty guests?\"",
+        "b5 FAQ answer is 37 words (aim 40-60): \"What should I do if it rains on my backyard weddin\""
       ]
     }
   ],
@@ -2031,6 +2091,18 @@
       "gate": 2,
       "reason": [
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.census.gov/topics/families/marriage-divorce.html (HTTP 404)"
+      ]
+    },
+    {
+      "query": "wedding checklist 1 month out",
+      "at": "2026-11-22",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"When should I mail my final guest count to the cat\"",
+        "b5 FAQ answer is 29 words (aim 40-60): \"Can I apply for my marriage license online?\"",
+        "b5 FAQ answer is 26 words (aim 40-60): \"What should be packed in a wedding day emergency k\"",
+        "b5 FAQ answer is 27 words (aim 40-60): \"How do I share the final timeline with my vendors?\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.usa.gov/marriage-license (HTTP 404); https://travel.state.gov/content/travel/en/passports/have-passport/change-correction.html (HTTP 403: this site refuses automated checks, so cite a different publisher)"
       ]
     }
   ],
@@ -2524,6 +2596,26 @@
       "matched_by": "same wording",
       "matched_text": "wedding day timeline",
       "stage": "draft"
+    },
+    {
+      "query": "wedding planning checklist by month",
+      "at": "2026-11-22",
+      "url": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "route": "/guides/wedding-planning-timeline",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "wedding planning timeline",
+      "stage": "draft"
+    },
+    {
+      "query": "wedding list checklist pdf",
+      "at": "2026-11-22",
+      "url": "https://weddingchecklistpdf.com/wedding-to-do-list",
+      "route": "/wedding-to-do-list",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "wedding to do list",
+      "stage": "search"
     }
   ]
 }

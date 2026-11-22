@@ -2465,6 +2465,24 @@
   ],
   "strengthen": [
     {
+      "query": "wedding list checklist pdf",
+      "page": "/wedding-to-do-list",
+      "url": "https://weddingchecklistpdf.com/wedding-to-do-list",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "same wording",
+      "at": "2026-11-22"
+    },
+    {
+      "query": "wedding planning checklist by month",
+      "page": "/guides/wedding-planning-timeline",
+      "url": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "score": 40,
+      "from": "distinct-gate",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-22"
+    },
+    {
       "query": "wedding day checklist pdf",
       "page": "/amazon/wedding-day-timeline",
       "url": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
