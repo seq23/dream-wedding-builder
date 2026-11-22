@@ -39,6 +39,7 @@ test('the printable plan asks for an email once, with an optional unticked marke
   await page.getByTestId('builder-email').fill('couple@example.com');
   await page.getByTestId('builder-email-submit').click();
   await expect(page.getByTestId('pack-page')).toBeVisible();
+  await expect(page.locator('h1')).toHaveCount(1);
   expect(posted).toMatchObject({ email: 'couple@example.com', marketing: false });
   await page.reload();
   await expect(page.getByTestId('builder-email-gate')).toHaveCount(0);
