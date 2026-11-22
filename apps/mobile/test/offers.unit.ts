@@ -1,7 +1,7 @@
 // The paywall never charges twice for something already owned (docs/APP_PLAN.md, task 8).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { OFFER_DETAIL, PRODUCTS, buyButtonLabel, buyLabel, initialChoice, offersFor, type Entitlement } from '../src/billing/offers';
+import { OFFER_DETAIL, OFFER_TAG, PRICE_PROMISE, PRODUCTS, buyButtonLabel, buyLabel, initialChoice, offersFor, type Entitlement } from '../src/billing/offers';
 
 test('finding 1: a couple with nothing sees the full plan first, nothing is chosen for her, and the button names her pick and price', () => {
   assert.deepEqual(offersFor([]), ['dw_full_plan', 'dw_planner_printables']);
@@ -48,4 +48,24 @@ test('while the payment sheet is open the chosen offer shows busy, never "Choose
     assert.notEqual(buyButtonLabel({ ...base, selected: 'dw_planner_printables', price, buying }), 'Choose one above');
   assert.equal(buyButtonLabel({ ...base, selected: undefined, buying: false }), 'Choose one above');
   assert.equal(buyButtonLabel({ ...base, available: false, preview: true, selected: 'dw_full_plan', buying: false }), 'Buying is off in this preview');
+});
+
+test('the bundle nudge is true: the bundle grants all three and costs less than the three bought one at a time', () => {
+  const cents = (usd: number) => Math.round(usd * 100);
+  assert.deepEqual([...PRODUCTS.dw_planner_printables.grants].sort(), ['day_of_kit', 'full_plan', 'printables']);
+  const parts = cents(PRODUCTS.dw_full_plan.priceUsd) + cents(PRODUCTS.dw_printables_topup.priceUsd) + cents(PRODUCTS.dw_day_of_kit.priceUsd);
+  // Also true at the $9.99 launch price and at the planned $19.99: the bundle is the fixed $34.99.
+  for (const fullPlan of [999, cents(PRODUCTS.dw_full_plan.priceUsd), 1999]) {
+    assert.ok(cents(PRODUCTS.dw_planner_printables.priceUsd) < parts - cents(PRODUCTS.dw_full_plan.priceUsd) + fullPlan, `bundle < parts at full plan ${fullPlan}`);
+  }
+  // The tag sits only on the bundle, and nothing is pre-selected by it.
+  assert.deepEqual(Object.keys(OFFER_TAG), ['dw_planner_printables']);
+  assert.equal(initialChoice(offersFor([])), undefined);
+});
+
+test('the price line promises only what the app keeps: one payment, no subscription, free plan stays free, date changes free', () => {
+  assert.match(PRICE_PROMISE, /one payment/i);
+  assert.match(PRICE_PROMISE, /no subscription/i);
+  assert.doesNotMatch(PRICE_PROMISE, /\$|\d/, 'no price written: prices come from the store');
+  for (const id of Object.keys(PRODUCTS) as (keyof typeof PRODUCTS)[]) assert.doesNotMatch(id, /month|year|sub/i, `${id} is a one-time product`);
 });

@@ -17,11 +17,20 @@ export const PRODUCTS: Record<ProductId, { priceUsd: number; grants: Entitlement
 /** What each one is, on the buy screen. "Printables" is never left unexplained. */
 export const OFFER_DETAIL: Record<ProductId, string> = {
   dw_full_plan: fullPlanSummary().offer,
-  dw_planner_printables: 'The full plan, plus printables: files to print or fill in (checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers), and the day-of kit.',
+  dw_planner_printables: 'The full plan, plus printables: files to print or fill in (checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers), and the day-of kit. One payment for all three, less than buying them one at a time.',
   dw_printables_topup: 'Files to print or fill in: checklist PDF, budget spreadsheet, seating chart maker, timeline template, venue comparison, vendor and payment trackers.',
   dw_day_of_kit: 'For the day itself: the run sheet, a contact list and day-of checklists, to print or fill in.',
   dw_new_event: 'One new event, paid once.',
 };
+/**
+ * The bundle nudge: a small tag over the bundle card, never a pre-selection and never a
+ * countdown (launch kit, 21 Nov 2026; the tag-over-the-bigger-plan shape is the common one in
+ * shipped one-time-purchase paywalls). "Less than buying them one at a time" is held true by
+ * test/offers.unit.ts against PRODUCTS: the bundle must cost less than its three parts.
+ */
+export const OFFER_TAG: Partial<Record<ProductId, string>> = { dw_planner_printables: 'Everything, one payment' };
+/** The buy screen's opening line: what she pays for, and what she never pays for. */
+export const PRICE_PROMISE = 'One payment for this wedding. No subscription and no trial clock. Your free plan stays free, and moving your date never costs anything.';
 /** Nothing is chosen for her: only a new event, the one thing that screen sells, starts selected. */
 export function initialChoice(offers: ProductId[]): ProductId | undefined {
   return offers.length === 1 && offers[0] === 'dw_new_event' ? offers[0] : undefined;
