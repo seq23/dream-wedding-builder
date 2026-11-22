@@ -10,6 +10,7 @@ import { taskKey, emptyProgress, toggleDone, type PlanProgress } from '@core/pla
 import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/traditionPacks';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
+import { rating } from '../../../src/rating';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dueBeforeStart, fullPlanRows, lockedPlanRows, markAllDone, planBlocks, planOverview, completionDay, startHereView, taskRows, weddingDayRows, whenLine, windowRows } from '../../../src/planTasks';
 import { planStartStore } from '../../../src/planStart';
@@ -86,7 +87,13 @@ export default function Plan() {
   }
   async function tick(key: string) {
     setSaving(true);
-    try { setProgress(await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()))); setError(''); }
+    try {
+      const was = !!progress.done[key];
+      const next = await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()));
+      setProgress(next); setError('');
+      // Success moment: a task ticked done (never an untick) that brings her to the 10th done.
+      if (!was && next.done[key]) void rating.moment({ kind: 'tasks', done: Object.keys(next.done).length });
+    }
     catch { setError('Your change could not be saved. Try again.'); }
     finally { setSaving(false); }
   }
