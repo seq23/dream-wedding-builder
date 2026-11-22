@@ -10,10 +10,13 @@ import { InstrumentSerif_400Regular, InstrumentSerif_400Regular_Italic } from '@
 import { InstrumentSans_400Regular, InstrumentSans_600SemiBold } from '@expo-google-fonts/instrument-sans';
 import { DMMono_500Medium } from '@expo-google-fonts/dm-mono';
 import { color } from '../src/theme';
+import { rating } from '../src/rating';
 
 // Onboarding (welcome, reminders) draws its own Back and Skip; the tabs carry their own
 // stacks with headers (app/(tabs)/*/_layout.tsx). Fonts are OFL and bundled.
 export default function Layout() {
+  // Remembers the first day the app opened: the rating ask never comes on that day (src/ratingAsk.ts).
+  useEffect(() => { void rating.opened(); }, []);
   useEffect(() => {
     if (!SHARING) return;
     const lifecycle = sharingLifecycle(syncSharing, (run, ms) => { const timer = setInterval(run, ms); return () => clearInterval(timer); });

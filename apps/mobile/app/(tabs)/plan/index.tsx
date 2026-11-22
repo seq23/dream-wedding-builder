@@ -10,8 +10,9 @@ import { taskKey, emptyProgress, toggleDone, type PlanProgress } from '@core/pla
 import { TRADITION_PREVIEWS, type TraditionCustomTask } from '../../../src/traditionPacks';
 import { savedDate } from '../../../src/savedDate';
 import { savedProgress } from '../../../src/savedProgress';
+import { rating } from '../../../src/rating';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { dueBeforeStart, fullPlanRows, lockedPlanRows, markAllDone, planBlocks, planOverview, completionDay, startHereView, taskRows, weddingDayRows, whenLine, windowRows } from '../../../src/planTasks';
+import { doneCount, dueBeforeStart, fullPlanRows, screenRows, lockedPlanRows, markAllDone, planBlocks, planOverview, completionDay, startHereView, taskRows, weddingDayRows, whenLine, windowRows } from '../../../src/planTasks';
 import { planStartStore } from '../../../src/planStart';
 import { GoButton, PlannedScreen } from '../../../src/ui';
 import { detailStore } from '../../../src/draftReview';
@@ -62,12 +63,9 @@ export default function Plan() {
   }
   const today = localToday();
   const plan = buildDatedPlan(date, today);
-  type Row = ReturnType<typeof taskRows>[number] & { dueOn?: string | null; late?: boolean };
-  const rows: Row[] = shared ? [
-    ...fullPlanRows(shared.list, progress, date, today),
-    ...taskRows(progress).filter(t => t.ownId),
-  ] : taskRows(progress);
-  const count = { done: rows.filter(r => r.doneAt).length, total: rows.length };
+  type Row = ReturnType<typeof screenRows>[number];
+  const rows: Row[] = screenRows(progress, shared?.list ?? null, date, today);
+  const count = { done: doneCount(rows), total: rows.length };
   const overview = planOverview(progress, plan);
   // Full-list tasks are late by their own date; her own tasks, by their window having passed.
   // With no date yet nothing is late: there are no due dates to be late against.
@@ -86,7 +84,13 @@ export default function Plan() {
   }
   async function tick(key: string) {
     setSaving(true);
-    try { setProgress(await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()))); setError(''); }
+    try {
+      const was = !!progress.done[key];
+      const next = await savedProgress.update(p => toggleDone(p, key, new Date().toISOString()));
+      setProgress(next); setError('');
+      // Success moment: a task ticked done (never an untick), counted as the screen counts them.
+      if (!was && next.done[key]) void rating.moment({ kind: 'tasks', done: doneCount(screenRows(next, shared?.list ?? null, date, localToday())) });
+    }
     catch { setError('Your change could not be saved. Try again.'); }
     finally { setSaving(false); }
   }

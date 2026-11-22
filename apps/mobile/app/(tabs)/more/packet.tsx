@@ -12,6 +12,7 @@ import { savedProgress } from '../../../src/savedProgress';
 import { paymentsStore, SAMPLE_PAYMENTS } from '../../../src/payments';
 import { type Paper, type PacketInput, type PacketWeek } from '../../../src/packet';
 import { preparePacketOutput } from '../../../src/packetOutput';
+import { rating } from '../../../src/rating';
 import { color, space, type } from '../../../src/theme';
 const preview = process.env.EXPO_PUBLIC_DW_PREVIEW === '1';
 import { partOfFullPlan } from '../../../src/build';
@@ -40,6 +41,8 @@ export default function Packet() {
       // The verified purchase door is closed. Only the isolated preview gets fictional data.
       const input: PacketInput = { shared: !!shared, names: namesNow(), date: date ?? '', progress, payments: localPayments, week, unlocked: !!shared || preview, list: shared?.list ?? (preview ? SAMPLE_PAYMENTS : null) };
       await output.write(input, paper);
+      // Success moment: her plan PDF was made and the share sheet opened. Only reached when the write did not throw.
+      void rating.moment({ kind: 'packet' });
     } catch (e) { output?.cancel(); setError(e instanceof Error ? e.message : 'Could not prepare your plan. Try again.'); }
     finally { setBusy(false); }
   }
