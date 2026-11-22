@@ -10,7 +10,7 @@ import { downloadStore, EXTRA_DOWNLOAD_MESSAGE } from '../../../src/billing/down
 import { dateStore } from '../../../src/weddingDate';
 import { sharingChanged } from '../../../src/sharing/runtime';
 import { PlannedScreen } from '../../../src/ui';
-import { buyButtonLabel, initialChoice, offersFor, OFFER_DETAIL, type ProductId } from '../../../src/billing/offers';
+import { buyButtonLabel, initialChoice, offersFor, OFFER_DETAIL, OFFER_TAG, PRICE_PROMISE, type ProductId } from '../../../src/billing/offers';
 import type { StoreProduct } from '../../../src/billing/provider';
 import { purchases } from '../../../src/billing/current';
 import { defaultEventName, eventNameStore } from '../../../src/billing/eventName';
@@ -128,7 +128,7 @@ export default function FullPlan() {
   }
   return <PlannedScreen route="/more/full-plan">
     <Text accessibilityRole="header" style={type.title}>{newEvent ? 'A new wedding event' : 'What the full plan adds'}</Text>
-    <Text style={type.body}>Your free plan stays free. The full plan is paid once for this wedding, with no subscription. If your date moves, change it any time at no charge.</Text>
+    <Text style={type.body}>{PRICE_PROMISE}</Text>
     <View style={{ gap: space[2] }}>
       {fullPlanLines().map(line => <Text key={line} style={type.body}>• {line}</Text>)}
     </View>
@@ -144,6 +144,7 @@ export default function FullPlan() {
     {message ? <Text accessibilityRole="status" style={type.sub}>{message}</Text> : null}
     {offers.map(id => <Pressable key={id} accessibilityRole="radio" accessibilityState={{ checked: selected === id }} onPress={() => setSelected(id)}
       style={{ minHeight: 64, padding: space[3], borderRadius: radius.md, borderWidth: selected === id ? 2 : 1, borderColor: selected === id ? color.blue : color.rule, gap: space[1] }}>
+      {OFFER_TAG[id] ? <Text style={[type.label, { color: color.blue }]}>{OFFER_TAG[id]}</Text> : null}
       <Text style={type.button}>{names[id]}</Text>
       <Text style={type.sub}>{OFFER_DETAIL[id]}</Text>
       <Text style={type.sub}>{id === 'dw_new_event' && paidUnused > 0 ? 'Already paid' : products.find(p => p.id === id)?.price ?? (PREVIEW ? `$${PRODUCTS[id].priceUsd.toFixed(2)}, paid once` : 'Loading the price…')}</Text>

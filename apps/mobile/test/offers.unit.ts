@@ -1,7 +1,7 @@
 // The paywall never charges twice for something already owned (docs/APP_PLAN.md, task 8).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { OFFER_DETAIL, PRODUCTS, buyButtonLabel, buyLabel, initialChoice, offersFor, type Entitlement } from '../src/billing/offers';
+import { OFFER_DETAIL, OFFER_TAG, PRICE_PROMISE, PRODUCTS, buyButtonLabel, buyLabel, initialChoice, offersFor, type Entitlement } from '../src/billing/offers';
 
 test('finding 1: a couple with nothing sees the full plan first, nothing is chosen for her, and the button names her pick and price', () => {
   assert.deepEqual(offersFor([]), ['dw_full_plan', 'dw_planner_printables']);
@@ -48,4 +48,17 @@ test('while the payment sheet is open the chosen offer shows busy, never "Choose
     assert.notEqual(buyButtonLabel({ ...base, selected: 'dw_planner_printables', price, buying }), 'Choose one above');
   assert.equal(buyButtonLabel({ ...base, selected: undefined, buying: false }), 'Choose one above');
   assert.equal(buyButtonLabel({ ...base, available: false, preview: true, selected: 'dw_full_plan', buying: false }), 'Buying is off in this preview');
+});
+
+test('the bundle nudge claims no saving, sits only on the bundle, and chooses nothing for her', () => {
+  assert.deepEqual([...PRODUCTS.dw_planner_printables.grants].sort(), ['day_of_kit', 'full_plan', 'printables']);
+  assert.deepEqual(Object.keys(OFFER_TAG), ['dw_planner_printables']);
+  assert.equal(initialChoice(offersFor([])), undefined);
+  // Bought in steps (offersFor: full plan, then the top-up) the same things cost about the bundle's price,
+  // so no text on the buy screen may claim the bundle saves money.
+  for (const text of [...Object.values(OFFER_DETAIL), ...Object.values(OFFER_TAG), PRICE_PROMISE]) assert.doesNotMatch(text!, /\bsave|less than|cheaper|best value/i);
+});
+
+test('the price line names no figure: prices come from the store', () => {
+  assert.doesNotMatch(PRICE_PROMISE, /\$|\d/);
 });
