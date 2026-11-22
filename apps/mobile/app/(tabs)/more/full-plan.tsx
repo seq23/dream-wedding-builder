@@ -21,11 +21,10 @@ import { phoneSharing } from '../../../src/sharing/runtime';
 import { syncReminders } from '../../../src/localReminders';
 import { color, type, space, radius } from '../../../src/theme';
 import { PREVIEW, PREVIEW_NOTE, STORE_AWAY } from '../../../src/build';
-import { PRODUCTS } from '../../../src/billing/offers';
+import { PRODUCTS, OFFER_NAME } from '../../../src/billing/offers';
 import { fullPlanLines } from '../../../src/sharingSwitch';
 import { REVIEW_BUTTON, REVIEW_LINK, REVIEW_MESSAGES, redeemReviewCode, reviewCodeAllowed, reviewWindowOpen } from '../../../src/billing/review';
 const phoneCheckout = checkout(AsyncStorage, purchases, downloadStore(AsyncStorage), () => bytesToHex(getRandomBytes(16)));
-const names: Record<ProductId, string> = { dw_planner_printables: 'Planner + printables', dw_full_plan: 'Full plan', dw_printables_topup: 'Printables', dw_day_of_kit: 'Day-of kit', dw_new_event: 'Full plan for a new event' };
 export default function FullPlan() {
   const { newEvent: requestedNewEvent, date: requestedDate } = useLocalSearchParams<{ newEvent?: string; date?: string }>();
   const newEvent = requestedNewEvent === '1';
@@ -160,16 +159,16 @@ export default function FullPlan() {
       {name.trim() ? <Pressable accessibilityRole="button" disabled={saving} onPress={() => { void saveName(); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{locked ? 'Save the new name ›' : 'Save this name ›'}</Text></Pressable> : null}
     </View> : null}
     {message ? <Text accessibilityRole="status" style={type.sub}>{message}</Text> : null}
-    {offers.map(id => <Pressable key={id} accessibilityRole="radio" accessibilityState={{ checked: selected === id }} onPress={() => setSelected(id)}
+    {offers.map(id => <Pressable key={id} accessibilityRole="radio" aria-checked={selected === id} onPress={() => setSelected(id)}
       style={{ minHeight: 64, padding: space[3], borderRadius: radius.md, borderWidth: selected === id ? 2 : 1, borderColor: selected === id ? color.blue : color.rule, gap: space[1] }}>
       {OFFER_TAG[id] ? <Text style={[type.label, { color: color.blue }]}>{OFFER_TAG[id]}</Text> : null}
-      <Text style={type.button}>{names[id]}</Text>
+      <Text style={type.button}>{OFFER_NAME[id]}</Text>
       <Text style={type.sub}>{OFFER_DETAIL[id]}</Text>
       <Text style={type.sub}>{id === 'dw_new_event' && paidUnused > 0 ? 'Already paid' : products.find(p => p.id === id)?.price ?? (PREVIEW ? `$${PRODUCTS[id].priceUsd.toFixed(2)}, paid once` : 'Loading the price…')}</Text>
     </Pressable>)}
     <Pressable accessibilityRole="button" accessibilityState={{ disabled: !canBuy }} disabled={!canBuy} onPress={() => { void transact(); }}
       style={{ minHeight: 48, justifyContent: 'center', alignItems: 'center', backgroundColor: color.blue, borderRadius: radius.md, opacity: canBuy ? 1 : 0.5 }}>
-      <Text style={[type.button, { color: color.onBlue }]}>{buyButtonLabel({ available: purchases.available, preview: PREVIEW, selected, name: selected ? names[selected] : '', price: products.find(p => p.id === selected)?.price, buying, storeName: Platform.OS === 'android' ? 'Google Play store' : 'App Store' })}</Text>
+      <Text style={[type.button, { color: color.onBlue }]}>{buyButtonLabel({ available: purchases.available, preview: PREVIEW, selected, name: selected ? OFFER_NAME[selected] : '', price: products.find(p => p.id === selected)?.price, buying, storeName: Platform.OS === 'android' ? 'Google Play store' : 'App Store' })}</Text>
     </Pressable>
     {/* Any message about buying sits right under the button she tapped, never scrolled away. */}
     {error ? <Text accessibilityRole="alert" style={{ color: color.redPen }}>{error}</Text> : null}

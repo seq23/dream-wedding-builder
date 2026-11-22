@@ -1,17 +1,17 @@
 // Dream Wedding's RevenueCat setup, built from the app's own product code (src/billing/offers.ts and
 // the screens' offering names), so the dashboard can never drift from what the app sells.
-// How to run and what each flag does: engine.mjs. Remaining store-side steps: docs/APP_PLAN.md task 8.
+// The shared tool in seq-bin (~/bin/revenuecat-setup) reads this catalog, sets RevenueCat up and reads it
+// back; how to run it and what each flag does is in its header. Remaining store-side steps: docs/APP_PLAN.md task 8.
+//   cd ~/GitHub/boss-os && npm run -s vault:run -- ~/bin/revenuecat-setup ~/GitHub/dream-wedding-builder/apps/mobile/scripts/revenuecat/setup.ts
 import release from '../../release/config.json';
 import { PRODUCTS, type Entitlement, type ProductId } from '../../src/billing/offers';
-// @ts-ignore plain JavaScript module
-import { run } from './engine.mjs';
 
 const NAMES: Record<ProductId, string> = {
   dw_full_plan: 'Full plan', dw_planner_printables: 'Planner + Printables', dw_printables_topup: 'Printables top-up',
   dw_day_of_kit: 'Day-of kit', dw_new_event: 'New event',
 };
 const ids = Object.keys(PRODUCTS) as ProductId[];
-const products = ids.map(id => ({ id, kind: id === 'dw_new_event' ? 'consumable' : 'non_consumable', name: `${NAMES[id]} $${PRODUCTS[id].priceUsd.toFixed(2)}` }));
+const products = ids.map(id => ({ id, kind: id === 'dw_new_event' ? 'consumable' : 'non_consumable' /* a new event is bought again for each event; the rest are owned for good */, name: `${NAMES[id]} $${PRODUCTS[id].priceUsd.toFixed(2)}` }));
 const ENTITLEMENT_NAMES: Record<Entitlement, string> = { full_plan: 'Full plan', printables: 'Printables', day_of_kit: 'Day-of kit' };
 
 export const catalog = {
@@ -29,5 +29,3 @@ export const catalog = {
     { key: 'new_event', name: 'New event', packages: ['dw_new_event'] },
   ],
 };
-
-if (process.argv[1]?.endsWith('setup.ts')) run(catalog).then(code => { process.exitCode = code; });

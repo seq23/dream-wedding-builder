@@ -284,7 +284,7 @@ the code by `apps/mobile/scripts/revenuecat/setup.ts`: iOS and Android apps (the
 Store, the entitlements `full_plan` / `printables` / `day_of_kit`, and the offerings the screens ask
 for (`default` current, `after_unlock`, `new_event`) in `offersFor` order. It fixes only what is
 missing, so re-run it after any product change:
-`cd ~/GitHub/boss-os && npm run -s vault:run -- npx --prefix ~/GitHub/dream-wedding-builder/apps/mobile tsx ~/GitHub/dream-wedding-builder/apps/mobile/scripts/revenuecat/setup.ts --save-keys`
+`cd ~/GitHub/boss-os && npm run -s vault:run -- ~/bin/revenuecat-setup ~/GitHub/dream-wedding-builder/apps/mobile/scripts/revenuecat/setup.ts --save-keys`
 (public SDK keys go to the vault as `REVENUECAT_DW_{IOS,ANDROID,TEST}_PUBLIC_KEY`, never in git).
 
 Steps left, in order:

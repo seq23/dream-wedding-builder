@@ -1,18 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { catalog } from '../scripts/revenuecat/setup';
-// @ts-ignore plain JavaScript module
-import { diff } from '../scripts/revenuecat/engine.mjs';
 import { PRODUCTS, offersFor } from '../src/billing/offers';
 
+// The tool itself and its read-back are tested in seq-bin (tests/store/revenuecat-setup.test.mjs).
 const ids = catalog.products.map(p => p.id);
-const live = () => ({
-  apps: [{ id: 'a1', type: 'app_store', app_store: { bundle_id: catalog.bundleId } }, { id: 'a2', type: 'play_store', play_store: { package_name: catalog.bundleId } }, { id: 'a3', type: 'test_store' }],
-  products: ['a1', 'a2', 'a3'].flatMap(app_id => ids.map(store_identifier => ({ app_id, store_identifier }))),
-  entitlementProducts: Object.fromEntries(catalog.entitlements.map(e => [e.key, e.products])),
-  offeringPackages: Object.fromEntries(catalog.offerings.map(o => [o.key, o.packages.map((key, i) => ({ key, position: i + 1, products: [key] }))])),
-  currentOffering: ['default'],
-});
 
 test('the RevenueCat catalog matches what the app sells and what each product unlocks', () => {
   assert.deepEqual([...ids].sort(), Object.keys(PRODUCTS).sort());
@@ -23,11 +15,6 @@ test('the RevenueCat catalog matches what the app sells and what each product un
   assert.ok(!catalog.bundleId.endsWith('.placeholder'));
 });
 
-test('the read-back check passes only when RevenueCat matches the code', () => {
-  assert.deepEqual(diff(catalog, live()), []);
-  const wrong = live();
-  wrong.entitlementProducts.printables = ['dw_printables_topup'];
-  wrong.offeringPackages.after_unlock = [];
-  wrong.currentOffering = ['after_unlock'];
-  assert.equal(diff(catalog, wrong).length, 4);
+test('only dw_new_event is consumable: on Play RevenueCat consumes a one-time purchase not held as non_consumable, and restore would give nothing back', () => {
+  for (const p of catalog.products) assert.equal(p.kind, p.id === 'dw_new_event' ? 'consumable' : 'non_consumable', p.id);
 });
