@@ -14,6 +14,12 @@ export type RuntimeEnv = {
   APP_BASE_URL?: string;
   DOWNLOAD_SIGNING_SECRET?: string;
   ENTITLEMENT_HASH_SECRET?: string;
+  REVIEW_CODE?: string;
+  REVIEW_CODE_VERSION?: string;
+  REVIEW_UNTIL?: string;
+  REVIEW_MAX_DEVICES?: string;
+  REVIEW_HASH_SECRET?: string;
+  BOSS_OPEN_LOOPS_TOKEN?: string;
 };
 
 export async function runtimeEnv(): Promise<RuntimeEnv> {

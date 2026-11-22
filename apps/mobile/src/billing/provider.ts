@@ -12,6 +12,10 @@ export interface PurchasesProvider {
   products(offering: string): Promise<StoreProduct[]>;
   purchase(id: ProductId): Promise<PurchaseSnapshot>;
   restore(): Promise<PurchaseSnapshot>;
+  /** RevenueCat's anonymous purchase ID for this install (the Play review code sends it). */
+  appUserId(): Promise<string>;
+  /** Re-reads RevenueCat with its cache dropped (after a Play review grant): no store sheet, no receipt restore. */
+  refresh(): Promise<PurchaseSnapshot>;
 }
 /** No simulated sale or entitlement when stores are absent, including the web preview. */
 export class DisabledPurchases implements PurchasesProvider {
@@ -19,6 +23,8 @@ export class DisabledPurchases implements PurchasesProvider {
   async products(_offering?: string): Promise<StoreProduct[]> { return []; }
   async purchase(_id: ProductId): Promise<PurchaseSnapshot> { throw new Error(STORE_STOP); }
   async restore(): Promise<PurchaseSnapshot> { throw new Error(STORE_STOP); }
+  async appUserId(): Promise<string> { throw new Error(STORE_STOP); }
+  async refresh(): Promise<PurchaseSnapshot> { throw new Error(STORE_STOP); }
 }
 export function acceptedKey(os: string, key?: string): boolean {
   return !!key && ((os === 'ios' && key.startsWith('appl_')) || (os === 'android' && key.startsWith('goog_')));

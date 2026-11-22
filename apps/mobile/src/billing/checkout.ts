@@ -33,7 +33,9 @@ export const NEW_EVENT_NOT_CONFIRMED = 'Your new event could not be confirmed ye
 export function checkout(storage: DateStorage, provider: PurchasesProvider,
   downloads: { refresh(userId: string): Promise<CheckoutContent> }, makeId: () => string, timeoutMs = 120000) {
   let busy = false;
-  async function run(mode: 'purchase' | 'restore', name: string, date: string, product: ProductId = 'dw_full_plan') {
+  /** 'review': after the Play review code (src/billing/review.ts) was accepted; it verifies exactly like Restore, but
+   * re-reads RevenueCat instead of restoring a store receipt. The server door still decides what is delivered. */
+  async function run(mode: 'purchase' | 'restore' | 'review', name: string, date: string, product: ProductId = 'dw_full_plan') {
     if (!provider.available) throw Error(STORE_STOP);
     if (busy) throw Error('A purchase check is already running.');
     busy = true;
@@ -82,7 +84,7 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
           next = addEvent(ledger, makeId(), name, date);
           event = next.events[next.events.length - 1];
         }
-        const snapshot = await (mode === 'purchase' ? provider.purchase(product) : provider.restore()); check();
+        const snapshot = await (mode === 'purchase' ? provider.purchase(product) : mode === 'review' ? provider.refresh() : provider.restore()); check();
         // refresh verifies the full plan and keeps it if an optional archive fails.
         // Only successfully saved files grant extras; snapshot.active is ignored.
         const content = await downloads.refresh(snapshot.userId); check();
@@ -91,7 +93,7 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
         // A store sheet can remain open while the app changes elsewhere. Re-read
         // after verification so Restore cannot overwrite date moves or other events.
         const current = await eventStore(storage).read(); check();
-        if ((!extra || mode === 'restore') && current.firstEventId && current.firstEventId !== event.id) throw Error('Your event changed during checkout. Restore and try again.');
+        if ((!extra || mode !== 'purchase') && current.firstEventId && current.firstEventId !== event.id) throw Error('Your event changed during checkout. Restore and try again.');
         if (extra && mode === 'purchase' && await storage.getItem(ACTIVE_EVENT_KEY) !== event.id) throw Error('Your event changed during checkout. Restore and try again.');
         check();
         const latest = current.events.find(e => e.id === event.id);
@@ -106,8 +108,8 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
         // Restore returns her to the event she was on; after "Delete my plan" that is
         // the newest event she paid for, never an older one in its place.
         const paid = next.events.filter(e => e.fullPlan);
-        const open = mode === 'restore' ? await storage.getItem(ACTIVE_EVENT_KEY) : null;
-        const target = mode === 'restore' ? (paid.find(e => e.id === open) ?? paid[paid.length - 1] ?? event).id : event.id;
+        const open = mode !== 'purchase' ? await storage.getItem(ACTIVE_EVENT_KEY) : null;
+        const target = mode !== 'purchase' ? (paid.find(e => e.id === open) ?? paid[paid.length - 1] ?? event).id : event.id;
         await storage.setItem(ACTIVE_EVENT_KEY, target);
         return target;
       })(), new Promise<never>((_, reject) => {
@@ -115,5 +117,5 @@ export function checkout(storage: DateStorage, provider: PurchasesProvider,
       })]);
     } finally { clearTimeout(timer); busy = false; }
   }
-  return { purchase: (name: string, date: string, product?: ProductId) => run('purchase', name, date, product), restore: (name: string, date: string) => run('restore', name, date) };
+  return { purchase: (name: string, date: string, product?: ProductId) => run('purchase', name, date, product), restore: (name: string, date: string) => run('restore', name, date), review: (name: string, date: string) => run('review', name, date) };
 }

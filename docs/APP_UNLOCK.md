@@ -40,6 +40,39 @@ Unknown and refused customers receive the same status and body. Verification
 has a ten-second timeout and a 512 KiB response cap; per-connection and global
 rolling limits bound upstream calls. Failures return a retryable plain message.
 
+## Google Play review code (`lib/review-unlock.ts`)
+
+Play's reviewer cannot buy, and the app has no accounts, so on Android only the full-plan screen shows a small grey
+"Have a review code?" link while the wedding is unpaid and `GET /api/review` answers 200. The reviewer types the
+10-digit code from Play Console's private sign-in details; `POST /api/review/unlock { code, app_user_id }` checks it and
+asks RevenueCat (v2 `grant_entitlement`) for `full_plan`, `printables` and `day_of_kit` until
+`min(now + 7 days, REVIEW_UNTIL)`, all three or none. The phone then verifies exactly like Restore (checkout `review`:
+`invalidateCustomerInfoCache` + `getCustomerInfo`, no receipt restore) and this door delivers. Design and pass/fail list:
+`~/Work/google-play-2026-11-21/REVIEW-UNLOCK-DESIGN.md` (sections 3, 4, 7); KeepMyProof and Peace Be Still run the same contract.
+
+- **This door** adds review entitlements only while ALL hold: the window is open, a live `review_grant` row exists for this
+  ID and the current `REVIEW_CODE_VERSION`, and RevenueCat `active_entitlements` still shows a dated (granted) entitlement.
+  A revoke in RevenueCat, the expiry, a closed window or a new code version ends delivery; a sandbox or Test Store
+  entitlement with no row never counts; the refusal is the same 403 as "no purchase". Real purchases are read exactly as
+  before and are never changed or hidden. A grant also carries ONE new event (`newEvents`), a fixed HMAC of the code
+  version and ID, so it starts one event only. Review grants are never counted as sales.
+- **Limits** (before the code is compared, `rate_events` keyed by an HMAC of the IP): 5 a minute, 20 a day per IP,
+  1,000 a day in all. A made-up ID (RevenueCat 404) takes no slot. At most `REVIEW_MAX_DEVICES` (10) phones per code
+  version and 2 new phones per IP a day; the same phone again takes no slot and gets a fresh grant. The 11th phone gets
+  `USED_UP` and `NAMED STOP [REVIEW_DEVICE_CAP]`, which files an Open Loops row (rotate the code).
+- **Outage**: any RevenueCat failure revokes the granted entitlements (`revoke_granted_entitlement`, never a purchase),
+  frees the slot and answers 503 `TRY_AGAIN`; a 403 on grant logs `REVIEW_RC_KEY_READONLY` (the key needs
+  `customer_information:customers:read_write`).
+- **Storage**: `migrations/0014_review_grant.sql` (HMAC'd ID, code version, timestamps); the hourly cron deletes rows
+  7 days past expiry and review try counters older than a day.
+- **Secrets on the Worker** (all secrets, so they survive deploys): `REVIEW_CODE` (vault `DW_PLAY_REVIEW_CODE`),
+  `REVIEW_HASH_SECRET` (vault `DW_REVIEW_HASH_SECRET`), `REVIEW_CODE_VERSION` (`v1`; a new code gets a new version),
+  `REVIEW_UNTIL` (ISO date, kept open while the app is live on Play, renewed yearly), `BOSS_OPEN_LOOPS_TOKEN`. Any one
+  missing or malformed, or `REVIEW_UNTIL` past: every review route answers 404 and calls no one.
+- **Rotate** only on `REVIEW_DEVICE_CAP` or a suspected leak: new `DW_PLAY_REVIEW_CODE` in the vault, new `REVIEW_CODE` and
+  `REVIEW_CODE_VERSION` on the Worker, then the password in Play Console's sign-in details changes.
+- Tests: `tests/unit/review-unlock.test.ts` (server and door) and `apps/mobile/test/reviewCode.unit.ts` (the phone).
+
 ## Configuration and stops
 
 No configuration or product is created by code. Set on the live Worker on 14 Nov 2026

@@ -20,7 +20,7 @@ on our server, `/app/privacy/page.tsx:153-155`) and the content rating question 
 | Personal info → Religious beliefs, and Race and ethnicity (the tradition she picks: Catholic, Jewish, Hindu, Muslim nikah, Nigerian traditional, Mexican, Chinese tea ceremony) | Yes | **Yes**: same free AI model | Optional | App functionality | `src/journey.ts:88` (`tradition`), `src/traditionPacks.ts:8-14`; policy `/app/privacy/page.tsx:79` |
 | App activity → App interactions (the choices she tapped: season, setting, moods, colours read from photos on the phone) | Yes | **Yes**: same free AI model | Optional | App functionality | `src/journey.ts:87` |
 | App activity → App interactions (one "plan reached" signal per installation) | Yes, when the store build has `EXPO_PUBLIC_DW_METRICS=1` | No | Required in those builds | Analytics | `src/phoneMetrics.ts:7`, `src/planReach.ts:28-29`; `/docs/APP_MEASUREMENT.md` |
-| Device or other IDs (a random installation number for that signal; RevenueCat's anonymous app user ID, sent as the bearer to fetch paid files) | Yes | No | Required | Analytics (installation number); App functionality (RevenueCat ID) | `src/planReach.ts:29`, `src/billing/downloadStore.ts:122`, `src/billing/revenuecat.ts:18` |
+| Device or other IDs (a random installation number for that signal; RevenueCat's anonymous app user ID, sent as the bearer to fetch paid files, and on Android with the Play review code only when one is typed) | Yes | No | Required | Analytics (installation number); App functionality (RevenueCat ID) | `src/planReach.ts:29`, `src/billing/downloadStore.ts:122`, `src/billing/review.ts`, `src/billing/revenuecat.ts:18` |
 | Financial info → Purchase history | Yes, through Google Play Billing and RevenueCat (service provider) | No | Required to buy or restore | App functionality, Analytics | `src/billing/revenuecat.ts:18`; policy `/app/privacy/page.tsx:152-153` |
 
 Declaring tradition as religious beliefs and ethnicity is the cautious reading: Apple has no such type, so
@@ -37,7 +37,7 @@ Location. No location permission exists (`app.config.ts:18`).
 - **Crash logs, diagnostics, advertising ID:** no analytics, crash or ad SDK; RevenueCat diagnostics and automatic device identifiers are off (`src/billing/revenuecat.ts:18`).
 - The server keeps a salted one-way hash of the connection's address to count three free AI answers a day (`/migrations/0011_wedding_reads.sql`, `ip_hash`); not used for location.
 
-**Is all user data collected by your app encrypted in transit?** Yes: every call goes to `https://weddingchecklistpdf.com` (`src/journey.ts:20`, `src/aiDraft.ts:1`, `src/planReach.ts:28`, `src/billing/downloadStore.ts:7`), plus RevenueCat and Google Play over HTTPS.
+**Is all user data collected by your app encrypted in transit?** Yes: every call goes to `https://weddingchecklistpdf.com` (`src/journey.ts:20`, `src/aiDraft.ts:1`, `src/planReach.ts:28`, `src/billing/downloadStore.ts:7`, `src/billing/review.ts:6`), plus RevenueCat and Google Play over HTTPS.
 
 **Do you provide a way for users to request that their data be deleted?** Yes.
 - On the phone: More › "Delete my plan from this phone" (`app/(tabs)/more/index.tsx:117`).
@@ -76,9 +76,12 @@ Expected rating: Everyone / PEGI 3.
 
 Choose **"All or some functionality is restricted"** and paste:
 
-> No account or login. Open the app, tap "I don't know yet" (or write a sentence), keep a few ideas, then give any wedding date to get the dated plan; everything free is then open. "Describe my wedding" and the AI draft need an internet connection and allow three AI answers a day. Paid parts (full plan, Planner + Printables, Day-of kit) are under More › "See the full plan ›" and are bought with Google Play Billing; please use a license-testing account. Partner sharing is not in this version. If a reviewer account is needed it is provided here in Play Console, never in the app.
+> No account or login. Open the app, tap "I don’t know yet", keep a few ideas, then give any wedding date. To open the paid parts free: More > See the full plan > Have a review code?, type the 10-digit code from the password field, tap Use this code. The full plan, tradition packs, printables and Day-of kit then open for 7 days, plus one extra event (More > Start a new event). AI answers need internet (3 a day). Partner sharing is not in this version.
 
-(No credentials exist or are needed; nothing goes in the repo. Paywall entry: `app/(tabs)/more/index.tsx:102`.)
+Sign in details: username `No account needed`; password = the review code (vault `DW_PLAY_REVIEW_CODE`, copied with
+`cd ~/GitHub/boss-os && npm run -s vault:run -- sh -c 'printf %s "$DW_PLAY_REVIEW_CODE" | pbcopy'`); tick full access.
+The code is never in the repo or the app: the server checks it (`lib/review-unlock.ts`, `docs/APP_UNLOCK.md`).
+Paywall entry: `app/(tabs)/more/index.tsx:102`; the code link: `app/(tabs)/more/full-plan.tsx` (Android only).
 
 ## AI-generated content declaration
 

@@ -9,7 +9,7 @@ Privacy policy URL on the label: `https://weddingchecklistpdf.com/privacy`.
 | Apple data type | Purpose | Where it comes from in the code |
 |---|---|---|
 | Other User Content | App Functionality, Other Purposes | "Describe my wedding" (`src/journey.ts` → `/api/wedding-read`: wish, town, guest count, budget range, tradition, colours, moods) and the AI draft (`src/aiDraft.ts` → `/api/ai-draft`). These go to free Gemini or OpenRouter tiers, which may use them to improve their products; that is the "Other Purposes" answer. |
-| User ID | App Functionality | The anonymous RevenueCat app user id, sent as the bearer to `/api/app-unlock` (`src/billing/downloadStore.ts`) |
+| User ID | App Functionality | The anonymous RevenueCat app user id, sent as the bearer to `/api/app-unlock` (`src/billing/downloadStore.ts`), and on Android only, with a Play review code when one is typed, to `/api/review/unlock` (`src/billing/review.ts`; iOS never sends it). The server stores only an HMAC of it, deleted 7 days after the grant ends. |
 | Device ID | Analytics | The random installation number in the one-time plan-reach signal (`src/phoneMetrics.ts`, `src/planReach.ts` → `/api/app-plan-reach`) |
 | Product Interaction | Analytics | The same plan-reach signal |
 | Purchase History | App Functionality, Analytics | RevenueCat (`src/billing/revenuecat.ts`) |

@@ -2,6 +2,8 @@ import { callerKey, takeSlot, type LimitDB } from './abuse-limits';
 import { createDownloadToken, verifyDownloadToken } from './fulfillment';
 import { FULL_PLAN_KEY } from './full-plan';
 import { metricHash, metricsEnabled, recordAppUnlock } from './app-metrics';
+import { REVENUECAT_PROJECT } from './revenuecat-project';
+import { reviewEntitlements, reviewEventToken, type ReviewEnv } from './review-unlock';
 
 type Entitlement = 'full_plan' | 'printables' | 'day_of_kit';
 const grants: Record<string, Entitlement[]> = {
@@ -16,7 +18,7 @@ export const APP_ASSETS = [
   { id: 'printables', entitlement: 'printables', key: 'app/printables-v1.zip' },
   { id: 'day-of-kit', entitlement: 'day_of_kit', key: 'app/day-of-kit-v1.zip' },
 ] as const;
-export interface UnlockEnv {
+export interface UnlockEnv extends Omit<ReviewEnv, 'DB'> {
   APP_PURCHASES_ENABLED?: string;
   /** 'true' only while Apple or Google review the app, or for her own test purchase:
    * store reviewers buy in the sandbox, and a refused sandbox purchase fails review. */
@@ -55,9 +57,7 @@ async function customerJson(response: Response): Promise<unknown> {
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
-/** RevenueCat project "Dream Wedding" (an identifier, not a secret). The server reads the v2 API:
- * REVENUECAT_SECRET is the project's v2 secret key, which RevenueCat refuses on v1 (403, code 7723). */
-export const REVENUECAT_PROJECT = 'proj7d196352';
+export { REVENUECAT_PROJECT };
 const RC = `https://api.revenuecat.com/v2/projects/${REVENUECAT_PROJECT}`;
 /** One store purchase from GET /customers/{id}/purchases, with the store product ID resolved
  * through GET /products (a purchase names RevenueCat's internal product ID only). */
@@ -147,7 +147,11 @@ export async function appUnlock(req: Request, env: UnlockEnv, upstream: typeof f
     if (record(purchasesJson).next_page || record(productsJson).next_page) return reply(503, { error: 'Could not check your purchase. Please try again.' });
     const purchases = storePurchases(purchasesJson, productsJson);
     const sandbox = env.APP_SANDBOX_PURCHASES === 'true';
-    const active = confirmedEntitlements(purchases, now, sandbox);
+    const bought = confirmedEntitlements(purchases, now, sandbox);
+    // A Play review grant (lib/review-unlock.ts) adds entitlements only while its row, its window and RevenueCat all
+    // still say so; it never removes or changes what a purchase gives.
+    const review = await reviewEntitlements(id, env, upstream, now);
+    const active = (['full_plan', 'printables', 'day_of_kit'] as const).filter(name => bought.includes(name) || review.active.includes(name));
     if (!active.length) return refused();
     if (active.includes('full_plan') && metricsEnabled(req, env)) {
       // Use the exact qualifying production purchase; never accept a client sales event.
@@ -165,6 +169,8 @@ export async function appUnlock(req: Request, env: UnlockEnv, upstream: typeof f
     // A new event is an extra event for a buyer whose first (non-consumable) full plan
     // is confirmed; on its own a consumable changes nothing in this reply.
     const newEvents = active.includes('full_plan') ? await confirmedNewEvents(purchases, now, sandbox) : [];
+    // A review grant pays for ONE new event: its token is fixed per (code version, ID), so it binds to one event only.
+    if (review.idHash && review.active.includes('full_plan')) newEvents.push(await reviewEventToken(env, review.idHash));
     return reply(200, { active, expiresAt, downloads, newEvents });
   } catch { return reply(503, { error: 'Could not check your purchase. Please try again.' }); }
 }
