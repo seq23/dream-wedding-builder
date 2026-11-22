@@ -34,12 +34,9 @@ test('sharing switch off: no store listing draft promises a partner phone', () =
     assert.ok(from >= 0 && to > from, `${file} has its ${start} section`);
     return text.slice(from, to);
   };
-  const listings = [
-    section('google-play.md', '## Title', '## Other listing fields'),
-    section('app-store-next-version.md', '## Description: full plan list', '## End of description list'),
-  ];
-  for (const copy of listings) {
-    assert.ok(copy.includes('• '), 'the full-plan list is present');
-    assert.doesNotMatch(copy, partner);
-  }
+  // The one description for both stores (promotional text through the end of the description),
+  // and the Play fields that are its own (title, short description).
+  const apple = section('app-store-next-version.md', '## Promotional text', '## End of description');
+  assert.ok(apple.includes('• '), 'the full-plan list is present');
+  for (const copy of [apple, section('google-play.md', '## Title', '## Other listing fields')]) assert.doesNotMatch(copy, partner);
 });
