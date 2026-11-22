@@ -7498,6 +7498,71 @@
         }
       },
       "release_date": "2026-11-21"
+    },
+    {
+      "id": "q-diy-backyard-wedding-checklist",
+      "seq": 0,
+      "path": "/questions/diy-backyard-wedding-checklist",
+      "eyebrow": "WEDDING PLANNING Q&A",
+      "headline": "DIY backyard wedding\nchecklist",
+      "subline": "The short answer + next steps",
+      "title": "DIY backyard wedding checklist",
+      "description": "Plan your DIY backyard wedding with a clear checklist, timeline, and layout. Cover power, permits, bathrooms, and seating without a paid planner.",
+      "layout": "band-top",
+      "palette": "ivory",
+      "topic": "checklist",
+      "search": [
+        "diy backyard wedding checklist"
+      ],
+      "art": "/pinterest/topic-art/checklist-v4-5.jpg",
+      "generation": "dw-v3",
+      "image": {
+        "path": "/pinterest/drip/q-diy-backyard-wedding-checklist.jpg",
+        "type": "image/jpeg",
+        "width": 1000,
+        "height": 1500,
+        "length": 195625,
+        "text": [
+          {
+            "role": "headline",
+            "size": 104,
+            "lines": [
+              "DIY backyard",
+              "wedding checklist"
+            ],
+            "fit": true,
+            "ink": "#2B2622",
+            "ground": "#F5F2ED"
+          },
+          {
+            "role": "subline",
+            "size": 46,
+            "lines": [
+              "The short answer + next steps"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F5F2ED"
+          },
+          {
+            "role": "brand",
+            "size": 25,
+            "lines": [
+              "Wedding Checklist PDF"
+            ],
+            "fit": true,
+            "ink": "#564C43",
+            "ground": "#F5F2ED"
+          }
+        ],
+        "shape": {
+          "layout": "band-top",
+          "photo_fraction": 0.725,
+          "bands": 1,
+          "brand": "Wedding Checklist PDF"
+        }
+      },
+      "release_date": "2026-11-22"
     }
   ],
   "pending": [],
