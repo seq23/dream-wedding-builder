@@ -24,8 +24,9 @@ jobs:
       run:
         working-directory: apps/mobile
     env:
-      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       EXPO_NO_TELEMETRY: '1'
+      # One pinned eas-cli for every step (the submit step runs with the Play key on disk).
+      EAS: npx --yes eas-cli@27.11.0
       PACKAGE: com.weddingchecklistpdf.dreamwedding
       # EAS upload keystore created 19 Nov 2026 (eas credentials, Build Credentials QE5Ykw5lMk).
       # A different key would lock every future update out of Play; the build stops instead.
@@ -43,7 +44,9 @@ jobs:
           java-version: '17'
       - run: npm ci --no-audit --no-fund
       - name: EAS local build
-        run: npx --yes eas-cli@latest build --platform android --profile production --local --non-interactive --output app.aab
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: $EAS build --platform android --profile production --local --non-interactive --output app.aab
       - name: Signed with the existing upload key
         run: |
           SHA1=$(keytool -printcert -jarfile app.aab | awk '/SHA1:/{print $2; exit}')
@@ -51,8 +54,10 @@ jobs:
           [ "$SHA1" = "$UPLOAD_KEY_SHA1" ] || { echo "NAMED STOP [UPLOAD_KEY_CHANGED] expected $UPLOAD_KEY_SHA1"; exit 1; }
       - name: Version code
         id: version
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
-          VC=$(npx --yes eas-cli@latest build:version:get --platform android --profile production --json --non-interactive | jq -r '.versionCode')
+          VC=$($EAS build:version:get --platform android --profile production --json --non-interactive | jq -r '.versionCode')
           [[ "$VC" =~ ^[0-9]+$ ]] || { echo "NAMED STOP [VERSION_CODE_UNKNOWN] got '$VC'"; exit 1; }
           echo "versionCode=$VC"; echo "code=$VC" >> "$GITHUB_OUTPUT"
       - name: Write Play service account
@@ -62,22 +67,31 @@ jobs:
           [ -n "$SA" ] || { echo "NAMED STOP [SECRET_MISSING] GOOGLE_PLAY_UPLOAD_SA_JSON"; exit 1; }
           umask 077; printf '%s' "$SA" > play-sa.json
       - name: Submit to Play internal track (draft)
-        run: npx --yes eas-cli@latest submit --platform android --profile production --path app.aab --non-interactive --wait
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: $EAS submit --platform android --profile production --path app.aab --non-interactive --wait
       - name: Check the draft is on the internal track
         env:
           VC: ${{ steps.version.outputs.code }}
         run: |
-          gcloud auth activate-service-account --key-file=play-sa.json --quiet
+          set -o pipefail
+          gcloud auth activate-service-account --key-file=play-sa.json --quiet > /dev/null 2>&1 \
+            || { echo "NAMED STOP [PLAY_AUTH_FAILED] service account key rejected"; exit 1; }
           TOKEN=$(gcloud auth print-access-token --scopes=https://www.googleapis.com/auth/androidpublisher)
+          echo "::add-mask::$TOKEN"
           API="https://androidpublisher.googleapis.com/androidpublisher/v3/applications/$PACKAGE/edits"
-          EDIT=$(curl -fsS -X POST -H "Authorization: Bearer $TOKEN" "$API" | jq -r .id)
-          TRACKS=$(curl -fsS -H "Authorization: Bearer $TOKEN" "$API/$EDIT/tracks")
-          curl -fsS -X DELETE -H "Authorization: Bearer $TOKEN" "$API/$EDIT" > /dev/null
+          EDIT=$(curl -fsS -X POST -H "Authorization: Bearer $TOKEN" "$API" | jq -r '.id // empty') || EDIT=
+          [ -n "$EDIT" ] || { echo "NAMED STOP [EDIT_INSERT_FAILED] could not open a Play edit"; exit 1; }
+          # The read-only edit is always closed, and closing it can never fail this step or hide its verdict.
+          trap 'curl -sS -o /dev/null -X DELETE -H "Authorization: Bearer $TOKEN" "$API/$EDIT" || echo "::warning::Play edit $EDIT not deleted"' EXIT
+          TRACKS=$(curl -fsS -H "Authorization: Bearer $TOKEN" "$API/$EDIT/tracks") \
+            || { echo "NAMED STOP [TRACKS_READ_FAILED] could not read the Play tracks"; exit 1; }
           echo "$TRACKS" | jq -c '.tracks[] | {track, releases: [.releases[]? | {status, versionCodes}]}'
-          echo "$TRACKS" | jq -e --arg vc "$VC" '.tracks[] | select(.track == "internal") | .releases[] | select(.status == "draft" and ((.versionCodes // []) | index($vc)))' > /dev/null \
+          # Judge only this build: a draft on internal, and on no other track.
+          echo "$TRACKS" | jq -e --arg vc "$VC" '.tracks[] | select(.track == "internal") | .releases[]? | select(.status == "draft" and ((.versionCodes // []) | index($vc)))' > /dev/null \
             || { echo "NAMED STOP [NOT_ON_INTERNAL_TRACK] versionCode $VC is not a draft on internal"; exit 1; }
-          echo "$TRACKS" | jq -e '[.tracks[] | select(.track != "internal") | .releases[]?] | length == 0' > /dev/null \
-            || { echo "NAMED STOP [OTHER_TRACK_HAS_RELEASES] a release sits outside internal"; exit 1; }
+          echo "$TRACKS" | jq -e --arg vc "$VC" '[.tracks[] | select(.track != "internal") | .releases[]? | select((.versionCodes // []) | index($vc))] | length == 0' > /dev/null \
+            || { echo "NAMED STOP [BUILD_ON_OTHER_TRACK] versionCode $VC sits on a track other than internal"; exit 1; }
           echo "OUTPUT android-store-build: versionCode $VC is a draft on the Play internal track"
       - name: Remove credentials
         if: always()
