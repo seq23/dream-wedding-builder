@@ -22,7 +22,8 @@ function loadTurnstile(): Promise<TurnstileApi> {
 }
 
 const SAMPLE_PDF = '/samples/wedding-checklist-sample.pdf';
-const SAMPLE_CONSENT = 'Email me the free sample, then a few short planning emails about the Dream Wedding tools (one every few days at most). I can unsubscribe at any time.';
+// Optional, unticked and separate from the sample itself (Dream Wedding consent rule, 10 Nov 2026).
+export const SAMPLE_CONSENT = 'Also send me 3 short planning emails, a few days apart: questions to ask a venue, the guest list, and one about the $9 full checklist. I can unsubscribe at any time.';
 
 // Free sample -> email -> paid (lib/nurture.ts). Three real pages of the Wedding
 // Checklist PDF for a typed-in address. The page also shows the PDF link once the
@@ -52,11 +53,10 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
   async function submit(event: FormEvent) {
     event.preventDefault();
     setError('');
-    if (!consent) { setError('Please tick the box so we can email the sample.'); return; }
     if (!token) { setError('Please complete the check above the button.'); return; }
     setBusy(true);
     try {
-      const res = await fetch('/api/sample', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent: true, turnstileToken: token }) });
+      const res = await fetch('/api/sample', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email, consent, turnstileToken: token, company: ((event.currentTarget as HTMLFormElement).elements.namedItem('company') as HTMLInputElement | null)?.value ?? '' }) });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; emailed?: boolean };
       if (!res.ok || !data.ok) { setError(data.error ?? 'Something went wrong. Please try again.'); setToken(''); api.current?.reset(widgetId.current); return; }
       setDone(data.emailed === true ? 'sent' : 'unsent');
@@ -71,7 +71,7 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
     <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free sample</p>
     <h2 className="mt-3 font-serif text-4xl leading-tight">{heading}</h2>
     <p className="mt-3 max-w-2xl leading-7 text-charcoal/70">How to use it, the critical-path page and the 12 to 9 months page, as a printable PDF.</p>
-    {done === 'sent' ? <p className="mt-6 rounded-2xl bg-white p-5 font-semibold">Sent. You can also <a className="underline" href={SAMPLE_PDF}>open the sample now</a>.</p> :
+    {done === 'sent' ? <p className="mt-6 rounded-2xl bg-white p-5 font-semibold">Sent. You can also <a className="underline" href={SAMPLE_PDF}>open the sample now</a>.{consent ? ' To get the 3 planning emails, tap the download button in the email: that confirms your address.' : ''}</p> :
     done === 'unsent' ? <p role="alert" data-testid="sample-unsent" className="mt-6 rounded-2xl border border-red-pen bg-white p-5 font-semibold">The email did not send, so it is not in your inbox. <a className="underline" href={SAMPLE_PDF}>Open the sample now</a>; we have been told and will fix it.</p> :
     <form onSubmit={submit} className="mt-6 grid max-w-xl gap-4" data-session-recording>
       <ConversionAnalytics />

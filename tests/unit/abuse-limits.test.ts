@@ -39,6 +39,8 @@ beforeEach(() => {
   state.db = fakeD1(); state.turnstileSecret = 'turnstile-test-secret'; state.resendKey = undefined; verifyCalls.length = 0; resendTo.length = 0;
   vi.stubGlobal('fetch', async (url: string, init: { body: any }) => {
     if (url === 'https://api.resend.com/emails' && state.resendKey) { resendTo.push(...JSON.parse(String(init.body)).to); return new Response(JSON.stringify({ id: `m${resendTo.length}` }), { status: 200 }); }
+    // Fake DNS-over-HTTPS for the real-email check: *.invalid does not exist, everything else has mail servers.
+    if (url.startsWith('https://cloudflare-dns.com/dns-query?')) return new Response(JSON.stringify(new URL(url).searchParams.get('name')!.endsWith('.invalid') ? { Status: 3 } : { Status: 0, Answer: [{ type: 15, data: '10 mx.example.com.' }] }));
     if (url !== 'https://challenges.cloudflare.com/turnstile/v0/siteverify') throw new Error(`no network in this test: ${url}`);
     verifyCalls.push(init.body.get('response') ?? '');
     return new Response(JSON.stringify({ success: init.body.get('response') === 'solved' && init.body.get('secret') === 'turnstile-test-secret' }));
@@ -64,6 +66,25 @@ describe('public forms are limited per IP', () => {
     const again = await samplePOST(post('/api/sample', { email: 'Victim@Example.com', consent: true, turnstileToken: 'solved' }, '198.51.100.20'));
     expect(again.status).toBe(200);
     expect(resendTo).toEqual(['victim@example.com']);
+  });
+
+  it('sample: the marketing box is optional; unticked still gets the sample, stored with no marketing consent', async () => {
+    state.resendKey = 'test-resend-key';
+    expect((await samplePOST(post('/api/sample', { email: 'plain@example.com', turnstileToken: 'solved' }, '203.0.113.30'))).status).toBe(200);
+    expect((await samplePOST(post('/api/sample', { email: 'yes@example.com', consent: true, turnstileToken: 'solved' }, '203.0.113.31'))).status).toBe(200);
+    expect(resendTo).toEqual(['plain@example.com', 'yes@example.com']);
+    const flag = (e: string) => state.db.raw.prepare('SELECT marketing_consent AS m FROM builder_signups WHERE email = ?').get(e).m;
+    expect(flag('plain@example.com')).toBe(0);
+    expect(flag('yes@example.com')).toBe(1);
+  });
+
+  it('sample: an address whose domain cannot receive mail is refused before anything is stored or sent', async () => {
+    state.resendKey = 'test-resend-key';
+    const res = await samplePOST(post('/api/sample', { email: 'typo@gmial.invalid', consent: true, turnstileToken: 'solved' }, '203.0.113.32'));
+    expect(res.status).toBe(400);
+    expect(resendTo).toEqual([]);
+    const stored = state.db.raw.prepare(`SELECT COUNT(*) AS n FROM sqlite_master WHERE name = 'builder_signups'`).get().n === 0 ? 0 : state.db.raw.prepare(`SELECT COUNT(*) AS n FROM builder_signups`).get().n;
+    expect(stored).toBe(0);
   });
 
   it('sample: a filled honeypot stores and sends nothing', async () => {
