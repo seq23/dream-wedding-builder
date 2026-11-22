@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DatabaseSync } from 'node:sqlite';
 import { NO_MARKETING_TEXT, storeBuilderSignup } from '@/lib/builder-signup';
-import { MAILING_ADDRESS, REVIEW_ASK_SINCE, SEQUENCE, emailHash, optOut, renderEmail, runNurture, sendSample, unsubscribeUrl, verifyUnsubscribe, type NurtureDB } from '@/lib/nurture';
+import { MAILING_ADDRESS, REVIEW_ASK_SINCE, SEQUENCE, confirmAddress, confirmUrl, emailHash, optOut, renderEmail, runNurture, sendSample, signupCounts, unsubscribeUrl, verifyConfirm, verifyUnsubscribe, type NurtureDB } from '@/lib/nurture';
 
 // A D1-shaped wrapper over an in-memory SQLite, so the real SQL in lib/nurture.ts runs.
 function fakeD1(): NurtureDB & { raw: DatabaseSync } {
@@ -29,16 +29,19 @@ const signup = (db: ReturnType<typeof fakeD1>, email: string, created: string) =
   db.raw.prepare(`INSERT INTO builder_signups (email, consent_text, source, created_at) VALUES (?, 'c', 'sample:checklist', ?)`).run(email, created);
 
 describe('free sample -> email -> paid', () => {
-  it('sends the sample once, then one product email per 3 days, then stops when the steps run out', async () => {
+  it('sends the sample once, then (ticked and confirmed) one email per 3 days: help, help, one sale, then stops', async () => {
     const db = fakeD1(); const { sent, fetchImpl } = resend(); const env = envFor(db);
     const t0 = Date.parse('2026-11-02T12:00:00Z');
     await sendSample(env, 'a@example.com', fetchImpl); // creates tables
     await sendSample(env, 'a@example.com', fetchImpl); // double submit
     signup(db, 'a@example.com', '2026-11-02 12:00:00');
+    await confirmAddress(db, await emailHash('a@example.com'));
     expect(sent.map((s) => s.subject)).toEqual([SEQUENCE[0].subject]);
     expect((await runNurture(env, t0 + DAY, fetchImpl)).sent).toBe(0); // too soon after the sample
     for (let d = 1; d <= 30; d++) await runNurture(env, Date.now() + d * DAY, fetchImpl);
     expect(sent.map((s) => s.subject)).toEqual(SEQUENCE.map((s) => s.subject));
+    // Help first, sell once: only the last email names a price.
+    expect(sent.map((m) => /\$\d/.test(m.text.split('\n--\n')[0]))).toEqual([false, false, false, true]);
   });
 
   it('stops on purchase and on unsubscribe', async () => {
@@ -91,7 +94,9 @@ describe('free sample -> email -> paid', () => {
     for (let day = 0; day < 20; day++) await runNurture(env, now + day * DAY, fetchImpl);
     const to = new Set(sent.map((s) => s.to));
     expect(to.has('unticked@example.com')).toBe(false);
-    expect(to.has('unticked-sample@example.com')).toBe(false);
+    // An unticked sample request gets the sample it asked for, and nothing after it.
+    const sampleKinds = (db.raw.prepare('SELECT kind FROM email_sends WHERE email_hash = ?').all(await emailHash('unticked-sample@example.com')) as Array<{ kind: string }>).map((r) => r.kind);
+    expect(sampleKinds).toEqual(['seq0']);
     expect(to.has('ticked@example.com')).toBe(true);
     expect(to.has('legacy@example.com')).toBe(true);
 
@@ -126,6 +131,7 @@ describe('free sample -> email -> paid', () => {
     db.raw.prepare(`INSERT INTO orders VALUES ('o1', 'buyer@example.com', 'PAID', 900, '2026-11-10 11:10:00')`).run();
     planner('sampled@example.com', '2026-11-10 11:00:00'); // asked for the sample too: the series owns them
     await sendSample(env, 'sampled@example.com', fetchImpl); sent.length = 0;
+    await confirmAddress(db, await emailHash('sampled@example.com'));
 
     const first = await runNurture(env, now, fetchImpl);
     expect(first.sent).toBe(2); // the welcome is counted in the run's result
@@ -143,11 +149,72 @@ describe('free sample -> email -> paid', () => {
     expect(await kinds('new@example.com')).toEqual(['welcome']);
     expect(await kinds('tool@example.com')).toEqual(['welcome']);
     for (const email of ['old@example.com', 'gone@example.com', 'buyer@example.com']) expect((await kinds(email)).filter((k) => k !== 'review_ask')).toEqual([]);
-    expect(await kinds('sampled@example.com')).toEqual(SEQUENCE.map((s) => s.kind)); // the series, without a welcome on top
+    expect(await kinds('sampled@example.com')).toEqual(SEQUENCE.map((s) => s.kind).sort()); // the series, without a welcome on top
   });
 
   it('refuses with a named stop instead of sending nothing silently', async () => {
     const run = await runNurture({ DB: fakeD1() }, Date.now(), resend().fetchImpl);
     expect(run.stop).toMatch(/^NAMED STOP \[NO_RESEND_KEY\]/);
+  });
+
+  it('double opt-in: a ticked address gets nothing past the sample until it clicks the signed download link', async () => {
+    const db = fakeD1(); const { sent, fetchImpl } = resend(); const env = envFor(db);
+    await storeBuilderSignup(db as never, { email: 't@example.com', source: 'sample:checklist', host: 'h', marketing: true });
+    await sendSample(env, 't@example.com', fetchImpl);
+    const hash = await emailHash('t@example.com');
+    // The sample's download button is the confirm link: hash and signature only, never the address.
+    const link = sent[0].text.match(/https:\/\/weddingchecklistpdf\.com\/api\/sample\/confirm\?id=[0-9a-f]{64}&t=[0-9a-f]{32}/)?.[0];
+    expect(link).toBe(await confirmUrl('s', hash));
+    for (let d = 1; d <= 15; d++) await runNurture(env, Date.now() + d * DAY, fetchImpl);
+    expect(sent.length).toBe(1);
+    const u = new URL(link!);
+    expect(await verifyConfirm('s', u.searchParams.get('id')!, '0'.repeat(32))).toBe(false); // a forged link confirms nothing
+    expect(await verifyConfirm('s', u.searchParams.get('id')!, u.searchParams.get('t')!)).toBe(true);
+    expect(await verifyUnsubscribe('s', u.searchParams.get('id')!, u.searchParams.get('t')!)).toBe(false); // a confirm token is not an unsubscribe token
+    await confirmAddress(db, hash); await confirmAddress(db, hash); // idempotent
+    for (let d = 16; d <= 40; d++) await runNurture(env, Date.now() + d * DAY, fetchImpl);
+    expect(sent.map((m) => m.subject)).toEqual(SEQUENCE.map((s) => s.subject));
+  });
+
+  it('data loss: an unsubscribe mid-series is honoured before the next send, and never re-mailed', async () => {
+    const db = fakeD1(); const { sent, fetchImpl } = resend(); const env = envFor(db);
+    await storeBuilderSignup(db as never, { email: 'u@example.com', source: 'sample:checklist', host: 'h', marketing: true });
+    await sendSample(env, 'u@example.com', fetchImpl);
+    const hash = await emailHash('u@example.com');
+    await confirmAddress(db, hash);
+    const t0 = Date.now();
+    await runNurture(env, t0 + 4 * DAY, fetchImpl);
+    expect(sent.length).toBe(2);
+    await optOut(db, hash);
+    for (let d = 5; d <= 40; d++) await runNurture(env, t0 + d * DAY, fetchImpl);
+    expect(sent.length).toBe(2);
+    expect(await sendSample(env, 'u@example.com', fetchImpl)).toEqual({ status: 'OPTED_OUT' });
+    expect((await signupCounts(db)).confirmed).toBe(0); // an unsubscribed confirmation is not counted
+  });
+
+  it('outage: the sender is down at sign-up, the request is kept and sent once by a later run, never twice', async () => {
+    const db = fakeD1(); const env = envFor(db);
+    const down = (async () => new Response(JSON.stringify({ message: 'service unavailable' }), { status: 503 })) as unknown as typeof fetch;
+    await storeBuilderSignup(db as never, { email: 'o@example.com', source: 'sample:checklist', host: 'h', marketing: false });
+    expect((await sendSample(env, 'o@example.com', down)).status).toBe('FAILED');
+    const failed = await runNurture(env, Date.now(), down);
+    expect(failed.stop).toMatch(/^NAMED STOP \[RESEND_SEND_FAILED\]/);
+    const { sent, fetchImpl } = resend();
+    await runNurture(env, Date.now() + 3_600_000, fetchImpl);
+    await runNurture(env, Date.now() + 7_200_000, fetchImpl);
+    expect(sent.map((m) => [m.to, m.subject])).toEqual([['o@example.com', SEQUENCE[0].subject]]);
+    expect((await signupCounts(db)).sample).toBe(1);
+  });
+
+  it('an address that got the old product series is never started on the new one', async () => {
+    const db = fakeD1(); const { sent, fetchImpl } = resend(); const env = envFor(db);
+    await storeBuilderSignup(db as never, { email: 'old@example.com', source: 'sample:checklist', host: 'h', marketing: true });
+    await sendSample(env, 'old@example.com', fetchImpl);
+    const hash = await emailHash('old@example.com');
+    await confirmAddress(db, hash);
+    db.raw.prepare(`INSERT INTO email_sends (email_hash, kind, sent_at) VALUES (?, 'seq1', '2026-11-01 00:00:00')`).run(hash);
+    sent.length = 0;
+    for (let d = 1; d <= 30; d++) await runNurture(env, Date.now() + d * DAY, fetchImpl);
+    expect(sent).toEqual([]);
   });
 });

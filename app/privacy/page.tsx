@@ -67,9 +67,11 @@ export default function Privacy() {
         the address removed.
       </p>
       <p className="mt-4 leading-7 text-charcoal/70">
-        The free checklist sample works the same way: the address you type is stored with the wording you agreed to, the
-        sample is emailed through Resend, and up to four short emails follow, at most one every three days, stopping when you
-        buy or unsubscribe. After a purchase we send one email asking whether the files helped; we only ever show a reply
+        The free checklist sample works the same way: the address you type is stored, and the sample is emailed through
+        Resend. Three short planning emails follow, at most one every three days, only if you ticked the optional box and
+        then tapped the download button in the sample email to confirm your address; they stop when you buy or unsubscribe.
+        Before anything is sent we look up whether the address&apos;s domain can receive mail (a public DNS lookup of the
+        domain only, never the address). After a purchase we send one email asking whether the files helped; we only ever show a reply
         with your permission. Opt-outs are stored as a one-way hash of the address so we never email it again.
       </p>
 

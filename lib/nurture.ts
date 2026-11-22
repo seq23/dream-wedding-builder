@@ -58,6 +58,11 @@ export const NURTURE_DDL = [
   `CREATE TABLE IF NOT EXISTS email_optouts (
     email_hash TEXT PRIMARY KEY,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  )`,
+  // Double opt-in (migration 0014): the hash of an address whose owner clicked the signed link in the sample email.
+  `CREATE TABLE IF NOT EXISTS email_confirmations (
+    email_hash TEXT PRIMARY KEY,
+    confirmed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   )`
 ];
 
@@ -70,54 +75,60 @@ type Step = {
   reason?: string;
 };
 
-// Step 0 delivers the sample; steps 1-4 each sell one product with what it really does.
+// Step 0 delivers the sample to anyone who asked for it. Steps 1-3 are the short series (launch
+// kit, 21 Nov 2026: help first, sell once), sent only to an address whose owner ticked the
+// optional box on the form AND confirmed it by clicking the download link in step 0 (double
+// opt-in). Two emails that help with what January brings (the venue, the guest list), then one
+// that names one product. Nothing in step 0 or step 1 names a price.
 export const SEQUENCE: Step[] = [
   {
     kind: 'seq0', subject: 'Your free wedding checklist sample',
     heading: 'Here is your free checklist sample.',
     paragraphs: [
       'Three pages from the Wedding Checklist PDF: how to use it, the critical-path page, and the 12 to 9 months page.',
-      'Start with the critical path. Write down the few bookings everything else waits on (venue, date, budget), and give each one an owner and a date.'
+      'Start with the critical path. Write down the few bookings everything else waits on (venue, date, budget), and give each one an owner and a date.',
+      'If you also ticked the box for three short planning emails, the download button confirms your address for them. If you did not, you will not hear from us again.'
     ],
     cta: { label: 'Download the sample (PDF)', url: SAMPLE_URL }
   },
   {
-    kind: 'seq1', subject: 'The full checklist: every task dated from your wedding date',
+    kind: 'tip1', subject: 'Questions to ask a wedding venue before you sign',
+    heading: 'Eight questions to ask before you sign with a venue',
+    paragraphs: [
+      'The venue usually decides your date, your guest count and a large share of your budget, so it is worth asking these before any deposit.',
+      '1. Which dates are open, and is the price different on a Friday, a Sunday or off-season? 2. What is the most guests the room holds seated, with a dance floor? 3. What does the quoted price include: tables, chairs, linens, staff, setup and cleanup? 4. Is there a food and drink minimum, and are tax and service charges added on top?',
+      '5. Must we use your caterer or vendors from a list, and is there a fee for bringing our own? 6. What time can vendors arrive, and when must everything be out? 7. What happens if it rains, or if we have to move the date? 8. When is each payment due, and what is refundable?',
+      'Ask for the answers in writing, then compare two or three venues side by side before you choose.'
+    ],
+    link: { label: 'Open the free wedding planner', url: `${SITE}/free-wedding-planner` },
+    reason: 'You are getting this because you asked for the free checklist sample, ticked the box for three short planning emails, and confirmed your address.'
+  },
+  {
+    kind: 'tip2', subject: 'Build the guest list before you book anything',
+    heading: 'Your guest count sets the venue and the budget',
+    paragraphs: [
+      'Most budgets are really a cost per guest, so a rough list early saves hard choices later.',
+      'Write everyone down first, then sort them into three groups: must invite, would like to invite, and only if there is room. Count the first group: that number is the smallest room you can book.',
+      'Agree with both families early on who adds names and how many, and settle plus-ones and children once, in writing, so the list does not grow after the invitations go out.'
+    ],
+    link: { label: 'Use the free guest list template', url: `${SITE}/wedding-guest-list-template` },
+    reason: 'You are getting this because you asked for the free checklist sample, ticked the box for three short planning emails, and confirmed your address.'
+  },
+  {
+    kind: 'offer1', subject: 'The full checklist: every task dated from your wedding date',
     heading: 'The full Wedding Checklist PDF, $9',
     paragraphs: [
       'The sample has 3 of the 13 pages. The full checklist opens as a dated plan: about 100 written tasks, each dated from your wedding date, from 12+ months out through wedding week, with final payments.',
-      'It also comes as the 13-page printable PDF and an editable spreadsheet for adding your own tasks; each row has fields for owner, dependency, priority and status, so tasks are assigned instead of assumed.'
+      'It also comes as the 13-page printable PDF and an editable spreadsheet for adding your own tasks; each row has fields for owner, dependency, priority and status, so tasks are assigned instead of assumed.',
+      'This is the last email in this short series. The free planner stays free either way.'
     ],
-    cta: { label: 'See the full checklist, $9', url: `${SITE}/products/checklist-pdf` }
-  },
-  {
-    kind: 'seq2', subject: 'Where wedding budgets usually leak',
-    heading: 'The Wedding Budget Spreadsheet, $12',
-    paragraphs: [
-      'Most budget surprises are taxes, service fees, gratuities and deposits that fall due in the same month.',
-      'The budget spreadsheet tracks estimated, contracted, paid and remaining amounts side by side, lists the hidden-cost lines to ask vendors about, and shows how much cash you need each month before the bills arrive.'
-    ],
-    cta: { label: 'See the budget spreadsheet, $12', url: 'https://weddingbudgetspreadsheet.com/products/budget-spreadsheet' }
-  },
-  {
-    kind: 'seq3', subject: 'A wedding-day schedule everyone can follow',
-    heading: 'The Wedding Timeline Template, $12',
-    paragraphs: [
-      'The day runs on handoffs: when the florist arrives, who lets the band in, when the photographer needs the family.',
-      'The timeline template builds one master schedule with owners, locations and buffers, then prints separate views for you, the wedding party, the photographer and family, with emergency contacts in the same file.'
-    ],
-    cta: { label: 'See the timeline template, $12', url: 'https://weddingtimelinetemplate.com/products/timeline-template' }
-  },
-  {
-    kind: 'seq4', subject: 'All four planning tools in one download',
-    heading: 'The Dream Wedding Operations Suite, $39',
-    paragraphs: [
-      'The suite is the checklist, the budget spreadsheet, the timeline template and the seating chart maker together, plus a venue comparison worksheet, vendor contact and payment trackers, and a wedding-week handoff packet.',
-      'Bought separately the four tools are $52; the suite is $39. This is the last email in this short series.'
-    ],
-    cta: { label: 'See the suite, $39', url: `${SITE}/shop` }
+    cta: { label: 'See the full checklist, $9', url: `${SITE}/products/checklist-pdf` },
+    reason: 'You are getting this because you asked for the free checklist sample, ticked the box for three short planning emails, and confirmed your address.'
   }
 ];
+/** Kinds of the series before 21 Nov 2026 (one product per email). Anyone who got one of them is finished: never re-mailed a new series. */
+export const OLD_SERIES_KINDS = ['seq1', 'seq2', 'seq3', 'seq4'];
+const SERIES_KINDS = new Set([...SEQUENCE.map((s) => s.kind), ...OLD_SERIES_KINDS]);
 
 // The one email a free-planner sign-up gets. Facts and the price are the same as seq1 above.
 export const WELCOME: Step = {
@@ -146,9 +157,9 @@ export async function emailHash(email: string): Promise<string> {
   return [...new Uint8Array(bytes)].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-async function hmac(secret: string, value: string): Promise<string> {
+async function hmac(secret: string, value: string, purpose: 'unsubscribe' | 'confirm' = 'unsubscribe'): Promise<string> {
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
-  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`unsubscribe:${value}`));
+  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`${purpose}:${value}`));
   return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
 }
 
@@ -160,6 +171,22 @@ export async function unsubscribeUrl(secret: string, hash: string): Promise<stri
 export async function verifyUnsubscribe(secret: string, hash: string, token: string): Promise<boolean> {
   if (!/^[0-9a-f]{64}$/.test(hash) || !/^[0-9a-f]{32}$/.test(token)) return false;
   return (await hmac(secret, hash)) === token;
+}
+
+/** The sample's download link: it confirms the address (double opt-in), then sends her to the PDF. Hash and signature only, never the address. */
+export async function confirmUrl(secret: string, hash: string): Promise<string> {
+  return `${SITE}/api/sample/confirm?id=${hash}&t=${await hmac(secret, hash, 'confirm')}`;
+}
+
+export async function verifyConfirm(secret: string, hash: string, token: string): Promise<boolean> {
+  if (!/^[0-9a-f]{64}$/.test(hash) || !/^[0-9a-f]{32}$/.test(token)) return false;
+  return (await hmac(secret, hash, 'confirm')) === token;
+}
+
+/** Records the confirmation. Idempotent: the first click's time is kept. */
+export async function confirmAddress(db: NurtureDB, hash: string) {
+  await ensureTables(db);
+  await db.prepare('INSERT OR IGNORE INTO email_confirmations (email_hash) VALUES (?)').bind(hash).run();
 }
 
 const esc = (v: string) => v.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
@@ -188,6 +215,7 @@ export async function ensureTables(db: NurtureDB) {
 
 /** Which sequence step, if any, is due for this address now. Pure. */
 export function dueStep(sentKinds: Set<string>, lastSentAt: number | null, now: number): Step | null {
+  if (OLD_SERIES_KINDS.some((k) => sentKinds.has(k))) return null; // finished the old series: never a second one
   const next = SEQUENCE.find((s) => !sentKinds.has(s.kind));
   if (!next) return null;
   if (next.kind !== 'seq0' && lastSentAt != null && now - lastSentAt < DAYS_BETWEEN * DAY) return null;
@@ -223,7 +251,9 @@ async function sendOnce(env: NurtureEnv, email: string, hash: string, step: Step
     return 'CEILING';
   }
   const unsubscribe = await unsubscribeUrl(env.DOWNLOAD_SIGNING_SECRET!, hash);
-  const { html, text } = renderEmail(step, unsubscribe);
+  // The sample's download button is the double opt-in link for this address.
+  const sendStep = step.kind === 'seq0' && step.cta ? { ...step, cta: { ...step.cta, url: await confirmUrl(env.DOWNLOAD_SIGNING_SECRET!, hash) } } : step;
+  const { html, text } = renderEmail(sendStep, unsubscribe);
   const res = await fetchImpl('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
@@ -287,7 +317,7 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
     const h = String(s.email_hash); const at = parseSql(s.sent_at);
     const e = byHash.get(h) ?? { kinds: new Set<string>(), last: null };
     e.kinds.add(String(s.kind));
-    if (String(s.kind).startsWith('seq') || s.kind === 'review_ask' || s.kind === WELCOME.kind) e.last = Math.max(e.last ?? 0, at);
+    if (SERIES_KINDS.has(String(s.kind)) || s.kind === 'review_ask' || s.kind === WELCOME.kind) e.last = Math.max(e.last ?? 0, at);
     byHash.set(h, e);
   }
   const buyers = new Set<string>();
@@ -297,14 +327,23 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
   // The series is for people who asked for the sample: signed up from the sample form, or
   // already signed up elsewhere and then got the sample (step 0 recorded). A planner sign-up
   // outside the series gets the one welcome instead, which never starts the series.
-  const signups = (await db.prepare(`SELECT email, source, created_at FROM builder_signups WHERE unsubscribed_at IS NULL AND ${MARKETING_OK_SQL} ORDER BY created_at`).bind().all()).results ?? [];
+  // Every sample request (ticked or not) is read, so a sample the sender failed to deliver is
+  // retried; the series and the planner welcome go only to rows that pass MARKETING_OK_SQL.
+  const signups = (await db.prepare(`SELECT email, source, created_at, ${MARKETING_OK_SQL} AS marketing_ok FROM builder_signups WHERE unsubscribed_at IS NULL AND (${MARKETING_OK_SQL} OR source = ?) ORDER BY created_at`).bind(SAMPLE_SOURCE).all()).results ?? [];
+  const confirmed = new Set(((await db.prepare('SELECT email_hash FROM email_confirmations').bind().all()).results ?? []).map((r) => String(r.email_hash)));
   for (const r of signups) {
     if (sent >= MAX_PER_RUN) break;
     const email = String(r.email); const hash = await emailHash(email);
     if (optouts.has(hash) || buyers.has(hash)) continue; // stop on unsubscribe or purchase
     const e = byHash.get(hash) ?? { kinds: new Set<string>(), last: null };
     const inSeries = r.source === SAMPLE_SOURCE || e.kinds.has('seq0');
-    const step = inSeries ? dueStep(e.kinds, e.last, now) : dueWelcome(String(r.source ?? ''), e.kinds, e.last, parseSql(r.created_at), now);
+    const marketing = Number(r.marketing_ok) === 1;
+    let step: Step | null;
+    if (inSeries) {
+      step = dueStep(e.kinds, e.last, now);
+      // Past the sample itself: only a ticked AND confirmed address (double opt-in).
+      if (step && step.kind !== 'seq0' && !(marketing && confirmed.has(hash))) step = null;
+    } else step = marketing ? dueWelcome(String(r.source ?? ''), e.kinds, e.last, parseSql(r.created_at), now) : null;
     if (!step) continue;
     const outcome = await sendOnce(env, email, hash, step, fetchImpl);
     if (outcome === 'CEILING') return finish(sent, 0, true);
@@ -340,4 +379,22 @@ export async function runNurture(env: NurtureEnv, now = Date.now(), fetchImpl: t
 export async function optOut(db: NurtureDB, hash: string) {
   await ensureTables(db);
   await db.prepare('INSERT OR IGNORE INTO email_optouts (email_hash) VALUES (?)').bind(hash).run();
+}
+
+/**
+ * Sign-ups for the Boss OS scorecard, read by /api/health/email: every address that asked for the
+ * sample or opened the planner with an email, the ones who ticked marketing, and the ones who
+ * also confirmed (the only addresses the series may reach). Unsubscribed addresses are not counted.
+ */
+export async function signupCounts(db: NurtureDB) {
+  await ensureTables(db);
+  await ensureSignupTable(db as never);
+  const row = await db.prepare(
+    `SELECT COUNT(*) AS total,
+       SUM(CASE WHEN ${MARKETING_OK_SQL} THEN 1 ELSE 0 END) AS marketing,
+       SUM(CASE WHEN source = ? THEN 1 ELSE 0 END) AS sample
+     FROM builder_signups WHERE unsubscribed_at IS NULL`
+  ).bind(SAMPLE_SOURCE).first();
+  const confirmed = await db.prepare('SELECT COUNT(*) AS n FROM email_confirmations c WHERE NOT EXISTS (SELECT 1 FROM email_optouts o WHERE o.email_hash = c.email_hash)').bind().first();
+  return { total: Number(row?.total ?? 0), marketing: Number(row?.marketing ?? 0), sample: Number(row?.sample ?? 0), confirmed: Number(confirmed?.n ?? 0) };
 }
