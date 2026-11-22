@@ -68,7 +68,9 @@ export const NURTURE_DDL = [
 
 type Step = {
   kind: string; subject: string; heading: string; paragraphs: string[];
-  /** A plain text link shown after the first paragraph. */
+  /** A numbered list shown after the paragraphs (one item per line in the text version). */
+  list?: string[];
+  /** A plain text link shown after the body (paragraphs and list). */
   link?: { label: string; url: string };
   cta?: { label: string; url: string };
   /** Why this person is getting the email (footer line). Defaults to the sample/buyer wording. */
@@ -96,9 +98,17 @@ export const SEQUENCE: Step[] = [
     heading: 'Eight questions to ask before you sign with a venue',
     paragraphs: [
       'The venue usually decides your date, your guest count and a large share of your budget, so it is worth asking these before any deposit.',
-      '1. Which dates are open, and is the price different on a Friday, a Sunday or off-season? 2. What is the most guests the room holds seated, with a dance floor? 3. What does the quoted price include: tables, chairs, linens, staff, setup and cleanup? 4. Is there a food and drink minimum, and are tax and service charges added on top?',
-      '5. Must we use your caterer or vendors from a list, and is there a fee for bringing our own? 6. What time can vendors arrive, and when must everything be out? 7. What happens if it rains, or if we have to move the date? 8. When is each payment due, and what is refundable?',
       'Ask for the answers in writing, then compare two or three venues side by side before you choose.'
+    ],
+    list: [
+      'Which dates are open, and is the price different on a Friday, a Sunday or off-season?',
+      'What is the most guests the room holds seated, with a dance floor?',
+      'What does the quoted price include: tables, chairs, linens, staff, setup and cleanup?',
+      'Is there a food and drink minimum, and are tax and service charges added on top?',
+      'Must we use your caterer or vendors from a list, and is there a fee for bringing our own?',
+      'What time can vendors arrive, and when must everything be out?',
+      'What happens if it rains, or if we have to move the date?',
+      'When is each payment due, and what is refundable?'
     ],
     link: { label: 'Open the free wedding planner', url: `${SITE}/free-wedding-planner` },
     reason: 'You are getting this because you asked for the free checklist sample, ticked the box for three short planning emails, and confirmed your address.'
@@ -196,10 +206,13 @@ export function renderEmail(step: Step, unsubscribe: string) {
   const footer = step.reason ?? `You are getting this because you asked for a free sample or bought from Dream Wedding.`;
   const [first, ...rest] = step.paragraphs;
   const para = (p: string) => `<p>${esc(p)}</p>`;
+  // A list sits after the opening paragraph; the link after the whole body.
+  const listHtml = step.list ? `<ol style="padding-left:22px">${step.list.map((q) => `<li style="margin:0 0 8px">${esc(q)}</li>`).join('')}</ol>` : '';
+  const listText = step.list ? `\n\n${step.list.map((q, i) => `${i + 1}. ${q}`).join('\n')}` : '';
   const linkHtml = step.link ? `<p><a href="${esc(step.link.url)}" style="color:#2747D9;font-weight:700">${esc(step.link.label)} &rsaquo;</a></p>` : '';
   const linkText = step.link ? `\n\n${step.link.label}: ${step.link.url}` : '';
-  const html = `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#1B1F3B;line-height:1.55"><h1 style="font-size:22px">${esc(step.heading)}</h1>${para(first)}${linkHtml}${rest.map(para).join('')}${step.cta ? `<p><a href="${esc(step.cta.url)}" style="display:inline-block;background:#2747D9;color:#fff;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700">${esc(step.cta.label)}</a></p>` : ''}<hr style="border:none;border-top:1px solid #ddd;margin:28px 0 12px"><p style="font-size:12px;color:#777">${esc(footer)} <a href="${esc(unsubscribe)}">Unsubscribe</a> (one click).<br>Dream Wedding Builder, ${esc(MAILING_ADDRESS)}</p></div>`;
-  const text = `${step.heading}\n\n${first}${linkText}${rest.length ? `\n\n${rest.join('\n\n')}` : ''}${step.cta ? `\n\n${step.cta.label}: ${step.cta.url}` : ''}\n\n--\n${footer}\nUnsubscribe (one click): ${unsubscribe}\nDream Wedding Builder, ${MAILING_ADDRESS}\n`;
+  const html = `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#1B1F3B;line-height:1.55"><h1 style="font-size:22px">${esc(step.heading)}</h1>${para(first)}${listHtml}${rest.map(para).join('')}${linkHtml}${step.cta ? `<p><a href="${esc(step.cta.url)}" style="display:inline-block;background:#2747D9;color:#fff;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700">${esc(step.cta.label)}</a></p>` : ''}<hr style="border:none;border-top:1px solid #ddd;margin:28px 0 12px"><p style="font-size:12px;color:#777">${esc(footer)} <a href="${esc(unsubscribe)}">Unsubscribe</a> (one click).<br>Dream Wedding Builder, ${esc(MAILING_ADDRESS)}</p></div>`;
+  const text = `${step.heading}\n\n${first}${listText}${rest.length ? `\n\n${rest.join('\n\n')}` : ''}${linkText}${step.cta ? `\n\n${step.cta.label}: ${step.cta.url}` : ''}\n\n--\n${footer}\nUnsubscribe (one click): ${unsubscribe}\nDream Wedding Builder, ${MAILING_ADDRESS}\n`;
   return { html, text };
 }
 
@@ -254,14 +267,24 @@ async function sendOnce(env: NurtureEnv, email: string, hash: string, step: Step
   // The sample's download button is the double opt-in link for this address.
   const sendStep = step.kind === 'seq0' && step.cta ? { ...step, cta: { ...step.cta, url: await confirmUrl(env.DOWNLOAD_SIGNING_SECRET!, hash) } } : step;
   const { html, text } = renderEmail(sendStep, unsubscribe);
-  const res = await fetchImpl('https://api.resend.com/emails', {
+  let res: Response;
+  try {
+    res = await fetchImpl('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    // Resend keeps an idempotency key for 24 hours: a retry after a timeout that did deliver is not sent twice.
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json', 'Idempotency-Key': `${hash}:${step.kind}` },
     body: JSON.stringify({
       from: env.MARKETING_FROM_EMAIL || MARKETING_FROM, to: [email], reply_to: REPLY_TO, subject: step.subject, html, text,
       headers: { 'List-Unsubscribe': `<${unsubscribe}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' }
     })
-  });
+    });
+  } catch (e) {
+    // Network error or timeout: release the claim so the next run retries (never lost), and say so.
+    lastSendFailure = `Resend unreachable: ${String(e).slice(0, 160)}`;
+    await db.prepare('DELETE FROM email_sends WHERE email_hash = ? AND kind = ?').bind(hash, step.kind).run();
+    console.error(JSON.stringify({ event: 'NURTURE_SEND_FAILED', kind: step.kind, status: null, message: lastSendFailure }));
+    return 'FAILED';
+  }
   const body = await res.json().catch(() => ({})) as { id?: string; message?: string };
   if (!res.ok) {
     lastSendFailure = `Resend HTTP ${res.status}${body?.message ? `: ${String(body.message).slice(0, 160)}` : ''}`;

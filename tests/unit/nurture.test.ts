@@ -217,4 +217,26 @@ describe('free sample -> email -> paid', () => {
     for (let d = 1; d <= 30; d++) await runNurture(env, Date.now() + d * DAY, fetchImpl);
     expect(sent).toEqual([]);
   });
+
+  it('outage: a send that throws (network error or timeout) is released and sent exactly once later, with an idempotency key', async () => {
+    const db = fakeD1(); const env = envFor(db);
+    const throws = (async () => { throw new Error('connect ETIMEDOUT'); }) as unknown as typeof fetch;
+    await storeBuilderSignup(db as never, { email: 'net@example.com', source: 'sample:checklist', host: 'h', marketing: false });
+    expect((await sendSample(env, 'net@example.com', throws)).status).toBe('FAILED');
+    const run = await runNurture(env, Date.now(), throws); // the hourly run survives the throw
+    expect(run.stop).toMatch(/Resend unreachable/);
+    const keys: string[] = [];
+    const ok = (async (_u: string, init: { headers: Record<string, string> }) => { keys.push(init.headers['Idempotency-Key']); return new Response(JSON.stringify({ id: 'm1' }), { status: 200 }); }) as unknown as typeof fetch;
+    await runNurture(env, Date.now() + 3_600_000, ok);
+    await runNurture(env, Date.now() + 7_200_000, ok);
+    expect(keys).toEqual([`${await emailHash('net@example.com')}:seq0`]);
+  });
+
+  it('the venue email reads as a numbered list, one question per line', () => {
+    const tip = SEQUENCE.find((s) => s.kind === 'tip1')!;
+    const { html, text } = renderEmail(tip, 'https://weddingchecklistpdf.com/api/unsubscribe?id=x&t=y');
+    expect((html.match(/<li /g) ?? []).length).toBe(tip.list!.length);
+    expect(text).toContain(`\n1. ${tip.list![0]}\n2. ${tip.list![1]}`);
+    expect(text.indexOf('Open the free wedding planner')).toBeGreaterThan(text.indexOf(tip.list!.at(-1)!)); // the link after the body
+  });
 });
