@@ -1,0 +1,1 @@
+[{ "kind": "site", "build": "npm ci --no-audit --no-fund && npx next build --no-lint", "serve": "npx next start -p 4173", "base_url": "http://127.0.0.1:4173" }, { "kind": "app", "build": "cd apps/mobile && npm ci --no-audit --no-fund && npx expo export --platform web --output-dir dist", "serve": "apps/mobile/dist", "pages": ["/"] }]

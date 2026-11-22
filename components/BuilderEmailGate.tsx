@@ -68,7 +68,7 @@ export function EmailAsk({ heading, lead, button, children }: { heading: string;
   if (unlocked === null) return null;
   if (unlocked) return <>{children}</>;
   return <section data-testid="builder-email-gate" className="mx-auto max-w-2xl rounded-[12px] border border-charcoal/15 bg-white p-6 md:p-8">
-    <h2 className="font-serif text-3xl leading-tight">{heading}</h2>
+    <h1 className="font-serif text-3xl leading-tight">{heading}</h1>
     <p className="mt-3 leading-7 text-charcoal/70">{lead}</p>
     <form onSubmit={submit} noValidate className="mt-5 grid gap-4">
       <label className="grid gap-2 text-sm font-bold">Email address
@@ -77,7 +77,7 @@ export function EmailAsk({ heading, lead, button, children }: { heading: string;
       <MarketingTick id="ask-marketing" checked={marketing} onChange={setMarketing} />
       {error ? <p role="alert" className="text-sm font-semibold text-red-pen">{error}</p> : null}
       <button data-testid="builder-email-submit" disabled={busy} className="min-h-12 rounded-2xl bg-blue px-6 py-3 font-bold text-white disabled:opacity-60" type="submit">{busy ? 'Opening…' : button}</button>
-      <p className="text-xs leading-5 text-charcoal/60">Leave the box unticked and we send you no marketing email. {UNSUBSCRIBE_NOTE} See the <Link className="underline" href="/privacy">privacy page</Link>.</p>
+      <p className="text-xs leading-5 text-midnight-muted">Leave the box unticked and we send you no marketing email. {UNSUBSCRIBE_NOTE} See the <Link className="underline" href="/privacy">privacy page</Link>.</p>
     </form>
   </section>;
 }

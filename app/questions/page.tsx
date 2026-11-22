@@ -33,7 +33,7 @@ export default function Questions() {
     <JsonLd data={collection} />
     <Breadcrumbs items={[{ name: ORGANIZATION.name, href: '/', canonical: canonicalUrl(PARENT_HOST, '/') }, { name: 'Planning questions', href: '/questions', canonical: CANONICAL }]} />
     <header className="rounded-[12px] bg-white p-7 shadow-soft md:p-12">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">Wedding planning questions</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Wedding planning questions</p>
       <h1 className="mt-4 font-serif text-5xl md:text-6xl">{TITLE}</h1>
       <p className="mt-5 text-lg leading-8 text-charcoal/70">Each answer starts with the short version, then the steps, the sources it rests on and the questions couples ask next. New answers are added as couples search for them.</p>
     </header>

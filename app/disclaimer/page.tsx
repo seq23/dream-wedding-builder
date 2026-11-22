@@ -19,7 +19,7 @@ const P = 'mt-3 leading-7 text-charcoal/70';
 export default function Disclaimer() {
   return (
     <article className="mx-auto max-w-3xl">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/50">Dream Wedding product family</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Dream Wedding product family</p>
       <h1 className="mt-4 font-serif text-6xl">Disclaimer</h1>
       <p className="mt-6 text-lg leading-8 text-charcoal/70" data-testid="disclaimer-answer">
         Dream Wedding gives general wedding planning guidance: checklists, budget lines, schedules, seating records and
@@ -97,7 +97,7 @@ export default function Disclaimer() {
       </ul>
 
       <p className="mt-10 leading-7 text-charcoal/70">These boundaries apply to the free planning tools and to every paid product and the app alike. The paid files are organisational structure — checklists, budget lines, schedules, guest records and kits — not quotes, contracts, or professional advice: <Link className="underline underline-offset-4" href="/shop">see what each wedding tool contains</Link>.</p>
-      <p className="mt-6 text-sm leading-6 text-charcoal/55">
+      <p className="mt-6 text-sm leading-6 text-midnight-muted">
         See also the <a className="underline underline-offset-4" href="https://weddingchecklistpdf.com/terms">terms of use</a>, the{' '}
         <a className="underline underline-offset-4" href="https://weddingchecklistpdf.com/privacy">privacy policy</a> and the{' '}
         <a className="underline underline-offset-4" href="https://weddingchecklistpdf.com/refund-policy">refund policy</a>.

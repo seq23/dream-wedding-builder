@@ -32,7 +32,7 @@ export default function About() {
     <Breadcrumbs items={[{ name: ORGANIZATION.name, href: '/', canonical: canonicalUrl(PARENT_HOST, '/') }, { name: 'About', href: '/about', canonical: CANONICAL }]} />
 
     <header className="rounded-[12px] bg-white p-7 shadow-soft md:p-12">
-      <p className="text-xs font-bold uppercase tracking-[.25em] text-charcoal/45">The publisher</p>
+      <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">The publisher</p>
       <h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">About Dream Wedding</h1>
       <p className="mt-6 max-w-3xl text-xl leading-9 text-charcoal/70">Dream Wedding publishes wedding planning guides and sells {products.length} editable planning files. It is an independent digital publisher: it takes no vendor commissions for placement, it does not broker introductions to venues or suppliers, and nothing on these sites is a paid listing.</p>
     </header>
@@ -79,7 +79,7 @@ export default function About() {
       <p className="mt-4 leading-7 text-charcoal/70">If a figure on any of these sites is wrong, or a file does not contain what its page says it contains, write to <a href={`mailto:${supportEmail}`} className="font-bold underline underline-offset-4">{supportEmail}</a> and it gets corrected at the source rather than patched on one page. Purchase support uses the same address.</p>
     </section>
 
-    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-charcoal/60">Educational planning guidance only. Verify venue rules, contracts, prices, timing, capacities, accessibility and dietary information, legal requirements, and vendor instructions with the appropriate source.</footer>
+    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-midnight-muted">Educational planning guidance only. Verify venue rules, contracts, prices, timing, capacities, accessibility and dietary information, legal requirements, and vendor instructions with the appropriate source.</footer>
     <JsonLd data={aboutPage} />
   </article>;
 }

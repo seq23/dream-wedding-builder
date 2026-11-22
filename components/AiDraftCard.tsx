@@ -65,7 +65,7 @@ function DraftValueList({ plan, edit = 'here' }: { plan: WeddingPlan; edit?: 'he
   if (!values.length) return null;
   return <ul data-testid="ai-draft-values" className="mt-2 grid gap-1">
     {values.map(v => <li key={v.field} className="flex flex-wrap items-baseline justify-between gap-x-3 border-b border-charcoal/10 py-2">
-      <span className="min-w-0"><span className="text-charcoal/60">{v.label}: </span><span className="font-semibold [overflow-wrap:anywhere]">{v.value}</span></span>
+      <span className="min-w-0"><span className="text-midnight-muted">{v.label}: </span><span className="font-semibold [overflow-wrap:anywhere]">{v.value}</span></span>
       {edit === 'none' ? null : <a href={edit === 'planner' ? `/free-wedding-planner${v.href}` : v.href} className="no-print inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">Edit ✎<span className="sr-only"> {v.label}</span></a>}
     </li>)}
   </ul>;
@@ -160,7 +160,7 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
   // Once the one free draft is used the card is a short receipt: what was read, where
   // to change it, and the same sentence the server gives on any other device.
   if (used) return <section id="ai-draft" data-testid="ai-draft-card" data-state="used" className="scroll-mt-24 rounded-[12px] border border-charcoal/15 bg-white p-5 md:p-7">
-    <p className="text-xs font-bold uppercase tracking-[.12em] text-charcoal/60">Your free AI draft · used ✓</p>
+    <p className="text-xs font-bold uppercase tracking-[.12em] text-midnight-muted">Your free AI draft · used ✓</p>
     {result ? <div role="status" data-testid="ai-result" className="mt-2 text-sm leading-6">
       <p className="font-serif text-2xl">Here is what we read.</p>
       <DraftValueList plan={plan} />
@@ -172,14 +172,14 @@ export function AiDraftCard({ plan, onApply }: { plan: WeddingPlan; onApply: (ne
   </section>;
 
   return <section id="ai-draft" data-testid="ai-draft-card" data-state="ready" className="scroll-mt-24 rounded-[12px] border border-charcoal/15 bg-white p-5 md:p-7">
-    <p className="text-xs font-bold uppercase tracking-[.12em] text-charcoal/60">AI draft · free, once per email</p>
+    <p className="text-xs font-bold uppercase tracking-[.12em] text-midnight-muted">AI draft · free, once per email</p>
     <h2 className="mt-2 font-serif text-3xl">Describe your wedding in a sentence.</h2>
     <p className="mt-2 text-sm leading-6 text-charcoal/70">An AI drafts your dated plan from it; then you edit everything by hand. Leave out names and anything private.</p>
     <form onSubmit={submit} noValidate className="mt-4 grid gap-3">
       <label className="grid gap-2 text-sm font-semibold" htmlFor="ai-description">Your wedding, in your words
         <textarea id="ai-description" data-testid="ai-description" value={description} onChange={e => setDescription(e.target.value)} maxLength={maxLength} disabled={busy} placeholder="200 guests, June in Memphis, small budget, outdoor if the weather allows" className="min-h-24 rounded-2xl border border-charcoal/20 p-3 text-base font-normal" />
       </label>
-      <p className="text-xs text-charcoal/60">{description.length} of {maxLength} characters</p>
+      <p className="text-xs text-midnight-muted">{description.length} of {maxLength} characters</p>
       {knownEmail ? null : <>
         <label className="grid gap-2 text-sm font-semibold" htmlFor="ai-email">Your email (the free AI draft is one per email)
           <input id="ai-email" data-testid="ai-email" type="email" autoComplete="email" value={email} onChange={e => setEmail(e.target.value)} disabled={busy} className="min-h-11 rounded-2xl border border-charcoal/20 px-3 text-base font-normal" />

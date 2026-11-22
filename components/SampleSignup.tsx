@@ -68,7 +68,7 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
   }
 
   return <section data-testid="sample-signup" className="no-print rounded-[12px] border border-charcoal/10 bg-ivory p-7 md:p-10">
-    <p className="text-xs font-bold uppercase tracking-[.22em] text-charcoal/45">Free sample</p>
+    <p className="text-xs font-bold uppercase tracking-[.22em] text-midnight-muted">Free sample</p>
     <h2 className="mt-3 font-serif text-4xl leading-tight">{heading}</h2>
     <p className="mt-3 max-w-2xl leading-7 text-charcoal/70">How to use it, the critical-path page and the 12 to 9 months page, as a printable PDF.</p>
     {done === 'sent' ? <p className="mt-6 rounded-2xl bg-white p-5 font-semibold">Sent. You can also <a className="underline" href={SAMPLE_PDF}>open the sample now</a>.{consent ? ' To get the 3 planning emails, tap the download button in the email: that confirms your address.' : ''}</p> :
@@ -86,7 +86,7 @@ export function SampleSignup({ heading = 'Try 3 pages of the checklist free', pr
       <div ref={widget} data-testid="sample-turnstile" className="min-h-[65px]" />
       {error ? <p role="alert" className="text-sm font-semibold text-red-700">{error}</p> : null}
       <button data-testid="sample-submit" disabled={busy} className="min-h-12 rounded-2xl bg-charcoal px-6 py-3 font-bold text-linen disabled:opacity-60" type="submit">{busy ? 'Sending…' : 'Email me the free sample →'}</button>
-      <p className="text-xs leading-5 text-charcoal/55">{UNSUBSCRIBE_NOTE} See the <Link className="underline" href={privacyHref}>privacy page</Link>.</p>
+      <p className="text-xs leading-5 text-midnight-muted">{UNSUBSCRIBE_NOTE} See the <Link className="underline" href={privacyHref}>privacy page</Link>.</p>
     </form>}
   </section>;
 }

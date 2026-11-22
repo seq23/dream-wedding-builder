@@ -51,7 +51,7 @@ export function bylineWebPageNode(host: string, path: string) {
 /** The byline a reader sees. The name here is the name in bylineAuthorFields. */
 export function PageByline({ path }: { path: string }) {
   const updated = lastmodFor(path);
-  return <p className="text-sm leading-6 text-charcoal/60">
+  return <p className="text-sm leading-6 text-midnight-muted">
     By <Link href={ABOUT_URL} rel="author" className="font-semibold underline decoration-charcoal/20 underline-offset-4">{PUBLISHER_NAME}</Link>
     {' '}· Publisher: Dream Wedding Builder, a Spry Labs company.
     {updated ? <> · Updated <time dateTime={updated}>{updated}</time></> : null}

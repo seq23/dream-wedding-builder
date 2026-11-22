@@ -71,7 +71,7 @@ function TextArea({ testId, value, onChange, placeholder }: { testId?: string; v
 }
 
 function StepHeader({ number, title, sub }: { number: number; title: string; sub: string }) {
-  return <div><p className="font-mono text-xs uppercase tracking-[.12em] text-charcoal/60">Step {number}</p><h3 className="mt-1 font-serif text-2xl">{title}</h3><p className="mt-1 text-sm text-charcoal/65">{sub}</p></div>;
+  return <div><p className="font-mono text-xs uppercase tracking-[.12em] text-midnight-muted">Step {number}</p><h3 className="mt-1 font-serif text-2xl">{title}</h3><p className="mt-1 text-sm text-charcoal/65">{sub}</p></div>;
 }
 
 function More({ summary, children, testId }: { summary: string; children: React.ReactNode; testId?: string }) {
@@ -179,10 +179,10 @@ function BuildPage() {
 
   return <div className="mx-auto max-w-3xl space-y-8 pb-24">
     {seedReport && <section data-testid="seed-notice" className="rounded-[12px] border border-charcoal/15 bg-white p-5 text-sm leading-6">
-      <p className="font-mono text-xs uppercase tracking-[.12em] text-charcoal/60">Started from the page you came from</p>
+      <p className="font-mono text-xs uppercase tracking-[.12em] text-midnight-muted">Started from the page you came from</p>
       {seedReport.applied.length > 0 && <p className="mt-2 font-semibold" data-testid="seed-applied">Filled in for you: {seedReport.applied.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}.</p>}
       {seedReport.skipped.length > 0 && <p className="mt-2 font-semibold text-charcoal/70" data-testid="seed-skipped">Kept your saved answers for: {seedReport.skipped.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}. A link can never overwrite work you already entered.</p>}
-      <p className="mt-2 text-xs text-charcoal/60">These are example starting values, not quotes. Change any of them below.</p>
+      <p className="mt-2 text-xs text-midnight-muted">These are example starting values, not quotes. Change any of them below.</p>
     </section>}
 
     {/* The free journey leads (owner, 13 Nov 2026): what should it feel like, then her
@@ -195,21 +195,21 @@ function BuildPage() {
         <label className="grid gap-2 text-sm font-semibold" htmlFor="wedding-date">Wedding date
           <input id="wedding-date" data-testid="wedding-date" type="date" value={plan.weddingDate} onChange={event => patch({ weddingDate: event.target.value })} className="min-h-11 max-w-xs rounded-2xl border border-charcoal/20 bg-white p-3 text-base" />
         </label>
-        <p className="mt-2 text-xs text-charcoal/60">Not sure yet? Pick your best guess; you can change it any time. Saved in this browser only.</p>
+        <p className="mt-2 text-xs text-midnight-muted">Not sure yet? Pick your best guess; you can change it any time. Saved in this browser only.</p>
         <div className="mt-5 space-y-4"><AiDraftLabel plan={plan} /><DatedPlanView weddingDate={plan.weddingDate} /></div>
         {plan.weddingDate ? <FullPlanCard /> : null}
       </Card>
     </StepFold>
 
     <Card className="bg-white" data-testid="canonical-plan-summary">
-      <p className="font-mono text-xs uppercase tracking-[.12em] text-charcoal/60">Your plan so far</p>
+      <p className="font-mono text-xs uppercase tracking-[.12em] text-midnight-muted">Your plan so far</p>
       <p className="mt-3 text-sm text-charcoal/65">Your budget</p>
       <p data-testid="guided-total" className="font-serif text-4xl [overflow-wrap:anywhere]">{budgetHeadline(plan)}</p>
       <p data-testid="budget-subline" className="mt-1 text-sm text-charcoal/70">{budgetSubline(plan)}</p>
       {budget.warnings.length > 0 && <p data-testid="budget-warning" role="status" className="mt-3 rounded-2xl border border-red-pen/40 bg-white p-3 text-sm leading-6 text-red-pen">{budget.warnings[0]} <a href="#step-3" className="font-bold underline underline-offset-4">Open your budget ▾</a></p>}
       <dl className="mt-4 grid gap-1 text-sm">
         {([['Date', plan.weddingDate ? plainDate(plan.weddingDate) : '', '#your-date'], ['Guests', plan.guestCount, '#step-0'], ['Place', plan.locations, '#step-0']] as const).map(([label, value, href]) => <div key={label} className="flex items-baseline justify-between gap-3 border-b border-charcoal/10 py-2">
-          <dt className="text-charcoal/60">{label}</dt>
+          <dt className="text-midnight-muted">{label}</dt>
           <dd className="min-w-0 text-right font-semibold [overflow-wrap:anywhere]">{value || <a href={href} className="font-bold text-blue underline underline-offset-4">Add ›</a>}</dd>
         </div>)}
       </dl>
@@ -259,7 +259,7 @@ function BuildPage() {
             <p className="mt-1 text-sm leading-6 text-charcoal/75">Why: {q.why}</p>
             <a href={q.href} className="mt-1 inline-flex min-h-11 items-center text-sm font-bold text-blue underline underline-offset-4">Settle it ▾</a>
           </li>)}</ol> : <p className="rounded-2xl bg-ivory p-4 font-semibold text-done">Nothing open: every question this list knows how to ask has an answer.</p>}
-          <p className="mt-4 text-xs leading-5 text-charcoal/60">This list changes as you fill in the steps. It reads only what you typed on this page.</p>
+          <p className="mt-4 text-xs leading-5 text-midnight-muted">This list changes as you fill in the steps. It reads only what you typed on this page.</p>
         </Card>
       </StepFold>
 
@@ -279,7 +279,7 @@ function BuildPage() {
           })}</div>
           {ranking.hidden.length > 0 && <p data-testid="venue-hidden" className="mt-4 text-sm leading-6 text-charcoal/70">Not shown yet: {ranking.hidden.map(item => `${item.venue.name} (${item.reason})`).join('; ')}.</p>}
           <div data-testid="selected-venue-summary" className="mt-4 rounded-2xl bg-ivory p-4 text-sm font-semibold">Your shortlist: {chosenVenues.length ? chosenVenues.map(v => v.name).join(' · ') : 'Not decided yet'}</div>
-          <p className="mt-3 text-xs leading-5 text-charcoal/60">These are kinds of venue, not named venues, and sizes are typical for the kind. Nothing here checks prices or open dates.</p>
+          <p className="mt-3 text-xs leading-5 text-midnight-muted">These are kinds of venue, not named venues, and sizes are typical for the kind. Nothing here checks prices or open dates.</p>
         </Card>
       </StepFold>
 
@@ -297,7 +297,7 @@ function BuildPage() {
           {budget.lines.length > 0 && <div data-testid="budget-split">
             <p className="text-sm font-semibold">A starting split of {money(Math.min(budget.budget, budget.limit))}</p>
             <ul className="mt-2 grid gap-1 text-sm">{budget.lines.map(line => <li key={line.id} data-testid={`budget-line-${line.id}`} className="flex items-baseline justify-between gap-3 border-b border-charcoal/10 py-2"><span>{line.label}{line.yours ? ' (your number)' : ''}{line.protectedLine ? ' · matters most' : ''}</span><span className="font-mono font-semibold">{money(line.amount)}</span></li>)}</ul>
-            <p className="mt-2 text-xs leading-5 text-charcoal/60">A starting point to edit, not a price list: it leans toward what you said matters most. Your quotes replace these numbers.</p>
+            <p className="mt-2 text-xs leading-5 text-midnight-muted">A starting point to edit, not a price list: it leans toward what you said matters most. Your quotes replace these numbers.</p>
           </div>}
           <More summary="Your own numbers and what to cut first (optional)" testId="budget-own-lines">
             <div className="grid gap-4 md:grid-cols-2">
@@ -371,7 +371,7 @@ function BuildPage() {
 
     </>}
 
-    <p data-testid="planner-disclaimer" className="text-xs leading-5 text-charcoal/60">{disclaimers.cost} Venue types and ideas here are examples to ask about; no live prices or availability are shown. {disclaimers.professional}</p>
+    <p data-testid="planner-disclaimer" className="text-xs leading-5 text-midnight-muted">{disclaimers.cost} Venue types and ideas here are examples to ask about; no live prices or availability are shown. {disclaimers.professional}</p>
   </div>;
 }
 
