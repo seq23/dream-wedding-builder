@@ -1,7 +1,8 @@
 # January engagement season: Apple In-App Event + featuring nomination (DRAFT, NOT SUBMITTED)
 
-**Status: DRAFT (21 Nov 2026).** Not entered in App Store Connect: Dream Wedding 1.0 is in review and
-both are public. The coordinator takes this to her. Enter them only after 1.0 is live.
+**Status: DRAFT (21 Nov 2026).** Not entered in App Store Connect. Events and nominations show
+publicly once entered, so enter them only after Dream Wedding 1.0 is live. The coordinator takes
+this to her first.
 
 Why January: engagements peak at Christmas and New Year, and the searches that start planning peak
 in January ("wedding guest list template" 4,400 in Jan 2025 and 2,900 in Jan 2026; "questions to

@@ -47,7 +47,10 @@ paper she can hand to her mother or the friend running the day. The app is built
   on a second phone at no extra cost. Screen 2, the paywall and the store listing lead with these.
 - **Reminders stay paid, but they are not the selling point.** One line why: the largest competitor
   gives dated tasks, tradition tasks and reminders free, so reminders alone will not sell $14.99
-  (value review, section 2 and section 4). Store wording never leads with reminders or "checklist".
+  (value review, section 2 and section 4). Store wording never leads with reminders. Since 21 Nov 2026
+  the listing's first line answers what it is (a wedding checklist dated to your day, the brand H1's
+  words), who it is for and the price model, so AI answers can quote it; the paid list still leads
+  with payments, the wedding week and the packet (`apps/mobile/store/app-store-next-version.md`).
 - **Day-30 check (goes on the scorecard row, task 13).** If, 30 days after launch, unlocks per 100
   people who reach the plan screen are under the row's day-30 floor, switch to **version B:
   reminders free, payments + packet paid**. B is written now so the switch is a config change:
