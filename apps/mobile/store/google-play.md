@@ -1,6 +1,6 @@
 # Google Play listing — DRAFT, NOT FOR SUBMISSION
 
-**Status: DRAFT (19 Nov 2026).** Store copy was held on purpose until the launch plan. This is
+**Status: DRAFT (19 Nov 2026; description rewritten 21 Nov 2026).** Store copy was held on purpose until the launch plan. This is
 drafted for her to see first; nothing here goes to Google until she has read it and the company
 Play account (Redwood Reserve Holdings LLC; exists, organisation documents and website in
 review on 19 Nov 2026) is cleared to publish. Console form answers: `store/play-console-answers.md`.
@@ -15,21 +15,23 @@ production environment), so Play should not promise it until it is on.
 
 Dream Wedding Builder
 
-## Short description (≤ 80) — 74 characters
+## Short description (≤ 80) — 78 characters
 
-Picture your wedding first, then get a plan dated to your day. No account.
+A wedding checklist dated to your day. Free, no account, never a subscription.
 
-(From the Apple promotional text.)
+## Full description (≤ 4000) — 2119 characters
 
-## Full description (≤ 4000)
+The first paragraph answers what it does, who it is for and the price model, for AI answers to quote (21 Nov 2026; same text as `store/app-store-next-version.md`, whose table shows where each promise is built).
+
+Dream Wedding Builder is a wedding planner app for couples planning their own wedding without paying a wedding planner. Give your wedding date and get a wedding checklist dated to your day: what to do now, what comes next, and what to catch up on if your date is close. Free to download and use with no account and no email. The full plan is one payment per wedding, never a subscription.
 
 Not sure what you want yet? Start there.
 
 Say what you picture in a sentence, add photos you love, or tap "I don't know yet" and choose a season, a setting and a mood. Dream Wedding Builder shows you your wedding on one page: the look and feel, your colours, the kinds of venues that carry it, ideas to match, and what to ask. Keep the parts you love.
 
-Then give your date. Everything you kept goes into your plan, worked back from your day: what to do now, what comes next, and what to catch up on if your date is close. Tick tasks off and add your own.
+Then give your date. Everything you kept goes into your plan, worked back from your day. Tick tasks off and add your own.
 
-Free: your wedding on one page, your dated plan, ticks and your own tasks. No account and no password; your plan stays on your phone. Your photos never leave your phone: only their colours and what you tapped are sent.
+Free: your wedding on one page, your dated plan, ticks and your own tasks, and a copy of your dated tasks to print or send. No account and no password; your plan stays on your phone. Your photos never leave your phone: only their colours and what you tapped are sent. No vendor ads, and we never sell your plan.
 
 The full plan is one payment, no subscription:
 • Your payments and final-payment schedule, dated to your day.
