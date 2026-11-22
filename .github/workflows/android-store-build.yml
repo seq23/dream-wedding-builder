@@ -1,0 +1,86 @@
+name: Android store build
+# Manual only. The Android twin of ios-store-build.yml: builds the Play App Bundle on a free
+# GitHub runner with `eas build --local` (no EAS cloud minutes), signed with the upload keystore
+# EAS already holds, using the production profile and its EAS environment (RevenueCat keys; the
+# release gate refuses a build without a goog_ key). Then `eas submit --path` sends it to the
+# Play internal testing track as a DRAFT (eas.json submit.production.android). Nothing goes to
+# production, closed or open testing, or review. The AAB is never uploaded as an artifact
+# (public repo); the service account file exists only for the submit and check steps.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-store-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    defaults:
+      run:
+        working-directory: apps/mobile
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EXPO_NO_TELEMETRY: '1'
+      PACKAGE: com.weddingchecklistpdf.dreamwedding
+      # EAS upload keystore created 19 Nov 2026 (eas credentials, Build Credentials QE5Ykw5lMk).
+      # A different key would lock every future update out of Play; the build stops instead.
+      UPLOAD_KEY_SHA1: 4B:A3:70:F8:FF:75:31:98:19:2A:B2:4A:8F:49:45:27:28:B2:C4:5A
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: npm ci --no-audit --no-fund
+      - name: EAS local build
+        run: npx --yes eas-cli@latest build --platform android --profile production --local --non-interactive --output app.aab
+      - name: Signed with the existing upload key
+        run: |
+          SHA1=$(keytool -printcert -jarfile app.aab | awk '/SHA1:/{print $2; exit}')
+          echo "AAB upload key SHA-1: $SHA1"
+          [ "$SHA1" = "$UPLOAD_KEY_SHA1" ] || { echo "NAMED STOP [UPLOAD_KEY_CHANGED] expected $UPLOAD_KEY_SHA1"; exit 1; }
+      - name: Version code
+        id: version
+        run: |
+          VC=$(npx --yes eas-cli@latest build:version:get --platform android --profile production --json --non-interactive | jq -r '.versionCode')
+          [[ "$VC" =~ ^[0-9]+$ ]] || { echo "NAMED STOP [VERSION_CODE_UNKNOWN] got '$VC'"; exit 1; }
+          echo "versionCode=$VC"; echo "code=$VC" >> "$GITHUB_OUTPUT"
+      - name: Write Play service account
+        env:
+          SA: ${{ secrets.GOOGLE_PLAY_UPLOAD_SA_JSON }}
+        run: |
+          [ -n "$SA" ] || { echo "NAMED STOP [SECRET_MISSING] GOOGLE_PLAY_UPLOAD_SA_JSON"; exit 1; }
+          umask 077; printf '%s' "$SA" > play-sa.json
+      - name: Submit to Play internal track (draft)
+        run: npx --yes eas-cli@latest submit --platform android --profile production --path app.aab --non-interactive --wait
+      - name: Check the draft is on the internal track
+        env:
+          VC: ${{ steps.version.outputs.code }}
+        run: |
+          gcloud auth activate-service-account --key-file=play-sa.json --quiet
+          TOKEN=$(gcloud auth print-access-token --scopes=https://www.googleapis.com/auth/androidpublisher)
+          API="https://androidpublisher.googleapis.com/androidpublisher/v3/applications/$PACKAGE/edits"
+          EDIT=$(curl -fsS -X POST -H "Authorization: Bearer $TOKEN" "$API" | jq -r .id)
+          TRACKS=$(curl -fsS -H "Authorization: Bearer $TOKEN" "$API/$EDIT/tracks")
+          curl -fsS -X DELETE -H "Authorization: Bearer $TOKEN" "$API/$EDIT" > /dev/null
+          echo "$TRACKS" | jq -c '.tracks[] | {track, releases: [.releases[]? | {status, versionCodes}]}'
+          echo "$TRACKS" | jq -e --arg vc "$VC" '.tracks[] | select(.track == "internal") | .releases[] | select(.status == "draft" and ((.versionCodes // []) | index($vc)))' > /dev/null \
+            || { echo "NAMED STOP [NOT_ON_INTERNAL_TRACK] versionCode $VC is not a draft on internal"; exit 1; }
+          echo "$TRACKS" | jq -e '[.tracks[] | select(.track != "internal") | .releases[]?] | length == 0' > /dev/null \
+            || { echo "NAMED STOP [OTHER_TRACK_HAS_RELEASES] a release sits outside internal"; exit 1; }
+          echo "OUTPUT android-store-build: versionCode $VC is a draft on the Play internal track"
+      - name: Remove credentials
+        if: always()
+        run: |
+          rm -f play-sa.json app.aab
+          gcloud auth revoke --all --quiet 2>/dev/null || true

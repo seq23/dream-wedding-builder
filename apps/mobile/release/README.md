@@ -6,6 +6,10 @@ exit 2; internal previews remain available. Passing it is not a store launch
 approval or proof of live purchase, delivery or sharing readiness.
 
 - `PREVIEW_BUILD`: remove `EXPO_PUBLIC_DW_PREVIEW` entirely from the store environment.
+- `REVENUECAT_KEY_MISSING`: the store build's platform has no public RevenueCat key
+  with the right prefix (`EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY` = `goog_…`,
+  `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY` = `appl_…`) in the EAS `production` environment.
+  Set it from the vault (`REVENUECAT_DW_ANDROID_PUBLIC_KEY` / `REVENUECAT_DW_IOS_PUBLIC_KEY`).
 - `BUNDLE_ID_PLACEHOLDER`: set `release/config.json` to the owner's registered
   identifier after store setup. Expo reads that same value for both platforms.
 - `LEGAL_LINKS_MISSING`: configure the canonical HTTPS privacy/terms URLs.
@@ -81,6 +85,17 @@ free plan's iOS builds for the month are used up, run the manual `iOS store buil
 workflow (free GitHub macOS runner, `eas build --local`, same profile and remote build
 number), download its `app-ipa` artifact and upload it with
 `eas submit --platform ios --profile production --path app.ipa`.
+
+## Google Play internal builds
+
+Run the manual `Android store build` workflow on `main`. It builds the App Bundle on a free
+GitHub runner (`eas build --local`, production profile and environment, remote versionCode),
+stops unless the AAB is signed with the EAS upload key from 19 Nov 2026 (SHA-1
+`4B:A3:70:F8:…:C4:5A`), submits it to the Play **internal** track as a **draft**
+(`eas.json` submit.production.android), then reads the tracks back and fails unless that
+versionCode is a draft on internal and no other track holds a release. The service account
+(`GOOGLE_PLAY_UPLOAD_SA_JSON`, release and testing tracks only) is written for the submit and
+deleted in an `always()` step; the AAB is never uploaded as an artifact.
 
 ## Report this answer (AI content: Apple 1.2, Google Play)
 

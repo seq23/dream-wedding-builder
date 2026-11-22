@@ -13,3 +13,7 @@ android/
 *.db
 *.sqlite
 .DS_Store
+# Play upload service account (written by the Android store build workflow, deleted after) and build outputs
+play-sa.json
+*.aab
+*.apk

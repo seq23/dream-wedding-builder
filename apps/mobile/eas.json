@@ -35,6 +35,11 @@
       "ios": {
         "ascAppId": "6834891267",
         "appleTeamId": "34LUUUDT4H"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./play-sa.json",
+        "track": "internal",
+        "releaseStatus": "draft"
       }
     }
   }

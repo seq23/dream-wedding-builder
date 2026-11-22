@@ -2,9 +2,16 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+// Same prefixes as src/billing/provider.ts acceptedKey: a store build without its
+// platform's public RevenueCat key would show a paywall that can never buy.
+const STORE_KEYS = { ios: ['EXPO_PUBLIC_REVENUECAT_IOS_API_KEY', 'appl_'], android: ['EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY', 'goog_'] };
+
 export function stops(config, env, scorecard) {
   const out = [];
   if (env.EXPO_PUBLIC_DW_PREVIEW) out.push('PREVIEW_BUILD');
+  // EAS sets EAS_BUILD_PLATFORM; a manual run (no platform) checks both stores.
+  const platforms = STORE_KEYS[env.EAS_BUILD_PLATFORM] ? [env.EAS_BUILD_PLATFORM] : Object.keys(STORE_KEYS);
+  if (platforms.some(p => !env[STORE_KEYS[p][0]]?.startsWith(STORE_KEYS[p][1]))) out.push('REVENUECAT_KEY_MISSING');
   if (!config.bundleId || config.bundleId.endsWith('.placeholder')) out.push('BUNDLE_ID_PLACEHOLDER');
   for (const key of ['privacyUrl', 'termsUrl']) {
     try {
