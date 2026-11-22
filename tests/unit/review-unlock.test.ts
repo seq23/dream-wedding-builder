@@ -25,13 +25,13 @@ function d1() {
 /** A fake RevenueCat v2: known customers, real store purchases (never touched by grants), granted entitlements. */
 function revenuecat() {
   const known = new Set<string>(), granted = new Map<string, Map<string, number>>(), purchases = new Map<string, string>();
-  const calls: string[] = [];
+  const calls: string[] = [], openLoopStops: string[] = [];
   let mode: 'ok' | '5xx' | 'timeout' | '403' | 'second-fails' = 'ok', openLoops = 0, grantsThisCall = 0;
   const products = JSON.parse(readFileSync('tests/fixtures/revenuecat/v2-products.json', 'utf8')).body;
   const productId = (store: string) => (products.items as { id: string; store_identifier: string; app_id: string }[]).find(p => p.store_identifier === store && p.app_id === 'app630a018765')!.id;
   const fetcher = vi.fn(async (input: RequestInfo | URL, init: RequestInit = {}) => {
     const url = String(input);
-    if (url.includes('open-loops/intake')) { openLoops++; return new Response('{}', { status: 201 }); }
+    if (url.includes('open-loops/intake')) { openLoops++; openLoopStops.push(JSON.parse(String(init.body)).stop); return new Response('{}', { status: 201 }); }
     if (url.includes('/products?')) return Response.json(products);
     calls.push(`${init.method ?? 'GET'} ${url.replace(/^.*\/customers\/[^/?]+/, '')}`);
     const id = decodeURIComponent(url.split('/customers/')[1]!.split(/[/?]/)[0]!);
@@ -59,7 +59,7 @@ function revenuecat() {
     }
     return Response.json({ id });
   });
-  return { known, granted, purchases, calls, fetcher: fetcher as unknown as typeof fetch, set(m: typeof mode) { mode = m; }, get openLoops() { return openLoops; }, resetCall() { grantsThisCall = 0; } };
+  return { known, granted, purchases, calls, fetcher: fetcher as unknown as typeof fetch, set(m: typeof mode) { mode = m; }, get openLoops() { return openLoops; }, openLoopStops, resetCall() { grantsThisCall = 0; } };
 }
 
 type Env = ReviewEnv & UnlockEnv & { DB: ReturnType<typeof d1> };
@@ -187,6 +187,8 @@ it('outage: RevenueCat 5xx, timeout, read-only key or one of three grants failin
     expect(slots(e), mode).toBe(0); expect(grantsOf(rc, anon(1)), `${mode}: nothing half-granted`).toEqual([]);
     expect((await door(e, rc, anon(1))).status, mode).toBe(403);
     if (mode === '403') expect(vi.mocked(console.error).mock.calls.flat().join(' ')).toContain('REVIEW_RC_KEY_READONLY');
+    // Only the read-only key (no retry fixes it) files an Open Loops row; a passing outage does not.
+    expect(rc.openLoopStops, mode).toEqual(mode === '403' ? ['REVIEW_RC_KEY_READONLY'] : []);
     // The slot really came back: the same IP can still open its two new phones.
     rc.set('ok');
     expect((await redeem(e, rc, anon(1))).status).toBe(200);

@@ -124,7 +124,8 @@ export async function reviewUnlock(request: Request, env: ReviewEnv, fetcher: ty
       } else if (!row) {
         await giveBack(db, 'review-slot-ip', ipHash);
         stop('REVIEW_DEVICE_CAP');
-        await fileCapLoop(env, fetcher);
+        await fileLoop(env, fetcher, 'REVIEW_DEVICE_CAP', 'Dream Wedding: the Play review code is used up',
+          `All ${maxDevices(env)} phones allowed for the current Play review code have used it. Make a new code in the vault and on the live site, then Sequoia pastes the new code into Play Console.`);
         return json({ error: 'USED_UP' }, 403);
       } else newSlot = true;
     }
@@ -150,6 +151,9 @@ export async function reviewUnlock(request: Request, env: ReviewEnv, fetcher: ty
     if (newSlot) await db.prepare('DELETE FROM review_grant WHERE window_id = ? AND id_hash = ?').bind(version, idHash).run().catch(() => {});
     if (ipSlot) await giveBack(db, 'review-slot-ip', ipHash).catch(() => {});
     stop(readonly ? 'REVIEW_RC_KEY_READONLY' : 'REVIEW_RC_UNAVAILABLE');
+    // A read-only key fails every reviewer, every time, and only a new key fixes it: a row someone sees, not only a log.
+    if (readonly) await fileLoop(env, fetcher, 'REVIEW_RC_KEY_READONLY', 'Dream Wedding: the Play review code cannot unlock (RevenueCat key is read-only)',
+      'RevenueCat refused the review grant with 403. Make a v2 secret key in the Dream Wedding project with Customer information: Read & write and Project configuration: Read only, save it to the vault as REVENUECAT_DW_V2_SECRET_KEY and set it as the Worker secret REVENUECAT_SECRET, then redeem the code once on a test ID.');
     return json({ error: 'TRY_AGAIN' }, 503);
   }
   console.log(JSON.stringify({ event: 'REVIEW_UNLOCKED', window: version }));
@@ -188,17 +192,16 @@ export async function purgeReviewRows(db: LimitDB, now = Date.now()) {
   await db.prepare("DELETE FROM rate_events WHERE bucket LIKE 'review-%' AND at <= ?").bind(Math.floor(now / 1000) - 86400).run();
 }
 
-/** The cap was hit: a row on Boss OS's Open Loops list, so it is seen, not only logged. */
-async function fileCapLoop(env: ReviewEnv, fetcher: typeof fetch) {
+/** A stop no retry fixes (the cap, a read-only key): a row on Boss OS's Open Loops list (upserted by repo + stop), so it
+ * is seen, not only logged. */
+async function fileLoop(env: ReviewEnv, fetcher: typeof fetch, code: string, title: string, nextStep: string) {
   if (!env.BOSS_OPEN_LOOPS_TOKEN) { stop('OPEN_LOOPS_TOKEN_MISSING'); return; }
   try {
     const r = await fetcher(OPEN_LOOPS_INTAKE, {
       method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${env.BOSS_OPEN_LOOPS_TOKEN}` },
       body: JSON.stringify({
-        repo: 'seq23/dream-wedding-builder', stop: 'REVIEW_DEVICE_CAP', business: 'spry', owner: 'claude',
-        finish_line: 'Dream Wedding: live on Google Play, selling',
-        title: 'Dream Wedding: the Play review code is used up',
-        next_step: `All ${maxDevices(env)} phones allowed for the current Play review code have used it. Make a new code in the vault and on the live site, then Sequoia pastes the new code into Play Console.`,
+        repo: 'seq23/dream-wedding-builder', stop: code, business: 'spry', owner: 'claude',
+        finish_line: 'Dream Wedding: live on Google Play, selling', title, next_step: nextStep,
       }),
       signal: AbortSignal.timeout(8000),
     });

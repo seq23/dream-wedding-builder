@@ -61,8 +61,9 @@ asks RevenueCat (v2 `grant_entitlement`) for `full_plan`, `printables` and `day_
   version and 2 new phones per IP a day; the same phone again takes no slot and gets a fresh grant. The 11th phone gets
   `USED_UP` and `NAMED STOP [REVIEW_DEVICE_CAP]`, which files an Open Loops row (rotate the code).
 - **Outage**: any RevenueCat failure revokes the granted entitlements (`revoke_granted_entitlement`, never a purchase),
-  frees the slot and answers 503 `TRY_AGAIN`; a 403 on grant logs `REVIEW_RC_KEY_READONLY` (the key needs
-  `customer_information:customers:read_write`).
+  frees the slot and answers 503 `TRY_AGAIN`; a 403 on grant is `NAMED STOP [REVIEW_RC_KEY_READONLY]` and files an
+  Open Loops row (the key needs `customer_information:customers:read_write`; the live key, `play-review-grant`, was made
+  22 Nov 2026 with Customer information Read & write and Project configuration Read only).
 - **Storage**: `migrations/0015_review_grant.sql` (HMAC'd ID, code version, timestamps); the hourly cron deletes rows
   7 days past expiry and review try counters older than a day. Applied to the live D1 on 22 Nov 2026 with
   `npx wrangler d1 execute dream-wedding-builder --remote --file=migrations/0015_review_grant.sql` (additive, safe to re-run).
