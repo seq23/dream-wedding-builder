@@ -69,8 +69,13 @@ export function reviewStatus(env: ReviewEnv, now = Date.now()): Response {
   return reviewOpen(env, now) ? json({ open: true }) : closed();
 }
 
-/** POST /api/review/unlock. `fetcher` reaches RevenueCat and the Open Loops intake. */
-export async function reviewUnlock(request: Request, env: ReviewEnv, fetcher: typeof fetch = fetch, now = Date.now()): Promise<Response> {
+/** Keeps work alive after the response (the Worker's ctx.waitUntil). The default lets it run and ignores the result. */
+export type WaitUntil = (work: Promise<unknown>) => void;
+
+/** POST /api/review/unlock. `fetcher` reaches RevenueCat and the Open Loops intake; `waitUntil` carries the Open Loops
+ * alert past the response, so a slow or down Boss OS never delays the answer the app waits 10 s for. */
+export async function reviewUnlock(request: Request, env: ReviewEnv, fetcher: typeof fetch = fetch, now = Date.now(),
+  waitUntil: WaitUntil = work => { void work; }): Promise<Response> {
   if (!reviewOpen(env, now)) return closed();
   // Body: JSON only, at most 1 KB, a code and RevenueCat's anonymous ID. Anything else is refused before any count or call.
   const length = Number(request.headers.get('content-length') ?? 0);
@@ -124,8 +129,8 @@ export async function reviewUnlock(request: Request, env: ReviewEnv, fetcher: ty
       } else if (!row) {
         await giveBack(db, 'review-slot-ip', ipHash);
         stop('REVIEW_DEVICE_CAP');
-        await fileLoop(env, fetcher, 'REVIEW_DEVICE_CAP', 'Dream Wedding: the Play review code is used up',
-          `All ${maxDevices(env)} phones allowed for the current Play review code have used it. Make a new code in the vault and on the live site, then Sequoia pastes the new code into Play Console.`);
+        waitUntil(fileLoop(env, fetcher, 'REVIEW_DEVICE_CAP', 'Dream Wedding: the Play review code is used up',
+          `All ${maxDevices(env)} phones allowed for the current Play review code have used it. Make a new code in the vault and on the live site, then Sequoia pastes the new code into Play Console.`));
         return json({ error: 'USED_UP' }, 403);
       } else newSlot = true;
     }
@@ -152,8 +157,8 @@ export async function reviewUnlock(request: Request, env: ReviewEnv, fetcher: ty
     if (ipSlot) await giveBack(db, 'review-slot-ip', ipHash).catch(() => {});
     stop(readonly ? 'REVIEW_RC_KEY_READONLY' : 'REVIEW_RC_UNAVAILABLE');
     // A read-only key fails every reviewer, every time, and only a new key fixes it: a row someone sees, not only a log.
-    if (readonly) await fileLoop(env, fetcher, 'REVIEW_RC_KEY_READONLY', 'Dream Wedding: the Play review code cannot unlock (RevenueCat key is read-only)',
-      'RevenueCat refused the review grant with 403. Make a v2 secret key in the Dream Wedding project with Customer information: Read & write and Project configuration: Read only, save it to the vault as REVENUECAT_DW_V2_SECRET_KEY and set it as the Worker secret REVENUECAT_SECRET, then redeem the code once on a test ID.');
+    if (readonly) waitUntil(fileLoop(env, fetcher, 'REVIEW_RC_KEY_READONLY', 'Dream Wedding: the Play review code cannot unlock (RevenueCat key is read-only)',
+      'RevenueCat refused the review grant with 403. Make a v2 secret key in the Dream Wedding project with Customer information: Read & write and Project configuration: Read only, save it to the vault as REVENUECAT_DW_V2_SECRET_KEY and set it as the Worker secret REVENUECAT_SECRET, then redeem the code once on a test ID.'));
     return json({ error: 'TRY_AGAIN' }, 503);
   }
   console.log(JSON.stringify({ event: 'REVIEW_UNLOCKED', window: version }));
