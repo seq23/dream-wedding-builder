@@ -159,7 +159,7 @@ export default function FullPlan() {
       {name.trim() ? <Pressable accessibilityRole="button" disabled={saving} onPress={() => { void saveName(); }} style={{ minHeight: 44, justifyContent: 'center' }}><Text style={[type.button, { color: color.blue }]}>{locked ? 'Save the new name ›' : 'Save this name ›'}</Text></Pressable> : null}
     </View> : null}
     {message ? <Text accessibilityRole="status" style={type.sub}>{message}</Text> : null}
-    {offers.map(id => <Pressable key={id} accessibilityRole="radio" accessibilityState={{ checked: selected === id }} onPress={() => setSelected(id)}
+    {offers.map(id => <Pressable key={id} accessibilityRole="radio" aria-checked={selected === id} onPress={() => setSelected(id)}
       style={{ minHeight: 64, padding: space[3], borderRadius: radius.md, borderWidth: selected === id ? 2 : 1, borderColor: selected === id ? color.blue : color.rule, gap: space[1] }}>
       {OFFER_TAG[id] ? <Text style={[type.label, { color: color.blue }]}>{OFFER_TAG[id]}</Text> : null}
       <Text style={type.button}>{OFFER_NAME[id]}</Text>
