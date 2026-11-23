@@ -152,7 +152,10 @@ describe('pin quality gate (her call 6 Nov 2026: "approve all, make them good"; 
   const retired = (retiredFixture as { pins: PinVariant[] }).pins;
 
   it('every queued, unposted pin passes the gate, and the gate refuses every retired old-style pin', async () => {
-    expect(unposted(queue).length).toBeGreaterThanOrEqual(queue.config.refill_threshold);
+    // The daily drip tops the stock up to refill_threshold; between two drips one day's pins
+    // post (GitHub runs the 07:20 CT drip hours late, so CI often reads the queue the day after
+    // the last refill). A missed drip day still goes red here.
+    expect(unposted(queue).length).toBeGreaterThanOrEqual(queue.config.refill_threshold - queue.config.pins_per_day);
     expect(gated.length).toBeGreaterThan(0);
     expect(gated.filter((v) => v.generation === queue.config.generation).length).toBeGreaterThan(0);
     expect(await auditQueue(clone(), chicagoDate())).toEqual([]);
