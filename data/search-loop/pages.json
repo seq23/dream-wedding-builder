@@ -891,7 +891,10 @@
         "after_hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d"
       },
       "inspected_at": "2026-11-21",
-      "indexed": false
+      "indexed": false,
+      "extra_queries": [
+        "how to plan a wedding without a planner"
+      ]
     },
     {
       "slug": "what-do-you-need-to-consider-when-planning-a-wedding",
@@ -1456,7 +1459,10 @@
         "b5 FAQ answer is 35 words (aim 40-60): \"How do I involve my partner in using the checklist\"",
         "b5 FAQ answer is 32 words (aim 40-60): \"What should I do if I fall behind on my wedding ti\""
       ],
-      "indexnow_at": "2026-11-17"
+      "indexnow_at": "2026-11-17",
+      "extra_queries": [
+        "diy wedding planning timeline"
+      ]
     },
     {
       "slug": "outdoor-wedding-checklist-printable",
@@ -1776,7 +1782,10 @@
       "gate_notes": [
         "b1 title does not put the search first"
       ],
-      "indexnow_at": "2026-11-22"
+      "indexnow_at": "2026-11-22",
+      "extra_queries": [
+        "how to plan your own wedding checklist"
+      ]
     },
     {
       "slug": "diy-backyard-wedding-checklist",
@@ -2139,6 +2148,43 @@
         "b5 FAQ answer is 28 words (aim 40-60): \"Can family members help replace a planner?\"",
         "b5 FAQ answer is 25 words (aim 40-60): \"What is the hardest part of self-planning?\"",
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.cdph.ca.gov/Programs/CHSN/Pages/VitalRecords.aspx (no answer); https://www.nyc.gov/site/cityclerk/marriage/marriage-license-requirements.page (HTTP 403: this site refuses automated checks, so cite a different publisher)"
+      ]
+    },
+    {
+      "query": "how much wedding coordinator cost",
+      "at": "2026-11-24",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 27 words (aim 40-60): \"Does a coordinator help with ceremony rehearsal?\"",
+        "b5 FAQ answer is 28 words (aim 40-60): \"What is the difference between a planner and a coo\"",
+        "b5 FAQ answer is 27 words (aim 40-60): \"Can a venue coordinator replace a private wedding \"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.brides.com/average-wedding-planner-cost-5192131 (HTTP 402)"
+      ]
+    },
+    {
+      "query": "how to prepare a wedding checklist",
+      "at": "2026-11-24",
+      "gate": 2,
+      "reason": [
+        "the answer was not the JSON object asked for, with every key filled"
+      ]
+    },
+    {
+      "query": "what is the average wedding coordinator cost",
+      "at": "2026-11-24",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 24 words (aim 40-60): \"What is the difference between a coordinator and a\"",
+        "b5 FAQ answer is 29 words (aim 40-60): \"How many hours do coordinators work on the wedding\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.brides.com/average-wedding-planner-cost-4770631 (HTTP 402)"
+      ]
+    },
+    {
+      "query": "wedding checklist for bride",
+      "at": "2026-11-24",
+      "gate": 2,
+      "reason": [
+        "the answer was not the JSON object asked for, with every key filled"
       ]
     }
   ],
@@ -2741,6 +2787,86 @@
       "kind": "page",
       "matched_by": "same wording",
       "matched_text": "The Wedding Coordinator Checklist PDF You Need",
+      "stage": "search"
+    },
+    {
+      "query": "how to plan a wedding without a planner",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+      "route": "/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+      "kind": "engine",
+      "matched_by": "same wording",
+      "matched_text": "can you plan a wedding without a wedding planner",
+      "stage": "search"
+    },
+    {
+      "query": "how to plan your own wedding checklist",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/questions/free-wedding-checklist-pdf",
+      "route": "/questions/free-wedding-checklist-pdf",
+      "kind": "page",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "Free for Your Own Plan — Wedding Checklist PDF",
+      "stage": "search"
+    },
+    {
+      "query": "how to diy wedding seating chart",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/amazon/wedding-seating-chart",
+      "route": "/amazon/wedding-seating-chart",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "wedding seating chart",
+      "stage": "search"
+    },
+    {
+      "query": "what is the wedding planning timeline",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "route": "/guides/wedding-planning-timeline",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "wedding planning timeline",
+      "stage": "search"
+    },
+    {
+      "query": "what is a typical wedding planning timeline",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "route": "/guides/wedding-planning-timeline",
+      "kind": "sitemap",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "wedding planning timeline",
+      "stage": "search"
+    },
+    {
+      "query": "what is a day of wedding coordinator",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "route": "/guides/day-of-coordinator-checklist",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "day of coordinator checklist",
+      "stage": "search"
+    },
+    {
+      "query": "diy wedding planning timeline",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/questions/diy-wedding-planning-checklist-printable",
+      "route": "/questions/diy-wedding-planning-checklist-printable",
+      "kind": "page",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "DIY Wedding Planning Checklist — Wedding Checklist PDF",
+      "stage": "search"
+    },
+    {
+      "query": "wedding planning checklist and timeline",
+      "at": "2026-11-24",
+      "url": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "route": "/guides/wedding-planning-timeline",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "wedding planning timeline",
       "stage": "search"
     }
   ]

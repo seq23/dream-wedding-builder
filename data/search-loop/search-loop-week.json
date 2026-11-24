@@ -2,67 +2,19 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W48",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-23T23:47:27.090Z",
+  "generated_at": "2026-11-24T22:19:09.336Z",
   "state": "slow",
-  "published": 6,
+  "published": 5,
   "indexed": 0,
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 507,
+  "ai_bot_hits": 514,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
   "merged": 0,
   "held_by_cap": 0,
   "redirected": [
-    {
-      "query": "diy wedding planning checklist pdf",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
-      "matched_by": "same wording",
-      "at": "2026-11-17"
-    },
-    {
-      "query": "simple wedding planner pdf",
-      "strengthen": "https://weddingchecklistpdf.com/wedding-planning-checklist",
-      "matched_by": "same wording",
-      "at": "2026-11-17"
-    },
-    {
-      "query": "diy wedding planning checklist",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
-      "matched_by": "same wording",
-      "at": "2026-11-17"
-    },
-    {
-      "query": "wedding planning checklist template",
-      "strengthen": "https://weddingchecklistpdf.com/free-wedding-planner",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-17"
-    },
-    {
-      "query": "printable wedding checklist free pdf",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/free-printable-wedding-planning-checklist-and-timeline",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-17"
-    },
-    {
-      "query": "micro wedding planning checklist",
-      "strengthen": "https://weddingchecklistpdf.com/micro-wedding-planning",
-      "matched_by": "same wording",
-      "at": "2026-11-17"
-    },
-    {
-      "query": "outdoor wedding planning checklist",
-      "strengthen": "https://weddingchecklistpdf.com/questions/complete-checklist-for-wedding-planning",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-17"
-    },
-    {
-      "query": "backyard wedding planning checklist",
-      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
-      "matched_by": "same wording",
-      "at": "2026-11-17"
-    },
     {
       "query": "diy wedding planning checklist free",
       "strengthen": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
@@ -176,6 +128,54 @@
       "strengthen": "https://weddingchecklistpdf.com/questions/wedding-coordinator-checklist-pdf",
       "matched_by": "same wording",
       "at": "2026-11-23"
+    },
+    {
+      "query": "how to plan a wedding without a planner",
+      "strengthen": "https://weddingchecklistpdf.com/questions/can-you-plan-a-wedding-without-a-wedding-planner",
+      "matched_by": "same wording",
+      "at": "2026-11-24"
+    },
+    {
+      "query": "how to plan your own wedding checklist",
+      "strengthen": "https://weddingchecklistpdf.com/questions/free-wedding-checklist-pdf",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-24"
+    },
+    {
+      "query": "how to diy wedding seating chart",
+      "strengthen": "https://weddingchecklistpdf.com/amazon/wedding-seating-chart",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-24"
+    },
+    {
+      "query": "what is the wedding planning timeline",
+      "strengthen": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "matched_by": "same wording",
+      "at": "2026-11-24"
+    },
+    {
+      "query": "what is a typical wedding planning timeline",
+      "strengthen": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-24"
+    },
+    {
+      "query": "what is a day of wedding coordinator",
+      "strengthen": "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist",
+      "matched_by": "same wording",
+      "at": "2026-11-24"
+    },
+    {
+      "query": "diy wedding planning timeline",
+      "strengthen": "https://weddingchecklistpdf.com/questions/diy-wedding-planning-checklist-printable",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-24"
+    },
+    {
+      "query": "wedding planning checklist and timeline",
+      "strengthen": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
+      "matched_by": "same wording",
+      "at": "2026-11-24"
     }
   ],
   "cap": {
@@ -186,11 +186,9 @@
   },
   "notes": [
     "site config lowers the mode to slow",
-    "not read: AI answer misses (Boss OS did not read AI answers in 2026-W47 (status not_read)); could not tell this run",
-    "FIND api.bing.com: not read: unavailable after 3 failures (last http 204)",
-    "cap: up from 28 to 31: Google impressions 205 in the last 28 days beat 89 in the 28 before",
-    "BUILD distinct gate: 9 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
-    "BUILD published 0 of quota 1: 2 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued",
+    "not read: AI answer misses (Boss OS did not read AI answers in 2026-W48 (status not_read)); could not tell this run",
+    "BUILD distinct gate: 8 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
+    "BUILD published 0 of quota 1: 4 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued",
     "CHECK runs weekly in mode=slow; last ran 2026-11-21"
   ],
   "lanes": {
@@ -220,14 +218,14 @@
     "competition": "ok: 15 top-10 read(s) via brave"
   },
   "ai_misses": {
-    "read": "not read: Boss OS did not read AI answers in 2026-W47 (status not_read)",
-    "week": "2026-W47",
+    "read": "not read: Boss OS did not read AI answers in 2026-W48 (status not_read)",
+    "week": "2026-W48",
     "misses": 0,
     "strengthened": [],
     "new_candidates": [],
     "skipped": [],
     "rejected": [],
-    "could_not_tell": 1
+    "could_not_tell": 2
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45291782361"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45499723712"
 }
