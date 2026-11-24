@@ -918,7 +918,10 @@
       ],
       "linked_from": [],
       "checks": {},
-      "indexnow_at": "2026-11-09"
+      "indexnow_at": "2026-11-09",
+      "extra_queries": [
+        "do i need a wedding planner"
+      ]
     },
     {
       "slug": "is-a-wedding-planner-worth-it",
@@ -979,7 +982,14 @@
         "b5 FAQ answer is 30 words (aim 40-60): \"How far in advance should I book a coordinator?\"",
         "b5 FAQ answer is 32 words (aim 40-60): \"What is the difference between a venue coordinator\""
       ],
-      "indexnow_at": "2026-11-10"
+      "indexnow_at": "2026-11-10",
+      "extra_queries": [
+        "is a wedding coordinator worth it",
+        "is a wedding planner worth the money",
+        "is hiring a wedding planner worth it",
+        "is getting a wedding planner worth it",
+        "is a partial wedding planner worth it"
+      ]
     },
     {
       "slug": "is-it-necessary-to-hire-a-wedding-planner",
@@ -1243,7 +1253,11 @@
         "b5 FAQ answer is 34 words (aim 40-60): \"Can a printed PDF completely replace a professiona\"",
         "b5 FAQ answer is 32 words (aim 40-60): \"What should I do if a vendor arrives late on the w\""
       ],
-      "indexnow_at": "2026-11-14"
+      "indexnow_at": "2026-11-14",
+      "extra_queries": [
+        "do i need a wedding planner or coordinator",
+        "do i need a wedding coordinator"
+      ]
     },
     {
       "slug": "destination-wedding-planning-checklist-pdf",
@@ -1821,7 +1835,8 @@
         "b5 FAQ answer is 39 words (aim 40-60): \"Do I need a permit for a backyard wedding?\"",
         "b5 FAQ answer is 36 words (aim 40-60): \"How many bathrooms do I need for fifty guests?\"",
         "b5 FAQ answer is 37 words (aim 40-60): \"What should I do if it rains on my backyard weddin\""
-      ]
+      ],
+      "indexnow_at": "2026-11-23"
     }
   ],
   "dropped": [
@@ -2103,6 +2118,27 @@
         "b5 FAQ answer is 26 words (aim 40-60): \"What should be packed in a wedding day emergency k\"",
         "b5 FAQ answer is 27 words (aim 40-60): \"How do I share the final timeline with my vendors?\"",
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.usa.gov/marriage-license (HTTP 404); https://travel.state.gov/content/travel/en/passports/have-passport/change-correction.html (HTTP 403: this site refuses automated checks, so cite a different publisher)"
+      ]
+    },
+    {
+      "query": "where can i find a free step by step wedding planning checklist",
+      "at": "2026-11-23",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 28 words (aim 40-60): \"How do I start using the free wedding planner?\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.usa.gov/marriage-laws (HTTP 404); https://www.usa.gov/vital-records (HTTP 404)"
+      ]
+    },
+    {
+      "query": "do i need to hire a wedding planner",
+      "at": "2026-11-23",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"What does a day-of coordinator do?\"",
+        "b5 FAQ answer is 24 words (aim 40-60): \"How far in advance should I start planning?\"",
+        "b5 FAQ answer is 28 words (aim 40-60): \"Can family members help replace a planner?\"",
+        "b5 FAQ answer is 25 words (aim 40-60): \"What is the hardest part of self-planning?\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.cdph.ca.gov/Programs/CHSN/Pages/VitalRecords.aspx (no answer); https://www.nyc.gov/site/cityclerk/marriage/marriage-license-requirements.page (HTTP 403: this site refuses automated checks, so cite a different publisher)"
       ]
     }
   ],
@@ -2615,6 +2651,96 @@
       "kind": "sitemap",
       "matched_by": "same wording",
       "matched_text": "wedding to do list",
+      "stage": "search"
+    },
+    {
+      "query": "backyard wedding checklist pdf",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "route": "/backyard-wedding-planning",
+      "kind": "sitemap",
+      "matched_by": "same wording",
+      "matched_text": "backyard wedding planning",
+      "stage": "draft"
+    },
+    {
+      "query": "is a wedding coordinator worth it",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "route": "/questions/is-a-wedding-planner-worth-it",
+      "kind": "page",
+      "matched_by": "high token overlap (0.60 >= 0.6)",
+      "matched_text": "Is a wedding planner worth it for your big day?",
+      "stage": "draft"
+    },
+    {
+      "query": "is a wedding planner worth the money",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "route": "/questions/is-a-wedding-planner-worth-it",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "is a wedding planner worth it",
+      "stage": "search"
+    },
+    {
+      "query": "is hiring a wedding planner worth it",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "route": "/questions/is-a-wedding-planner-worth-it",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "is a wedding planner worth it",
+      "stage": "search"
+    },
+    {
+      "query": "is getting a wedding planner worth it",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "route": "/questions/is-a-wedding-planner-worth-it",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "is a wedding planner worth it",
+      "stage": "search"
+    },
+    {
+      "query": "is a partial wedding planner worth it",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "route": "/questions/is-a-wedding-planner-worth-it",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "is a wedding planner worth it",
+      "stage": "search"
+    },
+    {
+      "query": "do i need a wedding planner",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+      "route": "/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+      "kind": "engine",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "what do you need to consider when planning a wedding",
+      "stage": "search"
+    },
+    {
+      "query": "do i need a wedding planner or coordinator",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-coordinator-checklist-pdf",
+      "route": "/questions/wedding-coordinator-checklist-pdf",
+      "kind": "page",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "matched_text": "The Wedding Coordinator Checklist PDF You Need",
+      "stage": "search"
+    },
+    {
+      "query": "do i need a wedding coordinator",
+      "at": "2026-11-23",
+      "url": "https://weddingchecklistpdf.com/questions/wedding-coordinator-checklist-pdf",
+      "route": "/questions/wedding-coordinator-checklist-pdf",
+      "kind": "page",
+      "matched_by": "same wording",
+      "matched_text": "The Wedding Coordinator Checklist PDF You Need",
       "stage": "search"
     }
   ]

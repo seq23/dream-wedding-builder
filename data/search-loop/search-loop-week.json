@@ -1,14 +1,14 @@
 {
   "schema": "search-loop-week-v1",
-  "week": "2026-W47",
+  "week": "2026-W48",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-22T19:28:41.201Z",
+  "generated_at": "2026-11-23T23:47:27.090Z",
   "state": "slow",
-  "published": 7,
+  "published": 6,
   "indexed": 0,
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 467,
+  "ai_bot_hits": 507,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
@@ -122,18 +122,75 @@
       "strengthen": "https://weddingchecklistpdf.com/wedding-to-do-list",
       "matched_by": "same wording",
       "at": "2026-11-22"
+    },
+    {
+      "query": "backyard wedding checklist pdf",
+      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
+      "matched_by": "same wording",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "is a wedding coordinator worth it",
+      "strengthen": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "matched_by": "high token overlap (0.60 >= 0.6)",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "is a wedding planner worth the money",
+      "strengthen": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "is hiring a wedding planner worth it",
+      "strengthen": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "is getting a wedding planner worth it",
+      "strengthen": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "is a partial wedding planner worth it",
+      "strengthen": "https://weddingchecklistpdf.com/questions/is-a-wedding-planner-worth-it",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "do i need a wedding planner",
+      "strengthen": "https://weddingchecklistpdf.com/questions/what-do-you-need-to-consider-when-planning-a-wedding",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "do i need a wedding planner or coordinator",
+      "strengthen": "https://weddingchecklistpdf.com/questions/wedding-coordinator-checklist-pdf",
+      "matched_by": "high token overlap (0.67 >= 0.6)",
+      "at": "2026-11-23"
+    },
+    {
+      "query": "do i need a wedding coordinator",
+      "strengthen": "https://weddingchecklistpdf.com/questions/wedding-coordinator-checklist-pdf",
+      "matched_by": "same wording",
+      "at": "2026-11-23"
     }
   ],
   "cap": {
-    "max_live_pages": 28,
+    "max_live_pages": 31,
     "live": 16,
-    "room": 12,
-    "why": "up from 25 to 28: Google impressions 87 in the last 28 days beat 70 in the 28 before"
+    "room": 15,
+    "why": "up from 28 to 31: Google impressions 205 in the last 28 days beat 89 in the 28 before"
   },
   "notes": [
     "site config lowers the mode to slow",
-    "BUILD distinct gate: 2 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
-    "BUILD gate notes (not blocking): 1 published page(s) are outside a length or style aim; each is listed under gate_notes in pages.json",
+    "not read: AI answer misses (Boss OS did not read AI answers in 2026-W47 (status not_read)); could not tell this run",
+    "FIND api.bing.com: not read: unavailable after 3 failures (last http 204)",
+    "cap: up from 28 to 31: Google impressions 205 in the last 28 days beat 89 in the 28 before",
+    "BUILD distinct gate: 9 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
+    "BUILD published 0 of quota 1: 2 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued",
     "CHECK runs weekly in mode=slow; last ran 2026-11-21"
   ],
   "lanes": {
@@ -162,5 +219,15 @@
     "weight_changes": [],
     "competition": "ok: 15 top-10 read(s) via brave"
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45060874707"
+  "ai_misses": {
+    "read": "not read: Boss OS did not read AI answers in 2026-W47 (status not_read)",
+    "week": "2026-W47",
+    "misses": 0,
+    "strengthened": [],
+    "new_candidates": [],
+    "skipped": [],
+    "rejected": [],
+    "could_not_tell": 1
+  },
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45291782361"
 }
