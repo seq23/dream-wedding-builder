@@ -148,7 +148,7 @@ export default function Plan() {
       {blocks.catchUp.length ? <View><Text accessibilityRole="header" style={type.section}>Catch up · {blocks.catchUp.length}</Text>{blocks.catchUp.map(r => row(r, true))}</View> : null}
       {blocks.next.length ? <View><Text accessibilityRole="header" style={type.section}>{plan.state === 'today' ? 'Today' : 'Do these next'} · {blocks.next.length}</Text>{blocks.next.map(r => row(r))}{overview.nextStartsOn ? <Text style={type.sub}>The next set starts {plainDate(overview.nextStartsOn)}.</Text> : null}</View> : null}
       <ScrollView horizontal accessibilityRole="tablist" contentContainerStyle={{ gap: space[2] }}>
-        {(shared ? shared.list.windows : PLAN_WINDOWS).map(w => <Pressable key={w.id} accessibilityRole="tab" accessibilityState={{ selected: windowId === w.id }} onPress={() => setWindow(w.id)} style={{ minHeight: 48, padding: space[3], backgroundColor: windowId === w.id ? color.blueSoft : color.coralSoft }}><Text style={type.button}>{w.label}</Text></Pressable>)}
+        {(shared ? shared.list.windows : PLAN_WINDOWS).map(w => <Pressable key={w.id} accessibilityRole="tab" aria-selected={windowId === w.id} onPress={() => setWindow(w.id)} style={{ minHeight: 48, padding: space[3], backgroundColor: windowId === w.id ? color.blueSoft : color.coralSoft }}><Text style={type.button}>{w.label}</Text></Pressable>)}
       </ScrollView>
       {plan.windows.filter(w => w.id === windowId).map(w => <Text key={w.id} style={type.sub}>{plainDate(w.startsOn)} – {plainDate(w.endsOn)}</Text>)}
       {windowRows(rows, blocks, windowId).map(r => row(r))}

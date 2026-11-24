@@ -16,6 +16,8 @@ jobs:
   preview:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    outputs:
+      url: ${{ steps.hosted.outputs.url }}
     defaults:
       run:
         working-directory: apps/mobile
@@ -56,3 +58,13 @@ jobs:
           script: |
             const body = `Open the phone app preview: ${process.env.PREVIEW_URL}\n\nCommit: ${context.sha}. Free web preview; no Appetize minutes.`;
             await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+  # THE TAP-THROUGH (ship-ready app-review.md, required for any PR that changes a screen): a robot taps
+  # through this preview like a person, at 390 px light and dark, from tap-through.json. Red on a dead
+  # button, a console error, an error screen, an unreachable step or a full-plan promise with no screen
+  # behind it. Free (public repo); every write is blocked, nothing real is touched.
+  tap-through:
+    needs: preview
+    uses: seq23/boss-os/.github/workflows/tap-through.yml@feat/tap-through
+    with:
+      target: ${{ needs.preview.outputs.url }}
+      runner_ref: feat/tap-through  # until seq23/boss-os#509 lands; then this line and the @ref go to main
