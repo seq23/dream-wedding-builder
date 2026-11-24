@@ -1,20 +1,20 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-11-22T19:56:54.421Z",
+  "generated_at": "2026-11-24T22:45:21.141Z",
   "rule": "A target is kept only with a measured number: Search Console impressions in the rolling 28-day window (gsc_truth.json) or a keyword-volume figure held in data/authority_scale/query_atlas.json / data/queries/evidence/evidence_queries.json. Everything else is dropped with its reason. Numbers are never estimated.",
   "hosts": {
     "weddingseatingchartmaker.com": {
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-24",
-          "end": "2026-11-20"
+          "start": "2026-10-26",
+          "end": "2026-11-22"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 6,
+          "impressions": 3,
           "ctr": 0,
-          "position": 12
+          "position": 22
         }
       },
       "target_count": 3,
@@ -111,8 +111,8 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-24",
-          "end": "2026-11-20"
+          "start": "2026-10-26",
+          "end": "2026-11-22"
         },
         "totals": {
           "clicks": 0,
@@ -208,20 +208,20 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-24",
-          "end": "2026-11-20"
+          "start": "2026-10-26",
+          "end": "2026-11-22"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 62,
+          "impressions": 74,
           "ctr": 0,
-          "position": 54.87096774193548
+          "position": 58.5
         }
       },
-      "target_count": 14,
+      "target_count": 15,
       "dropped_count": 5,
       "by_source": {
-        "google_search_console": 12,
+        "google_search_console": 13,
         "semrush_keyword_magic": 2
       },
       "targets": [
@@ -229,8 +229,8 @@
           "query": "wedding timeline template",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 16,
-          "position": 57.4,
+          "number": 20,
+          "position": 56.7,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
@@ -239,12 +239,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 16,
+              "number": 20,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 57.4,
+              "position": 56.7,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -261,8 +261,8 @@
           "query": "wedding day timeline template",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 9,
-          "position": 70.1,
+          "number": 12,
+          "position": 68.8,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
@@ -271,12 +271,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 9,
+              "number": 12,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 70.1,
+              "position": 68.8,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -293,8 +293,8 @@
           "query": "wedding schedule template",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 6,
-          "position": 62.5,
+          "number": 7,
+          "position": 62.4,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
@@ -303,12 +303,12 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 6,
+              "number": 7,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 62.5,
+              "position": 62.4,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -319,8 +319,8 @@
           "query": "wedding ceremony timeline template",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 5,
-          "position": 68.8,
+          "number": 6,
+          "position": 69,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
@@ -329,12 +329,64 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 5,
+              "number": 6,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 68.8,
+              "position": 69,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "bridal party timeline template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 3,
+          "position": 51.7,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 3,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 51.7,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "sample wedding day timeline template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 3,
+          "position": 68.7,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 3,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 68.7,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -357,8 +409,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 66.7,
               "pages": [
@@ -368,11 +420,11 @@
           ]
         },
         {
-          "query": "bridal party timeline template",
+          "query": "wedding day schedule template",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 2,
-          "position": 49,
+          "position": 64,
           "pages": [
             "https://weddingtimelinetemplate.com/wedding-timeline-template"
           ],
@@ -383,10 +435,62 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 49,
+              "position": 64,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding planning timeline template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 64.5,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 64.5,
+              "pages": [
+                "https://weddingtimelinetemplate.com/wedding-timeline-template"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "anime style wedding schedule template",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 1,
+          "position": 66,
+          "pages": [
+            "https://weddingtimelinetemplate.com/wedding-timeline-template"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 1,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 66,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -409,62 +513,10 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 78,
-              "pages": [
-                "https://weddingtimelinetemplate.com/wedding-timeline-template"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "sample wedding day timeline template",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 67,
-          "pages": [
-            "https://weddingtimelinetemplate.com/wedding-timeline-template"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 67,
-              "pages": [
-                "https://weddingtimelinetemplate.com/wedding-timeline-template"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding day schedule template",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 65,
-          "pages": [
-            "https://weddingtimelinetemplate.com/wedding-timeline-template"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 65,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -487,36 +539,10 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 57,
-              "pages": [
-                "https://weddingtimelinetemplate.com/wedding-timeline-template"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding planning timeline template",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 65,
-          "pages": [
-            "https://weddingtimelinetemplate.com/wedding-timeline-template"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 65,
               "pages": [
                 "https://weddingtimelinetemplate.com/wedding-timeline-template"
               ]
@@ -539,8 +565,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 65,
               "pages": [
@@ -622,20 +648,20 @@
       "gsc_window": {
         "source": "gsc_truth",
         "period": {
-          "start": "2026-10-24",
-          "end": "2026-11-20"
+          "start": "2026-10-26",
+          "end": "2026-11-22"
         },
         "totals": {
           "clicks": 0,
-          "impressions": 205,
+          "impressions": 250,
           "ctr": 0,
-          "position": 59.69268292682927
+          "position": 59.06
         }
       },
-      "target_count": 66,
+      "target_count": 70,
       "dropped_count": 20,
       "by_source": {
-        "google_search_console": 65,
+        "google_search_console": 69,
         "semrush_keyword_magic": 1
       },
       "targets": [
@@ -643,8 +669,8 @@
           "query": "free wedding planner",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 22,
-          "position": 69,
+          "number": 23,
+          "position": 68.7,
           "pages": [
             "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
@@ -653,14 +679,96 @@
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 22,
+              "number": 23,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 69,
+              "position": 68.7,
               "pages": [
                 "https://weddingchecklistpdf.com/free-wedding-planner"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding coordinator checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 15,
+          "position": 55.3,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 15,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 55.3,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "destination wedding checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 14,
+          "position": 83.9,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
+          ],
+          "route": "/guides/destination-wedding-checklist",
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 14,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 83.9,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "destination wedding checklist pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 11,
+          "position": 57.8,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides",
+            "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+            "https://weddingchecklistpdf.com/printable-wedding-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 11,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 57.8,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides",
+                "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
+                "https://weddingchecklistpdf.com/printable-wedding-checklist"
               ]
             }
           ]
@@ -683,8 +791,8 @@
               "metric": "impressions_28d",
               "number": 10,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 76.4,
               "pages": [
@@ -702,57 +810,27 @@
           ]
         },
         {
-          "query": "destination wedding checklist",
+          "query": "how much is a 100 person wedding",
           "source": "google_search_console",
           "metric": "impressions_28d",
-          "number": 8,
-          "position": 74.6,
+          "number": 5,
+          "position": 91,
           "pages": [
-            "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
-          ],
-          "route": "/guides/destination-wedding-checklist",
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 8,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 74.6,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "destination wedding checklist pdf",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 8,
-          "position": 58.8,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides",
-            "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
-            "https://weddingchecklistpdf.com/printable-wedding-checklist"
+            "https://weddingchecklistpdf.com/wedding-cost-per-guest"
           ],
           "route": null,
           "measurements": [
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
-              "number": 8,
+              "number": 5,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 58.8,
+              "position": 91,
               "pages": [
-                "https://weddingchecklistpdf.com/guides",
-                "https://weddingchecklistpdf.com/guides/destination-wedding-checklist",
-                "https://weddingchecklistpdf.com/printable-wedding-checklist"
+                "https://weddingchecklistpdf.com/wedding-cost-per-guest"
               ]
             }
           ]
@@ -774,8 +852,8 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 84.4,
               "pages": [
@@ -792,13 +870,13 @@
           ]
         },
         {
-          "query": "wedding coordinator checklist",
+          "query": "wedding venue checklist",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 5,
-          "position": 65.8,
+          "position": 32.2,
           "pages": [
-            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+            "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf"
           ],
           "route": null,
           "measurements": [
@@ -807,12 +885,12 @@
               "metric": "impressions_28d",
               "number": 5,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 65.8,
+              "position": 32.2,
               "pages": [
-                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+                "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf"
               ]
             }
           ]
@@ -833,12 +911,64 @@
               "metric": "impressions_28d",
               "number": 4,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 9.3,
               "pages": [
                 "https://weddingchecklistpdf.com/backyard-wedding-planning"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "day of wedding coordinator checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 4,
+          "position": 72.3,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+          ],
+          "route": "/guides/day-of-coordinator-checklist",
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 4,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 72.3,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "elopement checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 4,
+          "position": 92.5,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 4,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 92.5,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
               ]
             }
           ]
@@ -860,13 +990,39 @@
               "metric": "impressions_28d",
               "number": 4,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 89,
               "pages": [
                 "https://weddingchecklistpdf.com/guides",
                 "https://weddingchecklistpdf.com/printable-wedding-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding coordinator guide",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 4,
+          "position": 61.5,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 4,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 61.5,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
               ]
             }
           ]
@@ -887,8 +1043,8 @@
               "metric": "impressions_28d",
               "number": 4,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 66.5,
               "pages": [
@@ -898,63 +1054,11 @@
           ]
         },
         {
-          "query": "elopement checklist",
+          "query": "checklist for wedding coordinator",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 3,
-          "position": 90.7,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 3,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 90.7,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "how much is a 100 person wedding",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 3,
-          "position": 89.7,
-          "pages": [
-            "https://weddingchecklistpdf.com/wedding-cost-per-guest"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 3,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 89.7,
-              "pages": [
-                "https://weddingchecklistpdf.com/wedding-cost-per-guest"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding coordinator guide",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 3,
-          "position": 62.7,
+          "position": 48.3,
           "pages": [
             "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
           ],
@@ -965,12 +1069,38 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 62.7,
+              "position": 48.3,
               "pages": [
                 "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "free wedding planning checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 3,
+          "position": 61.7,
+          "pages": [
+            "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 3,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 61.7,
+              "pages": [
+                "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
               ]
             }
           ]
@@ -993,8 +1123,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 74.3,
               "pages": [
@@ -1022,8 +1152,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 92,
               "pages": [
@@ -1051,8 +1181,8 @@
               "metric": "impressions_28d",
               "number": 3,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 79.7,
               "pages": [
@@ -1064,25 +1194,25 @@
           ]
         },
         {
-          "query": "day of wedding coordinator checklist",
+          "query": "checklist for a wedding coordinator",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 2,
-          "position": 70.5,
+          "position": 64.5,
           "pages": [
             "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
           ],
-          "route": "/guides/day-of-coordinator-checklist",
+          "route": null,
           "measurements": [
             {
               "source": "google_search_console",
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 70.5,
+              "position": 64.5,
               "pages": [
                 "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
               ]
@@ -1105,8 +1235,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 86.5,
               "pages": [
@@ -1131,8 +1261,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 77.5,
               "pages": [
@@ -1157,8 +1287,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 72,
               "pages": [
@@ -1183,8 +1313,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 86,
               "pages": [
@@ -1194,13 +1324,13 @@
           ]
         },
         {
-          "query": "free wedding planning checklist",
+          "query": "free wedding planners",
           "source": "google_search_console",
           "metric": "impressions_28d",
           "number": 2,
-          "position": 64,
+          "position": 83,
           "pages": [
-            "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
+            "https://weddingchecklistpdf.com/free-wedding-planner"
           ],
           "route": null,
           "measurements": [
@@ -1209,12 +1339,12 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
-              "position": 64,
+              "position": 83,
               "pages": [
-                "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
+                "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
             }
           ]
@@ -1235,8 +1365,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 65,
               "pages": [
@@ -1262,8 +1392,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 78.5,
               "pages": [
@@ -1290,8 +1420,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 87.5,
               "pages": [
@@ -1317,12 +1447,64 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 86.5,
               "pages": [
                 "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding coordination checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 57,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 57,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding coordinators checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 74,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 74,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
               ]
             }
           ]
@@ -1344,8 +1526,8 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 89.5,
               "pages": [
@@ -1372,13 +1554,65 @@
               "metric": "impressions_28d",
               "number": 2,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 88.5,
               "pages": [
                 "https://weddingchecklistpdf.com/guides",
                 "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding vendor checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 92.5,
+          "pages": [
+            "https://weddingchecklistpdf.com/wedding-planning-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 92.5,
+              "pages": [
+                "https://weddingchecklistpdf.com/wedding-planning-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding venue questions checklist pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 2,
+          "position": 9,
+          "pages": [
+            "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 2,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 9,
+              "pages": [
+                "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf"
               ]
             }
           ]
@@ -1399,8 +1633,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 95,
               "pages": [
@@ -1425,8 +1659,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 62,
               "pages": [
@@ -1451,38 +1685,12 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 54,
               "pages": [
                 "https://weddingchecklistpdf.com/guides"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "checklist for a wedding coordinator",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 78,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 78,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
               ]
             }
           ]
@@ -1503,12 +1711,38 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 56,
               "pages": [
                 "https://weddingchecklistpdf.com/guides/destination-wedding-checklist"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "day of coordinator checklist",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 1,
+          "position": 75,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 1,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 75,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
               ]
             }
           ]
@@ -1529,8 +1763,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 64,
               "pages": [
@@ -1555,8 +1789,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 65,
               "pages": [
@@ -1581,8 +1815,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 57,
               "pages": [
@@ -1607,8 +1841,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 76,
               "pages": [
@@ -1633,8 +1867,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 62,
               "pages": [
@@ -1659,8 +1893,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 65,
               "pages": [
@@ -1685,38 +1919,12 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 90,
               "pages": [
                 "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "free wedding planners",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 75,
-          "pages": [
-            "https://weddingchecklistpdf.com/free-wedding-planner"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 75,
-              "pages": [
-                "https://weddingchecklistpdf.com/free-wedding-planner"
               ]
             }
           ]
@@ -1737,8 +1945,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 73,
               "pages": [
@@ -1763,8 +1971,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 96,
               "pages": [
@@ -1789,8 +1997,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 99,
               "pages": [
@@ -1815,8 +2023,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 100,
               "pages": [
@@ -1841,8 +2049,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 67,
               "pages": [
@@ -1867,38 +2075,12 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 94,
               "pages": [
                 "https://weddingchecklistpdf.com/questions/free-printable-wedding-planning-checklist-and-timeline"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "printable elopement checklist",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 59,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 59,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides/elopement-planning-checklist"
               ]
             }
           ]
@@ -1919,8 +2101,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 81,
               "pages": [
@@ -1945,8 +2127,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 68,
               "pages": [
@@ -1971,8 +2153,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 70,
               "pages": [
@@ -1997,8 +2179,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 89,
               "pages": [
@@ -2023,12 +2205,38 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 28,
               "pages": [
                 "https://weddingchecklistpdf.com/methodology"
+              ]
+            }
+          ]
+        },
+        {
+          "query": "wedding coordinator checklist pdf",
+          "source": "google_search_console",
+          "metric": "impressions_28d",
+          "number": 1,
+          "position": 37,
+          "pages": [
+            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
+          ],
+          "route": null,
+          "measurements": [
+            {
+              "source": "google_search_console",
+              "metric": "impressions_28d",
+              "number": 1,
+              "period": {
+                "start": "2026-10-26",
+                "end": "2026-11-22"
+              },
+              "position": 37,
+              "pages": [
+                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
               ]
             }
           ]
@@ -2049,36 +2257,10 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 83,
-              "pages": [
-                "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding coordinators checklist",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 76,
-          "pages": [
-            "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 76,
               "pages": [
                 "https://weddingchecklistpdf.com/guides/day-of-coordinator-checklist"
               ]
@@ -2101,8 +2283,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 82,
               "pages": [
@@ -2127,8 +2309,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 69,
               "pages": [
@@ -2153,8 +2335,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 55,
               "pages": [
@@ -2179,8 +2361,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 96,
               "pages": [
@@ -2205,8 +2387,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 83,
               "pages": [
@@ -2231,8 +2413,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 94,
               "pages": [
@@ -2257,38 +2439,12 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 61,
               "pages": [
                 "https://weddingchecklistpdf.com/readiness-score"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding vendor checklist",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 100,
-          "pages": [
-            "https://weddingchecklistpdf.com/wedding-planning-checklist"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 100,
-              "pages": [
-                "https://weddingchecklistpdf.com/wedding-planning-checklist"
               ]
             }
           ]
@@ -2309,38 +2465,12 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 57,
               "pages": [
                 "https://weddingchecklistpdf.com/wedding-planning-checklist"
-              ]
-            }
-          ]
-        },
-        {
-          "query": "wedding venue checklist",
-          "source": "google_search_console",
-          "metric": "impressions_28d",
-          "number": 1,
-          "position": 36,
-          "pages": [
-            "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf"
-          ],
-          "route": null,
-          "measurements": [
-            {
-              "source": "google_search_console",
-              "metric": "impressions_28d",
-              "number": 1,
-              "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
-              },
-              "position": 36,
-              "pages": [
-                "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf"
               ]
             }
           ]
@@ -2361,8 +2491,8 @@
               "metric": "impressions_28d",
               "number": 1,
               "period": {
-                "start": "2026-10-24",
-                "end": "2026-11-20"
+                "start": "2026-10-26",
+                "end": "2026-11-22"
               },
               "position": 8,
               "pages": [
