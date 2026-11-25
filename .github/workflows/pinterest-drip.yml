@@ -92,3 +92,10 @@ jobs:
           [ -n "$APPROVE" ] && msg="pinterest: release the approved $APPROVE pins"
           git diff --cached --quiet || git commit -m "$msg"
           scripts/ci/push_back.sh "$GITHUB_REF_NAME"
+      - name: Send confirmed receipts to the growth ledger
+        if: ${{ always() && !cancelled() }}
+        uses: seq23/boss-os/.github/actions/ledger-rows@ef7270e2e758acb8dd166db4143e93c3563e228a
+        with:
+          business: dream-wedding
+          feed: https://www.pinterest.com/weddingchecklistpdf/feed.rss
+          token: ${{ secrets.BOSS_OPEN_LOOPS_TOKEN }}
