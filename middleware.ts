@@ -1,7 +1,7 @@
 import pageRescue from '@/data/seo/page_rescue.json';
 import budgetRescue from '@/data/seo/budget_rescue.json';
 import { NextRequest, NextResponse } from 'next/server';
-import { aliasRedirectTarget, apexHost, builderRedirectUrl, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
+import { aliasRedirectTarget, apexHost, builderRedirectUrl, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost, retiredTargetHost } from '@/lib/site-config';
 import { PATHNAME_HEADER } from '@/lib/pathname-header';
 import { PIN_COOKIE, PIN_COOKIE_MAX_AGE, pinRefFromUrl } from '@/lib/pinterest-conversions';
 
@@ -111,7 +111,7 @@ function route(request: NextRequest) {
   if (retired && (isCanonicalHost(host) || aliasRedirectTarget(originalHost) || isPreviewHost(originalHost))) {
     const url = new URL(request.url);
     url.protocol = 'https:';
-    url.host = canonicalHostForPath(retired) ?? pageRescue.main_host;
+    url.host = retiredTargetHost(retired);
     url.port = '';
     url.pathname = retired;
     return NextResponse.redirect(url, 301);

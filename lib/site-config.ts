@@ -137,12 +137,27 @@ export function canonicalHostForPath(pathname: string): SiteHost | null {
 // /guides/* and hub links on weddingchecklistpdf.com, every one a redirect hop that
 // Bing and the site audit reported. scripts/validators/validate_rendered_seo_contract.mjs
 // fetches every network link on the built site and fails on any 3XX.
+/**
+ * The host a retired path's 301 lands on: the target's owner, or the main site when the
+ * target has no single owner. Only `/` is like that (every host answers it), and a page
+ * folded into `/` (Search Readiness f4: /trends, 25 Nov 2026) means weddingchecklistpdf.com's
+ * homepage, never a satellite's hub.
+ */
+export function retiredTargetHost(target: string): string {
+  return canonicalHostForPath(target.split(/[?#]/)[0]) ?? pageRescue.main_host;
+}
+
 export function hrefFrom(fromHost: string, path: string): string {
   if (!path.startsWith('/') || path.startsWith('//')) return path;
   const pathname = path.split(/[?#]/)[0];
   const retired = ({ ...budgetRescue.redirects, ...pageRescue.redirects } as Record<string, string>)[pathname];
-  if (retired) return hrefFrom(fromHost, retired + path.slice(pathname.length));
   const current = isCanonicalHost(fromHost) ? fromHost : PARENT_HOST;
+  if (retired) {
+    // The same host middleware.ts sends a retired path to, so a link and its 301 agree.
+    const owner = retiredTargetHost(retired);
+    const rest = path.slice(pathname.length);
+    return owner === current ? hrefFrom(fromHost, retired + rest) : `https://${owner}${retired}${rest}`;
+  }
   // '/' on a product host redirects to that host's hub, so link the hub itself -
   // the destination a reader already reached, without the hop.
   if (pathname === '/' && hostConfig[current].root_action === 'redirect') return hostConfig[current].root_target;

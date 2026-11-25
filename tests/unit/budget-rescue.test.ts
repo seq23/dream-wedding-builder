@@ -2,7 +2,7 @@ import hubs from '@/data/seo/hub_pages.json';
 import ownership from '@/data/seo/route_ownership.json';
 import pageRescue from '@/data/seo/page_rescue.json';
 import engineLedger from '@/data/search-loop/pages.json';
-import { canonicalHostForPath, CANONICAL_HOSTS, hrefFrom, ownToolPaths } from '@/lib/site-config';
+import { canonicalHostForPath, CANONICAL_HOSTS, hrefFrom, ownToolPaths, retiredTargetHost } from '@/lib/site-config';
 import { GET as llms } from '@/app/llms.txt/route';
 import { describe, expect, it } from 'vitest';
 import { NextRequest } from 'next/server';
@@ -56,8 +56,10 @@ describe('wedding editorial consolidation and domain isolation', () => {
   it('redirects every retired path in one 301 from every host, preserving attribution and resolving links', () => {
     const retired = { ...rescue.redirects, ...pageRescue.redirects };
     for (const [path, target] of Object.entries(pageRescue.redirects)) for (const host of CANONICAL_HOSTS) {
-      const owner = canonicalHostForPath(target);
+      // A target with no single owner is only ever `/`, which means the main site's homepage.
+      const owner = target === '/' ? pageRescue.main_host : canonicalHostForPath(target);
       expect(owner).toBeTruthy();
+      expect(retiredTargetHost(target)).toBe(owner);
       expect(target in retired).toBe(false);
       for (const slash of ['', '/']) {
         const response = middleware(new NextRequest(`https://${host}${path}${slash}?utm_source=test`, { headers: { host } }));
