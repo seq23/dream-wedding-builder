@@ -2,25 +2,19 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W48",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-24T22:19:09.336Z",
-  "state": "slow",
-  "published": 5,
+  "generated_at": "2026-11-25T21:35:27.494Z",
+  "state": "stopped",
+  "published": 4,
   "indexed": 0,
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 514,
+  "ai_bot_hits": 269,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
   "merged": 0,
   "held_by_cap": 0,
   "redirected": [
-    {
-      "query": "diy wedding planning checklist free",
-      "strengthen": "https://weddingchecklistpdf.com/public/questions/diy-wedding-planning-checklist-printable",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-18"
-    },
     {
       "query": "wedding venue questions checklist",
       "strengthen": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
@@ -186,9 +180,8 @@
   },
   "notes": [
     "site config lowers the mode to slow",
-    "not read: AI answer misses (Boss OS did not read AI answers in 2026-W48 (status not_read)); could not tell this run",
-    "BUILD distinct gate: 8 search(es) had the same intent as an existing page and became strengthen briefs, not new pages (pages.json \"redirected\")",
-    "BUILD published 0 of quota 1: 4 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued",
+    "not read: AI answer misses (no BOSS_OPEN_LOOPS_TOKEN in this run (pass it in the caller's secrets: block)); could not tell this run",
+    "NAMED STOP [FREE_MODEL_KEY_MISSING] no free model lane has a credential (GEMINI_API_KEY, OPENROUTER_API_KEY, CLOUDFLARE_*); BUILD wrote nothing, CHECK and the report still run",
     "CHECK runs weekly in mode=slow; last ran 2026-11-21"
   ],
   "lanes": {
@@ -218,14 +211,14 @@
     "competition": "ok: 15 top-10 read(s) via brave"
   },
   "ai_misses": {
-    "read": "not read: Boss OS did not read AI answers in 2026-W48 (status not_read)",
-    "week": "2026-W48",
+    "read": "not read: no BOSS_OPEN_LOOPS_TOKEN in this run (pass it in the caller's secrets: block)",
+    "week": null,
     "misses": 0,
     "strengthened": [],
     "new_candidates": [],
     "skipped": [],
     "rejected": [],
-    "could_not_tell": 2
+    "could_not_tell": 3
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45499723712"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45705709860"
 }

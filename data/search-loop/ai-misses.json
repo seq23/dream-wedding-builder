@@ -13,6 +13,11 @@
       "status": "could_not_tell",
       "week": "2026-W48",
       "reason": "Boss OS did not read AI answers in 2026-W48 (status not_read)"
+    },
+    {
+      "at": "2026-11-25T21:35:27.494Z",
+      "status": "could_not_tell",
+      "reason": "no BOSS_OPEN_LOOPS_TOKEN in this run (pass it in the caller's secrets: block)"
     }
   ]
 }
