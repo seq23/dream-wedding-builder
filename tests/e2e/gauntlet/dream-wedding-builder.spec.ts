@@ -4,7 +4,7 @@ import { openSteps, unlockBuilder } from './unlock-builder';
 test.beforeEach(async ({ page }) => { await unlockBuilder(page); });
 
 test('surface gauntlet: required pages render without auth', async ({ page }) => {
-  for (const path of ['/', '/free-wedding-planner', '/dashboard', '/trends', '/photos', '/pack', '/disclaimer', '/privacy']) {
+  for (const path of ['/', '/free-wedding-planner', '/dashboard', '/photos', '/pack', '/disclaimer', '/privacy']) {
     await page.goto(path);
     await expect(page.locator('body')).toContainText(/Dream Wedding|Disclaimer|Privacy|Planner Packet|Photo|Dashboard/);
     await expect(page.getByRole('link', { name: /Login|Sign in|Create account/i })).toHaveCount(0);

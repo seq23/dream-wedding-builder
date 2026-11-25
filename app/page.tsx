@@ -10,6 +10,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { SiteDefinition } from '@/components/seo/SiteDefinition';
 import { homeSchemaNodes, ogImages, ogImageUrl, siteHome } from '@/lib/site-home';
 import { dateModifiedFor } from '@/lib/lastmod';
+import { TrendCatalogue } from '@/components/TrendCatalogue';
+import TrendSubmitForm from '@/components/TrendSubmitForm';
+import { trends, standoutIdeaCategories } from '@/data/trends';
 
 // weddingchecklistpdf.com is the one host whose `/` renders this page instead of
 // redirecting to a hub, so it shares the hub template's homepage node set through
@@ -135,6 +138,26 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
   <section className="rounded-[12px] bg-rose/20 p-7 text-center md:p-12"><p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Not sure where your plan is weakest?</p><h2 className="mx-auto mt-3 max-w-4xl font-serif text-4xl leading-tight md:text-6xl">Start with the free wedding planner, then pick the tool that fixes the gap.</h2><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/free-wedding-planner" className="rounded-2xl bg-charcoal px-7 py-4 font-bold text-linen shadow-lg">Open the free wedding planner →</Link><Link href="/shop" className="rounded-2xl border border-charcoal/20 bg-white px-7 py-4 font-bold">Compare All Wedding Tools & Prices →</Link></div>
     {/* The free planner's real dated plan, captured at 390px (scripts/brand/generate_product_mockups.py). */}
     <Image src="/product-images/free-planner-dated-plan.png" alt="The free wedding planner: a dated plan worked back from your wedding date" width={1600} height={1000} sizes="(max-width:1024px) 100vw, 900px" className="mx-auto mt-8 h-auto w-full max-w-3xl rounded-[10px] shadow-soft"/></section>
+
+  {/* The standout ideas catalogue, folded in from /trends on 25 Nov 2026 (Search Readiness f4:
+      no Google impressions in 90 days; /trends now 301s here, data/search-loop/consolidation-ledger.json).
+      Every idea, its filters, "Add" to the free planner and the idea form moved with it. */}
+  <section id="standout-ideas" aria-labelledby="standout-ideas-heading" className="scroll-mt-24 rounded-[12px] border border-charcoal/10 bg-white p-7 md:p-10" data-testid="home-standout-ideas">
+    <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Standout ideas catalogue</p>
+    <h2 id="standout-ideas-heading" className="mt-3 font-serif text-4xl md:text-5xl">Which wedding ideas make guests say, “I have never seen that before”?</h2>
+    <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">{trends.length} concrete experiences you can add to your plan: arrival moments, seating experiences, ceremony reveals, cocktail-hour surprises, dinner design, sensory stations, photo moments, food spectacle, weekend ideas and verify-first wildcards. Each one lists who it suits, when to avoid it, its budget pressure and what to verify with the venue. These are guest-facing ideas, not vendor roles or logistics jobs.</p>
+    <p className="mt-3 max-w-3xl text-sm leading-6 text-charcoal/70">Each idea becomes a cost, a vendor, a delivery window and a place on the day-of schedule. The four editable tools are where those land: budget lines, vendor payments, the master timeline and the seating plan. <Link href="/shop" className="font-bold underline underline-offset-4">See the four wedding planning tools and prices →</Link></p>
+    <ul className="mt-5 flex flex-wrap gap-2">{standoutIdeaCategories.map((c) => <li key={c} className="rounded-full bg-ivory px-4 py-2 text-sm font-bold">{c}</li>)}</ul>
+    <details className="mt-6 rounded-[12px] border border-charcoal/10 bg-ivory/50 p-4 md:p-6">
+      <summary className="cursor-pointer font-serif text-2xl">Browse all {trends.length} standout ideas</summary>
+      <div className="mt-5"><TrendCatalogue /></div>
+    </details>
+    <details className="mt-4 rounded-[12px] border border-charcoal/10 bg-white p-4 md:p-6">
+      <summary className="cursor-pointer font-serif text-2xl">Have a standout idea we should add?</summary>
+      <p className="mt-3 text-sm text-charcoal/70">Submit concrete wedding ideas only: guest moments, design motifs, food experiences, reveal ideas, sensory stations or wildcards. Vendor roles and logistics jobs belong in planner metadata, not this catalogue.</p>
+      <TrendSubmitForm />
+    </details>
+  </section>
 
   <section aria-labelledby="home-faq"><p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Questions couples ask</p><h2 id="home-faq" className="mt-3 font-serif text-4xl md:text-5xl">Wedding Checklist PDF questions</h2><div className="mt-6 grid gap-4">{(home.faqs ?? []).map((item) => <details key={item.question} className="rounded-[12px] border border-charcoal/10 bg-white p-6"><summary className="cursor-pointer font-serif text-2xl">{item.question}</summary><p className="mt-4 leading-7 text-charcoal/70">{item.answer}</p></details>)}</div></section>
   <JsonLd data={homeSchemaNodes({ host: HOST, path: '/', headline: TITLE, description: DESCRIPTION, faqs: home.faqs ?? [], steps: home.steps ?? [], breadcrumbs: [{ name: 'Dream Wedding Builder', canonical: 'https://weddingchecklistpdf.com/' }], ...dateModifiedFor('/') })} />

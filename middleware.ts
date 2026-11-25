@@ -1,7 +1,7 @@
 import pageRescue from '@/data/seo/page_rescue.json';
 import budgetRescue from '@/data/seo/budget_rescue.json';
 import { NextRequest, NextResponse } from 'next/server';
-import { aliasRedirectTarget, apexHost, builderRedirectUrl, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost } from '@/lib/site-config';
+import { aliasRedirectTarget, apexHost, builderRedirectUrl, canonicalHostForPath, hostConfig, isCanonicalHost, isPreviewHost, retiredTargetHost } from '@/lib/site-config';
 import { PATHNAME_HEADER } from '@/lib/pathname-header';
 import { PIN_COOKIE, PIN_COOKIE_MAX_AGE, pinRefFromUrl } from '@/lib/pinterest-conversions';
 
@@ -24,7 +24,7 @@ export const ROUTE_SEGMENTS = [
   'micro-wedding-planning', 'nigerian-traditional-and-white-wedding', 'og.png', 'order', 'pack', 'photos',
   'pinfeed', 'pinfeed.xml', 'printable-wedding-checklist', 'privacy', 'products', 'questions',
   'readiness-score', 'refund-policy', 'robots.txt', 'shop', 'site.webmanifest', 'sitemap.xml', 'terms',
-  'trends', 'two-phones', 'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
+  'two-phones', 'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
   'wedding-checklist-pdf', 'wedding-cost-per-guest', 'wedding-guest-list-template', 'wedding-planner-cost',
   'wedding-planning-checklist', 'wedding-planning-reality-check', 'wedding-seating-chart',
   'wedding-timeline-template', 'wedding-to-do-list', 'wedding-without-a-coordinator',
@@ -111,7 +111,7 @@ function route(request: NextRequest) {
   if (retired && (isCanonicalHost(host) || aliasRedirectTarget(originalHost) || isPreviewHost(originalHost))) {
     const url = new URL(request.url);
     url.protocol = 'https:';
-    url.host = canonicalHostForPath(retired) ?? pageRescue.main_host;
+    url.host = retiredTargetHost(retired);
     url.port = '';
     url.pathname = retired;
     return NextResponse.redirect(url, 301);

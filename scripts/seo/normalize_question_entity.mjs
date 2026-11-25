@@ -18,7 +18,14 @@
 //
 // Runs in .github/scripts/search_loop_commit.sh between the engine's write and
 // the commit, so a page the engine publishes tomorrow is corrected before it is
-// committed, and is guarded by scripts/validators/validate_question_entity.mjs.
+// committed.
+//
+// The reference carries the brand's name as well as its @id (Search Readiness c6,
+// 25 Nov 2026: /questions/complete-checklist-for-wedding-planning read "no named
+// author or reviewer is visible"). A bare {"@id"} left the Article's author with no
+// name, so nothing tied the visible byline "Published <date> · Dream Wedding
+// Builder" to the author. The node stays untyped, so it is still a reference and
+// never a second, thin Organization for c1 to read first.
 import { readQuestionRetirements } from '../../lib/question-retirements.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -27,11 +34,13 @@ const root = process.argv[2] || '.';
 const dir = path.join(root, 'public/questions');
 const entity = JSON.parse(fs.readFileSync(path.join(root, 'data/seo/entity.json'), 'utf8'));
 const brandId = entity?.brand?.['@id'];
+const brandName = entity?.brand?.name;
 
-if (!brandId) {
-  console.error('[normalize:question-entity] FAIL: data/seo/entity.json has no brand["@id"] to point the pages at');
+if (!brandId || !brandName) {
+  console.error('[normalize:question-entity] FAIL: data/seo/entity.json has no brand["@id"] and name to point the pages at');
   process.exit(1);
 }
+const isReference = v => v['@id'] === brandId && v.name === brandName && Object.keys(v).length === 2;
 const pages = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.html')).sort() : [];
 if (pages.length === 0) {
   try {
@@ -48,16 +57,17 @@ if (pages.length === 0) {
 const BLOCK = /<script type="application\/ld\+json"(?![^>]*\bdata-entity=)[^>]*>([\s\S]*?)<\/script>/g;
 const ARTICLE = /Article|BlogPosting|NewsArticle|WebPage|FAQPage|QAPage|CollectionPage/;
 
-/** Replace an inline Organization on author/publisher with a reference to brandId. */
+/** Replace an inline Organization (or a bare @id) on author/publisher with a named reference to brandId. */
 function pointAtBrand(node, changed) {
   for (const key of ['author', 'publisher']) {
     const v = node[key];
     if (!v || typeof v !== 'object' || Array.isArray(v)) continue;
     // A Person byline is a real byline, not a stand-in for the Organization.
     if (/Person/.test(String(v['@type'] ?? ''))) continue;
-    if (!/Organization|Corporation|NewsMediaOrganization/.test(String(v['@type'] ?? ''))) continue;
-    if (v['@id'] === brandId && Object.keys(v).length === 1) continue; // already a reference
-    node[key] = { '@id': brandId };
+    if (isReference(v)) continue; // already a named reference
+    const bareBrandRef = v['@id'] === brandId && v['@type'] === undefined;
+    if (!bareBrandRef && !/Organization|Corporation|NewsMediaOrganization/.test(String(v['@type'] ?? ''))) continue;
+    node[key] = { '@id': brandId, name: brandName };
     changed.push(`${key}`);
   }
 }

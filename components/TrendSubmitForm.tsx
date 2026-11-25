@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { ConversionAnalytics } from '@/components/ConversionAnalytics';
+// The standout-idea submission form. Lived on /trends until that page folded into the
+// homepage's #standout-ideas section on 25 Nov 2026 (Search Readiness f4).
 export default function TrendSubmitForm() {
   const [status, setStatus] = useState('');
   async function submit(formData: FormData) {
