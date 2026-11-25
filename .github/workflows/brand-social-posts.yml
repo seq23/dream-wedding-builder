@@ -22,6 +22,8 @@ concurrency:
 
 jobs:
   post:
+    if: github.ref == 'refs/heads/main'
+    environment: reviewed-main
     timeout-minutes: 30  # ~3 min to draw, up to 12 min waiting for the deploy; fault detector
     runs-on: ubuntu-24.04
     steps:
@@ -66,3 +68,10 @@ jobs:
           git add data/brand-social/posted.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m 'brand-social: queued posts ledger'
           scripts/ci/push_back.sh "$GITHUB_REF_NAME"
+      - name: Send confirmed receipts to the growth ledger
+        if: ${{ always() && !cancelled() }}
+        uses: seq23/boss-os/.github/actions/ledger-rows@ef7270e2e758acb8dd166db4143e93c3563e228a
+        with:
+          business: dream-wedding
+          file: data/brand-social/posted.json
+          token: ${{ secrets.BOSS_OPEN_LOOPS_TOKEN }}
