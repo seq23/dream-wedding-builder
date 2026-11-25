@@ -42,6 +42,8 @@ concurrency:
 
 jobs:
   drip:
+    if: github.ref == 'refs/heads/main'
+    environment: reviewed-main
     timeout-minutes: 15  # npm ci + a 21-image render is ~3 min; fault detector, not a budget
     runs-on: ubuntu-latest
     steps:
