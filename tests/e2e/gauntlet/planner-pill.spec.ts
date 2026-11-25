@@ -19,7 +19,7 @@ const GUIDE = '/methodology';
 const OTHER_PAGE = '/readiness-score';
 
 test('the always-on planner banner is on every page type', async ({ page }) => {
-  for (const path of ['/', '/guides', '/guides/wedding-planning-timeline', '/wedding-cost-per-guest', GUIDE, OTHER_PAGE, '/trends']) {
+  for (const path of ['/', '/guides', '/guides/wedding-planning-timeline', '/wedding-cost-per-guest', GUIDE, OTHER_PAGE, '/photos']) {
     await page.goto(path);
     await expect(page.getByTestId('planner-banner'), `${path} has no persistent planner entry`).toBeVisible();
     await expect(page.getByTestId('planner-banner').getByRole('link')).toHaveAttribute('href', /free-wedding-planner/);

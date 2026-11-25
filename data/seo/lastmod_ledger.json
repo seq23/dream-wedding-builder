@@ -2,12 +2,12 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "c6bcc5533826bd20d7fe5b8bdc493a43b5268a48",
+  "generated_from_commit": "4f9ab375e7d09780f0d89f3180227994e0db5326",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
-      "lastmod": "2026-11-22",
-      "source": "app/page.tsx"
+      "lastmod": "2026-11-25",
+      "source": "app/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/about": {
       "lastmod": "2026-11-13",
@@ -62,8 +62,8 @@
       "source": "app/editorial-policy/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-11-14",
-      "source": "app/free-wedding-planner/page.tsx"
+      "lastmod": "2026-11-25",
+      "source": "app/free-wedding-planner/page.tsx (uncommitted at generation; pinned to run date)"
     },
     "/guides": {
       "lastmod": "2026-11-07",
@@ -216,10 +216,6 @@
     "/terms": {
       "lastmod": "2026-11-13",
       "source": "app/terms/page.tsx"
-    },
-    "/trends": {
-      "lastmod": "2026-08-27",
-      "source": "app/trends/page.tsx"
     },
     "/wedding-budget-spreadsheet": {
       "lastmod": "2026-11-02",

@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import clarity from '@/data/clarity_projects.json';
 import { CheckoutButton } from '@/components/CheckoutButton';
 import PlannerPage from '@/app/free-wedding-planner/page';
-import TrendSubmitForm from '@/app/trends/trend-submit-form';
+import TrendSubmitForm from '@/components/TrendSubmitForm';
 import { HOSTS, renderHome } from './helpers/site-homes';
 
 const EXPECTED: Record<string, string> = {

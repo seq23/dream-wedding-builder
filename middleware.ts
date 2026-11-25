@@ -24,7 +24,7 @@ export const ROUTE_SEGMENTS = [
   'micro-wedding-planning', 'nigerian-traditional-and-white-wedding', 'og.png', 'order', 'pack', 'photos',
   'pinfeed', 'pinfeed.xml', 'printable-wedding-checklist', 'privacy', 'products', 'questions',
   'readiness-score', 'refund-policy', 'robots.txt', 'shop', 'site.webmanifest', 'sitemap.xml', 'terms',
-  'trends', 'two-phones', 'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
+  'two-phones', 'wedding-budget-spreadsheet', 'wedding-budget-tradeoffs', 'wedding-checklist',
   'wedding-checklist-pdf', 'wedding-cost-per-guest', 'wedding-guest-list-template', 'wedding-planner-cost',
   'wedding-planning-checklist', 'wedding-planning-reality-check', 'wedding-seating-chart',
   'wedding-timeline-template', 'wedding-to-do-list', 'wedding-without-a-coordinator',

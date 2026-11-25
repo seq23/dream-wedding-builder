@@ -97,7 +97,8 @@
     "/questions/wedding-checklist-everything-you-need": "/guides/wedding-planning-timeline",
     "/questions/wedding-planning-checklist-advice": "/guides/wedding-planning-timeline",
     "/questions/basic-wedding-planning-checklist": "/guides/wedding-planning-timeline",
-    "/questions/wedding-planning-detailed-checklist": "/guides/wedding-planning-timeline"
+    "/questions/wedding-planning-detailed-checklist": "/guides/wedding-planning-timeline",
+    "/trends": "/"
   },
   "reason": "One substantive guide per intent; numeric, venue and handoff variants fold into their owning working guide. General planning belongs to the main checklist site. New generated variants require distinct authored content and an explicit kept-ledger decision.",
   "kept_paths_by_host": {
@@ -140,7 +141,6 @@
       "/refund-policy",
       "/shop",
       "/terms",
-      "/trends",
       "/wedding-budget-tradeoffs",
       "/wedding-checklist",
       "/wedding-checklist-pdf",

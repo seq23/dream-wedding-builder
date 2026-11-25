@@ -1,4 +1,14 @@
 {
   "schema": "search-loop-consolidation-v1",
-  "merges": []
+  "merges": [
+    {
+      "at": "2026-11-25",
+      "from": "/trends",
+      "into": "/",
+      "query": null,
+      "reason": "90 days with no Search Console impressions (Search Readiness f4, brief so-weddingchecklistpdf.com-fold-root)",
+      "redirect": "/trends -> / 301 (data/seo/page_rescue.json redirects, applied by middleware.ts)",
+      "moved": "The standout ideas catalogue (every idea in data/trends.ts with its filters and Add-to-plan), its intro, the line on turning an idea into a booked line item, and the idea submission form now sit in the homepage's #standout-ideas section; the free planner's 'See every standout idea' link points there."
+    }
+  ]
 }

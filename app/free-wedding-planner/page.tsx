@@ -351,7 +351,7 @@ function BuildPage() {
           {lowCostFirst && <p data-testid="ideas-order-note" className="text-sm text-charcoal/70">Lowest-cost ideas first, because you have a number to keep to.</p>}
           {standoutIdeas.map(trend => <Card key={trend.id} className="shadow-none"><TrendCard trend={trend} compact /><button type="button" data-testid={`toggle-trend-${trend.id}`} aria-pressed={plan.selectedTrends.includes(trend.id)} onClick={() => toggleTrend(trend.id)} className="mt-3 min-h-11 w-full rounded-2xl border border-charcoal/25 bg-white px-4 py-2 text-sm font-bold">{plan.selectedTrends.includes(trend.id) ? '✓ In your plan (tap to remove)' : '+ Add to your plan'}</button></Card>)}
           <p className="text-sm font-semibold">In your plan: {chosenTrends.length ? chosenTrends.map(t => t.name).join(' · ') : 'none yet'}</p>
-          <Link href="/trends" className="inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">See every standout idea ›</Link>
+          <Link href="/#standout-ideas" className="inline-flex min-h-11 items-center font-bold text-blue underline underline-offset-4">See every standout idea ›</Link>
         </div>
       </StepFold>
     </section>
