@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "883edd96451c6dc95b6425e9562f80a59773380f",
+  "generated_from_commit": "52c815838a35f75c82705504db14feb4aee5aa5f",
   "shipping_guide_count": 16,
   "paths": {
     "/": {

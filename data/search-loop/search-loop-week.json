@@ -2,61 +2,19 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W48",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-25T21:35:27.494Z",
+  "generated_at": "2026-11-26T21:24:47.378Z",
   "state": "stopped",
-  "published": 4,
+  "published": 3,
   "indexed": 0,
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 269,
+  "ai_bot_hits": 241,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
   "merged": 0,
   "held_by_cap": 0,
   "redirected": [
-    {
-      "query": "wedding venue questions checklist",
-      "strengthen": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
-      "matched_by": "same wording",
-      "at": "2026-11-19"
-    },
-    {
-      "query": "wedding venue questions checklist printable",
-      "strengthen": "https://weddingchecklistpdf.com/questions/wedding-venue-questions-checklist-pdf",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-19"
-    },
-    {
-      "query": "backyard wedding planning list",
-      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-19"
-    },
-    {
-      "query": "backyard wedding planning checklist printable",
-      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-19"
-    },
-    {
-      "query": "backyard wedding planning spreadsheet",
-      "strengthen": "https://weddingchecklistpdf.com/backyard-wedding-planning",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-19"
-    },
-    {
-      "query": "free wedding planner software with checklist",
-      "strengthen": "https://weddingchecklistpdf.com/free-wedding-planner",
-      "matched_by": "high token overlap (0.67 >= 0.6)",
-      "at": "2026-11-19"
-    },
-    {
-      "query": "wedding day checklist pdf",
-      "strengthen": "https://weddingchecklistpdf.com/amazon/wedding-day-timeline",
-      "matched_by": "same wording",
-      "at": "2026-11-19"
-    },
     {
       "query": "wedding planning checklist by month",
       "strengthen": "https://weddingchecklistpdf.com/guides/wedding-planning-timeline",
@@ -218,7 +176,7 @@
     "new_candidates": [],
     "skipped": [],
     "rejected": [],
-    "could_not_tell": 3
+    "could_not_tell": 4
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45705709860"
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45897925881"
 }
