@@ -1,10 +1,11 @@
 # Google Play Console answers: Dream Wedding (Android)
 
-Paste-ready answers for the Play Console "App content" forms, read from the code on `main` (19 Nov 2026).
+Paste-ready answers for the Play Console "App content" forms, read from the code on `main` (19 Nov 2026; re-read 27 Nov 2026).
 Paths are under `apps/mobile/` unless they start with `/` (repo root). They match the App Store privacy
 label in `/docs/app-privacy.md` and the policy at https://weddingchecklistpdf.com/privacy
 (`/app/privacy/page.tsx`); when the app starts or stops sending something, change all three and both
-store forms together. Nothing here has been entered in Play Console yet.
+store forms together. The app is in Google review in the company Play account since 24 Nov 2026; these are
+the answers to keep there.
 
 Partner sharing is switched off in store builds (`src/sharingSwitch.ts:5`, `EXPO_PUBLIC_DW_SHARING` not
 set), so it is not declared below. Turning it on means revisiting Data safety (the encrypted shared copy
@@ -16,24 +17,24 @@ on our server, `/app/privacy/page.tsx:153-155`) and the content rating question 
 
 | Play data type | Collected | Shared | Optional? | Purpose | Source |
 |---|---|---|---|---|---|
-| App activity → Other user-generated content (what she writes in "Describe my wedding", up to 400 characters; the AI draft sentence; her town, guest count, budget range) | Yes | **Yes**: sent to a free Google Gemini or OpenRouter model that may use it to improve its products | Optional (the free plan works without it; the AI draft needs its tick box, `app/(tabs)/plan/ai-draft.tsx:69,72`) | App functionality | `src/journey.ts:84-88`, `src/aiDraft.ts:18-19`; policy `/app/privacy/page.tsx:78-84` |
-| Personal info → Religious beliefs, and Race and ethnicity (the tradition she picks: Catholic, Jewish, Hindu, Muslim nikah, Nigerian traditional, Mexican, Chinese tea ceremony) | Yes | **Yes**: same free AI model | Optional | App functionality | `src/journey.ts:88` (`tradition`), `src/traditionPacks.ts:8-14`; policy `/app/privacy/page.tsx:79` |
-| App activity → App interactions (the choices she tapped: season, setting, moods, colours read from photos on the phone) | Yes | **Yes**: same free AI model | Optional | App functionality | `src/journey.ts:87` |
+| App activity → Other user-generated content (what she writes in "Describe my wedding", up to 400 characters; the AI draft sentence; her town, guest count, budget range) | Yes | **Yes**: sent to a free Google Gemini or OpenRouter model that may use it to improve its products | Optional (the free plan works without it; the AI draft needs its tick box, `app/(tabs)/plan/ai-draft.tsx:69,72`) | App functionality | `src/journey.ts:85-89`, `src/aiDraft.ts:18-19`; policy `/app/privacy/page.tsx:78-84` |
+| Personal info → Religious beliefs, and Race and ethnicity (the tradition she picks: Catholic, Jewish, Hindu, Muslim nikah, Nigerian traditional, Mexican, Chinese tea ceremony) | Yes | **Yes**: same free AI model | Optional | App functionality | `src/journey.ts:89` (`tradition`), `src/traditionPacks.ts:8-14`; policy `/app/privacy/page.tsx:79` |
+| App activity → App interactions (the choices she tapped: season, setting, moods, colours read from photos on the phone) | Yes | **Yes**: same free AI model | Optional | App functionality | `src/journey.ts:89` |
 | App activity → App interactions (one "plan reached" signal per installation) | Yes, when the store build has `EXPO_PUBLIC_DW_METRICS=1` | No | Required in those builds | Analytics | `src/phoneMetrics.ts:7`, `src/planReach.ts:28-29`; `/docs/APP_MEASUREMENT.md` |
 | Device or other IDs (a random installation number for that signal; RevenueCat's anonymous app user ID, sent as the bearer to fetch paid files, and on Android with the Play review code only when one is typed) | Yes | No | Required | Analytics (installation number); App functionality (RevenueCat ID) | `src/planReach.ts:29`, `src/billing/downloadStore.ts:122`, `src/billing/review.ts`, `src/billing/revenuecat.ts:18` |
 | Financial info → Purchase history | Yes, through Google Play Billing and RevenueCat (service provider) | No | Required to buy or restore | App functionality, Analytics | `src/billing/revenuecat.ts:18`; policy `/app/privacy/page.tsx:152-153` |
 
-Declaring tradition as religious beliefs and ethnicity is the cautious reading: Apple has no such type, so
-the App Store label carries it under Other User Content; Play does have one, and the AI provider receives it.
+Declaring tradition as religious beliefs and ethnicity is the cautious reading, and the AI provider receives it.
+Apple's label carries the same choice under Sensitive Info (docs/app-privacy.md).
 The wedding town is the event's place, typed by her, not her device location, so it is user content, not
 Location. No location permission exists (`app.config.ts:18`).
 
 **Not collected (answer "No" for every other type), and why:**
 
-- **Photos:** read for colours on the phone; only colour values leave (`src/journey.ts:87`, `photos.slice(0, 3).map(p => ({ loves, colours }))`; `app.config.ts:23-24`).
+- **Photos:** read for colours on the phone; only colour values leave (`src/journey.ts:89`, `photos.slice(0, 3).map(p => ({ loves, colours }))`; `app.config.ts:23-24`).
 - **Email, name, phone, contacts:** the app asks for none. The AI draft sends no email (`src/aiDraft.ts:19`).
 - **Date, tasks, ticks, payments she notes, reminders:** kept on the phone; reminders are local notifications (`/app/privacy/page.tsx:150-151`; no push token call in `app/` or `src/`).
-- **"Report this answer":** opens her own mail app with the answer quoted (`src/reportAnswer.ts:15-19`); the app sends nothing itself.
+- **"Report this answer":** opens her own mail app with the answer quoted (`src/reportAnswer.ts:8-13`); the app sends nothing itself.
 - **Crash logs, diagnostics, advertising ID:** no analytics, crash or ad SDK; RevenueCat diagnostics and automatic device identifiers are off (`src/billing/revenuecat.ts:18`).
 - The server keeps a salted one-way hash of the connection's address to count three free AI answers a day (`/migrations/0011_wedding_reads.sql`, `ip_hash`); not used for location.
 
@@ -85,8 +86,8 @@ Paywall entry: `app/(tabs)/more/index.tsx:102`; the code link: `app/(tabs)/more/
 
 ## AI-generated content declaration
 
-- **Does the app generate content with AI?** Yes: "Describe my wedding" (`app/feel.tsx`, via `src/journey.ts:84` → `/app/api/wedding-read/route.ts`) and the AI plan draft (`app/(tabs)/plan/ai-draft.tsx`, via `src/aiDraft.ts:18` → `/lib/ai-draft.ts`). Text only; no images, audio or video are generated.
-- **Users can report or flag offensive AI content in the app:** Yes, "Report this answer" under both AI answers (`app/feel.tsx:250`, `app/(tabs)/plan/ai-draft.tsx:57`), on for Android (`src/reportAnswer.ts:10-12`). It opens a pre-filled email to info@weddingchecklistpdf.com with the answer quoted (`src/reportAnswer.ts:15-19`); reports are read by a person at that address.
+- **Does the app generate content with AI?** Yes: "Describe my wedding" (`app/feel.tsx`, via `src/journey.ts:85` → `/app/api/wedding-read/route.ts`) and the AI plan draft (`app/(tabs)/plan/ai-draft.tsx`, via `src/aiDraft.ts:18` → `/lib/ai-draft.ts`). Text only; no images, audio or video are generated.
+- **Users can report or flag offensive AI content in the app:** Yes, "Report this answer" under both AI answers (`app/feel.tsx:256`, `app/(tabs)/plan/ai-draft.tsx:57`), on for Android (`src/reportAnswer.ts:10-12`). It opens a pre-filled email to info@weddingchecklistpdf.com with the answer quoted (`src/reportAnswer.ts:8-13`); reports are read by a person at that address.
 - **Labelled as AI in the app and listing:** the Play draft says "written by an AI planner, not a person" (`store/google-play.md`, Full description); the AI draft screen asks permission before sending (`app/(tabs)/plan/ai-draft.tsx:69`).
 - **Guardrails:** never names businesses, prices or availability; emails, phone numbers, street addresses and links are removed before sending (`/app/privacy/page.tsx:80-81`).
 

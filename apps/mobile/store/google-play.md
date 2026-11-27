@@ -1,14 +1,14 @@
-# Google Play listing — DRAFT, NOT FOR SUBMISSION
+# Google Play listing
 
-**Status: DRAFT (19 Nov 2026; description rewritten 21 Nov 2026).** Store copy was held on purpose until the launch plan. This is
-drafted for her to see first; nothing here goes to Google until she has read it and the company
-Play account (Redwood Reserve Holdings LLC; exists, organisation documents and website in
-review on 19 Nov 2026) is cleared to publish. Console form answers: `store/play-console-answers.md`.
+**Status (27 Nov 2026):** the app exists in the company Play account (Redwood Reserve Holdings LLC) as Dream
+Wedding Builder (`com.weddingchecklistpdf.dreamwedding`), a draft with changes in Google review since 24 Nov
+2026 (spry brain). The listing fields to enter are in `store/google-play.json`; the owner or coordinator enters
+them in Play Console, never an agent. Console form answers: `store/play-console-answers.md`.
 
-Description: the one text for both stores is `store/app-store-next-version.md` § Description, with
-its promise table (rewritten 21 Nov 2026 to answer what, who and the price model first). It already
-leaves out "Your partner on a second phone at no extra cost": partner sharing is switched off in store
-builds (`EXPO_PUBLIC_DW_SHARING` is not set in the EAS production environment).
+Description: the one text for both stores is `store/app-store-next-version.md` § Description, copied word for
+word into `store/google-play.json` (`test/storeFiles.unit.ts` holds them equal). It leaves out "Your partner on
+a second phone at no extra cost": partner sharing is switched off in store builds (`EXPO_PUBLIC_DW_SHARING` is
+not set in the EAS production environment; read 27 Nov 2026: only the two RevenueCat keys are set there).
 
 ## Title (≤ 30) — 21 characters
 
@@ -20,7 +20,7 @@ A wedding checklist dated to your day. Free, no account, never a subscription.
 
 ## Full description (≤ 4000)
 
-Paste `store/app-store-next-version.md` § Description (2,119 characters). One source, so the two stores never drift.
+`store/google-play.json` › `full` (2,202 characters), the App Store description word for word. One source, so the two stores never drift.
 
 ## Other listing fields
 
@@ -31,18 +31,33 @@ Paste `store/app-store-next-version.md` § Description (2,119 characters). One s
 
 The 5 one-time products are created on Play from the app's own code: ids from the RevenueCat catalog
 (`scripts/revenuecat/setup.ts`), USD prices from `PRODUCTS` in `src/billing/offers.ts`, every other region from
-Google's own price conversion, titles from `OFFER_NAME`, descriptions from the App Store texts in
-`store/paid-files.json` (or `OFFER_DETAIL`). The tool lives in seq-bin (`~/bin/play-products`, one copy for every
+Google's own price conversion, titles from `OFFER_NAME`, descriptions from the `play` lines in
+`store/in-app-products.json`. The tool lives in seq-bin (`~/bin/play-products`, one copy for every
 app); this repo keeps only the catalog. Re-run it after any product change: it creates what is missing (each
 product read again just before it is written), activates only drafts, and never deletes, deactivates or
 reprices. A different US price on Play prints `MISMATCH`; a product switched off on Play prints `SWITCHED OFF`;
 both are left as they are.
 
+**Names and descriptions on Play today (read 27 Nov 2026) differ from the app.** The products were made
+before the titles came from the code, and the tool never rewrites a product that exists. Play shows "Full
+Plan", "Planner + Printables", "Printables Add-on", "Day-of Kit" and "New Event"; the buy screen says "Full
+plan", "Planner + printables", "Printables", "Day-of kit" and "Full plan for a new event". Two descriptions
+also promise more than the product holds ("every checklist, budget line and timeline step"; "with its own
+checklist, budget and timeline"). The owner or coordinator copies each product's `name` and `play` line from
+`store/in-app-products.json` into Play Console (Monetize › One-time products › the product › Listing).
+
 **Consumable or not.** A Play one-time product has no consumable flag of its own: RevenueCat decides, from the
-product type it holds. `dw_new_event` is `consumable` there on every store (a new event is bought once per
-event); the other four are `non_consumable` (owned for good, restored on a new phone). Never `one_time`: on Play
-RevenueCat consumes such a purchase, so restore would give nothing back. `~/bin/revenuecat-setup` sets and
-checks the types from `setup.ts`.
+flag it holds. RevenueCat's v2 API keeps every Play one-time product as `type: one_time` and the kind in
+`one_time.is_consumable` (the type cannot be written there); what matters is that flag. `dw_new_event` is
+consumable (a new event is bought once per event); the other four must be `is_consumable: false` (owned for
+good, so restore on a new phone gives them back; a consumed purchase would give nothing back).
+`~/bin/revenuecat-setup` checks the flag against `setup.ts` and `--apply` of `~/bin/play-products` refuses to
+run while any flag differs.
+
+Read back 27 Nov 2026 (RevenueCat v2, read-only): play_store `dw_full_plan`, `dw_planner_printables`,
+`dw_printables_topup`, `dw_day_of_kit` are `one_time`, `is_consumable: false`; `dw_new_event` is `one_time`,
+`is_consumable: true`; app_store and test_store hold the four as `non_consumable` and `dw_new_event` as
+`consumable`. `revenuecat-setup --dry-run` → "RevenueCat matches the code; nothing changed". They match.
 
 **Launch price.** `dw_full_plan` is $14.99; its $9.99 launch price for the first 30 days is a Play discount
 offer (`launch`) on the product, made by the same tool from `LAUNCH_OFFER` in `src/billing/offers.ts`. Until
@@ -68,5 +83,5 @@ catalog in `test/playProducts.unit.ts`, the tool in seq-bin `tests/store/`.
 
 - `icon-512.png` — 512 × 512 app icon (same mark as the app icon).
 - `feature-graphic.png` — 1024 × 500.
-- `phone-1.png` to `phone-5.png` — 1080 × 1920 phone screenshots from the free web preview of the app (19 Nov 2026): start, your wedding on one page (a live AI answer), keep what you love, the dated plan, traditions. Retake from the Android build before submission if anything differs.
+- `phone-1.png` to `phone-5.png` — 1080 × 1920 phone screenshots retaken 27 Nov 2026 from the app's web preview of main (the same React Native screens as the store build): start, your wedding on one page (a live AI answer), keep what you love, the dated plan, traditions.
 - `feature-graphic.html` — the source of the feature graphic (rendered at 1024 × 500).

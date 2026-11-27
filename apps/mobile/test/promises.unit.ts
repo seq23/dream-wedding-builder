@@ -12,6 +12,7 @@ const doc = JSON.parse(readFileSync(new URL('../store/paid-files.json', import.m
   products: Record<string, string[]>; storeText: Record<string, string[]>;
   promises: Record<string, Named[]>; archives: Record<string, { key: string; files: { name: string; bytes: number }[] }>;
 };
+const inApp = JSON.parse(readFileSync(new URL('../store/in-app-products.json', import.meta.url), 'utf8')) as { products: Record<string, { appStore: string; play: string }> };
 // A part of a sentence that names something to print or fill in.
 const deliverable = /\b(pdf|spreadsheet|sheet|list|tracker|template|maker|comparison|checklists?|planners?)\b/i;
 
@@ -33,6 +34,8 @@ test('every file a paid product names is in the archive it delivers', () => {
   const texts: [string, string][] = [
     ...(['dw_planner_printables', 'dw_printables_topup', 'dw_day_of_kit'] as ProductId[]).map(id => [id, OFFER_DETAIL[id]] as [string, string]),
     ...Object.entries(doc.storeText).flatMap(([id, list]) => list.map(t => [id, t] as [string, string])),
+    // The store consoles' product descriptions (App Store Connect and Google Play).
+    ...Object.entries(inApp.products).flatMap(([id, p]) => [[id, p.appStore], [id, p.play]] as [string, string][]),
   ];
   assert.ok(Object.keys(doc.archives).length === 2, 'both archives are listed (run paid-files.mjs write)');
   let named = 0;

@@ -1,0 +1,30 @@
+# IAP review shot (c): More > "Start a new event ›" for a Full plan owner, selling dw_new_event
+# ("Full plan for a new event") at the App Store's price. Same seeded owner as owner-extras.yaml.
+appId: com.weddingchecklistpdf.dreamwedding
+---
+- launchApp
+- tapOn:
+    text: "Don’t Allow"
+    optional: true
+# The plan has finished loading before the tab is tapped (a tap while it renders is lost).
+- extendedWaitUntil:
+    visible: "Your plan"
+    timeout: 30000
+# The tab's whole accessibility text (Maestro matches the full text; iOS adds the tab role).
+- tapOn: "☰ More, tab, 4 of 4"
+# Centred first: scrolled only until visible, the button sits on the tab bar and the tap lands on a tab.
+- scrollUntilVisible:
+    element: "Start a new event ›"
+    direction: DOWN
+    centerElement: true
+- tapOn: "Start a new event ›"
+# Each offer card is one radio, so iOS reads it as one text: its name, what it holds, then the store price.
+- extendedWaitUntil:
+    visible: ".*Full plan for a new event, One new event, paid once\\., \\$14\\.99"
+    timeout: 90000
+- takeScreenshot: iap-c-top
+- scrollUntilVisible:
+    element: "Start my new event ›"
+    direction: DOWN
+    centerElement: true
+- takeScreenshot: iap-c-offers
