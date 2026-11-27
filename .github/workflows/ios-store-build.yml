@@ -64,6 +64,10 @@ jobs:
           path: apps/mobile/app.tar.gz
           retention-days: 3
           if-no-files-found: error
+      # eas submit refuses an App Store Connect key from environment variables when non-interactive
+      # ("App Store Connect API Keys cannot be set up in --non-interactive mode", run 46064415198), so the
+      # key goes into eas.json's submit profile for this run only, as KeepMyProof's workflow does. The
+      # vault holds the .p8 either as PEM text or base64; both are written as PEM.
       - name: Write App Store Connect key
         if: ${{ !inputs.simulator }}
         env:
@@ -72,15 +76,18 @@ jobs:
           ISSUER: ${{ secrets.ASC_API_ISSUER_ID }}
         run: |
           [ -n "$P8" ] && [ -n "$KEY_ID" ] && [ -n "$ISSUER" ] || { echo "NAMED STOP [ASC_KEY_MISSING] ASC_API_KEY_P8 / ASC_API_KEY_ID / ASC_API_ISSUER_ID"; exit 1; }
-          umask 077; printf '%s\n' "$P8" > asc-key.p8
+          umask 077
+          case "$P8" in *BEGIN*) printf '%s\n' "$P8" > asc-key.p8 ;; *) printf '%s' "$P8" | base64 --decode > asc-key.p8 ;; esac
+          grep -q 'BEGIN PRIVATE KEY' asc-key.p8 || { echo "NAMED STOP [ASC_KEY_UNREADABLE] ASC_API_KEY_P8 is neither PEM nor base64 PEM"; exit 1; }
+          node -e '
+            const fs = require("fs"); const j = JSON.parse(fs.readFileSync("eas.json", "utf8"));
+            Object.assign(j.submit.production.ios, { ascApiKeyPath: "./asc-key.p8", ascApiKeyId: process.env.KEY_ID, ascApiKeyIssuerId: process.env.ISSUER });
+            fs.writeFileSync("eas.json", JSON.stringify(j, null, 2));'
       - name: Submit to App Store Connect (TestFlight)
         if: ${{ !inputs.simulator }}
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          EXPO_ASC_API_KEY_PATH: ./asc-key.p8
-          EXPO_ASC_KEY_ID: ${{ secrets.ASC_API_KEY_ID }}
-          EXPO_ASC_ISSUER_ID: ${{ secrets.ASC_API_ISSUER_ID }}
         run: $EAS submit --platform ios --profile production --path app.ipa --non-interactive --wait
       - name: Remove credentials and the build
         if: always()
-        run: rm -f asc-key.p8 app.ipa
+        run: rm -f asc-key.p8 app.ipa && git checkout -- eas.json
