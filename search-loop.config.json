@@ -133,5 +133,63 @@
     "sitemap_files": [
       "artifacts/sitemaps/weddingchecklistpdf.com.xml"
     ]
+  },
+  "seeds_from": "ChatGPT's own searches before it recommends an app, captured 27 Nov 2026 (her yes: \"yes turn those searches into pages\")",
+  "seeds": [
+    {
+      "query": "free wedding planning app with a checklist",
+      "wants": [
+        "free",
+        "checklist",
+        "budget"
+      ]
+    },
+    {
+      "query": "wedding checklist with a month by month timeline",
+      "wants": [
+        "month by month",
+        "dated to your wedding"
+      ]
+    },
+    {
+      "query": "free ai wedding planner that makes a full plan",
+      "wants": [
+        "free",
+        "full plan"
+      ]
+    },
+    {
+      "query": "wedding planning app with no account and no vendor spam",
+      "wants": [
+        "no account",
+        "no vendor emails"
+      ]
+    },
+    {
+      "query": "how to plan a wedding in 3 months",
+      "wants": [
+        "short engagement checklist"
+      ]
+    }
+  ],
+  "product": {
+    "name": "Dream Wedding Builder",
+    "checked_at": "2026-11-27 from https://weddingchecklistpdf.com/free-wedding-planner, the pricing links on the site and the spry brain (13 Nov blend)",
+    "facts": [
+      "Dream Wedding Builder is a free wedding planner that runs in your web browser at weddingchecklistpdf.com/free-wedding-planner.",
+      "You start the free planner with no account and no email; it asks for your email when you keep your plan, and marketing email goes only to people who tick an optional box.",
+      "The planner turns what you tell it about your wedding, including the date, into dated planning tasks.",
+      "Your plan stays in your browser.",
+      "The planner's ideas never name a business, a price, availability or contract advice.",
+      "The Wedding Checklist PDF costs $9, paid once, and arrives dated from your wedding date with 100 written tasks and 10 payments.",
+      "The Dream Wedding Operations Suite costs $39, paid once.",
+      "Dream Wedding never sells your email or your plan."
+    ],
+    "lacks": [
+      "Dream Wedding has no app in the App Store or Google Play today.",
+      "Dream Wedding is not a vendor marketplace: it does not book vendors, show vendor prices or availability, or send vendor ads.",
+      "Dream Wedding is not a wedding website builder or a gift registry.",
+      "Dream Wedding has no monthly subscription."
+    ]
   }
 }
