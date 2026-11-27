@@ -2,9 +2,11 @@ name: Email health (marketing email really sends)
 
 # Rule 0 (7 Nov 2026): every marketing email could be refused by Resend while the hourly
 # Worker run looked fine and the sample form said "sent". The Worker records each nurture
-# run (lib/nurture.ts nurture_runs); /api/health/email answers 503 on a named stop or when no
-# run is recorded in 3 hours. This job goes red on that, so the failure is seen.
-# Read-only and credential-free: one unauthenticated GET.
+# run (lib/nurture.ts nurture_runs); /api/health/email answers 503 on a named stop, when no
+# run is recorded in 3 hours, or when the record cannot be read. This job goes red on that, so
+# the failure is seen. Read-only and credential-free: one unauthenticated GET, which is told
+# OK or FAIL and nothing else (security audit 23 Nov 2026). The stop line itself is in the
+# Worker's logs (event NURTURE_STOPPED) and on the same URL for the signed-in /admin owner.
 on:
   schedule:
     - cron: '35 8 * * *'  # America/Chicago, all year
@@ -20,5 +22,5 @@ jobs:
         run: |
           code=$(curl -sS -o body.json -w '%{http_code}' https://weddingchecklistpdf.com/api/health/email)
           cat body.json; echo
-          if [ "$code" != "200" ]; then echo "NAMED STOP [EMAIL_HEALTH_RED] /api/health/email answered $code"; exit 1; fi
+          if [ "$code" != "200" ]; then echo "NAMED STOP [EMAIL_HEALTH_RED] /api/health/email answered $code. The reason: sign in at https://weddingchecklistpdf.com/admin and open this URL, or read the Worker's NURTURE_STOPPED log line"; exit 1; fi
           echo "OUTPUT 1 email health check passed"

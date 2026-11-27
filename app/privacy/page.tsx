@@ -163,7 +163,8 @@ export default function Privacy() {
       <p className="mt-4 leading-7 text-charcoal/70">
         The trend submission form is optional. When a review endpoint is configured, what you type — the idea name,
         description, category, any source link, and the notes fields — is forwarded to that endpoint for review. Do not put
-        anything in it you would not want read by a person.
+        anything in it you would not want read by a person. To keep the form from being flooded, ideas are counted per
+        connection against a one-way hash of your connection&rsquo;s address; the address itself is not stored.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Hosting, sale of data and age</h2>

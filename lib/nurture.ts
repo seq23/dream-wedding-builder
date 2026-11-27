@@ -405,7 +405,7 @@ export async function optOut(db: NurtureDB, hash: string) {
 }
 
 /**
- * Sign-ups for the Boss OS scorecard, read by /api/health/email: every address that asked for the
+ * Sign-up counts, shown by /api/health/email to the signed-in owner only: every address that asked for the
  * sample or opened the planner with an email, the ones who ticked marketing, and the ones who
  * also confirmed (the only addresses the series may reach). Unsubscribed addresses are not counted.
  */

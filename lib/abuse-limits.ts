@@ -10,6 +10,8 @@ export const LIMITS = {
   sample: { max: 3, windowS: 3600 },
   // The builder email gate only stores the address (nothing is sent): 10 an hour from one IP.
   builderSignup: { max: 10, windowS: 3600 },
+  // The standout-idea form forwards what was typed to the review sheet: 5 ideas an hour from one IP.
+  trendSubmit: { max: 5, windowS: 3600 },
   // Admin login: 10 wrong passwords in 15 minutes locks that IP out for the rest of the window.
   adminLoginFail: { max: 10, windowS: 900 },
   // "Email me a fresh link" (lib/fresh-link.ts): 5 asks an hour from one IP, and one

@@ -130,7 +130,9 @@ account behind `RESEND_API_KEY`. The error sat in `delivery_attempts` for three 
 - `lib/delivery-email.ts` is the only code path that emails a buyer; the webhook imports it.
 - Every non-SENT outcome writes a `DELIVERY_EMAIL_FAILED` JSON line to Workers Logs (`observability`
   is on in `wrangler.jsonc`), with order id and email domain only.
-- `/api/health/delivery` returns 503 with `undelivered_count` while any paid order has no SENT email.
+- `/api/health/delivery` returns 503 `{"status":"FAIL"}` while any paid order has no SENT email (200
+  `{"status":"OK"}` otherwise). The public answer is OK or FAIL only; `undelivered_count` and `oldest`
+  are added for the signed-in `/admin` owner (security audit, 23 Nov 2026).
 - `/admin` shows a red panel listing undelivered paid orders (id, email domain, last error).
 - `tests/unit/delivery-email.test.ts` pins all of the above.
 
