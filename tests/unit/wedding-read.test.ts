@@ -441,6 +441,10 @@ describe('the answer cache is deleted after 7 days', () => {
     await purgeExpiredReadCache(db as never);
     expect(sqlite.prepare('SELECT cache_key FROM wedding_read_cache ORDER BY cache_key').all().map((r) => (r as { cache_key: string }).cache_key)).toEqual(['edge', 'new']);
   });
+  it('a database that fails ends the purge as a failure, never as "0 deleted"', async () => {
+    const down = { prepare: () => ({ bind: () => ({ run: async () => { throw new Error('D1 down'); } }), run: async () => { throw new Error('D1 down'); } }) };
+    await expect(purgeExpiredReadCache(down as never)).rejects.toThrow('D1 down');
+  });
   it('the hourly worker runs the purge', () => {
     expect(readFileSync('worker.ts', 'utf8')).toMatch(/ctx\.waitUntil\(purgeExpiredReadCache\(env\.DB/);
   });
