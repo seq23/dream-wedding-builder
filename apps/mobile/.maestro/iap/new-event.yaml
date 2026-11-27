@@ -6,10 +6,12 @@ appId: com.weddingchecklistpdf.dreamwedding
 - tapOn:
     text: "Don’t Allow"
     optional: true
-# The "☰ More" tab, by its place in the tab bar on the 6.9-inch iPhone the job boots (its accessibility
-# text carries the tab role, so a text match is not exact); the next step proves the More screen opened.
-- tapOn:
-    point: "86%,94%"
+# The plan has finished loading before the tab is tapped (a tap while it renders is lost).
+- extendedWaitUntil:
+    visible: "Your plan"
+    timeout: 30000
+# The tab's whole accessibility text (Maestro matches the full text; iOS adds the tab role).
+- tapOn: "☰ More, tab, 4 of 4"
 - scrollUntilVisible:
     element: "Start a new event ›"
     direction: DOWN
