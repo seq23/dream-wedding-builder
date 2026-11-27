@@ -20,7 +20,9 @@ import { supportEmail } from '@/lib/products';
 //   payment                  app/api/checkout/route.ts, lib/checkout-contract.ts
 //   stored order data        migrations/0001_fulfillment.sql
 //   delivery email           app/api/stripe-webhook/route.ts
-//   trend submissions        app/api/submit-trend/route.ts
+//   trend submissions        app/api/submit-trend/route.ts, lib/trend-ideas.ts
+//                            (trend_ideas, migrations/0016_trend_ideas.sql),
+//                            components/AdminIdeas.tsx
 //   AI read, caps, cache     lib/wedding-read.ts (wedding_reads, wedding_read_cache,
 //                            DW_TESTER_IP_HASHES), lib/journey-reach.ts
 //   AI draft                 lib/ai-draft.ts (ai_drafts: email and IP hashes only)
@@ -161,10 +163,12 @@ export default function Privacy() {
 
       <h2 className="mt-12 font-serif text-4xl">Submitting a trend idea</h2>
       <p className="mt-4 leading-7 text-charcoal/70">
-        The trend submission form is optional. When a review endpoint is configured, what you type — the idea name,
-        description, category, any source link, and the notes fields — is forwarded to that endpoint for review. Do not put
+        The trend submission form is optional. What you type — the idea name, description, category, any source link, and
+        the notes fields — is saved in this site&rsquo;s own database with the time you sent it, and only the site owner,
+        signed in, can read it. It is not published unless an idea is later written into the standout ideas. Do not put
         anything in it you would not want read by a person. To keep the form from being flooded, ideas are counted per
-        connection against a one-way hash of your connection&rsquo;s address; the address itself is not stored.
+        connection against a one-way hash of your connection&rsquo;s address, and a one-way hash is saved with each idea;
+        the address itself is not stored.
       </p>
 
       <h2 className="mt-12 font-serif text-4xl">Hosting, sale of data and age</h2>
