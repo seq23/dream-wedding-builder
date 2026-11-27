@@ -119,6 +119,7 @@
     "load:app-day": "node scripts/load/app-day.mjs"
   },
   "dependencies": {
+    "file-type": "22.3.0",
     "next": "15.5.29",
     "react": "^19.2.1",
     "react-dom": "^19.2.1"
