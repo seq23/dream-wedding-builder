@@ -1,0 +1,25 @@
+# IAP review shot (a): More > "See the full plan ›" before any purchase, with the App Store's own prices.
+# Shows dw_full_plan and dw_planner_printables. Run by .github/workflows/ios-iap-shots.yml (storage seeded there:
+# a wedding date only, so the app opens on the plan as it does after the free journey).
+appId: com.weddingchecklistpdf.dreamwedding
+---
+- launchApp
+- tapOn:
+    text: "Don’t Allow"
+    optional: true
+- tapOn: "☰ More"
+- tapOn: "See the full plan ›"
+- extendedWaitUntil:
+    visible: "Full plan"
+    timeout: 30000
+# The price comes from StoreKit through RevenueCat: no price, no shot (the job stops IAP_PRICES_NOT_LOADED).
+- extendedWaitUntil:
+    visible: "\\$14\\.99"
+    timeout: 90000
+- assertVisible: "\\$34\\.99"
+- takeScreenshot: iap-a-top
+- scrollUntilVisible:
+    element: "Choose one above"
+    direction: DOWN
+    centerElement: true
+- takeScreenshot: iap-a-offers

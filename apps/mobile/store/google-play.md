@@ -31,18 +31,33 @@ A wedding checklist dated to your day. Free, no account, never a subscription.
 
 The 5 one-time products are created on Play from the app's own code: ids from the RevenueCat catalog
 (`scripts/revenuecat/setup.ts`), USD prices from `PRODUCTS` in `src/billing/offers.ts`, every other region from
-Google's own price conversion, titles from `OFFER_NAME`, descriptions from the App Store texts in
-`store/paid-files.json` (or `OFFER_DETAIL`). The tool lives in seq-bin (`~/bin/play-products`, one copy for every
+Google's own price conversion, titles from `OFFER_NAME`, descriptions from the `play` lines in
+`store/in-app-products.json`. The tool lives in seq-bin (`~/bin/play-products`, one copy for every
 app); this repo keeps only the catalog. Re-run it after any product change: it creates what is missing (each
 product read again just before it is written), activates only drafts, and never deletes, deactivates or
 reprices. A different US price on Play prints `MISMATCH`; a product switched off on Play prints `SWITCHED OFF`;
 both are left as they are.
 
+**Names and descriptions on Play today (read 27 Nov 2026) differ from the app.** The products were made
+before the titles came from the code, and the tool never rewrites a product that exists. Play shows "Full
+Plan", "Planner + Printables", "Printables Add-on", "Day-of Kit" and "New Event"; the buy screen says "Full
+plan", "Planner + printables", "Printables", "Day-of kit" and "Full plan for a new event". Two descriptions
+also promise more than the product holds ("every checklist, budget line and timeline step"; "with its own
+checklist, budget and timeline"). The owner or coordinator copies each product's `name` and `play` line from
+`store/in-app-products.json` into Play Console (Monetize › One-time products › the product › Listing).
+
 **Consumable or not.** A Play one-time product has no consumable flag of its own: RevenueCat decides, from the
-product type it holds. `dw_new_event` is `consumable` there on every store (a new event is bought once per
-event); the other four are `non_consumable` (owned for good, restored on a new phone). Never `one_time`: on Play
-RevenueCat consumes such a purchase, so restore would give nothing back. `~/bin/revenuecat-setup` sets and
-checks the types from `setup.ts`.
+flag it holds. RevenueCat's v2 API keeps every Play one-time product as `type: one_time` and the kind in
+`one_time.is_consumable` (the type cannot be written there); what matters is that flag. `dw_new_event` is
+consumable (a new event is bought once per event); the other four must be `is_consumable: false` (owned for
+good, so restore on a new phone gives them back; a consumed purchase would give nothing back).
+`~/bin/revenuecat-setup` checks the flag against `setup.ts` and `--apply` of `~/bin/play-products` refuses to
+run while any flag differs.
+
+Read back 27 Nov 2026 (RevenueCat v2, read-only): play_store `dw_full_plan`, `dw_planner_printables`,
+`dw_printables_topup`, `dw_day_of_kit` are `one_time`, `is_consumable: false`; `dw_new_event` is `one_time`,
+`is_consumable: true`; app_store and test_store hold the four as `non_consumable` and `dw_new_event` as
+`consumable`. `revenuecat-setup --dry-run` → "RevenueCat matches the code; nothing changed". They match.
 
 **Launch price.** `dw_full_plan` is $14.99; its $9.99 launch price for the first 30 days is a Play discount
 offer (`launch`) on the product, made by the same tool from `LAUNCH_OFFER` in `src/billing/offers.ts`. Until

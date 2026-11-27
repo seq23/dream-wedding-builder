@@ -12,6 +12,19 @@ Before pasting (App Store Connect, done by the owner or coordinator, never an ag
   five are `READY_TO_SUBMIT`, so they are not in the current 1.0 submission, and a reviewer could not buy
   what the notes describe. US prices read the same day: $14.99, $34.99, $19.99, $9.99, $14.99, the same
   as `src/billing/offers.ts`.
+- **IAP review screenshots:** replace the review screenshot on all five IAPs with
+  `store/app-store/iap-review/` (the ones in App Store Connect on 27 Nov show 'A second phone for your
+  partner', which this build does not have). Which file goes on which product is `reviewShot` in
+  `store/in-app-products.json`: `iap-a-first-purchase.png` on `dw_full_plan` and `dw_planner_printables`,
+  `iap-b-owner-extras.png` on `dw_printables_topup` and `dw_day_of_kit`, `iap-c-new-event.png` on
+  `dw_new_event`. All three are 1320 × 2868, from the store build on the iOS simulator with App Store prices.
+- **IAP names:** set each IAP's en-US display name to `name` in `store/in-app-products.json`, the buy
+  screen's own words (App Store Connect says "Printables Add-on", "Day-of Kit", "New Event", "Full Plan",
+  "Planner + Printables" today, and Apple's purchase sheet shows those). The descriptions already match.
+- **App Privacy:** add **Sensitive Info** to the label: not linked to you, not used for tracking, purposes
+  App Functionality and Other Purposes (the tradition pick sent to the free AI model; the row is in
+  `docs/app-privacy.md`, the same choice Play declares as Religious beliefs and Race and ethnicity).
+- **Keywords:** replace them with the line under "Keywords" in `store/app-store-next-version.md`.
 - **Build:** select the new build uploaded from main (its number is on line 1 of the task sheet), not build 12.
 - **Screen recording:** the one attached shows builds 8 to 11. The flows it shows (free description and
   plan, printing, Payments, the Full plan screen and Apple's purchase sheet) have the same names in the new

@@ -1,0 +1,35 @@
+{
+  "about": "What each in-app purchase is called and says in App Store Connect and Google Play, and its App Review screenshot. The name is the buy screen's own (OFFER_NAME in src/billing/offers.ts); the App Store description is the text entered in App Store Connect (store/paid-files.json storeText where it exists); the Play description is what ~/bin/play-products writes (scripts/store/play-products.mjs reads it from here). The owner or coordinator enters names, descriptions and screenshots in the consoles; no agent does. test/storeFiles.unit.ts holds every line here to the app, the store limits and the screenshot files.",
+  "products": {
+    "dw_full_plan": {
+      "name": "Full plan",
+      "appStore": "Unlock the full wedding plan for one event",
+      "play": "Payments, your wedding week, the hand-over packet, every tradition pack and reminders, for one wedding.",
+      "reviewShot": "app-store/iap-review/iap-a-first-purchase.png"
+    },
+    "dw_planner_printables": {
+      "name": "Planner + printables",
+      "appStore": "Full plan, every printable and the day-of kit",
+      "play": "Full wedding plan, every printable and the day-of kit together in one purchase.",
+      "reviewShot": "app-store/iap-review/iap-a-first-purchase.png"
+    },
+    "dw_printables_topup": {
+      "name": "Printables",
+      "appStore": "Every printable, for Full Plan owners",
+      "play": "Every printable in the collection, for anyone who already owns the Full plan.",
+      "reviewShot": "app-store/iap-review/iap-b-owner-extras.png"
+    },
+    "dw_day_of_kit": {
+      "name": "Day-of kit",
+      "appStore": "Run sheet, contact list and day-of checklists",
+      "play": "Run sheet, vendor contact list and day-of checklists to keep your wedding day on track.",
+      "reviewShot": "app-store/iap-review/iap-b-owner-extras.png"
+    },
+    "dw_new_event": {
+      "name": "Full plan for a new event",
+      "appStore": "Unlock the full plan for one more event",
+      "play": "The full plan for one more wedding or event.",
+      "reviewShot": "app-store/iap-review/iap-c-new-event.png"
+    }
+  }
+}

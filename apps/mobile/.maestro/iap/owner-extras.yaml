@@ -1,0 +1,24 @@
+# IAP review shot (b): the same screen for a Full plan owner (More > "Add printables to my plan ›"), showing
+# dw_printables_topup and dw_day_of_kit with the App Store's prices. Storage seeded by the workflow: one paid
+# event, as the purchase door leaves it after a verified Full plan purchase.
+appId: com.weddingchecklistpdf.dreamwedding
+---
+- launchApp
+- tapOn:
+    text: "Don’t Allow"
+    optional: true
+- tapOn: "☰ More"
+- tapOn: "Add printables to my plan ›"
+- extendedWaitUntil:
+    visible: "Day-of kit"
+    timeout: 30000
+- extendedWaitUntil:
+    visible: "\\$19\\.99"
+    timeout: 90000
+- assertVisible: "\\$9\\.99"
+- takeScreenshot: iap-b-top
+- scrollUntilVisible:
+    element: "Choose one above"
+    direction: DOWN
+    centerElement: true
+- takeScreenshot: iap-b-offers

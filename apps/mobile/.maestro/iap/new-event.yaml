@@ -1,0 +1,25 @@
+# IAP review shot (c): More > "Start a new event ›" for a Full plan owner, selling dw_new_event
+# ("Full plan for a new event") at the App Store's price. Same seeded owner as owner-extras.yaml.
+appId: com.weddingchecklistpdf.dreamwedding
+---
+- launchApp
+- tapOn:
+    text: "Don’t Allow"
+    optional: true
+- tapOn: "☰ More"
+- scrollUntilVisible:
+    element: "Start a new event ›"
+    direction: DOWN
+- tapOn: "Start a new event ›"
+- extendedWaitUntil:
+    visible: "Full plan for a new event"
+    timeout: 30000
+- extendedWaitUntil:
+    visible: "\\$14\\.99"
+    timeout: 90000
+- takeScreenshot: iap-c-top
+- scrollUntilVisible:
+    element: "Start my new event ›"
+    direction: DOWN
+    centerElement: true
+- takeScreenshot: iap-c-offers

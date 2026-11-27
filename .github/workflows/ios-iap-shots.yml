@@ -1,0 +1,123 @@
+# THE IAP REVIEW SCREENSHOTS: each in-app purchase in App Store Connect carries a review screenshot of the
+# screen that sells it. This job takes them from the store build itself, on the iOS simulator, with the
+# App Store's own prices (StoreKit sandbox through RevenueCat), never from the web preview (it says
+# "This is a preview of the app, so buying is switched off").
+#   (a) More > "See the full plan ›"            -> dw_full_plan, dw_planner_printables
+#   (b) the same screen for a Full plan owner    -> dw_printables_topup, dw_day_of_kit
+#   (c) More > "Start a new event ›"             -> dw_new_event
+# The app is the `simulator` EAS profile (eas.json: extends production, so the same environment and keys
+# as the store build) made by "iOS store build" with simulator ticked; this job downloads that artifact,
+# so it needs no secret. The owner state for (b) and (c) is seeded into the app's storage exactly as the
+# purchase door leaves it (one paid event, src/billing/eventStore.ts); nothing is bought.
+# Free: GitHub-hosted macOS runner, public repo. The PNGs come back as an artifact; a person looks at
+# them and commits the chosen ones to apps/mobile/store/app-store/iap-review/.
+name: iOS IAP review shots
+on:
+  workflow_dispatch:
+    inputs:
+      build_run:
+        description: Run id of an "iOS store build" simulator run (empty = the newest one with the artifact)
+        type: string
+        default: ''
+  pull_request:
+    paths: ['apps/mobile/.maestro/iap/**', '.github/workflows/ios-iap-shots.yml']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: ios-iap-shots-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  shots:
+    runs-on: macos-26
+    timeout-minutes: 45
+    env:
+      BUNDLE: com.weddingchecklistpdf.dreamwedding
+      GH_TOKEN: ${{ github.token }}
+      MAESTRO_DRIVER_STARTUP_TIMEOUT: '240000'
+      MAESTRO_CLI_NO_ANALYTICS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download the store-profile simulator build
+        env:
+          RUN: ${{ inputs.build_run }}
+        run: |
+          if [ -z "$RUN" ]; then
+            for id in $(gh run list -R "$GITHUB_REPOSITORY" -w ios-store-build.yml -s success -L 20 --json databaseId -q '.[].databaseId'); do
+              if gh api "repos/$GITHUB_REPOSITORY/actions/runs/$id/artifacts" -q '.artifacts[] | select(.name=="app-simulator" and (.expired|not)) | .id' | grep -q .; then RUN=$id; break; fi
+            done
+          fi
+          [ -n "$RUN" ] || { echo "NAMED STOP [IAP_NO_SIMULATOR_BUILD] no iOS store build run with an unexpired app-simulator artifact: run 'iOS store build' on main with simulator ticked"; exit 1; }
+          gh run download "$RUN" -R "$GITHUB_REPOSITORY" -n app-simulator -D sim
+          sha=$(gh run view "$RUN" -R "$GITHUB_REPOSITORY" --json headSha -q .headSha)
+          mkdir -p sim/app && tar -xzf sim/app.tar.gz -C sim/app
+          app=$(find sim/app -maxdepth 3 -name '*.app' -type d | head -1)
+          [ -d "$app" ] || { echo "NAMED STOP [IAP_NO_APP] no .app in the artifact of run $RUN"; exit 1; }
+          echo "APP=$app" >> "$GITHUB_ENV"
+          echo "Build: run $RUN, commit $sha" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Maestro
+        run: |
+          curl -fsSL https://get.maestro.mobile.dev | bash > maestro-install.log 2>&1 || { tail -20 maestro-install.log; exit 1; }
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+      - name: Boot a 6.9-inch iPhone and install the build
+        run: |
+          udid=$(xcrun simctl list devices available -j | jq -r '[.devices | to_entries | sort_by(.key)[] | select(.key | test("iOS")) | .value[]
+            | select(.name | test("^iPhone [0-9]+ Pro Max$"))] | last | .udid // empty')
+          [ -n "$udid" ] || { echo "NAMED STOP [IAP_NO_SIMULATOR] no iPhone Pro Max simulator on this runner"; xcrun simctl list devices available | head -60; exit 1; }
+          xcrun simctl list devices available | grep "$udid"
+          xcrun simctl boot "$udid"; xcrun simctl bootstatus "$udid" -b > /dev/null
+          xcrun simctl ui "$udid" appearance light
+          xcrun simctl status_bar "$udid" override --time 9:41 --batteryState charged --batteryLevel 100 --cellularBars 4 --wifiBars 3
+          xcrun simctl install "$udid" "$APP"
+          # One launch makes the app's data folder; then it is closed before storage is written.
+          xcrun simctl launch "$udid" "$BUNDLE"; sleep 15; xcrun simctl terminate "$udid" "$BUNDLE" || true
+          echo "UDID=$udid" >> "$GITHUB_ENV"
+      - name: Take the three screens
+        run: |
+          mkdir -p shots run && touch run/.start
+          # The app's storage (@react-native-async-storage legacy store: one manifest of key -> value).
+          seed() {
+            xcrun simctl terminate "$UDID" "$BUNDLE" 2>/dev/null || true
+            data=$(xcrun simctl get_app_container "$UDID" "$BUNDLE" data)
+            dir="$data/Library/Application Support/$BUNDLE/RCTAsyncLocalStorage_V1"
+            mkdir -p "$dir" && rm -f "$dir"/*
+            printf '%s' "$1" > "$dir/manifest.json"
+          }
+          walk() { ( cd run && maestro --device "$UDID" test "../apps/mobile/.maestro/iap/$1.yaml" ) > "maestro-$1.log" 2>&1 || {
+            tail -30 "maestro-$1.log"; xcrun simctl io "$UDID" screenshot "shots/FAILED-$1.png"
+            echo "NAMED STOP [IAP_PRICES_NOT_LOADED] $1: the screen or its App Store price did not appear (shots/FAILED-$1.png)"; return 1; }; }
+          date='2027-09-18'
+          event='0123456789abcdef0123456789abcdef'
+          # (a) before any purchase: a wedding date only, as after the free journey.
+          seed "$(jq -cn --arg d "$date" '{"dw.wedding-date.v1": $d}')"
+          walk first-purchase
+          # (b), (c) a Full plan owner: one paid event, named with the app's own default name.
+          ledger=$(jq -cn --arg id "$event" --arg d "$date" '{firstEventId: $id, events: [{id: $id, name: "Our wedding – Sep 18, 2027", date: $d, dateChanges: 0, fullPlan: true}], extras: []}')
+          seed "$(jq -cn --arg l "$ledger" --arg id "$event" --arg d "$date" '{"dw.billing.events.v1": $l, "dw.billing.active-event.v1": $id, "dw.wedding-date.v1": $d}')"
+          walk owner-extras
+          walk new-event
+          find run "$HOME/.maestro" -name 'iap-*.png' -newer run/.start -exec cp {} shots/ \; 2>/dev/null || true
+          ls -l shots
+      - name: Check the shots (six, full 6.9-inch size)
+        run: |
+          n=0
+          for f in shots/iap-*.png; do
+            [ -f "$f" ] || continue
+            w=$(sips -g pixelWidth "$f" | awk '/pixelWidth/{print $2}'); h=$(sips -g pixelHeight "$f" | awk '/pixelHeight/{print $2}')
+            echo "$f $w x $h"
+            [ "$w" = 1320 ] && [ "$h" = 2868 ] || { echo "NAMED STOP [IAP_SHOT_SIZE] $f is $w x $h, App Store wants 1320 x 2868"; exit 1; }
+            n=$((n+1))
+          done
+          [ "$n" -eq 6 ] || { echo "NAMED STOP [IAP_SHOTS_MISSING] $n of 6 shots"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iap-review-shots
+          path: |
+            shots/*.png
+            maestro-*.log
+          retention-days: 14

@@ -35,6 +35,13 @@ The partner-on-a-second-phone line stays out: store builds have sharing switched
 (`src/sharingSwitch.ts`). Bring it back only in the version whose store build sets
 `EXPO_PUBLIC_DW_SHARING=1` (its deadline is in the spry brain, 28 Feb 2027).
 
+## Keywords (≤ 100)
+
+Replaces the keywords in App Store Connect (read 27 Nov 2026), which include "day of coordinator": that
+reads as a person hired for the day, and the app is software, never a human planner or coordinator.
+
+ideas,inspiration,theme,colors,dated,timeline,to do,diy,day of,run sheet,budget,bride,traditions
+
 ## Promotional text (≤ 170)
 
 Engaged? Get a wedding checklist dated to your day in a minute. Free, with no account. The full plan is one payment, never a subscription.

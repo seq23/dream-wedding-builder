@@ -24,8 +24,8 @@ on our server, `/app/privacy/page.tsx:153-155`) and the content rating question 
 | Device or other IDs (a random installation number for that signal; RevenueCat's anonymous app user ID, sent as the bearer to fetch paid files, and on Android with the Play review code only when one is typed) | Yes | No | Required | Analytics (installation number); App functionality (RevenueCat ID) | `src/planReach.ts:29`, `src/billing/downloadStore.ts:122`, `src/billing/review.ts`, `src/billing/revenuecat.ts:18` |
 | Financial info → Purchase history | Yes, through Google Play Billing and RevenueCat (service provider) | No | Required to buy or restore | App functionality, Analytics | `src/billing/revenuecat.ts:18`; policy `/app/privacy/page.tsx:152-153` |
 
-Declaring tradition as religious beliefs and ethnicity is the cautious reading: Apple has no such type, so
-the App Store label carries it under Other User Content; Play does have one, and the AI provider receives it.
+Declaring tradition as religious beliefs and ethnicity is the cautious reading, and the AI provider receives it.
+Apple's label carries the same choice under Sensitive Info (docs/app-privacy.md).
 The wedding town is the event's place, typed by her, not her device location, so it is user content, not
 Location. No location permission exists (`app.config.ts:18`).
 
