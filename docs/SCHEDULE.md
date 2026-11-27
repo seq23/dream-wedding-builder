@@ -27,6 +27,7 @@ schedule); see the notes below for what moved.
 - Pinterest drip (weekly refill + metrics): Monday → Saturday 06:40 CT (upkeep window); since 1 Nov 2026 it runs daily at 07:20 CT, after the search loop. Pins of a generation she has not approved wait in `queue.json` `pending`; after her yes one command releases them: `gh workflow run pinterest-drip.yml -R seq23/dream-wedding-builder -f approve=<generation>`.
 - Entity Backlink Watch: Monday → Thursday 07:40 CT (four backlink watches on Thursday, 20 minutes apart).
 - The Worker's hourly delivery retry (`wrangler.jsonc`, `0 * * * *` UTC) is unchanged.
+- The same hourly Worker cron (`worker.ts` `scheduled`) also purges expired partner shares, Play review-code rows and, since 27 Nov 2026, journey answer-cache rows older than 7 days (`purgeExpiredReadCache`, log event `READ_CACHE_PURGE` with `OUTPUT <n> answer-cache rows deleted`; floor 0, a failure logs `NAMED STOP [READ_CACHE_RETENTION_FAILED]`).
 - Bounded Self-Healing joins the Wednesday 10:00–10:30 CT self-healing sweep (p-n-p 10:00, Dream Wedding 10:10, backlink network 10:20, WPP 10:30).
 - Spry Labs weekly summary joined Wednesday 07:53 CT (after the other side businesses, 07:03–07:48): it hands
   Dream Wedding's week to the 08:15 "Spry Labs weekly" email from Boss OS. No email from this repo.

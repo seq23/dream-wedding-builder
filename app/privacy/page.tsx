@@ -94,8 +94,8 @@ export default function Privacy() {
         We do not store the words you wrote, and your photos never reach us. For each answer we keep a salted one-way hash of your
         connection&rsquo;s address (for an IPv6 address, of its first half, the /64 block a home or phone owns), the day, which model answered
         and whether the answer was one of our own tests, so we can count the three free answers
-        a day. When you only tapped choices, the answer is saved under those choices and your town and reused for 7 days,
-        so the next person who taps the same things gets it without a new AI call; it holds no words of yours and no photo. A short
+        a day. When you only tapped choices, the answer is kept for 7 days under those choices and your town, then deleted,
+        so the next person who taps the same things in that time gets it without a new AI call; it holds no words of yours and no photo. A short
         list of hashed addresses of our own testers, kept as a server secret, gets a larger daily allowance, and every
         answer it makes is marked as a test. When you then reach your dated plan we count it once a day for that hashed
         address, with no words, date or email.

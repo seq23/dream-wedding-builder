@@ -11,6 +11,7 @@ import { runNurture, type NurtureEnv } from './lib/nurture';
 import { purgeExpiredShares } from './lib/plan-share';
 import { serveWithEdgeCache } from './lib/edge-cache';
 import { purgeReviewRows } from './lib/review-unlock';
+import { purgeExpiredReadCache } from './lib/wedding-read';
 
 export default {
   // Pinterest-referred page views (utm_source=pinterest) are counted per pin variant
@@ -33,6 +34,11 @@ export default {
     // Play review code rows 7 days past expiry and old review try counters (lib/review-unlock.ts).
     ctx.waitUntil(purgeReviewRows(env.DB as never).catch(
       () => console.error(JSON.stringify({ event: 'REVIEW_PURGE_FAILED', stop: 'NAMED STOP [REVIEW_RETENTION_FAILED]' }))
+    ));
+    // Cached journey answers older than 7 days (the privacy page's promise; lib/wedding-read.ts).
+    ctx.waitUntil(purgeExpiredReadCache(env.DB as never).then(
+      run => console.log(JSON.stringify({ event: 'READ_CACHE_PURGE', ...run, census: `OUTPUT ${run.deleted} answer-cache rows deleted` })),
+      () => console.error(JSON.stringify({ event: 'READ_CACHE_PURGE_FAILED', stop: 'NAMED STOP [READ_CACHE_RETENTION_FAILED]' }))
     ));
     // Free-sample follow-ups, the one planner welcome and the one review ask (lib/nurture.ts); due emails only.
     ctx.waitUntil(runNurture(env as unknown as NurtureEnv).then(

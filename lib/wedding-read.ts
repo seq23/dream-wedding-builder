@@ -65,6 +65,15 @@ export const READ_CACHE_DDL = `CREATE TABLE IF NOT EXISTS wedding_read_cache (
 )`;
 export const READ_CACHE_DAYS = 7;
 
+/** The privacy page says a cached answer is kept for 7 days: delete every row past that (hourly, worker.ts).
+ * Only rows of this cache, and only by age; creates the table first so an empty database is not an error. */
+export async function purgeExpiredReadCache(db: { prepare(sql: string): { bind(...v: unknown[]): { run(): Promise<unknown> }; run(): Promise<unknown> } }): Promise<{ deleted: number }> {
+  await db.prepare(READ_CACHE_DDL).run();
+  const res = await db.prepare(`DELETE FROM wedding_read_cache WHERE created_at < datetime('now', ?)`).bind(`-${READ_CACHE_DAYS} days`).run() as { meta?: { changes?: number } } | null;
+  // Floor 0: an hour with nothing past 7 days deletes nothing, and that is correct.
+  return { deleted: Number(res?.meta?.changes ?? 0) };
+}
+
 /** The cache key for an answer made from taps (and her town), or null when her answer has her own words. */
 export function readCacheKey(a: Answers): string | null {
   if (a.path !== 'dk' || a.wish) return null;

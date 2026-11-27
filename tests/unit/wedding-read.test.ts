@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import llmConfig from '@/config/llm_routing.json';
-import { buildMessages, checkRead, cleanAnswers, fixedRead, readCacheKey, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
+import { buildMessages, checkRead, cleanAnswers, fixedRead, purgeExpiredReadCache, readCacheKey, tracedIdeas, weddingRead, ANSWERS_PER_VISITOR_PER_DAY, TESTER_ANSWERS_PER_DAY, type WeddingRead } from '@/lib/wedding-read';
 import { sha256, visitorIp } from '@/lib/ai-draft';
 import { colourView, herSwatches, toggleColour } from '@/lib/wedding-read-shared';
 import { keptColours, pickable, togglePick } from '@/lib/journey-picks';
@@ -429,5 +429,23 @@ describe('a guest count is never invented', () => {
     const res = await weddingRead(base({ db, body, fetchImpl: net.fetchImpl }));
     expect(res.body.reason).toBe('ai');
     expect(JSON.stringify(res.body.read)).not.toMatch(/\b120\b/);
+  });
+});
+
+// Promise audit, 27 Nov 2026: the privacy page says a cached answer is kept for 7 days, then deleted.
+describe('the answer cache is deleted after 7 days', () => {
+  it('deletes only rows older than 7 days, and runs on an empty database', async () => {
+    const { sqlite, db } = fakeD1();
+    await purgeExpiredReadCache(db as never);
+    sqlite.exec("INSERT INTO wedding_read_cache (cache_key, read, created_at) VALUES ('old', '{}', datetime('now', '-8 days')), ('edge', '{}', datetime('now', '-6 days', '-23 hours')), ('new', '{}', datetime('now'))");
+    await purgeExpiredReadCache(db as never);
+    expect(sqlite.prepare('SELECT cache_key FROM wedding_read_cache ORDER BY cache_key').all().map((r) => (r as { cache_key: string }).cache_key)).toEqual(['edge', 'new']);
+  });
+  it('a database that fails ends the purge as a failure, never as "0 deleted"', async () => {
+    const down = { prepare: () => ({ bind: () => ({ run: async () => { throw new Error('D1 down'); } }), run: async () => { throw new Error('D1 down'); } }) };
+    await expect(purgeExpiredReadCache(down as never)).rejects.toThrow('D1 down');
+  });
+  it('the hourly worker runs the purge', () => {
+    expect(readFileSync('worker.ts', 'utf8')).toMatch(/ctx\.waitUntil\(purgeExpiredReadCache\(env\.DB/);
   });
 });
