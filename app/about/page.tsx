@@ -45,7 +45,7 @@ export default function About() {
       <ul className="mt-5 grid gap-3">
         {CANONICAL_HOSTS.map((host) => {
           const product = productForHost(host);
-          return <li key={host} className="rounded-2xl bg-white p-4 leading-7">
+          return <li key={host} className="rounded-2xl bg-white p-4 leading-7 [overflow-wrap:anywhere]">
             {/* Each host's real homepage: `/` on three of the four is a 308 to the
                 hub, and the rendered-seo gate fails on a redirecting internal link. */}
             <a href={canonicalUrl(host, homePathFor(host))} className="font-bold underline decoration-charcoal/20 underline-offset-4">{host}</a>
