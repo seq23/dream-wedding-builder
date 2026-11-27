@@ -2,7 +2,7 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W48",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-27T18:09:11.619Z",
+  "generated_at": "2026-11-27T21:05:33.080Z",
   "state": "slow",
   "published": 2,
   "indexed": 2,
@@ -138,7 +138,8 @@
   },
   "notes": [
     "site config lowers the mode to slow",
-    "BUILD published 0 of quota 1: 4 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued"
+    "BUILD published 0 of quota 1: 4 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued",
+    "CHECK runs weekly in mode=slow; last ran 2026-11-27"
   ],
   "lanes": {
     "ratio": {
@@ -175,25 +176,53 @@
     "skipped": [
       {
         "id": "18eddbc3f1af2a9d6f67f32c852f8e71f1fca275",
-        "reason": "mode=slow does not strengthen pages"
+        "reason": "CHECK runs weekly in mode=slow and did not run today"
       },
       {
         "id": "5fd59b2decc4c915e44e9a5eb30c84f0d2b4e81a",
-        "reason": "mode=slow does not strengthen pages"
+        "reason": "CHECK runs weekly in mode=slow and did not run today"
       },
       {
         "id": "96a6c8f47e3b12de69547190376cd50ac7a24058",
-        "reason": "mode=slow does not strengthen pages"
+        "reason": "CHECK runs weekly in mode=slow and did not run today"
       },
       {
         "id": "db2425a94ee80d7c11338a9ec3bc0234ed923549",
-        "reason": "mode=slow does not strengthen pages"
+        "reason": "CHECK runs weekly in mode=slow and did not run today"
       }
     ],
     "rejected": [],
     "could_not_tell": 4
   },
   "comparison": "not read: FIND has not run since v1.16.0",
-  "seeds": "not read: this site has no seeds in its config",
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/46047154187"
+  "seeds": {
+    "configured": 5,
+    "built": [],
+    "strengthened": [],
+    "answered_by": [],
+    "refused": [],
+    "queued": [
+      {
+        "query": "free wedding planning app with a checklist",
+        "reason": "FIND has not read this seed yet"
+      },
+      {
+        "query": "wedding checklist with a month by month timeline",
+        "reason": "FIND has not read this seed yet"
+      },
+      {
+        "query": "free ai wedding planner that makes a full plan",
+        "reason": "FIND has not read this seed yet"
+      },
+      {
+        "query": "wedding planning app with no account and no vendor spam",
+        "reason": "FIND has not read this seed yet"
+      },
+      {
+        "query": "how to plan a wedding in 3 months",
+        "reason": "FIND has not read this seed yet"
+      }
+    ]
+  },
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/46067968516"
 }

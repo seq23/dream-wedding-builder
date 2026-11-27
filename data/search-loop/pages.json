@@ -2314,6 +2314,41 @@
       "reason": [
         "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.usa.gov/marriage-license (HTTP 404); https://travel.state.gov/content/travel/en/passports/how-apply/processing-times.html (HTTP 403: this site refuses automated checks, so cite a different publisher)"
       ]
+    },
+    {
+      "query": "what is the average wedding coordinator cost",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.marthastewart.com/average-wedding-planner-cost-8385172 (HTTP 402)",
+        "invented: unsourced price \"Industry data reports typical ranges from one thousand to three thousand dollars depending on your l\" (drop the amount, or move it into \"facts\" with a dated source that states it)"
+      ]
+    },
+    {
+      "query": "wedding checklist for bride",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "the answer was not the JSON object asked for, with every key filled"
+      ]
+    },
+    {
+      "query": "do i need a wedding planner for a small wedding",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.nps.gov/aboutus/foia/upload/Special-Park-Uses-Permits-Handbook.pdf (HTTP 404)",
+        "invented: unsourced price \"The Wedding Checklist PDF costs $5, paid once, and arrives dated from your wedding date with 100 wri\" (drop the amount, or move it into \"facts\" with a dated source that states it)"
+      ]
+    },
+    {
+      "query": "how much does full wedding planning cost",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.consumer.ftc.gov/articles/wedding-arrangements (HTTP 403: this site refuses automated checks, so cite a different publisher)",
+        "invented: unsourced price \"The Wedding Checklist PDF costs $9, paid once, and arrives dated from your wedding date with 100 wri\" (drop the amount, or move it into \"facts\" with a dated source that states it)"
+      ]
     }
   ],
   "redirected": [
