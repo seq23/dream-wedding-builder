@@ -7,9 +7,9 @@ import { NextRequest } from 'next/server';
 // Security audit 23 Nov 2026, the two open rows in this repo's code:
 //   - /api/health/email and /api/health/delivery handed any stranger the sign-up totals, the send
 //     counts and the number of undelivered paid orders, and the email one ran CREATE TABLE per GET;
-//   - /api/submit-trend had a honeypot and no limit, so a script could fill the review sheet.
+//   - /api/submit-trend had a honeypot and no limit, so a script could fill the idea store.
 // Every test calls the real route handler against an in-memory SQLite built from the real
-// migrations. Nothing leaves the process: any fetch but the fake review endpoint throws.
+// migrations. Nothing leaves the process: any fetch throws.
 
 type Fake = { raw: DatabaseSync; sql: string[]; broken: boolean; prepare(sql: string): any };
 function fakeD1(): Fake {
@@ -39,6 +39,7 @@ vi.mock('next/headers', () => ({ cookies: async () => ({ set(_n: string, v: stri
 import { GET as emailGET } from '@/app/api/health/email/route';
 import { GET as deliveryGET } from '@/app/api/health/delivery/route';
 import { POST as trendPOST } from '@/app/api/submit-trend/route';
+import { IDEA_NOT_SAVED as NOT_SAVED } from '@/lib/trend-ideas';
 import { createAdminSession } from '@/lib/admin-auth';
 import { LIMITS } from '@/lib/abuse-limits';
 import { recordRun, type NurtureDB } from '@/lib/nurture';
@@ -50,17 +51,11 @@ function sessionCookie(secret: string, role = 'owner', exp = Math.floor(Date.now
   return `${payload}.${crypto.createHmac('sha256', secret).update(payload).digest('base64url')}`;
 }
 const schema = (db: Fake) => JSON.stringify(db.raw.prepare('SELECT name, sql FROM sqlite_master ORDER BY name').all());
-const forwarded: Record<string, unknown>[] = [];
 
 beforeEach(() => {
-  state.db = fakeD1(); state.envThrows = false; state.cookie = undefined; forwarded.length = 0;
+  state.db = fakeD1(); state.envThrows = false; state.cookie = undefined;
   vi.stubEnv('ADMIN_SESSION_SECRET', SECRET);
-  vi.stubEnv('APPS_SCRIPT_TREND_ENDPOINT', 'https://review-sheet.invalid/exec');
-  vi.stubGlobal('fetch', async (url: string, init: { body: string }) => {
-    if (url !== 'https://review-sheet.invalid/exec') throw new Error(`no network in this test: ${url}`);
-    forwarded.push(JSON.parse(init.body));
-    return new Response('{}', { status: 200 });
-  });
+  vi.stubGlobal('fetch', async (url: string) => { throw new Error(`no network in this test: ${url}`); });
   vi.spyOn(console, 'error').mockImplementation(() => {});
 });
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); vi.unstubAllEnvs(); vi.restoreAllMocks(); });
@@ -215,42 +210,42 @@ describe('/api/submit-trend', () => {
   }));
   const from = (ip: string) => ({ 'cf-connecting-ip': ip });
   const MAX = LIMITS.trendSubmit.max;
+  /** Every idea the store kept (lib/trend-ideas.ts), oldest first; [] when the table was never made. */
+  const stored = () => {
+    const made = state.db!.raw.prepare(`SELECT COUNT(*) AS n FROM sqlite_master WHERE name = 'trend_ideas'`).get()!.n;
+    return made ? state.db!.raw.prepare('SELECT * FROM trend_ideas ORDER BY id').all() as Record<string, unknown>[] : [];
+  };
 
-  it('an idea under the limit reaches the review sheet as before', async () => {
+  it('an idea under the limit is kept in the store', async () => {
     const res = await post(idea(1, { why_cool: 'It sparkles', price_this_out: 'on' }), from('203.0.113.7'));
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ ok: true, status: 'received_for_review' });
-    expect(forwarded).toHaveLength(1);
-    expect(forwarded[0]).toMatchObject({ idea_name: 'Idea 1', description: 'A champagne tower', category: 'Reception', why_cool: 'It sparkles', price_this_out: true, status: 'new' });
+    expect(stored()).toHaveLength(1);
+    expect(stored()[0]).toMatchObject({ idea_name: 'Idea 1', description: 'A champagne tower', category: 'Reception', why_cool: 'It sparkles', price_this_out: 1, is_test: 0 });
   });
 
-  it('one connection gets the limit and no more; the next idea is refused and never forwarded', async () => {
+  it('one connection gets the limit and no more; the next idea is refused and never kept', async () => {
     for (let i = 0; i < MAX; i++) expect((await post(idea(i), from('203.0.113.7'))).status).toBe(200);
     const over = await post(idea('stuffed'), from('203.0.113.7'));
     expect(over.status).toBe(429);
     expect(over.headers.get('retry-after')).toBe(String(LIMITS.trendSubmit.windowS));
-    expect(forwarded).toHaveLength(MAX);
-    expect(JSON.stringify(forwarded)).not.toContain('stuffed');
-    // The address itself is never stored, only its hash.
+    expect(stored()).toHaveLength(MAX);
+    expect(JSON.stringify(stored())).not.toContain('stuffed');
+    // The address itself is never stored, only its hash, in the limiter and with the idea.
     expect(JSON.stringify(state.db!.raw.prepare('SELECT * FROM rate_events').all())).not.toContain('203.0.113.7');
+    expect(JSON.stringify(stored())).not.toContain('203.0.113.7');
   });
 
   it('a stranger who uses up their own tries locks out nobody else', async () => {
     for (let i = 0; i < MAX + 20; i++) await post(idea(i), from('203.0.113.7'));
     expect((await post(idea('real'), from('198.51.100.2'))).status).toBe(200);
-    expect(forwarded.at(-1)).toMatchObject({ idea_name: 'Idea real' });
+    expect(stored().at(-1)).toMatchObject({ idea_name: 'Idea real' });
   });
 
   it('a forged x-forwarded-for buys no extra tries: the count follows the address Cloudflare saw', async () => {
     for (let i = 0; i < MAX; i++) expect((await post(idea(i), { ...from('203.0.113.7'), 'x-forwarded-for': `10.0.0.${i}` })).status).toBe(200);
     expect((await post(idea('forged'), { ...from('203.0.113.7'), 'x-forwarded-for': '10.9.9.9' })).status).toBe(429);
-    expect(forwarded).toHaveLength(MAX);
-  });
-
-  it('the limit also holds when no review endpoint is configured', async () => {
-    vi.stubEnv('APPS_SCRIPT_TREND_ENDPOINT', '');
-    for (let i = 0; i < MAX; i++) expect((await post(idea(i), from('203.0.113.7'))).status).toBe(200);
-    expect((await post(idea('over'), from('203.0.113.7'))).status).toBe(429);
+    expect(stored()).toHaveLength(MAX);
   });
 
   it('the window rolls: refused one second before the hour is up, accepted on the hour', async () => {
@@ -264,25 +259,26 @@ describe('/api/submit-trend', () => {
     expect((await post(idea('on the hour'), from('203.0.113.7'))).status).toBe(200);
   });
 
-  it('a filled honeypot and an incomplete idea use no try and forward nothing', async () => {
+  it('a filled honeypot and an incomplete idea use no try and keep nothing', async () => {
     for (let i = 0; i < MAX + 3; i++) {
       expect((await post(idea(i, { company: 'Acme' }), from('203.0.113.7'))).status).toBe(200);
       expect((await post({ idea_name: 'No description', category: 'Reception' }, from('203.0.113.7'))).status).toBe(400);
+      expect((await post(idea(i, { description: '   ' }), from('203.0.113.7'))).status).toBe(400);
     }
-    expect(forwarded).toHaveLength(0);
+    expect(stored()).toHaveLength(0);
     expect(state.db!.raw.prepare(`SELECT COUNT(*) AS n FROM rate_events WHERE bucket = 'submit-trend'`).get()!.n).toBe(0);
     expect((await post(idea('real'), from('203.0.113.7'))).status).toBe(200);
   });
 
-  it('when the count cannot be kept the idea is refused plainly (503), never forwarded uncounted and never a 500', async () => {
+  it('when the count cannot be kept the idea is refused plainly (503), never kept uncounted and never a 500', async () => {
     const refused = async () => {
       const res = await post(idea('outage'), from('203.0.113.7'));
       expect(res.status).toBe(503);
-      expect(await res.json()).toEqual({ ok: false, error: 'Idea submissions are unavailable right now. Please try again shortly.' });
+      expect(await res.json()).toEqual({ ok: false, error: NOT_SAVED });
     };
     state.db!.broken = true; await refused();
+    state.db!.broken = false; expect(stored()).toHaveLength(0);
     state.db = undefined; await refused();
     state.envThrows = true; await refused();
-    expect(forwarded).toHaveLength(0);
   });
 });

@@ -1,11 +1,5 @@
 # Environment Variables
 
-## APPS_SCRIPT_TREND_ENDPOINT
-Optional Apps Script Web App URL for bride-submitted trend intake. If absent, `/api/submit-trend` returns a local contract success without forwarding. This is not a fake live integration claim; it is contract-ready behavior.
-
-## APPS_SCRIPT_TREND_SECRET
-Optional shared secret sent as `x-dwb-secret` to Apps Script.
-
 ## CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID (brand social metrics)
 GitHub Actions secrets, already used by the Pinterest drip and the weekly summary. `scripts/brand_social/collect_metrics.mjs` (workflow `brand-social-metrics.yml`) uses them read-only to list the account's Web Analytics sites (`/accounts/{id}/rum/site_info/list`) and query `rumPageloadEventsAdaptiveGroups` through the GraphQL API. The token needs Account Analytics read. Absent or refused: NAMED STOP, the run is red and the last good `data/brand-social/metrics.json` stays.
 

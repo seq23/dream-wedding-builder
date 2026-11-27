@@ -14,9 +14,7 @@ const required = [
   'STRIPE_COURTHOUSE_WEDDING_KIT_PRICE_ID',
   'STRIPE_WEDDING_VOWS_WORKBOOK_PRICE_ID',
   'STRIPE_MAID_OF_HONOR_KIT_PRICE_ID',
-  'DOWNLOAD_SIGNING_SECRET',
-  'APPS_SCRIPT_TREND_ENDPOINT',
-  'APPS_SCRIPT_TREND_SECRET'
+  'DOWNLOAD_SIGNING_SECRET'
 ];
 
 for (const file of examples) {
@@ -38,8 +36,10 @@ for (const token of ['STRIPE_SECRET_KEY', 'STRIPE_MODE', '_PRICE_ID', 'success_u
 }
 
 const trendApi = fs.readFileSync('app/api/submit-trend/route.ts', 'utf8');
-if (!trendApi.includes('APPS_SCRIPT_TREND_ENDPOINT')) {
-  console.error('Trend API does not reference Apps Script endpoint contract');
+// The idea form keeps ONE path: the site's own D1 (lib/trend-ideas.ts). The Apps Script forward it
+// replaced was never configured and answered "received" while keeping nothing (27 Nov 2026).
+if (!trendApi.includes('saveIdea(') || trendApi.includes('APPS_SCRIPT_TREND')) {
+  console.error('Trend API must save each idea with saveIdea() and must not forward to Apps Script');
   process.exit(1);
 }
 
