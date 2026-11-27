@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { BookKit } from '@/lib/book-kits';
 import { CheckoutButton } from '@/components/CheckoutButton';
 import { hrefFrom } from '@/lib/site-config';
+import { ProductDelivery } from '@/components/ProductDelivery';
 
 // The product page of a Kindle-book kit. The route renders it only while the kit is on sale
 // (app/products/[slug]/page.tsx); an off-sale kit is unlisted and answers 404.
@@ -20,6 +21,7 @@ export function BookKitPage({ kit }: { kit: BookKit }) {
     </section>
     <section><h2 className="font-serif text-4xl">What is inside</h2><ul className="mt-5 grid gap-3 md:grid-cols-2">{kit.includes.map((item) => <li key={item} className="rounded-2xl bg-white p-4">✓ {item}</li>)}</ul><p className="mt-5 max-w-3xl text-charcoal/70">{kit.limits}</p></section>
     <section id="look-inside"><h2 className="font-serif text-4xl">Look inside</h2><div className="mt-6 grid gap-6 lg:grid-cols-3">{kit.gallery.map((preview) => <figure key={preview.src} className="overflow-hidden rounded-[12px] border border-charcoal/10 bg-white"><div className="relative aspect-[40/27] bg-ivory"><Image src={preview.src} alt={preview.alt} fill sizes="(max-width:1024px) 100vw, 33vw" className="object-contain" /></div><figcaption className="p-5"><h3 className="font-serif text-2xl">{preview.title}</h3><p className="mt-2 text-sm leading-6 text-charcoal/65">{preview.caption}</p></figcaption></figure>)}</div></section>
+    <ProductDelivery productId={kit.id} />
     <section className="rounded-[12px] border border-charcoal/10 bg-white p-6 md:p-10"><h2 className="font-serif text-4xl">Get the kit</h2><div className="mt-5 max-w-md">{buy()}</div><p className="mt-4 text-sm text-midnight-muted">An organizing aid, not legal or professional planning advice. Personal-use license.</p></section>
   </div>;
 }

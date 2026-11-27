@@ -18,7 +18,7 @@ import { searchLoopPages } from '@/lib/search-loop-pages.mjs';
 
 const CANONICAL = canonicalUrl(PARENT_HOST, '/questions');
 const TITLE = 'Wedding Planning Questions, Answered';
-const DESCRIPTION = 'Short, sourced answers to the wedding planning questions couples search for: checklists, budgets, timelines, guest lists and seating, each with next steps.';
+const DESCRIPTION = 'Short answers to the wedding planning questions couples search for, starting with checklists, planners, venues and timelines, each with next steps.';
 
 export const metadata: Metadata = seoMetadata({ title: TITLE, description: DESCRIPTION, host: PARENT_HOST, path: '/questions' });
 
@@ -35,7 +35,7 @@ export default function Questions() {
     <header className="rounded-[12px] bg-white p-7 shadow-soft md:p-12">
       <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Wedding planning questions</p>
       <h1 className="mt-4 font-serif text-5xl md:text-6xl">{TITLE}</h1>
-      <p className="mt-5 text-lg leading-8 text-charcoal/70">Each answer starts with the short version, then the steps, the sources it rests on and the questions couples ask next. New answers are added as couples search for them.</p>
+      <p className="mt-5 text-lg leading-8 text-charcoal/70">Each answer starts with the short version, then the detail, a few general sources to read further, and the questions couples ask next. New answers are added as couples search for them.</p>
     </header>
     {pages.length > 0
       ? <ul className="grid gap-3 md:grid-cols-2">{pages.map((page) => <li key={page.route}><a href={page.route} className="block rounded-[12px] border border-charcoal/10 bg-white p-5 font-bold first-letter:uppercase">{page.query} →</a></li>)}</ul>
@@ -43,7 +43,7 @@ export default function Questions() {
     <SampleSignup/>
     <section className="rounded-[12px] bg-charcoal p-7 text-linen md:p-10">
       <h2 className="font-serif text-4xl">Plan it from one checklist</h2>
-      <p className="mt-4 max-w-3xl text-linen/75">The Wedding Checklist PDF puts every task, from the engagement to the day after, in order with the timing it needs.</p>
+      <p className="mt-4 max-w-3xl text-linen/75">The Wedding Checklist PDF dates about 100 tasks from your wedding day, from a year or more out to the weeks after, with printable pages to track them.</p>
       <a className="mt-6 inline-flex rounded-2xl bg-linen px-6 py-4 font-bold text-charcoal" href={searchLoopConfig.action.url}>{searchLoopConfig.action.label}</a>
     </section>
   </div>;

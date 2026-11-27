@@ -26,6 +26,6 @@ export async function GET(_req: NextRequest, context: { params: Promise<{ token:
   const product = productBySku(entitlement.sku);
   if (!product || !FULL_PLAN_PRODUCT_IDS.includes(product.id)) return NextResponse.json({ ok: false, error: 'The dated plan comes with the Wedding Checklist PDF.' }, { status: 403, headers: PRIVATE });
   const list = await loadFullPlan(env.PRODUCT_RELEASES as never, 'api/full-plan');
-  if (!list) return NextResponse.json({ ok: false, stop: FULL_PLAN_STOP, error: 'Your dated plan is not available right now. Your files are still ready to download.', download_url: `/api/download/${token}` }, { status: 503, headers: PRIVATE });
+  if (!list) return NextResponse.json({ ok: false, stop: FULL_PLAN_STOP, error: 'Your dated plan is not available right now. Try again in a few minutes; your download link is separate and is not affected.', download_url: `/api/download/${token}` }, { status: 503, headers: PRIVATE });
   return NextResponse.json({ ok: true, windows: list.windows, tasks: list.tasks, download_url: `/api/download/${token}` }, { headers: PRIVATE });
 }

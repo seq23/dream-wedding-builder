@@ -40,7 +40,7 @@ const bundleSavings = bundleSeparate - suite.price;
 
 const trust = [
   ['Files right after you pay','Your files open on the page after payment and are emailed to you.'],
-  ['Real working files','Every product includes editable, printable, vendor-ready files—not a decorative one-page PDF.'],
+  ['Real working files','Every planning tool includes an editable workbook and printable pages—not a decorative one-page PDF.'],
   ['One-time purchase','Pay once. Keep the current release for personal use. No subscription.'],
   ['Help by email',`Order and download help: ${supportEmail}.`]
 ];
@@ -145,7 +145,7 @@ export default function HomePage(){return <div className="space-y-16 md:space-y-
   <section id="standout-ideas" aria-labelledby="standout-ideas-heading" className="scroll-mt-24 rounded-[12px] border border-charcoal/10 bg-white p-7 md:p-10" data-testid="home-standout-ideas">
     <p className="text-xs font-bold uppercase tracking-[.25em] text-midnight-muted">Standout ideas catalogue</p>
     <h2 id="standout-ideas-heading" className="mt-3 font-serif text-4xl md:text-5xl">Which wedding ideas make guests say, “I have never seen that before”?</h2>
-    <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">{trends.length} concrete experiences you can add to your plan: arrival moments, seating experiences, ceremony reveals, cocktail-hour surprises, dinner design, sensory stations, photo moments, food spectacle, weekend ideas and verify-first wildcards. Each one lists who it suits, when to avoid it, its budget pressure and what to verify with the venue. These are guest-facing ideas, not vendor roles or logistics jobs.</p>
+    <p className="mt-4 max-w-3xl leading-7 text-charcoal/70">{trends.length} concrete experiences you can add to your plan: arrival moments, seating experiences, ceremony moments, cocktail-hour surprises, dinner design, entertainment reveals, sensory stations, photo moments, food spectacle, weekend ideas and design motifs. Each one lists who it suits, when to avoid it, its budget pressure and what to verify with the venue. These are guest-facing ideas, not vendor roles or logistics jobs.</p>
     <p className="mt-3 max-w-3xl text-sm leading-6 text-charcoal/70">Each idea becomes a cost, a vendor, a delivery window and a place on the day-of schedule. The four editable tools are where those land: budget lines, vendor payments, the master timeline and the seating plan. <Link href="/shop" className="font-bold underline underline-offset-4">See the four wedding planning tools and prices →</Link></p>
     <ul className="mt-5 flex flex-wrap gap-2">{standoutIdeaCategories.map((c) => <li key={c} className="rounded-full bg-ivory px-4 py-2 text-sm font-bold">{c}</li>)}</ul>
     <details className="mt-6 rounded-[12px] border border-charcoal/10 bg-ivory/50 p-4 md:p-6">

@@ -14,8 +14,12 @@ const completeRecord = {
   sections: [],
   faqs: [],
   related_slugs: [],
-  examples: [],
+  examples: [{ title: 'Working example', body: 'Eighty guests at ten a table is eight tables, plus one spare.' }],
   hub_route: '/wedding-checklist',
+  answer: 'Count confirmed guests before you count tables.',
+  steps: ['List every confirmed guest once.'],
+  mistakes: ['Seating from two different guest lists.'],
+  verification_boundary: 'Confirm table sizes with your venue.',
 };
 
 describe('isComplete is one predicate', () => {
@@ -28,7 +32,7 @@ describe('isComplete is one predicate', () => {
     expect(missingRequiredFields(completeRecord)).toEqual([]);
   });
 
-  it.each(['sections', 'faqs', 'related_slugs', 'examples', 'hub_route'])(
+  it.each(['sections', 'faqs', 'related_slugs', 'examples', 'hub_route', 'answer', 'steps', 'mistakes', 'verification_boundary'])(
     'rejects a record with no %s',
     (field) => {
       const record: Record<string, unknown> = { ...completeRecord };
@@ -45,7 +49,25 @@ describe('isComplete is one predicate', () => {
       source_opportunity_id: 'x', summary: 's', answer: 'a', steps: [], mistakes: [],
     };
     expect(isComplete(skeleton)).toBe(false);
-    expect(missingRequiredFields(skeleton)).toEqual(['sections', 'faqs', 'related_slugs', 'examples', 'hub_route']);
+    expect(missingRequiredFields(skeleton)).toEqual(['sections', 'faqs', 'related_slugs', 'examples', 'hub_route', 'steps', 'worked_example', 'mistakes', 'verification_boundary']);
+  });
+});
+
+// The About and editorial policy pages promise a guide missing any of the five things does
+// not publish. Present-but-empty is missing: each of these renders an empty section.
+describe('the five things a guide must carry', () => {
+  it.each([
+    ['answer', { answer: '   ' }, 'answer'],
+    ['steps', { steps: [] }, 'steps'],
+    ['steps', { steps: ['  '] }, 'steps'],
+    ['a worked example', { examples: [{ title: 'Control check', body: 'Reconcile totals.' }] }, 'worked_example'],
+    ['a worked example', { examples: [{ title: 'Working example', body: '' }] }, 'worked_example'],
+    ['mistakes', { mistakes: [] }, 'mistakes'],
+    ['the verification boundary', { verification_boundary: '' }, 'verification_boundary'],
+  ])('does not publish a guide whose %s is empty', (_name, patch, field) => {
+    const record = { ...completeRecord, ...patch };
+    expect(isComplete(record)).toBe(false);
+    expect(missingRequiredFields(record)).toContain(field);
   });
 });
 

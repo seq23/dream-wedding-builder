@@ -129,6 +129,22 @@ export function derivePlanReadiness(plan: ReadinessInput): number {
   return Math.round((satisfied / readinessChecks.length) * 100);
 }
 
+/** What the planner prints: the score the readiness page documents, the count behind it,
+ * and every input still open with what answering it would change (promise audit, 27 Nov 2026:
+ * the planner showed only the count while /readiness-score said it showed all three). */
+export function readinessSummary(plan: ReadinessInput) {
+  const breakdown = readinessBreakdown(plan);
+  const answered = breakdown.filter((check) => check.satisfied).length;
+  const percent = derivePlanReadiness(plan);
+  return {
+    percent,
+    answered,
+    total: breakdown.length,
+    line: `${percent}% ready: ${answered} of ${breakdown.length} basics answered.`,
+    open: breakdown.filter((check) => !check.satisfied).map(({ id, label, question, why }) => ({ id, label, question, why }))
+  };
+}
+
 /**
  * What a number means. These are planning-state descriptions, not predictions:
  * the score measures how much of the plan has been decided, and claims nothing

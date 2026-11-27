@@ -67,7 +67,7 @@
         {
           "src": "/product-previews/checklist-pdf/checklist-pdf-preview-4.png",
           "title": "Planning profile page",
-          "caption": "The printable PDF begins by documenting the wedding format, planning window, event scope, and responsibility assumptions.",
+          "caption": "The printable PDF begins with a planning profile: your date, planning start, guest count, venue, local or destination, planner or DIY, and the events included.",
           "alt": "Wedding Checklist PDF paid product preview showing planning profile page",
           "source": {
             "kind": "pdf",
@@ -104,7 +104,7 @@
           "Payments \u2014 34 rows",
           "Hidden Costs \u2014 24 rows"
         ],
-        "formula_count": 0,
+        "formula_count": 40,
         "extra": [
           "Setup CSV included with purchase",
           "Personal-use license and operating instructions"
@@ -190,7 +190,7 @@
         "workbook": "Editable XLSX workbook",
         "sheets": [
           "Master Timeline \u2014 64 rows",
-          "Vendor Arrivals \u2014 4 rows",
+          "Vendor Arrivals \u2014 34 rows",
           "Role Handoffs \u2014 44 rows"
         ],
         "formula_count": 0,
@@ -280,9 +280,9 @@
         "sheets": [
           "Guest Master \u2014 104 rows",
           "Tables \u2014 34 rows",
-          "Vendor Handoff \u2014 4 rows"
+          "Vendor Handoff \u2014 34 rows"
         ],
-        "formula_count": 0,
+        "formula_count": 30,
         "extra": [
           "Setup CSV included with purchase",
           "Personal-use license and operating instructions"

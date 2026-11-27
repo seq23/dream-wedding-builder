@@ -296,7 +296,7 @@ export function selectedVendors(plan: WeddingPlan) {
 // The readiness rubric is published at /readiness-score, so it lives in one place
 // that both the planner and that page import. Re-exported here so every existing
 // caller keeps working.
-export { derivePlanReadiness, readinessBreakdown, readinessBand, readinessChecks } from '@/lib/readiness';
+export { derivePlanReadiness, readinessBreakdown, readinessBand, readinessChecks, readinessSummary } from '@/lib/readiness';
 
 /** The plan in one plain line: only what she has actually answered. */
 export function planSummary(plan: WeddingPlan) {

@@ -39,7 +39,7 @@ type Transport = (url: string, init: RequestInit) => Promise<Pick<Response, 'ok'
 
 /** What the label under her answer says: who wrote it, honestly. */
 export function readLabel(by: WeddingRead['by'], reason: ReadReason): string {
-  if (by === 'ai') return 'Written by an AI planner, not a person. Check anything that matters with your vendors. No businesses, prices or availability are named.';
+  if (by === 'ai') return 'Written by an AI planner, not a person. Check anything that matters with your vendors. Our checks try to keep businesses, prices and availability out of it.';
   if (reason === 'no_consent') return 'You chose not to send your answers to AI, so this comes from our fixed lists, without AI.';
   return reason === 'visitor_limit'
     ? 'You have used today’s three AI answers, so this one comes from our fixed lists, without AI. More tomorrow.'

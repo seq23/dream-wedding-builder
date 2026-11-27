@@ -9,7 +9,7 @@
 //     match the release manifest, advertised formula counts are real.
 // Without the folder, layer 2 is reported as NOT READ, never as passed.
 import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto';
-import { countFormulas } from './lib/xlsx-formula-count.mjs';
+import { countFormulas, sheetRowCounts, zipEntryNames } from './lib/xlsx-formula-count.mjs';
 import { PRODUCTS_DIR, RELEASE_DIR, productsDirPresent, requireProductsDir } from './lib/products-dir.mjs';
 
 const requireFiles=process.argv.includes('--require-files');
@@ -82,6 +82,50 @@ if(readFiles) for(const item of m.products){
   formulaChecks++;
 }
 
+// The product page also states "<Sheet> — <n> rows" and "<n>-page printable PDF", and the
+// suite page says its zip holds every tool's PDF and workbook. The promise audit of 27 Nov 2026
+// found two sheets advertised at 4 rows that ship with 34. Hold all three to the real files.
+let sheetChecks=0, pageChecks=0, suiteChecked=false;
+export function pdfPageCount(bytes){
+  // The page tree's root carries the total; it is the largest /Count in the file.
+  const counts=[...bytes.toString('latin1').matchAll(/\/Count\s+(\d+)/g)].map(x=>Number(x[1]));
+  if(!counts.length) throw new Error('No /Count in PDF page tree');
+  return Math.max(...counts);
+}
+const kits=JSON.parse(fs.readFileSync('data/products/book_kits.json','utf8')).kits;
+if(readFiles) for(const item of m.products){
+  const product=byId.get(item.product_id);
+  const kit=kits.find(k=>k.id===item.product_id);
+  const workbook=item.files.find(f=>f.path.endsWith('.xlsx'));
+  if(workbook&&product?.inventory?.sheets){
+    const actual=sheetRowCounts(path.join(RELEASE_DIR,workbook.path));
+    for(const line of product.inventory.sheets){
+      const hit=String(line).match(/^(.+?)\s+—\s+(.+)$/);
+      if(!hit) throw new Error(`${item.product_id}: sheet line "${line}" is not "<Sheet> — <what it holds>"`);
+      const [,sheet,rest]=hit;
+      if(!(sheet in actual)) throw new Error(`${item.product_id} lists a "${sheet}" sheet that ${workbook.path} does not have (it has ${Object.keys(actual).join(', ')})`);
+      const n=rest.match(/^(\d+) rows$/)?.[1];
+      if(n!==undefined && actual[sheet]!==Number(n)) throw new Error(`${item.product_id} advertises "${line}" but ${workbook.path} ships ${actual[sheet]} rows on that sheet`);
+      sheetChecks++;
+    }
+  }
+  const pdf=item.files.find(f=>f.path.endsWith('.pdf'));
+  const claimed=Number(String(product?.inventory?.pdf??'').match(/^(\d+)-page/)?.[1] ?? kit?.pages ?? NaN);
+  if(pdf&&Number.isFinite(claimed)){
+    const pages=pdfPageCount(fs.readFileSync(path.join(RELEASE_DIR,pdf.path)));
+    if(pages!==claimed) throw new Error(`${item.product_id} advertises a ${claimed}-page PDF but ${pdf.path} has ${pages} pages`);
+    pageChecks++;
+  }
+  const zip=item.files.find(f=>f.path.endsWith('.zip'));
+  if(zip&&item.product_id==='operations-suite'){
+    const inside=new Set(zipEntryNames(path.join(RELEASE_DIR,zip.path)));
+    for(const tool of m.products.filter(p=>byId.get(p.product_id)&&p.product_id!=='operations-suite'&&p.files.some(f=>f.path.endsWith('.xlsx'))))
+      for(const f of tool.files.filter(f=>/\.(pdf|xlsx)$/.test(f.path)))
+        if(!inside.has(f.path)) throw new Error(`The suite zip ${zip.path} is missing ${f.path}, but the suite page says it holds every tool's PDF and workbook`);
+    suiteChecked=true;
+  }
+}
+
 const fileCount=m.products.reduce((n,p)=>n+p.files.length,0);
-if(readFiles) console.log(`canonical downloads: PASS (${fileCount} files, ${rm.releases.length} packaged R2 releases, ${formulaChecks} formula counts matched; files read from ${PRODUCTS_DIR})`);
+if(readFiles) console.log(`canonical downloads: PASS (${fileCount} files, ${rm.releases.length} packaged R2 releases, ${formulaChecks} formula counts, ${sheetChecks} sheet row counts and ${pageChecks} page counts matched, suite zip ${suiteChecked?'holds every tool file':'NOT CHECKED'}; files read from ${PRODUCTS_DIR})`);
 else console.log(`canonical downloads: manifests PASS (${fileCount} files and ${rm.releases.length} R2 releases recorded for ${catalog.products.length} catalog products). PRODUCT FILES NOT READ: the private folder ${PRODUCTS_DIR} is not here, so checksums, file types and formula counts were not checked. They are checked on the exact files by npm run release:upload.`);

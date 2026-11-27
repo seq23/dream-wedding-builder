@@ -69,3 +69,30 @@ test('date edits from settings are read afresh by the plan without losing tasks 
   assert.deepEqual(undated.locked, []);
   assert.deepEqual(undated.tasks, saved);
 });
+
+// Promise audit, 27 Nov 2026: the privacy page says "Delete my plan from this phone" removes what
+// the app kept, but the saved journey (typed wish, town, guests, budget, AI answer) survived it.
+// Every storage key the app's code names must be deleted or be kept on purpose, so a new key
+// cannot slip past the delete again.
+test('delete removes the saved journey and after-wedding picks', async () => {
+  const data = new Map<string, string>([['dw.journey.v1', '{"wish":"a garden party","town":"Memphis"}'], ['dw.after-wedding.kept.v1', '["thank-yous"]']]);
+  const storage = { async removeMany(keys: string[]) { keys.forEach(key => data.delete(key)); } };
+  await deleteLocalPlan(storage, async () => {}, async () => {});
+  assert.equal(data.has('dw.journey.v1'), false);
+  assert.equal(data.has('dw.after-wedding.kept.v1'), false);
+});
+
+test('every storage key in the app is either deleted by Delete my plan or kept on purpose', async () => {
+  const { readdirSync, readFileSync, statSync } = await import('node:fs');
+  const { join } = await import('node:path');
+  const root = join(import.meta.dirname, '..');
+  const files: string[] = [];
+  const walk = (dir: string) => { for (const name of readdirSync(dir)) { const p = join(dir, name); if (statSync(p).isDirectory()) walk(p); else if (/\.(ts|tsx)$/.test(name)) files.push(p); } };
+  walk(join(root, 'src')); walk(join(root, 'app'));
+  const named = new Set<string>();
+  for (const f of files) for (const m of readFileSync(f, 'utf8').matchAll(/['"`](dw\.[a-z0-9.-]+\.v\d+|dw-plan-progress)['"`]/g)) named.add(m[1]);
+  assert.ok(named.size >= 20, `expected the app's storage keys, found ${named.size}`);
+  const { keptKeys } = await import('../src/deletePlan');
+  const missed = [...named].filter(key => !planContentKeys.includes(key) && !keptKeys.includes(key));
+  assert.deepEqual(missed, []);
+});

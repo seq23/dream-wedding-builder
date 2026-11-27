@@ -136,11 +136,11 @@ test('the methodology worked example is the shipped planner output, not prose ab
 
   await page.goto('/methodology');
   await expect(page.getByTestId('methodology-contrast')).toBeVisible();
-  await expect(page.getByTestId('methodology-contrast')).toContainText('Calculators tell you what a wedding costs. This tells you what to change.');
+  await expect(page.getByTestId('methodology-contrast')).toContainText('Calculators tell you what a wedding costs. This tells you where to start cutting.');
   await expect(page.getByTestId('methodology-worked-example')).toHaveText(expected);
 
   // The claim stays narrower than the headline: no affordability verdict.
-  await expect(page.getByTestId('methodology-contrast')).toContainText('It orders the cuts.');
+  await expect(page.getByTestId('methodology-contrast')).toContainText('It points to where the cuts start.');
 
   // And the contrast reaches the structured data, which is what gets quoted.
   // The page emits several blocks (breadcrumb, DefinedTerm, HowTo); the contrast
@@ -148,5 +148,5 @@ test('the methodology worked example is the shipped planner output, not prose ab
   const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
   const definedTerm = blocks.map((block) => JSON.parse(block)).flat().find((node) => node['@type'] === 'DefinedTerm');
   expect(definedTerm, 'no DefinedTerm in the structured data').toBeTruthy();
-  expect(definedTerm.description).toContain('Calculators tell you what a wedding costs. This tells you what to change.');
+  expect(definedTerm.description).toContain('Calculators tell you what a wedding costs. This tells you where to start cutting.');
 });

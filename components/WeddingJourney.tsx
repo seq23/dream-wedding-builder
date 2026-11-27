@@ -259,7 +259,7 @@ export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, o
       {read.ask.length > 0 && <div><h2 className="font-serif text-2xl">What to ask</h2><ul className="mt-2 grid list-disc gap-2 pl-5">{read.ask.map(q => <li key={q}>{q}</li>)}</ul></div>}
       {read.honest && <div className="rounded-xl border border-rule bg-white p-3"><b>Worth knowing.</b> {read.honest}</div>}
       <p data-testid="read-label" className="text-sm text-midnight-muted">{read.by === 'ai'
-        ? 'Written by an AI planner, not a person. Check anything that matters with your vendors. No businesses, prices or availability are named.'
+        ? 'Written by an AI planner, not a person. Check anything that matters with your vendors. Our checks try to keep businesses, prices and availability out of it.'
         : answer?.reason === 'visitor_limit'
           ? 'You have used today’s three AI answers, so this one comes from our fixed lists, without AI. More tomorrow.'
           : 'The free AI planner could not answer just now, so this comes from our fixed lists, without AI.'}</p>
@@ -279,6 +279,7 @@ export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, o
         <h2 className="font-serif text-2xl">{title}</h2>
         {items.map(item => <PickButton key={item.pick.key} on={picks.some(p => p.key === item.pick.key)} label={item.label} sub={item.sub} onClick={() => togglePick(item.pick)} />)}
       </div>)}
+      {read.by === 'ai' && <p data-testid="keep-ai-label" className="text-sm text-midnight-muted">These come from the AI planner’s answer: written by AI, not a person.</p>}
       <p className="text-sm text-midnight-muted">Each one you keep becomes a dated task in your plan, marked “Your pick”.{facts.venueBooked ? ' Your venue is booked, so the venue task comes off your plan.' : ''}</p>
       <button type="button" data-testid="journey-continue-3" onClick={() => { keepColours(); goTo(4); }} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">Continue · step 3 of 4 ›</button>
       <button type="button" onClick={() => goTo(2)} className="min-h-11 justify-self-start font-medium underline underline-offset-4">‹ Back to my wedding</button>
@@ -293,7 +294,7 @@ export function WeddingJourney({ onFacts, onColours, weddingDate = '', onDate, o
       {!weddingDate && <button type="button" data-testid="journey-no-date" onClick={chooseNoDate} className="min-h-11 justify-self-start font-medium underline underline-offset-4">I don’t have a date yet ›</button>}
       {weddingDate ? <div className="grid gap-3" data-testid="journey-dated">
         <h2 className="font-serif text-2xl">{picks.length ? `Your plan, with ${picks.length} of your picks in it` : 'Your plan'}</h2>
-        <p>Every task is placed on your calendar below{picks.length ? ', with your picks marked “Your pick”' : ''}. It saves in this browser by itself.</p>
+        <p>Your tasks are dated back from your wedding day{picks.length ? ', with your picks marked “Your pick”' : ''}. It saves in this browser by itself.</p>
         <button type="button" data-testid="journey-to-plan" onClick={toPlan} className="min-h-12 w-full rounded-xl bg-blue px-4 py-3.5 text-[1.05rem] font-semibold text-white">See my dated plan ›</button>
       </div> : noDate ? <div className="grid gap-3" data-testid="journey-undated">
         <h2 className="font-serif text-2xl">{picks.length ? `Your plan, with ${picks.length} of your picks in it` : 'Your plan'}</h2>

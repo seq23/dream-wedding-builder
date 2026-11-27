@@ -6,6 +6,6 @@ export async function PATCH(req:Request,{params}:{params:Promise<{id:string}>}){
  catalog.products[index]=next; await saveCatalog(catalog,`edit ${before.sku}`); const receipt=await writeReceipt({action:'EDIT_PRODUCT',product_id:id,prior_state:before.status||'ACTIVE',new_state:next.status||'ACTIVE',changed_fields:Object.keys(patch)}); return NextResponse.json({product:next,receipt});
 }
 export async function DELETE(req:Request,{params}:{params:Promise<{id:string}>}){
- if(!await requireAdmin())return NextResponse.json({error:'Unauthorized'},{status:401}); const {id}=await params; const catalog=await readCatalog(); const p=catalog.products.find((x:any)=>x.id===id); if(!p)return NextResponse.json({error:'Not found'},{status:404}); if((p.status||'ACTIVE')!=='DRAFT')return NextResponse.json({error:'Only unused draft products may be permanently deleted'},{status:409});
+ if(!await requireAdmin())return NextResponse.json({error:'Unauthorized'},{status:401}); const {id}=await params; const catalog=await readCatalog(); const p=catalog.products.find((x:any)=>x.id===id); if(!p)return NextResponse.json({error:'Not found'},{status:404}); if((p.status||'ACTIVE')!=='DRAFT')return NextResponse.json({error:'Only draft products may be permanently deleted'},{status:409});
  catalog.products=catalog.products.filter((x:any)=>x.id!==id); await saveCatalog(catalog,`delete draft ${p.sku}`); const receipt=await writeReceipt({action:'DELETE_DRAFT',product_id:id,prior_state:'DRAFT',new_state:'DELETED'}); return NextResponse.json({ok:true,receipt});
 }

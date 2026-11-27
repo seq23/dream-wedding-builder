@@ -65,3 +65,35 @@ export function countFormulas(xlsxPath) {
   }
   return total;
 }
+
+/** Names of the entries in a ZIP archive (used to check what a packaged zip really holds). */
+export function zipEntryNames(zipPath) {
+  return readEntries(fs.readFileSync(zipPath)).map((entry) => entry.name);
+}
+
+/**
+ * Rows in each worksheet, by sheet name: the count of row elements, which is what the
+ * product page states as "<Sheet> — <n> rows". Read from the workbook's own sheet list and
+ * relationships, so a renamed or reordered sheet cannot be matched to the wrong file.
+ */
+export function sheetRowCounts(xlsxPath) {
+  const buf = fs.readFileSync(xlsxPath);
+  const entries = new Map(readEntries(buf).map((entry) => [entry.name, entry]));
+  const text = (name) => {
+    const entry = entries.get(name);
+    if (!entry) throw new Error(`${xlsxPath} has no ${name}`);
+    return readEntry(buf, entry).toString('utf8');
+  };
+  const rels = new Map([...text('xl/_rels/workbook.xml.rels').matchAll(/<(?:[A-Za-z0-9]+:)?Relationship\b[^>]*>/g)]
+    .map((m) => [m[0].match(/\bId="([^"]+)"/)?.[1], m[0].match(/\bTarget="([^"]+)"/)?.[1]]));
+  const counts = {};
+  for (const m of text('xl/workbook.xml').matchAll(/<(?:[A-Za-z0-9]+:)?sheet\b[^>]*>/g)) {
+    const name = m[0].match(/\bname="([^"]+)"/)?.[1];
+    const id = m[0].match(/\br:id="([^"]+)"/)?.[1];
+    const target = rels.get(id);
+    if (!name || !target) throw new Error(`${xlsxPath}: sheet ${name ?? '?'} has no worksheet part`);
+    const part = target.startsWith('/') ? target.slice(1) : `xl/${target.replace(/^\.\//, '')}`;
+    counts[name.replace(/&amp;/g, '&')] = (text(part).match(/<(?:[A-Za-z0-9]+:)?row[ >]/g) || []).length;
+  }
+  return counts;
+}
