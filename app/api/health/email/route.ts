@@ -1,21 +1,38 @@
 import { NextResponse } from 'next/server';
 import { runtimeEnv } from '@/lib/cloudflare-runtime';
-import { NURTURE_RUNS_DDL, signupCounts, type NurtureDB } from '@/lib/nurture';
+import { requireAdmin } from '@/lib/admin-auth';
+import { signupCounts, type NurtureDB } from '@/lib/nurture';
 import { judge } from '@/lib/email-health';
 
 export const dynamic = 'force-dynamic';
 
+type LastRun = { ran_at: string; sent: number; failed: number; stop: string | null };
+const answer = (ok: boolean, detail: Record<string, unknown> = {}) =>
+  NextResponse.json({ status: ok ? 'OK' : 'FAIL', ...detail }, { status: ok ? 200 : 503, headers: { 'Cache-Control': 'no-store' } });
+
 // Health check for marketing email (rule 0, 7 Nov 2026: every send could fail while every run
-// looked fine). 503 when the last nurture run was a named stop, or when no run has been
-// recorded in 3 hours (the cron is hourly). Read by .github/workflows/email-health.yml, which
-// goes red. Public, so it returns counts and the stop line, never an address.
+// looked fine). 503 when the last nurture run was a named stop, when no run has been recorded
+// in 3 hours (the cron is hourly), or when the run record cannot be read. Read by
+// .github/workflows/email-health.yml, which goes red on anything but 200.
+//
+// Security audit 23 Nov 2026: a stranger gets OK or FAIL and nothing else, and the request only
+// reads (it used to hand anyone the sign-up totals and send counts and run CREATE TABLE on every
+// GET). The stop line, the last run and the sign-up counts are shown only to the signed-in owner
+// (the /admin session, lib/admin-auth.ts).
 export async function GET() {
-  const env = await runtimeEnv();
-  if (!env.DB) return NextResponse.json({ status: 'NAMED STOP [NO_DB] D1 binding DB is unavailable' }, { status: 503 });
-  await env.DB.prepare(NURTURE_RUNS_DDL).run();
-  const last = await env.DB.prepare('SELECT ran_at, sent, failed, stop FROM nurture_runs ORDER BY ran_at DESC LIMIT 1').first() as { ran_at: string; sent: number; failed: number; stop: string | null } | null;
+  const owner = await requireAdmin().catch(() => false);
+  let last: LastRun | null;
+  let db: NurtureDB;
+  try {
+    const env = await runtimeEnv();
+    if (!env.DB) return answer(false, owner ? { reason: 'NAMED STOP [NO_DB] D1 binding DB is unavailable' } : {});
+    db = env.DB as unknown as NurtureDB;
+    last = await env.DB.prepare('SELECT ran_at, sent, failed, stop FROM nurture_runs ORDER BY ran_at DESC LIMIT 1').first() as LastRun | null;
+  } catch {
+    return answer(false, owner ? { reason: 'NAMED STOP [NURTURE_RUNS_UNREADABLE] the nurture run record could not be read' } : {});
+  }
   const verdict = judge(last);
-  // Sign-up counts for the Boss OS scorecard (growth plan floors: 25 by day 30, 100 by day 60). Counts only.
-  const signups = await signupCounts(env.DB as unknown as NurtureDB).catch(() => null);
-  return NextResponse.json({ status: verdict.status, last_run: last ? { ran_at: last.ran_at, sent: last.sent, failed: last.failed } : null, signups }, { status: verdict.ok ? 200 : 503, headers: { 'Cache-Control': 'no-store' } });
+  if (!owner) return answer(verdict.ok);
+  const signups = await signupCounts(db).catch(() => null);
+  return answer(verdict.ok, { reason: verdict.status, last_run: last ? { ran_at: last.ran_at, sent: last.sent, failed: last.failed } : null, signups });
 }
