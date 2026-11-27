@@ -1,6 +1,12 @@
 # App sharing server (task 7, unfinished)
 
 The route is off unless APP_SHARING_ENABLED=true. Leave it unset in production.
+
+The same switch decides what `/two-phones` (the page an invite link opens) shows: while it is off,
+the page says partner sharing is not on yet (`lib/sharing-status.ts`). Turning sharing on is the
+owner's call. When she does, in the same change: set `EXPO_PUBLIC_DW_SHARING=1` for the store build,
+set `APP_SHARING_ENABLED=true` on the Worker, and change the privacy page's app paragraph
+(`app/privacy/page.tsx`, "Partner sharing is not switched on in the app yet") to say it is on.
 The phone has one matching switch, EXPO_PUBLIC_DW_SHARING=1 (apps/mobile/src/sharingSwitch.ts),
 off by default: with it off the app does not list a second phone on the full plan and shows
 no Two phones link, share screen or invite handling. Turn both on together.

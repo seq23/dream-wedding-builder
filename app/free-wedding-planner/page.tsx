@@ -14,7 +14,7 @@ import {
   emptyPlan,
   priorityOptions,
   protectedPriorities,
-  readinessBreakdown,
+  readinessSummary,
   riskChecklist,
   selectedVenues,
   selectedVendors,
@@ -135,7 +135,7 @@ function BuildPage() {
   const budget = useMemo(() => budgetPlan(plan), [plan]);
   const ranking = useMemo(() => rankVenueTypes(plan, venueExamples), [plan]);
   const questions = useMemo(() => nextQuestions(plan), [plan]);
-  const basics = readinessBreakdown(plan);
+  const readiness = readinessSummary(plan);
   const chosenTrends = trends.filter(trend => plan.selectedTrends.includes(trend.id));
   const chosenVenues = selectedVenues(plan);
   const chosenVendors = selectedVendors(plan);
@@ -158,7 +158,7 @@ function BuildPage() {
     { id: 'checklist-pdf', name: 'Wedding Checklist PDF', price: 9, route: '/products/checklist-pdf', reason: 'Every task dated from your wedding day, ready to print, plus the checklist files.' },
     { id: 'budget-spreadsheet', name: 'Wedding Budget Spreadsheet', price: 12, route: 'https://weddingbudgetspreadsheet.com/products/budget-spreadsheet', reason: budget.budget ? `A spreadsheet for tracking your ${money(Math.min(budget.budget, budget.limit))} against quotes, deposits and the fees venues leave off.` : 'A spreadsheet for tracking quotes, deposits and the fees venues leave off.' },
     { id: 'timeline-template', name: 'Wedding Timeline Template', price: 12, route: 'https://weddingtimelinetemplate.com/products/timeline-template', reason: 'The wedding day itself, hour by hour, with vendor arrival and pack-up times.' },
-    { id: 'seating-chart-maker', name: 'Wedding Seating Chart Maker', price: 19, route: 'https://weddingseatingchartmaker.com/products/seating-chart-maker', reason: budget.guests ? `Your ${budget.guests} guests arranged into tables.` : 'Your guests arranged into tables, once you know the count.' }
+    { id: 'seating-chart-maker', name: 'Wedding Seating Chart Maker', price: 19, route: 'https://weddingseatingchartmaker.com/products/seating-chart-maker', reason: budget.guests ? `A workbook to seat your ${budget.guests} guests, table by table.` : 'A workbook to seat your guests, table by table, once you know the count.' }
   ];
 
   const patch = (partial: Partial<WeddingPlan>) => setPlan(current => ({ ...current, ...partial }));
@@ -182,7 +182,7 @@ function BuildPage() {
       <p className="font-mono text-xs uppercase tracking-[.12em] text-midnight-muted">Started from the page you came from</p>
       {seedReport.applied.length > 0 && <p className="mt-2 font-semibold" data-testid="seed-applied">Filled in for you: {seedReport.applied.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}.</p>}
       {seedReport.skipped.length > 0 && <p className="mt-2 font-semibold text-charcoal/70" data-testid="seed-skipped">Kept your saved answers for: {seedReport.skipped.map(field => seedFieldLabels[field] ?? String(field)).join(', ')}. A link can never overwrite work you already entered.</p>}
-      <p className="mt-2 text-xs text-midnight-muted">These are example starting values, not quotes. Change any of them below.</p>
+      <p className="mt-2 text-xs text-midnight-muted">These are example starting values, not quotes. Change the guest count, the budget and the other details below.</p>
     </section>}
 
     {/* The free journey leads (owner, 13 Nov 2026): what should it feel like, then her
@@ -190,7 +190,7 @@ function BuildPage() {
     <WeddingJourney onFacts={fillFromJourney} onColours={fillColours} weddingDate={plan.weddingDate} onDate={weddingDate => patch({ weddingDate })} onPlan={openPlan} />
 
     {showPlan && <>
-    <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Every task, placed on your calendar. No account, no app and no email needed; it saves in this browser by itself.</p></div>}>
+    <StepFold id="your-date" defaultOpen className="grid grid-cols-[minmax(0,1fr)] gap-4" label="section" header={<div><h2 className="font-serif text-3xl">Your dated plan.</h2><p className="mt-1 text-sm text-charcoal/65">Your tasks, dated back from your wedding day. No account, no app and no email needed; it saves in this browser by itself.</p></div>}>
       <Card data-testid="wedding-date-card">
         <label className="grid gap-2 text-sm font-semibold" htmlFor="wedding-date">Wedding date
           <input id="wedding-date" data-testid="wedding-date" type="date" value={plan.weddingDate} onChange={event => patch({ weddingDate: event.target.value })} className="min-h-11 max-w-xs rounded-2xl border border-charcoal/20 bg-white p-3 text-base" />
@@ -213,8 +213,12 @@ function BuildPage() {
           <dd className="min-w-0 text-right font-semibold [overflow-wrap:anywhere]">{value || <a href={href} className="font-bold text-blue underline underline-offset-4">Add ›</a>}</dd>
         </div>)}
       </dl>
-      <p data-testid="plan-readiness" className="mt-3 text-sm text-charcoal/70">{basics.filter(check => check.satisfied).length} of {basics.length} basics answered. <Link href="/readiness-score" className="font-bold underline underline-offset-4">How this is counted ›</Link></p>
-      <p data-testid="save-status" role="status" className={`mt-3 text-sm font-semibold ${saveState.status === 'failed' ? 'text-red-pen' : 'text-done'}`}>{saveState.status === 'failed' ? 'This browser is not letting us save (private window?). Print your plan before you close the page.' : saveState.status === 'saved' ? `Saved in this browser ✓ ${saveState.at}` : 'Saves in this browser by itself as you type.'}</p>
+      <p data-testid="plan-readiness" className="mt-3 text-sm text-charcoal/70">{readiness.line} <Link href="/readiness-score" className="font-bold underline underline-offset-4">How this is counted ›</Link></p>
+      {readiness.open.length > 0 && <details data-testid="readiness-open" className="mt-2 text-sm text-charcoal/70">
+        <summary className="cursor-pointer font-semibold">Still open ({readiness.open.length})</summary>
+        <ul className="mt-2 grid gap-2">{readiness.open.map(check => <li key={check.id} data-testid={`readiness-open-${check.id}`}><b>{check.label}.</b> {check.question} {check.why}</li>)}</ul>
+      </details>}
+      <p data-testid="save-status" role="status" className={`mt-3 text-sm font-semibold ${saveState.status === 'failed' ? 'text-red-pen' : 'text-done'}`}>{saveState.status === 'failed' ? 'This browser is not letting us save (private window?), so this plan goes when you close the page. Print this page now to keep it.' : saveState.status === 'saved' ? `Saved in this browser ✓ ${saveState.at}` : 'Saves in this browser by itself as you type.'}</p>
       <Link href="/pack" data-testid="open-packet" className="mt-4 flex min-h-12 items-center justify-center rounded-2xl border-2 border-charcoal bg-white px-5 py-3 text-center font-bold">Open your plan to print ›</Link>
     </Card>
 
@@ -259,7 +263,7 @@ function BuildPage() {
             <p className="mt-1 text-sm leading-6 text-charcoal/75">Why: {q.why}</p>
             <a href={q.href} className="mt-1 inline-flex min-h-11 items-center text-sm font-bold text-blue underline underline-offset-4">Settle it ▾</a>
           </li>)}</ol> : <p className="rounded-2xl bg-ivory p-4 font-semibold text-done">Nothing open: every question this list knows how to ask has an answer.</p>}
-          <p className="mt-4 text-xs leading-5 text-midnight-muted">This list changes as you fill in the steps. It reads only what you typed on this page.</p>
+          <p className="mt-4 text-xs leading-5 text-midnight-muted">This list changes as you fill in the steps. It reads only the plan saved in this browser: what you typed or tapped here, and anything a link filled in.</p>
         </Card>
       </StepFold>
 
@@ -297,7 +301,7 @@ function BuildPage() {
           {budget.lines.length > 0 && <div data-testid="budget-split">
             <p className="text-sm font-semibold">A starting split of {money(Math.min(budget.budget, budget.limit))}</p>
             <ul className="mt-2 grid gap-1 text-sm">{budget.lines.map(line => <li key={line.id} data-testid={`budget-line-${line.id}`} className="flex items-baseline justify-between gap-3 border-b border-charcoal/10 py-2"><span>{line.label}{line.yours ? ' (your number)' : ''}{line.protectedLine ? ' · matters most' : ''}</span><span className="font-mono font-semibold">{money(line.amount)}</span></li>)}</ul>
-            <p className="mt-2 text-xs leading-5 text-midnight-muted">A starting point to edit, not a price list: it leans toward what you said matters most. Your quotes replace these numbers.</p>
+            <p className="mt-2 text-xs leading-5 text-midnight-muted">A starting point to edit, not a price list: it leans toward what you said matters most. Where you add your own amount for a line, it replaces this number.</p>
           </div>}
           <More summary="Your own numbers and what to cut first (optional)" testId="budget-own-lines">
             <div className="grid gap-4 md:grid-cols-2">
@@ -358,7 +362,7 @@ function BuildPage() {
 
     <section id="step-7" data-testid="step-pack" className="scroll-mt-24 rounded-[12px] border border-charcoal/15 bg-white p-5">
       <h2 className="font-serif text-3xl">Your plan, ready to print.</h2>
-      <p className="mt-2 text-sm leading-6 text-charcoal/70">Your dated tasks, your budget, your shortlist and the questions for each vendor on one printable page. It shows only what you filled in.</p>
+      <p className="mt-2 text-sm leading-6 text-charcoal/70">Your dated tasks, your budget, your shortlist and the questions for each vendor, gathered in one place to print or save as a PDF. It is built only from what you filled in.</p>
       {risks.length > 0 && <div data-testid="risk-reality-check" className="mt-4 rounded-2xl bg-ivory p-4 text-sm"><p className="font-semibold">Check before you sign anything</p><ul className="mt-2 list-disc space-y-1 pl-5">{risks.map(risk => <li key={risk}>{risk}</li>)}</ul></div>}
       <Link href="/pack" className="mt-4 flex min-h-12 items-center justify-center rounded-2xl border-2 border-charcoal bg-white px-5 py-3 text-center font-bold">Open your plan to print ›</Link>
     </section>

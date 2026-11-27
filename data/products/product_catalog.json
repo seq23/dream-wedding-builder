@@ -37,10 +37,10 @@
         "Every confirmed guest assigned or visibly unresolved",
         "Table capacities checked before handoff",
         "Meal, allergy and accessibility details attached to the right person",
-        "Alphabetical and table-order exports ready for vendors"
+        "Escort-card, venue and caterer handoff pages ready for vendors"
       ],
       "process": [
-        "Enter or import confirmed guests",
+        "Type or paste in your confirmed guests (a setup CSV is included)",
         "Document table names, shapes, and capacities",
         "Group households and social circles",
         "Resolve unassigned guests and special needs",
@@ -63,7 +63,7 @@
       "image": "/product-images/merch/seating-chart-maker-card.png",
       "hero_image": "/product-images/seating-chart-maker-hero.png",
       "cta": "Buy now — $19",
-      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
+      "value_note": "One-time purchase • Download once payment is confirmed • The files are yours to keep",
       "gallery": [
         {
           "src": "/product-previews/seating-chart-maker/seating-chart-maker-preview-1.png",
@@ -103,7 +103,7 @@
         "sheets": [
           "Guest Master — 104 rows",
           "Tables — 34 rows",
-          "Vendor Handoff — 4 rows"
+          "Vendor Handoff — 34 rows"
         ],
         "formula_count": 30,
         "extra": [
@@ -174,7 +174,7 @@
       "image": "/product-images/merch/budget-spreadsheet-card.png",
       "hero_image": "/product-images/budget-spreadsheet-hero.png",
       "cta": "Buy now — $12",
-      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
+      "value_note": "One-time purchase • Download once payment is confirmed • The files are yours to keep",
       "gallery": [
         {
           "src": "/product-previews/budget-spreadsheet/budget-spreadsheet-preview-1.png",
@@ -275,7 +275,7 @@
         ],
         [
           "Will it work for two venues?",
-          "Yes. The planning package includes travel buffers and separate location handoffs."
+          "Yes. Every line of the master timeline has a location and a buffer, and the couple timeline has its own transportation column."
         ],
         [
           "Does it replace a coordinator?",
@@ -285,7 +285,7 @@
       "image": "/product-images/merch/timeline-template-card.png",
       "hero_image": "/product-images/timeline-template-hero.png",
       "cta": "Buy now — $12",
-      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
+      "value_note": "One-time purchase • Download once payment is confirmed • The files are yours to keep",
       "gallery": [
         {
           "src": "/product-previews/timeline-template/timeline-template-preview-1.png",
@@ -324,7 +324,7 @@
         "workbook": "Editable XLSX workbook",
         "sheets": [
           "Master Timeline — 64 rows",
-          "Vendor Arrivals — 4 rows",
+          "Vendor Arrivals — 34 rows",
           "Role Handoffs — 44 rows"
         ],
         "formula_count": 0,
@@ -368,9 +368,9 @@
         "Destination, backyard and micro-wedding couples"
       ],
       "outcomes": [
-        "Tasks sequenced from today through the wedding",
-        "Responsibilities assigned instead of assumed",
-        "Vendor and payment dependencies surfaced",
+        "Tasks dated back from your wedding date, with anything overdue marked Now",
+        "A suggested owner on every dated task, and a responsibility matrix to settle who does what",
+        "A dependency column on every task, and final payments on their own page",
         "Wedding-week handoff separated from long-range planning"
       ],
       "process": [
@@ -397,7 +397,7 @@
       "image": "/product-images/merch/checklist-pdf-card.png",
       "hero_image": "/product-images/checklist-pdf-hero.png",
       "cta": "Buy now — $9",
-      "value_note": "One-time purchase • Instant access after verified payment • Use forever",
+      "value_note": "One-time purchase • Download once payment is confirmed • The files are yours to keep",
       "gallery": [
         {
           "src": "/product-previews/checklist-pdf/checklist-pdf-preview-1.png",
@@ -420,7 +420,7 @@
         {
           "src": "/product-previews/checklist-pdf/checklist-pdf-preview-4.png",
           "title": "Planning profile page",
-          "caption": "The printable PDF begins by documenting the wedding format, planning window, event scope, and responsibility assumptions.",
+          "caption": "The printable PDF begins with a planning profile: your date, planning start, guest count, venue, local or destination, planner or DIY, and the events included.",
           "alt": "Wedding Checklist PDF paid product preview showing planning profile page"
         },
         {

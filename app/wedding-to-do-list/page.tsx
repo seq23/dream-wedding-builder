@@ -17,7 +17,7 @@ export default function Page() {
     caption: 'The wedding to-do list, window by window',
     columns: ['When', 'Tasks'],
     rows: PLAN_WINDOWS.map((window) => [window.label, window.tasks.join(' · ')]),
-    note: 'The free plan’s core tasks. The planner dates each one from your wedding date; the full plan adds the rest.'
+    note: 'The free plan’s core tasks. The planner gives each a date window counted back from your wedding date; the full plan adds the rest.'
   };
   return <PlannerLandingPage landing={{ ...landing, table }}><DatedToDoList /></PlannerLandingPage>;
 }

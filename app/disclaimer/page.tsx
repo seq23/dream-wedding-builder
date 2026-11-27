@@ -48,9 +48,12 @@ export default function Disclaimer() {
       {/* lib/wedding-read.ts checkRead; components/WeddingJourney.tsx. */}
       <h2 className={H2}>AI answers</h2>
       <p className={P}>
-        The free planner can describe your wedding and fill in a first draft of your plan using a free AI model. Every AI
-        answer is labelled as written by an AI planner, not a person. Before anything you typed goes to the AI, email addresses, phone numbers, street addresses and links are removed. AI can be wrong or out of date. Our checks stop it
-        naming businesses, prices or availability, but you should still check anything that matters. When no free model
+        The free planner can describe your wedding using a free AI model, and the ideas you keep become tasks in your plan; in
+        the phone app, the AI draft fills in a first draft of your guests, place and budget. Every AI answer is labelled as
+        written by AI, not a person. Before anything you typed goes to the AI, our server tries to remove email addresses,
+        phone numbers, street addresses and links; it matches patterns and can miss some, so leave them out. AI can be wrong
+        or out of date. Our checks on the planner&rsquo;s answer try to stop it naming businesses, prices or availability,
+        and they can miss, so check anything that matters. When no free model
         answers, you get an answer from our fixed lists instead, and it says so.
       </p>
 
@@ -75,8 +78,8 @@ export default function Disclaimer() {
       <h2 className={H2}>Vendor names and trademarks</h2>
       <p className={P}>
         Names of businesses, products and services belong to their owners and are used only to describe or link to them.
-        Dream Wedding is independent: it is not affiliated with, endorsed by or sponsored by any registry, retailer, venue
-        or vendor named on these sites, and no venue or supplier pays to appear.
+        Dream Wedding is independent: no registry, retailer, venue or vendor named on these sites owns, endorses or sponsors
+        it, and no venue or supplier pays to appear.
       </p>
 
       {/* lib/affiliates.ts affiliateDisclosure: the line beside every tracked link. */}
@@ -89,7 +92,7 @@ export default function Disclaimer() {
 
       <h2 className={H2}>What we do and never do</h2>
       <ul className="mt-3 grid list-disc gap-2 pl-6 leading-7 text-charcoal/70">
-        <li>We do give a dated, general plan and printable files you can edit and check.</li>
+        <li>We do give a dated, general plan and printable files you can check, with an editable workbook in each of the four planning tools.</li>
         <li>We never promise a price, a vendor, a date, availability or an outcome.</li>
         <li>We never present an AI answer as a person&rsquo;s advice.</li>
         <li>We never give legal, financial, dietary, medical or safety advice.</li>

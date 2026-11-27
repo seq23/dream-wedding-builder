@@ -38,7 +38,7 @@ export default function Page() {
       <p className={P}>
         Each product page lists the exact files, the delivery method and the price before checkout:{' '}
         <Link className="underline underline-offset-4" href="/shop">see every wedding planning tool</Link>. Website purchases
-        are paid once through Stripe, with no subscription, and the download link is shown and emailed right after payment.
+        are paid once through Stripe, with no subscription, and the download link is shown and emailed once payment is confirmed.
         App purchases are paid once through the App Store or Google Play, for the wedding event named on the purchase
         screen; the screen lists what the purchase adds before you pay.
       </p>
@@ -53,7 +53,7 @@ export default function Page() {
       <h2 className={H2}>Refunds</h2>
       <p className={P}>
         Website purchases follow the <a className="underline underline-offset-4" href="https://weddingchecklistpdf.com/refund-policy">digital product refund policy</a>.
-        App purchases are refunded by Apple or Google under their own rules; we cannot refund a store purchase ourselves.
+        App purchases are refunded through the store you paid: Apple under its own rules (we cannot refund an App Store purchase ourselves), and Google Play through your Google Play order history.
       </p>
 
       <h2 className={H2}>General guidance, AI and your own checks</h2>

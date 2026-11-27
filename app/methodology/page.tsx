@@ -22,11 +22,11 @@ const DEFINITION = 'Constraint-first wedding planning is a method in which the f
 // a model can quote when asked how this differs from a budget calculator, so it
 // is stated once, near the top, and reused in the structured data rather than
 // paraphrased in two places that can drift.
-const CONTRAST = 'Calculators tell you what a wedding costs. This tells you what to change.';
+const CONTRAST = 'Calculators tell you what a wedding costs. This tells you where to start cutting.';
 
 export const metadata: Metadata = seoMetadata({
   title: 'Constraint-first wedding planning: the method',
-  description: `${CONTRAST} Fix guest count, date, region, and must-keeps first, then test every choice on them.`,
+  description: `${CONTRAST} Fix guest count, date, region and must-keeps first, then test each choice.`,
   host: PARENT_HOST,
   path: '/methodology',
   type: 'article'
@@ -58,7 +58,7 @@ const limits = [
   'It cannot tell you what a specific vendor will charge. No live pricing or availability is claimed anywhere on this site, and every figure is a published planning benchmark until a written quote replaces it.',
   'It does not improve a plan whose constraints are wrong. Guest count entered optimistically produces a confidently wrong plan.',
   'It is not a substitute for a planner or coordinator on the day. It is a decision structure for the months before, when most of the recoverable mistakes are made.',
-  'It has no opinion on taste. It will not tell you what your wedding should look like, only whether what you want is consistent with what you have fixed.'
+  'The method has no opinion on taste: it checks only whether what you want is consistent with what you have fixed. The free planner’s first step does suggest directions and ideas from what you tell it; they are suggestions to keep or ignore.'
 ];
 
 export default function Methodology() {
@@ -98,14 +98,14 @@ export default function Methodology() {
       <div className="mt-6 grid gap-3">
         <p className="rounded-2xl bg-ivory p-4 leading-7">A wedding budget calculator answers <em>&ldquo;what does a wedding for 80 guests cost&rdquo;</em> and stops. Every one of them stops there, because a cost estimate is the whole product.</p>
         <p className="rounded-2xl bg-ivory p-4 leading-7">The question a couple actually has next is <em>&ldquo;I only have $18,000 &mdash; what do I change?&rdquo;</em> A number cannot answer that, because the answer depends on which things you were never willing to cut.</p>
-        <p className="rounded-2xl bg-ivory p-4 leading-7">That second question is the one this method is built for. It is why the priorities you protect are recorded in Step 0, before any figure is entered: they are what makes one cut better than another for you specifically.</p>
+        <p className="rounded-2xl bg-ivory p-4 leading-7">That second question is the one this method is built for. It is why the planner asks for the priorities you protect in its first step, The basics, beside your guest count and place: they are what makes one cut better than another for you specifically.</p>
       </div>
 
       <h3 className="mt-8 font-serif text-3xl">What the tool actually returns for that question</h3>
-      <p className="mt-3 text-base leading-7 text-charcoal/70">Being precise about this matters more than sounding impressive. Step 3 does not produce a revised budget, and it does not tell you the wedding is affordable. Given 80 guests, an $18,000 hard ceiling, and Food&nbsp;+&nbsp;Bar, Photography, and Guest Comfort marked as protected, this is the text it returns &mdash; generated here by the same function the planner runs, not copied from it:</p>
+      <p className="mt-3 text-base leading-7 text-charcoal/70">Being precise about this matters more than sounding impressive. The budget step gives a starting split inside your number, not a revised budget, and it does not tell you the wedding is affordable. Given 80 guests, an $18,000 hard ceiling, and Food&nbsp;+&nbsp;Bar, Photography, and Guest Comfort marked as protected, this is the text it returns &mdash; generated here by the same function the planner runs, not copied from it:</p>
       <blockquote className="mt-4 rounded-2xl border-l-4 border-charcoal/30 bg-ivory p-5 leading-7" data-testid="methodology-worked-example">{budgetReality(EXAMPLE_PLAN)}</blockquote>
-      <p className="mt-4 text-base leading-7 text-charcoal/70">So the honest version of the claim is narrower than &ldquo;it tells you what to change&rdquo; sounds, and it is still the thing no calculator does: it works out what the number means per guest, it names the three things to leave alone, and it names where the cutting starts instead. It orders the cuts. It does not make the money appear, and it does not pretend the number works.</p>
-      <p className="mt-4 text-sm leading-6 text-midnight-muted">The figures in that example are a worked illustration, not a saved plan and not a quote. The planner opens empty for everyone.</p>
+      <p className="mt-4 text-base leading-7 text-charcoal/70">So the honest version of the claim is narrower than a promise to tell you what to change, and it is still the thing no calculator does: it works out what the number means per guest, it names the three things to leave alone, and it names where the cutting starts instead. It points to where the cuts start. It does not make the money appear, and it does not pretend the number works.</p>
+      <p className="mt-4 text-sm leading-6 text-midnight-muted">The figures in that example are a worked illustration, not a saved plan and not a quote. The planner opens empty unless this browser already holds a plan or the link you followed fills some answers in.</p>
     </section>
 
     <section className="rounded-[12px] bg-linen p-7 md:p-9">
@@ -141,7 +141,7 @@ export default function Methodology() {
     </section>
     <PlannerCta label="Start with your constraints →" seed={{ mode: 'discovery', focus: 'I am overwhelmed' }} />
 
-    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-midnight-muted">Every figure produced by this method is a planning benchmark or a calculation from your own inputs, labelled with its confidence. No live vendor pricing or availability is claimed. Verify before booking or purchasing.</footer>
+    <footer className="rounded-[12px] border border-charcoal/10 bg-white p-6 text-sm leading-6 text-midnight-muted">Every figure produced by this method is a planning benchmark or a calculation from your own inputs, never a quote. No live vendor pricing or availability is claimed. Verify before booking or purchasing.</footer>
     <JsonLd data={[definedTerm, howTo]} />
   </article>;
 }
