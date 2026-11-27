@@ -12,9 +12,11 @@ appId: com.weddingchecklistpdf.dreamwedding
     timeout: 30000
 # The tab's whole accessibility text (Maestro matches the full text; iOS adds the tab role).
 - tapOn: "☰ More, tab, 4 of 4"
+# Centred first: scrolled only until visible, the button sits on the tab bar and the tap lands on a tab.
 - scrollUntilVisible:
     element: "Start a new event ›"
     direction: DOWN
+    centerElement: true
 - tapOn: "Start a new event ›"
 # Each offer card is one radio, so iOS reads it as one text: its name, what it holds, then the store price.
 - extendedWaitUntil:

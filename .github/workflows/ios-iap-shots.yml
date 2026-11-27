@@ -95,15 +95,19 @@ jobs:
           event='0123456789abcdef0123456789abcdef'
           # (a) before any purchase: a wedding date only, as after the free journey.
           seed "$(jq -cn --arg d "$date" '{"dw.wedding-date.v1": $d}')"
-          walk first-purchase
+          # Every walk runs and every shot taken is kept; the step fails after, if any walk failed.
+          failed=0
+          walk first-purchase || failed=1
           # (b), (c) a Full plan owner: one paid event, named with the app's own default name.
           ledger=$(jq -cn --arg id "$event" --arg d "$date" '{firstEventId: $id, events: [{id: $id, name: "Our wedding – Sep 18, 2027", date: $d, dateChanges: 0, fullPlan: true}], extras: []}')
           seed "$(jq -cn --arg l "$ledger" --arg id "$event" --arg d "$date" '{"dw.billing.events.v1": $l, "dw.billing.active-event.v1": $id, "dw.wedding-date.v1": $d}')"
-          walk owner-extras
-          walk new-event
+          walk owner-extras || failed=1
+          walk new-event || failed=1
           find run "$HOME/.maestro" -name 'iap-*.png' -newer run/.start -exec cp {} shots/ \; 2>/dev/null || true
           ls -l shots
+          exit $failed
       - name: Check the shots (six, full 6.9-inch size)
+        if: always()
         run: |
           n=0
           for f in shots/iap-*.png; do
