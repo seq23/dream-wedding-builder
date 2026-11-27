@@ -2,15 +2,15 @@
   "schema_version": "1.0",
   "policy": "lastmod_derived_from_committed_content_change",
   "method": "For each path, the date of the oldest commit in the unbroken newest-first run of commits whose content fingerprint equals the current one - that is, the commit that introduced what the page shows now. Derived only from committed history, so it is reproducible and does not track checkout or build time. Paths whose content is not committed yet take the run date (LASTMOD_RUN_AT / AUTHORITY_RUN_AT) and settle once committed.",
-  "generated_from_commit": "a8f9d705d1419ca07cfb71d271bc50baa71ba754",
+  "generated_from_commit": "3912c05aff82db717305160acd5f3e1124f14950",
   "shipping_guide_count": 16,
   "paths": {
     "/": {
-      "lastmod": "2026-11-25",
+      "lastmod": "2026-11-27",
       "source": "app/page.tsx"
     },
     "/about": {
-      "lastmod": "2026-11-13",
+      "lastmod": "2026-11-27",
       "source": "app/about/page.tsx"
     },
     "/amazon/courthouse-wedding-planner": {
@@ -54,7 +54,7 @@
       "source": "app/courthouse-wedding/page.tsx"
     },
     "/disclaimer": {
-      "lastmod": "2026-11-13",
+      "lastmod": "2026-11-27",
       "source": "app/disclaimer/page.tsx"
     },
     "/editorial-policy": {
@@ -62,7 +62,7 @@
       "source": "app/editorial-policy/page.tsx"
     },
     "/free-wedding-planner": {
-      "lastmod": "2026-11-25",
+      "lastmod": "2026-11-27",
       "source": "app/free-wedding-planner/page.tsx"
     },
     "/guides": {
@@ -138,7 +138,7 @@
       "source": "app/maid-of-honor-duties/page.tsx"
     },
     "/methodology": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-27",
       "source": "app/methodology/page.tsx"
     },
     "/micro-wedding-planning": {
@@ -150,7 +150,7 @@
       "source": "app/nigerian-traditional-and-white-wedding/page.tsx"
     },
     "/photos": {
-      "lastmod": "2026-11-13",
+      "lastmod": "2026-11-27",
       "source": "app/photos/page.tsx"
     },
     "/printable-wedding-checklist": {
@@ -162,11 +162,11 @@
       "source": "app/privacy/page.tsx"
     },
     "/products/budget-spreadsheet": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-27",
       "source": "data/seo/budget_page_shape.json#wedding-budget-spreadsheet + product record"
     },
     "/products/checklist-pdf": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-27",
       "source": "data/products/product_catalog.json#products[id=checklist-pdf]"
     },
     "/products/courthouse-wedding-kit": {
@@ -178,15 +178,15 @@
       "source": "data/products/product_catalog.json#products[id=maid-of-honor-kit]"
     },
     "/products/operations-suite": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-27",
       "source": "app/products/operations-suite/page.tsx"
     },
     "/products/seating-chart-maker": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-27",
       "source": "data/products/product_catalog.json#products[id=seating-chart-maker]"
     },
     "/products/timeline-template": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-27",
       "source": "data/products/product_catalog.json#products[id=timeline-template]"
     },
     "/products/wedding-vows-workbook": {
@@ -194,15 +194,15 @@
       "source": "data/products/product_catalog.json#products[id=wedding-vows-workbook]"
     },
     "/questions": {
-      "lastmod": "2026-11-22",
+      "lastmod": "2026-11-27",
       "source": "app/questions/page.tsx + newest live search-loop page"
     },
     "/readiness-score": {
-      "lastmod": "2026-11-10",
+      "lastmod": "2026-11-27",
       "source": "app/readiness-score/page.tsx"
     },
     "/refund-policy": {
-      "lastmod": "2026-11-13",
+      "lastmod": "2026-11-27",
       "source": "app/refund-policy/page.tsx"
     },
     "/shop": {
@@ -214,7 +214,7 @@
       "source": "app/shop/compare/page.tsx"
     },
     "/terms": {
-      "lastmod": "2026-11-13",
+      "lastmod": "2026-11-27",
       "source": "app/terms/page.tsx"
     },
     "/wedding-budget-spreadsheet": {
@@ -262,7 +262,7 @@
       "source": "data/seo/editorial_page_shape.json#wedding-timeline-template"
     },
     "/wedding-to-do-list": {
-      "lastmod": "2026-11-21",
+      "lastmod": "2026-11-27",
       "source": "app/wedding-to-do-list/page.tsx"
     },
     "/wedding-without-a-coordinator": {
