@@ -46,12 +46,12 @@ export default function AiDraft() {
     finally { setBusy(false); }
   }
   const button = (label: string, action: () => void, disabled = false) => <Pressable accessibilityRole="button" accessibilityState={{ disabled }} disabled={disabled || busy} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={[type.button, { color: disabled || busy ? color.midnightMuted : color.blue }]}>{label}</Text></Pressable>;
-  const box = (label: string, checked: boolean, action: () => void) => <Pressable accessibilityRole="checkbox" accessibilityState={{ checked }} disabled={busy} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={type.body}>{checked ? '☑' : '☐'} {label}</Text></Pressable>;
+  const box = (label: string, checked: boolean, action: () => void) => <Pressable accessibilityRole="checkbox" aria-checked={checked} disabled={busy} onPress={action} style={{ minHeight: 48, justifyContent: 'center' }}><Text style={type.body}>{checked ? '☑' : '☐'} {label}</Text></Pressable>;
   return <PlannedScreen route="/plan/ai-draft">
     <Text style={type.title}>{review ? 'Check your draft' : 'Guests, place and budget'}</Text>
     {review ? <>
       <Text style={type.body}>Nothing has changed yet. Choose the details you want to keep.</Text>
-      {(Object.keys(review) as (keyof Details)[]).map(key => <Pressable key={key} accessibilityRole="checkbox" accessibilityState={{ checked: !excluded.includes(key) }} disabled={busy} onPress={() => setExcluded(old => old.includes(key) ? old.filter(k => k !== key) : [...old, key])} style={{ minHeight: 48 }}><Text style={type.body}>{excluded.includes(key) ? '☐' : '☑'} {detailLabels[key]}: {review[key]}</Text></Pressable>)}
+      {(Object.keys(review) as (keyof Details)[]).map(key => <Pressable key={key} accessibilityRole="checkbox" aria-checked={!excluded.includes(key)} disabled={busy} onPress={() => setExcluded(old => old.includes(key) ? old.filter(k => k !== key) : [...old, key])} style={{ minHeight: 48 }}><Text style={type.body}>{excluded.includes(key) ? '☐' : '☑'} {detailLabels[key]}: {review[key]}</Text></Pressable>)}
       {button('Save the ticked details ›', () => save(Object.fromEntries(Object.entries(review).filter(([key]) => !excluded.includes(key)))), Object.keys(review).every(key => excluded.includes(key)))}
       {button('Discard draft', () => { setReview(null); setMessage(''); })}
       <ReportAnswer where="Check your draft" answer={(Object.keys(review) as (keyof Details)[]).map(key => `${detailLabels[key]}: ${review[key]}`).join('\n')} />

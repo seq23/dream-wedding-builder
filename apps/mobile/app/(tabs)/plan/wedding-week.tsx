@@ -65,7 +65,7 @@ export default function WeddingWeek() {
     {!ready?<Text style={type.body}>Opening your wedding week…</Text>:!date?<GoButton href="/welcome" label="Set your wedding date ›" />:!allowed&&!preview?<><Text style={type.body}>{partOfFullPlan(price)}. Your wedding week brings your final days, who to call and the payment envelopes together.</Text><GoButton href="/more/full-plan" label="See the full plan ›" /></>:<>
       {!shared?<><Text style={type.body}>Sample of a paid screen. Your wedding week is {partOfFullPlan(price, 'part')}. The tasks below are made up so you can try it.</Text><GoButton href="/more/full-plan" label="See the full plan ›" /></>:null}
       {Array.from({length:8},(_,i)=>7-i).filter(day=>tasks.some(t=>t.daysBefore===day)).map(day=><View key={day}><Text style={type.section}>{day===0?'Wedding day':day===1?'1 day before':`${day} days before`}</Text>{tasks.filter(t=>t.daysBefore===day).map(t=><View key={t.key}>
-        <Pressable accessibilityRole="checkbox" accessibilityState={{checked:!!t.doneAt,disabled:busy}} disabled={busy} onPress={()=>void tick(t.key)} style={{minHeight:48}}><Text style={type.body}>{t.doneAt?'✓':'○'} {t.text}</Text></Pressable>
+        <Pressable accessibilityRole="checkbox" aria-checked={!!t.doneAt} aria-disabled={busy} disabled={busy} onPress={()=>void tick(t.key)} style={{minHeight:48}}><Text style={type.body}>{t.doneAt?'✓':'○'} {t.text}</Text></Pressable>
         <Text style={type.sub}>{t.date ? plainDate(t.date) : ''} · Suggested owner: {t.owner || 'you choose'}</Text>
         {field('Who',who[t.key]??details.who[t.key]??'',v=>typeWho(t.key,v))}
       </View>)}</View>)}

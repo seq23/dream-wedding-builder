@@ -56,7 +56,7 @@ export default function Packet() {
     <Text style={type.body}>Names on the packet (optional)</Text>
     <TypingBox accessibilityLabel="Names on the packet (optional)" maxLength={140} value={names} onChangeText={setNames} editable={!busy} style={[type.body,{ borderWidth: 1, borderColor: color.rule, padding: space[3] }]} />
     <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: space[4] }}>
-      {(['Letter','A4'] as Paper[]).map(p => <Pressable key={p} accessibilityRole="radio" accessibilityState={{ checked: paper === p, disabled: busy }} disabled={busy} onPress={() => setPaper(p)} style={{ minHeight:48, flexDirection:'row', alignItems:'center', gap: space[2] }}>
+      {(['Letter','A4'] as Paper[]).map(p => <Pressable key={p} accessibilityRole="radio" aria-checked={paper === p} aria-disabled={busy} disabled={busy} onPress={() => setPaper(p)} style={{ minHeight:48, flexDirection:'row', alignItems:'center', gap: space[2] }}>
         <View style={{ width: 22, height: 22, borderRadius: 11, borderWidth: paper === p ? 7 : 1.5, borderColor: paper === p ? color.blue : color.midnightMuted, backgroundColor: color.ivoryRaised }} />
         <Text style={type.button}>{p}</Text></Pressable>)}
     </View>
