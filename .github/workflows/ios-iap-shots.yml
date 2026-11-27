@@ -89,6 +89,7 @@ jobs:
           }
           walk() { ( cd run && maestro --device "$UDID" test "../apps/mobile/.maestro/iap/$1.yaml" ) > "maestro-$1.log" 2>&1 || {
             tail -30 "maestro-$1.log"; xcrun simctl io "$UDID" screenshot "shots/FAILED-$1.png"
+            maestro --device "$UDID" hierarchy > "maestro-$1-hierarchy.log" 2>&1 || true
             echo "NAMED STOP [IAP_PRICES_NOT_LOADED] $1: the screen or its App Store price did not appear (shots/FAILED-$1.png)"; return 1; }; }
           date='2027-09-18'
           event='0123456789abcdef0123456789abcdef'

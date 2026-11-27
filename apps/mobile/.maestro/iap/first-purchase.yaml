@@ -7,7 +7,10 @@ appId: com.weddingchecklistpdf.dreamwedding
 - tapOn:
     text: "Don’t Allow"
     optional: true
-- tapOn: "☰ More"
+# The "☰ More" tab, by its place in the tab bar on the 6.9-inch iPhone the job boots (its accessibility
+# text carries the tab role, so a text match is not exact); the next step proves the More screen opened.
+- tapOn:
+    point: "86%,94%"
 - tapOn: "See the full plan ›"
 - extendedWaitUntil:
     visible: "Full plan"
