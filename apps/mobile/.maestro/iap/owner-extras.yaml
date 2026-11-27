@@ -13,14 +13,15 @@ appId: com.weddingchecklistpdf.dreamwedding
     timeout: 30000
 # The tab's whole accessibility text (Maestro matches the full text; iOS adds the tab role).
 - tapOn: "☰ More, tab, 4 of 4"
+- scrollUntilVisible:
+    element: "Add printables to my plan ›"
+    direction: DOWN
 - tapOn: "Add printables to my plan ›"
+# Each offer card is one radio, so iOS reads it as one text: its name, what it holds, then the store price.
 - extendedWaitUntil:
-    visible: "Day-of kit"
-    timeout: 30000
-- extendedWaitUntil:
-    visible: "\\$19\\.99"
+    visible: ".*Printables, Files to print.*, \\$19\\.99"
     timeout: 90000
-- assertVisible: "\\$9\\.99"
+- assertVisible: ".*Day-of kit, For the day itself.*, \\$9\\.99"
 - takeScreenshot: iap-b-top
 - scrollUntilVisible:
     element: "Choose one above"

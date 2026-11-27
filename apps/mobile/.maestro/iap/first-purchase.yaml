@@ -14,14 +14,12 @@ appId: com.weddingchecklistpdf.dreamwedding
 # The tab's whole accessibility text (Maestro matches the full text; iOS adds the tab role).
 - tapOn: "☰ More, tab, 4 of 4"
 - tapOn: "See the full plan ›"
-- extendedWaitUntil:
-    visible: "Full plan"
-    timeout: 30000
+# Each offer card is one radio, so iOS reads it as one text: its name, what it holds, then the store price.
 # The price comes from StoreKit through RevenueCat: no price, no shot (the job stops IAP_PRICES_NOT_LOADED).
 - extendedWaitUntil:
-    visible: "\\$14\\.99"
+    visible: "Full plan, Payments.*, \\$14\\.99"
     timeout: 90000
-- assertVisible: "\\$34\\.99"
+- assertVisible: ".*Planner \\+ printables, The full plan.*, \\$34\\.99"
 - takeScreenshot: iap-a-top
 - scrollUntilVisible:
     element: "Choose one above"

@@ -16,11 +16,9 @@ appId: com.weddingchecklistpdf.dreamwedding
     element: "Start a new event ›"
     direction: DOWN
 - tapOn: "Start a new event ›"
+# Each offer card is one radio, so iOS reads it as one text: its name, what it holds, then the store price.
 - extendedWaitUntil:
-    visible: "Full plan for a new event"
-    timeout: 30000
-- extendedWaitUntil:
-    visible: "\\$14\\.99"
+    visible: ".*Full plan for a new event, One new event, paid once\\., \\$14\\.99"
     timeout: 90000
 - takeScreenshot: iap-c-top
 - scrollUntilVisible:
