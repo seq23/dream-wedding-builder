@@ -25,7 +25,7 @@ import { products } from '@/lib/products';
 import manifest from '@/product-builds/manifests/download_manifest.json';
 import partners from '@/data/affiliates/partners.json';
 
-const text = (html: string) => html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+const text = (html: string) => html.replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 const esc = (s: string) => text(renderToStaticMarkup(<>{s}</>));
 
 describe('the planner shows the readiness score the readiness page documents', () => {
