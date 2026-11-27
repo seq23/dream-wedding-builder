@@ -94,13 +94,13 @@ export default function Plan() {
     catch { setError('Your change could not be saved. Try again.'); }
     finally { setSaving(false); }
   }
-  const pick = (r: Row) => <Pressable key={r.key} accessibilityRole="checkbox" accessibilityState={{ checked: !!choosing?.includes(r.key) }} disabled={saving}
+  const pick = (r: Row) => <Pressable key={r.key} accessibilityRole="checkbox" aria-checked={!!choosing?.includes(r.key)} disabled={saving}
     onPress={() => setChoosing(list => list?.includes(r.key) ? list.filter(k => k !== r.key) : [...(list ?? []), r.key])}
     style={{ minHeight: 48, justifyContent: 'center', borderBottomWidth: 1, borderColor: color.rule }}>
     <Text style={type.body}>{choosing?.includes(r.key) ? '☑' : '☐'} {r.text}</Text>
   </Pressable>;
   const row = (r: Row, overdue = false) => <View key={r.key} style={{ borderBottomWidth: 1, borderColor: color.rule, paddingVertical: space[2] }}>
-    <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: !!r.doneAt, disabled: saving }} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
+    <Pressable accessibilityRole="checkbox" aria-checked={!!r.doneAt} aria-disabled={saving} disabled={saving} onPress={() => tick(r.key)} style={{ minHeight: 48, justifyContent: 'center' }}>
       <Text style={[type.body, { color: r.doneAt ? color.done : color.midnight }]}>{r.doneAt ? '✓' : '○'} {r.text}</Text>
       <Text style={type.sub}>{whenLine(r, (shared?.list.windows ?? PLAN_WINDOWS).find(w => w.id === r.windowId)?.label, plan, overdue && !r.doneAt)}</Text>
       {isPick(r.ownId) ? <Text style={[type.label, { color: color.blue }]}>Your pick</Text> : null}

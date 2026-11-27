@@ -43,21 +43,21 @@ function Progress({ step }: { step: Step }) {
 // Chips say whether they are chosen to VoiceOver and TalkBack: a pick-any row is a set of
 // checkboxes, a pick-one row a set of radios (first-time test, 14 Nov 2026).
 function Chip({ label, on, onPress, many = false }: { label: string; on: boolean; onPress: () => void; many?: boolean }) {
-  return <Pressable accessibilityRole={many ? 'checkbox' : 'radio'} accessibilityState={{ checked: on, selected: on }} accessibilityLabel={label} onPress={onPress}
+  return <Pressable accessibilityRole={many ? 'checkbox' : 'radio'} aria-checked={on} accessibilityLabel={label} onPress={onPress}
     style={{ minHeight: 44, paddingHorizontal: 14, justifyContent: 'center', borderRadius: radius.pill, borderWidth: on ? 2 : 1, borderColor: on ? color.blue : color.rule, backgroundColor: color.ivoryRaised }}>
     <Text style={[type.sub, { fontFamily: font.sansBold, color: color.midnight }]}>{label}</Text>
   </Pressable>;
 }
 /** A chip with the color itself beside its name (step 1, "Your colors"). */
 function ColourChip({ label, hex, on, onPress }: { label: string; hex?: string; on: boolean; onPress: () => void }) {
-  return <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: on, selected: on }} accessibilityLabel={label} onPress={onPress}
+  return <Pressable accessibilityRole="checkbox" aria-checked={on} accessibilityLabel={label} onPress={onPress}
     style={{ minHeight: 44, paddingHorizontal: 14, flexDirection: 'row', alignItems: 'center', gap: 8, borderRadius: radius.pill, borderWidth: on ? 2 : 1, borderColor: on ? color.blue : color.rule, backgroundColor: color.ivoryRaised }}>
     {hex ? <View style={{ width: 18, height: 18, borderRadius: 9, backgroundColor: hex, borderWidth: 1, borderColor: color.rule }} /> : null}
     <Text style={[type.sub, { fontFamily: font.sansBold, color: color.midnight }]}>{label}</Text>
   </Pressable>;
 }
 function Tick({ label, on, onPress }: { label: string; on: boolean; onPress: () => void }) {
-  return <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: on }} accessibilityLabel={label} onPress={onPress} style={{ minHeight: 44, flexDirection: 'row', gap: space[2], alignItems: 'center' }}>
+  return <Pressable accessibilityRole="checkbox" aria-checked={on} accessibilityLabel={label} onPress={onPress} style={{ minHeight: 44, flexDirection: 'row', gap: space[2], alignItems: 'center' }}>
     <View style={{ width: 22, height: 22, borderRadius: 4, borderWidth: 1.5, borderColor: on ? color.blue : color.midnightMuted, backgroundColor: on ? color.blue : color.ivoryRaised, alignItems: 'center', justifyContent: 'center' }}>{on ? <Text style={{ color: color.onBlue, fontSize: 14, lineHeight: 16 }}>✓</Text> : null}</View>
     <Text style={[type.body, { flex: 1 }]}>{label}</Text>
   </Pressable>;
@@ -162,7 +162,7 @@ export default function Feel() {
       <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: 10 }}>
         {([['idea', 'I have an idea', 'Say it in your own words'], ['dk', 'I don’t know yet', 'Tap a few things you like']] as const).map(([id, title, sub]) => {
           const on = chosen && a.path === id;
-          return <Pressable key={id} accessibilityRole="radio" accessibilityState={{ checked: on }} accessibilityLabel={title} onPress={() => { set({ path: id }); setChosen(true); }}
+          return <Pressable key={id} accessibilityRole="radio" aria-checked={on} accessibilityLabel={title} onPress={() => { set({ path: id }); setChosen(true); }}
             style={{ flex: 1, gap: 4, padding: 14, borderRadius: 12, borderWidth: on ? 3 : 1.5, borderColor: on ? color.blue : color.rule, backgroundColor: color.ivoryRaised }}>
             <View style={{ width: 18, height: 18, borderRadius: 9, borderWidth: on ? 6 : 1.5, borderColor: on ? color.blue : color.midnightMuted, marginBottom: 4 }} />
             <Text style={type.subhead}>{title}</Text><Text style={[type.sub, { color: color.midnightMuted }]}>{sub}</Text>
@@ -265,7 +265,7 @@ export default function Feel() {
       {groups.colours.length ? <View style={{ gap: space[2] }}>
         <Text style={h2}>The colors</Text>
         <Text style={[type.sub, { color: color.midnightMuted }]}>Keep one, or none: nothing is decided for you.</Text>
-        {groups.colours.map(item => { const on = picks.some(p => p.key === item.pick.key); return <Pressable key={item.pick.key} accessibilityRole="radio" accessibilityState={{ checked: on }} accessibilityLabel={`${item.label}: ${item.sub}`} onPress={() => toggle(item.pick)}
+        {groups.colours.map(item => { const on = picks.some(p => p.key === item.pick.key); return <Pressable key={item.pick.key} accessibilityRole="radio" aria-checked={on} accessibilityLabel={`${item.label}: ${item.sub}`} onPress={() => toggle(item.pick)}
           style={[box, { gap: 6, borderWidth: on ? 2 : 1, borderColor: on ? color.blue : color.rule }]}>
           <Text style={type.subhead}>{item.label}</Text><Swatches colours={item.colours} />
           {on ? <Text style={[mono, { color: color.done }]}>✓ Kept</Text> : null}
@@ -273,7 +273,7 @@ export default function Feel() {
       </View> : null}
       {([['The direction', groups.directions], ['The kind of place', groups.venues], ['The ideas', groups.ideas], ['The details', groups.details]] as const).map(([title, items]) => items.length ? <View key={title} style={{ gap: space[2] }}>
         <Text style={h2}>{title}</Text>
-        {items.map(item => { const on = picks.some(p => p.key === item.pick.key); return <Pressable key={item.pick.key} accessibilityRole="checkbox" accessibilityState={{ checked: on }} onPress={() => toggle(item.pick)}
+        {items.map(item => { const on = picks.some(p => p.key === item.pick.key); return <Pressable key={item.pick.key} accessibilityRole="checkbox" aria-checked={on} onPress={() => toggle(item.pick)}
           style={[box, { gap: 4, borderWidth: on ? 2 : 1, borderColor: on ? color.blue : color.rule }]}>
           {item.label ? <Text style={type.subhead}>{item.label}</Text> : null}<Text style={type.body}>{item.sub}</Text>
           {on ? <Text style={[mono, { color: color.done }]}>✓ Kept</Text> : null}

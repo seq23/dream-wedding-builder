@@ -13,6 +13,31 @@ concurrency:
   group: app-preview-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: false
 jobs:
+  # The app's own checks on every pull request: the typecheck and apps/mobile/test (radios and
+  # checkboxes that hide their state, the doors, the plan). No secrets and no environment. The preview
+  # job below runs only on reviewed main, so without this job a pull request ran none of them and a
+  # broken screen first showed on main (3912c05, 27 Nov 2026).
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: apps/mobile
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: npm
+          cache-dependency-path: apps/mobile/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run check
   preview:
     if: github.ref == 'refs/heads/main'
     environment: reviewed-main
@@ -66,7 +91,6 @@ jobs:
   # behind it. Free (public repo); every write is blocked, nothing real is touched.
   tap-through:
     needs: preview
-    uses: seq23/boss-os/.github/workflows/tap-through.yml@feat/tap-through
+    uses: seq23/boss-os/.github/workflows/tap-through.yml@main
     with:
       target: ${{ needs.preview.outputs.url }}
-      runner_ref: feat/tap-through  # until seq23/boss-os#509 lands; then this line and the @ref go to main
