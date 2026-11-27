@@ -2,13 +2,13 @@
   "schema": "search-loop-week-v1",
   "week": "2026-W48",
   "site": "weddingchecklistpdf.com",
-  "generated_at": "2026-11-26T21:24:47.378Z",
-  "state": "stopped",
-  "published": 3,
-  "indexed": 0,
+  "generated_at": "2026-11-27T18:09:11.619Z",
+  "state": "slow",
+  "published": 2,
+  "indexed": 2,
   "pace": 1,
   "ai_visitors": 0,
-  "ai_bot_hits": 241,
+  "ai_bot_hits": 216,
   "conversions": "not read: no conversion source configured for this site (form fills / checkouts)",
   "wins": 0,
   "undone": 0,
@@ -138,9 +138,7 @@
   },
   "notes": [
     "site config lowers the mode to slow",
-    "not read: AI answer misses (no BOSS_OPEN_LOOPS_TOKEN in this run (pass it in the caller's secrets: block)); could not tell this run",
-    "NAMED STOP [FREE_MODEL_KEY_MISSING] no free model lane has a credential (GEMINI_API_KEY, OPENROUTER_API_KEY, CLOUDFLARE_*); BUILD wrote nothing, CHECK and the report still run",
-    "CHECK runs weekly in mode=slow; last ran 2026-11-21"
+    "BUILD published 0 of quota 1: 4 draft(s) failed the gate and were dropped; 0 got no answer from the free model and stay queued"
   ],
   "lanes": {
     "ratio": {
@@ -149,13 +147,13 @@
     },
     "can_be_one": {
       "pages": 11,
-      "measured": 0,
+      "measured": 4,
       "top3": 0,
-      "hit_rate": "not read: no page in this lane has reached its 2-week check yet"
+      "hit_rate": 0
     },
     "striking": {
       "pages": 26,
-      "measured": 1,
+      "measured": 3,
       "top3": 0,
       "hit_rate": 0
     },
@@ -169,14 +167,33 @@
     "competition": "ok: 15 top-10 read(s) via brave"
   },
   "ai_misses": {
-    "read": "not read: no BOSS_OPEN_LOOPS_TOKEN in this run (pass it in the caller's secrets: block)",
-    "week": null,
-    "misses": 0,
+    "read": "ok",
+    "week": "2026-W48",
+    "misses": 4,
     "strengthened": [],
     "new_candidates": [],
-    "skipped": [],
+    "skipped": [
+      {
+        "id": "18eddbc3f1af2a9d6f67f32c852f8e71f1fca275",
+        "reason": "mode=slow does not strengthen pages"
+      },
+      {
+        "id": "5fd59b2decc4c915e44e9a5eb30c84f0d2b4e81a",
+        "reason": "mode=slow does not strengthen pages"
+      },
+      {
+        "id": "96a6c8f47e3b12de69547190376cd50ac7a24058",
+        "reason": "mode=slow does not strengthen pages"
+      },
+      {
+        "id": "db2425a94ee80d7c11338a9ec3bc0234ed923549",
+        "reason": "mode=slow does not strengthen pages"
+      }
+    ],
     "rejected": [],
     "could_not_tell": 4
   },
-  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/45897925881"
+  "comparison": "not read: FIND has not run since v1.16.0",
+  "seeds": "not read: this site has no seeds in its config",
+  "run_url": "https://github.com/seq23/dream-wedding-builder/actions/runs/46047154187"
 }

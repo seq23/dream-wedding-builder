@@ -890,7 +890,7 @@
         "before_hash": "dcfdaf80084c8f2c21f93b0e27ff20ea69763d316a42e18837603546c9d2f9d4",
         "after_hash": "e111f3ba0768b10c50a18b545c43b39bf517275cb908fcd77655466745c2497d"
       },
-      "inspected_at": "2026-11-21",
+      "inspected_at": "2026-11-27",
       "indexed": false,
       "extra_queries": [
         "how to plan a wedding without a planner"
@@ -920,11 +920,26 @@
         "https://www.consumerfinance.gov/"
       ],
       "linked_from": [],
-      "checks": {},
+      "checks": {
+        "w2": {
+          "at": "2026-11-27",
+          "source": "search_console",
+          "clicks": 0,
+          "impressions": 0,
+          "position": null,
+          "ai_visits_today": 0,
+          "indexed": false,
+          "checkpoint": "w2",
+          "lane": "striking",
+          "top3": false
+        }
+      },
       "indexnow_at": "2026-11-09",
       "extra_queries": [
         "do i need a wedding planner"
-      ]
+      ],
+      "inspected_at": "2026-11-27",
+      "indexed": false
     },
     {
       "slug": "is-a-wedding-planner-worth-it",
@@ -978,7 +993,20 @@
           "after_hash": "0973663eecd7d7170c81c092a32b7bedbafcb0291e8ca4780af013c3cd94c2b3"
         }
       ],
-      "checks": {},
+      "checks": {
+        "w2": {
+          "at": "2026-11-27",
+          "source": "search_console",
+          "clicks": 0,
+          "impressions": 0,
+          "position": null,
+          "ai_visits_today": 0,
+          "indexed": true,
+          "checkpoint": "w2",
+          "lane": "can_be_one",
+          "top3": false
+        }
+      },
       "gate_notes": [
         "b5 FAQ answer is 35 words (aim 40-60): \"Can I hire someone just for the wedding day?\"",
         "b5 FAQ answer is 31 words (aim 40-60): \"Do planners save you money overall?\"",
@@ -992,7 +1020,10 @@
         "is hiring a wedding planner worth it",
         "is getting a wedding planner worth it",
         "is a partial wedding planner worth it"
-      ]
+      ],
+      "inspected_at": "2026-11-27",
+      "indexed": true,
+      "indexed_at": "2026-11-27"
     },
     {
       "slug": "is-it-necessary-to-hire-a-wedding-planner",
@@ -1052,13 +1083,28 @@
           "after_hash": "dcc5cc9695b9c9757027e7076b987feeffbd5b725557430fb512f3a4dcf2a702"
         }
       ],
-      "checks": {},
+      "checks": {
+        "w2": {
+          "at": "2026-11-27",
+          "source": "search_console",
+          "clicks": 0,
+          "impressions": 0,
+          "position": null,
+          "ai_visits_today": 0,
+          "indexed": false,
+          "checkpoint": "w2",
+          "lane": "can_be_one",
+          "top3": false
+        }
+      },
       "gate_notes": [
         "b5 FAQ answer is 37 words (aim 40-60): \"What is the alternative to hiring a full-service p\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"How early should I start planning independently?\"",
         "b5 FAQ answer is 34 words (aim 40-60): \"Where can I find a reliable task list for independ\""
       ],
-      "indexnow_at": "2026-11-11"
+      "indexnow_at": "2026-11-11",
+      "inspected_at": "2026-11-27",
+      "indexed": false
     },
     {
       "slug": "beach-wedding-checklist-pdf",
@@ -1118,12 +1164,27 @@
           "after_hash": "a11cc405e2c3a41d638a0fdefaeb890166472522fc33e36d55c2e979cb8ea8c5"
         }
       ],
-      "checks": {},
+      "checks": {
+        "w2": {
+          "at": "2026-11-27",
+          "source": "search_console",
+          "clicks": 0,
+          "impressions": 0,
+          "position": null,
+          "ai_visits_today": 0,
+          "indexed": false,
+          "checkpoint": "w2",
+          "lane": "can_be_one",
+          "top3": false
+        }
+      },
       "gate_notes": [
         "b1 title does not put the search first",
         "b5 FAQ answer is 39 words (aim 40-60): \"How do I keep guests cool during an outdoor beach \""
       ],
-      "indexnow_at": "2026-11-12"
+      "indexnow_at": "2026-11-12",
+      "inspected_at": "2026-11-27",
+      "indexed": false
     },
     {
       "slug": "free-printable-wedding-planning-checklist-and-timeline",
@@ -1183,13 +1244,29 @@
           "after_hash": "1e02a2faf17c278b3de6b8f2d7dead5958634310d157b7f6990632b814735eee"
         }
       ],
-      "checks": {},
+      "checks": {
+        "w2": {
+          "at": "2026-11-27",
+          "source": "search_console",
+          "clicks": 0,
+          "impressions": 52,
+          "position": 78.9,
+          "ai_visits_today": 0,
+          "indexed": true,
+          "checkpoint": "w2",
+          "lane": "can_be_one",
+          "top3": false
+        }
+      },
       "gate_notes": [
         "b5 FAQ answer is 38 words (aim 40-60): \"How do I handle a wedding budget without a planner\"",
         "b5 FAQ answer is 38 words (aim 40-60): \"What is the most important part of a wedding timel\"",
         "b5 FAQ answer is 35 words (aim 40-60): \"Can I plan a wedding in less than six months?\""
       ],
-      "indexnow_at": "2026-11-13"
+      "indexnow_at": "2026-11-13",
+      "inspected_at": "2026-11-27",
+      "indexed": true,
+      "indexed_at": "2026-11-27"
     },
     {
       "slug": "wedding-coordinator-checklist-pdf",
@@ -1249,7 +1326,20 @@
           "after_hash": "411ae03ad3896d5e9b21c07ad4e9ba46cb5dc1d2f27f46b8e4ea08c9125c5167"
         }
       ],
-      "checks": {},
+      "checks": {
+        "w2": {
+          "at": "2026-11-27",
+          "source": "search_console",
+          "clicks": 0,
+          "impressions": 0,
+          "position": null,
+          "ai_visits_today": 0,
+          "indexed": false,
+          "checkpoint": "w2",
+          "lane": "striking",
+          "top3": false
+        }
+      },
       "gate_notes": [
         "b5 FAQ answer is 39 words (aim 40-60): \"How many copies of the coordinator checklist shoul\"",
         "b5 FAQ answer is 35 words (aim 40-60): \"When should I finalize the wedding day schedule?\"",
@@ -1260,7 +1350,9 @@
       "extra_queries": [
         "do i need a wedding planner or coordinator",
         "do i need a wedding coordinator"
-      ]
+      ],
+      "inspected_at": "2026-11-27",
+      "indexed": false
     },
     {
       "slug": "destination-wedding-planning-checklist-pdf",
@@ -2185,6 +2277,42 @@
       "gate": 2,
       "reason": [
         "the answer was not the JSON object asked for, with every key filled"
+      ]
+    },
+    {
+      "query": "where can i find a free step by step wedding planning checklist",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.usa.gov/marriage-license (HTTP 404); https://www.usa.gov/marriage-license (HTTP 404)"
+      ]
+    },
+    {
+      "query": "do i need to hire a wedding planner",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "b5 FAQ answer is 29 words (aim 40-60): \"Can I do everything myself?\"",
+        "b5 FAQ answer is 29 words (aim 40-60): \"When should I start my planning checklist?\"",
+        "b5 FAQ answer is 27 words (aim 40-60): \"How do I manage vendor contracts?\"",
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.cdc.gov/nceh/ehs/default.htm (no answer)"
+      ]
+    },
+    {
+      "query": "how much wedding coordinator cost",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 1); these failed the check, replace each with a page that exists: https://www.brides.com/story/how-much-does-a-wedding-planner-cost (HTTP 402)",
+        "invented: unsourced price \"Most couples pay between one thousand and three thousand dollars depending on the scope of work and \" (drop the amount, or move it into \"facts\" with a dated source that states it)"
+      ]
+    },
+    {
+      "query": "how to prepare a wedding checklist",
+      "at": "2026-11-27",
+      "gate": 2,
+      "reason": [
+        "facts: needs at least 2 distinct sources whose URLs answered 200 (found 0); these failed the check, replace each with a page that exists: https://www.usa.gov/marriage-license (HTTP 404); https://travel.state.gov/content/travel/en/passports/how-apply/processing-times.html (HTTP 403: this site refuses automated checks, so cite a different publisher)"
       ]
     }
   ],
