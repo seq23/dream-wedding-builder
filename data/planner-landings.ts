@@ -957,7 +957,7 @@ export const plannerLandings: PlannerLanding[] = [
     verificationBoundary: 'The traditional split is the Emily Post Institute’s description of old etiquette; the parents’ share is an average reported by AP in August 2024. Neither is advice on your family’s arrangement.',
     sources: [
       { label: 'Emily Post Institute: Wedding expenses, who pays for what', url: 'https://emilypost.com/advice/wedding-expenses-who-pays-for-what', read: '21 Nov 2026' },
-      { label: 'AP via ABC News: Who pays for the wedding? Traditional etiquette doesn’t always hold (Aug 2024)', url: 'https://abcnews.go.com/Business/wireStory/pays-wedding-traditional-etiquette-hold-113017271', read: '21 Nov 2026' }
+      { label: 'AP via NY1: Who pays for the wedding? Traditional etiquette doesn’t always hold (Aug 2024)', url: 'https://ny1.com/nyc/all-boroughs/ap-top-news/2024/08/21/who-pays-for-the-wedding-traditional-etiquette-doesnt-always-hold', read: '27 Nov 2026' }
     ],
     relatedSlugs: ['wedding-budget-tradeoffs', 'wedding-cost-per-guest', 'wedding-planner-cost']
   },
